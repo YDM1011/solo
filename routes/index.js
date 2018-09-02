@@ -12,16 +12,16 @@ router.get('/', function(req, res, next) {
 router.get('/getmenu', function(req, res, next) {
     menu = menu[0] ? menu : [
         {
-            label:'Sass',
-            link:'#'
+            label:'home',
+            link:''
         },
         {
-            label:'Components',
-            link:'#'
+            label:'dashboard',
+            link:'dashboard'
         },
         {
-            label:'JavaScript',
-            link:'#1'
+            label:'signin',
+            link:'signin'
         }
     ];
     if(typeof menu != 'string'){
@@ -30,13 +30,4 @@ router.get('/getmenu', function(req, res, next) {
     ok(res, menu)
 });
 
-router.get('/getmenu/:id/:link', function(req, res, next) {
-  menu = JSON.parse(menu);
-  menu.push({
-        label: req.params.id,
-        link: req.params.link
-    });
-  menu = JSON.stringify(menu);
-  ok(res, menu)
-});
 module.exports = router;

@@ -2,9 +2,8 @@
   <a href="#" class="brand-logo">Logo</a>
   <mz-navbar-item-container [align]="'right'">
     <mz-navbar-item *ngFor="let linkObj of menuList">
-      <a [routerLink]="linkObj.link">{{linkObj.label}}</a>
+      <a [routerLink]="['/'+linkObj.link]">{{linkObj.label}}</a>
     </mz-navbar-item>
-    <mz-navbar-item><a [routerLink]="['test']">JavaScript</a></mz-navbar-item>
   </mz-navbar-item-container>
 </mz-navbar>
 
@@ -25,10 +24,4 @@
 </mz-sidenav>
 <button mz-button (click)="sidenav.opened = true">
   Open
-</button>
-
-<input type="text" #name>
-<input type="text" #link>
-<button mz-button (click)="check(name.value, link.value)">
-  add links
 </button>

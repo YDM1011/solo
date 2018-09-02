@@ -18,8 +18,4 @@ export class NavbarComponent implements OnInit {
         .subscribe((menu: any) => this.menuList = menu);
   }
 
-  check(text, link){
-    this.http.get(`http://localhost:3000/getmenu/${text}/${link}`)
-        .subscribe((menu: any) => this.menuList = menu);
-  }
 }

@@ -5,6 +5,7 @@ import {AppRoutingModule} from "../app-routing.module";
 import {MzButtonModule, MzInputModule, MzSpinnerModule, MzNavbarModule, MzSidenavModule} from "ngx-materialize";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
+import { AsaidbarComponent } from './asaidbar/asaidbar.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,6 @@ import {HttpClientModule} from "@angular/common/http";
     HttpClientModule,
   ],
   exports: [NavbarComponent, AppRoutingModule],
-  declarations: [NavbarComponent]
+  declarations: [NavbarComponent, AsaidbarComponent]
 })
 export class NavbarModule { }
