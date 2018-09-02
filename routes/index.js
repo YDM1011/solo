@@ -34,7 +34,7 @@ router.get('/getmenu/:id/:link', function(req, res, next) {
   menu = JSON.parse(menu);
   menu.push({
         label: req.params.id,
-        link: '#'+req.params.link
+        link: req.params.link
     });
   menu = JSON.stringify(menu);
   ok(res, menu)

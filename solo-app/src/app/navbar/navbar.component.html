@@ -2,9 +2,9 @@
   <a href="#" class="brand-logo">Logo</a>
   <mz-navbar-item-container [align]="'right'">
     <mz-navbar-item *ngFor="let linkObj of menuList">
-      <a [href]="linkObj.link">{{linkObj.label}}</a>
+      <a [routerLink]="linkObj.link">{{linkObj.label}}</a>
     </mz-navbar-item>
-    <!--<mz-navbar-item><a routerLink="js">JavaScript</a></mz-navbar-item>-->
+    <mz-navbar-item><a [routerLink]="['test']">JavaScript</a></mz-navbar-item>
   </mz-navbar-item-container>
 </mz-navbar>
 
@@ -30,5 +30,5 @@
 <input type="text" #name>
 <input type="text" #link>
 <button mz-button (click)="check(name.value, link.value)">
-  add link
+  add links
 </button>
