@@ -9,6 +9,9 @@ function ok(res, info) {
 router.get('/', function(req, res, next) {
   res.render('index2', { title: 'Express' });
 });
+router.post('/api/signin', function(req, res, next) {
+    ok(res, JSON.stringify({res:'isLoget'}) );
+});
 router.get('/getmenu', function(req, res, next) {
     menu = menu[0] ? menu : [
         {

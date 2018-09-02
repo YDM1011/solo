@@ -8,7 +8,20 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 
+var cors = require('cors');
 var app = express();
+var originsWhitelist = [
+    'http://localhost:4200',
+    'http://www.myproductionurl.com'
+];
+var corsOptions = {
+    origin: function(origin, callback){
+        var isWhitelisted = originsWhitelist.indexOf(origin) !== -1;
+        callback(null, isWhitelisted);
+    },
+    credentials:true
+};
+app.use('/api', cors(corsOptions));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -2,20 +2,24 @@ import {NgModule, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from "@angular/router";
 import {NotFoundComponent} from "./not-found/not-found.component";
-import {NavbarComponent} from "./navbar/navbar.component";
 import {IsLoginedGuard} from "./is-logined.guard";
 import {DashboardComponent} from "./dashboard/dashboard.component";
 import {SigninComponent} from "./signin/signin.component";
+import {IsLogoutGuard} from "./is-logout.guard";
+import {LandingPageComponent} from "./landing-page/landing-page.component";
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
+  { path: '',
+    component: LandingPageComponent,
+    canActivate: [IsLogoutGuard]
+  },
   {
     path: 'signin',
     component: SigninComponent,
-    canActivate: [IsLoginedGuard]
+    canActivate: [IsLogoutGuard]
   },
   {
     path: 'dashboard',
-    component: NavbarComponent,
+    component: DashboardComponent,
     canActivate: [IsLoginedGuard]
   },
   { path: '**', component: NotFoundComponent }

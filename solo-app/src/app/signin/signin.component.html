@@ -1,3 +1,6 @@
-<p>
-  signin works!
-</p>
+
+<form (submit)="send()" >
+  <input type="text" [(ngModel)]="form.login" name="login">
+  <input type="password" [(ngModel)]="form.pass" name="password">
+  <button type="submit">Sign In</button>
+</form>
