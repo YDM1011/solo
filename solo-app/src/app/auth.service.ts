@@ -11,31 +11,51 @@ export class AuthService {
 
   private domain = 'http://localhost:3000/api';
   private _signin = `${this.domain}/signin`;
+  private _signup = `${this.domain}/signup`;
   private headers = new Headers();
+
   constructor(
       private http: HttpClient,
       private cookieService: CookieService
   ) {
 
   }
+
+  private httpOptions: { headers: HttpHeaders, withCredentials: boolean };
   // 'Authorization': 'my-auth-token'
-  getHeaders(){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*'
-      })
+  getHeaders(type:string = 'application/json'){
+    this.httpOptions = {
+      headers: new HttpHeaders(type === 'multipart/form-data' ? {} :
+        {
+          'Content-Type': type
+
+        }),
+      withCredentials: true
     };
-    return httpOptions;
+    return this.httpOptions;
   }
 
   signIn(data){
-    var self = this;
+    let self = this;
     //noinspection TypeScriptUnresolvedFunction
     let promise = new Promise((resolve, reject) => {
       this.http.post<any>(this._signin, data, self.getHeaders()).subscribe(
           (res: any)=>{
             self.setToken(res.res);
             resolve(res.res)
+          },
+          err=>reject(err)
+      )
+    });
+    return promise;
+  }
+  signUp(data){
+    let self = this;
+    //noinspection TypeScriptUnresolvedFunction
+    let promise = new Promise((resolve, reject) => {
+      this.http.post<any>(this._signup, data, self.getHeaders()).subscribe(
+          (res: any)=>{
+            resolve(res)
           },
           err=>reject(err)
       )

@@ -2,3 +2,20 @@
 <p>
   hello
 </p>
+<mz-collapsible
+  [mode]="'expandable'"
+  [popout]="false"
+  #tt
+>
+  <mz-collapsible-item [active]="false">
+    <mz-collapsible-item-header>
+      {{active || 'First'}}
+    </mz-collapsible-item-header>
+    <mz-collapsible-item-body >
+      <ul>
+        <li *ngFor="let item of arr" (click)="take(item); tt.close(0)">item {{item}}</li>
+      </ul>
+      <input type="text" placeholder="hello">
+    </mz-collapsible-item-body>
+  </mz-collapsible-item>
+</mz-collapsible>

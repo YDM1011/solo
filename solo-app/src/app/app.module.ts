@@ -11,6 +11,8 @@ import { SigninComponent } from './signin/signin.component';
 import {AuthService} from "./auth.service";
 import {CookieService} from "ngx-cookie-service";
 import { LandingPageComponent } from './landing-page/landing-page.component';
+import { MzCollapsibleModule} from "ngx-materialize";
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -19,11 +21,13 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
     DashboardComponent,
     SigninComponent,
     LandingPageComponent,
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    NavbarModule
+    NavbarModule,
+    MzCollapsibleModule
   ],
   providers: [ AuthService, CookieService ],
   bootstrap: [
