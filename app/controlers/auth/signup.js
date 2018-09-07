@@ -1,6 +1,11 @@
+const jwt = require('jsonwebtoken');
+const glob = require('glob');
+const data = require('../../config/index');
+const md5 = require('md5');
+const mongoose = require('mongoose');
+const User = mongoose.model('user');
 module.exports = (req, res, next) => {
-    const mongoose = require('mongoose');
-    const User = mongoose.model('user');
+
     User
         .findOne({login: req.body.login})
         .exec((err, info) => {
@@ -8,7 +13,8 @@ module.exports = (req, res, next) => {
             if(info) return res.status(200).send({err:'login in use'});
             info = {};
             info.login = req.body.login;
-            info.pass = req.body.pass;
+            info.pass = md5(req.body.pass);
+            info.token = jwt.sign({ id: req.body.pass }, glob.secret);
             User.create(info, (err, content) =>{
                 if(err) {
                     res.send(err)
@@ -16,7 +22,7 @@ module.exports = (req, res, next) => {
                     res.send(content)
                 }
             })
-        })
+        });
 
     // res.send(JSON.stringify({res:req.body.login}) );
 };

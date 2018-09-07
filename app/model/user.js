@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const menuList = mongoose.Schema;
 const pages = new menuList({
     login: String,
-    pass: String
+    pass: String,
+    token: String
 },{
     toJSON: {
         transform: function (doc, ret) {
@@ -13,7 +14,7 @@ const pages = new menuList({
         }
     },
     createRestApi: true,
-    strict: false
+    strict: true
 });
 
 mongoose.model('user', pages);

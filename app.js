@@ -13,6 +13,7 @@ const models = glob.sync('./app/model/*.js');
 const subdomain = require('express-subdomain');
 
 const app = express();
+glob.secret = "seecret";
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
