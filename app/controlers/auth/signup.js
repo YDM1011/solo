@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
             info = {};
             info.login = req.body.login;
             info.pass = md5(req.body.pass);
-            info.token = jwt.sign({ id: req.body.pass }, glob.secret);
+            info.token = jwt.sign({ id: req.body.login }, glob.secret);
             User.create(info, (err, content) =>{
                 if(err) {
                     res.send(err)
