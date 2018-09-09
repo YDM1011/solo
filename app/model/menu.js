@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const menuList = mongoose.Schema;
+
 const pages = new menuList({
     label: String,
     link: String
@@ -15,5 +16,12 @@ const pages = new menuList({
     createRestApi: true,
     strict: false
 });
-
 mongoose.model('menu', pages);
+const glob = require('glob');
+glob.restify.serve(
+    glob.route,
+    mongoose.model('menu'),
+    {
+        preMiddleware: glob.isAuth
+    });
+

@@ -13,7 +13,9 @@ const models = glob.sync('./app/model/*.js');
 const subdomain = require('express-subdomain');
 
 const app = express();
+glob.app = app;
 glob.secret = "seecret";
+require('./app/middleware/isAuth');
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
@@ -28,8 +30,6 @@ const corsOptions = {
     credentials:true
 };
 app.use('/api', cors(corsOptions));
-// app.use('/', cors(corsOptions));
-/***************************/
 /***************************/
 const methodOverride = require('method-override');
 const compress = require('compression');
@@ -44,11 +44,9 @@ restify.defaults({
     prefix: '/api',
     version: ''
 });
-const midl = (req, res, next) => {
-    next();
-};
+glob.restify = restify;
 const route = express.Router();
-
+glob.route = route;
 /***   Model For DB   ***/
 mongoose.Promise = global.Promise;
 mongoose.connect(data.db);
@@ -60,7 +58,7 @@ models.forEach(function (model) {
     console.log(model.split("./app/model/")[1].split(".js")[0]);
     let nameModel = model.split("./app/model/")[1].split(".js")[0]
     const modelApi = mongoose.model(nameModel);
-    restify.serve(route, modelApi, {preMiddleware: midl});
+    restify.serve(route, modelApi);
 });
 /*** Model For DB End ***/
 app.use(route);
