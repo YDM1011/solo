@@ -19,16 +19,19 @@ const pages = new Schema({
     createRestApi: true,
     strict: true
 });
-
 mongoose.model('post', pages);
+
 const glob = require('glob');
+
+const preSave = (req,res,next)=>{
+    console.log("ok",req.userId);
+    req.body.userId = req.userId;
+    next()
+};
+
 glob.restify.serve(
     glob.route,
-    mongoose.model('menu'),
+    mongoose.model('post'),
     {
-        preMiddleware: glob.isAuth,
-        preCreate: (req,res,next)=>{
-            req.body.userId = req.userId;
-            next()
-        }
+        preMiddleware: [glob.isAuth, preSave]
     });
