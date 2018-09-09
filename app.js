@@ -66,7 +66,6 @@ app.use(route);
 /***************************/
 
 require('./app/config/express')(app);
-
 const static1 = require('./app/route/mainindex');
 const static2 = require('./app/route/apiindex');
 const api = require('./app/api/index');
