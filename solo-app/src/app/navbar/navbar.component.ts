@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
@@ -10,6 +10,8 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class NavbarComponent implements OnInit {
 
+  @Input() word;
+  @Output() onNew: EventEmitter<any> = new EventEmitter<any>();
   public menuList = [];
   private httpOptions: { headers: HttpHeaders, withCredentials: boolean };
 

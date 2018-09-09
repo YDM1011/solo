@@ -4,6 +4,14 @@
     <mz-navbar-item *ngFor="let linkObj of menuList">
       <a [routerLink]="['/'+linkObj.link]">{{linkObj.label}}</a>
     </mz-navbar-item>
+    <mz-navbar-item>
+      <input type="text" (keyup)="onNew.emit(it.value)" #it>
+    </mz-navbar-item>
+    <mz-navbar-item>
+      <p>{{word}}</p>
+    </mz-navbar-item>
+
+
   </mz-navbar-item-container>
 </mz-navbar>
 <mz-sidenav

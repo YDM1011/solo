@@ -18,4 +18,7 @@ export class DashboardComponent implements OnInit {
     this.active = i;
     this.t = false
   }
+  newText($event){
+    console.log($event);
+  }
 }

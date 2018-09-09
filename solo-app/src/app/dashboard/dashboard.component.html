@@ -1,6 +1,6 @@
-<app-navbar></app-navbar>
+<app-navbar [word]="'text from input'" (onNew)="it.txt = $event" #it></app-navbar>
 <p>
-  hello
+  hello {{it.txt}}
 </p>
 <mz-collapsible
   [mode]="'expandable'"

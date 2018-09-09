@@ -13,6 +13,7 @@ const models = glob.sync('./app/model/*.js');
 const subdomain = require('express-subdomain');
 
 const app = express();
+
 glob.app = app;
 glob.secret = "seecret";
 require('./app/middleware/isAuth');
@@ -64,9 +65,10 @@ models.forEach(function (model) {
 app.use(route);
 /***************************/
 
+require('./app/config/express')(app);
 
-const static1 = require('./app/route/index');
-const static2 = require('./app/route/index');
+const static1 = require('./app/route/mainindex');
+const static2 = require('./app/route/apiindex');
 const api = require('./app/api/index');
 
 // view engine setup
@@ -80,10 +82,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
-
-app.use('/', static1);
+app.set('subdomain offset', 1);
+app.use((req,res,next)=>{
+    console.log(req.subdomains);
+    next()
+});
+app.use('/', static2);
 app.use('/', api);
-app.use(subdomain('test', static2));
+app.use(subdomain('test', static1));
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -101,7 +107,16 @@ app.use(function(err, req, res, next) {
   // res.status(err.status || 500);
   // res.render('error');
     if(err.status == 404){
-        res.render('index2', { title: req.params.path });
+        console.log(req.subdomains);
+        switch(req.subdomains[0]){
+            case '':res.render('index2', { title: req.params.path });
+            break;
+            case 'test':res.render('index1', { title: req.params.path });
+            break;
+            default:res.render('index2', { title: req.params.path });break;
+
+        }
+
     }else{
         res.render('error');
     }

@@ -10,6 +10,7 @@ glob.isAuth = (req,res,next)=>{
     const User = mongoose.model('user');
     const protect = req.headers["authorization"];
     const connect = protect.split(" ");
+
     jwt.verify(connect[0], glob.secret, (err,data)=>{
         if (err) {
             console.log(err);
