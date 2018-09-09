@@ -52,7 +52,7 @@
   color: #000;
   font-size: 12px;
 }
-.nav_basic /deep/ #nav-mobile{
+.nav_basic /deep/ ul{
   justify-content: flex-start;
 }
 .logo{
@@ -133,7 +133,7 @@
   height: 35px;
   line-height: 36px;
 }
-:host /deep/ #nav-mobile{
+:host /deep/ ul{
   display: flex;
   justify-content: space-between;
 }
@@ -143,7 +143,7 @@
   max-width: 140px;
   min-width: 125px;
 }
-.nav_food-coin /deep/ #nav-mobile{
+.nav_food-coin /deep/ ul{
   justify-content: space-between;
 }
 @media (min-width: 414px) {
@@ -163,6 +163,72 @@
   }
   .nav_basic{
     max-width: calc(100% - 210px);
+  }
+}
+@media (min-width: 700px) {
+  .form-search{
+    display: flex;
+    align-items: center;
+    margin: 0 15px;
+  }
+  .form-search /deep/ .input-field{
+    width: 195px;
+  }
+  .form-search input{
+    font-size: 12px;
+    font-weight: bold;
+    height: 30px;
+    line-height: 30px;
+    border: 1px solid #dcdcdc;
+    padding: 0 32px 0 14px;
+    margin: 0;
+    box-sizing: border-box!important;
+    color: #111111;
+  }
+  .form-search input::-webkit-input-placeholder,
+  .form-search input::-moz-placeholder,
+  .form-search input:-ms-input-placeholder,
+  .form-search input:-moz-placeholder{
+    color: #8b8b8b;
+  }
+  .form-search svg{
+    position: absolute;
+    top: calc(50% - 10px);
+    right: 8px;
+  }
+  .form-search /deep/ .character-counter{
+    height: 0!important;
+  }
+  input[type=text]:valid{
+    border: 1px solid #dcdcdc!important;
+    box-shadow: none!important;
+  }
+  .food-coin_name{
+    display: none;
+  }
+  .form-search /deep/ #dropdown-search{
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    left: 0!important;
+    right: 0;
+    background: #ffffff;
+    border: 1px solid #dcdcdc!important;
+    box-shadow: none;
+  }
+  .form-search /deep/ #dropdown-search li{
+    min-height: 25px;
+  }
+  .form-search /deep/ #dropdown-search a{
+    line-height: normal;
+    height: auto;
+    min-height: 25px;
+    padding:8px 14px;
+    font-size: 12px;
+    color: #000000;
+  }
+  :host /deep/ .dropdown-content li:hover, :host /deep/ .dropdown-content li.active, :host /deep/ .dropdown-content li.selected{
+    background: transparent;
   }
 }
 @media (min-width: 768px) and (min-height: 500px){
@@ -227,7 +293,7 @@
     box-shadow: none!important;
   }
 }
-@media (min-width: 992px) and (min-height: 500px){
+@media (min-width: 992px){
   :host /deep/.nav-wrapper{
     flex-wrap: nowrap;
   }
@@ -240,7 +306,7 @@
     background: transparent;
     border: none;
     order: 2;
-    flex-grow: 1;
+    flex-grow: 2;
   }
   .nav_user mz-navbar-item{
     flex-grow: 1;
@@ -259,6 +325,12 @@
     padding: 0 0 0 20px;
     flex-grow: 1;
   }
+  :host /deep/ ul{
+    flex-grow: 1;
+  }
+  .nav_food-coin /deep/ li{
+    width: 100%;
+  }
   .menu-mobile{
     display: none;
   }
@@ -270,11 +342,8 @@
     padding-left: 0;
     flex-grow: 1;
   }
-  .nav_basic mz-navbar-item{
-    flex-grow: 1;
-  }
-  .nav_basic mz-navbar-item:first-of-type{
-    flex-grow: 0;
+  .nav_basic /deep/ ul{
+    justify-content: space-between;
   }
   .nav_basic a, .nav_user a {
     height: 59px;
@@ -284,6 +353,9 @@
     padding: 6px 0;
     width: 174px;
   }
+  .form-search{
+    margin: 0 10px;
+  }
   .form-search input{
     height: 40px;
     line-height: 40px;
@@ -291,6 +363,9 @@
   :host /deep/ nav {
     background-color: #fff;
     border-bottom: 1px solid #dcdcdc;
+  }
+  .food-coin{
+    width: 100%;
   }
   .food-coin a{
     background: linear-gradient(-35deg, rgba(255, 208, 94, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 240, 169, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 208, 94, 0.4));
@@ -313,6 +388,28 @@
     padding-left: 10px;
   }
   .user_profile{
-    min-width: 125px;
+    min-width: 110px;
+    padding: 0 15px;
+  }
+  .form-search /deep/ #dropdown-search a{
+    padding:10px 14px;
+  }
+}
+@media (min-width: 1100px){
+  .food-coin_name{
+    display: inline;
+  }
+  .food-coin_value{
+    margin-left: auto;
+  }
+}
+@media (min-width: 1180px){
+  .form-search /deep/ .input-field{
+    width: 300px;
+  }
+}
+@media (min-width: 1220px) {
+  :host /deep/a {
+    padding: 0;
   }
 }

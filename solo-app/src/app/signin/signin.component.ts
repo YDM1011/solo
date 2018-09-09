@@ -20,8 +20,10 @@ export class SigninComponent implements OnInit {
   send(){
     this.auth.signIn(this.form)
         .then((res: any) => {
-          this.router.navigate(['dashboard']);
-          console.log('res',res)
+          if (res){
+            this.router.navigate(['dashboard']);
+            console.log('res',res)
+          }
         });
   }
 }

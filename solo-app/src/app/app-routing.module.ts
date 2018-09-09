@@ -7,6 +7,7 @@ import {DashboardComponent} from "./dashboard/dashboard.component";
 import {SigninComponent} from "./signin/signin.component";
 import {IsLogoutGuard} from "./is-logout.guard";
 import {LandingPageComponent} from "./landing-page/landing-page.component";
+import {SignupComponent} from "./signup/signup.component";
 const routes: Routes = [
   { path: '',
     component: LandingPageComponent,
@@ -15,6 +16,11 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SigninComponent,
+    canActivate: [IsLogoutGuard]
+  },
+  {
+    path: 'signup',
+    component: SignupComponent,
     canActivate: [IsLogoutGuard]
   },
   {

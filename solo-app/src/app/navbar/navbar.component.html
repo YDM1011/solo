@@ -1,3 +1,4 @@
+
 <!--<mz-navbar>-->
   <!--<a href="#" class="brand-logo">Logo</a>-->
   <!--<mz-navbar-item-container [align]="'right'">-->
@@ -38,7 +39,11 @@
                    [validate]="false"
                    id="search-input"
                    placeholder="Шукайте друзів та місця"
-                   type="text">
+                   type="text"
+                   #searchBox
+                   autocomplete="off"
+                   (keyup)="search(searchBox.value);dropwdownSearch.open();"
+                   (window:resize)="dropwdownSearch.close()">
 
             <svg version="1.1" id="search_svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 53.627 53.627" style="enable-background:new 0 0 20 20;fill:#b5b5b5" xml:space="preserve" width="20px" height="20px">
               <path d="M53.627,49.385L37.795,33.553C40.423,30.046,42,25.709,42,21C42,9.42,32.58,0,21,0S0,9.42,0,21s9.42,21,21,21
@@ -46,6 +51,30 @@
               S2,31.477,2,21z M35.567,36.093c0.178-0.172,0.353-0.347,0.525-0.525c0.146-0.151,0.304-0.29,0.445-0.445l14.262,14.262
               l-1.415,1.415L35.123,36.537C35.278,36.396,35.416,36.238,35.567,36.093z"/>
             </svg>
+
+            <mz-dropdown
+              [id]="'dropdown-search'"
+              [align]="'left'"
+              [belowOrigin]="true"
+              [constrainWidth]="true"
+              [dropdownButtonId]="'search-input'"
+              [gutter]="true"
+              [hover]="false"
+              [inDuration]="300"
+              [outDuration]="300"
+              [stopPropagation]="true"
+              #dropwdownSearch>
+              <mz-dropdown-item>
+                <a routerLink="#">One</a>
+              </mz-dropdown-item>
+              <mz-dropdown-item>
+                <a routerLink="#">Two</a>
+              </mz-dropdown-item>
+              <mz-dropdown-item>
+                <a routerLink="#">Three</a>
+              </mz-dropdown-item>
+            </mz-dropdown>
+
           </mz-input-container>
       </mz-navbar-item>
 
