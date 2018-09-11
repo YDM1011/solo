@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
-const menuList = mongoose.Schema;
-const pages = new menuList({
+const Schema = mongoose.Schema;
+
+const pages = new Schema({
     login: String,
     pass: String,
     token: String

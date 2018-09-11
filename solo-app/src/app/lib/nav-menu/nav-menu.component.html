@@ -1,3 +1,85 @@
-<p>
-  nav-menu works!
-</p>
+
+<!--<mz-sidenav-->
+  <!--[id]="'sidenav-demo'"-->
+  <!--#sidenav-->
+<!--&gt;-->
+  <!--<button mz-button (click)="sidenav.opened = false" >-->
+    <!--close-->
+  <!--</button>-->
+  <!--<mz-sidenav-header>-->
+    <!--logo-->
+  <!--</mz-sidenav-header>-->
+  <!--<mz-sidenav-link [active]="false"-->
+                   <!--*ngFor="let linkObj of menuList">-->
+    <!--<a [href]="linkObj.link">{{linkObj.label}}</a>-->
+  <!--</mz-sidenav-link>-->
+<!--</mz-sidenav>-->
+
+<mz-navbar>
+
+
+  <mz-navbar-item-container class="nav_basic">
+    <mz-navbar-item>
+      <a href="./" class="logo">
+        <img src="../../../assets/logo.png" alt="">
+      </a>
+    </mz-navbar-item>
+
+    <mz-navbar-item class="form-search">
+      <app-search [search_result]="[{link:'', name:''}]"></app-search>
+    </mz-navbar-item>
+
+    <mz-navbar-item>
+      <app-profile [profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"></app-profile>
+    </mz-navbar-item>
+
+  </mz-navbar-item-container>
+
+  <mz-navbar-item-container class="nav_user">
+
+    <mz-navbar-item>
+      <app-tape [tape_name]="'Головна'"></app-tape>
+    </mz-navbar-item>
+
+    <mz-navbar-item>
+      <app-friends [friends_new]="5"></app-friends>
+    </mz-navbar-item>
+
+    <mz-navbar-item>
+      <app-news [news_value]="65"></app-news>
+    </mz-navbar-item>
+
+    <mz-navbar-item>
+      <app-basket [basket_value]="42"></app-basket>
+    </mz-navbar-item>
+
+  </mz-navbar-item-container>
+
+  <mz-navbar-item-container class="nav_food-coin">
+
+    <mz-navbar-item  class="food-coin">
+
+      <app-food-coin [coin_value]="500000"></app-food-coin>
+
+    </mz-navbar-item>
+
+    <mz-navbar-item class="menu-mobile">
+      <button (click)="sidenav.opened = true" class="button">
+        <svg width="20px" height="20px" xmlns="http://www.w3.org/2000/svg">
+          <g>
+            <title>background</title>
+            <rect fill="#97c89a" id="canvas_background" height="20" width="20" y="-1" x="-1"/>
+            <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+              <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+            </g>
+          </g>
+          <g>
+            <title>Layer 1</title>
+          </g>
+        </svg>
+      </button>
+    </mz-navbar-item>
+
+  </mz-navbar-item-container>
+</mz-navbar>
+

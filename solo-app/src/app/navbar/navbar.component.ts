@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
@@ -13,7 +13,8 @@ import {Observable} from "rxjs/internal/Observable";
 })
 export class NavbarComponent implements OnInit {
 
-  private searchTerms = new Subject<string>();
+  @Input() word;
+  @Output() onNew: EventEmitter<any> = new EventEmitter<any>();
 
   public menuList = [];
   private httpOptions: { headers: HttpHeaders, withCredentials: boolean };
@@ -35,10 +36,6 @@ export class NavbarComponent implements OnInit {
       private cookieService: CookieService
   ) { }
 
-  search(term: string): void {
-    this.searchTerms.next(term);
-    console.log('true')
-  }
 
   ngOnInit() {
     this.http.get('http://localhost:3000/api/menu', this.getHeaders())

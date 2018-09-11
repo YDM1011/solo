@@ -370,7 +370,6 @@
   .food-coin a{
     background: linear-gradient(-35deg, rgba(255, 208, 94, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 240, 169, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 208, 94, 0.4));
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
-
     min-width: auto;
     padding: 0 15px 0 10px;
   }

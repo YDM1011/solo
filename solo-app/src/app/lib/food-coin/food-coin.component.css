@@ -1,0 +1,57 @@
+.food-coin{
+  padding: 0 8px;
+  height: 35px;
+  line-height: 36px;
+}
+.food-coin_img{
+
+}
+.food-coin_name{
+  display: none;
+  font-size: 12px;
+  font-weight: bold;
+  color: #000000;
+  padding-left: 8px;
+}
+.food-coin_value{
+  color: #000000;
+  font-size: 12px;
+  font-weight: bold;
+  padding-left: 8px;
+}
+
+@media (min-width: 560px) {
+  .food-coin_name {
+    display: inline;
+  }
+}
+@media (min-width: 700px) {
+  .food-coin_name{
+    display: none;
+  }
+}
+@media (min-width: 768px) and (min-height: 500px){
+  .food-coin{
+    height: 45px;
+    line-height: 45px;
+  }
+  .food-coin_name{
+    display: none;
+  }
+}
+@media (min-width: 992px){
+  .food-coin{
+    background: linear-gradient(-35deg, rgba(255, 208, 94, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 240, 169, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 208, 94, 0.4));
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    min-width: auto;
+    padding: 0 15px 0 10px;
+  }
+}
+@media (min-width: 1100px){
+  .food-coin_name{
+    display: inline;
+  }
+  .food-coin_value{
+    margin-left: auto;
+  }
+}

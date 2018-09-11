@@ -1,7 +1,8 @@
-<app-navbar></app-navbar>
-<p>
-  hello
-</p>
+<!--<app-navbar [word]="'text from input'" (onNew)="it.txt = $event" #it></app-navbar>-->
+<!--<p>-->
+  <!--hello {{it.txt}}-->
+<!--</p>-->
+<app-nav-menu></app-nav-menu>
 <mz-collapsible
   [mode]="'expandable'"
   [popout]="false"
@@ -19,3 +20,13 @@
     </mz-collapsible-item-body>
   </mz-collapsible-item>
 </mz-collapsible>
+<form (submit)="addPost()">
+  <label>title <br>
+    <input type="text" [(ngModel)]="post.title" name="title">
+  </label>
+  <br>
+  <label>description <br>
+    <input type="text" [(ngModel)]="post.des" name="des" >
+  </label>
+  <button class="" type="submit" >add Post</button>
+</form>
