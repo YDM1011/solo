@@ -4,3 +4,15 @@
   -webkit-tap-highlight-color: transparent;
   tap-highlight-color: transparent;
 }
+body::-webkit-scrollbar {
+  -webkit-appearance: none;
+}
+body::-webkit-scrollbar:vertical {
+  width: 5px;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}
+body::-webkit-scrollbar-track {
+  border: 5px solid #9c9c9c;
+}

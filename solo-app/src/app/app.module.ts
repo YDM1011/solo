@@ -13,7 +13,6 @@ import {CookieService} from "ngx-cookie-service";
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MzCollapsibleModule} from "ngx-materialize";
 import { SignupComponent } from './signup/signup.component';
-import {FoodCoinModule} from "./lib/food-coin/food-coin.module";
 import {NavMenuModule} from "./lib/nav-menu/nav-menu.module";
 
 @NgModule({

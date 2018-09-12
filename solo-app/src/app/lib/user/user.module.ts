@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProfileComponent } from './profile.component';
 import {MzBadgeModule} from "ngx-materialize";
+import { UserLinkComponent } from './user-link/user-link.component';
 
 @NgModule({
   imports: [
@@ -10,8 +10,8 @@ import {MzBadgeModule} from "ngx-materialize";
 
   ],
   exports: [
-    ProfileComponent
+    UserLinkComponent
   ],
-  declarations: [ProfileComponent]
+  declarations: [UserLinkComponent]
 })
-export class ProfileModule { }
+export class UserModule { }

@@ -1,10 +1,21 @@
 .food-coin{
+  display: flex;
+  align-items: center;
   padding: 0 8px;
   height: 35px;
   line-height: 36px;
+  transition: .3s;
+  cursor: pointer;
+}
+.food-coin:hover,
+.food-coin:focus{
+  background-color: rgba(0, 0, 0, 0.04);
 }
 .food-coin_img{
-
+  height: 35px;
+  line-height: 35px;
+  display: flex;
+  align-items: center;
 }
 .food-coin_name{
   display: none;
@@ -12,6 +23,7 @@
   font-weight: bold;
   color: #000000;
   padding-left: 8px;
+  text-transform: capitalize;
 }
 .food-coin_value{
   color: #000000;
@@ -41,6 +53,7 @@
 }
 @media (min-width: 992px){
   .food-coin{
+    justify-content: center;
     background: linear-gradient(-35deg, rgba(255, 208, 94, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 240, 169, 0.4), rgba(255, 222, 144, 0.4), rgba(255, 208, 94, 0.4));
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
     min-width: auto;

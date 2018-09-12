@@ -1,0 +1,48 @@
+.friends{
+  padding: 0 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: .3s;
+  height: 34px;
+  line-height: 34px;
+  cursor: pointer;
+}
+.friends:hover,
+.friends:focus{
+  background-color: rgba(0, 0, 0, 0.04);
+}
+:host /deep/ span.badge {
+  position: absolute;
+  top: calc(50% + 1px);
+  left: calc(50% + 2px);
+  margin: 0;
+  border-radius: 50%;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 0 2.5px;
+  min-width: 15px;
+  height: 15px;
+  line-height: 15px;
+  background: #61148f;
+  color: #fff;
+}
+@media (min-width: 768px) and (min-height: 500px){
+  .friends {
+    height: 44px;
+    line-height: 44px;
+  }
+}
+@media (min-width: 992px){
+  .friends {
+    padding: 0 10px;
+    height: 59px;
+    line-height: 59px;
+  }
+}
+@media (min-width: 1100px){
+  .friends {
+    padding: 0 5px;
+  }
+}

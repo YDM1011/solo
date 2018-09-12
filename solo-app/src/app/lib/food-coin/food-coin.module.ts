@@ -1,13 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FoodCoinComponent } from './food-coin.component';
+import { FoodCoinLinkComponent } from './food-coin-link/food-coin-link.component';
+import { FormatNumberPipe } from './format-number.pipe';
 
 
 @NgModule({
   imports: [
     CommonModule
   ],
-  declarations: [FoodCoinComponent],
-  exports: [FoodCoinComponent]
+  exports: [
+    FoodCoinLinkComponent
+  ],
+  declarations: [FoodCoinLinkComponent, FormatNumberPipe]
+
 })
 export class FoodCoinModule { }

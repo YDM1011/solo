@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TapeComponent } from './tape.component';
 import {MzBadgeModule} from "ngx-materialize";
+import { TapeLinkComponent } from './tape-link/tape-link.component';
 
 @NgModule({
   imports: [
@@ -9,8 +9,8 @@ import {MzBadgeModule} from "ngx-materialize";
     MzBadgeModule
   ],
   exports: [
-    TapeComponent
+    TapeLinkComponent
   ],
-  declarations: [TapeComponent]
+  declarations: [TapeLinkComponent]
 })
 export class TapeModule { }

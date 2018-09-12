@@ -6,11 +6,11 @@ class Profile {
 }
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  selector: 'app-user-link',
+  templateUrl: './user-link.component.html',
+  styleUrls: ['./user-link.component.css']
 })
-export class ProfileComponent implements OnInit {
+export class UserLinkComponent implements OnInit {
 
   @Input() profile: Profile;
 

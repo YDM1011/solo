@@ -2,6 +2,7 @@
 <!--<p>-->
   <!--hello {{it.txt}}-->
 <!--</p>-->
+
 <app-nav-menu></app-nav-menu>
 <mz-collapsible
   [mode]="'expandable'"
@@ -30,3 +31,224 @@
   </label>
   <button class="" type="submit" >add Post</button>
 </form>
+
+<div class="container">
+  <div class="create_post">
+
+    <div class="create_post_user-img">
+      <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+    </div>
+
+    <div style="flex-grow: 1;flex-direction: column;display: flex">
+
+      <div class="info">
+        <strong class="info_name">name</strong>
+
+        <span class="info_user-friend">
+          <span> разом з </span>
+          <span class="info_user-friend_active">
+              <span>Den</span>
+              <button class="del">X</button>
+          </span>
+          <span class="info_user-friend_active">
+              <span>lol</span>
+              <button class="del">X</button>
+          </span>
+        </span>
+
+        <span class="info_institution">
+          <span>у</span>
+          <span class="info_institution_active">
+              <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="" style="width: 15px;height: 15px;object-fit: cover">
+              <span>solo</span>
+          </span>
+        </span>
+
+      </div>
+
+      <form class="create_post_user-interaction">
+        <textarea name="" cols="30" rows="10" placeholder="Поділися враженнями"></textarea>
+        <div class="create_post_user-select">
+
+          <div>
+            <p>Позначити друзів</p>
+            <div class="container_radio">
+              <input type="radio" id="contactChoice1"
+                     name="contact" value="1">
+              <label for="contactChoice1">den</label>
+
+              <input type="radio" id="contactChoice2"
+                     name="contact" value="1">
+              <label for="contactChoice2">andry</label>
+
+              <input type="radio" id="contactChoice3"
+                     name="contact" value="1">
+              <label for="contactChoice3">lol</label>
+            </div>
+
+            <input type="text" class="searchFriends" placeholder="пошук друзів">
+          </div>
+
+          <div>
+            <p>Відмітитись</p>
+            <div class="container_radio">
+              <input type="radio" id="rr1"
+                     name="contact" value="1">
+              <label for="rr1">solo</label>
+
+              <input type="radio" id="rr2"
+                     name="contact" value="1">
+              <label for="rr2">piza</label>
+
+              <input type="radio" id="rr3"
+                     name="contact" value="1">
+              <label for="rr3">bazil</label>
+            </div>
+            <input type="text" class="searchFriends" placeholder="пошук місць">
+          </div>
+
+          <div>
+            <label class="add_file" for="addFile">Додати файл</label>
+            <input name="add-file" id="addFile" type="file">
+          </div>
+
+          <div>
+              <p>враження</p>
+              <div class="container_radio">
+                <input type="radio" id="ss1"
+                       name="contact" value="1">
+                <label for="ss1">good</label>
+
+                <input type="radio" id="ss2"
+                       name="contact" value="1">
+                <label for="ss2">foo</label>
+
+                <input type="radio" id="ss3"
+                       name="contact" value="1">
+                <label for="ss3">gavno</label>
+              </div>
+          </div>
+        </div>
+        <button class="submit" type="submit">Опублікувати</button>
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="post">
+
+    <div class="post_user">
+      <div class="post_user-img">
+        <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+      </div>
+      <div class="post_user-info">
+        <p>
+          <strong class="info_name">name</strong>
+
+          <span class="info_user-event">додав фото</span>
+
+          <span class="info_user-friend">
+            <span> разом з </span>
+            <span class="info_user-friend_active">
+                <span>Den</span>
+            </span>
+            <span class="info_user-friend_active">
+                <span>lol</span>
+            </span>
+          </span>
+
+          <span class="info_institution">
+            <span>у</span>
+            <span class="info_institution_active">
+                <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="" style="width: 15px;height: 15px;object-fit: cover">
+                <span>solo</span>
+            </span>
+          </span>
+        </p>
+        <p class="post_user-data">
+          <span>12.08.2018</span>
+          <span>14:51</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="post_info">
+      <p>
+        ,lfgdf opgoofdo glldfgpkdfposkgo kfpogoop sogkopfopko kopskofkgoppofdskpog oopkfosgpoop opfgopop opfgopksdopfkgoo psopfgpoops kfogopfsopgo pfopgsfokgopkofsogodfopk kopkfskg
+        gisfkdgkfpskgpkpo kpofskgpokopdf kogkposfk pokpofkgspofgopskfopkgoo ofskogkofdsopgok
+        fskgofkgpokofk pkfpogkoppo pkpkok pokokopk pk,ko[kpokopkpokpokdfo
+      </p>
+      <div class="post_info_img-cointainer">
+        <img src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">
+      </div>
+    </div>
+
+    <div class="post_select">
+
+      <button class="like-button">
+        <span>Like</span>
+        <span>21</span>
+      </button>
+
+      <button class="coment-button">
+        <span>Коментувати</span>
+        <span>21</span>
+      </button>
+
+      <button class="distribute-button">
+        <span>ПОширити</span>
+      </button>
+
+    </div>
+    <div class="distribute">
+      <form action="" class="distribute_form">
+        <textarea name="" cols="30" rows="10" placeholder="напишіть щось про це"></textarea>
+        <button type="submit" class="button">Поширити</button>
+      </form>
+    </div>
+
+    <div class="post_coment">
+
+      <div class="coment">
+        <div class="coment_user">
+          <div class="post_user-img">
+            <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+          </div>
+
+          <div class="post_user-info">
+            <p>
+              <strong class="info_name">name</strong>
+            </p>
+            <p class="post_user-data">
+              <span>12.08.2018</span>
+              <span>14:51</span>
+            </p>
+          </div>
+        </div>
+
+
+        <p class="coment_text">
+          dfsdfdpskfopko okodofk sodkofpopkdsopopfopko koppodpodofk sodkofpopkdsopopfopko koppodpofopskdopopfk dsopfoosd
+          opkfopsodpkofopsk dopfopopsdopfkosd opkopfopsdko fkopkdsokopfok sdpokfoposdkpkfpodofk sodkofpopkdsopopfopko koppo
+          dpofopskdopopfk dsopfoosd opkfopsodpkofopsk dopfopopsdopfkosd opkopfopsdko fkopkdsokopfok sdpokfoposdkpkfpo dofk sodkofpopkd
+          sopopfopko koppodpofopskdopopfk dsopfoosd opkfopsodpkofopsk dopfopopsdopfkosd opkopfopsdko fkopkdsokopfok sdpokfoposdkpkfpofo
+          pskdopopfk dsopfoosd opkfopsodpkofopsk dopfopopsdopfkosd opkopfopsdko fkopkdsokopfok sdpokfoposdkpkfpokpsod fsd fsdf
+        </p>
+
+      </div>
+
+      <div class="nex-coment">
+        <div class="post_user-img">
+          <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+        </div>
+        <div class="textarea">
+          <textarea name="" id="" cols="30" rows="10"></textarea>
+        </div>
+        <button class="button">Отправить</button>
+      </div>
+
+
+    </div>
+  </div>
+</div>

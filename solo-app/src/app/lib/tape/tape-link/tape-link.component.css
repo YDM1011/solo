@@ -1,0 +1,45 @@
+.tape{
+  padding: 0 2vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: .3s;
+  height: 34px;
+  line-height: 34px;
+  cursor: pointer;
+}
+.tape:hover,
+.tape:focus{
+  background-color: rgba(0, 0, 0, 0.04);
+}
+.tape_name{
+  display: none;
+}
+@media (min-width: 768px) and (min-height: 500px){
+  .tape {
+    height: 44px;
+    line-height: 44px;
+  }
+}
+@media (min-width: 992px){
+  .tape {
+    padding: 0 10px;
+    height: 59px;
+    line-height: 59px;
+  }
+  .tape_name{
+    display: inline;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000000;
+  }
+  #tape_svg{
+    display: none;
+  }
+}
+@media (min-width: 1100px){
+  .tape {
+    padding: 0 5px;
+  }
+}
