@@ -3,7 +3,14 @@
   <!--hello {{it.txt}}-->
 <!--</p>-->
 
-<app-nav-menu></app-nav-menu>
+<app-nav-menu  [searchResult]="[{url:'66', name:'3'},{url:'55', name:'2'},{url:'44', name:'1'}]"
+               [profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"
+               [tapeName]="'Головна'"
+               [friendsNewValue]="2"
+               [newsValue]="4"
+               [basketValue]="42"
+               [coinValue]="400000"
+></app-nav-menu>
 <mz-collapsible
   [mode]="'expandable'"
   [popout]="false"

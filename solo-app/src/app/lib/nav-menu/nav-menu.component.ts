@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+
+class Search{
+  url: string;
+  name: string;
+}
+class Profile {
+  imgUrl: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-nav-menu',
@@ -8,6 +17,14 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class NavMenuComponent implements OnInit {
+
+  @Input() searchResult: Search;
+  @Input() profile: Profile;
+  @Input() tapeName: string;
+  @Input() friendsNewValue: number;
+  @Input() newsValue: number;
+  @Input() basketValue: number;
+  @Input() coinValue: number;
 
   constructor() { }
 

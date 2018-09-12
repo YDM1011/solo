@@ -26,40 +26,36 @@
       <mz-navbar-item class="form-search">
         <app-search
           #search
-          [searchResult]="[
-         {link:'66', name:'3'},
-         {link:'55', name:'2'},
-         {link:'44', name:'1'}
-        ]"
+          [searchResult]="searchResult"
           (searchQuestion)="search.question = $event"
           (searchUrl)="search.url = $event"></app-search>
       </mz-navbar-item>
 
       <mz-navbar-item>
         <app-user-link
-          [profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"></app-user-link>
+          [profile]="profile"></app-user-link>
       </mz-navbar-item>
     </mz-navbar-item-container>
 
     <mz-navbar-item-container class="nav_user">
       <mz-navbar-item>
         <app-tape-link
-          [tapeName]="'Головна'"></app-tape-link>
+          [tapeName]="tapeName"></app-tape-link>
       </mz-navbar-item>
 
       <mz-navbar-item>
         <app-friends-link
-          [friendsNewValue]="5"></app-friends-link>
+          [friendsNewValue]="friendsNewValue"></app-friends-link>
       </mz-navbar-item>
 
       <mz-navbar-item>
         <app-news-link
-          [newsValue]="65"></app-news-link>
+          [newsValue]="newsValue"></app-news-link>
       </mz-navbar-item>
 
       <mz-navbar-item>
         <app-basket-link
-          [basketValue]="42"></app-basket-link>
+          [basketValue]="basketValue"></app-basket-link>
       </mz-navbar-item>
     </mz-navbar-item-container>
 
@@ -67,7 +63,7 @@
 
       <mz-navbar-item  class="food-coin">
         <app-food-coin-link
-          [coinValue]="500000"></app-food-coin-link>
+          [coinValue]="coinValue"></app-food-coin-link>
       </mz-navbar-item>
 
       <mz-navbar-item class="menu-mobile">
