@@ -26,6 +26,9 @@ export class NavMenuComponent implements OnInit {
   @Input() basketValue: number;
   @Input() coinValue: number;
 
+  public sQuestion: any;
+  public sUrl: any;
+
   constructor() { }
 
   ngOnInit() {

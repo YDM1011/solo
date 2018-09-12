@@ -27,8 +27,8 @@
         <app-search
           #search
           [searchResult]="searchResult"
-          (searchQuestion)="search.question = $event"
-          (searchUrl)="search.url = $event"></app-search>
+          (searchQuestion)="sQuestion = $event"
+          (searchUrl)="sUrl = $event"></app-search>
       </mz-navbar-item>
 
       <mz-navbar-item>
@@ -77,4 +77,3 @@
   </mz-navbar>
 
 </div>
-
