@@ -4,7 +4,6 @@
 <!--</p>-->
 
 <app-nav-menu  [searchResult]="[{url:'66', name:'3'},{url:'55', name:'2'},{url:'44', name:'1'}]"
-               [profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"
                [tapeName]="'Головна'"
                #sss
                [friendsNewValue]="2"
@@ -32,13 +31,19 @@
     </mz-collapsible-item-body>
   </mz-collapsible-item>
 </mz-collapsible>
-<form (submit)="addPost()">
-  <label>title <br>
-    <input type="text" [(ngModel)]="post.title" name="title">
-  </label>
-  <br>
-  <label>description <br>
-    <input type="text" [(ngModel)]="post.des" name="des" >
-  </label>
-  <button class="" type="submit" >add Post</button>
-</form>
+<div class="container">
+
+  <div class="row">
+    <app-create></app-create>
+  </div>
+  <div class="row">
+    <app-avatar></app-avatar>
+  </div>
+  <div class="row">
+    <app-post></app-post>
+  </div>
+</div>
+
+<hr>
+
+

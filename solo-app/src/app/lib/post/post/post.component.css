@@ -1,0 +1,7 @@
+.posts{
+  display: flex;
+  flex-wrap: wrap;
+}
+.posts.row .card{
+  margin: 15px 0;
+}

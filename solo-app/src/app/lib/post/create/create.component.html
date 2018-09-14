@@ -1,0 +1,36 @@
+<form class="col s12">
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="input_text"
+             type="text"
+             data-length="10"
+             [(ngModel)]="postObg.title" name="title" #titleIn>
+      <label for="input_text" #title>Input text</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+            <textarea id="textarea2"
+                      class="materialize-textarea"
+                      data-length="120"
+                      #desIn
+                      [(ngModel)]="postObg.des" name="des"
+            ></textarea>
+      <label for="textarea2" #des>Textarea</label>
+    </div>
+  </div>
+  <div>
+    <img [src]="postObg.img">
+    <app-upload  [btnName]="btn" (getImg)="postObg.img=$event"></app-upload>
+  </div>
+
+  <app-form [text]="'Add Post'"
+            [class]="'btn waves-effect waves-light'"
+            [option]="postObg"
+            [url]="'/api/post'"
+            [valid]="[
+              {name:'title', elem:title, input:titleIn},
+              {name:'des', elem:des, input:desIn}]"
+            (onRes)="addPost($event)"
+  ></app-form>
+</form>

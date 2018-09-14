@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Headers} from "@angular/http";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import swal from "sweetalert2";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,6 @@ export class AuthService {
   private domain = 'http://localhost:3000/api';
   private _signin = `${this.domain}/signin`;
   private _signup = `${this.domain}/signup`;
-  private headers = new Headers();
 
   constructor(
       private http: HttpClient,
@@ -22,7 +21,6 @@ export class AuthService {
   }
 
   private httpOptions: { headers: HttpHeaders, withCredentials: boolean };
-  // 'Authorization': 'my-auth-token'
   getHeaders(type:string = 'application/json'){
     this.httpOptions = {
       headers: new HttpHeaders(type === 'multipart/form-data' ? {} :
@@ -44,7 +42,11 @@ export class AuthService {
               self.setToken(res.res);
               resolve(res.res)
           },
-          err=>reject(err)
+        (err: any)=>{
+            console.log(err);
+            swal("Error", err.error.error, "error");
+            reject(err)
+          }
       )
     });
     return promise;
@@ -55,10 +57,20 @@ export class AuthService {
     let promise = new Promise((resolve, reject) => {
       this.http.post<any>(this._signup, data, self.getHeaders()).subscribe(
           (res: any)=>{
-            resolve(res)
+            if(res && !res.err){
+              resolve(res)
+            }else if (res.err){
+              swal("Error", res.err, "error");
+              reject(res)
+            }
           },
-          err=>reject(err)
-      )
+        (err: any)=>{
+            if(err && err.error.error){
+              swal("Error", err.error.error, "error");
+              reject(err)
+            }
+          }
+        )
     });
     return promise;
   }
