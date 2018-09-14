@@ -23,6 +23,6 @@ export class SignupComponent implements OnInit {
           this.router.navigate(['signin']);
           console.log('res',res)
         }
-      });
+      },err=>{});
   }
 }

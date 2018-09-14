@@ -1,0 +1,32 @@
+<div class="row posts">
+  <div class="card col xs12 s6 m3" *ngFor="let item of posts">
+    <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
+      <img class="activator" [src]="item.img" >
+    </div>
+    <div class="card-content">
+      <span class="card-title activator grey-text text-darken-4">{{item.title}}<i class="material-icons right">more_vert</i></span>
+      <p>{{item.des}}</p>
+      <p><a href="#">This is a link</a></p>
+    </div>
+    <div class="card-reveal">
+      <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
+      <p>{{item.des}}</p>
+    </div>
+  </div>
+  <app-form *ngIf="isShow"
+            [text]="'More'"
+            [class]="'btn waves-effect waves-light'"
+            [method]="'get'"
+            [url]="'/api/post?limit='+limit+'&skip='+count*limit"
+            (onRes)="more($event)"
+            [click]="true"
+  ></app-form>
+  <app-form
+            [hidden]="true"
+            [method]="'get'"
+            [url]="'/api/post/count'"
+            (onRes)="setcount($event)"
+            [click]="true"
+  ></app-form>
+</div>
+

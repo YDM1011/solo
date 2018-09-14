@@ -1,0 +1,21 @@
+<h3>Avatar</h3>
+<form>
+  <div class="row">
+    <div *ngIf="user.avatar">
+      <img [src]="user.avatar">
+    </div>
+    <div class="row">
+      <label for="profile-user-avatar">
+        <span class="btn waves-effect waves-light">Avatar uploader</span>
+      </label>
+      <input id="profile-user-avatar" style="display: none" (change)="uploadFile()" type="file">
+    </div>
+
+
+    <app-form [text]="'OK'"
+              [class]="'btn waves-effect waves-light'"
+              [option]="user"
+              [url]="'/api/user/id'"
+    ></app-form>
+  </div>
+</form>
