@@ -3,17 +3,17 @@
   <!--hello {{it.txt}}-->
 <!--</p>-->
 
-<app-nav-menu  [searchResult]="[{url:'66', name:'3'},{url:'55', name:'2'},{url:'44', name:'1'}]"
-               [profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"
-               [tapeName]="'Головна'"
-               #sss
-               [friendsNewValue]="2"
-               [newsValue]="4"
-               [basketValue]="42"
-               [coinValue]="400000"
-               (searchQuestion)="sss.sQuestion = $event"
-               (searchUrl)="sss.sUrl = $event"
-></app-nav-menu>
+<!--<app-nav-menu  [searchResult]="[{url:'66', name:'3'},{url:'55', name:'2'},{url:'44', name:'1'}]"-->
+               <!--[profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"-->
+               <!--[tapeName]="'Головна'"-->
+               <!--#sss-->
+               <!--[friendsNewValue]="2"-->
+               <!--[newsValue]="4"-->
+               <!--[basketValue]="42"-->
+               <!--[coinValue]="400000"-->
+               <!--(searchQuestion)="sss.sQuestion = $event"-->
+               <!--(searchUrl)="sss.sUrl = $event"-->
+<!--&gt;</app-nav-menu>-->
 
 <mz-collapsible
   [mode]="'expandable'"
@@ -32,6 +32,7 @@
     </mz-collapsible-item-body>
   </mz-collapsible-item>
 </mz-collapsible>
+
 <form (submit)="addPost()">
   <label>title <br>
     <input type="text" [(ngModel)]="post.title" name="title">
@@ -42,5 +43,21 @@
   </label>
   <button class="" type="submit" >add Post</button>
 </form>
+<!--<app-tape-page></app-tape-page>-->
 
-<app-tape-page></app-tape-page>
+
+<div class="container">
+
+  <div class="row">
+    <app-create></app-create>
+  </div>
+  <div class="row">
+    <app-avatar></app-avatar>
+  </div>
+  <div class="row">
+    <app-post></app-post>
+  </div>
+</div>
+
+<hr>
+

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import {HttpHeaders} from "@angular/common/http";
+import {CoreService} from "../core.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',

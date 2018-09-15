@@ -13,8 +13,14 @@ import {CookieService} from "ngx-cookie-service";
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MzCollapsibleModule} from "ngx-materialize";
 import { SignupComponent } from './signup/signup.component';
-import {NavMenuModule} from "./lib/nav-menu/nav-menu.module";
-import {TapeModule} from "./lib/tape/tape.module";
+
+// import {NavMenuModule} from "./lib/nav-menu/nav-menu.module";
+// import {TapeModule} from "./lib/tape/tape.module";
+
+import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
+import {UserModule} from "./lib/user/user.module";
+import {CoreService} from "./core.service";
+import {PostModule} from "./lib/post/post.module";
 
 @NgModule({
   declarations: [
@@ -30,10 +36,16 @@ import {TapeModule} from "./lib/tape/tape.module";
     FormsModule,
     NavbarModule,
     MzCollapsibleModule,
-    NavMenuModule,
-    TapeModule
+
+    // NavMenuModule,
+    // TapeModule,
+
+    UserModule,
+    PostModule,
+    SweetAlert2Module.forRoot()
+
   ],
-  providers: [ AuthService, CookieService ],
+  providers: [ AuthService, CookieService, CoreService ],
   bootstrap: [
     AppComponent
   ]

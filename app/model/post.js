@@ -2,9 +2,16 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const pages = new Schema({
-    title: String,
-    des: String,
+    title: {
+        type: String,
+        required: [true, "Title must be created"]
+    },
+    des: {
+        type: String,
+        required: [true, "Description must be created"]
+    },
     userId: String,
+    img: String,
     data: {type: Date, default: new Date()},
     token: String
 },{
@@ -22,16 +29,19 @@ const pages = new Schema({
 mongoose.model('post', pages);
 
 const glob = require('glob');
-
 const preSave = (req,res,next)=>{
-    console.log("ok",req.userId);
     req.body.userId = req.userId;
     next()
 };
-
+const preRead = (req,res,next)=>{
+    req.body.userId = req.userId;
+    next()
+};
 glob.restify.serve(
     glob.route,
     mongoose.model('post'),
     {
-        preMiddleware: [glob.isAuth, preSave]
+        preMiddleware: [glob.isAuth],
+        preRead: [glob.jsonParser, glob.isAuth, preRead],
+        preCreate: [glob.jsonParser, glob.isAuth, preSave]
     });
