@@ -14,6 +14,7 @@ import { LandingPageComponent } from './landing-page/landing-page.component';
 import { MzCollapsibleModule} from "ngx-materialize";
 import { SignupComponent } from './signup/signup.component';
 import {NavMenuModule} from "./lib/nav-menu/nav-menu.module";
+import {TapeModule} from "./lib/tape/tape.module";
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {NavMenuModule} from "./lib/nav-menu/nav-menu.module";
     NavbarModule,
     MzCollapsibleModule,
     NavMenuModule,
+    TapeModule
   ],
   providers: [ AuthService, CookieService ],
   bootstrap: [

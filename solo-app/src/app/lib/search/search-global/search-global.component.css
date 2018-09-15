@@ -29,7 +29,7 @@
     border: 1px solid #dcdcdc !important;
     box-shadow: none !important;
   }
-   .character-counter{
+  .character-counter{
     height: 0!important;
   }
   .search /deep/ #dropdown-search{

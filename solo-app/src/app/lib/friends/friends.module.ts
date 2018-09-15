@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {MzBadgeModule} from "ngx-materialize";
+import {MzBadgeModule, MzChipModule} from "ngx-materialize";
 import { FriendsLinkComponent } from './friends-link/friends-link.component';
+import { FriendsChipComponent } from './friends-chip/friends-chip.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    MzBadgeModule
-
+    MzBadgeModule,
+    MzChipModule
   ],
   exports: [
-    FriendsLinkComponent
+    FriendsLinkComponent,
+    FriendsChipComponent
   ],
-  declarations: [FriendsLinkComponent]
+  declarations: [FriendsLinkComponent, FriendsChipComponent]
 })
 export class FriendsModule { }

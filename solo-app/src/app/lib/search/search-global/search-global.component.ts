@@ -6,12 +6,11 @@ class Search{
 }
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  selector: 'app-search-global',
+  templateUrl: './search-global.component.html',
+  styleUrls: ['./search-global.component.css']
 })
-
-export class SearchComponent implements OnInit {
+export class SearchGlobalComponent implements OnInit {
 
   @Input() searchResult: Search;
   @Output() searchQuestion: EventEmitter<any> = new EventEmitter<any>();

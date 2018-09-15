@@ -24,11 +24,13 @@
       </mz-navbar-item>
 
       <mz-navbar-item class="form-search">
-        <app-search
+
+        <app-search-global
           #search
           [searchResult]="searchResult"
           (searchQuestion)="sQuestion = $event"
-          (searchUrl)="sUrl = $event"></app-search>
+          (searchUrl)="sUrl = $event"></app-search-global>
+
       </mz-navbar-item>
 
       <mz-navbar-item>

@@ -1,18 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchComponent } from './search.component';
-import {MzDropdownModule, MzInputModule} from "ngx-materialize";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {MzCollapsibleModule, MzDropdownModule, MzInputModule, MzRadioButtonModule} from "ngx-materialize";
+import { SearchGlobalComponent } from './search-global/search-global.component';
+import { SearchSelectComponent } from './search-select/search-select.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     MzInputModule,
-    BrowserAnimationsModule,
-    MzDropdownModule
+    MzDropdownModule,
+    MzCollapsibleModule,
+    MzRadioButtonModule
   ],
-  exports: [SearchComponent],
-  declarations: [SearchComponent]
+  exports: [SearchGlobalComponent, SearchSelectComponent],
+  declarations: [SearchGlobalComponent, SearchSelectComponent]
 })
 export class SearchModule { }

@@ -1,0 +1,38 @@
+<div>
+  <mz-collapsible
+    [mode]="'expandable'"
+    [popout]="false">
+    <mz-collapsible-item [active]="false">
+      <mz-collapsible-item-header>
+        <span>
+
+        </span>
+        {{searchSelectTitle}}
+      </mz-collapsible-item-header>
+      <mz-collapsible-item-body>
+
+        <mz-input-container
+          [inline]="false">
+          <input mz-input
+                 #search
+                 id="email-input"
+                 [validate]="false"
+                 placeholder="sdsdsd"
+                 type="text"
+                 autocomplete="off"
+                 (keyup)="searchQuestion.emit(search.value)">
+        </mz-input-container>
+
+        <mz-radio-button-container>
+          <input mz-radio-button
+                 [label]="'Radio text'"
+                 [withGap]="true"
+                 id="radio-button-id"
+                 name="radio-group"
+                 type="radio">
+        </mz-radio-button-container>
+
+      </mz-collapsible-item-body>
+    </mz-collapsible-item>
+  </mz-collapsible>
+</div>
