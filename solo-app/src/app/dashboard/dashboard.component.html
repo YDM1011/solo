@@ -15,6 +15,17 @@
                <!--(searchUrl)="sss.sUrl = $event"-->
 <!--&gt;</app-nav-menu>-->
 
+<app-nav-menu  [searchResult]="[{url:'66', name:'3'},{url:'55', name:'2'},{url:'44', name:'1'}]"
+               [tapeName]="'Головна'"
+               #sss
+               [friendsNewValue]="2"
+               [newsValue]="4"
+               [basketValue]="42"
+               [coinValue]="400000"
+               (searchQuestion)="sss.sQuestion = $event"
+               (searchUrl)="sss.sUrl = $event"
+></app-nav-menu>
+
 <mz-collapsible
   [mode]="'expandable'"
   [popout]="false"
@@ -33,31 +44,30 @@
   </mz-collapsible-item>
 </mz-collapsible>
 
-<form (submit)="addPost()">
-  <label>title <br>
-    <input type="text" [(ngModel)]="post.title" name="title">
-  </label>
-  <br>
-  <label>description <br>
-    <input type="text" [(ngModel)]="post.des" name="des" >
-  </label>
-  <button class="" type="submit" >add Post</button>
-</form>
-<!--<app-tape-page></app-tape-page>-->
+<!--<form (submit)="addPost()">-->
+  <!--<label>title <br>-->
+    <!--<input type="text" [(ngModel)]="post.title" name="title">-->
+  <!--</label>-->
+  <!--<br>-->
+  <!--<label>description <br>-->
+    <!--<input type="text" [(ngModel)]="post.des" name="des" >-->
+  <!--</label>-->
+  <!--<button class="" type="submit" >add Post</button>-->
+<!--</form>-->
 
 
 <div class="container">
 
-  <div class="row">
+  <!--<div class="row">-->
     <app-create></app-create>
-  </div>
-  <div class="row">
+  <!--</div>-->
+  <!--<div class="row">-->
     <app-avatar></app-avatar>
-  </div>
-  <div class="row">
+  <!--</div>-->
+  <!--<div class="row">-->
     <app-post></app-post>
-  </div>
+  <!--</div>-->
 </div>
 
-<hr>
+<!--<hr>-->
 

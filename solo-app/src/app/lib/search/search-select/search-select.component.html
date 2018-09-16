@@ -1,38 +1,36 @@
-<div>
-  <mz-collapsible
-    [mode]="'expandable'"
-    [popout]="false">
-    <mz-collapsible-item [active]="false">
-      <mz-collapsible-item-header>
-        <span>
+<mz-collapsible
+  class="select"
+  [mode]="'expandable'"
+  [popout]="false">
+  <mz-collapsible-item [active]="false">
+    <mz-collapsible-item-header class="select_header">
+      <span [class]="searchSelectTitleImg + ' svg'"></span>
+      <span class="title">{{searchSelectTitle}}</span>
+    </mz-collapsible-item-header>
+    <mz-collapsible-item-body class="select-body">
 
-        </span>
-        {{searchSelectTitle}}
-      </mz-collapsible-item-header>
-      <mz-collapsible-item-body>
+      <mz-input-container
+        [inline]="false">
+        <input mz-input
+               #search
+               class="search-input"
+               [validate]="false"
+               placeholder="Пошук"
+               type="text"
+               autocomplete="off"
+               (keyup)="searchQuestion.emit(search.value)">
+      </mz-input-container>
 
-        <mz-input-container
-          [inline]="false">
-          <input mz-input
-                 #search
-                 id="email-input"
-                 [validate]="false"
-                 placeholder="sdsdsd"
-                 type="text"
-                 autocomplete="off"
-                 (keyup)="searchQuestion.emit(search.value)">
-        </mz-input-container>
+      <div *ngFor="let result of searchSelectResult; let i = index">
+        <input type="radio" id="{{searchSelectTitleImg}}_{{i}}" name="{{searchSelectTitleImg}}_{{i}}" class="radio_input">
+        <label for="{{searchSelectTitleImg}}_{{i}}"  class="radio_label">
+          <figure class="radio_figure">
+            <img src="{{result.imgUrl}}" alt=""/>
+            <figcaption class="radio_figcaption">{{result.name}}</figcaption>
+          </figure>
+        </label>
+      </div>
 
-        <mz-radio-button-container>
-          <input mz-radio-button
-                 [label]="'Radio text'"
-                 [withGap]="true"
-                 id="radio-button-id"
-                 name="radio-group"
-                 type="radio">
-        </mz-radio-button-container>
-
-      </mz-collapsible-item-body>
-    </mz-collapsible-item>
-  </mz-collapsible>
-</div>
+    </mz-collapsible-item-body>
+  </mz-collapsible-item>
+</mz-collapsible>

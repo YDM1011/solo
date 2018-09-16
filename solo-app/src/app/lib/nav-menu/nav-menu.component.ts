@@ -19,7 +19,6 @@ class Profile {
 export class NavMenuComponent implements OnInit {
 
   @Input() searchResult: Search;
-  @Input() profile: Profile;
   @Input() tapeName: string;
   @Input() friendsNewValue: number;
   @Input() newsValue: number;

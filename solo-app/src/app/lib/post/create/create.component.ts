@@ -3,6 +3,7 @@ import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {CoreService} from "../../../core.service";
 import {PostService} from "../post.service";
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-create',
@@ -10,12 +11,14 @@ import {PostService} from "../post.service";
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Pics uploader</span>';
+  public btn = '<span class="svg picture"></span><span class="title_add-images">Додати фото</span>';
+
   public postObg = {
     title: '',
     des: '',
     img: ''
   };
+
   constructor(
     private post: PostService
   ) { }
@@ -31,5 +34,16 @@ export class CreateComponent implements OnInit {
       des: '',
       img: ''
     };
+  }
+
+  active: string = '';
+  activePost(){
+    this.active = 'active';
+  }
+  selectOf(){
+    const select =  document.querySelectorAll('.select');
+    for (let i = 0; i < select.length; i++ ){
+      console.log(select[i])
+    }
   }
 }

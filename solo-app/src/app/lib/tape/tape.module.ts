@@ -8,7 +8,6 @@ import {
   MzTextareaModule
 } from "ngx-materialize";
 import { TapeLinkComponent } from './tape-link/tape-link.component';
-import { TapePageComponent } from './tape-page/tape-page.component';
 import {SearchModule} from "../search/search.module";
 import {FriendsModule} from "../friends/friends.module";
 
@@ -24,9 +23,8 @@ import {FriendsModule} from "../friends/friends.module";
     FriendsModule
   ],
   exports: [
-    TapeLinkComponent,
-    TapePageComponent
+    TapeLinkComponent
   ],
-  declarations: [TapeLinkComponent, TapePageComponent]
+  declarations: [TapeLinkComponent]
 })
 export class TapeModule { }

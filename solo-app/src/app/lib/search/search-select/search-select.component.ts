@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-class SearchSelect{
-  title: string;
-  url: string;
+class SelectResult{
+  imgUrl: string;
   name: string;
 }
+
 
 @Component({
   selector: 'app-search-select',
@@ -14,8 +14,10 @@ class SearchSelect{
 export class SearchSelectComponent implements OnInit {
 
   @Input() searchSelectTitle: string;
-  @Input() searchSelect: SearchSelect;
+  @Input() searchSelectTitleImg: any;
+  @Input() searchSelectResult: SelectResult;
   @Output() searchQuestion: EventEmitter<any> = new EventEmitter<any>();
+
 
   constructor() { }
 

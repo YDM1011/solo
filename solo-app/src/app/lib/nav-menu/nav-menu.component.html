@@ -30,7 +30,12 @@
           [searchResult]="searchResult"
           (searchQuestion)="sQuestion = $event"
           (searchUrl)="sUrl = $event"></app-search-global>
+      </mz-navbar-item>
 
+      <mz-navbar-item>
+        <app-user-link
+          [profile]="{imgUrl: 'http://ru.saqinform.ge/news/7224/images/stories/society/anal-niu-03-01.jpg', name: 'Name'}"
+        ></app-user-link>
       </mz-navbar-item>
 
       <!--<mz-navbar-item>-->

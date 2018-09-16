@@ -4,6 +4,28 @@
 label{
   font-size: 16px;
   cursor: pointer;
+  width: 100%;
 }
 
-
+:host-context /deep/ .svg.picture{
+  display: block;
+  width: 20px;
+  height: 18px;
+  background: url("../../../assets/picture.svg") no-repeat ;
+  background-size: contain;
+  margin: 0 auto;
+}
+:host-context /deep/ .title_add-images{
+  display: none
+}
+/*:host-context{*/
+  /*width: 100%;*/
+  /*display: flex;*/
+  /*justify-content: center;*/
+  /*align-items: center;*/
+/*}*/
+:host-context:hover,
+:host-context:focus,
+:host-context:active{
+  background: rgba(0, 0, 0, 0.05);
+}

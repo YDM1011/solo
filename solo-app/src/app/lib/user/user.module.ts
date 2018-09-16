@@ -1,32 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-// import {MzBadgeModule} from "ngx-materialize";
-// import { UserLinkComponent } from './user-link/user-link.component';
-//
-// @NgModule({
-//   imports: [
-//     CommonModule,
-//     MzBadgeModule
-//
-//   ],
-//   exports: [
-//     UserLinkComponent
-//   ],
-//   declarations: [UserLinkComponent]
-
 import {AvatarComponent} from './avatar/avatar.component';
 import {UploadModule} from "../upload/upload.module";
 import {FormApiModule} from "../form-api/form-api.module";
+import {MzBadgeModule} from "ngx-materialize";
+import { UserLinkComponent } from './user-link/user-link.component';
 
 @NgModule({
   imports: [
     FormApiModule,
     UploadModule,
-    CommonModule
+    CommonModule,
+    MzBadgeModule
   ],
-  exports: [AvatarComponent],
-  declarations: [AvatarComponent]
+  exports: [UserLinkComponent, AvatarComponent],
+  declarations: [UserLinkComponent, AvatarComponent]
 
 })
 export class UserModule { }

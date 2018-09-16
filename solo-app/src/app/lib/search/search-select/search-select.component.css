@@ -1,0 +1,125 @@
+.title{
+  display: none;
+}
+.svg{
+  display: block;
+  width: 18px;
+  height: 18px;
+}
+.select{
+  width: 100%;
+}
+.select-body{
+  width: 100%;
+}
+.add_friend{
+  background: url("../../../../assets/add_user.svg") no-repeat center;
+  background-size: contain;
+}
+.location{
+  background: url("../../../../assets/location.svg") no-repeat center;
+  background-size: contain;
+}
+.smile{
+  background: url("../../../../assets/smile.svg") no-repeat center;
+  background-size: contain;
+}
+.select /deep/ .collapsible-header{
+  border: none;
+}
+.select /deep/ .collapsible{
+  box-shadow: none;
+  border: none;
+  margin: 0;
+}
+.select /deep/ .input-field{
+  margin-top: 0;
+}
+.select /deep/ .search-input:focus:not([readonly]){
+  border-bottom: 1px solid #e8e8e8;
+  box-shadow: none;
+}
+.select .search-input{
+  box-sizing: border-box;
+  margin-bottom: 4px;
+  padding: 0 6px;
+  height: 26px;
+  line-height: 26px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.select /deep/ .collapsible-header{
+  justify-content: center;
+  padding: 0;
+}
+.select /deep/ .select_header{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 26px;
+}
+.select /deep/ .collapsible-body{
+  padding: 0;
+  border: 1px solid #e8e8e8;
+  position: absolute;
+  background: #ffffff;
+  max-width: 130px;
+  margin-bottom: 10px;
+  z-index: 2;
+  top: 30px;
+}
+.select .search-input::-webkit-input-placeholder,
+.select .search-input::-moz-placeholder,
+.select .search-input:-ms-input-placeholder,
+.select .search-input:-moz-placeholder {
+  color: #a3a3a3;
+}
+:host-context{
+  width: 100%;
+}
+.select /deep/ .select_header:hover,
+.select /deep/ .select_header:focus,
+.select /deep/ .select_header:active{
+  background: rgba(0, 0, 0, 0.05);
+}
+.radio_input{
+  position: absolute;
+  display: none;
+}
+.radio_label:before{
+  content: none;
+}
+.radio_label:after{
+  content: none;
+}
+.select /deep/.radio_label{
+  padding: 4px 6px;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  height: auto;
+  line-height: normal;
+  transition: .3s;
+}
+.select /deep/ input:checked+.radio_label{
+  background: rgba(0, 0, 0, 0.05);
+}
+.radio_figure{
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.radio_figure img{
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  object-position: center;
+}
+.radio_figcaption{
+  padding-left: 6px;
+  font-size: 12px;
+  color: #000000;
+  text-transform: capitalize;
+}
