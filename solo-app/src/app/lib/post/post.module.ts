@@ -7,7 +7,7 @@ import {UploadModule} from "../upload/upload.module";
 import {PostService} from "./post.service";
 import {FormApiModule} from "../form-api/form-api.module";
 import {FriendsModule} from "../friends/friends.module";
-import {MzChipModule, MzTextareaModule} from "ngx-materialize";
+import {MzChipModule, MzModalModule, MzTextareaModule} from "ngx-materialize";
 import {SearchModule} from "../search/search.module";
 
 @NgModule({
@@ -19,7 +19,8 @@ import {SearchModule} from "../search/search.module";
     FriendsModule,
     MzTextareaModule,
     SearchModule,
-    MzChipModule
+    MzChipModule,
+    MzModalModule
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],

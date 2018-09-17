@@ -1,7 +1,8 @@
 <mz-collapsible
   class="select"
   [mode]="'expandable'"
-  [popout]="false">
+  [popout]="false"
+#sssss>
   <mz-collapsible-item [active]="false">
     <mz-collapsible-item-header class="select_header">
       <span [class]="searchSelectTitleImg + ' svg'"></span>
@@ -23,7 +24,7 @@
 
       <div *ngFor="let result of searchSelectResult; let i = index">
         <input type="radio" id="{{searchSelectTitleImg}}_{{i}}" name="{{searchSelectTitleImg}}_{{i}}" class="radio_input">
-        <label for="{{searchSelectTitleImg}}_{{i}}"  class="radio_label">
+        <label for="{{searchSelectTitleImg}}_{{i}}"  class="radio_label" (click)="addss(sssss)">
           <figure class="radio_figure">
             <img src="{{result.imgUrl}}" alt=""/>
             <figcaption class="radio_figcaption">{{result.name}}</figcaption>

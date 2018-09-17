@@ -23,5 +23,7 @@ export class SearchSelectComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  addss(val: any){
+      console.log(val)
+  }
 }
