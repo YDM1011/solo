@@ -11,8 +11,7 @@ module.exports = (req, res, next) => {
         .exec((err, info) => {
             if(err) return res.status(500).send({err:'Something broke!'});
             if(info) return res.status(200).send({err:'login in use'});
-            info = {};
-            info.login = req.body.login;
+            info = req.body;
             info.pass = md5(req.body.pass);
             info.token = jwt.sign({ id: req.body.login }, glob.secret);
             User.create(info, (err, content) =>{

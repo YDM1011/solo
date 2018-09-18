@@ -6,6 +6,7 @@ import {MzButtonModule, MzInputModule, MzSpinnerModule, MzNavbarModule, MzSidena
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import { AsaidbarComponent } from './asaidbar/asaidbar.component';
+import {FormApiModule} from "../lib/form-api/form-api.module";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import { AsaidbarComponent } from './asaidbar/asaidbar.component';
     MzNavbarModule,
     MzSidenavModule,
     HttpClientModule,
+    FormApiModule
   ],
   exports: [NavbarComponent, AppRoutingModule],
   declarations: [NavbarComponent, AsaidbarComponent]

@@ -20,8 +20,5 @@ mongoose.model('menu', pages);
 const glob = require('glob');
 glob.restify.serve(
     glob.route,
-    mongoose.model('menu'),
-    {
-        preMiddleware: glob.isAuth
-    });
+    mongoose.model('menu'));
 

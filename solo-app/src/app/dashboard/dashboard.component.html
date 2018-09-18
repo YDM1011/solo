@@ -1,31 +1,13 @@
-<app-navbar [word]="'text from input'" (onNew)="it.txt = $event" #it></app-navbar>
-<p>
-  hello {{it.txt}}
-</p>
-<mz-collapsible
-  [mode]="'expandable'"
-  [popout]="false"
-  #tt
->
-  <mz-collapsible-item [active]="false">
-    <mz-collapsible-item-header>
-      {{active || 'First'}}
-    </mz-collapsible-item-header>
-    <mz-collapsible-item-body >
-      <ul>
-        <li *ngFor="let item of arr" (click)="take(item); tt.close(0)">item {{item}}</li>
-      </ul>
-      <input type="text" placeholder="hello">
-    </mz-collapsible-item-body>
-  </mz-collapsible-item>
-</mz-collapsible>
+<app-navbar></app-navbar>
+
+
 <div class="container">
 
   <div class="row">
-    <app-create></app-create>
+    <app-avatar [user]="user" [id]="id"></app-avatar>
   </div>
-  <div class="row">
-    <app-avatar></app-avatar>
+  <div class="row" *ngIf="user">
+    <app-create [avatar]="user.avatar" [id]="id" [firstName]="user.firstName"></app-create>
   </div>
   <div class="row">
     <app-post></app-post>
@@ -35,3 +17,9 @@
 <hr>
 
 
+<app-form [hidden]="true"
+          [method]="'get'"
+          [url]="'/api/setting/'+id"
+          (onRes)="getSetting($event)"
+          [click]="true"
+></app-form>

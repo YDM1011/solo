@@ -34,6 +34,8 @@ export class UploadService {
     const options = this.getHeaders('multipart/form-data');
 //noinspection TypeScriptUnresolvedVariable,TypeScriptUnresolvedFunction
     return new Promise(function(resolve, reject) {
+      formData.id = self.cookieService.get('userid');
+      console.log(formData)
       self.http.post(`${self.domain}/api/uploadImage`,
         formData,
         options).subscribe(

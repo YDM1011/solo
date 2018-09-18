@@ -1,5 +1,14 @@
 <div class="row posts">
   <div class="card col xs12 s6 m3" *ngFor="let item of posts">
+    <div class="row">
+      <span class="avatar" *ngIf="item.userId.avatar"><img [src]="item.userId.avatar" alt="avatar"></span>
+      <span class="name">{{item.userId.firstName}} {{item.userId.lastName}}</span>
+      <span class="impression" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
+      <span class="friend" *ngIf="item.withFriend[0]"> з
+        <span *ngFor="let friend of item.withFriend"> {{friend.name}}</span>
+      </span>
+      <span class="place" *ngIf="item.inPlace.place"> у {{item.inPlace.place}}</span>
+    </div>
     <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
       <img class="activator" [src]="item.img" >
     </div>

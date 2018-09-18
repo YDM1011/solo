@@ -24,7 +24,7 @@ const routes: Routes = [
     canActivate: [IsLogoutGuard]
   },
   {
-    path: 'dashboard',
+    path: 'user/:id',
     component: DashboardComponent,
     canActivate: [IsLoginedGuard]
   },

@@ -6,13 +6,17 @@ import {FormsModule} from "@angular/forms";
 import {UploadModule} from "../upload/upload.module";
 import {PostService} from "./post.service";
 import {FormApiModule} from "../form-api/form-api.module";
+import {MzCollapsibleModule} from "ngx-materialize";
+import {SearchModule} from "../search/search.module";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     FormApiModule,
-    UploadModule
+    UploadModule,
+    MzCollapsibleModule,
+    SearchModule
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],

@@ -1,24 +1,36 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {CookieService} from "ngx-cookie-service";
-import {HttpHeaders} from "@angular/common/http";
-import {CoreService} from "../core.service";
+import {Component, OnInit} from '@angular/core';
+import {AuthService} from "../auth.service";
+import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  public arr = [1,2,3,4,5,6,7];
-  public active = '';
-  public t: boolean;
+
+  public user: any;
+  public id: string;
   constructor(
+    private route: ActivatedRoute,
+    private auth: AuthService
   ) { }
 
-  ngOnInit() { }
-
-  take(i){
-    this.active = i;
-    this.t = false
+  ngOnInit() {
+    let self = this;
+    self.auth.onAuth.subscribe(value=>{
+      if(value){
+       self.user = value;
+       self.auth.setUserData(value);
+      }
+    });
+    this.id = this.route.snapshot.paramMap.get('id');
   }
+
+  getSetting(res){
+    let self = this;
+    if(res){
+      self.user = res;
+      self.auth.setUserData(res);
+    }
+  };
 }

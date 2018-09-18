@@ -13,7 +13,8 @@ module.exports = (req, res, next) => {
             if (!info) return res.notFound({err:'login or password invalid'});
             if (info.pass === md5(req.body.pass)){
                 const token = jwt.sign({ id: req.body.login }, glob.secret);
-                res.json({res: token});
+                info.pass = req.body.pass;
+                res.ok(info);
             }else{
                 return res.status(400).send({err:'login or password invalid'});
             }

@@ -1,0 +1,6 @@
+<input type="text" [(ngModel)]="searchText" placeholder="search">
+<ul>
+  <li *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
+    {{itemp.name}}
+  </li>
+</ul>

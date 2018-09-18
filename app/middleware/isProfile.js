@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const glob = require('glob');
 
-glob.isAuth = (req,res,next)=>{
+glob.isProfile = (req,res,next)=>{
     require("express");
     require("../responces/serverError")(req, res);
     require("../responces/forbidden")(req, res);
@@ -9,7 +9,7 @@ glob.isAuth = (req,res,next)=>{
     const User = mongoose.model('user');
     const protect = req.headers["authorization"];
     if(!protect){
-        return res.forbidden("forbidden");
+        return res.forbidden("forbidden3");
     }
     const connect = protect.split(" ");
 
@@ -17,10 +17,14 @@ glob.isAuth = (req,res,next)=>{
         if (err) {
             return res.serverError("Token error");
         }else{
-            User.findOne({login: data.id })
+            let id = req.params.id || req.body.id || req.body.userId;
+            User.findOne({_id: id})
                 .exec((err, info)=>{
                     if (err) return next(err);
-                    if (!info) return res.forbidden("forbidden");
+                    if (!info) return res.forbidden("forbidden1");
+                    if (info.login != data.id){
+                        return res.forbidden("forbidde2n");
+                    }
                     req.userId = info._id;
                     // req.avatar = info.avatar;
                     next()

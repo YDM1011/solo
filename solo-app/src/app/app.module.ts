@@ -17,6 +17,7 @@ import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
 import {UserModule} from "./lib/user/user.module";
 import {CoreService} from "./core.service";
 import {PostModule} from "./lib/post/post.module";
+import {FormApiModule} from "./lib/form-api/form-api.module";
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import {PostModule} from "./lib/post/post.module";
     MzCollapsibleModule,
     UserModule,
     PostModule,
+    FormApiModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [ AuthService, CookieService, CoreService ],

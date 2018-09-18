@@ -14,8 +14,8 @@ const glob = require('glob');
 
 router.post('/api/signin', [orign, verification], login);
 router.post('/api/signup', [orign, verification], signup);
-router.post('/api/uploadImage', [orign, glob.isAuth, upload.single("file")], uploadFile);
+router.post('/api/uploadImage', [orign, upload.single("file")], uploadFile);
 
-router.get('/api/setting', [orign, glob.isAuth], setting);
+router.get('/api/setting/:id', [orign], setting);
 
 module.exports = router;

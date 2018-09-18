@@ -8,7 +8,12 @@ import {AuthService} from "../auth.service";
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  public form = {login: '', pass: ''};
+  public form = {
+    login: '',
+    firstName: '',
+    lastName: '',
+    pass: ''
+  };
   constructor(
     private router: Router,
     private auth: AuthService

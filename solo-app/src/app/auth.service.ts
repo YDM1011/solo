@@ -3,15 +3,24 @@ import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
 import swal from "sweetalert2";
+import {environment} from "../environments/environment";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  private domain = 'http://localhost:3000/api';
+  private domain = environment.apiDomain + '/api';
   private _signin = `${this.domain}/signin`;
   private _signup = `${this.domain}/signup`;
+  private user: any;
+
+  private userdata = new BehaviorSubject<any>(undefined);
+  public onUserData = this.userdata.asObservable();
+
+  private auth = new BehaviorSubject<any>(undefined);
+  public onAuth = this.auth.asObservable();
 
   constructor(
       private http: HttpClient,
@@ -39,8 +48,9 @@ export class AuthService {
     let promise = new Promise((resolve, reject) => {
       this.http.post<any>(this._signin, data, self.getHeaders()).subscribe(
           (res: any)=>{
-              self.setToken(res.res);
-              resolve(res.res)
+              self.setToken(res);
+              self.auth.next(res);
+              resolve(res)
           },
         (err: any)=>{
             console.log(err);
@@ -74,9 +84,13 @@ export class AuthService {
     });
     return promise;
   }
-  setToken(token){
-    this.cookieService.set( 'token', token );
+  setToken(res){
+    this.cookieService.set( 'token', res.token );
+    this.cookieService.set( 'userid', res._id );
     return
+  }
+  getUserId(){
+      return this.cookieService.get('userid')
   }
   isAuth(){
     if(this.cookieService.get( 'token')){
@@ -84,7 +98,13 @@ export class AuthService {
     }else{
       return false
     }
-
+  }
+  setUserData(data){
+    this.userdata.next(data);
+    this.user = data;
+  }
+  getUserData(){
+    return this.user;
   }
 
 }

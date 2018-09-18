@@ -1,35 +1,81 @@
+
 <form class="col s12">
   <div class="row">
-    <div class="input-field col s6">
-      <input id="input_text"
-             type="text"
-             data-length="10"
-             [(ngModel)]="postObg.title" name="title" #titleIn>
-      <label for="input_text" #title>Input text</label>
-    </div>
+    <p>
+      <img [src]="avatar" alt="avatar">
+      <span>{{firstName}}</span>
+      <span *ngIf="active">почувається {{active}}</span>
+      <span *ngIf="postObg.withFriend[0]">
+        разом з
+        <span class="chip" *ngFor="let friend of postObg.withFriend; let i = index" (click)="delet(i)">
+          {{friend.name}}
+        </span>
+      </span>
+      <span *ngIf="placeActive">
+        у <span class="chip" >{{placeActive}}</span>
+      </span>
+    </p>
   </div>
   <div class="row">
     <div class="input-field col s12">
-            <textarea id="textarea2"
-                      class="materialize-textarea"
-                      data-length="120"
-                      #desIn
-                      [(ngModel)]="postObg.des" name="des"
-            ></textarea>
-      <label for="textarea2" #des>Textarea</label>
+      <textarea id="textarea2"
+                class="materialize-textarea"
+                data-length="120"
+                #desIn
+                [(ngModel)]="postObg.des" name="des"
+      ></textarea>
+      <label for="textarea2" #des>Поділитися своїми враженнями</label>
     </div>
   </div>
-  <div>
+  <div *ngIf="postObg.img">
     <img [src]="postObg.img">
-    <app-upload  [btnName]="btn" (getImg)="postObg.img=$event"></app-upload>
   </div>
-
-  <app-form [text]="'Add Post'"
+  <div class="row">
+    <mz-collapsible
+      [mode]="'accordion'"
+      [popout]="false"
+      #place
+    >
+      <mz-collapsible-item [active]="false">
+        <mz-collapsible-item-header>
+          {{friendActive || 'Додати друга'}}
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body >
+          <app-search (onFind)="takeFriend($event); place.close(0);"
+                      [array]="friends"></app-search>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+      <mz-collapsible-item [active]="false">
+        <mz-collapsible-item-header>
+          {{placeActive || 'Відмітитись'}}
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body >
+          <app-search (onFind)="takePlace($event); place.close(1);"
+          [array]="places"></app-search>
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+      <app-upload  [btnName]="btn" (getImg)="postObg.img=$event"></app-upload>
+      <mz-collapsible-item [active]="false">
+        <mz-collapsible-item-header>
+          {{active || 'Враження'}}
+        </mz-collapsible-item-header>
+        <mz-collapsible-item-body >
+          <ul>
+            <li *ngFor="let item of impressions"
+                (click)="take(item); place.close(2);">
+              {{item.name}}
+            </li>
+          </ul>
+          <!--<input type="text" placeholder="hello">-->
+        </mz-collapsible-item-body>
+      </mz-collapsible-item>
+    </mz-collapsible>
+  </div>
+  <app-form [text]="'Опублікувати'"
             [class]="'btn waves-effect waves-light'"
             [option]="postObg"
             [url]="'/api/post'"
             [valid]="[
-              {name:'title', elem:title, input:titleIn},
               {name:'des', elem:des, input:desIn}]"
             (onRes)="addPost($event)"
   ></app-form>

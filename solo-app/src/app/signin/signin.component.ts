@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
     this.auth.signIn(this.form)
         .then((res: any) => {
           if (res){
-            this.router.navigate(['dashboard']);
+            this.router.navigate([`user/${res._id}`]);
             console.log('res',res)
           }else{
             console.log('err',res)

@@ -9,6 +9,7 @@ import swal from "sweetalert2";
 })
 export class CoreService {
   private domain = environment.apiDomain;
+  private user = '';
   private _setting = `${this.domain}/api/setting`;
   private cookieService: any;
 
