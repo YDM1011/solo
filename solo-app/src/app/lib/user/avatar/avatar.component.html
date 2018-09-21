@@ -1,28 +1,8 @@
-<h3>Avatar</h3>
-<div *ngIf="user">
-  <div class="row">
-    <div *ngIf="user.avatar">
-      <img class="materialboxed" [src]="user.avatar">
-    </div>
-    <div class="row">
-      <label for="profile-user-avatar">
-        <span class="btn waves-effect waves-light">Avatar uploader</span>
-      </label>
-      <input id="profile-user-avatar" style="display: none" (change)="uploadFile()" type="file">
-    </div>
+<div *ngIf="user" class="row">
+  <div *ngIf="user.avatar">
+    <img class="materialboxed" [src]="user.avatar">
   </div>
-  <div class="row">
-    <div *ngIf="user.bg">
-      <img class="materialboxed" [src]="user.bg">
-    </div>
-    <app-upload [btnName]="btn"
-                (getImg)="user.bg=$event"></app-upload>
-  </div>
-
+  <app-upload [btnName]="btn"
+              (getImg)="user.avatar=$event"></app-upload>
 </div>
 
-<app-form [text]="'OK'"
-          [class]="'btn waves-effect waves-light'"
-          [option]="user"
-          [url]="'/api/user/'+id"
-></app-form>

@@ -1,13 +1,13 @@
 export class Post {
   des: string | '';
-  img: string | '';
+  img: any;
   withFriend: any;
   inPlace: {place: ''};
   imression: {name: ''};
   userId: string | '';
   constructor() {
     this.des = '';
-    this.img = '';
+    this.img = [];
     this.userId = '';
     this.withFriend = [];
     this.inPlace = {place: ''};

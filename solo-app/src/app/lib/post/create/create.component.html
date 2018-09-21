@@ -1,5 +1,5 @@
 
-<form class="col s12">
+<form class="col s12" isMyProfile>
   <div class="row">
     <p>
       <img [src]="avatar" alt="avatar">
@@ -27,8 +27,8 @@
       <label for="textarea2" #des>Поділитися своїми враженнями</label>
     </div>
   </div>
-  <div *ngIf="postObg.img">
-    <img [src]="postObg.img">
+  <div *ngIf="postObg.img.length > 0 ">
+    <img *ngFor="let img of postObg.img" [src]="img">
   </div>
   <div class="row">
     <mz-collapsible
@@ -54,7 +54,7 @@
           [array]="places"></app-search>
         </mz-collapsible-item-body>
       </mz-collapsible-item>
-      <app-upload  [btnName]="btn" (getImg)="postObg.img=$event"></app-upload>
+      <app-upload [multiple]="true" [btnName]="btn" (getImg)="postObg.img.push($event)"></app-upload>
       <mz-collapsible-item [active]="false">
         <mz-collapsible-item-header>
           {{active || 'Враження'}}

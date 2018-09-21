@@ -1,0 +1,5 @@
+<div *ngIf="user" class="row">
+  <input *ngIf="isInput" type="text" [(ngModel)]="user.firstName">
+  <span *ngIf="!isInput">{{user.firstName}}</span>
+</div>
+

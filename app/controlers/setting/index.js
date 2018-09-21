@@ -6,8 +6,9 @@ module.exports = (req, res, next) => {
         .exec((err, info) => {
             if(err) return res.badRequest('Something broke!');
             // if(!info) return res.notFound('You are not valid');
-            // info.license = req.license;
-            return res.ok(info)
+            info.license = String(req.license);
+            console.log(info.license);
+            return res.ok([info, req.license])
         });
 };
 //

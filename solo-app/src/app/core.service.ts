@@ -3,6 +3,7 @@ import {CookieService} from "ngx-cookie-service";
 import {environment} from "../environments/environment";
 import {HttpHeaders, HttpClient} from "@angular/common/http";
 import swal from "sweetalert2";
+import {BehaviorSubject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,10 @@ export class CoreService {
   private user = '';
   private _setting = `${this.domain}/api/setting`;
   private cookieService: any;
+  private isValidProfile: any;
+
+  private validProfile = new BehaviorSubject<any>(undefined);
+  public onGetValid = this.validProfile.asObservable();
 
   constructor(private http: HttpClient,
               private _cookieService: CookieService,) {
@@ -67,5 +72,9 @@ export class CoreService {
         return swal("Error", err.error.message, "error");
       }
     }catch(err){}
+  }
+  setValidProfile(bool){
+    this.isValidProfile = bool;
+    this.validProfile.next(bool);
   }
 }

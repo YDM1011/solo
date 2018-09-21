@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const Schema = mongoose.Schema;
 
 const friend = new Schema({
@@ -24,11 +25,12 @@ const pages = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
-    usersPost: [{
+    like: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
+        ref: "user",
+        unique: true
     }],
-    img: String,
+    img: Array,
     data: {type: Date, default: new Date()},
     withFriend: [friend],
     inPlace: place,
@@ -37,18 +39,10 @@ const pages = new Schema({
 },{
     toJSON: {
         transform: function (doc, ret) {
-            delete ret.userId.__v;
-            delete ret.userId.pass;
-            delete ret.userId.token;
-            delete ret.userId.login;
         }
     },
     toObject: {
         transform: function (doc, ret) {
-            delete ret.userId.__v;
-            delete ret.userId.pass;
-            delete ret.userId.token;
-            delete ret.userId.login;
         },
         virtuals: true
     },
@@ -60,7 +54,7 @@ mongoose.model('post', pages);
 const glob = require('glob');
 const preSave = (req,res,next)=>{
     require("../responces/ok")(req, res);
-    req.body.usersPost.push(req.body.userId);
+    req.body.id = req.body.userId;
     mongoose.model('post')
         .findOneAndUpdate({_id: req.params.id})
         .exec((err, info) => {
@@ -69,17 +63,27 @@ const preSave = (req,res,next)=>{
             return res.ok(info)
         });
 };
+const preCreate = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    req.body.id = req.body.userId;
+    next()
+};
 const preRead = (req,res,next)=>{
     console.log(req.query.limit);
     console.log(req.query.skip);
-    require("../responces/ok")(req, res);
-    req.body.userId = req.userId;
-    if (req.query.limit && req.query.skip){
+    console.log(JSON.parse(req.query.query));
+
+    let optionFind = req.query.query ? JSON.parse(req.query.query) : {};
+
+    if (req.query.limit && req.query.skip && optionFind){
+        require("../responces/ok")(req, res);
+        req.body.userId = req.userId;
         mongoose.model('post')
-            .find({})
+            .find(optionFind)
             .limit(parseInt(req.query.limit))
             .skip(parseInt(req.query.skip))
-            .populate({path:'userId', select:'-pass -token -login'})
+            .populate({path:'userId', select:'_id firstName lastName avatar'})
+            .populate({path:'like', select:'_id firstName lastName avatar'})
             .exec((err, info) => {
                 if(err) return res.badRequest('Something broke!');
                 if(!info) return res.notFound('You are not valid');
@@ -88,14 +92,12 @@ const preRead = (req,res,next)=>{
             });
     }else{ return next()}
 
-
-    // next()
 };
 glob.restify.serve(
     glob.route,
     mongoose.model('post'),
     {
         preRead: [glob.jsonParser, preRead],
-        preCreate: [glob.jsonParser, glob.isProfile],
+        preCreate: [glob.jsonParser, glob.isProfile, preCreate],
         preUpdate: [glob.jsonParser, glob.isProfile, preSave]
     });

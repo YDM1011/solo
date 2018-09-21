@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const glob = require('glob');
 
-glob.isProfile = (req,res,next)=>{
+glob.isMyProfile = (req,res,next)=>{
     require("express");
     require("../responces/serverError")(req, res);
     require("../responces/forbidden")(req, res);
@@ -23,9 +23,11 @@ glob.isProfile = (req,res,next)=>{
                     if (err) return next(err);
                     if (!info) return res.forbidden("forbidden1");
                     if (info.login != data.id){
-                        return res.forbidden("forbidden");
+                        req.license = false;
+                        return next();
                     }
                     req.userId = info._id;
+                    req.license = true;
                     // req.avatar = info.avatar;
                     next()
                 });

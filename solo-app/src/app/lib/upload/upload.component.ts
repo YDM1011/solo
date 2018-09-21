@@ -13,6 +13,7 @@ export class UploadComponent implements OnInit {
   private fileInputElement: any;
   @Output() getImg = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
+  @Input()  multiple: boolean = false;
 
   constructor(
     private core: UploadService,
@@ -32,15 +33,19 @@ export class UploadComponent implements OnInit {
       const elem =  <any>inputEl[i];
         const fileCount: number = elem.files.length;
         if (fileCount && elem.files.item(0)) {
-          const formData = new FormData();
-          formData.append('file', elem.files.item(0));
-          self.core.uploadAvatar(formData).then((res: any) => {
-            this.avatar = 'data:image/png;base64,' + res.image;
-            this.getImg.emit(self.avatar);
-          }).catch(
-            error => {
-              console.log(error);
-            });
+          for (let i=0; i<elem.files.length; i++){
+            console.log(elem.files[i]);
+            const formData = new FormData();
+            formData.append('file', elem.files.item(i));
+            self.core.uploadAvatar(formData).then((res: any) => {
+              this.avatar = 'data:image/png;base64,' + res.image;
+              this.getImg.emit(self.avatar);
+            }).catch(
+              error => {
+                console.log(error);
+              });
+          }
+
           elem.value = '';
           return
         }

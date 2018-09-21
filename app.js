@@ -17,8 +17,10 @@ const app = express();
 glob.app = app;
 glob.jsonParser = bodyParser.json({limit: '50mb', extended: true});
 glob.secret = "seecret";
+require('./app/middleware/getId');
 require('./app/middleware/isAuth');
 require('./app/middleware/isProfile');
+require('./app/middleware/isMyProfile');
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [

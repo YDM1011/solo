@@ -8,6 +8,8 @@ import {PostService} from "./post.service";
 import {FormApiModule} from "../form-api/form-api.module";
 import {MzCollapsibleModule} from "ngx-materialize";
 import {SearchModule} from "../search/search.module";
+import {IsMyProfileModule} from "../is-my-profile/is-my-profile.module";
+import { LikeComponent } from './like/like.component';
 
 @NgModule({
   imports: [
@@ -16,10 +18,11 @@ import {SearchModule} from "../search/search.module";
     FormApiModule,
     UploadModule,
     MzCollapsibleModule,
-    SearchModule
+    SearchModule,
+    IsMyProfileModule
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],
-  declarations: [PostComponent, CreateComponent]
+  declarations: [PostComponent, CreateComponent, LikeComponent]
 })
 export class PostModule { }

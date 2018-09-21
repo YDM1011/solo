@@ -4,16 +4,30 @@
 <div class="container">
 
   <div class="row">
-    <app-avatar [user]="user" [id]="id"></app-avatar>
+    <app-user-init [user]="user"></app-user-init>
+    <app-first-name [isInput]="true"></app-first-name>
+    <app-last-name></app-last-name>
+    <app-avatar></app-avatar>
+    <app-bg></app-bg>
+    <app-update-user [id]="id"></app-update-user>
   </div>
   <div class="row" *ngIf="user">
     <app-create [avatar]="user.avatar" [id]="id" [firstName]="user.firstName"></app-create>
   </div>
   <div class="row">
-    <app-post></app-post>
+    <app-post [id]="id" [posts]="posts"></app-post>
+    <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
   </div>
 </div>
 
+<div *ngIf="people.length > 0">
+  <div *ngFor="let mean of people">
+    <img [src]="mean.avatar" alt="">
+    <a [routerLink]="'/user/'+mean._id">
+      {{mean.firstName}} {{mean.lastName}}
+    </a>
+  </div>
+</div>
 <hr>
 
 
@@ -21,5 +35,13 @@
           [method]="'get'"
           [url]="'/api/setting/'+id"
           (onRes)="getSetting($event)"
+          [click]="true"
+></app-form>
+<app-form
+          [text]="'More'"
+          [class]="'btn waves-effect waves-light'"
+          [method]="'get'"
+          [url]="'/api/user'"
+          (onRes)="more($event)"
           [click]="true"
 ></app-form>

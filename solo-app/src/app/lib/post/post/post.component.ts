@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {CoreService} from "../../../core.service";
 import {environment} from "../../../../environments/environment";
@@ -14,11 +14,13 @@ export class PostComponent implements OnInit {
   public count = 0;
   public maxcount = 0;
   public limit = 4;
-  public posts = [];
   public user;
+  public obj;
   public next: boolean = false;
   public isShow: boolean = true;
   public domain: string = environment.apiDomain;
+  @Input() id: string;
+  @Input() posts: string;
   constructor(
     private core: CoreService,
     private auth: AuthService,
@@ -27,40 +29,13 @@ export class PostComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.obj = JSON.stringify({id: this.id});
     let self = this;
-    self.post.onSetting.subscribe(value=>{
-      if(value){
-        self.core.error(value);
-        self.posts.push(value);
-        self.check();
-      }
-    });
     self.auth.onUserData.subscribe(value=>{
       if(value){
-        this.user = value;
+        this.user = value[0];
       }
     });
   }
-  setcount(s){
-    this.maxcount = s.count;
-    this.check();
-  }
-  more(res){
-    let self = this;
-    // res.forEach(item=>{
-    //   self.http.get(self.domain+'/api/user?query=%7B%22_id%22:%22'+item.userId+'%22%7D&').subscribe((val:any)=>{
-    //     item.avatar = val.avatar;
-    //     item.firstName = val.firstName;
-    //     item.lastName = val.lastName;
-    //   })
-    // });
-    self.count++;
-    self.posts = self.posts.concat(res);
-    self.check();
-  }
-  check(){
-    if(this.maxcount-1<this.limit*this.count){
-      this.isShow = false
-    }
-  }
+
 }
