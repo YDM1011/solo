@@ -1,33 +1,48 @@
-<app-navbar></app-navbar>
+<!--<app-navbar></app-navbar>-->
 
+<div class="container-page">
+  <div class="container-page_one">
 
-<div class="container">
+    <div class="container_avatar">
+      <div class="avatar-container">
+        <app-avatar></app-avatar>
+        <app-user-init [user]="user"></app-user-init>
+        <app-bg></app-bg>
 
-  <div class="row">
-    <app-user-init [user]="user"></app-user-init>
-    <app-first-name [isInput]="true"></app-first-name>
-    <app-last-name></app-last-name>
-    <app-avatar></app-avatar>
-    <app-bg></app-bg>
-    <app-update-user [id]="id"></app-update-user>
+        <!--<app-first-name [isInput]="true"></app-first-name>-->
+        <!--<app-last-name></app-last-name>-->
+        <!--<app-update-user [id]="id"></app-update-user>-->
+      </div>
+    </div>
+
+    <div class="container-content">
+      <div class="container_left-bar">
+
+      </div>
+      <div class="container-tape">
+        <app-create *ngIf="user" [avatar]="user.avatar" [id]="id" [firstName]="user.firstName"></app-create>
+
+        <app-post [id]="id" [posts]="posts"></app-post>
+        <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
+
+      </div>
+    </div>
+
   </div>
-  <div class="row" *ngIf="user">
-    <app-create [avatar]="user.avatar" [id]="id" [firstName]="user.firstName"></app-create>
-  </div>
-  <div class="row">
-    <app-post [id]="id" [posts]="posts"></app-post>
-    <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
+  <div class="container-page_two">
+
   </div>
 </div>
 
-<div *ngIf="people.length > 0">
-  <div *ngFor="let mean of people">
-    <img [src]="mean.avatar" alt="">
-    <a [routerLink]="'/user/'+mean._id">
-      {{mean.firstName}} {{mean.lastName}}
-    </a>
-  </div>
-</div>
+
+<!--<div *ngIf="people.length > 0">-->
+  <!--<div *ngFor="let mean of people">-->
+    <!--<img [src]="mean.avatar" alt="">-->
+    <!--<a [routerLink]="'/user/'+mean._id">-->
+      <!--{{mean.firstName}} {{mean.lastName}}-->
+    <!--</a>-->
+  <!--</div>-->
+<!--</div>-->
 <hr>
 
 

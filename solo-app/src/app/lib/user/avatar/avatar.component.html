@@ -1,6 +1,6 @@
-<div *ngIf="user" class="row">
-  <div *ngIf="user.avatar">
-    <img class="materialboxed" [src]="user.avatar">
+<div class="user" *ngIf="user">
+  <div class="user_avatar" *ngIf="user.avatar">
+    <img class="user_avatar_img materialboxed" [src]="user.avatar">
   </div>
   <app-upload [btnName]="btn"
               (getImg)="user.avatar=$event"></app-upload>

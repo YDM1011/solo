@@ -11,7 +11,7 @@ import {UserService} from "../user.service";
 })
 export class AvatarComponent implements OnInit {
   public user: User;
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Завантажити Аватар</span>';
+  public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span>';
 
   constructor(
     private auth: UserService

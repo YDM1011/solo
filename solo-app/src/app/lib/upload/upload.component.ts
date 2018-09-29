@@ -51,4 +51,7 @@ export class UploadComponent implements OnInit {
         }
     }
   }
+  res(er){
+    console.log(er);
+  }
 }

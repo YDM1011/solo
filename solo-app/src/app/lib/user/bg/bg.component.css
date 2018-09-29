@@ -1,0 +1,62 @@
+:host-context{
+  z-index: 1;
+}
+.user_bg{
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  z-index: -1;
+  transition: .5s filter;
+}
+.user_bg:hover{
+  filter: opacity(95%);
+}
+.user_bg_img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50%;
+}
+
+:host-context /deep/ .button-bg{
+  box-sizing: border-box;
+  justify-content: space-between;
+  padding: 2px 5px;
+  position: absolute;
+  bottom: 30px;
+  left: 5px;
+  background: transparent;
+  transition: .3s background;
+}
+:host-context /deep/ .button-bg:hover{
+  background: rgba(0, 0, 0, 0.2);
+}
+:host-context /deep/ .button-bg_img{
+  display: block;
+  width: 12px;
+  height: 12px;
+  background: url("../../../../assets/smile.svg") no-repeat 50%;
+  background-size: contain;
+}
+:host-context /deep/ .button-bg_text{
+  box-sizing: border-box;
+  padding-left: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #ffffff;
+}
+
+@media (min-width: 620px) {
+  .user_bg{
+    bottom: 0;
+  }
+  :host-context /deep/ .button-bg {
+    top: 5px;
+    bottom: initial;
+    left: 10px;
+  }
+}

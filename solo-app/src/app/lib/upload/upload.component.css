@@ -1,3 +1,11 @@
+:host-context{
+  z-index: 1;
+}
+:host-context /deep/ .button-upload{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 .profile-avatar{
   display: none;
 }

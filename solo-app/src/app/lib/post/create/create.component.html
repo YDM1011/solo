@@ -2,7 +2,7 @@
 <form class="col s12" isMyProfile>
   <div class="row">
     <p>
-      <img [src]="avatar" alt="avatar">
+      <img style="width: 60px; height: 60px" [src]="avatar" alt="avatar">
       <span>{{firstName}}</span>
       <span *ngIf="active">почувається {{active}}</span>
       <span *ngIf="postObg.withFriend[0]">

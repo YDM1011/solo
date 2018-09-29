@@ -1,7 +1,8 @@
-<div class="row" isMyProfile>
-  <label >
+<div isMyProfile>
+  <label>
     <div [innerHTML]="btnName"></div>
-    <input *ngIf="multiple" class="profile-avatar" (change)="uploadFile()" multiple="multiple" type="file">
-    <input *ngIf="!multiple" class="profile-avatar" (change)="uploadFile()" type="file">
+    <input *ngIf="multiple" class="profile-avatar" #it (change)="it.val = $event" multiple="multiple" type="file">
+    <app-file-min (fileResult)="res($event)"></app-file-min>
+    <input *ngIf="!multiple" class="profile-avatar" #it (change)="it.val = $event" type="file">
   </label>
 </div>
