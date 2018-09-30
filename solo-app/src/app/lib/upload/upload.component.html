@@ -2,7 +2,7 @@
   <label>
     <div [innerHTML]="btnName"></div>
     <input *ngIf="multiple" class="profile-avatar" #it (change)="it.val = $event" multiple="multiple" type="file">
-    <app-file-min (fileResult)="res($event)"></app-file-min>
+    <app-file-min (fileResult)="res($event)" [btn]="btn"></app-file-min>
     <input *ngIf="!multiple" class="profile-avatar" #it (change)="it.val = $event" type="file">
   </label>
 </div>

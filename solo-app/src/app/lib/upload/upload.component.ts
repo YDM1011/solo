@@ -14,6 +14,7 @@ export class UploadComponent implements OnInit {
   @Output() getImg = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
   @Input()  multiple: boolean = false;
+  public btn = '<span class="btn waves-effect  deep-purple darken-4">Додати фото</span>';
 
   constructor(
     private core: UploadService,
