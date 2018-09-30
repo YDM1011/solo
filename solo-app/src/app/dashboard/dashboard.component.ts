@@ -36,33 +36,40 @@ export class DashboardComponent implements OnInit {
       if(value){
        self.user = value;
        self.auth.setUserData(value);
+      self.apiInitial(value._id)
       }
     });
     this.id = this.route.snapshot.paramMap.get('id');
     this.obj = JSON.stringify({id: this.id});
-    this.sel = JSON.stringify('-pass,-token,-_id,-login');
     this.check();
 
     this.route.params.subscribe((params:any) => {
-      let id = JSON.stringify({id: params.id}),
+      this.id = this.route.snapshot.paramMap.get('id');
+      this.obj = JSON.stringify({id: this.id});
+      self.apiInitial(params.id)
+    });
+  }
+
+  apiInitial(idc){
+    let self = this;
+    console.log(idc);
+    let id = JSON.stringify({id: idc}),
       count = 0,
       limit = 4;
-      self.count = 0;
-      self.limit = 4;
-
-      this.http.get(`${this.domain}/api/setting/${params.id}`, this.api.getHeaders())
-        .subscribe((user: any) => {
-          self.getSetting(user)
-        });
-      this.http.get(this.domain+'/api/post?query='+id+'&limit='+limit+'&skip='+count*limit, this.api.getHeaders())
-        .subscribe((user: any) => {
-          this.http.get(this.domain+'/api/post/count?query='+id, this.api.getHeaders())
-            .subscribe((res: any) => {
-              self.posts = (user);
-              self.setcount(res);
-            });
-        });
-    });
+    self.count = 0;
+    self.limit = 4;
+    this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
+      .subscribe((user: any) => {
+        self.getSetting(user)
+      });
+    this.http.get(this.domain+'/api/post?query='+id+'&limit='+limit+'&skip='+count*limit, this.api.getHeaders())
+      .subscribe((user: any) => {
+        this.http.get(this.domain+'/api/post/count?query='+id, this.api.getHeaders())
+          .subscribe((res: any) => {
+            self.posts = (user);
+            self.setcount(res);
+          });
+      });
   }
 
   getSetting(res){
@@ -83,6 +90,8 @@ export class DashboardComponent implements OnInit {
   }
   morePost(){
     let self = this;
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.obj = JSON.stringify({id: this.id});
     self.count++;
     this.http.get(this.domain+'/api/post?query='+this.obj+'&limit='+this.limit+'&skip='+this.count*this.limit, this.api.getHeaders())
       .subscribe((user: any) => {

@@ -8,6 +8,22 @@ const pages = new Schema({
     lastName: {type: String, required: [true, "Last name must be created"]},
     gender: String,
     borned: Date,
+    myFriends:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    invite:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    meetFriend:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    offer:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
     avatar: {
         type: String,
         default: ''

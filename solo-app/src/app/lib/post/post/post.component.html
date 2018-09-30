@@ -1,31 +1,83 @@
 <div class="row posts">
   <div class="card col xs12 s6 m3" *ngFor="let item of posts">
-    <div class="row">
-      <span class="avatar" *ngIf="item.userId.avatar"><img [src]="item.userId.avatar" alt="avatar"></span>
-      <span class="name">
+    <div class="post-wrap" *ngIf="!item.share">
+      <div class="row">
+        <span class="avatar" *ngIf="item.userId.avatar"><img [src]="item.userId.avatar" alt="avatar"></span>
+        <span class="name">
         {{item.userId.firstName || user.firstName}}
         {{item.userId.lastName || user.lastName}}</span>
-      <span class="impression" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-      <span class="friend" *ngIf="item.withFriend[0]"> з
+        <span class="impression" *ngIf="item.imression"> почувається {{item.imression.name}}</span>
+        <span class="friend" *ngIf="item.withFriend[0]"> з
         <span *ngFor="let friend of item.withFriend"> {{friend.name}}</span>
       </span>
-      <span class="place" *ngIf="item.inPlace.place"> у {{item.inPlace.place}}</span>
+        <span class="place" *ngIf="item.inPlace.place"> у {{item.inPlace.place}}</span>
+        <span>{{item.data | date:"HH:mm d/M/y"}}</span>
+      </div>
+      <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
+        <img class="activator" *ngFor="let img of item.img" [src]="img" >
+      </div>
+      <div class="card-content">
+        <span class="card-title activator grey-text text-darken-4">{{item.title}}<i class="material-icons right">more_vert</i></span>
+        <p>{{item.des}}</p>
+      </div>
+      <div>
+        <app-like [id]="item._id" [likes]="item.like"></app-like>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
+        <p>{{item.des}}</p>
+      </div>
+      <button type="button" (click)="addShare({postId:item._id,des:'test'})" class="btn waves-effect waves-light">Поширити</button>
+      <app-comment [postId]="item._id" [comments]="item.commentId"></app-comment>
     </div>
-    <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
-      <img class="activator" *ngFor="let img of item.img" [src]="img" >
+
+    <div class="post-wrap share" *ngIf="item.share">
+      <div class="row">
+        <span class="avatar" *ngIf="item.share.userIdShare.avatar"><img [src]="item.share.userIdShare.avatar" alt="avatar"></span>
+        <span class="avatar" *ngIf="!item.share.userIdShare.avatar"><img [src]="user.avatar" alt="avatar"></span>
+        <span class="name">
+        {{item.share.userIdShare.firstName || user.firstName}}
+        {{item.share.userIdShare.lastName || user.lastName}}</span>
+
+        <span>{{item.data | date:"HH:mm d/M/y"}}</span>
+      </div>
+      <div class="row" *ngIf="item.share.des">
+        <p>{{item.share.des}}</p>
+      </div>
+
+      <div class="card">
+        <div class="row">
+          <span class="avatar" *ngIf="item.userId.avatar"><img [src]="item.userId.avatar" alt="avatar"></span>
+          <a [routerLink]="'/user/'+item.userId._id" class="name">
+            {{item.userId.firstName || user.firstName}}
+            {{item.userId.lastName || user.lastName}}
+          </a>
+          <span class="impression" *ngIf="item.imression"> почувається {{item.imression.name}}</span>
+          <span class="friend" *ngIf="item.withFriend[0]"> з
+        <span *ngFor="let friend of item.withFriend"> {{friend.name}}</span>
+      </span>
+          <span class="place" *ngIf="item.inPlace.place"> у {{item.inPlace.place}}</span>
+          <span>{{item.share.data | date:"HH:mm d/M/y"}}</span>
+        </div>
+        <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
+          <img class="activator" *ngFor="let img of item.img" [src]="img" >
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">{{item.title}}<i class="material-icons right">more_vert</i></span>
+          <p>{{item.des}}</p>
+        </div>
+      </div>
+
+      <div>
+        <app-like [id]="item._id" [likes]="item.like"></app-like>
+      </div>
+      <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
+        <p>{{item.des}}</p>
+      </div>
+      <button type="button" (click)="addShare({postId:item._id,des:'test'})" class="btn waves-effect waves-light">Поширити</button>
+      <app-comment [postId]="item._id" [comments]="item.commentId"></app-comment>
     </div>
-    <div class="card-content">
-      <span class="card-title activator grey-text text-darken-4">{{item.title}}<i class="material-icons right">more_vert</i></span>
-      <p>{{item.des}}</p>
-    </div>
-    <div>
-      <app-like [id]="item._id"></app-like>
-    </div>
-    <div class="card-reveal">
-      <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
-      <p>{{item.des}}</p>
-    </div>
+
   </div>
-
 </div>
-

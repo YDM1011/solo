@@ -1,0 +1,4 @@
+<button type="button" (click)="meetFriend()"
+        *ngIf="(isInvite === 'friend' || isFriend === 'friend')
+         && isMeet != 'meetFriend'">Запросити на зустріч</button>
+<button type="button" (click)="delMeetFriend()" *ngIf="isMeet === 'meetFriend'">Запрошення відправлено</button>

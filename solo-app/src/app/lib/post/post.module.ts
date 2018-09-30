@@ -10,6 +10,8 @@ import {MzCollapsibleModule} from "ngx-materialize";
 import {SearchModule} from "../search/search.module";
 import {IsMyProfileModule} from "../is-my-profile/is-my-profile.module";
 import { LikeComponent } from './like/like.component';
+import { CommentComponent } from './comment/comment.component';
+import {AppRoutingModule} from "../../app-routing.module";
 
 @NgModule({
   imports: [
@@ -19,10 +21,11 @@ import { LikeComponent } from './like/like.component';
     UploadModule,
     MzCollapsibleModule,
     SearchModule,
-    IsMyProfileModule
+    IsMyProfileModule,
+    AppRoutingModule
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],
-  declarations: [PostComponent, CreateComponent, LikeComponent]
+  declarations: [PostComponent, CreateComponent, LikeComponent, CommentComponent]
 })
 export class PostModule { }

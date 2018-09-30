@@ -3,6 +3,7 @@ module.exports = (req, res, next) => {
     mongoose.model('user')
         .findOne({_id: req.params.id})
         .select('-pass -token -_id')
+        .populate({path: 'myFriends', select:"firstName lastName avatar _id"})
         .exec((err, info) => {
             if(err) return res.badRequest('Something broke!');
             // if(!info) return res.notFound('You are not valid');

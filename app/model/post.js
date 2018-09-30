@@ -15,11 +15,20 @@ const impresion = new Schema({
     value: String,
     name: String
 });
+const sharePost = new Schema({
+    des: String,
+    userIdShare: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    data: {type: Date, default: new Date()},
+});
 
 const pages = new Schema({
     des: {
         type: String,
     },
+    share: sharePost,
     id: String,
     userId: {
         type: mongoose.Schema.Types.ObjectId,
@@ -27,8 +36,11 @@ const pages = new Schema({
     },
     like: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
-        unique: true
+        ref: "user"
+    }],
+    commentId: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "comment"
     }],
     img: Array,
     data: {type: Date, default: new Date()},
@@ -69,7 +81,6 @@ const preCreate = (req,res,next)=>{
     next()
 };
 const preRead = (req,res,next)=>{
-    console.log(req.query.limit);
     console.log(req.query.skip);
     console.log(JSON.parse(req.query.query));
 
@@ -80,10 +91,14 @@ const preRead = (req,res,next)=>{
         req.body.userId = req.userId;
         mongoose.model('post')
             .find(optionFind)
-            .limit(parseInt(req.query.limit))
+            .limit(4)
+            .sort({data: -1})
             .skip(parseInt(req.query.skip))
             .populate({path:'userId', select:'_id firstName lastName avatar'})
-            .populate({path:'like', select:'_id firstName lastName avatar'})
+            .populate({path:'share.userIdShare', select:'_id firstName lastName avatar'})
+            .populate(
+                {path:'commentId', select:'_id des data',
+                    populate:{path: 'userIdCom likeCom', select:'_id firstName lastName avatar'}})
             .exec((err, info) => {
                 if(err) return res.badRequest('Something broke!');
                 if(!info) return res.notFound('You are not valid');

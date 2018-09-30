@@ -26,17 +26,16 @@
     <a [routerLink]="'/user/'+mean._id">
       {{mean.firstName}} {{mean.lastName}}
     </a>
+    <app-init-invite [userId]="mean._id"></app-init-invite>
+    <app-invite-friend [userId]="mean._id"></app-invite-friend>
+    <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
+    <app-meet-friend [userId]="mean._id"></app-meet-friend>
+    <app-del-friend [userId]="mean._id"></app-del-friend>
+    <app-offer-friend [userId]="mean._id"></app-offer-friend>
   </div>
 </div>
 <hr>
 
-
-<app-form [hidden]="true"
-          [method]="'get'"
-          [url]="'/api/setting/'+id"
-          (onRes)="getSetting($event)"
-          [click]="true"
-></app-form>
 <app-form
           [text]="'More'"
           [class]="'btn waves-effect waves-light'"
