@@ -11,10 +11,10 @@ module.exports = (req, res, next) => {
             let obj = {
                 des: req.body.des,
                 userIdShare: req.userId,
-                data:  info.data
+                data: info.share.data || info.data
             };
             postObj.img = info.img;
-            postObj.data = new Date();
+            postObj.data =  new Date();
             postObj.des = info.des;
             postObj.userId = info.userId;
             postObj.withFriend = info.withFriend;

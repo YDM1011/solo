@@ -1,0 +1,16 @@
+.img__main-avatar img{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.img__main-bg img{
+  width: 1170px;
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 60px;
+  height: 400px;
+  object-fit: cover;
+}
+

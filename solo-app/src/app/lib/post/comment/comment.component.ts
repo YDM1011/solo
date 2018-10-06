@@ -31,9 +31,6 @@ export class CommentComponent implements OnInit {
     this.http.post(`${this.domain}/api/comment`, this.comment, this.api.getHeaders())
       .subscribe((val: any) => {
         if(val){
-          console.log(val);
-          val.userIdCom = self.auth.getUserData()[0];
-          console.log(val);
           self.comments.push(val);
           self.defComment()
         }

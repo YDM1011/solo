@@ -22,6 +22,10 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
   }
+  getPics(pics){
+    console.log(pics);
+    this.getImg.emit(pics);
+  }
   uploadFile(){
     const self = this;
     this.fileInputElement = TemplateRef;

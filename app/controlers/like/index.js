@@ -13,7 +13,7 @@ module.exports.put = (req, res, next) => {
                 Post
                     .findOneAndUpdate({_id: req.body.postId},
                         {$pull:{like:req.userId}}, {new: true})
-                    .populate({path:'like', select:'_id firstName lastName avatar'})
+                    .populate({path:'like', select:'_id firstName lastName photo'})
                     .exec((err, content) =>{
                             if(err) {
                                 res.send(err)
@@ -27,7 +27,7 @@ module.exports.put = (req, res, next) => {
                 Post
                     .findOneAndUpdate({_id: req.body.postId},
                         {$push:{like:req.userId}}, {new: true})
-                    .populate({path:'like', select:'_id firstName lastName avatar'})
+                    .populate({path:'like', select:'_id firstName lastName photo'})
                     .exec((err, content) =>{
                             if(err) {
                                 res.send(err)
@@ -51,7 +51,7 @@ module.exports.putCom = (req, res, next) => {
                 Comment
                     .findOneAndUpdate({_id: req.body._id},
                         {$pull:{likeCom:req.userId}}, {new: true})
-                    .populate({path:'likeCom', select:'_id firstName lastName avatar'})
+                    .populate({path:'likeCom', select:'_id firstName lastName photo'})
                     .exec((err, content) =>{
                             if(err) {
                                 res.send(err)
@@ -64,7 +64,7 @@ module.exports.putCom = (req, res, next) => {
                 Comment
                     .findOneAndUpdate({_id: req.body._id},
                         {$push:{likeCom:req.userId}}, {new: true})
-                    .populate({path:'likeCom', select:'_id firstName lastName avatar'})
+                    .populate({path:'likeCom', select:'_id firstName lastName photo'})
                     .exec((err, content) =>{
                             if(err) {
                                 res.send(err)

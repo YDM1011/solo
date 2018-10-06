@@ -11,6 +11,7 @@ export class BgComponent implements OnInit {
 
   public btn = '<span class="btn waves-effect  deep-purple darken-4">Додати шпалери</span>';
   public user: User;
+  public loader: any;
 
   constructor(
     private auth: UserService
@@ -21,5 +22,9 @@ export class BgComponent implements OnInit {
       this.user = val;
       console.log(val);
     })
+  }
+  getLoader(elem){
+    this.loader = elem;
+    this.loader.forImg='bg';
   }
 }

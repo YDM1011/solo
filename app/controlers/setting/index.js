@@ -3,12 +3,12 @@ module.exports = (req, res, next) => {
     mongoose.model('user')
         .findOne({_id: req.params.id})
         .select('-pass -token -_id')
-        .populate({path: 'myFriends', select:"firstName lastName avatar _id"})
+        .populate({path: 'myFriends', select:"firstName lastName _id"})
+        .populate({path: 'bg photo', select:"preload _id"})
         .exec((err, info) => {
             if(err) return res.badRequest('Something broke!');
             // if(!info) return res.notFound('You are not valid');
             info.license = String(req.license);
-            console.log(info.license);
             return res.ok([info, req.license])
         });
 };

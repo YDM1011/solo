@@ -19,6 +19,9 @@ import {CoreService} from "./core.service";
 import {PostModule} from "./lib/post/post.module";
 import {FormApiModule} from "./lib/form-api/form-api.module";
 import {FriendModule} from "./lib/friend/friend.module";
+import {UploadModule} from "./lib/upload/upload.module";
+import { InitLayoutComponent } from './init-layout/init-layout.component';
+import { GalleryComponent } from './lib/gallery/gallery.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import {FriendModule} from "./lib/friend/friend.module";
     SigninComponent,
     LandingPageComponent,
     SignupComponent,
+    InitLayoutComponent,
+    GalleryComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,6 +43,7 @@ import {FriendModule} from "./lib/friend/friend.module";
     PostModule,
     FormApiModule,
     FriendModule,
+    UploadModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [ AuthService, CookieService, CoreService ],

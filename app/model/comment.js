@@ -43,7 +43,7 @@ const preCreate = (req,res,next)=>{
     req.body.userIdCom = req.userId;
     req.body.data =  new Date();
     mongoose.model('comment')
-        .create(req.body, (err, info)=>{
+        .create(req.body, {new: true}, (err, info)=>{
         mongoose.model('post')
             .findOneAndUpdate({_id: info.postId},
                 {$push: {commentId: info._id}}, {new: true})
@@ -51,7 +51,15 @@ const preCreate = (req,res,next)=>{
                 if (err) {
                     return res.send(err)
                 } else if (content) {
-                    return res.ok(info)
+                    mongoose.model('comment')
+                        .findOne({_id:info._id})
+                        .populate({path:"userIdCom",
+                            populate:{path:"photo",select:"preload _id"}})
+                        .exec((err,doc)=>{
+                            if (err) return res.send(err);
+                            return res.ok(doc)
+                        });
+
                 }
             });
         })

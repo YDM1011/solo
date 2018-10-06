@@ -12,6 +12,7 @@ import {IsMyProfileModule} from "../is-my-profile/is-my-profile.module";
 import { LikeComponent } from './like/like.component';
 import { CommentComponent } from './comment/comment.component';
 import {AppRoutingModule} from "../../app-routing.module";
+import {UserModule} from "../user/user.module";
 
 @NgModule({
   imports: [
@@ -22,7 +23,8 @@ import {AppRoutingModule} from "../../app-routing.module";
     MzCollapsibleModule,
     SearchModule,
     IsMyProfileModule,
-    AppRoutingModule
+    AppRoutingModule,
+    UserModule
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],

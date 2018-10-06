@@ -15,11 +15,15 @@ export class DashboardComponent implements OnInit {
   public user: any;
   public people: any = [];
   public id: string;
+  public btn = '<span class="btn waves-effect  deep-purple darken-4">Завантажити Аватар</span>';
   private maxcount: number;
   private isShow: boolean = true;
   public count = 0;
+  public loader;
   public limit = 4;
   public posts = [];
+  public friends = [];
+  public photos = [];
   public obj: any;
   public sel: any;
   constructor(
@@ -54,6 +58,7 @@ export class DashboardComponent implements OnInit {
     let self = this;
     console.log(idc);
     let id = JSON.stringify({id: idc}),
+        getFriends = JSON.stringify({path: 'myFriends'}),
       count = 0,
       limit = 4;
     self.count = 0;
@@ -70,13 +75,22 @@ export class DashboardComponent implements OnInit {
             self.setcount(res);
           });
       });
+    this.http.get(this.domain+'/api/getFriends?userId='+idc, this.api.getHeaders())
+      .subscribe((friends: any) => {
+        console.log(friends);
+        self.friends = (friends);
+      });
+    this.http.get(this.domain+'/api/getPhoto?userId='+idc, this.api.getHeaders())
+      .subscribe((photo: any) => {
+        self.photos = (photo);
+      });
   }
 
   getSetting(res){
     let self = this;
-    console.log(res);
     if(res){
       self.user = res[0];
+      console.log(self.user);
       self.core.setValidProfile(res[1]);
       self.auth.setUserData(res);
     }

@@ -1,0 +1,10 @@
+<div class="friends-wrap">
+  <div>Фото</div>
+  <div class="gallery-list" *ngIf="photos">
+    <!--<img [src]="friend.photo.preload">-->
+    <app-avatar *ngFor="let photo of photos"
+                [customClass]="'photo-gallery'"
+                [type]="'img'"
+                [avatar]="photo"></app-avatar>
+  </div>
+</div>

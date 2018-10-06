@@ -1,5 +1,7 @@
 <div *ngFor="let com of comments">
-  <img *ngIf="com.userIdCom.avatar" class="avatar" [src]="com.userIdCom.avatar">
+  <app-avatar [avatar]="com.userIdCom.photo"
+              [type]="'imgMin'"
+              [avatarId]="com.userIdCom.photo._id"></app-avatar>
   <span>{{com.userIdCom.firstName}}</span>
   <span>{{com.userIdCom.lastName}}</span>
   <span>{{com.data | date:"HH:mm d/M/y"}}</span>

@@ -2,7 +2,8 @@
 <form class="col s12" isMyProfile>
   <div class="row">
     <p>
-      <img [src]="avatar" alt="avatar">
+      <app-avatar></app-avatar>
+      <!--<img *ngIf="avatar && avatar.preload" [src]="avatar.preload" alt="avatar">-->
       <span>{{firstName}}</span>
       <span *ngIf="active">почувається {{active}}</span>
       <span *ngIf="postObg.withFriend[0]">
@@ -28,7 +29,7 @@
     </div>
   </div>
   <div *ngIf="postObg.img.length > 0 ">
-    <img *ngFor="let img of postObg.img" [src]="img">
+    <img *ngFor="let img of postObg.img" [src]="img.larg">
   </div>
   <div class="row">
     <mz-collapsible

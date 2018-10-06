@@ -35,7 +35,6 @@ export class FormComponent implements OnInit  {
 
   apiSubmit(){
     let self = this;
-    console.log(this.method);
     switch (this.method) {
       case 'post': {
         this.http.post(`${this.domain}${this.url}`, this.option, this.api.getHeaders())
@@ -49,7 +48,6 @@ export class FormComponent implements OnInit  {
         break;
       }
       case 'get': {
-        console.log(this.url);
         this.http.get(`${this.domain}${this.url}`, this.api.getHeaders())
           .subscribe((posts: any) => {
             self.api.error(posts, self.valid);

@@ -8,7 +8,7 @@ module.exports.isInvite = (req, res, next) => {
 
     User
         .findOne({_id: req.userId, offer:{$in: req.body.userId}})
-        .populate({path:"offer", select:"_id avatar firstName lastName"})
+        .populate({path:"offer", select:"_id photo firstName lastName"})
         .exec((err, info)=>{
             if(err) return res.badRequest('Something broke!');
             if(info){
@@ -62,7 +62,7 @@ module.exports.delFriend = (req, res, next) => {
                     .findOneAndUpdate({_id: req.body.userId},
                         {$pull:{myFriends:req.userId, meetFriend:req.userId}},
                         {new: true})
-                    .select('_id firstName lastName avatar')
+                    .select('_id firstName lastName photo')
                     .exec((err, content) =>{
                         if(err) {
                             res.send(err)
@@ -85,7 +85,7 @@ module.exports.offerFriend = (req, res, next) => {
                     .findOneAndUpdate({_id: req.body.userId},
                         {$push:{myFriends:req.userId},
                         $pull:{invite:req.userId}}, {new: true})
-                    .select('_id firstName lastName avatar')
+                    .select('_id firstName lastName photo')
                     .exec((err, content) =>{
                         if(err) {
                             res.send(err)
@@ -107,7 +107,7 @@ module.exports.meetFriend = (req, res, next) => {
                 User
                     .findOneAndUpdate({_id: req.userId},
                         {$push:{meetFriend:req.body.userId}}, {new: true})
-                    .select('_id firstName lastName avatar')
+                    .select('_id firstName lastName photo')
                     .exec((err, content) =>{
                         if(err) {
                             res.send(err)
@@ -126,7 +126,22 @@ module.exports.delMeetFriend = (req, res, next) => {
     User
         .findOneAndUpdate({_id: req.userId},
             {$pull:{meetFriend:req.body.userId}}, {new: true})
-        .select('_id firstName lastName avatar')
+        .select('_id firstName lastName photo')
+        .exec((err, content) =>{
+            if(err) {
+                res.send(err)
+            } else {
+                return res.ok(content)
+            }
+        });
+};
+module.exports.getFriends = (req, res, next) => {
+    // populate:{path:"photo bg", select:"preload _id"}
+    User
+        .findOne({_id: req.query.userId})
+        .populate({path:'myFriends', select:"firstName lastName _id",
+            populate:{path:"photo bg", select:"preload _id"}})
+        .select("myFriends")
         .exec((err, content) =>{
             if(err) {
                 res.send(err)
@@ -160,7 +175,7 @@ module.exports.invite = (req, res, next) => {
                                             User
                                                 .findOneAndUpdate({_id: req.body.userId},
                                                     {$pull: {offer: req.userId}}, {new: true})
-                                                .select('_id firstName lastName avatar')
+                                                .select('_id firstName lastName photo')
                                                 .exec((err, info) => {
                                                     if (err) {
                                                         res.send(err)
@@ -182,7 +197,7 @@ module.exports.invite = (req, res, next) => {
                                             User
                                                 .findOneAndUpdate({_id: req.body.userId},
                                                     {$push: {offer: req.userId}}, {new: true})
-                                                .select('_id firstName lastName avatar')
+                                                .select('_id firstName lastName photo')
                                                 .exec((err, info) => {
                                                     if (err) {
                                                         res.send(err)

@@ -21,7 +21,7 @@ const sharePost = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
-    data: {type: Date, default: new Date()},
+    data: Date
 });
 
 const pages = new Schema({
@@ -42,7 +42,10 @@ const pages = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "comment"
     }],
-    img: Array,
+    img: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "avatar"
+    }],
     data: {type: Date, default: new Date()},
     withFriend: [friend],
     inPlace: place,
@@ -67,6 +70,7 @@ const glob = require('glob');
 const preSave = (req,res,next)=>{
     require("../responces/ok")(req, res);
     req.body.id = req.body.userId;
+    delete req.body.img;
     mongoose.model('post')
         .findOneAndUpdate({_id: req.params.id})
         .exec((err, info) => {
@@ -78,7 +82,39 @@ const preSave = (req,res,next)=>{
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     req.body.id = req.body.userId;
-    next()
+    req.body.data = new Date();
+    new Promise((resolve, reject)=>{
+        let imgArr = [];
+        if (req.body.img.length < 1) resolve(imgArr);
+        req.body.img.forEach(img=>{
+            mongoose.model('avatar').create(img, (err, docImg)=>{
+                if(err) return res.badRequest('Something broke!');
+                imgArr.push(docImg._id);
+                if (img == req.body.img[req.body.img.length-1]){
+                    resolve(imgArr)
+                }
+            })
+        });
+    }).then(arr=>{
+        req.body.img = arr;
+        mongoose.model('post')
+            .create(req.body, (err, content) =>{
+                if(err) {
+                    res.send(err)
+                } else {
+                    return res.ok(content)
+                }
+            });
+        mongoose.model('user')
+            .findOneAndUpdate({_id: req.userId},
+                {$push:{gallery:req.body.img}})
+            .exec((err, content) =>{
+                if(err) {
+                    res.send(err)
+                }
+        })
+    });
+    // next()
 };
 const preRead = (req,res,next)=>{
     console.log(req.query.skip);
@@ -94,11 +130,15 @@ const preRead = (req,res,next)=>{
             .limit(4)
             .sort({data: -1})
             .skip(parseInt(req.query.skip))
-            .populate({path:'userId', select:'_id firstName lastName avatar'})
-            .populate({path:'share.userIdShare', select:'_id firstName lastName avatar'})
+            .populate({path:'img', select: '_id preload'})
+            .populate({path:'userId', select:'_id firstName lastName',
+                populate:{path: 'photo', select:'preload _id'}})
+            .populate({path:'share.userIdShare', select:'_id firstName lastName',
+                populate:{path: 'photo', select:'preload _id'}})
             .populate(
                 {path:'commentId', select:'_id des data',
-                    populate:{path: 'userIdCom likeCom', select:'_id firstName lastName avatar'}})
+                    populate:{path: 'userIdCom likeCom', select:'_id firstName lastName',
+                        populate:{path: 'photo', select:'preload'}}})
             .exec((err, info) => {
                 if(err) return res.badRequest('Something broke!');
                 if(!info) return res.notFound('You are not valid');

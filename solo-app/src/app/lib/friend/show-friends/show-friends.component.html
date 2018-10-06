@@ -1,0 +1,12 @@
+<div class="friends-wrap">
+  <div>Друзі</div>
+  <div class="friends-list" *ngIf="friends">
+    <a *ngFor="let friend of friends" [routerLink]="'/user/'+friend._id">
+      <!--<img [src]="friend.photo.preload">-->
+      <app-avatar [customClass]="'friend-avatar'"
+                  [type]="'img'"
+                  [avatar]="friend.photo"></app-avatar>
+      <span>{{friend.firstName}} {{friend.lastName}}</span>
+    </a>
+  </div>
+</div>
