@@ -34,7 +34,13 @@
         <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
         <p>{{item.des}}</p>
       </div>
-      <button type="button" (click)="addShare({postId:item._id,des:'test'})" class="btn waves-effect waves-light">Поширити</button>
+      <button
+        [swal]="{ title: 'text share', input: 'text' }"
+        (confirm)="addShare({postId:item._id,des:$event})"
+        class="btn waves-effect waves-light">
+        Поширити
+      </button>
+      <!--<button type="button" (click)="addShare({postId:item._id,des:'test'})" class="btn waves-effect waves-light">Поширити</button>-->
       <app-comment [postId]="item._id" [comments]="item.commentId"></app-comment>
     </div>
     <div class="post-wrap share" *ngIf="item.share.data">
@@ -93,7 +99,12 @@
         <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
         <p>{{item.des}}</p>
       </div>
-      <button type="button" (click)="addShare({postId:item._id,des:'test'})" class="btn waves-effect waves-light">Поширити</button>
+      <button
+        [swal]="{ title: 'text share', input: 'text' }"
+        (confirm)="addShare({postId:item._id,des:$event})"
+        class="btn waves-effect waves-light">
+        Поширити
+      </button>
       <app-comment [postId]="item._id" [comments]="item.commentId"></app-comment>
     </div>
   </div>

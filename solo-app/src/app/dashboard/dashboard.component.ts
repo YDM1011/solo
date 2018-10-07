@@ -24,6 +24,7 @@ export class DashboardComponent implements OnInit {
   public posts = [];
   public friends = [];
   public photos = [];
+  public mutual = [];
   public obj: any;
   public sel: any;
   constructor(
@@ -83,6 +84,10 @@ export class DashboardComponent implements OnInit {
     this.http.get(this.domain+'/api/getPhoto?userId='+idc, this.api.getHeaders())
       .subscribe((photo: any) => {
         self.photos = (photo);
+      });
+    this.http.get(this.domain+'/api/getMutual/'+idc, this.api.getHeaders())
+      .subscribe((mutual: any) => {
+        console.log(mutual);
       });
   }
 

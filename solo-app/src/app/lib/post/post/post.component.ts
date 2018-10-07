@@ -46,7 +46,8 @@ export class PostComponent implements OnInit {
     let self = this;
     this.http.post(this.domain+'/api/share', obj, this.api.getHeaders())
       .subscribe((post: any) => {
-      if(post.userId == self.auth.getUserId()){
+      if(post.userId._id == self.auth.getUserId()){
+        console.log(post);
         // post.share.userIdShare = self.auth.getUserData().avatar;
         self.posts.unshift(post);
       }

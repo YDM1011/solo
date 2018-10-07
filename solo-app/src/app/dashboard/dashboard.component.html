@@ -41,6 +41,16 @@
     <app-meet-friend [userId]="mean._id"></app-meet-friend>
     <app-del-friend [userId]="mean._id"></app-del-friend>
     <app-offer-friend [userId]="mean._id"></app-offer-friend>
+    <div *ngIf="mutual[mean._id]">
+      <span>{{mutual[mean._id].length || 0}} спільних друзів</span>
+    </div>
+    <app-form
+      [hidden]="true"
+      [method]="'get'"
+      [url]="'/api/getMutual/'+mean._id"
+      (onRes)="mutual[mean._id] = $event"
+      [click]="true"
+    ></app-form>
   </div>
 </div>
 <hr>

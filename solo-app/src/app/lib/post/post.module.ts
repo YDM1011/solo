@@ -13,6 +13,7 @@ import { LikeComponent } from './like/like.component';
 import { CommentComponent } from './comment/comment.component';
 import {AppRoutingModule} from "../../app-routing.module";
 import {UserModule} from "../user/user.module";
+import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {UserModule} from "../user/user.module";
     SearchModule,
     IsMyProfileModule,
     AppRoutingModule,
-    UserModule
+    UserModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],
