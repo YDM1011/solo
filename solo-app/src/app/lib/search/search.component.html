@@ -1,6 +1,9 @@
-<input type="text" [(ngModel)]="searchText" placeholder="search">
-<ul>
-  <li *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
-    {{itemp.name}}
+<input class="search create-post_sl-in" type="text" [(ngModel)]="searchText" placeholder="search" autocomplete="off">
+<ul class="create-post_sl-ul">
+  <li class="search-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
+    <span class="search-item_img">
+      <img src="https://i.ytimg.com/vi/M-gs-5_irOs/hqdefault.jpg" alt="">
+    </span>
+    <span class="search-item_title">{{itemp.name}}</span>
   </li>
 </ul>

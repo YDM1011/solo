@@ -37,5 +37,22 @@ export class PostComponent implements OnInit {
       }
     });
   }
+  public checkHeight(elemFantom, elemThis) {
+    elemFantom.style.width = elemThis.clientWidth + 'px';
+    elemThis.style.height = elemFantom.clientHeight +'px';
+  }
+  public checkUserHeight(elem, elemTime, elemImg){
+    console.log(elem.clientHeight);
+    if (elem.clientHeight > 30) {
+      elem.classList.add('time-abs');
+      elemTime.classList.add('time-abs');
+      elemImg.classList.add('time-abs');
+    }
+    else {
+      elem.classList.remove('time-abs');
+      elemTime.classList.remove('time-abs');
+      elemImg.classList.remove('time-abs');
+    }
+  }
 
 }

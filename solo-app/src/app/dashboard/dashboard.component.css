@@ -34,7 +34,6 @@
 .container-tape {
   display: block;
   flex-grow: 1;
-  background: #d3d7f0;
   margin: 5px 10px 15px;
 }
 

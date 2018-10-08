@@ -1,5 +1,10 @@
 :host-context{
+  cursor: pointer;
   z-index: 1;
+}
+div, label{
+  width: inherit;
+  height: inherit;
 }
 :host-context /deep/ .button-upload{
   display: flex;
@@ -9,9 +14,34 @@
 .profile-avatar{
   display: none;
 }
-label{
-  font-size: 16px;
+
+:host-context /deep/ .post-up_button{
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
+:host-context /deep/ .post-up_svg{
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url("../../../assets/picture.svg") no-repeat center;
+  background-size: contain;
+}
+:host-context /deep/ .post-up_title{
+  display: none;
+}
 
-
+@media (min-width: 768px) and (min-height: 500px) {
+  :host-context /deep/ .post-up_svg{
+    display: none;
+  }
+  :host-context /deep/ .post-up_title{
+    display: block;
+    font-size: 12px;
+    text-transform: capitalize;
+    text-decoration: underline;
+    color: #000000;
+  }
+}
