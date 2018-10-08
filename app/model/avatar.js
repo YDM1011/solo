@@ -77,11 +77,11 @@ const postCreate = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     let option = {};
     if(req.forImg == 'avatar'){
-        option = {avatar:req.erm.result._id}
+        option = {photo:req.erm.result._id}
     }else if(req.forImg == 'bg'){
         option = {bg:req.erm.result._id}
     }else{
-        option = {avatar:req.erm.result._id}
+        option = {photo:req.erm.result._id}
     }
 
     option.$push = {gallery:req.erm.result._id};

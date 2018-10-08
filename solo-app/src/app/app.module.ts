@@ -22,6 +22,7 @@ import {FriendModule} from "./lib/friend/friend.module";
 import {UploadModule} from "./lib/upload/upload.module";
 import { InitLayoutComponent } from './init-layout/init-layout.component';
 import { GalleryComponent } from './lib/gallery/gallery.component';
+import { ConfirmComponent } from './confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { GalleryComponent } from './lib/gallery/gallery.component';
     SignupComponent,
     InitLayoutComponent,
     GalleryComponent,
+    ConfirmComponent,
   ],
   imports: [
     BrowserModule,

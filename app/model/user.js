@@ -7,7 +7,9 @@ const pages = new Schema({
     firstName: {type: String, required: [true, "First name must be created"]},
     lastName: {type: String, required: [true, "Last name must be created"]},
     gender: String,
+    hash: String,
     borned: Date,
+    verify:{type: Boolean, default: false},
     myFriends:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
@@ -77,6 +79,7 @@ const preRead = (req,res,next)=>{
     if (!req.query.query){
         mongoose.model('user')
             .find({})
+            .where({verify: true})
             .select('-pass -token -login')
             .populate({path:'photo', select:'preload _id'})
             .populate({path:'bg', select:'preload _id'})
@@ -89,6 +92,7 @@ const preRead = (req,res,next)=>{
         let id = (JSON.parse(req.query.query)._id);
         mongoose.model('user')
             .findOne({_id: id})
+            .where({verify: true})
             .select('-pass -token -login')
             .populate({path:'photo', select:'preload _id'})
             .populate({path:'bg', select:'preload _id'})

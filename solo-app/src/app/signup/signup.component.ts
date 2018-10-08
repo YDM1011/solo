@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
     lastName: '',
     pass: ''
   };
+  public isConfirm: boolean = false;
   constructor(
     private router: Router,
     private auth: AuthService
@@ -22,10 +23,11 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
   send(){
+    this.isConfirm = true;
     this.auth.signUp(this.form)
       .then((res: any) => {
         if (res){
-          this.router.navigate(['signin']);
+          // this.router.navigate(['confirm']);
           console.log('res',res)
         }
       },err=>{});

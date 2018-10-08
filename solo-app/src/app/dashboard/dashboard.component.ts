@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit {
     private auth: AuthService,
     private core: CoreService,
     private http:  HttpClient,
+    private router: Router,
     private api: FormApiService
   ) { }
 
@@ -66,6 +67,9 @@ export class DashboardComponent implements OnInit {
     self.limit = 4;
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {
+      if(user.mes == "You are not valid"){
+        return self.router.navigate([`user/${self.auth.getUserId()}`]);
+      }
         self.getSetting(user)
       });
     this.http.get(this.domain+'/api/post?query='+id+'&limit='+limit+'&skip='+count*limit, this.api.getHeaders())

@@ -9,6 +9,7 @@ import {IsLogoutGuard} from "./is-logout.guard";
 import {LandingPageComponent} from "./landing-page/landing-page.component";
 import {SignupComponent} from "./signup/signup.component";
 import {InitLayoutComponent} from "./init-layout/init-layout.component";
+import {ConfirmComponent} from "./confirm/confirm.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
@@ -23,8 +24,13 @@ const routes: Routes = [
     canActivate: [IsLogoutGuard]
   },
   {
-    path: '',
+    path: 'home',
     component: LandingPageComponent,
+    canActivate: [IsLogoutGuard]
+  },
+  {
+    path: 'confirm',
+    component: ConfirmComponent,
     canActivate: [IsLogoutGuard]
   },
   {

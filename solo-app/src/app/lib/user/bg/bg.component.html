@@ -6,15 +6,16 @@
                 [customClass]="'img__main-bg'"></app-avatar>
     <!--<img class="materialboxed" [src]="user.bg">-->
   </div>
-  <app-upload [btnName]="btn"
-              (getImg)="getLoader($event)"></app-upload>
-  <img [src]="loader.larg" *ngIf="loader">
-  <app-form *ngIf="loader" [text]="'Зберегти аватар'"
-            [class]="'btn waves-effect waves-light'"
-            [option]="loader"
-            [url]="'/api/avatar'"
-  ></app-form>
+
   <!--<app-upload [btnName]="btn"-->
               <!--(getImg)="user.bg=$event"></app-upload>-->
 </div>
 
+<app-upload [btnName]="btn"
+            (getImg)="getLoader($event)"></app-upload>
+<img [src]="loader.larg" *ngIf="loader">
+<app-form *ngIf="loader" [text]="'Зберегти аватар'"
+          [class]="'btn waves-effect waves-light'"
+          [option]="loader"
+          [url]="'/api/avatar'"
+></app-form>

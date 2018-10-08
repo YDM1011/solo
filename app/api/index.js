@@ -18,7 +18,8 @@ const upload = multer({dest: './upload/'});
 const glob = require('glob');
 
 router.post('/api/signin', [orign, verification], login);
-router.post('/api/signup', [orign, verification], signup);
+router.post('/api/signup', [orign, verification], signup.create);
+router.post('/api/confirm', [orign, verification], signup.confirm);
 router.post('/api/uploadImage', [orign, upload.single("file")], uploadFile);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);

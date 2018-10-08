@@ -39,6 +39,7 @@ export class UserService {
 
   setUserData(data){
     let self = this;
+    if (!data.photo) return;
     if (data.photo._id){
     this.userdata.next(data);
     this.user = data;
