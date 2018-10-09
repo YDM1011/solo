@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+body{
+  background-color: #e3e5e8;
+}
+.friends-list .friend-avatar img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin: 0 auto;
+}
+.collapsible-body {
+  clear: both;
+  position: absolute;
+  background: #fff;
+  z-index: 2;
+  padding: 5px!important;
+}
+.collapsible{
+  display: flex;
+  justify-content:space-around;
+  align-items: center;
+  z-index: 1;
+}

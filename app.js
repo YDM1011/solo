@@ -15,8 +15,13 @@ const subdomain = require('express-subdomain');
 const app = express();
 
 glob.app = app;
+glob.jsonParser = bodyParser.json({limit: '5mb', extended: true});
 glob.secret = "seecret";
+require('./app/middleware/getId');
 require('./app/middleware/isAuth');
+require('./app/middleware/isProfile');
+require('./app/middleware/isMyProfile');
+
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
@@ -36,8 +41,6 @@ const methodOverride = require('method-override');
 const compress = require('compression');
 const flash = require('connect-flash');
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
 app.use(methodOverride());
 app.use(compress());
 app.use(flash());
@@ -56,7 +59,6 @@ db.on('error', function () {
 });
 models.forEach(function (model) {
     require(model);
-    console.log(model.split("./app/model/")[1].split(".js")[0]);
     let nameModel = model.split("./app/model/")[1].split(".js")[0]
     const modelApi = mongoose.model(nameModel);
     restify.serve(route, modelApi);
@@ -66,7 +68,6 @@ app.use(route);
 /***************************/
 
 require('./app/config/express')(app);
-
 const static1 = require('./app/route/mainindex');
 const static2 = require('./app/route/apiindex');
 const api = require('./app/api/index');
@@ -75,22 +76,30 @@ const api = require('./app/api/index');
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({limit: '5mb', "strict": false,}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.set('subdomain offset', 1);
 app.use((req,res,next)=>{
-    console.log(req.subdomains);
     next()
 });
-app.use('/', static2);
 app.use('/', api);
-app.use(subdomain('test', static1));
-// catch 404 and forward to error handler
+// app.use((req,res,next)=> {
+//     switch (req.subdomains[0]) {
+//         case '':
+//             app.use('/', static1);
+//             break;
+//         case 'test':
+//             app.use(subdomain('test', static2));
+//             break;
+//         default:
+//             app.use('/', static1);
+//             break;
+//     }
+//     next();
+// });
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -109,12 +118,12 @@ app.use(function(err, req, res, next) {
     if(err.status == 404){
         console.log(req.subdomains);
         switch(req.subdomains[0]){
-            case '':res.render('index2', { title: req.params.path });
+            case '':res.render('index1', { title: req.params.path });
             break;
-            case 'test':res.render('index1', { title: req.params.path });
+            case 'test':res.render('index2', { title: req.params.path });
             break;
-            default:res.render('index2', { title: req.params.path });break;
-
+            default: res.render('index1', { title: req.params.path });
+            break;
         }
 
     }else{

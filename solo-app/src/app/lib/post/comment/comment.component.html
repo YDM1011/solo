@@ -1,0 +1,18 @@
+<div *ngFor="let com of comments">
+  <app-avatar [avatar]="com.userIdCom.photo"
+              [type]="'imgMin'"
+              [avatarId]="com.userIdCom.photo._id"></app-avatar>
+  <span>{{com.userIdCom.firstName}}</span>
+  <span>{{com.userIdCom.lastName}}</span>
+  <span>{{com.data | date:"HH:mm d/M/y"}}</span>
+  <p>{{com.des}}</p>
+  <button type="button" (click)="likeCom(com._id)">{{'like: '+com.likeCom.length || 0}}</button>
+</div>
+
+<textarea id="textarea2"
+          class="materialize-textarea"
+          data-length="120"
+          #desIn
+          [(ngModel)]="comment.des" name="des"
+></textarea>
+<button type="submit" (click)="commented()">Коментувати</button>

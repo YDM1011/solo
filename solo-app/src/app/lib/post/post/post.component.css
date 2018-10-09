@@ -1,0 +1,15 @@
+.posts{
+  display: flex;
+  flex-wrap: wrap;
+}
+.posts.row .card{
+  margin: 15px 0;
+}
+.avatar{
+  width: 50px;
+  height: 50px;
+  display: inline-block;
+}
+.avatar img{
+  max-width: 100%;
+}

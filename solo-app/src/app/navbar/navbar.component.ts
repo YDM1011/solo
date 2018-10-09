@@ -32,8 +32,7 @@ export class NavbarComponent implements OnInit {
       private cookieService: CookieService
   ) { }
   ngOnInit() {
-    this.http.get('http://localhost:3000/api/menu', this.getHeaders())
-        .subscribe((menu: any) => this.menuList = menu);
+
   }
 
 }
