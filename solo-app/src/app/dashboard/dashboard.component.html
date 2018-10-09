@@ -1,21 +1,65 @@
-<app-navbar [word]="'text from input'" (onNew)="it.txt = $event" #it></app-navbar>
-<p>
-  hello {{it.txt}}
-</p>
-<mz-collapsible
-  [mode]="'expandable'"
-  [popout]="false"
-  #tt
->
-  <mz-collapsible-item [active]="false">
-    <mz-collapsible-item-header>
-      {{active || 'First'}}
-    </mz-collapsible-item-header>
-    <mz-collapsible-item-body >
-      <ul>
-        <li *ngFor="let item of arr" (click)="take(item); tt.close(0)">item {{item}}</li>
-      </ul>
-      <input type="text" placeholder="hello">
-    </mz-collapsible-item-body>
-  </mz-collapsible-item>
-</mz-collapsible>
+<div class="container">
+
+  <div class="row">
+    <app-user-init [user]="user"></app-user-init>
+    <app-first-name [isInput]="true"></app-first-name>
+    <app-last-name></app-last-name>
+
+    <app-avatar [customClass]="'img__main-avatar'"
+                [type]="'imgMax'"></app-avatar>
+    <app-upload [btnName]="btn"
+                (getImg)="loader = $event"></app-upload>
+    <img [src]="loader.larg" *ngIf="loader">
+    <app-form *ngIf="loader" [text]="'Зберегти аватар'"
+              [class]="'btn waves-effect waves-light'"
+              [option]="loader"
+              [url]="'/api/avatar'"
+    ></app-form>
+
+    <app-bg></app-bg>
+    <app-update-user [id]="id"></app-update-user>
+  </div>
+  <div class="row" *ngIf="user">
+    <app-create [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create>
+  </div>
+  <div class="row">
+    <app-post [id]="id" [posts]="posts"></app-post>
+    <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
+  </div>
+</div>
+<app-show-friends *ngIf="friends" [friends]="friends.myFriends"></app-show-friends>
+<app-gallery *ngIf="photos" [photos]="photos.gallery"></app-gallery>
+<div *ngIf="people.length > 0">
+  <div *ngFor="let mean of people">
+    <img *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
+    <a [routerLink]="'/user/'+mean._id">
+      {{mean.firstName}} {{mean.lastName}}
+    </a>
+    <app-init-invite [userId]="mean._id"></app-init-invite>
+    <app-invite-friend [userId]="mean._id"></app-invite-friend>
+    <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
+    <app-meet-friend [userId]="mean._id"></app-meet-friend>
+    <app-del-friend [userId]="mean._id"></app-del-friend>
+    <app-offer-friend [userId]="mean._id"></app-offer-friend>
+    <div *ngIf="mutual[mean._id]">
+      <span>{{mutual[mean._id].length || 0}} спільних друзів</span>
+    </div>
+    <app-form
+      [hidden]="true"
+      [method]="'get'"
+      [url]="'/api/getMutual/'+mean._id"
+      (onRes)="mutual[mean._id] = $event"
+      [click]="true"
+    ></app-form>
+  </div>
+</div>
+<hr>
+
+<app-form
+          [text]="'More'"
+          [class]="'btn waves-effect waves-light'"
+          [method]="'get'"
+          [url]="'/api/user'"
+          (onRes)="more($event)"
+          [click]="true"
+></app-form>
