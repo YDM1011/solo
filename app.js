@@ -22,7 +22,7 @@ require('./app/middleware/isAuth');
 require('./app/middleware/isProfile');
 require('./app/middleware/isMyProfile');
 
-app.use(express.static(path.join(__dirname, '/solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
