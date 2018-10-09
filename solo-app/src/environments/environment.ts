@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiDomain: 'https://shrouded-fortress-43229.herokuapp.com'
+  apiDomain: 'http://localhost:5000'
 };
 
 /*
