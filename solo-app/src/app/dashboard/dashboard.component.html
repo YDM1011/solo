@@ -27,8 +27,8 @@
     <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
   </div>
 </div>
-<app-show-friends [friends]="friends.myFriends"></app-show-friends>
-<app-gallery [photos]="photos.gallery"></app-gallery>
+<app-show-friends *ngIf="friends" [friends]="friends.myFriends"></app-show-friends>
+<app-gallery *ngIf="photos" [photos]="photos.gallery"></app-gallery>
 <div *ngIf="people.length > 0">
   <div *ngFor="let mean of people">
     <img *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
