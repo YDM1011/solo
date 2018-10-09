@@ -13,9 +13,10 @@ import {ConfirmComponent} from "./confirm/confirm.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
-    canActivate: [IsLoginedGuard],
+
     children: [
-      {path:'user/:id', component:DashboardComponent}
+      {path:'user/:id', component:DashboardComponent, canActivate: [IsLoginedGuard],}
+
     ]
   },
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
     canActivate: [IsLogoutGuard]
   },
   {
-    path: 'home',
+    path: 'about',
     component: LandingPageComponent,
     canActivate: [IsLogoutGuard]
   },
