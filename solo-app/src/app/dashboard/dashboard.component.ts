@@ -17,13 +17,13 @@ export class DashboardComponent implements OnInit {
   public id: string;
   public btn = '<span class="btn waves-effect  deep-purple darken-4">Завантажити Аватар</span>';
   private maxcount: number;
-  private isShow: boolean = true;
+  public isShow: boolean = true;
   public count = 0;
   public loader;
   public limit = 4;
   public posts = [];
-  public friends = [];
-  public photos = [];
+  public friends;
+  public photos;
   public mutual = [];
   public obj: any;
   public sel: any;
