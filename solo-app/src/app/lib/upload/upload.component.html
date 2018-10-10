@@ -1,8 +1,17 @@
+<!--<<<<<<< HEAD-->
 <div isMyProfile>
-  <label>
-    <div [innerHTML]="btnName"></div>
-    <input *ngIf="multiple" class="profile-avatar" #it (change)="uploadFile($event)" multiple="multiple" type="file">
-    <!--<app-file-min (fileResult)="res($event)" [btn]="btn"></app-file-min>-->
-    <input *ngIf="!multiple" class="profile-avatar" #it (change)="uploadFile($event)" type="file">
-  </label>
+  <!--<label>-->
+    <!--<div [innerHTML]="btnName"></div>-->
+    <!--<input *ngIf="multiple" class="profile-avatar" #it (change)="uploadFile($event)" multiple="multiple" type="file">-->
+    <!--&lt;!&ndash;<app-file-min (fileResult)="res($event)" [btn]="btn"></app-file-min>&ndash;&gt;-->
+    <!--<input *ngIf="!multiple" class="profile-avatar" #it (change)="uploadFile($event)" type="file">-->
+  <!--</label>-->
+<!--=======-->
+  <!--<label >-->
+    <!--<div [innerHTML]="btnName"></div>-->
+    <!--<input *ngIf="multiple" class="profile-avatar" (change)="uploadFile()" multiple="multiple" type="file">-->
+    <!--<input *ngIf="!multiple" class="profile-avatar" (change)="uploadFile()" type="file">-->
+  <!--</label>-->
+  <app-file-min [btn]="btnName" [multiple]="multiple" (fileResult)="getPics($event)"></app-file-min>
+<!--&gt;>>>>>> 818a20ae5dc0caca1c28f2b4cbd549154bbff290-->
 </div>

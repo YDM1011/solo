@@ -15,7 +15,7 @@ const subdomain = require('express-subdomain');
 const app = express();
 
 glob.app = app;
-glob.jsonParser = bodyParser.json({limit: '50mb', extended: true});
+glob.jsonParser = bodyParser.json({limit: '5mb', extended: true});
 glob.secret = "seecret";
 require('./app/middleware/getId');
 require('./app/middleware/isAuth');
@@ -75,14 +75,9 @@ const api = require('./app/api/index');
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 
-
-// app.use(express.urlencoded({limit: '50mb'}));
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-// app.use(bodyParser({limit: '50mb'}));
-app.use(bodyParser.json({limit: '50mb', "strict": false,}));
-app.use(bodyParser.urlencoded({ extended: true, limit: '50mb'}));
+app.use(bodyParser.json({limit: '5mb', "strict": false,}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.set('subdomain offset', 1);
@@ -90,20 +85,20 @@ app.use((req,res,next)=>{
     next()
 });
 app.use('/', api);
-app.use((req,res,next)=> {
-    switch (req.subdomains[0]) {
-        case '':
-            app.use('/', static1);
-            break;
-        case 'test':
-            app.use(subdomain('test', static2));
-            break;
-        default:
-            app.use('/', static1);
-            break;
-    }
-    next();
-});
+// app.use((req,res,next)=> {
+//     switch (req.subdomains[0]) {
+//         case '':
+//             app.use('/', static1);
+//             break;
+//         case 'test':
+//             app.use(subdomain('test', static2));
+//             break;
+//         default:
+//             app.use('/', static1);
+//             break;
+//     }
+//     next();
+// });
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

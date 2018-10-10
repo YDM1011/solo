@@ -18,7 +18,7 @@ export class UserInitComponent implements OnChanges {
   ngOnChanges() {
     //noinspection TypeScriptUnresolvedFunction
     if (this.user){
-      console.log(this.user);
+      console.log('asd',this.user);
       this.auth.setUserData(this.user)
     }
   }

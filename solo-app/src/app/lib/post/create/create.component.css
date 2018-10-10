@@ -41,7 +41,7 @@
   width: 60px;
   height: 60px;
 }
-.create-post_user-img img{
+.img{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -103,19 +103,12 @@
 .create-post_content-img{
   display: flex;
   flex-wrap: wrap;
-  margin: 2px -3px -3px;
+  margin: 2px -3px 5px;
 }
 .content-img_item{
   margin: 3px;
   display: flex;
   flex: 140px 1 1;
-}
-.content-img_item img{
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
 }
 
 .create-post_comment{
@@ -204,6 +197,9 @@
   height: 30px;
   margin: 0;
   align-items: center;
+  width: 100%;
+}
+.create-post_select /deep/ .search{
   width: 100%;
 }
 .create-post_select /deep/ul.collapsible{
@@ -375,6 +371,7 @@
     font-size: 12px;
     text-transform: capitalize;
     text-decoration: underline;
+    text-underline-position: under;
     color: #000000;
   }
   .create-post_select /deep/ .search{
@@ -388,7 +385,7 @@
     padding: 2px 4px;
   }
 }
-@media (min-width: 1180px) {
+@media (min-width: 1080px) {
   .create-post_control{
     display: flex;
     align-items: center;

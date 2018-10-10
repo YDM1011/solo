@@ -5,6 +5,8 @@ import {environment} from "../../../../environments/environment";
 import {PostService} from "../post.service";
 import {count} from "rxjs/internal/operators";
 import {AuthService} from "../../../auth.service";
+import {FormApiService} from "../../form-api/form-api.service";
+import {RouterLink} from "@angular/router";
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -20,12 +22,13 @@ export class PostComponent implements OnInit {
   public isShow: boolean = true;
   public domain: string = environment.apiDomain;
   @Input() id: string;
-  @Input() posts: string;
+  @Input() posts;
   constructor(
     private core: CoreService,
     private auth: AuthService,
     private http:  HttpClient,
-    private post: PostService
+    private post: PostService,
+    private api: FormApiService
   ) { }
 
   ngOnInit() {
@@ -37,6 +40,7 @@ export class PostComponent implements OnInit {
       }
     });
   }
+
   public checkHeight(elemFantom, elemThis) {
     elemFantom.style.width = elemThis.clientWidth + 'px';
     elemThis.style.height = elemFantom.clientHeight +'px';
@@ -54,5 +58,16 @@ export class PostComponent implements OnInit {
       elemImg.classList.remove('time-abs');
     }
   }
-
+  addShare(obj){
+    // /api/share
+    let self = this;
+    this.http.post(this.domain+'/api/share', obj, this.api.getHeaders())
+      .subscribe((post: any) => {
+      if(post.userId._id == self.auth.getUserId()){
+        console.log(post);
+        // post.share.userIdShare = self.auth.getUserData().avatar;
+        self.posts.unshift(post);
+      }
+      });
+  }
 }

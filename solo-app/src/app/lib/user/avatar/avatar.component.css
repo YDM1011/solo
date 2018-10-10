@@ -1,87 +1,65 @@
 :host-context{
   z-index: 2;
 }
-.user{
-  display: block;
-  position: relative;
-  width: 100px;
-  height: 100px;
-  max-width: 200px;
-  max-height: 200px;
-}
-.user_avatar{
+.inherit{
   display: block;
   width: inherit;
   height: inherit;
 }
-.user_avatar_img{
-  display: block;
+.array{
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.full{
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  max-height: 250px;
+}
+.inherit .img{
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50%;
+  object-position: center;
 }
-:host-context /deep/ .button-av{
+
+.img__main-avatar img{
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.content-img_container{
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 4px 6px 4px 7px;
-  min-height: 22px;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  margin: -5px;
 }
-:host-context /deep/ .button-av_img{
-  display: block;
-  width: 12px;
-  height: 12px;
-  background: url("../../../../assets/smile.svg") no-repeat 50%;
-  background-size: contain;
+.content-img_item{
+  margin: 5px;
 }
-:host-context /deep/ .button-av_text{
-  display: inline;
-  padding-left: 7px;
-  box-sizing: border-box;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: capitalize;
-  color: #ffffff;
+.array .content-img_item{
+  flex: 1 1 139px;
+  min-height: 100px;
+  max-height: 250px;
 }
-@media (min-width: 400px) {
-  .user{
-    width: 115px;
-    height: 115px;
+.content-img_container .img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+@media (min-width: 768px) and (min-height: 500px){
+  .content-img_container{
+    margin: -10px;
+  }
+  .content-img_item{
+    margin: 10px;
+  }
+  .array .content-img_item{
+    flex: 1 1 200px;
   }
 }
-@media (min-width: 660px) {
-  .user{
-    width: 20vw;
-    height: 20vw;
-  }
-}
-@media (min-width: 992px) {
-  .user{
-    width: 200px;
-    height: 200px;
-  }
-  :host-context /deep/ .button-av{
-    background: transparent;
-    left:6px;
-    right: auto;
-    bottom: 5px;
-    padding: 0;
-  }
-  :host-context /deep/ .button-av_img{
-    display: block;
-    width: 20px;
-    height: 20px;
-    background: url("../../../../assets/smile.svg") no-repeat 50%;
-    background-size: contain;
-  }
-  :host-context /deep/ .button-av_text{
-    display: none;
-  }
+.img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }

@@ -12,7 +12,6 @@ export class IsMyProfileDirective {
     core: CoreService
   ) {
     //noinspection TypeScriptUnresolvedVariable
-    console.log(el.nativeElement );
     core.onGetValid.subscribe(val=>{
       if(!val){
         //noinspection TypeScriptUnresolvedVariable

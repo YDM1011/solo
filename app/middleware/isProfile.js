@@ -23,7 +23,7 @@ glob.isProfile = (req,res,next)=>{
                     if (err) return next(err);
                     if (!info) return res.forbidden("forbidden1");
                     if (info.login != data.id){
-                        return res.forbidden("forbidden");
+                        return res.forbidden(info.login + " : " + data.id);
                     }
                     req.userId = info._id;
                     // req.avatar = info.avatar;

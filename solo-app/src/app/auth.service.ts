@@ -14,6 +14,7 @@ export class AuthService {
   private domain = environment.apiDomain + '/api';
   private _signin = `${this.domain}/signin`;
   private _signup = `${this.domain}/signup`;
+  private _confirm = `${this.domain}/confirm`;
   private user: any;
 
   private userdata = new BehaviorSubject<any>(undefined);
@@ -66,6 +67,29 @@ export class AuthService {
     //noinspection TypeScriptUnresolvedFunction
     let promise = new Promise((resolve, reject) => {
       this.http.post<any>(this._signup, data, self.getHeaders()).subscribe(
+          (res: any)=>{
+            if(res && !res.err){
+              resolve(res)
+            }else if (res.err){
+              swal("Error", res.err, "error");
+              reject(res)
+            }
+          },
+        (err: any)=>{
+            if(err && err.error.error){
+              swal("Error", err.error.error, "error");
+              reject(err)
+            }
+          }
+        )
+    });
+    return promise;
+  }
+  signConfirm(data){
+    let self = this;
+    //noinspection TypeScriptUnresolvedFunction
+    let promise = new Promise((resolve, reject) => {
+      this.http.post<any>(this._confirm, data, self.getHeaders()).subscribe(
           (res: any)=>{
             if(res && !res.err){
               resolve(res)

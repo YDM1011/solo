@@ -6,9 +6,7 @@
 
   <form class="create-post {{actives}}" isMyProfile  (click)="activePost()">
 
-      <div class="create-post_user-img">
-        <img [src]="avatar" alt="avatar">
-      </div>
+      <app-avatar class="create-post_user-img" [customClass]="'inherit'"></app-avatar>
 
       <div class="create-post_user-info">
         <strong class="user-info_name">{{firstName}}</strong>
@@ -49,7 +47,7 @@
 
     <div class="create-post_content-img" *ngIf="postObg.img.length > 0">
       <span class="content-img_item" *ngFor="let img of postObg.img">
-          <img [src]="img">
+          <img class="img" [src]="img.larg">
       </span>
     </div>
 
@@ -70,7 +68,9 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body >
             <app-search class="search" (onFind)="takeFriend($event); place.close(0);"
-                        [array]="friends"></app-search>
+                        [array]="friends"
+                        [searchDropD]="false"
+            ></app-search>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
 
@@ -85,7 +85,9 @@
           </mz-collapsible-item-header>
           <mz-collapsible-item-body >
             <app-search class="search" (onFind)="takePlace($event); place.close(1);"
-                        [array]="places"></app-search>
+                        [array]="places"
+                        [searchDropD]="false"
+            ></app-search>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
 

@@ -1,8 +1,8 @@
 const mime = require('mime-types');
 const fs = require('fs');
 module.exports = (req,res,next)=>{
-    if (req.file.size > 50 * 1024 * 1024) {
-        res.badRequest(helpers.generateValidationError([{name: "image", message: "error.i18n.File is too large"}]));
+    if (req.file.size > 5 * 1024 * 1024) {
+        res.badRequest("File is too large");
         return fs.unlink(req.file.path);
     }
 

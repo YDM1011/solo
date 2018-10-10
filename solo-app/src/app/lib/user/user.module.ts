@@ -20,8 +20,12 @@ import {FormsModule} from "@angular/forms";
     IsMyProfileModule,
     FormsModule
   ],
-  exports: [AvatarComponent, BgComponent, UpdateUserComponent, UserInitComponent, FirstNameComponent, LastNameComponent],
+  exports: [AvatarComponent, BgComponent,
+    UpdateUserComponent, UserInitComponent,
+    FirstNameComponent, LastNameComponent ],
   providers: [UserService],
-  declarations: [AvatarComponent, BgComponent, UpdateUserComponent, UserInitComponent, FirstNameComponent, LastNameComponent]
+  declarations: [AvatarComponent, BgComponent,
+    UpdateUserComponent, UserInitComponent,
+    FirstNameComponent, LastNameComponent ]
 })
 export class UserModule { }

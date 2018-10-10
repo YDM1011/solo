@@ -39,5 +39,7 @@
   }
 }
 @media (min-width: 1180px) {
-
+  .button-create-post{
+    margin: 0 auto;
+  }
 }

@@ -9,7 +9,11 @@ import {CookieService} from "ngx-cookie-service";
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  public friends = [
+    {name: 'Den'},
+    {name: 'Misha'},
+    {name: 'Andry'}
+  ];
   @Input() word;
   @Output() onNew: EventEmitter<any> = new EventEmitter<any>();
   public menuList = [];
@@ -34,5 +38,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
 
   }
+  public activSearch: boolean = false;
 
 }

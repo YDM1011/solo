@@ -20,7 +20,7 @@ glob.isMyProfile = (req,res,next)=>{
             let id = req.params.id || req.body.id || req.body.userId;
             User.findOne({_id: id})
                 .exec((err, info)=>{
-                    if (err) return next(err);
+                    if (err) return res.forbidden("forbidden2");
                     if (!info) return res.forbidden("forbidden1");
                     if (info.login != data.id){
                         req.license = false;

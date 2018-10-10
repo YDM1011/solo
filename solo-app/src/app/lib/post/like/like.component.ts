@@ -11,6 +11,7 @@ import {environment} from "../../../../environments/environment";
 export class LikeComponent implements OnInit {
 
   @Input() id;
+  @Input() likes;
   private domain: string = environment.apiDomain;
   constructor(
     private http:  HttpClient,
@@ -25,6 +26,7 @@ export class LikeComponent implements OnInit {
       .subscribe((like: any) => {
         if(like){
           console.log(like);
+          self.likes = like;
         }
       },err=>{});
 

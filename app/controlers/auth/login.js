@@ -9,14 +9,14 @@ module.exports = (req, res, next) => {
     User
         .findOne({login: req.body.login})
         .exec((err, info)=>{
-            if (err) return res.status(500).send({err:'Something broke!'});
-            if (!info) return res.notFound({err:'login or password invalid'});
-            if (info.pass === md5(req.body.pass)){
+            if (err) return res.status(500).send({error:'Something broke!'});
+            if (!info) return res.notFound({error:'login or password invalid'});
+            if (info.pass === md5(req.body.pass) && info.verify){
                 const token = jwt.sign({ id: req.body.login }, glob.secret);
                 info.pass = req.body.pass;
                 res.ok(info);
             }else{
-                return res.status(400).send({err:'login or password invalid'});
+                return res.status(400).send({error:'login or password invalid'});
             }
         });
 };

@@ -1,0 +1,53 @@
+<div class="post_comment">
+  <article class="comment" *ngFor="let com of comments">
+    <div class="comment_user">
+
+      <div class="comment_user_img">
+        <!--<img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">-->
+        <app-avatar [avatar]="com.userIdCom.photo"
+                    [type]="'imgMin'"
+                    [avatarId]="com.userIdCom.photo._id"></app-avatar>
+      </div>
+
+      <div class="comment_user_info">
+        <p class="comment_user_name">
+          <strong class="comment_user_name-title">{{com.userIdCom.firstName}} {{com.userIdCom.lastName}}</strong>
+        </p>
+        <p class="comment_user_data">
+          <time [attr.dateTime]="com.data">{{com.data | date:"dd.MM.y hh:mm"}}</time>
+        </p>
+      </div>
+    </div>
+
+    <p class="comment_text">{{com.des}}</p>
+    <!--<button type="button" (click)="likeCom(com._id)">{{'like: '+com.likeCom.length || 0}}</button>-->
+  </article>
+
+  <div class="comment-new">
+
+    <div class="comment_user_img">
+      <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+    </div>
+
+    <div class="comment-new_comment">
+        <textarea class="comment-new_comment_text"
+                  #desIn
+                  placeholder="Поділіться своїми враженнями..."
+                  [(ngModel)]="comment.des"
+                  name="des"
+                  (keyup)="checkHeight(comNewFantom, desIn)"
+                  (keypress)="checkHeight(comNewFantom, desIn)"
+                  data-length="120"
+        ></textarea>
+      <div class="comment-new_fantom" #comNewFantom style="visibility:hidden;position:absolute;z-index:-1">{{comment.des}}</div>
+
+      <div class="comment-new_send">
+        <button class="comment-new_button" type="submit" (click)="commented()">
+          <span class="comment-new_button_svg">
+            <svg width="30px" height="30px" xmlns="http://www.w3.org/2000/svg"> <g> <title>background</title> <rect fill="#97c89a" id="canvas_background" height="31" width="31" y="-1" x="-1"/> <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid"> <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/> </g> </g> <g> <title>Layer 1</title> </g></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

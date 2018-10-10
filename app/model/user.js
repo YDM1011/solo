@@ -7,14 +7,36 @@ const pages = new Schema({
     firstName: {type: String, required: [true, "First name must be created"]},
     lastName: {type: String, required: [true, "Last name must be created"]},
     gender: String,
+    hash: String,
     borned: Date,
-    avatar: {
-        type: String,
-        default: ''
+    verify:{type: Boolean, default: false},
+    myFriends:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    invite:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    gallery:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "avatar"
+    }],
+    meetFriend:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    offer:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
+    photo: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "avatar"
     },
-    bg: {
-        type: String,
-        default: ''
+    bg:  {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "avatar"
     },
     token: String
 },{
@@ -39,6 +61,8 @@ module.exports = User;
 const glob = require('glob');
 const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
     mongoose.model('user')
         .findOneAndUpdate({_id: req.userId}, req.body)
         .select('-pass -token -_id')
@@ -49,18 +73,29 @@ const preUpdate = (req,res,next)=>{
         });
 };
 const preRead = (req,res,next)=>{
-    console.log(req.params.id);
-    if (req.params.id || !req.query.query){
-        next();
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    if (!req.query.query){
+        mongoose.model('user')
+            .find({})
+            .where({verify: true})
+            .select('-pass -token -login')
+            .populate({path:'photo', select:'preload _id'})
+            .populate({path:'bg', select:'preload _id'})
+            .exec((err, info) => {
+                if(err) return res.badRequest('Something broke!');
+                if(!info) return res.notFound('You are not valid');
+                return res.ok(info)
+            });
     }else if(req.query.query){
-        require("../responces/ok")(req, res);
-        require("../responces/notFound")(req, res);
-        require("../responces/badRequest")(req, res);
         let id = (JSON.parse(req.query.query)._id);
-        console.log(id);
         mongoose.model('user')
             .findOne({_id: id})
-            .select('-pass -token -_id -login')
+            .where({verify: true})
+            .select('-pass -token -login')
+            .populate({path:'photo', select:'preload _id'})
+            .populate({path:'bg', select:'preload _id'})
             .exec((err, info) => {
                 if(err) return res.badRequest('Something broke!');
                 if(!info) return res.notFound('You are not valid');

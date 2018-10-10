@@ -19,13 +19,15 @@ export class CoreService {
   public onGetValid = this.validProfile.asObservable();
 
   constructor(private http: HttpClient,
-              private _cookieService: CookieService,) {
+              private _cookieService: CookieService) {
   }
 
   private httpOptions: {headers: HttpHeaders, withCredentials: boolean};
   getHeaders(type: string = 'application/json') {
     this.httpOptions = {
-      headers: new HttpHeaders(type === 'multipart/form-data' ? {} :
+      headers: new HttpHeaders(type === 'multipart/form-data' ? {
+          'Authorization': this._cookieService.get('token')
+        } :
         {
           'Content-Type': type,
           'Authorization': this._cookieService.get('token')

@@ -1,8 +1,37 @@
-<div class="user" *ngIf="user">
-  <div class="user_avatar" *ngIf="user.avatar">
-    <img class="user_avatar_img materialboxed" [src]="user.avatar">
-  </div>
-  <app-upload [btnName]="btn"
-              (getImg)="user.avatar=$event"></app-upload>
+<div class="{{customClass}}" *ngIf="photo && !avatar  && !array">
+    <img *ngIf="!photo[type]"
+         class="materialboxed img"
+         [src]="photo.preload">
+    <img *ngIf="photo[type]"
+         class="img"
+         [src]="photo[type] || photo.imgMin">
 </div>
-
+<div class="{{customClass}}" *ngIf="type && avatar">
+  <img *ngIf="!avatar[type]" class="img"
+       [src]="avatar.preload">
+  <img *ngIf="avatar[type]" class="img"
+       [src]="avatar[type]">
+</div>
+<div class="{{customClass}}" *ngIf="array && type">
+  <div *ngIf="array[0]">
+    <div *ngIf="!array[0][type]" class="content-img_container" [class.array]="array.length > 2">
+      <div  *ngFor="let img of array" class="content-img_item">
+        <img class="activator img" *ngIf="!img[type]" [src]="img.preload" >
+      </div>
+    </div>
+    <div *ngIf="array[0][type]" class="content-img_container" [class.array]="array.length > 2">
+      <div  *ngFor="let img of array" class="content-img_item">
+        <img class="activator img" *ngIf="img[type]"  [src]="img[type]" >
+      </div>
+    </div>
+    <div  *ngFor="let img of array">
+      <app-form
+        [hidden]="true"
+        [method]="'get'"
+        [url]="'/api/avatar/'+img._id+'?select='+type"
+        (onRes)="img[type] = $event[type]"
+        [click]="true"
+      ></app-form>
+    </div>
+  </div>
+</div>
