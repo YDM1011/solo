@@ -1,6 +1,6 @@
 {
   "data": {
-    "db": "mongodb://localhost:27017/myapp",
+    "db": "mongodb://ydm1011:adn45hrf@ds249249.mlab.com:49249/talents",
     "port": "5000",
     "email": {
       "host": "smtp.mail.yahoo.com",

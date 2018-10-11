@@ -17,13 +17,13 @@ export class DashboardComponent implements OnInit {
   public id: string;
   public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span>';
   private maxcount: number;
-  private isShow: boolean = true;
+  public isShow: boolean = true;
   public count = 0;
   public loader;
   public limit = 4;
   public posts = [];
-  public friends = [];
-  public photos = [];
+  public friends;
+  public photos;
   public mutual = [];
   public obj: any;
   public sel: any;

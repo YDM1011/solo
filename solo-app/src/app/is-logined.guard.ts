@@ -16,7 +16,7 @@ export class IsLoginedGuard implements CanActivate {
       if (this.auth.isAuth()){
           return true;
       }else{
-          this.router.navigate(['signin']);  //, { queryParams: { returnUrl: state.url }}
+          this.router.navigate(['/']);  //, { queryParams: { returnUrl: state.url }}
           return false;
       }
 

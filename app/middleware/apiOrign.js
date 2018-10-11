@@ -1,5 +1,9 @@
 module.exports = (req,res,next) =>{
-    const allowedOrigins = ['http://localhost:4200', 'http://*.localhost:3000'];
+    const allowedOrigins = ['http://localhost:4200',
+        'http://*.localhost:5000',
+        'http://localhost:5000',
+        'https://shrouded-fortress-43229.herokuapp.com',
+        'https://*.shrouded-fortress-43229.herokuapp.com'];
     const origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
         res.setHeader('Access-Control-Allow-Origin', origin);

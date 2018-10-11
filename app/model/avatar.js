@@ -50,25 +50,26 @@ const preCreate = (req,res,next)=>{
             }else{
                 option = {_id: info.avatar};
             }
-            mongoose.model('user')
-                .findOneAndUpdate({_id: req.userId},
-                    {$push:{gallery:option._id}})
-                .exec((err, content) =>{
-                    if(err) {
-                        res.send(err)
+
+            mongoose.model('avatar')
+                .findOneAndUpdate(option, req.body) //шукати в архіві по аватару чи шпалерам
+                .select("preload _id")
+                .exec((err, doc)=>{
+                    if(err) return res.badRequest(err);
+                    if(!doc) return next(); //йти до postCreate
+                    if(doc){
+                        mongoose.model('user')
+                            .findOneAndUpdate({_id: req.userId},
+                                {$push:{gallery:option._id}})
+                            .exec((err, content) =>{
+                                if(err) {
+                                    res.send(err)
+                                }
+                                return res.ok(info);
+                        });
                     }
-                mongoose.model('avatar')
-                    .findOneAndUpdate(option, req.body) //шукати в архіві по аватару чи шпалерам
-                    .select("preload _id")
-                    .exec((err, doc)=>{
-                        if(err) return res.badRequest(err);
-                        if(!doc) return next(); //йти до postCreate
-                        if(doc){
-                            console.log('for bg: ',req.body.forImg);
-                            return res.ok(info);
-                        }
-                    })
-            });
+                })
+
         })
 };
 const postCreate = (req,res,next)=>{

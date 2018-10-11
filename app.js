@@ -21,6 +21,7 @@ require('./app/middleware/getId');
 require('./app/middleware/isAuth');
 require('./app/middleware/isProfile');
 require('./app/middleware/isMyProfile');
+
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
