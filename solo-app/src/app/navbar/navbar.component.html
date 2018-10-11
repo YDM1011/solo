@@ -48,7 +48,6 @@
                         [class.active]="activSearch"
                         (blur)="activSearch = !activSearch"
                         [array]="friends"
-                        (onFind)="profile = $event;"
                         [searchDropD]="true"
             ></app-search>
             <span class="search-svg" (click)="activSearch = !activSearch">
