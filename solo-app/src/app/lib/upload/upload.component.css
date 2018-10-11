@@ -1,9 +1,54 @@
+:host-context{
+  width: inherit;
+  height: inherit;
+  cursor: pointer;
+  z-index: 1;
+}
+:host-context /deep/ div,
+:host-context /deep/ label{
+  width: inherit;
+  height: inherit;
+}
+:host-context /deep/ .button-upload{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
 .profile-avatar{
   display: none;
 }
-label{
-  font-size: 16px;
+
+:host-context /deep/ .post-up_button{
+  height: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
 }
-
-
+:host-context /deep/ .post-up_svg{
+  display: block;
+  width: 16px;
+  height: 16px;
+  background: url("../../../assets/picture.svg") no-repeat center;
+  background-size: contain;
+}
+:host-context /deep/ .post-up_title{
+  display: none;
+}
+app-file-min{
+  width: inherit;
+  height: inherit;
+}
+@media (min-width: 768px) and (min-height: 500px) {
+  :host-context /deep/ .post-up_svg{
+    display: none;
+  }
+  :host-context /deep/ .post-up_title{
+    display: block;
+    font-size: 12px;
+    text-transform: capitalize;
+    text-decoration: underline;
+    text-underline-position: under;
+    color: #000000;
+  }
+}

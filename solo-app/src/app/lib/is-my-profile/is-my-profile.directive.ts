@@ -18,7 +18,7 @@ export class IsMyProfileDirective {
         el.nativeElement.style.display = 'none';
       }else{
         //noinspection TypeScriptUnresolvedVariable
-        el.nativeElement.style.display = 'block';
+        el.nativeElement.style.display = 'flex';
       }
     })
   }

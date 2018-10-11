@@ -51,5 +51,8 @@ export class CommentComponent implements OnInit {
       },err=>{});
 
   }
-
+  public checkHeight(elemFantom, elemThis) {
+    elemFantom.style.width = elemThis.clientWidth + 'px';
+    elemThis.style.height = elemFantom.clientHeight +'px';
+  }
 }

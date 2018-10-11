@@ -1,6 +1,42 @@
-<input type="text" [(ngModel)]="searchText" placeholder="search">
-<ul>
-  <li *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
-    {{itemp.name}}
-  </li>
-</ul>
+<div class="search-contain" *ngIf="!searchDropD">
+  <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="search" autocomplete="off">
+  <ul class="search-items create-post_sl">
+    <li class="search-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
+      <span class="search-item_img">
+        <img src="https://i.ytimg.com/vi/M-gs-5_irOs/hqdefault.jpg" alt="">
+      </span>
+      <span class="search-item_title">{{itemp.name}}</span>
+    </li>
+  </ul>
+</div>
+
+
+<div class="search-dropdown" *ngIf="searchDropD">
+  <input id="search-input" class="nav_search" type="text"
+         [(ngModel)]="searchText"
+         placeholder="Шукайте друзів та місця"
+         autocomplete="off"
+         (keyup)="dropdownS.open();"
+         (window:resize)="dropdownS.close()">
+  <mz-dropdown
+    [id]="'dropdown-search'"
+    [align]="'left'"
+    [belowOrigin]="true"
+    [constrainWidth]="true"
+    [dropdownButtonId]="'search-input'"
+    [gutter]="true"
+    [hover]="false"
+    [inDuration]="300"
+    [outDuration]="300"
+    [stopPropagation]="true"
+    #dropdownS
+  >
+    <mz-dropdown-item class="dropdown-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
+      <div class="search-item_img">
+        <img src="https://i.ytimg.com/vi/M-gs-5_irOs/hqdefault.jpg" alt="">
+      </div>
+      <span class="search-item_title">{{itemp.name}}</span>
+    </mz-dropdown-item>
+  </mz-dropdown>
+</div>
+

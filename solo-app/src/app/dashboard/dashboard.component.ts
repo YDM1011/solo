@@ -15,7 +15,7 @@ export class DashboardComponent implements OnInit {
   public user: any;
   public people: any = [];
   public id: string;
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Завантажити Аватар</span>';
+  public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span>';
   private maxcount: number;
   public isShow: boolean = true;
   public count = 0;

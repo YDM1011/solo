@@ -12,7 +12,7 @@ export class CreateComponent implements OnInit {
   @Input() firstName: string = '';
   @Input() avatar: string = '';
   @Input() id: string;
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Додати фото</span>';
+  public btn = '<span class="post-up_button"><span class="post-up_svg"></span><span class="post-up_title">Додати фото</span></span>';
   public postObg = new Post();
   public impressions = [
     {name: 'чудово'},
@@ -69,5 +69,20 @@ export class CreateComponent implements OnInit {
   delet(i){
     //noinspection TypeScriptValidateTypes
     this.postObg.withFriend.splice(i, 1) ;
+  }
+  deletPlace(){
+    this.placeActive = '';
+
+    delete this.postObg.inPlace.place;
+  }
+
+  public actives: string = '';
+  activePost(){
+    this.actives = 'active';
+  }
+
+  public checkHeight(elemFantom, elemThis) {
+    elemFantom.style.width = elemThis.clientWidth + 'px';
+    elemThis.style.height = elemFantom.clientHeight +'px';
   }
 }

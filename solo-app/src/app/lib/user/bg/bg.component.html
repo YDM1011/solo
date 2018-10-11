@@ -1,9 +1,10 @@
-<div *ngIf="user" class="row">
-  <div *ngIf="user.bg">
-    <app-avatar [avatar]="user.bg"
+<div *ngIf="user">
+  <div *ngIf="user.bg" class="user-bg">
+    <app-avatar class="inherit"
+                [avatar]="user.bg"
                 [avatarId]="user.bg._id"
                 [type]="'larg'"
-                [customClass]="'img__main-bg'"></app-avatar>
+                [customClass]="'inherit bg-inherit'"></app-avatar>
     <!--<img class="materialboxed" [src]="user.bg">-->
   </div>
 

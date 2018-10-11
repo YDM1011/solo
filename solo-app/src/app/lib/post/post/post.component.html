@@ -1,111 +1,235 @@
-<div class="row posts">
-  <div class="card col xs12 s6 m3" *ngFor="let item of posts">
-    <div class="post-wrap" *ngIf="!item.share.data">
-      <div class="row">
-        <app-avatar></app-avatar>
-        <!--<span class="avatar" *ngIf="item.userId.avatar">-->
-          <!--<img [src]="item.userId.avatar.preload" alt="avatar">-->
-        <!--</span>-->
-        <span class="name">
+<div *ngFor="let item of posts">
+  <article class="post" *ngIf="!item.share.data">
+
+    <div class="post_info">
+
+      <!--<span class="post_info_user-img" *ngIf="item.userId.avatar">-->
+      <!--<img [src]="item.userId.avatar.preload" alt="avatar">-->
+      <!--</span>-->
+      <app-avatar class="post_info_user-img" [customClass]="'inherit'"></app-avatar>
+
+      <span class="info_user">
+      <strong class="info_user_name">
         {{item.userId.firstName || user.firstName}}
-        {{item.userId.lastName || user.lastName}}</span>
-        <span class="impression" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-        <span class="friend" *ngIf="item.withFriend.length > 0"> з
-        <span *ngFor="let friend of item.withFriend"> {{friend.name}}</span>
+        {{item.userId.lastName || user.lastName}}</strong>
+
+      <span class="info_user_event" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
+      <span class="info_user_event" *ngIf="item.img && !item.imression.name"> додав фото</span>
+      <span class="info_user_event" *ngIf="false"> поширив страву</span>
+      <span class="info_user_event" *ngIf="false"> поширив допис</span>
+
+
+      <span class="info_user_friend" *ngIf="item.withFriend.length > 0">
+        <span class="info_user_event"> разом з</span>
+        <strong class="info_user_friend_name" *ngFor="let friend of item.withFriend"> {{friend.name}}</strong>
       </span>
-        <span class="place" *ngIf="item.inPlace.place"> у {{item.inPlace.place}}</span>
-        <span>{{item.data | date:"HH:mm d/M/y"}}</span>
-      </div>
-      <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
-        <!--<img class="activator" *ngFor="let img of item.img" [src]="img.preload" >-->
-          <app-avatar
-            [array]="item.img"
-            [type]="'imgMax'"></app-avatar>
 
+      <span class="info_user_place"  *ngIf="item.inPlace.place">
+        <span class="info_user_event"> у </span>
+        <span class="info_user_place_name">
+            <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+            <strong>{{item.inPlace.place}}</strong>
+        </span>
+      </span>
+    </span>
+
+      <p class="info_data">
+        <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y hh:mm"}}</time>
+      </p>
+
+      <div class="info_user-select">
+        <span class="info_user-select_button" (click)="infoSelect.classList.toggle('active')">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490 490" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><g><path d="M304.5,245c0-32.8-26.7-59.5-59.5-59.5s-59.5,26.7-59.5,59.5s26.7,59.5,59.5,59.5S304.5,277.8,304.5,245z M245,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S264.3,280,245,280z"/><path d="M59.5,185.5C26.7,185.5,0,212.2,0,245s26.7,59.5,59.5,59.5S119,277.8,119,245S92.3,185.5,59.5,185.5z M59.5,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S78.8,280,59.5,280z"/><path d="M430.5,185.5c-32.8,0-59.5,26.7-59.5,59.5s26.7,59.5,59.5,59.5S490,277.8,490,245S463.3,185.5,430.5,185.5z M430.5,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S449.8,280,430.5,280z"/></g></g></svg>
+        </span>
+
+        <ul #infoSelect class="info_user-select_items" (click)="infoSelect.classList.remove('active')">
+          <li class="info_user-select_item">
+                <span class="info_user-select_item-svg">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><g><path d="M495.893,109.682H343.933c-7.602-41.319-43.863-72.731-87.347-72.731s-79.744,31.412-87.346,72.731H16.107C7.211,109.682,0,116.893,0,125.789v333.153c0,8.895,7.211,16.107,16.107,16.107h479.787c8.895,0,16.107-7.211,16.107-16.107V125.789C512,116.893,504.789,109.682,495.893,109.682z M256.586,69.165c25.63,0,47.337,17.116,54.292,40.518H202.296C209.25,86.28,230.958,69.165,256.586,69.165z M107.923,442.835h-75.71v-300.94h75.71V442.835z M371.864,442.835H140.136v-300.94h231.727V442.835z M479.787,442.835h-75.71v-300.94h75.71V442.835z"/></g></g></svg>
+                </span>
+            <span class="info_user-select_item-title">Hello</span>
+          </li>
+          <li class="info_user-select_item">
+            <span class="info_user-select_item-title">Відкрити у новій вкладці</span>
+          </li>
+        </ul>
       </div>
-      <div class="card-content">
-        <span class="card-title activator grey-text text-darken-4">{{item.title}}<i class="material-icons right">more_vert</i></span>
-        <p>{{item.des}}</p>
-      </div>
-      <div>
-        <app-like [id]="item._id" [likes]="item.like"></app-like>
-      </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
-        <p>{{item.des}}</p>
-      </div>
-      <button
-        [swal]="{ title: 'text share', input: 'text' }"
-        (confirm)="addShare({postId:item._id,des:$event})"
-        class="btn waves-effect waves-light">
-        Поширити
-      </button>
-      <!--<button type="button" (click)="addShare({postId:item._id,des:'test'})" class="btn waves-effect waves-light">Поширити</button>-->
-      <app-comment [postId]="item._id" [comments]="item.commentId"></app-comment>
+
     </div>
-    <div class="post-wrap share" *ngIf="item.share.data">
-      <div class="row" *ngIf="item.share.userIdShare">
-        <app-avatar></app-avatar>
-        <!--<span class="avatar" *ngIf="item.share.userIdShare.avatar &&-->
-          <!--item.share.userIdShare.avatar.preload">-->
-          <!--<img [src]="item.share.userIdShare.avatar.preload" alt="avatar">-->
-        <!--</span>-->
-        <span class="name">
-        {{item.share.userIdShare.firstName || user.firstName}}
-        {{item.share.userIdShare.lastName || user.lastName}}</span>
 
-        <span>{{item.data | date:"HH:mm d/M/y"}}</span>
-      </div>
-      <div class="row" *ngIf="item.share.des">
-        <p>{{item.share.des}}</p>
+    <div class="post_content">
+      <p class="post_content_text" *ngIf="item.des">{{item.des}}</p>
+      <!--<div class="post_content_img-container" *ngIf="item.img">-->
+      <!--<span class="post_content_img" *ngFor="let img of item.img">-->
+      <!--<img class="img activator" [src]="img.preload">-->
+      <!--</span>-->
+      <!--</div>-->
+      <app-avatar *ngIf="item.img" class="post_content_img-container"
+                  [array]="item.img"
+                  [type]="'imgMax'"></app-avatar>
+
+
+    </div>
+
+    <div class="post_select">
+
+      <app-like [id]="item._id" [likes]="item.like"></app-like>
+
+      <div class="button-component">
+        <button class="button" (click)="postComment.classList.toggle('active');postComment.style.height = postComHeight.offsetHeight;">
+      <span class="button-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.62 511.619" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><g><path d="M301.923,327.602c30.93-13.038,55.34-30.785,73.228-53.248c17.891-22.458,26.837-46.915,26.837-73.372c0-26.458-8.946-50.914-26.837-73.376c-17.888-22.459-42.298-40.208-73.228-53.249c-30.93-13.039-64.571-19.556-100.928-19.556c-36.354,0-69.995,6.521-100.927,19.56C69.14,87.4,44.729,105.149,26.84,127.609C8.947,150.068,0,174.523,0,200.982c0,22.648,6.764,43.975,20.276,63.957c13.512,19.985,32.071,36.833,55.671,50.535c-1.902,4.572-3.853,8.754-5.852,12.566c-2,3.806-4.377,7.467-7.139,10.991c-2.76,3.525-4.899,6.283-6.423,8.275c-1.523,1.998-3.997,4.809-7.424,8.422c-3.428,3.617-5.618,5.996-6.567,7.135c0-0.191-0.383,0.24-1.143,1.287c-0.763,1.047-1.191,1.52-1.287,1.431c-0.094-0.103-0.476,0.373-1.141,1.42c-0.666,1.048-1,1.571-1,1.571l-0.715,1.423c-0.284,0.568-0.476,1.137-0.57,1.712c-0.096,0.567-0.144,1.19-0.144,1.854s0.094,1.28,0.286,1.854c0.383,2.471,1.477,4.466,3.284,5.996c1.809,1.52,3.757,2.279,5.854,2.279h0.857c9.515-1.332,17.701-2.854,24.552-4.569c29.312-7.614,55.771-19.797,79.372-36.545c17.128,3.046,33.88,4.568,50.248,4.568C237.349,347.156,270.994,340.641,301.923,327.602z M142.184,303.767l-12.564,8.846c-5.33,3.614-11.227,7.331-17.7,11.14l9.995-23.986l-27.694-15.988c-18.276-10.656-32.454-23.219-42.542-37.685c-10.089-14.465-15.131-29.502-15.131-45.111c0-19.417,7.474-37.594,22.414-54.534c14.938-16.94,35.067-30.358,60.382-40.259c25.313-9.895,52.532-14.847,81.653-14.847c29.121,0,56.342,4.952,81.654,14.847c25.313,9.9,45.442,23.319,60.388,40.259c14.94,16.939,22.408,35.116,22.408,54.534c0,19.414-7.468,37.59-22.408,54.53c-14.945,16.945-35.074,30.36-60.388,40.256c-25.312,9.897-52.53,14.846-81.654,14.846c-14.272,0-28.833-1.335-43.681-3.997L142.184,303.767z"/><path d="M491.347,338.156c13.518-19.896,20.272-41.255,20.272-64.098c0-23.411-7.139-45.303-21.409-65.666c-14.277-20.362-33.694-37.305-58.245-50.819c4.374,14.274,6.563,28.739,6.563,43.398c0,25.503-6.368,49.676-19.129,72.519c-12.752,22.836-31.025,43.01-54.816,60.524c-22.08,15.988-47.205,28.261-75.377,36.829c-28.164,8.562-57.573,12.848-88.218,12.848c-5.708,0-14.084-0.377-25.122-1.137c38.256,25.119,83.177,37.685,134.756,37.685c16.371,0,33.119-1.526,50.251-4.571c23.6,16.755,50.06,28.931,79.37,36.549c6.852,1.718,15.037,3.237,24.554,4.568c2.283,0.195,4.381-0.476,6.283-1.995c1.903-1.526,3.142-3.614,3.71-6.276c-0.089-1.143,0-1.77,0.287-1.861c0.281-0.09,0.233-0.712-0.144-1.852c-0.376-1.144-0.568-1.715-0.568-1.715l-0.712-1.424c-0.198-0.376-0.52-0.903-0.999-1.567c-0.476-0.66-0.855-1.14-1.143-1.427c-0.28-0.284-0.705-0.763-1.28-1.424c-0.568-0.66-0.951-1.092-1.143-1.283c-0.951-1.143-3.139-3.521-6.564-7.139c-3.429-3.613-5.899-6.42-7.422-8.418c-1.523-1.999-3.665-4.757-6.424-8.282c-2.758-3.518-5.14-7.183-7.139-10.991c-1.998-3.806-3.949-7.995-5.852-12.56C459.281,374.855,477.843,358.059,491.347,338.156z"/></g></g></svg>
+      </span>
+          <span class="button-title">Коментувати</span>
+          <span class="button-value">21</span>
+        </button>
       </div>
 
-      <div class="card">
-        <div class="">
-          <!--<img [src]="item.userId.avatar.preload" alt="avatar">-->
-          <app-avatar [avatar]="item.userId.photo"
+      <div class="button-component">
+        <button class="button"
+                [swal]="{ title: 'text share', input: 'text' }"
+                (confirm)="addShare({postId:item._id,des:$event})">
+        <span class="button-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 487.958 487.958" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><path d="M483.058,215.613l-215.5-177.6c-4-3.3-9.6-4-14.3-1.8c-4.7,2.2-7.7,7-7.7,12.2v93.6c-104.6,3.8-176.5,40.7-213.9,109.8c-32.2,59.6-31.9,130.2-31.6,176.9c0,3.8,0,7.4,0,10.8c0,6.1,4.1,11.5,10.1,13.1c1.1,0.3,2.3,0.4,3.4,0.4c4.8,0,9.3-2.5,11.7-6.8c73-128.7,133.1-134.9,220.2-135.2v93.3c0,5.2,3,10,7.8,12.2s10.3,1.5,14.4-1.8l215.4-178.2c3.1-2.6,4.9-6.4,4.9-10.4S486.158,218.213,483.058,215.613z M272.558,375.613v-78.1c0-3.6-1.4-7-4-9.5c-2.5-2.5-6-4-9.5-4c-54.4,0-96.1,1.5-136.6,20.4c-35,16.3-65.3,44-95.2,87.5c1.2-39.7,6.4-87.1,28.1-127.2c34.4-63.6,101-95.1,203.7-96c7.4-0.1,13.4-6.1,13.4-13.5v-78.2l180.7,149.1L272.558,375.613z"/></g></svg>
+        </span>
+          <span class="button-title">Пoширити</span>
+          <span class="button-value">21</span>
+        </button>
+      </div>
+
+    </div>
+    <app-comment class="post_comment-container" [postId]="item._id" [comments]="item.commentId"></app-comment>
+
+  </article>
+
+  <article class="post share" *ngIf="item.share.data">
+
+    <div class="post_info share" *ngIf="item.share.userIdShare">
+
+      <!--<span class="post_info_user-img" *ngIf="item.share.userIdShare.avatar && item.share.userIdShare.avatar.preload">-->
+        <!--<img [src]="item.share.userIdShare.avatar.preload" alt="avatar">-->
+      <!--</span>-->
+      <app-avatar class="post_info_user-img" [customClass]="'inherit'"></app-avatar>
+
+      <span class="info_user">
+        <strong class="info_user_name">
+          {{item.share.userIdShare.firstName || user.firstName}}
+          {{item.share.userIdShare.lastName || user.lastName}}</strong>
+
+        <span class="info_user_event" *ngIf="true"> поширив допис</span>
+      </span>
+
+      <p class="info_data">
+        <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y hh:mm"}}</time>
+      </p>
+
+      <div class="info_user-select">
+        <span class="info_user-select_button" (click)="infoSelect.classList.toggle('active')">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 490 490" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><g><path d="M304.5,245c0-32.8-26.7-59.5-59.5-59.5s-59.5,26.7-59.5,59.5s26.7,59.5,59.5,59.5S304.5,277.8,304.5,245z M245,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S264.3,280,245,280z"/><path d="M59.5,185.5C26.7,185.5,0,212.2,0,245s26.7,59.5,59.5,59.5S119,277.8,119,245S92.3,185.5,59.5,185.5z M59.5,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S78.8,280,59.5,280z"/><path d="M430.5,185.5c-32.8,0-59.5,26.7-59.5,59.5s26.7,59.5,59.5,59.5S490,277.8,490,245S463.3,185.5,430.5,185.5z M430.5,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S449.8,280,430.5,280z"/></g></g></svg>
+        </span>
+
+        <ul #infoSelect class="info_user-select_items" (click)="infoSelect.classList.remove('active')">
+          <li class="info_user-select_item">
+                <span class="info_user-select_item-svg">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><g><path d="M495.893,109.682H343.933c-7.602-41.319-43.863-72.731-87.347-72.731s-79.744,31.412-87.346,72.731H16.107C7.211,109.682,0,116.893,0,125.789v333.153c0,8.895,7.211,16.107,16.107,16.107h479.787c8.895,0,16.107-7.211,16.107-16.107V125.789C512,116.893,504.789,109.682,495.893,109.682z M256.586,69.165c25.63,0,47.337,17.116,54.292,40.518H202.296C209.25,86.28,230.958,69.165,256.586,69.165z M107.923,442.835h-75.71v-300.94h75.71V442.835z M371.864,442.835H140.136v-300.94h231.727V442.835z M479.787,442.835h-75.71v-300.94h75.71V442.835z"/></g></g></svg>
+                </span>
+            <span class="info_user-select_item-title">Hello</span>
+          </li>
+          <li class="info_user-select_item">
+            <span class="info_user-select_item-title">Відкрити у новій вкладці</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="post_content">
+      <p class="post_content_text" *ngIf="item.share.des">{{item.share.des}}</p>
+
+      <article class="post post_share">
+        <div class="post_info post_share">
+
+          <app-avatar class="post_info_user-img" [customClass]="'inherit'"
+                      [avatar]="item.userId.photo"
                       [avatarId]="item.userId.photo._id"
                       [type]="'imgMin'"></app-avatar>
 
-          <a [routerLink]="'/user/'+item.userId._id" class="name">
-            {{item.userId.firstName || user.firstName}}
-            {{item.userId.lastName || user.lastName}}
-          </a>
-          <span class="impression" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-          <span class="friend" *ngIf="item.withFriend.length > 0"> з
-        <span *ngFor="let friend of item.withFriend"> {{friend.name}}</span>
-      </span>
-          <span class="place" *ngIf="item.inPlace.place"> у {{item.inPlace.place}}</span>
-          <span>{{item.share.data | date:"HH:mm d/M/y"}}</span>
+          <span class="info_user">
+            <a [routerLink]="'/user/'+item.userId._id" class="info_user_name">
+              {{item.userId.firstName || user.firstName}}
+              {{item.userId.lastName || user.lastName}}</a>
+
+            <span class="info_user_event" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
+            <span class="info_user_event" *ngIf="item.img && !item.imression.name"> додав фото</span>
+            <span class="info_user_event" *ngIf="false"> поширив страву</span>
+
+            <span class="info_user_friend" *ngIf="item.withFriend.length > 0">
+              <span class="info_user_event"> разом з</span>
+              <strong class="info_user_friend_name" *ngFor="let friend of item.withFriend"> {{friend.name}}</strong>
+            </span>
+
+            <span class="info_user_place"  *ngIf="item.inPlace.place">
+              <span class="info_user_event"> у </span>
+              <span class="info_user_place_name">
+                  <img src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+                  <strong>{{item.inPlace.place}}</strong>
+              </span>
+            </span>
+          </span>
+          <p class="info_data">
+            <time [attr.dateTime]="item.share.data">{{item.share.data | date:"dd.MM.y hh:mm"}}</time>
+          </p>
         </div>
-        <div class="card-image waves-effect waves-block waves-light" *ngIf="item.img">
-          <!--<img class="activator" *ngFor="let img of item.img" [src]="img.preload" >-->
-          <div *ngFor="let img of item.img">
-          <app-avatar
-                      [avatar]="img"
-                      [type]="'imgMax'"></app-avatar>
+        <div class="post_content">
+          <p class="post_content_text" *ngIf="item.des">{{item.des}}</p>
+          <!--<div class="post_content_img-container" *ngIf="item.img">-->
+          <!--<span class="post_content_img" *ngFor="let img of item.img">-->
+          <!--<img class="img activator" [src]="img.preload">-->
+          <!--</span>-->
+          <!--</div>-->
+
+          <div class="post_content_img-container post_share" *ngIf="item.img" [class.array]="item.img.length > 2">
+            <div *ngFor="let img of item.img"  class="post_content_img post_share">
+              <app-avatar
+                [customClass]="'full'"
+                [avatar]="img"
+                [type]="'imgMax'"></app-avatar>
+            </div>
           </div>
         </div>
-        <div class="card-content">
-          <span class="card-title activator grey-text text-darken-4">{{item.title}}<i class="material-icons right">more_vert</i></span>
-          <p>{{item.des}}</p>
-        </div>
+
+      </article>
+    </div>
+
+    <div class="post_select">
+
+      <app-like [id]="item._id" [likes]="item.like"></app-like>
+
+      <div class="button-component">
+        <button class="button" (click)="postComment.classList.toggle('active');postComment.style.height = postComHeight.offsetHeight;">
+      <span class="button-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 511.62 511.619" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><g><path d="M301.923,327.602c30.93-13.038,55.34-30.785,73.228-53.248c17.891-22.458,26.837-46.915,26.837-73.372c0-26.458-8.946-50.914-26.837-73.376c-17.888-22.459-42.298-40.208-73.228-53.249c-30.93-13.039-64.571-19.556-100.928-19.556c-36.354,0-69.995,6.521-100.927,19.56C69.14,87.4,44.729,105.149,26.84,127.609C8.947,150.068,0,174.523,0,200.982c0,22.648,6.764,43.975,20.276,63.957c13.512,19.985,32.071,36.833,55.671,50.535c-1.902,4.572-3.853,8.754-5.852,12.566c-2,3.806-4.377,7.467-7.139,10.991c-2.76,3.525-4.899,6.283-6.423,8.275c-1.523,1.998-3.997,4.809-7.424,8.422c-3.428,3.617-5.618,5.996-6.567,7.135c0-0.191-0.383,0.24-1.143,1.287c-0.763,1.047-1.191,1.52-1.287,1.431c-0.094-0.103-0.476,0.373-1.141,1.42c-0.666,1.048-1,1.571-1,1.571l-0.715,1.423c-0.284,0.568-0.476,1.137-0.57,1.712c-0.096,0.567-0.144,1.19-0.144,1.854s0.094,1.28,0.286,1.854c0.383,2.471,1.477,4.466,3.284,5.996c1.809,1.52,3.757,2.279,5.854,2.279h0.857c9.515-1.332,17.701-2.854,24.552-4.569c29.312-7.614,55.771-19.797,79.372-36.545c17.128,3.046,33.88,4.568,50.248,4.568C237.349,347.156,270.994,340.641,301.923,327.602z M142.184,303.767l-12.564,8.846c-5.33,3.614-11.227,7.331-17.7,11.14l9.995-23.986l-27.694-15.988c-18.276-10.656-32.454-23.219-42.542-37.685c-10.089-14.465-15.131-29.502-15.131-45.111c0-19.417,7.474-37.594,22.414-54.534c14.938-16.94,35.067-30.358,60.382-40.259c25.313-9.895,52.532-14.847,81.653-14.847c29.121,0,56.342,4.952,81.654,14.847c25.313,9.9,45.442,23.319,60.388,40.259c14.94,16.939,22.408,35.116,22.408,54.534c0,19.414-7.468,37.59-22.408,54.53c-14.945,16.945-35.074,30.36-60.388,40.256c-25.312,9.897-52.53,14.846-81.654,14.846c-14.272,0-28.833-1.335-43.681-3.997L142.184,303.767z"/><path d="M491.347,338.156c13.518-19.896,20.272-41.255,20.272-64.098c0-23.411-7.139-45.303-21.409-65.666c-14.277-20.362-33.694-37.305-58.245-50.819c4.374,14.274,6.563,28.739,6.563,43.398c0,25.503-6.368,49.676-19.129,72.519c-12.752,22.836-31.025,43.01-54.816,60.524c-22.08,15.988-47.205,28.261-75.377,36.829c-28.164,8.562-57.573,12.848-88.218,12.848c-5.708,0-14.084-0.377-25.122-1.137c38.256,25.119,83.177,37.685,134.756,37.685c16.371,0,33.119-1.526,50.251-4.571c23.6,16.755,50.06,28.931,79.37,36.549c6.852,1.718,15.037,3.237,24.554,4.568c2.283,0.195,4.381-0.476,6.283-1.995c1.903-1.526,3.142-3.614,3.71-6.276c-0.089-1.143,0-1.77,0.287-1.861c0.281-0.09,0.233-0.712-0.144-1.852c-0.376-1.144-0.568-1.715-0.568-1.715l-0.712-1.424c-0.198-0.376-0.52-0.903-0.999-1.567c-0.476-0.66-0.855-1.14-1.143-1.427c-0.28-0.284-0.705-0.763-1.28-1.424c-0.568-0.66-0.951-1.092-1.143-1.283c-0.951-1.143-3.139-3.521-6.564-7.139c-3.429-3.613-5.899-6.42-7.422-8.418c-1.523-1.999-3.665-4.757-6.424-8.282c-2.758-3.518-5.14-7.183-7.139-10.991c-1.998-3.806-3.949-7.995-5.852-12.56C459.281,374.855,477.843,358.059,491.347,338.156z"/></g></g></svg>
+      </span>
+          <span class="button-title">Коментувати</span>
+          <span class="button-value">21</span>
+        </button>
       </div>
 
-      <div>
-        <app-like [id]="item._id" [likes]="item.like"></app-like>
+      <div class="button-component">
+        <button class="button"
+                [swal]="{ title: 'text share', input: 'text' }"
+                (confirm)="addShare({postId:item._id,des:$event})">
+        <span class="button-svg">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 487.958 487.958" style="enable-background:new 0 0 50 50;" xml:space="preserve"><g><path d="M483.058,215.613l-215.5-177.6c-4-3.3-9.6-4-14.3-1.8c-4.7,2.2-7.7,7-7.7,12.2v93.6c-104.6,3.8-176.5,40.7-213.9,109.8c-32.2,59.6-31.9,130.2-31.6,176.9c0,3.8,0,7.4,0,10.8c0,6.1,4.1,11.5,10.1,13.1c1.1,0.3,2.3,0.4,3.4,0.4c4.8,0,9.3-2.5,11.7-6.8c73-128.7,133.1-134.9,220.2-135.2v93.3c0,5.2,3,10,7.8,12.2s10.3,1.5,14.4-1.8l215.4-178.2c3.1-2.6,4.9-6.4,4.9-10.4S486.158,218.213,483.058,215.613z M272.558,375.613v-78.1c0-3.6-1.4-7-4-9.5c-2.5-2.5-6-4-9.5-4c-54.4,0-96.1,1.5-136.6,20.4c-35,16.3-65.3,44-95.2,87.5c1.2-39.7,6.4-87.1,28.1-127.2c34.4-63.6,101-95.1,203.7-96c7.4-0.1,13.4-6.1,13.4-13.5v-78.2l180.7,149.1L272.558,375.613z"/></g></svg>
+        </span>
+          <span class="button-title">Пoширити</span>
+          <span class="button-value">21</span>
+        </button>
       </div>
-      <div class="card-reveal">
-        <span class="card-title grey-text text-darken-4">{{item.title}}<i class="material-icons right">close</i></span>
-        <p>{{item.des}}</p>
-      </div>
-      <button
-        [swal]="{ title: 'text share', input: 'text' }"
-        (confirm)="addShare({postId:item._id,des:$event})"
-        class="btn waves-effect waves-light">
-        Поширити
-      </button>
-      <app-comment [postId]="item._id" [comments]="item.commentId"></app-comment>
+
     </div>
-  </div>
+    <app-comment class="post_comment-container" [postId]="item._id" [comments]="item.commentId"></app-comment>
+
+  </article>
+
 </div>

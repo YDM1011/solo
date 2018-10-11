@@ -11,7 +11,7 @@ import {FormApiService} from "../../form-api/form-api.service";
 })
 export class AvatarComponent implements OnInit, OnChanges {
   public photo: any;
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Завантажити Аватар</span>';
+  public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span> ';
   public loader: any;
   public img: any;
   domain: string = environment.apiDomain;
@@ -20,6 +20,7 @@ export class AvatarComponent implements OnInit, OnChanges {
   @Input() type: string = 'imgMin';
   @Input() array;
   @Input() customClass;
+
   constructor(
     private http:  HttpClient,
     private api: FormApiService,

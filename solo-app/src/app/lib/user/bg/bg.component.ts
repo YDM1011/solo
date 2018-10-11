@@ -9,7 +9,7 @@ import {User} from "../user";
 })
 export class BgComponent implements OnInit {
 
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Додати шпалери</span>';
+  public btn = '<span class="button-bg button-upload"><span class="button-bg_img"></span><span class="button-bg_text">Редагувати</span></span>';
   public user: User;
   public loader: any;
 
