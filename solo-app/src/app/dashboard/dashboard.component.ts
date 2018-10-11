@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   public id: string;
   public btn = '<span class="btn waves-effect  deep-purple darken-4">Завантажити Аватар</span>';
   private maxcount: number;
-  public isShow: boolean = true;
+  public isShow: boolean = false;
   public count = 0;
   public loader;
   public limit = 4;
@@ -124,7 +124,7 @@ export class DashboardComponent implements OnInit {
 
   }
   check(){
-    if(this.maxcount-this.limit<this.limit*this.count){
+    if(this.maxcount-this.limit<=this.limit*this.count){
       this.isShow = false
     }else{
       this.isShow = true
