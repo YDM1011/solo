@@ -25,8 +25,8 @@ require('./app/middleware/isMyProfile');
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
-    'http://localhost:4200',
-    'http://test.localhost:3000',
+    'http://localhost:5000',
+    'http://*.localhost:5000',
 ];
 const corsOptions = {
     origin: function(origin, callback){
