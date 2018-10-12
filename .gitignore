@@ -1,7 +1,9 @@
 # Node build artifacts
 .idea
 npm-debug.log
+upload
 node_modules
+
 # Local development
 *.env
 *.dev

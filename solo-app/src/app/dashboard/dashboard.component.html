@@ -15,7 +15,10 @@
         </div>
 
 
-        <app-bg></app-bg>
+        <div class="head-prof_bg">
+          <app-bg></app-bg>
+        </div>
+
 
         <div class="head-prof_user-name">
           <app-first-name [isInput]="true"></app-first-name>
@@ -25,7 +28,12 @@
 
         <app-update-user class="head-prof_update" [id]="id"></app-update-user>
 
-        <img [src]="loader.larg" *ngIf="loader">
+
+        <div class="head-prof_loader">
+          <img class="img" [src]="loader.larg" *ngIf="loader">
+        </div>
+
+
         <app-form *ngIf="loader" [text]="'Зберегти аватар'"
                   [class]="'btn waves-effect waves-light'"
                   [option]="loader"
@@ -41,6 +49,81 @@
       </div>
 
       <div class="container-tape">
+
+        <div class="friends-container">
+          <div class="friends-container_header">
+            <div class="friends-container_category-parent">
+              <span #friend class="friends-container_category active"
+                    (click)="friend.classList.add('active'); newFriend.classList.remove('active');"
+              >Всі друзі</span>
+              <span #newFriend class="friends-container_category"
+                    (click)="newFriend.classList.add('active'); friend.classList.remove('active');"
+              >Нові друзі</span>
+            </div>
+          </div>
+          <div #Frnd  class="friends-container_content" *ngIf="people.length > 0">
+            <div class="friends-container_element" *ngFor="let mean of people">
+
+                <div class="friends-container_element_user">
+                  <a class="friends-container_element_user-img-link" [routerLink]="'/user/'+mean._id">
+                    <img *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
+                  </a>
+                  <div class="friends-container_element_user-info">
+                    <a class="friends-container_element_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
+                    <p class="friends-container_element_user-info_common" *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+                  </div>
+                </div>
+
+                <div class="friends-container_element_button">
+                  <app-del-friend [userId]="mean._id"></app-del-friend>
+                  <app-meet-friend [userId]="mean._id"></app-meet-friend>
+
+
+                  <app-form
+                    style="display: none"
+                    [hidden]="true"
+                    [method]="'get'"
+                    [url]="'/api/getMutual/'+mean._id"
+                    (onRes)="mutual[mean._id] = $event"
+                    [click]="true"
+                  ></app-form>
+                </div>
+
+            </div>
+          </div>
+          <div class="friends-container_content" *ngIf="people.length > 0">
+            <div class="friends-container_element" *ngFor="let mean of people">
+
+              <div class="friends-container_element_user">
+                <a class="friends-container_element_user-img-link" [routerLink]="'/user/'+mean._id">
+                  <img class="img" *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
+                </a>
+                <div class="friends-container_element_user-info">
+                  <a class="friends-container_element_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
+                  <p class="friends-container_element_user-info_common" *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+                </div>
+              </div>
+
+              <div class="friends-container_element_button">
+                <app-init-invite [userId]="mean._id"></app-init-invite>
+
+                <app-invite-friend [userId]="mean._id"></app-invite-friend>
+                <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
+                <app-offer-friend [userId]="mean._id"></app-offer-friend>
+
+                <app-form
+                  style="display: none"
+                  [hidden]="true"
+                  [method]="'get'"
+                  [url]="'/api/getMutual/'+mean._id"
+                  (onRes)="mutual[mean._id] = $event"
+                  [click]="true"
+                ></app-form>
+              </div>
+
+            </div>
+          </div>
+        </div>
         <app-create *ngIf="user" [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create>
 
         <app-post [id]="id" [posts]="posts"></app-post>
@@ -64,30 +147,7 @@
 
     <app-show-friends *ngIf="friends" [friends]="friends.myFriends"></app-show-friends>
     <app-gallery *ngIf="photos" [photos]="photos.gallery"></app-gallery>
-    <div *ngIf="people.length > 0">
-      <div *ngFor="let mean of people">
-        <img *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
-        <a [routerLink]="'/user/'+mean._id">
-          {{mean.firstName}} {{mean.lastName}}
-        </a>
-        <app-init-invite [userId]="mean._id"></app-init-invite>
-        <app-invite-friend [userId]="mean._id"></app-invite-friend>
-        <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
-        <app-meet-friend [userId]="mean._id"></app-meet-friend>
-        <app-del-friend [userId]="mean._id"></app-del-friend>
-        <app-offer-friend [userId]="mean._id"></app-offer-friend>
-        <div *ngIf="mutual[mean._id]">
-          <span>{{mutual[mean._id].length || 0}} спільних друзів</span>
-        </div>
-        <app-form
-          [hidden]="true"
-          [method]="'get'"
-          [url]="'/api/getMutual/'+mean._id"
-          (onRes)="mutual[mean._id] = $event"
-          [click]="true"
-        ></app-form>
-      </div>
-    </div>
+
   </div>
 </div>
 

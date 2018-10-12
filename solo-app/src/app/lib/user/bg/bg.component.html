@@ -14,8 +14,9 @@
 
 <app-upload [btnName]="btn"
             (getImg)="getLoader($event)"></app-upload>
-<img [src]="loader.larg" *ngIf="loader">
-<app-form *ngIf="loader" [text]="'Зберегти аватар'"
+<img class="img" [src]="loader.larg" *ngIf="loader">
+<app-form class="loader"
+          *ngIf="loader" [text]="'Зберегти аватар'"
           [class]="'btn waves-effect waves-light'"
           [option]="loader"
           [url]="'/api/avatar'"

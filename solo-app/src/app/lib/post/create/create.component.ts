@@ -70,19 +70,4 @@ export class CreateComponent implements OnInit {
     //noinspection TypeScriptValidateTypes
     this.postObg.withFriend.splice(i, 1) ;
   }
-  deletPlace(){
-    this.placeActive = '';
-
-    delete this.postObg.inPlace.place;
-  }
-
-  public actives: string = '';
-  activePost(){
-    this.actives = 'active';
-  }
-
-  public checkHeight(elemFantom, elemThis) {
-    elemFantom.style.width = elemThis.clientWidth + 'px';
-    elemThis.style.height = elemFantom.clientHeight +'px';
-  }
 }

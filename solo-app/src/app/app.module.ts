@@ -24,6 +24,7 @@ import { InitLayoutComponent } from './init-layout/init-layout.component';
 import { GalleryComponent } from './lib/gallery/gallery.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

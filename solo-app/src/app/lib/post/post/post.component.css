@@ -282,6 +282,11 @@
   height: 0;
   min-height:0;
 }
+.active.post_comment-container{
+  opacity: 1;
+  min-height: 73px;
+  height: fit-content;
+}
 
 @media (min-width: 768px) and (min-height: 500px){
   .post{
