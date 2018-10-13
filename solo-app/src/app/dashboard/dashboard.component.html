@@ -66,7 +66,12 @@
 
                 <div class="friends-container_element_user">
                   <a class="friends-container_element_user-img-link" [routerLink]="'/user/'+mean._id">
-                    <img *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
+                    <app-avatar *ngIf="mean.photo"
+                                [avatar]="mean.photo"
+                                [avatarId]="mean.photo._id"
+                                [customClass]="'inherit'"
+                                [type]="'imgMin'"
+                                class="create-post_user-img"></app-avatar>
                   </a>
                   <div class="friends-container_element_user-info">
                     <a class="friends-container_element_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
@@ -96,7 +101,12 @@
 
               <div class="friends-container_element_user">
                 <a class="friends-container_element_user-img-link" [routerLink]="'/user/'+mean._id">
-                  <img class="img" *ngIf="mean.photo" [src]="mean.photo.preload" alt="">
+                  <app-avatar *ngIf="mean.photo"
+                              [avatar]="mean.photo"
+                              [avatarId]="mean.photo._id"
+                              [customClass]="'inherit'"
+                              [type]="'imgMin'"
+                              class="create-post_user-img"></app-avatar>
                 </a>
                 <div class="friends-container_element_user-info">
                   <a class="friends-container_element_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>

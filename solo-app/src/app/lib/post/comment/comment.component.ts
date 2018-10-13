@@ -30,7 +30,7 @@ export class CommentComponent implements OnInit {
     console.log(this.comment);
     this.http.post(`${this.domain}/api/comment`, this.comment, this.api.getHeaders())
       .subscribe((val: any) => {
-        if(val){
+        if(val.userIdCom){
           self.comments.push(val);
           self.defComment()
         }

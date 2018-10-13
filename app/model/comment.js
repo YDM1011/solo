@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    des: {
-        type: String,
-    },
+    des: {type: String, required: [true, "Please write comment"]},
     postId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "post"
@@ -28,7 +26,7 @@ const commentSchema = new Schema({
     toObject: {
         transform: function (doc, ret) {
         },
-        virtuals: true
+        virtuals: false
     },
     createRestApi: true,
     strict: true
@@ -39,11 +37,20 @@ const glob = require('glob');
 
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
+    let comment = {
+        des: req.body.des,
+        postId: req.body.postId,
+        userIdCom: req.userId,
+        data: new Date()
+    };
     console.log(req.body);
-    req.body.userIdCom = req.userId;
-    req.body.data =  new Date();
     mongoose.model('comment')
-        .create(req.body, {new: true}, (err, info)=>{
+        .create(comment, (err, info)=>{
+            if (err) {
+                console.log(info);
+                return res.send(err)
+            }
+
         mongoose.model('post')
             .findOneAndUpdate({_id: info.postId},
                 {$push: {commentId: info._id}}, {new: true})
