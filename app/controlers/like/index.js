@@ -13,10 +13,9 @@ module.exports.put = (req, res, next) => {
                 Post
                     .findOneAndUpdate({_id: req.body.postId},
                         {$pull:{like:req.userId}}, {new: true})
-                    .populate({path:'like', select:'_id firstName lastName photo'})
                     .exec((err, content) =>{
                             if(err) {
-                                res.send(err)
+                                return res.send(err)
                             } else {
                                 return res.ok(content.like)
                             }
@@ -27,10 +26,9 @@ module.exports.put = (req, res, next) => {
                 Post
                     .findOneAndUpdate({_id: req.body.postId},
                         {$push:{like:req.userId}}, {new: true})
-                    .populate({path:'like', select:'_id firstName lastName photo'})
                     .exec((err, content) =>{
                             if(err) {
-                                res.send(err)
+                                return res.send(err)
                             } else {
                                 return res.ok(content.like)
                             }
