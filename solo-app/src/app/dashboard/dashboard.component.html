@@ -290,14 +290,15 @@
 
         <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
 
-        <app-form
+<app-form
+          [hidden]="true"
           [text]="'More'"
           [class]="'btn waves-effect waves-light'"
           [method]="'get'"
           [url]="'/api/user'"
           (onRes)="more($event)"
           [click]="true"
-        ></app-form>
+></app-form>
 
       </div>
 
