@@ -1,8 +1,8 @@
-.create-container{
+.create-cont{
   position: relative;
   z-index: 5;
 }
-.create-container_close{
+.create-cont_close{
   display: block;
   position: absolute;
   top: 13px;
@@ -14,11 +14,11 @@
   height: 16px;
   pointer-events: none;
 }
-.create-container_close svg{
+.create-cont_close svg{
   width: 100%;
   height: 100%;
 }
-.active.create-container_close{
+.active.create-cont_close{
   opacity: 1;
   cursor: pointer;
   pointer-events: auto;
@@ -318,7 +318,7 @@
   .active.create-post{
     padding: 10px 18px 16px;
   }
-  .create-container_close{
+  .create-cont_close{
     top: 8px;
     right: 8px;
     width: 20px;

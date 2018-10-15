@@ -19,11 +19,6 @@
   top: 0;
   left: 0;
 }
-.inherit{
-  display: block;
-  width: inherit;
-  height: inherit;
-}
 .bg-inherit .img{
   object-position: 40%;
 }
