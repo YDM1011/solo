@@ -14,7 +14,8 @@ export class CoreService {
   private _setting = `${this.domain}/api/setting`;
   private cookieService: any;
   private isValidProfile: any;
-
+  private cl = new BehaviorSubject<any>(undefined);
+  public onClick = this.cl.asObservable();
   private validProfile = new BehaviorSubject<any>(undefined);
   public onGetValid = this.validProfile.asObservable();
 
@@ -36,7 +37,9 @@ export class CoreService {
     };
     return this.httpOptions;
   }
-
+  click(){
+    this.cl.next(true);
+  }
   getSetting() {
     let self = this;
     //noinspection TypeScriptUnresolvedFunction

@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
   selector: 'app-gallery',
@@ -8,7 +8,7 @@ import {Component, OnInit, Input} from '@angular/core';
 export class GalleryComponent implements OnInit {
 
   @Input() photos;
-
+  @Output() onShow = new EventEmitter<any>();
   constructor() { }
 
   ngOnInit() {

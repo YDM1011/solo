@@ -18,6 +18,8 @@ export class DashboardComponent implements OnInit {
   public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span>';
   private maxcount: number;
   public isShow: boolean = false;
+  public isFriendPage: boolean = false;
+  public isGaleryPage: boolean = false;
   public count = 0;
   public loader;
   public limit = 4;
@@ -49,6 +51,12 @@ export class DashboardComponent implements OnInit {
     this.obj = JSON.stringify({id: this.id});
     this.check();
 
+    this.core.onClick.subscribe((val:any)=>{
+      if(val){
+        self.mainPage();
+      }
+    });
+
     this.route.params.subscribe((params:any) => {
       this.id = this.route.snapshot.paramMap.get('id');
       this.obj = JSON.stringify({id: this.id});
@@ -58,6 +66,7 @@ export class DashboardComponent implements OnInit {
 
   apiInitial(idc){
     let self = this;
+    self.mainPage();
     console.log(idc);
     let id = JSON.stringify({id: idc}),
         getFriends = JSON.stringify({path: 'myFriends'}),
@@ -130,5 +139,17 @@ export class DashboardComponent implements OnInit {
       this.isShow = true
     }
   }
-
+  mainPage(){
+    let self = this;
+    self.isFriendPage = false;
+    self.isGaleryPage = false;
+  }
+  friendPage(data){
+    this.mainPage();
+    this.isFriendPage = true;
+  }
+  galeryPage(data){
+    this.mainPage();
+    this.isGaleryPage = true;
+  }
 }

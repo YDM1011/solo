@@ -1,23 +1,34 @@
-import {Component, OnInit, Input, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, Input, EventEmitter, Output, AfterViewInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {HttpHeaders} from "@angular/common/http";
 import {CookieService} from "ngx-cookie-service";
+import {AuthService} from "../auth.service";
+import {UserService} from "../lib/user/user.service";
+import {CoreService} from "../core.service";
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit  {
   public friends = [
     {name: 'Den'},
     {name: 'Misha'},
     {name: 'Andry'}
   ];
+  public userId: string;
+  public userPhoto = {};
+  public userName: string;
+  public activSearch: boolean = false;
+  public isShow: boolean = false;
   @Input() word;
+  @Output() onClick = new EventEmitter<any>();
   @Output() onNew: EventEmitter<any> = new EventEmitter<any>();
   public menuList = [];
-  private httpOptions: { headers: HttpHeaders, withCredentials: boolean };
+  private httpOptions: {
+    headers: HttpHeaders,
+    withCredentials: boolean };
 
   // 'Authorization': 'my-auth-token'
   getHeaders(){
@@ -32,12 +43,24 @@ export class NavbarComponent implements OnInit {
     return this.httpOptions;
   }
   constructor(
-      private http:  HttpClient,
-      private cookieService: CookieService
+    private user: UserService,
+    private core:  CoreService,
+    private cookieService: CookieService
   ) { }
-  ngOnInit() {
-
+  ngOnInit () {
+    let self = this;
+    this.userPhoto['_id'] = '';
+    self.user.getMe().then((val:any)=>{
+      if(val){
+        self.userId = val._id;
+        self.userPhoto = val.photo;
+        self.userName = val.firstName;
+        self.isShow = !self.isShow;
+      }
+    });
   }
-  public activSearch: boolean = false;
-
+  click(){
+    let self = this;
+    self.core.click()
+  }
 }

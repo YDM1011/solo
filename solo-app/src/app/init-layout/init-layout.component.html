@@ -1,4 +1,4 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="isLoged"></app-navbar>
 <router-outlet></router-outlet>
 <div *ngIf="!isLoged">
   <h1><i>Landing</i> page</h1>

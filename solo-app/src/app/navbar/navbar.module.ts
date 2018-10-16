@@ -9,6 +9,7 @@ import { AsaidbarComponent } from './asaidbar/asaidbar.component';
 import {FormApiModule} from "../lib/form-api/form-api.module";
 import {FormatNumberPipe} from "./format-number.pipe";
 import {SearchModule} from "../lib/search/search.module";
+import {UserModule} from "../lib/user/user.module";
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import {SearchModule} from "../lib/search/search.module";
     MzSidenavModule,
     HttpClientModule,
     FormApiModule,
-    SearchModule
+    SearchModule,
+    UserModule
   ],
   exports: [NavbarComponent, AppRoutingModule],
   declarations: [NavbarComponent, AsaidbarComponent, FormatNumberPipe]
