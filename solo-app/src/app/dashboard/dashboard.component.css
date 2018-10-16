@@ -53,10 +53,6 @@
   object-fit: cover;
   object-position: center;
 }
-.create{
-  background: #ffffff;
-  min-height: 103px;
-}
 
 .head-prof {
   box-sizing: border-box;
@@ -111,9 +107,6 @@
     min-width: 195px;
     flex-grow: 1;
     margin: 0 0 0 10px;
-  }
-  .create{
-    min-height: 103px;
   }
 }
 

@@ -40,10 +40,14 @@
       <textarea id="createPost-text"
                 placeholder="Поділіться своїми враженнями..."
                 #desIn
+                (keyup)="desIn.style.height = textFantom.offsetHeight + 'px'"
+                (keypress)="desIn.style.height = textFantom.offsetHeight + 'px'"
+                (resize)="desIn.style.height = textFantom.offsetHeight + 'px'"
                 [(ngModel)]="postObg.des" name="des"
       ></textarea>
       <label class="create-post_label {{postObg.des ? 'true' : '' }}" for="createPost-text" #des>{{postObg.des || 'Поділіться своїми враженнями'}}</label>
-      <div class="create-post_fantom" #textareaFantom style="visibility:hidden;position:absolute;z-index:-1">{{postObg.des}}</div>
+      <div class="create-post_fantom" #textFantom style="visibility:hidden;">{{postObg.des}}</div>
+
     </div>
 
     <div class="create-post_content-img" *ngIf="postObg.img.length > 0">

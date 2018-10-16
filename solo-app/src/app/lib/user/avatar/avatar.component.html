@@ -14,12 +14,12 @@
 </div>
 <div class="{{customClass}}" *ngIf="array && type">
   <div *ngIf="array[0]">
-    <div *ngIf="!array[0][type]" class="content-img_cont" [class.array]="array.length > 2">
+    <div *ngIf="!array[0][type]" class="content-img_cont" [class.array]="array.length >= 2">
       <div  *ngFor="let img of array" class="content-img_item">
         <img class="activator img" *ngIf="!img[type]" [src]="img.preload" >
       </div>
     </div>
-    <div *ngIf="array[0][type]" class="content-img_cont" [class.array]="array.length > 2">
+    <div *ngIf="array[0][type]" class="content-img_cont" [class.array]="array.length >= 2">
       <div  *ngFor="let img of array" class="content-img_item">
         <img class="activator img" *ngIf="img[type]"  [src]="img[type]" >
       </div>

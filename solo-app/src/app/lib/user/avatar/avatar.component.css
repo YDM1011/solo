@@ -18,11 +18,11 @@
 }
 .post-full .content-img_item{
   height: 56vw;
-  max-height: 80vh;
+  max-height: 75vh;
 }
 .post-full .array .content-img_item{
   height: 30vw;
-  max-height: 38vh;
+  max-height: 45vh;
 }
 .array{
   flex-flow: row wrap;

@@ -1,3 +1,38 @@
+<div *ngIf="posts.length == 0">
+  <div class="post">
+    <div class="post_info">
+      <span class="post_info_user-img pre-bg"></span>
+      <span class="info_user pre-info_user pre-bg"></span>
+      <p class="info_data pre-info_data pre-bg"></p>
+      <div class="info_user-select pre-info_user-select pre-bg"></div>
+    </div>
+    <div class="post_content">
+      <div class="post_content_img-cont">
+        <span class="post_content_img pre-post_content_img pre-bg"></span>
+      </div>
+    </div>
+    <div class="post_select pre-bg"></div>
+  </div>
+
+  <div class="post">
+    <div class="post_info">
+      <span class="post_info_user-img pre-bg"></span>
+      <span class="info_user pre-info_user pre-bg"></span>
+      <p class="info_data pre-info_data pre-bg"></p>
+      <div class="info_user-select pre-info_user-select pre-bg"></div>
+    </div>
+    <div class="post_content">
+      <p class="post_content_text pre-post_content_text pre-bg"></p>
+      <div class="post_content_img-cont array pre-post_content_img-cont">
+        <span class="post_content_img pre-post_content_img pre-bg"></span>
+        <span class="post_content_img pre-post_content_img pre-bg"></span>
+      </div>
+    </div>
+    <div class="post_select pre-bg"></div>
+  </div>
+</div>
+
+
 <div *ngFor="let item of posts">
   <article class="post" *ngIf="!item.share.data">
 
@@ -196,7 +231,7 @@
           <!--</span>-->
           <!--</div>-->
 
-          <div class="post_content_img-cont post_share" *ngIf="item.img" [class.array]="item.img.length > 2">
+          <div class="post_content_img-cont post_share" *ngIf="item.img" [class.array]="item.img.length >= 2">
             <div *ngFor="let img of item.img"  class="post_content_img post_share">
               <app-avatar
                 [customClass]="'full'"
