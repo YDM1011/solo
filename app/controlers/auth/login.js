@@ -14,6 +14,7 @@ module.exports = (req, res, next) => {
             if (info.pass === md5(req.body.pass) && info.verify){
                 const token = jwt.sign({ id: req.body.login }, glob.secret);
                 info.pass = req.body.pass;
+                res.cookie('sid',info.token, { httpOnly: true });
                 res.ok(info);
             }else{
                 return res.status(400).send({error:'login or password invalid'});

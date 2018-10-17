@@ -61,7 +61,7 @@ db.on('error', function () {
 });
 models.forEach(function (model) {
     require(model);
-    let nameModel = model.split("./app/model/")[1].split(".js")[0]
+    let nameModel = model.split("./app/model/")[1].split(".js")[0];
     const modelApi = mongoose.model(nameModel);
     restify.serve(route, modelApi);
 });
