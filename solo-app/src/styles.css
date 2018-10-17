@@ -744,6 +744,12 @@ body{
   }
 }
 @media (min-width: 992px) and (min-height: 500px){
+  .el_content{
+    min-height: 145px;
+  }
+  .cont_right-bar .el_content-big .el_item:nth-child(n) {
+    display: block;
+  }
   .el_item {
     width: 60px;
     height: 60px;
@@ -977,6 +983,11 @@ body{
   .left-bar_button:last-of-type {
     margin-left: auto;
     margin-right: auto; }
+}
+@media (min-width: 992px) and (min-height: 500px){
+  .like-el-cont .el_content{
+    min-height: auto;
+  }
 }
 @media (min-width: 1220px) and (min-height: 500px){
   .like-el-cont .el_item {

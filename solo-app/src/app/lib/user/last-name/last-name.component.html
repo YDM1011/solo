@@ -1,4 +1,4 @@
-<div *ngIf="user" class="row">
+<span *ngIf="user">
   <input *ngIf="isInput" type="text" [(ngModel)]="user.lastName">
   <span *ngIf="!isInput">{{user.lastName}}</span>
-</div>
+</span>
