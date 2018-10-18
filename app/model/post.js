@@ -117,8 +117,6 @@ const preCreate = (req,res,next)=>{
     // next()
 };
 const preRead = (req,res,next)=>{
-    console.log(req.query.skip);
-    console.log(JSON.parse(req.query.query));
 
     let optionFind = req.query.query ? JSON.parse(req.query.query) : {};
 

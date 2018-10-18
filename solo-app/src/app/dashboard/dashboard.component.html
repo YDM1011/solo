@@ -22,8 +22,6 @@
           <app-bg></app-bg>
         </div>
 
-
-
         <app-user-init [user]="user"></app-user-init>
 
         <app-update-user class="head-prof_update" [id]="id"></app-update-user>
@@ -95,7 +93,7 @@
         </div>
       </div>
 
-      <div class="cont-tape">
+      <div class="cont-tape" *ngIf="!isFriendPage && !isGaleryPage">
 
         <div class="cont_right-bar">
           <div class="el_cont">
@@ -429,10 +427,34 @@
 ></app-form>
 
       </div>
+      <div class="container-tape" *ngIf="isFriendPage">
+        <div class="element_content" *ngIf="friends.myFriends.length > 0">
 
+          <a class="element_item" *ngFor="let friend of friends.myFriends" [routerLink]="'/user/'+friend._id">
+            <app-avatar class="element_item"
+                        [customClass]="'inherit'"
+                        [type]="'img'"
+                        [avatar]="friend.photo"></app-avatar>
+            <!--<span>{{friend.firstName}} {{friend.lastName}}</span>-->
+          </a>
+        </div>
+      </div>
+      <div class="container-tape" *ngIf="isGaleryPage">
+        <div class="element_content" *ngIf="photos.gallery.length > 0">
+          <app-avatar class="element_gallery"
+                      *ngFor="let photo of photos.gallery"
+                      [customClass]="'inherit'"
+                      [type]="'imgMax'"
+                      [avatar]="photo"></app-avatar>
+        </div>
+      </div>
     </div>
 
   </div>
-  <div class="cont-page_two"></div>
+
+  <div class="container-page_two">
+    <app-show-friends *ngIf="friends" (onShow)="friendPage($event)" [friends]="friends.myFriends"></app-show-friends>
+    <app-gallery *ngIf="photos" (onShow)="galeryPage($event)" [photos]="photos.gallery"></app-gallery>
+  </div>
 </div>
 

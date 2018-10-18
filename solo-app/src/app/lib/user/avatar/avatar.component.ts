@@ -29,34 +29,14 @@ export class AvatarComponent implements OnInit, OnChanges {
 
   ngOnChanges(){
     let self = this;
-    // this.img = this.userservice.getImg();
-    console.log(this.avatar);
     if(this.avatar){
       this.userservice.setImg(this.avatar, this.type).then((val:any)=>{
         self.avatar = val;
-        console.log(self.avatar);
       }).catch(err=>{console.log(err); self.avatar = null});
     }
   }
   ngOnInit() {
     let self = this;
-    // this.img = this.userservice.getImg();
-    // if(this.avatar){
-    //   this.userservice.setImg(this.avatar).then((val:any)=>{
-    //     self.avatar = val;
-    //   });
-    // }
-    // this.userservice.onUserData.subscribe((val: any)=>{
-    //   this.user = val;
-      // this.img[this.user.avatar._id] = '';
-      // this.userservice.setImg(this.img);
-      // this.http.get(`${this.domain}/api/avatar/${this.user.avatar._id}`,
-      //   this.api.getHeaders())
-      //   .subscribe((img: any) => {
-      //     self.user.avatar = img;
-      //     this.img[this.user.avatar._id] = img;
-      //   });
-    // });
     this.userservice.onAvatar.subscribe((val: any)=>{
       if(val){
         self.photo = val;
