@@ -1,0 +1,42 @@
+<header>
+  <div class="container">
+    <div class="row">
+      <div class="flx col s3"><a href="#">Logo</a></div>
+      <div class="flx col s3">
+        <input type="text" placeholder="search">
+        <button type="submit">find</button>
+      </div>
+      <div class="flx col s3">
+        <a href="#">my page</a>
+        <a href="#">main page</a>
+      </div>
+      <div class="flx col s3">
+        <a href="#">solo</a>
+        <a href="#">menu</a>
+        <a href="#">bascket</a>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="container">
+  <div class="main-wrap row">
+    <div class="wrap-left col s9">
+      <div class="user-data">
+        <h2>User Avatar</h2>
+        <app-img></app-img>
+      </div>
+      <div class="row">
+        <div class="col s3">
+          menu
+        </div>
+        <div class="col s9">
+
+          <app-posts *ngIf="isHome"></app-posts>
+          <router-outlet *ngIf="!isHome"></router-outlet>
+        </div>
+      </div>
+    </div>
+    <div class="wrap-right col s3">d</div>
+  </div>
+</div>
+

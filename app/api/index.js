@@ -12,6 +12,7 @@ const share = require('../controlers/share');
 const friend = require('../controlers/friend');
 const gallery = require('../controlers/gallery');
 const mutual = require('../controlers/mutual');
+const me = require('../controlers/me');
 
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
@@ -23,6 +24,7 @@ router.post('/api/confirm', [orign, verification], signup.confirm);
 router.post('/api/uploadImage', [orign, upload.single("file")], uploadFile);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
+router.get('/api/me', [orign, glob.getId], me.myProfile);
 router.post('/api/like', [orign, glob.getId], like.put);
 router.post('/api/likeCom', [orign, glob.getId], like.putCom);
 router.post('/api/share', [orign, glob.getId], share);

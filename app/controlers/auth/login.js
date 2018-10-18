@@ -5,7 +5,6 @@ const User = mongoose.model('user');
 const md5 = require('md5');
 
 module.exports = (req, res, next) => {
-
     User
         .findOne({login: req.body.login})
         .exec((err, info)=>{
@@ -14,6 +13,11 @@ module.exports = (req, res, next) => {
             if (info.pass === md5(req.body.pass) && info.verify){
                 const token = jwt.sign({ id: req.body.login }, glob.secret);
                 info.pass = req.body.pass;
+                res.cookie('sid',info.token,
+                    {
+                        domain:'.localhost',
+                        httpOnly: true
+                    });
                 res.ok(info);
             }else{
                 return res.status(400).send({error:'login or password invalid'});

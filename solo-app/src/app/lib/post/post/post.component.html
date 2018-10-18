@@ -51,7 +51,7 @@
         {{item.userId.lastName || user.lastName}}</strong>
 
       <span class="info_user_event" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-      <span class="info_user_event" *ngIf="item.img && !item.imression.name"> додав фото</span>
+      <span class="info_user_event" *ngIf="item.img[0] && !item.imression.name"> додав фото</span>
       <span class="info_user_event" *ngIf="false"> поширив страву</span>
       <span class="info_user_event" *ngIf="false"> поширив допис</span>
 
@@ -203,7 +203,7 @@
               {{item.userId.lastName || user.lastName}}</a>
 
             <span class="info_user_event" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-            <span class="info_user_event" *ngIf="item.img && !item.imression.name"> додав фото</span>
+            <span class="info_user_event" *ngIf="item.img[0] && !item.imression.name"> додав фото</span>
             <span class="info_user_event" *ngIf="false"> поширив страву</span>
 
             <span class="info_user_friend" *ngIf="item.withFriend.length > 0">

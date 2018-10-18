@@ -14,8 +14,10 @@ export class UserService {
   private img: any = [];
   private domain = environment.apiDomain;
   private _avatar = `${this.domain}/api/avatar/`;
+  private _me = `${this.domain}/api/me/`;
   private userdata = new BehaviorSubject<any>(undefined);
   public onUserData = this.userdata.asObservable();
+
   private avatar = new BehaviorSubject<any>(undefined);
   public onAvatar = this.avatar.asObservable();
   constructor(
@@ -37,6 +39,17 @@ export class UserService {
     return this.httpOptions;
   }
 
+  getMe(){
+    let self = this;
+    //noinspection TypeScriptUnresolvedFunction
+    return new Promise((resolve, reject) => {
+      self.http.get<any>(this._me, self.getHeaders())
+        .subscribe(
+          (res: any) => {resolve(res)},
+          (err: any) => {reject(err)}
+        )
+    })
+  }
   setUserData(data){
     let self = this;
     if (!data.photo) return;
