@@ -119,7 +119,6 @@
               </div>
             </div>
             <app-show-friends *ngIf="friends" (onShow)="friendPage($event)" [friends]="friends.myFriends"></app-show-friends>
-
           </div>
 
           <div class="el_cont">
@@ -448,7 +447,7 @@
             <span class="user-gall_item pre-bg" *ngFor="let photo of photos.gallery">
                <app-avatar class="inherit"
                            [customClass]="'inherit'"
-                           [type]="'img'"
+                           [type]="'imgMax'"
                            [avatar]="photo"></app-avatar>
             </span>
             </div>
