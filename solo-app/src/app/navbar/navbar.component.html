@@ -56,7 +56,7 @@
           </li>
           <li>
             <a [routerLink]="'/user/'+userId" class="user" (click)="click()">
-              <span class="user_img" *ngIf="userPhoto['_id']">
+              <span class="user_img pre-bg" *ngIf="userPhoto['_id']">
                 <app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>
               </span>
               <strong class="user_title">

@@ -45,6 +45,8 @@ body{
   display: block;
   width: inherit;
   height: inherit;
+  max-width: inherit;
+  max-height: inherit;
 }
 
 .friends-list .friend-avatar img{
