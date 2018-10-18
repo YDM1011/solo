@@ -11,8 +11,9 @@ const data = require('./app/config/index');
 const db = mongoose.connection;
 const models = glob.sync('./app/model/*.js');
 const subdomain = require('express-subdomain');
-
 const app = express();
+
+
 
 glob.app = app;
 glob.jsonParser = bodyParser.json({limit: '5mb', extended: true});
@@ -37,6 +38,7 @@ const corsOptions = {
     },
     credentials:true
 };
+
 app.use('/api', cors(corsOptions));
 /***************************/
 const methodOverride = require('method-override');
@@ -82,12 +84,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json({limit: '5mb', "strict": false,}));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.set('subdomain offset', 1);
 app.use((req,res,next)=>{
     next()
 });
 app.use('/', api);
+
+
+
 // app.use((req,res,next)=> {
 //     switch (req.subdomains[0]) {
 //         case '':
@@ -118,7 +124,7 @@ app.use(function(err, req, res, next) {
   // res.status(err.status || 500);
   // res.render('error');
     if(err.status == 404){
-        console.log(req.subdomains);
+        console.log(req.subdomains, req.cookies);
         switch(req.subdomains[0]){
             case '':res.render('index1', { title: req.params.path });
             break;

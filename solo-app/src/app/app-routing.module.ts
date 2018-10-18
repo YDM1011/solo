@@ -16,7 +16,6 @@ const routes: Routes = [
 
     children: [
       {path:'user/:id', component:DashboardComponent, canActivate: [IsLoginedGuard],}
-
     ]
   },
   {
