@@ -10,6 +10,7 @@ import {FormApiModule} from "../lib/form-api/form-api.module";
 import {FormatNumberPipe} from "./format-number.pipe";
 import {SearchModule} from "../lib/search/search.module";
 import {UserModule} from "../lib/user/user.module";
+import {ScrollDirective} from "./scroll.directive";
 
 @NgModule({
   imports: [
@@ -20,9 +21,9 @@ import {UserModule} from "../lib/user/user.module";
     HttpClientModule,
     FormApiModule,
     SearchModule,
-    UserModule
+    UserModule,
   ],
   exports: [NavbarComponent, AppRoutingModule],
-  declarations: [NavbarComponent, AsaidbarComponent, FormatNumberPipe]
+  declarations: [NavbarComponent, AsaidbarComponent, FormatNumberPipe, ScrollDirective]
 })
 export class NavbarModule { }
