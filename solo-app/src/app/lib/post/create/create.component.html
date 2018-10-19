@@ -18,7 +18,7 @@
 
       <span *ngIf="postObg.withFriend[0]">
         <span class="user-info_event"> разом з </span>
-        <span class="user-info_chip chip" *ngFor="let friend of postObg.withFriend; let i = index">
+        <span class="user-info_chip chip" *ngFor="let friend of postObg.withFriend; let i = index">i
           {{friend.name}}
           <span class="chip_svg" (click)="delet(i)">
             <svg x="0px" y="0px" viewBox="0 0 47.971 47.971" style="enable-background:new 0 0 16 16;fill:#818181;" xml:space="preserve"><g><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/></g></svg>
@@ -37,17 +37,15 @@
     </div>
 
     <div class="create-post_comment">
+      <div class="create-post_fantom" #textFantom style="visibility:hidden;">{{postObg.des}}</div>
       <textarea id="createPost-text"
-                placeholder="Поділіться своїми враженнями..."
                 #desIn
-                (keyup)="desIn.style.height = textFantom.offsetHeight + 'px'"
-                (keypress)="desIn.style.height = textFantom.offsetHeight + 'px'"
+                placeholder="Поділіться своїми враженнями..."
                 (resize)="desIn.style.height = textFantom.offsetHeight + 'px'"
                 [(ngModel)]="postObg.des" name="des"
+                [style.height.px]="textFantom.offsetHeight"
       ></textarea>
       <label class="create-post_label {{postObg.des ? 'true' : '' }}" for="createPost-text" #des>{{postObg.des || 'Поділіться своїми враженнями'}}</label>
-      <div class="create-post_fantom" #textFantom style="visibility:hidden;">{{postObg.des}}</div>
-
     </div>
 
     <div class="create-post_content-img" *ngIf="postObg.img.length > 0">

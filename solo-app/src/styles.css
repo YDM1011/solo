@@ -1158,7 +1158,7 @@ body{
   box-shadow: none;
   box-sizing: content-box;
   padding: 5px 0;
-  transition: .5s;
+  transition: .3s;
 }
 #createPost-text::placeholder{
   color: rgba(0, 0, 0, 0.7);

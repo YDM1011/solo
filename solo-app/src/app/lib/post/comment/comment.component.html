@@ -31,17 +31,16 @@
     </div>
 
     <div class="com-new_com">
-        <textarea class="com-new_com_text"
-                  #desIn
-                  placeholder="Поділіться своїми враженнями..."
-                  (keypress)="desIn.style.height = comNewFantom.offsetHeight + 'px'"
-                  (keyup)="desIn.style.height = comNewFantom.offsetHeight + 'px'"
-                  (resize)="desIn.style.height = comNewFantom.offsetHeight + 'px'"
-                  [(ngModel)]="comment.des"
-                  name="des"
-                  data-length="120"
-        ></textarea>
       <div class="com-new_fantom" #comNewFantom style="visibility:hidden;position:absolute;z-index:-1">{{comment.des}}</div>
+      <textarea class="com-new_com_text"
+                #desIn
+                placeholder="Поділіться своїми враженнями..."
+                (resize)="desIn.style.height = comNewFantom.offsetHeight + 'px'"
+                [(ngModel)]="comment.des"
+                [style.height.px]="comNewFantom.offsetHeight"
+                name="des"
+                data-length="120"
+      ></textarea>
 
       <div class="com-new_send">
         <button class="com-new_button" type="submit" (click)="commented()">

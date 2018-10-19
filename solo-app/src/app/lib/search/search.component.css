@@ -32,7 +32,7 @@ input[type=text].nav_search {
   width: 100%;
 }
 :host-context /deep/ #dropdown-search{
-  display: block;
+  display: none;
   height: auto;
   top: 32px!important;
   background: #f4f4f4;
