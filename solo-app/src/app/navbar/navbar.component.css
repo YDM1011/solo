@@ -6,9 +6,4 @@
 
 .hdr{
   display: block;
-  transform: translateY(-70px);
-  transition: .3s;
-}
-.active.hdr{
-  transform: translateY(0);
 }

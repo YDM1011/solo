@@ -23,6 +23,8 @@ import {UploadModule} from "./lib/upload/upload.module";
 import { InitLayoutComponent } from './init-layout/init-layout.component';
 import { GalleryComponent } from './lib/gallery/gallery.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { LeftBarScrollDirective } from './dashboard/left-bar-scroll.directive';
+import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive';
 
 
 @NgModule({
@@ -36,6 +38,8 @@ import { ConfirmComponent } from './confirm/confirm.component';
     InitLayoutComponent,
     GalleryComponent,
     ConfirmComponent,
+    LeftBarScrollDirective,
+    RightBarScrollDirective,
   ],
   imports: [
     BrowserModule,

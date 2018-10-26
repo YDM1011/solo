@@ -31,7 +31,7 @@
   [click]="true"
 ></app-form>
 
-<div class="hdr active" appScroll>
+<div class="hdr" #hdr [appScroll]="hdr.offsetHeight">
   <nav class="nav">
     <ul class="nav-cont">
 

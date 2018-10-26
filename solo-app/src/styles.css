@@ -48,6 +48,12 @@ body{
   max-width: inherit;
   max-height: inherit;
 }
+svg{
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: .25s;
+}
 
 .friends-list .friend-avatar img{
   width: 100px;
@@ -139,9 +145,6 @@ body{
   margin-right: 2vw;
 }
 .logo svg{
-  display: block;
-  width: 100%;
-  height: 100%;
   filter: drop-shadow(2px 2px 2px transparent);
   transition: 250ms filter;
 }
@@ -183,9 +186,6 @@ body{
   cursor: pointer;
 }
 .search-svg svg{
-  display: block;
-  width: 100%;
-  height: 100%;
   fill: #b3b3b3;
 }
 
@@ -372,8 +372,6 @@ body{
 }
 .nav_user_it_svg svg{
   display: inherit;
-  width: 100%;
-  height: 100%;
   transition: .25s fill;
 }
 .nav_user_it:hover .nav_user_it_svg svg,
@@ -469,11 +467,6 @@ body{
   width: 26px;
   height: 26px;
 }
-.coin_svg svg{
-  display: block;
-  width: 100%;
-  height: 100%;
-}
 .coin_name{
   display: none;
   font-size: 12px;
@@ -492,11 +485,6 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
-}
-.menu-mob-toggle svg{
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 .menu-mob-toggle .button{
   background: transparent;
@@ -583,36 +571,40 @@ body{
   flex-direction: column;
   width: 100%;
   box-shadow: 3px -3px 20px rgba(0, 0, 0, 0.1);
-  margin: 5px 0;
+  margin: 0 0 10px;
   background: #ffffff;
   transition: .2s;
 }
 .el_hdr {
   display: flex;
   align-items: center;
-  padding: 0 11px 0;
-  height: 40px; }
+  padding: 0 13px 0;
+  height: 40px;
+  cursor: pointer;
+  transition: .3s; }
+.el_hdr-i {
+  display: flex;
+  align-items: center;
+  padding: 0 13px 0;
+  height: 40px;
+  cursor: pointer;
+  transition: .3s; }
 .el_hdr-link {
   display: flex;
   align-items: center;
-  padding: 0 11px 0 0;
-  height: 100%;
-  cursor: pointer;
-  transition: .3s; }
-.el_hdr-link:hover .el_hdr_img svg {
+  height: 100%;}
+
+.el_hdr:hover .el_hdr_img svg {
   filter: drop-shadow(1px 1px 1px rgba(97, 20, 143, 0.5)); }
-.el_hdr-link:hover .el_hdr_text {
+.el_hdr:hover .el_hdr_text {
   color: #61148f; }
-.el_hdr-link:hover .el_hdr_value {
+.el_hdr:hover .el_hdr_value {
   color: #1e1e1e; }
 .el_hdr_img {
   display: block;
   width: 20px;
   height: 20px; }
 .el_hdr_img svg {
-  display: block;
-  width: 100%;
-  height: 100%;
   fill: #61148f;
   transition: .3s fill; }
 .el_hdr_text {
@@ -625,18 +617,15 @@ body{
   color: #a3a3a3;
   font-size: 12px;
   transition: .3s; }
-.el_hdr_button {
+.el_hdr_btn {
   display: block;
   margin-left: auto;
   width: 12px;
   height: 12px;
   cursor: pointer; }
-.el_hdr_button svg {
-  display: block;
-  width: 100%;
-  height: 100%;
+.el_hdr_btn svg {
   transition: .3s; }
-.el_hdr_button:hover svg {
+.el_hdr_btn:hover svg {
   fill: #61148f; }
 .el_content {
   position: relative;
@@ -645,6 +634,38 @@ body{
   padding: 0 6px 13px 8px;
   margin-top: -2.5px;
   align-items: flex-start;}
+.el_us{
+  padding: 0 6px 5px 28px;
+}
+.el_us_info{
+  margin: 0 0 10px;
+  line-height: 14px;
+}
+.el_us_info_svg{
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 7px;
+}
+.el_us_info_svg svg{
+  fill: #7f7f7f;
+}
+.el_us_info_title{
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: normal;
+}
+.el_us_info_link{
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.7);
+  font-weight: normal;
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+  transition: .25s color;}
+.el_us_info_link:hover{
+  color: #000;
+}
 .el_content.absolute{
   position: absolute;
   top: 0;
@@ -746,6 +767,10 @@ body{
   }
 }
 @media (min-width: 992px) and (min-height: 500px){
+  .el_hdr {
+    padding: 0 11px 0;}
+  .el_hdr-i {
+    padding: 0 11px 0;}
   .el_content{
     min-height: 145px;
   }
@@ -792,9 +817,6 @@ body{
   display: block;
   width: 22px;
   height: 22px; }
-.star-el_hdr_img svg {
-  width: 100%;
-  height: 100%; }
 .star-el_hdr_text {
   font-size: 12px;
   color: #000000;
@@ -819,8 +841,6 @@ body{
   justify-content: center;
   height: 32px;
   flex-grow: 0.1; }
-.like-el-cont .el_hdr-link {
-  padding: 0; }
 .like-el-cont .el_content {
   padding: 0 3px 13px;
   justify-content: space-around;}
@@ -867,8 +887,6 @@ body{
   height: 20px;
   margin: 0 0 0 10px; }
 .left-bar_button_img svg {
-  width: 100%;
-  height: 100%;
   fill: #ffffff;
   transition: .3s; }
 @media (min-width: 370px){
@@ -1013,10 +1031,7 @@ body{
   height: 16px;
   pointer-events: none;
 }
-.create-cont_close svg{
-  width: 100%;
-  height: 100%;
-}
+
 .active.create-cont_close{
   opacity: 1;
   cursor: pointer;
@@ -1093,10 +1108,6 @@ body{
   height: 7px;
   margin-left: 5px;
   cursor: pointer;
-}
-.chip_svg svg{
-  width: 100%;
-  height: 100%;
 }
 
 .create-post_content-img{
@@ -1269,10 +1280,6 @@ body{
   display: block;
   width: 16px;
   height: 16px;
-}
-.create-post_select_svg svg{
-  width: 100%;
-  height: 100%;
 }
 .create-post_select_title{
   display: none;
