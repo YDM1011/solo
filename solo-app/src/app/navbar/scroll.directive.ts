@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {Directive, ElementRef} from '@angular/core';
 
 @Directive({
   selector: '[appScroll]'
@@ -6,8 +6,6 @@ import {Directive, ElementRef, Input} from '@angular/core';
 export class ScrollDirective {
 
   constructor (private el:ElementRef) {}
-  @Input ('appScroll') elHeight: number;
-
   private status: boolean = ( document.documentElement.clientWidth < 922 &&  document.documentElement.clientHeight < 992);
 
   ngOnInit() {
@@ -15,6 +13,7 @@ export class ScrollDirective {
       window.addEventListener('scroll', this.scroll, false);
       window.addEventListener('touchstart', this.touchS, false);
       window.addEventListener('touchmove', this.touch, false);
+      this.elHeight = this.el.nativeElement.offsetHeight;
     }
   }
 
@@ -25,14 +24,15 @@ export class ScrollDirective {
       window.removeEventListener('touchmove', this.touch, false);
     }
   }
+
   private scrollPosition: number = 0;
   private start: number;
+  private elHeight: number = 0;
 
 
   scroll = (): void => {
     this.scrollPosition = window.pageYOffset;
     if ( this.scrollPosition <=  this.elHeight ) this.open( 0, '.1s');
-
   };
 
   touchS = ($event): void => {

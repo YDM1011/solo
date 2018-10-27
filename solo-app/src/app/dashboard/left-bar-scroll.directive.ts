@@ -1,4 +1,4 @@
-import {Directive, ElementRef, Input} from '@angular/core';
+import {Directive, ElementRef, Input, ViewChild} from '@angular/core';
 
 @Directive({
   selector: '[appLeftBarScroll]'
@@ -9,33 +9,20 @@ export class LeftBarScrollDirective {
   @Input ('appLeftBarScroll') bar: any;
 
   ngOnInit() {
-    window.addEventListener('scroll', this.scroll, false);
-    this.headHeight();
+    if ( document.documentElement.clientWidth > 768 && document.documentElement.clientHeight > 500) window.addEventListener('scroll', this.scroll, false);
   }
-
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.scroll, false);
-    this.headHeight();
+    if ( document.documentElement.clientWidth > 768 && document.documentElement.clientHeight > 500) window.removeEventListener('scroll', this.scroll, false);
   }
 
   private scrollPosition: number = 0;
   private pageY: number = 0;
-  private docWidth = document.documentElement.clientWidth;
-  private docHeight = document.documentElement.clientHeight;
-  private hrhHeight: number = 0;
-
-  headHeight() {
-    this.hrhHeight = (this.docWidth >= 922 && this.docHeight >= 500 ) ? 64 : 96;
-  }
+  private hrhHeight: number = ( document.documentElement.clientWidth >= 922 && document.documentElement.clientHeight >= 500 ) ? 64 : 96;
 
   scroll = (): void => {
-    if (this.docWidth < 768 && this.docHeight < 500) return;
-    this.scrollPosition = window.pageYOffset;
-
-    this.pageY = (this.bar.y ^ 0) + this.scrollPosition - this.hrhHeight;
-
-    ( this.pageY <= this.scrollPosition ) ? this.fixed( ) : this.static();
-
+      this.scrollPosition = window.pageYOffset;
+      this.pageY = this.bar.y + this.scrollPosition - this.hrhHeight;
+      (this.pageY <= this.scrollPosition) ? this.fixed() : this.static();
   };
 
   private fixed() {

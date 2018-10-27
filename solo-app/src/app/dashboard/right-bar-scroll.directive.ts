@@ -5,34 +5,38 @@ import {Directive, ElementRef, Input} from '@angular/core';
 })
 export class RightBarScrollDirective {
 
-  @Input('appRightBarScroll') barHeight: any;
   constructor (private el:ElementRef) {}
 
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, false);
     window.addEventListener('resize', this.resize, false);
+    this.paramPush()
   }
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, false);
     window.removeEventListener('resize', this.resize, false);
   }
-  private scrollPosition: number = 0;
-  private headHeight: number = 59;
-  private docWidth = document.documentElement.clientWidth;
-  private docHeight = document.documentElement.clientHeight;
-  public barH: number;
-  private max: number = 0;
-  private pageY: number = 59;
+  public scrollPosition: number = 0;
+  public headHeight: number = 59;
+  public docWidth = document.documentElement.clientWidth;
+  public docHeight = document.documentElement.clientHeight;
+  public barH: number = 0;
+  public max: number = 0;
+  public pageY: number = 59;
+  public status;
+
+  paramPush (): void {
+    this.barH = this.el.nativeElement.offsetHeight;
+    this.max = this.barH - this.docHeight;
+    this.status = (this.docHeight < this.barH);
+  }
 
   scroll = (): void => {
 
     if (this.docWidth < 992 && this.docHeight < 500) return;
-    this.barH = this.barHeight.clientHeight;
-    this.max = this.barH - this.docHeight;
-    if (this.docHeight < this.barH ) {
-      (this.scrollPosition < window.pageYOffset) ? this.bottom(window.pageYOffset) : this.top(window.pageYOffset);
-    }
+
+    if (this.status) (this.scrollPosition < window.pageYOffset) ? this.bottom(window.pageYOffset) : this.top(window.pageYOffset);
 
     this.scrollPosition = window.pageYOffset;
 
@@ -40,6 +44,7 @@ export class RightBarScrollDirective {
 
   resize = (): void => {
     this.docHeight = document.documentElement.clientHeight;
+    this.paramPush ()
   };
   private bottom(posScroll: number) {
     let ss = posScroll - this.scrollPosition;
