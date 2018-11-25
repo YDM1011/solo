@@ -1,0 +1,8 @@
+<app-file-min (fileResult)="fileresult($event)" [btn]="btn"></app-file-min>
+<div *ngIf="isResult">Оновити?
+  <app-img *ngIf="pics" [imgObj]="pics"></app-img>
+  <button (click)="onLoadImg.emit(this.pics); isResult=null"> Так </button>
+  <button (click)="pics = null; isResult=null"> Ні </button>
+test
+</div>
+
