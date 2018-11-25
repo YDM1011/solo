@@ -6,9 +6,18 @@
 
 .hdr{
   display: block;
-  transform: translateY(-70px);
-  transition: .3s;
 }
-.active.hdr{
-  transform: translateY(0);
+.user-set_cont.mob-menu{
+  display: block;
+}
+.mob-menu .user-set_el-link{
+  justify-content: flex-start;
+}
+.mob-menu .user-set_el-link_text{
+  min-width: 150px;
+  text-align: center;
+}
+.mob-menu .user-set_el-link_img{
+  margin-left: 50px;
+  margin-right: 10px;
 }

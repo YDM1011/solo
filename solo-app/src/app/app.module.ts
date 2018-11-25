@@ -25,6 +25,8 @@ import { GalleryComponent } from './lib/gallery/gallery.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { CreateEstablishmentComponent } from './lib/create-establishment/create-establishment.component';
 import {IsMyProfileModule} from "./lib/is-my-profile/is-my-profile.module";
+import { LeftBarScrollDirective } from './dashboard/left-bar-scroll.directive';
+import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import {IsMyProfileModule} from "./lib/is-my-profile/is-my-profile.module";
     GalleryComponent,
     ConfirmComponent,
     CreateEstablishmentComponent,
+    LeftBarScrollDirective,
+    RightBarScrollDirective
   ],
   imports: [
     BrowserModule,

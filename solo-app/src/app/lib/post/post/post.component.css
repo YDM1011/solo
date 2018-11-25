@@ -95,12 +95,12 @@
 .info_user_place .info_user_event{
   color: #000000;
 }
-.info_user_place_name{
+.info_user_place_link{
   position: relative;
   padding: 0 5px 0 24px;
   cursor: pointer;
 }
-.info_user_place_name img{
+.info_user_place_link_img{
   display: inline-block;
   position: absolute;
   left: 1px;
@@ -112,7 +112,7 @@
   box-shadow: 2px 2px 5px  transparent;
   transition: .25s box-shadow;
 }
-.info_user_place_name strong{
+.info_user_place_link strong{
   font-size: 12px;
   line-height: 18px;
   text-transform: capitalize;
@@ -122,10 +122,10 @@
   transition: .25s text-shadow;
 }
 
-.info_user_place_name:hover img{
+.info_user_place_link:hover .info_user_place_link_img{
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.25);
 }
-.info_user_place_name:hover strong{
+.info_user_place_link:hover strong{
   text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.35);
 }
 .info_user-select{
@@ -286,8 +286,10 @@
 .button:hover{
   background: rgba(0,0,0,0.05);
 }
-.button:hover .button-value{
+.button-value:hover{
   color: #6f3498;
+  text-decoration: underline;
+  text-underline-position: under;
 }
 .button-svg{
   display: block;
@@ -305,8 +307,9 @@
 .button-value{
   font-size: 12px;
   color: #000000;
-  margin: 0 7px;
-  transition: .3s;
+  margin: 0 5px;
+  padding: 0 2px;
+  transition: .25s;
 }
 .post_comment-cont{
   overflow: hidden;
@@ -350,7 +353,7 @@
   .info_user_name,
   .info_user_event,
   .info_user_friend_name,
-  .info_user_place_name strong{
+  .info_user_place_link strong{
     font-size: 14px;
   }
 
@@ -387,11 +390,9 @@
     display: block;
   }
   .button-value{
+    padding: 0 5px;
     color: rgba(0, 0, 0, 0.5);
-    margin: 0 0 0 20px;
-  }
-  .button:hover .button-value{
-    color: #000000;
+    margin: 0 0 0 15px;
   }
   .post_comment-cont{
     margin: 0 3px 0 17px;
@@ -423,14 +424,5 @@
 @media (min-width: 1130px) {
   .array .post_content_img{
     flex: 1 1 250px;
-  }
-}
-@media (min-width: 1200px) {
-  .post_content_img-cont{
-    filter: blur(0);
-    transition: .25s filter;
-  }
-  .post:hover .post_content_img-cont{
-    filter: blur(1px);
   }
 }

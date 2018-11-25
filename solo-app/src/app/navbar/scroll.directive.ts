@@ -6,22 +6,34 @@ import {Directive, ElementRef} from '@angular/core';
 export class ScrollDirective {
 
   constructor (private el:ElementRef) {}
+  private status: boolean = ( document.documentElement.clientWidth < 922 &&  document.documentElement.clientHeight < 992);
 
   ngOnInit() {
-    window.addEventListener('touchstart', this.touchS, true);
-    window.addEventListener('touchmove', this.touch, true);
-    window.addEventListener('touchend', this.touchE, true);
+    if (this.status){
+      window.addEventListener('scroll', this.scroll, false);
+      window.addEventListener('touchstart', this.touchS, false);
+      window.addEventListener('touchmove', this.touch, false);
+      this.elHeight = this.el.nativeElement.offsetHeight;
+    }
   }
 
   ngOnDestroy() {
-    window.removeEventListener('touchstart', this.touchS, true);
-    window.removeEventListener('touchmove', this.touch, true);
-    window.removeEventListener('touchend', this.touchE, true);
+    if (this.status) {
+      window.removeEventListener('scroll', this.scroll, false);
+      window.removeEventListener('touchstart', this.touchS, false);
+      window.removeEventListener('touchmove', this.touch, false);
+    }
   }
 
-  public start: number;
-  public end: number;
+  private scrollPosition: number = 0;
+  private start: number;
+  private elHeight: number = 0;
 
+
+  scroll = (): void => {
+    this.scrollPosition = window.pageYOffset;
+    if ( this.scrollPosition <=  this.elHeight ) this.open( 0, '.1s');
+  };
 
   touchS = ($event): void => {
     this.start = $event.changedTouches[0].pageY;
@@ -30,10 +42,19 @@ export class ScrollDirective {
   touch = ($event): void => {
     let move;
     move = $event.changedTouches[0].pageY;
-    ( window.pageYOffset < 70 || this.start < move) ?  this.el.nativeElement.classList.add('active') : this.el.nativeElement.classList.remove('active');
+    if (this.status) {
+      (this.scrollPosition <= this.elHeight + 5) ? this.open(0, '.2s') :
+        (this.start > move) ?
+          this.close(this.elHeight, '.25s') : this.open(0, '.2s');
+    }
   };
 
-  touchE = ($event): void => {
-    this.end = $event.changedTouches[0].pageY;
+  private open(height, speed: string) {
+    this.el.nativeElement.style.transform = 'translateY(' + height + 'px)';
+    this.el.nativeElement.style.transition = speed + ' ease-out';
+  }
+  private close(height, speed: string) {
+    this.el.nativeElement.style.transform = 'translateY( -' + height + 'px)';
+    this.el.nativeElement.style.transition = speed + ' ease-out';
   }
 }

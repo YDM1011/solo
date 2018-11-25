@@ -18,8 +18,10 @@
 .button:hover{
   background: rgba(0,0,0,0.05);
 }
-.button:hover .button-value{
+.button-value:hover {
   color: #6f3498;
+  text-decoration: underline;
+  text-underline-position: under;
 }
 
 .button-svg{
@@ -58,9 +60,6 @@
     color: rgba(0, 0, 0, 0.5);
     margin: 0 0 0 20px;
     transition: .3s;
-  }
-  .button:hover .button-value{
-    color: #000000;
   }
 
 }
