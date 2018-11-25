@@ -23,6 +23,8 @@ import {UploadModule} from "./lib/upload/upload.module";
 import { InitLayoutComponent } from './init-layout/init-layout.component';
 import { GalleryComponent } from './lib/gallery/gallery.component';
 import { ConfirmComponent } from './confirm/confirm.component';
+import { CreateEstablishmentComponent } from './lib/create-establishment/create-establishment.component';
+import {IsMyProfileModule} from "./lib/is-my-profile/is-my-profile.module";
 
 
 @NgModule({
@@ -36,6 +38,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     InitLayoutComponent,
     GalleryComponent,
     ConfirmComponent,
+    CreateEstablishmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { ConfirmComponent } from './confirm/confirm.component';
     FormApiModule,
     FriendModule,
     UploadModule,
+    IsMyProfileModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [ AuthService, CookieService, CoreService ],

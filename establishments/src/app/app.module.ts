@@ -10,6 +10,7 @@ import {HttpClientModule} from "@angular/common/http";
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {ApiInterceptor} from "./api-interceptor";
 import {CookieService} from "ngx-cookie-service";
+import {ApiService} from "./service/api.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import {CookieService} from "ngx-cookie-service";
     useClass: ApiInterceptor,
     multi: true
   },
-    CookieService ],
+    CookieService,
+    ApiService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

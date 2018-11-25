@@ -1,0 +1,9 @@
+<div class="check-option-wrap" *ngIf="option">
+  <div class="check-option cart" *ngFor="let item of option; let i = index">
+    <label>
+      <input class="filled-in" type="checkbox" [(ngModel)]="item.check" name="check">
+      <span>{{item.label}}</span>
+    </label>
+  </div>
+  <span (click)="selectOption(option)" class="btn">ok</span>
+</div>

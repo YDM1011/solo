@@ -17,6 +17,7 @@ const app = express();
 
 glob.app = app;
 glob.jsonParser = bodyParser.json({limit: '5mb', extended: true});
+glob.cookieParser = cookieParser();
 glob.secret = "seecret";
 require('./app/middleware/getId');
 require('./app/middleware/isAuth');
@@ -28,8 +29,12 @@ const cors = require('cors');
 const originsWhitelist = [
     'http://localhost:4200',
     'http://*.localhost:4200',
+    'http://localhost:4300',
+    'http://*.localhost:4300',
     'http://localhost:5000',
     'http://*.localhost:5000',
+    'http://localhost:3000',
+    'http://*.localhost:3000',
 ];
 const corsOptions = {
     origin: function(origin, callback){
@@ -128,12 +133,11 @@ app.use(function(err, req, res, next) {
         switch(req.subdomains[0]){
             case '':res.render('index1', { title: req.params.path });
             break;
-            case 'test':res.render('index2', { title: req.params.path });
+            case 'solo':res.render('index2', { title: req.params.path });
             break;
             default: res.render('index1', { title: req.params.path });
             break;
         }
-
     }else{
         res.render('error');
     }

@@ -1,6 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {PostService} from "../post.service";
 import {Post} from "../post";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-create',
@@ -36,12 +37,13 @@ export class CreateComponent implements OnInit {
   public friendActive: string;
   public search: string;
   constructor(
-    private post: PostService
+    private post: PostService,
+    private cooki: CookieService
   ) { }
 
   ngOnInit() {
     //noinspection TypeScriptValidateTypes
-    this.postObg.userId = this.id;
+    this.postObg.userId = this.cooki.get('userid');
   }
 
   addPost(post){
@@ -49,7 +51,7 @@ export class CreateComponent implements OnInit {
     self.post.pushPost(post);
     self.postObg = new Post();
     //noinspection TypeScriptValidateTypes
-    this.postObg.userId = self.id;
+    this.postObg.userId = this.cooki.get('userid');
     this.friendActive = '';
     this.placeActive = '';
     this.active = '';

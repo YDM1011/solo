@@ -62,9 +62,27 @@ const pages = new Schema({
         virtuals: true
     },
     createRestApi: true,
-    strict: true
+    strict: true,
+    paths: {
+        des: [Object],
+        share: [Object],
+        id: [Object],
+        userId: [Object],
+        like: [Object],
+        commentId: [Object],
+        img: [Object],
+        data: [Object],
+        withFriend: [Object],
+        inPlace: [Object],
+        "inPlace.place": [Object],
+        imression: [Object],
+        token: [Object],
+        _id: [Object],
+        __v: [Object]
+    }
 });
 mongoose.model('post', pages);
+mongoose.model('post');
 
 const glob = require('glob');
 const preSave = (req,res,next)=>{
@@ -81,8 +99,12 @@ const preSave = (req,res,next)=>{
 };
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
+    require("../responces/badRequest")(req, res);
     req.body.id = req.body.userId;
     req.body.data = new Date();
+    if(req.body.img.length < 1 && !req.body.des){
+        return res.badRequest("Завантажте фото чи напишіть опис публікації")
+    }
     new Promise((resolve, reject)=>{
         let imgArr = [];
         if (req.body.img.length < 1) resolve(imgArr);
@@ -151,6 +173,6 @@ glob.restify.serve(
     mongoose.model('post'),
     {
         preRead: [glob.jsonParser, preRead],
-        preCreate: [glob.jsonParser, glob.isProfile, preCreate],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preCreate],
         preUpdate: [glob.jsonParser, glob.isProfile, preSave]
     });

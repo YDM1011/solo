@@ -188,28 +188,57 @@ module.exports.invite = (req, res, next) => {
                             }
                             if (!info) {
                                 User
-                                    .findOneAndUpdate({_id: req.userId},
-                                        {$push: {invite: req.body.userId}}, {new: true})
-                                    .exec((err, content) => {
-                                        if (err) {
-                                            res.send(err)
-                                        } else {
+                                    .findOne({_id: req.userId, offer: {$in: req.body.userId}})
+                                    .exec((err, infof) => {
+                                        if (err) return res.badRequest('Something broke!');
+                                        if (infof) {
                                             User
-                                                .findOneAndUpdate({_id: req.body.userId},
-                                                    {$push: {offer: req.userId}}, {new: true})
-                                                .select('_id firstName lastName photo')
-                                                .exec((err, info) => {
-                                                    if (err) {
+                                                .findOneAndUpdate({_id: req.userId},
+                                                    {$push:{myFriends:req.body.userId}, $pull:{offer:req.body.userId}}, {new: true})
+                                                .exec((err, content) =>{
+                                                    if(err) {
                                                         res.send(err)
-                                                    } else if (info) {
-                                                        return res.ok(info)
+                                                    } else {
+                                                        User
+                                                            .findOneAndUpdate({_id: req.body.userId},
+                                                                {$push:{myFriends:req.userId},
+                                                                    $pull:{invite:req.userId}}, {new: true})
+                                                            .select('_id firstName lastName photo')
+                                                            .exec((err, content) =>{
+                                                                if(err) {
+                                                                    res.send(err)
+                                                                } else {
+                                                                    return res.ok(content)
+                                                                }
+                                                            });
                                                     }
                                                 });
+                                        }
+                                        if (!infof) {
+                                            User
+                                                .findOneAndUpdate({_id: req.userId},
+                                                    {$push: {invite: req.body.userId}}, {new: true})
+                                                .exec((err, content) => {
+                                                    if (err) {
+                                                        res.send(err)
+                                                    } else {
+                                                        User
+                                                            .findOneAndUpdate({_id: req.body.userId},
+                                                                {$push: {offer: req.userId}}, {new: true})
+                                                            .select('_id firstName lastName photo')
+                                                            .exec((err, info) => {
+                                                                if (err) {
+                                                                    res.send(err)
+                                                                } else if (info) {
+                                                                    return res.ok(info)
+                                                                }
+                                                            });
 
+                                                    }
+                                                });
                                         }
                                     });
                             }
-
                         });
                 }
             });

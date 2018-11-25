@@ -27,7 +27,9 @@
   <div class="com-new">
 
     <div class="com_user_img pre-bg">
-      <app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>
+      <div class="inherit">
+        <img class="img" *ngIf="userPhoto['imgMin']" [src]="userPhoto.imgMin">
+      </div>
     </div>
 
     <div class="com-new_com">

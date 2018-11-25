@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const orign = require('../middleware/apiOrign');
 const verification = require('../middleware/verification');
+const verify = require('../middleware/verify');
 
 const login = require('../controlers/auth/login');
 const signup = require('../controlers/auth/signup');
@@ -13,6 +14,8 @@ const friend = require('../controlers/friend');
 const gallery = require('../controlers/gallery');
 const mutual = require('../controlers/mutual');
 const me = require('../controlers/me');
+const establishment = require('../controlers/establishment');
+const basket = require('../controlers/basket');
 
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
@@ -27,6 +30,7 @@ router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
 router.get('/api/me', [orign, glob.getId], me.myProfile);
 router.post('/api/like', [orign, glob.getId], like.put);
 router.post('/api/likeCom', [orign, glob.getId], like.putCom);
+router.post('/api/likeDish', [orign, glob.getId], like.putDish);
 router.post('/api/share', [orign, glob.getId], share);
 router.get('/api/getMutual/:FId', [orign, glob.getId], mutual.getMutual);
 router.get('/api/getPhoto', [orign, glob.getId], gallery.getPhoto);
@@ -37,5 +41,20 @@ router.post('/api/delFriend', [orign, glob.getId], friend.delFriend);
 router.post('/api/meetFriend', [orign, glob.getId], friend.meetFriend);
 router.post('/api/delMeetFriend', [orign, glob.getId], friend.delMeetFriend);
 router.post('/api/offerFriend', [orign, glob.getId], friend.offerFriend);
+
+router.post('/api/create_establishment', [orign, glob.getId, verify], establishment.create);
+
+// estaplishment API
+router.get('/api/est', [orign], establishment.custom);
+router.get('/api/est/:id', [orign], establishment.customParams);
+router.get('/api/est_post', [orign], establishment.estPost);
+router.get('/api/est_menu', [orign], establishment.estMenu);
+router.get('/api/est_est', [orign], establishment.estEst);
+router.post('/api/favorite', [orign, glob.getId], me.favorite);
+router.get('/api/favorite/:key', [orign, glob.getId], me.getFavorite);
+
+// basket API
+router.post('/api/add_product', [orign, glob.getId], basket.addProduct);
+router.get('/api/basket_from_est', [orign, glob.getId], basket.getBasketEst);
 
 module.exports = router;

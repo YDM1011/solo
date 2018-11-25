@@ -1,0 +1,113 @@
+<div class="container-fluid" *ngIf="myest">
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Назва закладу</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="myest.name" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Телефон</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="myest.mobile" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Меню</h5>
+    </div>
+    <div class="col s12 m8">
+      <div class="category-for" *ngIf="menus">
+        <span class="dishingredient" *ngFor="let menu of menus">{{menu}}</span>
+      </div>
+      <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Опис закладу</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="myest.about" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Адреса</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="myest.address" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>GPS координати</h5>
+    </div>
+    <div class="col s12 m8">
+      <app-map (onxy)="myest.coordinates = $event"></app-map>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Графік роботи</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="myest.worksTime" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Статус</h5>
+    </div>
+    <div class="col s12 m8">
+      <label>
+        <input type="checkbox" [(ngModel)]="myest.status" class="filled-in" />
+        <span>Діючий заклад</span>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="myest.delivery"
+               class="filled-in">
+        <span>Доставка</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="myest.getself"
+               class="filled-in">
+        <span>На виніс</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="myest.reservation"
+               class="filled-in">
+        <span>Бронювання</span>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <span class="btn" (click)="update({
+    name:myest.name,
+    menus:myest.menus,
+    mobile:myest.mobile,
+    about:myest.about,
+    worksTime:myest.worksTime,
+    status:myest.status,
+    reservation:myest.reservation,
+    getself:myest.getself,
+    delivery:myest.delivery,
+    coordinates:myest.coordinates,
+    address:myest.address
+    },'myest')">Створити</span>
+  </div>
+</div>

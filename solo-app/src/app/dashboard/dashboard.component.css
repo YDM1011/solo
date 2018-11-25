@@ -44,6 +44,7 @@
 .cont_right-bar{
   display: flex;
   flex-direction: column;
+  z-index: 10;
 }
 
 .img {
@@ -220,7 +221,8 @@ app-last-name{
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  top: 5px;
+  height: 20px;
   padding: 4px 6px 4px 7px;
   min-height: 22px;
   background: rgba(0, 0, 0, 0.5);
@@ -315,8 +317,9 @@ app-last-name{
     background: transparent;
     left: 6px;
     right: auto;
-    bottom: 5px;
+    top: 5px;
     padding: 0;
+    height: 20px;
   }
 
   :host-context /deep/ .button-av_img {

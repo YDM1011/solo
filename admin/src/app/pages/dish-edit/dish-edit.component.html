@@ -1,0 +1,117 @@
+<div class="container-fluid" *ngIf="dish">
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Назва</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="dish.name" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>category</h5>
+    </div>
+    <div class="col s12 m8">
+      <div class="category-for" *ngIf="dish.dishcategory">
+        <span class="dishingredient">{{dish.dishcategory.name}}</span>
+      </div>
+      <app-select *ngIf="option.length>0"
+                  [option]="option"
+                  [defoult]="'check'"
+                  (onCheck)="selected($event)"></app-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>about</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="dish.about" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>dishingredient</h5>
+    </div>
+    <div class="col s12 m8">
+      <span class="dishingredient"
+            (click)="delingredient(i)"
+            *ngFor="let ing of dish.dishingredient; let i = index">{{ing}}</span>
+      <input type="text" (keyup)="check()" [(ngModel)]="setArg" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>dishingredient is</h5>
+    </div>
+    <div class="col s12 m8">
+      <span class="dishingredient"
+            (click)="delingredient2(i)"
+            *ngFor="let ing of dish.ingredientis; let i = index">{{ing.name}}</span>
+      <input type="text" (keyup)="check2()" [(ngModel)]="setArg2" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Порція</h5>
+    </div>
+    <div class="col s12 m8">
+      <div *ngFor="let prtn of dish.portion" class="links-form">
+        <label> massa <input type="text" [(ngModel)]="prtn.massa" name="massa"></label>
+        <label> name <input type="text" [(ngModel)]="prtn.name" name="name"></label>
+        <label> about <input type="text" [(ngModel)]="prtn.about" name="about"></label>
+        <label> price <input type="text" [(ngModel)]="prtn.price" name="price"></label>
+      </div>
+      <button class="btn" (click)="isFormAdd = true">add portion</button>
+      <div *ngIf="isFormAdd">
+        <label> massa <input type="text" [(ngModel)]="portion['massa']" name="massa"></label>
+        <br>
+        <label> name <input type="text" [(ngModel)]="portion['name']" name="name"></label>
+        <br>
+        <label> about <input type="text" [(ngModel)]="portion['about']" name="about"></label>
+        <br>
+        <label> price <input type="text" [(ngModel)]="portion['price']" name="price"></label>
+        <button class="btn" (click)="dish.portion[dish.portion.length] = portion;
+                                     isFormAdd = false">add</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>dish.pic</h5>
+      <app-upload (onLoadImg)="dish.pic = $event" [btn]="btnBG"></app-upload>
+    </div>
+    <div class="col s12 m8">
+      <app-pic *ngIf="dish.pic" [pic]="dish.pic"></app-pic>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="dish.isdelivery"
+               class="filled-in">
+        <span>Доставка</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="dish.isnew"
+               class="filled-in">
+        <span>isnew</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="dish.ishit"
+               class="filled-in">
+        <span>ishit</span>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <span class="btn" (click)="update(dish)">Редагувати</span>
+  </div>
+</div>

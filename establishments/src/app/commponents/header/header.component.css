@@ -1,0 +1,13 @@
+.flx{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.row{
+  display: flex;
+}
+.wrap-right,
+.user-data{
+  background: #dedede;
+  padding: 10px;
+}

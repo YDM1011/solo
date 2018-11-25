@@ -15,7 +15,8 @@ module.exports = (req, res, next) => {
                 info.pass = req.body.pass;
                 res.cookie('sid',info.token,
                     {
-                        domain:'.localhost',
+                        domain:'localhost',
+                        path:"/",
                         httpOnly: true
                     });
                 res.ok(info);

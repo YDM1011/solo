@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, OnChanges} from '@angular/core';
 import {AuthService} from "../auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CoreService} from "../core.service";
@@ -10,11 +10,12 @@ import {environment} from "../../environments/environment";
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
   domain: string = environment.apiDomain;
   public user: any;
   public people: any = [];
   public id: string;
+  public userId: string;
   public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span>';
   private maxcount: number;
   public isShow: boolean = false;
@@ -37,7 +38,7 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private api: FormApiService
   ) { }
-
+  ngOnChanges(){}
   ngOnInit() {
     let self = this;
     self.auth.onAuth.subscribe(value=>{
@@ -47,6 +48,7 @@ export class DashboardComponent implements OnInit {
       self.apiInitial(value._id)
       }
     });
+    self.userId = self.auth.getUserId();
     this.id = this.route.snapshot.paramMap.get('id');
     this.obj = JSON.stringify({id: this.id});
     this.check();
@@ -91,19 +93,23 @@ export class DashboardComponent implements OnInit {
       });
     this.http.get(this.domain+'/api/getFriends?userId='+idc, this.api.getHeaders())
       .subscribe((friends: any) => {
-        console.log(friends);
         self.friends = (friends);
+        // friends.myFriends.forEach((friend)=>{
+        //   this.http.get(this.domain+'/api/getMutual/'+friend._id, this.api.getHeaders())
+        //     .subscribe((res: any) => {
+        //       this.mutual[friend._id] = res.mutual;
+        //     });
+        // })
       });
     this.http.get(this.domain+'/api/getPhoto?userId='+idc, this.api.getHeaders())
       .subscribe((photo: any) => {
         self.photos = (photo);
       });
-    this.http.get(this.domain+'/api/getMutual/'+idc, this.api.getHeaders())
-      .subscribe((mutual: any) => {
-        console.log(mutual);
-      });
-  }
 
+  }
+  setMutual(res){
+    this.mutual[res.id] = res.mutual;
+  }
   getSetting(res){
     let self = this;
     if(res){

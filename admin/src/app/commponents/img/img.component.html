@@ -1,0 +1,7 @@
+<div *ngIf="imgObj['preload'] && !imgObj['larg']">
+  <img [src]="imgObj['preload']">
+</div>
+<div *ngIf="imgObj['larg']">
+  <img [src]="imgObj['larg']">
+</div>
+

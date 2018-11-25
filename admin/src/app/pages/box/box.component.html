@@ -1,0 +1,29 @@
+<p>
+  Список упаковок. Назва, ціна і список категорій, куди вона додається при замовлення доставки або на виніс.
+</p>
+<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row" *ngIf="box.length == 0">
+    <div class="card">
+      <a [routerLink]="'/box/'+id+'/create/'+id" class="btn">create</a>
+    </div>
+  </div>
+  <div class="row" *ngIf="box.length > 0">
+    <div class="col s12 m4" *ngFor="let item of box">
+      <div class="card">
+        <div *ngIf="item.pic">
+          <app-pic [pic]="item.pic"></app-pic>
+        </div>
+
+        <span>{{item.name}}</span>
+        <a [routerLink]="'/box/'+id+'/'+id+'/'+item._id" class="btn">Редагувати</a>
+        <span (click)="delet(item._id)" class="btn">del</span>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card">
+        <a [routerLink]="'/box/'+id+'/create/'+id" class="btn">create</a>
+      </div>
+    </div>
+  </div>
+</div>

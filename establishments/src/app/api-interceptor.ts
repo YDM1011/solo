@@ -33,8 +33,6 @@ export class ApiInterceptor implements HttpInterceptor {
           if (event instanceof HttpResponse) {
 
             console.log(" all looks good");
-            // http response status code
-            console.log(event.status);
           }
         }, error => {
           // http response status code

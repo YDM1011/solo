@@ -1,0 +1,6 @@
+<div class="select-wrap" *ngIf="option">
+  <div class="active-option" (click)="isActive=!isActive">{{slected ? slected.label : defoult}}</div>
+  <ul [ngClass]="{'open':isActive}" class="list-option">
+    <li *ngFor="let opt of option" (click)="selectOption(opt)">{{opt.label}}</li>
+  </ul>
+</div>

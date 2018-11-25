@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array)
+    }
+}
 module.exports.getMutual = (req, res, next) => {
 
-    if(req.params.FId == req.userId){
-        return res.ok();
+    if(req.params.FId == req.userId ){
+        return res.ok({id:req.params.FId, mutual:['t']});
     }
     User
-        .findOne({_id: req.params.FId})
+        .findOne({_id: req.userId})
         .select("myFriends")
         .exec((err, content) =>{
             if(err) {
@@ -16,26 +21,28 @@ module.exports.getMutual = (req, res, next) => {
                 return res.ok('not found')
             }
             if (content){
+                let Arr = [];
+                if (content.myFriends.length < 1) return res.ok({id:req.params.FId, mutual:Arr});
 
-                new Promise((resolve, reject)=>{
-                    let Arr = [];
-                    if (content.myFriends.length < 1) resolve(Arr);
-                    content.myFriends.forEach(userId=>{
+                asyncForEach(content.myFriends, async userId=>{
+
+                    await new Promise((resolve,reject)=>{
                         User
-                            .findOne({_id: userId, myFriends:{$in: req.userId}})
+                            .findOne({_id: userId, myFriends:{$in: req.params.FId}})
                             .exec((err, mutual)=>{
-                                console.log(mutual);
-                            // if(err) return res.badRequest('Something broke!');
-                            if(mutual){
-                                Arr.push(mutual._id);
-                            }
-                            if (userId == content.myFriends[content.myFriends.length-1]){
-                                resolve(Arr)
-                            }
-                        })
-                    });
-                }).then(val=>{
-                    return res.ok(val)
+                                // if(err) return res.badRequest('Something broke!');
+                                if(mutual){
+                                    Arr.push(mutual._id);
+                                }
+                                resolve(userId)
+                            })
+                    }).then(val=>{
+                        console.log('mutual',val);
+                        if (val == content.myFriends[content.myFriends.length-1]){
+                            return res.ok({id:req.params.FId, mutual:Arr})
+                        }
+                    })
+
                 });
             }
         });

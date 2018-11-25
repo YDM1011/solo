@@ -14,16 +14,10 @@ export class FormApiService {
 
   constructor(private http: HttpClient,
               private _cookieService: CookieService) { }
-  private httpOptions: {headers: HttpHeaders, withCredentials: boolean};
+  private httpOptions: {withCredentials: boolean};
   getHeaders(type: string = 'application/json') {
     this.httpOptions = {
-      headers: new HttpHeaders(type === 'multipart/form-data' ? {
-          'Authorization': this._cookieService.get('token')
-        } :
-        {
-          'Content-Type': type,
-          'Authorization': this._cookieService.get('token')
-        }),
+
       withCredentials: true
     };
     return this.httpOptions;

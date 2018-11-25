@@ -3,12 +3,16 @@ import { CommonModule, APP_BASE_HREF } from '@angular/common';
 import { RouterModule, Routes } from "@angular/router";
 import { NotFoundComponent } from "../pages/not-found/not-found.component";
 import { InitLayoutComponent } from "../init-layout/init-layout.component";
-import { PostsComponent } from "../pages/posts/posts.component";
+import {MenuContentComponent} from "../pages/menu-content/menu-content.component";
+import {InfoContentComponent} from "../pages/info-content/info-content.component";
+import {BasketComponent} from "../commponents/basket/basket.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
     children: [
-      {path:'m', component:PostsComponent}
+      {path: 'menu/:id', component: MenuContentComponent},
+      {path: 'basket', component: BasketComponent},
+      {path: 'info/:id', component: InfoContentComponent}
     ]
   },
   { path: '**', component: NotFoundComponent }

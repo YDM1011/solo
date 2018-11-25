@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Post = mongoose.model('post');
 const Comment = mongoose.model('comment');
+const Dish = mongoose.model('dish');
 module.exports.put = (req, res, next) => {
     console.log(req.body.postId);
     Post
@@ -68,6 +69,43 @@ module.exports.putCom = (req, res, next) => {
                                 res.send(err)
                             } else {
                                 return res.ok(content.likeCom)
+                            }
+                        });
+            }
+
+        });
+};
+module.exports.putDish = (req, res, next) => {
+    console.log(req.body._id);
+    Dish
+        .findOne({_id: req.body._id, dishlike:{$in: req.userId}})
+        .exec((err, info) => {
+            if(err) return res.badRequest('Something broke!');
+            // info.like = info.like || [];
+            // info.like.push(req.userId);
+            if(info){
+                Dish
+                    .findOneAndUpdate({_id: req.body._id},
+                        {$pull:{dishlike:req.userId}}, {new: true})
+                    .populate({path:'dishlike', select:'_id firstName lastName photo'})
+                    .exec((err, content) =>{
+                            if(err) {
+                                res.send(err)
+                            } else {
+                                return res.ok(content.dishlike)
+                            }
+                        });
+            }
+            if(!info){
+                Dish
+                    .findOneAndUpdate({_id: req.body._id},
+                        {$push:{dishlike:req.userId}}, {new: true})
+                    .populate({path:'dishlike', select:'_id firstName lastName photo'})
+                    .exec((err, content) =>{
+                            if(err) {
+                                res.send(err)
+                            } else {
+                                return res.ok(content.dishlike)
                             }
                         });
             }

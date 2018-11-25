@@ -1,0 +1,29 @@
+<p>
+  Меню закладу. Створення нового меню і його налаштування: назва, вартість доставки (якщо є), мінімальна сума для безкоштовної доставки, графік доставки, графік онлайн-замовлень (час обробки замовлень може відрізнятись від графіку доставки), мінімальний час доставки. Кількість днів, за скільки наперед приймаються замовлення (щоб не можна було замовити столик на 20  січня 2022 року). Крок вибору бажаного часу (15хв, 30хв, 1год).
+  Разом з меню видаються усі страви з меню по категоріям з  цінами. Меню можна редагувати, видаляти з меню страви, додавати нові.
+</p>
+<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row" *ngIf="menu.length == 0">
+    <div class="card">
+      <a [routerLink]="'/menu/'+id+'/create/'+id" class="btn">create</a>
+    </div>
+  </div>
+  <div class="row" *ngIf="menu.length > 0">
+    <div class="col s12 m4" *ngFor="let item of menu">
+      <div class="card">
+        <div *ngIf="item.pic">
+          <app-pic [pic]="item.pic"></app-pic>
+        </div>
+        <span>{{item.name}}</span>
+        <a [routerLink]="'/menu/'+id+'/'+id+'/'+item._id" class="btn">Редагувати</a>
+        <span (click)="delet(item._id)" class="btn">del</span>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card">
+        <a [routerLink]="'/menu/'+id+'/create/'+id" class="btn">create</a>
+      </div>
+    </div>
+  </div>
+</div>

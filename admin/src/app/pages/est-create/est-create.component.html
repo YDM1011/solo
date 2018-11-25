@@ -1,0 +1,114 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Назва закладу</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="name" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Телефон</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="mobile" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Меню</h5>
+    </div>
+    <div class="col s12 m8">
+      <div class="category-for" *ngIf="menus">
+        <span class="dishingredient" *ngFor="let menu of menus">{{menu}}</span>
+      </div>
+      <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Опис закладу</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="about" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Адреса</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="address" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>GPS координати</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="coordinates" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Графік роботи</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="worksTime" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Статус</h5>
+    </div>
+    <div class="col s12 m8">
+      <label>
+        <input type="checkbox" [(ngModel)]="status" class="filled-in" />
+        <span>Діючий заклад</span>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="delivery"
+               class="filled-in">
+        <span>Доставка</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="getself"
+               class="filled-in">
+        <span>На виніс</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="reservation"
+               class="filled-in">
+        <span>Бронювання</span>
+      </label>
+    </div>
+  </div>
+  <div class="row">
+    <span class="btn" (click)="create({
+    name:name,
+    menus:MCI,
+    mobile:mobile,
+    about:about,
+    worksTime:worksTime,
+    status:status,
+    reservation:reservation,
+    getself:getself,
+    delivery:delivery,
+    coordinates:coordinates,
+    address:address
+    },'myest')">Створити</span>
+  </div>
+</div>

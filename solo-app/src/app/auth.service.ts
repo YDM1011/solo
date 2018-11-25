@@ -109,15 +109,21 @@ export class AuthService {
     return promise;
   }
   setToken(res){
-    this.cookieService.set( 'token', res.token );
-    this.cookieService.set( 'userid', res._id );
+    let host = location.host;
+    let domainParts = host.split('.');
+    domainParts.shift();
+    let domain = '.'+domainParts.join('.') == '.' ? host.split(':')[0] : '.'+domainParts.join('.');
+    document.cookie = "userid="+res._id+"; path=/; domain="+domain;
+    console.log(domain);
+    // this.cookieService.set( 'token', res.token );
+    // this.cookieService.set( 'userid', res._id );
     return
   }
   getUserId(){
       return this.cookieService.get('userid')
   }
   isAuth(){
-    if(this.cookieService.get( 'token')){
+    if(this.cookieService.get( 'userid')){
       return true
     }else{
       return false

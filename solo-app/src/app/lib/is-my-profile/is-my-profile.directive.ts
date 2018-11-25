@@ -13,12 +13,13 @@ export class IsMyProfileDirective {
   ) {
     //noinspection TypeScriptUnresolvedVariable
     core.onGetValid.subscribe(val=>{
+      console.log("directive",el);
       if(!val){
         //noinspection TypeScriptUnresolvedVariable
-        el.nativeElement.style.display = 'none';
+        el.nativeElement.hidden = true;
       }else{
         //noinspection TypeScriptUnresolvedVariable
-        el.nativeElement.style.display = 'flex';
+        el.nativeElement.hidden = false;
       }
     })
   }

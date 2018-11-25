@@ -1,0 +1,25 @@
+<p>
+  Список закладів мережі. Один створюється автоматично. Можна додавати нові. Інформація про заклад:
+  назва (наприклад, Solo, що на Молоді), опис, адреса, GPS координати, телефон, графік роботи,
+  меню, статус (діючий заклад чи ні). Можливості: доставка, на виніс,
+  забронювати стіл (за замовчуванням стає як визначено для мережі, але можна зняти якусь галочку;
+  наприклад, мережа і на доставку і на виніс і бронює столик, а саме цей заклад не доставляє)
+</p>
+
+<div class="container-fluid">
+  <div class="row" >
+    <div class="col m6" *ngFor="let est of myest">
+      <div class="card">
+        <span>{{est.name}}</span>
+        <a [routerLink]="'/establishments/'+id+'/edit/'+id+'/'+est._id" class="btn">Редагувати</a>
+        <span (click)="delet(est._id)" class="btn">del</span>
+      </div>
+    </div>
+    <div class="col m6">
+      <div class="card">
+        <a [routerLink]="'/establishments/'+id+'/create/'+id" class="btn"> Додати заклад </a>
+      </div>
+    </div>
+  </div>
+</div>
+<router-outlet></router-outlet>

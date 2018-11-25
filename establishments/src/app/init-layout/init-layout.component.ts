@@ -1,5 +1,6 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {NavigationEnd, Router, ActivatedRoute} from "@angular/router";
+import {ApiService} from "../service/api.service";
 
 @Component({
   selector: 'app-init-layout',
@@ -9,15 +10,16 @@ import {NavigationEnd, Router, ActivatedRoute} from "@angular/router";
 export class InitLayoutComponent implements OnInit {
 
   public isHome: boolean = true;
-
+  public thebest:any;
+  public favorite:any;
   constructor(
     private route: ActivatedRoute,
-    private router:Router
+    private router:Router,
+    private api: ApiService
   ) {  }
 
   ngOnInit() {
     let self = this;
-    console.log();
     if (this.router.url == '/'){
       self.isHome = true;
     }else{
@@ -33,6 +35,18 @@ export class InitLayoutComponent implements OnInit {
         }
       }
     });
+
+  }
+
+  setFavorite(arg){
+    let s = this;
+    s.api.post('favorite', {key: arg}).then((val:any)=>{
+      switch(arg){
+        case'oneest': s.thebest = val; break;
+        case'est': s.favorite = val; break;
+      }
+
+    })
   }
 
 }

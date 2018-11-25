@@ -1,0 +1,9 @@
+<p>
+  Список глобальних категорій, які мережа хоче використовувати.  Вибирається з стандартних і може перейменовуватись.
+</p>
+<div *ngIf="globCat">
+  <div *ngFor="let cat of globCat" class="cart">
+    <p>Name: {{cat.name}}</p>
+    <label><input class="filled-in" type="checkbox" [(ngModel)]="cat.isActive" name="isActive"> <span>using?</span></label>
+  </div>
+</div>

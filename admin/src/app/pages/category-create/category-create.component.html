@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Назва</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="category.name" name="name">
+    </div>
+  </div>
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+        <!--<h5>maincategory</h5>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<input type="text" [(ngModel)]="category.maincategory" name="maincategory">-->
+    <!--</div>-->
+  <!--</div>-->
+  <div class="row" *ngIf="category">
+    <div class="col s12 m4">
+      <h5>maincategory</h5>
+    </div>
+    <div class="col s12 m8">
+      <div class="category-for" *ngIf="category.maincategory.length>0 ">
+        <span *ngFor="let elem of category.maincategory; let i = index"
+              class="dishingredient"
+              (click)="delingredient(i)">{{elem.label}}</span>
+      </div>
+      <app-select *ngIf="option.length>0"
+                  [option]="option"
+                  [defoult]="key"
+                  (onCheck)="selected($event)"></app-select>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>globcategory</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="category.globcategory" name="globcategory">
+    </div>
+  </div>
+
+  <div class="row">
+      <span class="btn" (click)="create(category)">Створити</span>
+  </div>
+</div>

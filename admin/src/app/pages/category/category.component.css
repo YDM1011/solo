@@ -1,0 +1,7 @@
+.card{
+  display: flex;
+  justify-content: space-between;
+  line-height: 2em;
+  padding: 0 15px;
+  width: calc(100% - 30px);
+}

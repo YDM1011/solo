@@ -3,6 +3,7 @@ import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {FormApiService} from "../../form-api/form-api.service";
 import {AuthService} from "../../../auth.service";
+import {UserService} from "../../user/user.service";
 
 @Component({
   selector: 'app-comment',
@@ -15,14 +16,21 @@ export class CommentComponent implements OnInit {
   @Input() comments;
   private domain: string = environment.apiDomain;
   public comment = {des: '', postId: ''};
+  public userPhoto = {};
   constructor(
     private http:  HttpClient,
     private api: FormApiService,
-    private auth: AuthService
+    private user: UserService
   ) { }
 
   ngOnInit() {
-    this.defComment()
+    let self = this;
+    this.defComment();
+    this.user.onMe.subscribe((val:any)=>{
+      if(val){
+        self.userPhoto = val.photo;
+      }
+    })
   }
   commented(){
     let self = this;

@@ -1,0 +1,139 @@
+<p>
+  Інформація про мережу: Назва, субдомен, телефон, опис мережі, пошта, аватар (логотип), обкладинка, власний сайт або соцмережі. Можливості: доставка, на виніс, забронювати стіл. Мінімальна сума замовлення (за замовчуванням буде 50грн і можна буде лише поставити більше)
+</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Назва мережі</h5>
+      <span class="btn" (click)="update({name:name},'name')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="name" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>subdomain мережі</h5>
+      <span class="btn" (click)="update({subdomain:subdomain},'subdomain')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="subdomain" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>телефон</h5>
+      <span class="btn" (click)="update({mobile:mobile},'mobile')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="mobile" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>опис мережі</h5>
+      <span class="btn" (click)="update({about:about},'about')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="about" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>пошта</h5>
+      <span class="btn" (click)="update({mail:mail},'mail')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="mail" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Мінімальна сума замовлення</h5>
+      <span class="btn" (click)="update({minPrice:minPrice},'minPrice')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="minPrice" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Робочий час</h5>
+      <span class="btn" (click)="update({worksTime:worksTime},'worksTime')">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="worksTime" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>власний сайт або соцмережі</h5>
+      <span class="btn" (click)="update({links:links},'links'); isFormAdd = false">Зберегти</span>
+    </div>
+    <div class="col s12 m8">
+      <div *ngFor="let link of links" class="links-form">
+        <label> Name <input type="text" [(ngModel)]="link.label" name="label"></label>
+        <label> URL <input type="text" [(ngModel)]="link.url" name="url"></label>
+      </div>
+      <button class="btn" (click)="isFormAdd = true">add link</button>
+      <div *ngIf="isFormAdd">
+        <label> Name <input type="text" [(ngModel)]="link['label']" name="label"></label>
+        <br>
+        <label> URL <input type="text" [(ngModel)]="link['url']" name="url"></label>
+        <button class="btn" (click)="links[links.length] = link">add</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Фон мережі</h5>
+      <app-upload (onLoadImg)="update($event,'bg'); bg = $event" [btn]="btnBG"></app-upload>
+    </div>
+    <div class="col s12 m8">
+      <app-img *ngIf="bg" [imgObj]="bg"></app-img>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Аватар мережі</h5>
+      <app-upload (onLoadImg)="update($event,'av'); av = $event" [btn]="btnBG"></app-upload>
+    </div>
+    <div class="col s12 m8">
+      <app-img *ngIf="av" [imgObj]="av"></app-img>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               (change)="update({delivery:delivery},'delivery')"
+               [(ngModel)]="delivery"
+               class="filled-in">
+        <span>Доставка</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               (change)="update({getself:getself},'getself')"
+               [(ngModel)]="getself"
+               class="filled-in">
+        <span>На виніс</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               (change)="update({reservation:reservation},'reservation')"
+               [(ngModel)]="reservation"
+               class="filled-in">
+        <span>Бронювання</span>
+      </label>
+    </div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
+<!--delivery:{type: Boolean, default: true},-->
+<!--getself:{type: Boolean, default: true},-->
+<!--reservation:{type: Boolean, default: true},-->

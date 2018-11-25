@@ -1,0 +1,72 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Назва</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.name" name="name">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>вартість доставки</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.delivery" name="delivery">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>мінімальна сума для безкоштовної доставки</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.deliveryfree" name="deliveryfree">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>графік доставки</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.deliverytime" name="deliverytime">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>графік онлайн-замовлень</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.deliveryonline" name="deliveryonline">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>мінімальний час доставки</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.deliverymintime" name="deliverymintime">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Кількість днів, за скільки наперед приймаються замовлення</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.maxtime" name="maxtime">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col s12 m4">
+      <h5>Крок вибору бажаного часу</h5>
+    </div>
+    <div class="col s12 m8">
+      <input type="text" [(ngModel)]="menu.steptime" name="steptime">
+    </div>
+  </div>
+  <div class="row">
+    <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+  </div>
+  <div class="row">
+    <span class="btn" (click)="create(menu)">Створити</span>
+  </div>
+</div>

@@ -24,9 +24,17 @@
             ],
             "styles": [
               "src/styles.css",
-              "src/assets/style/materialize.css"
+              "src/assets/style/materialize.css",
+              "src/assets/style/bul.css",
+              "src/assets/style/head.css",
+              "src/assets/style/mat.css",
+              "src/assets/style/style.css",
+              "src/assets/style/zv.css",
+              "src/assets/leaflet/leaflet.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/assets/leaflet/leaflet.js"
+            ]
           },
           "configurations": {
             "production": {

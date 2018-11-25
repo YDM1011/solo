@@ -1,0 +1,17 @@
+app-img{
+  max-width: 150px;
+  display: block;
+}
+.links-form label{
+  display: block;
+  margin:5px;
+}
+.links-form input{
+  border: 1px solid;
+  height:auto;
+  padding:5px;
+  width: calc(100% - 10px);
+}
+.links-form{
+  display: flex;
+}

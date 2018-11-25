@@ -1,0 +1,29 @@
+<p>
+  Список додатків до страв: +50г сиру до піци, до салату додати ще 50г помідорів. Кожен додаток має назву, вагу, калорійність і список категорій страв, куди його можна додатки (до піци, до салатів, …) Нц і звичайно ціну в даному меню як і страв.
+</p>
+<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row" *ngIf="complement.length == 0">
+    <div class="card">
+      <a [routerLink]="'/complement/'+id+'/create/'+id" class="btn">create</a>
+    </div>
+  </div>
+  <div class="row" *ngIf="complement.length > 0">
+    <div class="col s12 m4" *ngFor="let item of complement">
+      <div class="card">
+        <div *ngIf="item.pic">
+          <app-pic [pic]="item.pic"></app-pic>
+        </div>
+
+        <span>{{item.name}}</span>
+        <a [routerLink]="'/complement/'+id+'/'+id+'/'+item._id" class="btn">Редагувати</a>
+        <span (click)="delet(item._id)" class="btn">del</span>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card">
+        <a [routerLink]="'/complement/'+id+'/create/'+id" class="btn">create</a>
+      </div>
+    </div>
+  </div>
+</div>

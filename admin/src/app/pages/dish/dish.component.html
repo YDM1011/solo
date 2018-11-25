@@ -1,0 +1,29 @@
+<p>
+  Список усіх страв мережі по категоріям: категоріям, назва, опис, фото, новинка, хіт, статус: чи дозволена доставка чи лише у закладі; кількість лайків, моментів, поширень. Сортування за лайками, коментами, поширеннями. Склад страви: це масив (чекбокси) з продуктів. Порції страви: обов’язково одна: з вагою, назвою, калоріями. Можна створювати багато порцій, тоді для кожної порції різні ціни в меню.
+</p>
+<router-outlet></router-outlet>
+<div class="container-fluid">
+  <div class="row" *ngIf="dish.length == 0">
+    <div class="card">
+      <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">create</a>
+    </div>
+  </div>
+  <div class="row" *ngIf="dish.length > 0">
+    <div class="col s12 m4" *ngFor="let dsh of dish">
+      <div class="card">
+        <div *ngIf="dsh.pic">
+          <app-pic [pic]="dsh.pic"></app-pic>
+        </div>
+
+        <span>{{dsh.name}}</span>
+        <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn">Редагувати</a>
+        <span (click)="delet(dsh._id)" class="btn">del</span>
+      </div>
+    </div>
+    <div class="col s12 m4">
+      <div class="card">
+        <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">create</a>
+      </div>
+    </div>
+  </div>
+</div>

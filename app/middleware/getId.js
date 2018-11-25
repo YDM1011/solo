@@ -7,7 +7,8 @@ glob.getId = (req,res,next)=>{
     require("../responces/forbidden")(req, res);
     const jwt = require('jsonwebtoken');
     const User = mongoose.model('user');
-    const protect = req.headers["authorization"];
+    const protect = req.cookies['sid'];
+
     if(!protect){
         return res.forbidden("forbidden");
     }

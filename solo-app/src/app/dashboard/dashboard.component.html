@@ -24,7 +24,7 @@
 
         <app-user-init [user]="user"></app-user-init>
 
-        <app-update-user class="head-prof_update" [id]="id"></app-update-user>
+        <!--<app-update-user class="head-prof_update" [id]="id"></app-update-user>-->
 
 
         <div class="head-prof_loader">
@@ -175,6 +175,8 @@
             <div class="user-set_title-cont">
               <p class="user-set_title">Особисті налаштування</p>
             </div>
+
+            <app-create-establishment></app-create-establishment>
 
             <div class="user-set_el-link">
               <span class="user-set_el-link_img">
@@ -352,8 +354,16 @@
             </div>
 
             <div [hidden]="false" class="fr-cont_content" *ngIf="friends.myFriends.length > 0">
-              <div class="fr-cont_el" *ngFor="let friend of friends.myFriends">
 
+              <div class="fr-cont_el" *ngFor="let friend of friends.myFriends">
+                <app-form *ngIf="friend._id != userId"
+                  style="display: none"
+                  [hidden]="true"
+                  [method]="'get'"
+                  [url]="'/api/getMutual/'+friend._id"
+                  (onRes)="setMutual($event)"
+                  [click]="true"
+                ></app-form>
                 <div class="fr-cont_el_user">
                   <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+friend._id">
                     <app-avatar *ngIf="friend.photo"
@@ -372,53 +382,45 @@
                   <app-del-friend [userId]="friend._id"></app-del-friend>
                   <app-meet-friend [userId]="friend._id"></app-meet-friend>
 
-
-                  <app-form
-                    style="display: none"
-                    [hidden]="true"
-                    [method]="'get'"
-                    [url]="'/api/getMutual/'+friend._id"
-                    (onRes)="mutual[friend._id] = $event"
-                    [click]="true"
-                  ></app-form>
                 </div>
 
               </div>
             </div>
 
             <div [hidden]="false" class="fr-cont_content" *ngIf="people.length > 0">
-              <div class="fr-cont_el" *ngFor="let mean of people">
-
-                <div class="fr-cont_el_user">
-                  <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+mean._id">
-                    <app-avatar *ngIf="mean.photo"
-                                [avatar]="mean.photo"
-                                [avatarId]="mean.photo._id"
-                                [customClass]="'inherit'"
-                                [type]="'imgMin'"
-                                class="inherit"></app-avatar>
-                  </a>
-                  <div class="fr-cont_el_user-info">
-                    <a class="fr-cont_el_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
-                    <p class="fr-cont_el_user-info_common" *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+              <div *ngFor="let mean of people">
+                <div class="fr-cont_el"  *ngIf="mean._id != userId">
+                  <div class="fr-cont_el_user">
+                    <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+mean._id">
+                      <app-avatar *ngIf="mean.photo"
+                                  [avatar]="mean.photo"
+                                  [avatarId]="mean.photo._id"
+                                  [customClass]="'inherit'"
+                                  [type]="'imgMin'"
+                                  class="inherit"></app-avatar>
+                    </a>
+                    <div class="fr-cont_el_user-info">
+                      <a class="fr-cont_el_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
+                      <p class="fr-cont_el_user-info_common" *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+                    </div>
                   </div>
-                </div>
 
-                <div class="fr-cont_el_button">
-                  <app-init-invite [userId]="mean._id"></app-init-invite>
+                  <div class="fr-cont_el_button">
+                    <app-init-invite [userId]="mean._id"></app-init-invite>
 
-                  <app-invite-friend [userId]="mean._id"></app-invite-friend>
-                  <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
-                  <app-offer-friend [userId]="mean._id"></app-offer-friend>
+                    <app-invite-friend [userId]="mean._id"></app-invite-friend>
+                    <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
+                    <app-offer-friend [userId]="mean._id"></app-offer-friend>
 
-                  <app-form
-                    style="display: none"
-                    [hidden]="true"
-                    [method]="'get'"
-                    [url]="'/api/getMutual/'+mean._id"
-                    (onRes)="mutual[mean._id] = $event"
-                    [click]="true"
-                  ></app-form>
+                    <app-form
+                      style="display: none"
+                      [hidden]="true"
+                      [method]="'get'"
+                      [url]="'/api/getMutual/'+mean._id"
+                      (onRes)="setMutual($event)"
+                      [click]="true"
+                    ></app-form>
+                  </div>
                 </div>
 
               </div>

@@ -21,7 +21,7 @@ export class FileMinComponent implements OnInit {
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  multiple: boolean = false;
-  public imageObj: any = []
+  public imageObj: any = [];
   public Pics: any = {
     larg:'',
     imgMax:'',

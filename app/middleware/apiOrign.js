@@ -1,5 +1,7 @@
 module.exports = (req,res,next) =>{
-    const allowedOrigins = ['http://localhost:4200',
+    const allowedOrigins = [
+        'http://localhost:4300',
+        'http://localhost:4200',
         'http://*.localhost:5000',
         'http://localhost:5000',
         'https://shrouded-fortress-43229.herokuapp.com',

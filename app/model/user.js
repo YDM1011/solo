@@ -2,14 +2,26 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const pages = new Schema({
-    login: {type: String, required: [true, "Login must be created"]},
-    pass: {type: String, required: [true, "Password must be created"]},
+    login: {type: String, unique: true, required: [true, "Login must be created"]},
+    pass: {type: String, unique: true, required: [true, "Password must be created"]},
     firstName: {type: String, required: [true, "First name must be created"]},
     lastName: {type: String, required: [true, "Last name must be created"]},
     gender: String,
     hash: String,
     borned: Date,
     verify:{type: Boolean, default: false},
+    favoritest:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
+    },
+    favoritdish:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "dish"
+    }],
+    choiceest:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
+    }],
     myFriends:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
@@ -29,6 +41,10 @@ const pages = new Schema({
     offer:[{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
+    }],
+    myEstablishment: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
     }],
     photo: {
         type: mongoose.Schema.Types.ObjectId,
@@ -76,6 +92,9 @@ const preRead = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    if (req.query.populate || req.params || req.query.select){
+        return next();
+    }
     if (!req.query.query){
         mongoose.model('user')
             .find({})

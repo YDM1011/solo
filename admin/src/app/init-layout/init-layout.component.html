@@ -1,0 +1,13 @@
+<div class="wrap">
+  <div>
+    <app-header></app-header>
+  </div>
+
+  <div *ngIf="isHome" class="content">
+    <app-home></app-home>
+  </div>
+  <div *ngIf="!isHome" class="content">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
