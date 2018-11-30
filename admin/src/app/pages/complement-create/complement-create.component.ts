@@ -15,7 +15,7 @@ export class ComplementCreateComponent implements OnInit {
     price:'',
     maincategory:[]
   };
-  private option:any = [];
+  public option:any = [];
   private key:string='complement';
   public id:any;
   constructor(

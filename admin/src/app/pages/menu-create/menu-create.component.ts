@@ -19,7 +19,7 @@ export class MenuCreateComponent implements OnInit {
     steptime:'',
     dishes:[]
   };
-  private option:any = [];
+  public option:any = [];
   private key:string='menu';
   public id:any;
   constructor(

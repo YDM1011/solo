@@ -4,6 +4,10 @@ module.exports = (req,res,next) =>{
         'http://localhost:4200',
         'http://*.localhost:5000',
         'http://localhost:5000',
+        'https://*.tasteol1.com',
+        'https://tasteol1.com',
+        'https://*.tasteol.com',
+        'https://tasteol.com',
         'https://shrouded-fortress-43229.herokuapp.com',
         'https://*.shrouded-fortress-43229.herokuapp.com'];
     const origin = req.headers.origin;

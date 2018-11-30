@@ -13,7 +13,7 @@ export class BoxCreateComponent implements OnInit {
     price:'',
     maincategory:[]
   };
-  private option:any = [];
+  public option:any = [];
   private key:string='box';
   public id:any;
   constructor(

@@ -35,6 +35,10 @@ const originsWhitelist = [
     'http://*.localhost:5000',
     'http://localhost:3000',
     'http://*.localhost:3000',
+    'https://*.tasteol1.com',
+    'https://tasteol1.com',
+    'https://*.tasteol.com',
+    'https://tasteol.com',
 ];
 const corsOptions = {
     origin: function(origin, callback){
@@ -91,28 +95,12 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
-app.set('subdomain offset', 1);
+app.set('subdomain offset', 2);
 app.use((req,res,next)=>{
     next()
 });
 app.use('/', api);
 
-
-
-// app.use((req,res,next)=> {
-//     switch (req.subdomains[0]) {
-//         case '':
-//             app.use('/', static1);
-//             break;
-//         case 'test':
-//             app.use(subdomain('test', static2));
-//             break;
-//         default:
-//             app.use('/', static1);
-//             break;
-//     }
-//     next();
-// });
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
@@ -135,7 +123,9 @@ app.use(function(err, req, res, next) {
             break;
             case 'solo':res.render('index2', { title: req.params.path });
             break;
-            default: res.render('index1', { title: req.params.path });
+            case 'admin':res.render('index3', { title: req.params.path });
+            break;
+            default: res.render('index2', { title: req.params.path });
             break;
         }
     }else{

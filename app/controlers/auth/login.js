@@ -3,6 +3,7 @@ const glob = require('glob');
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const md5 = require('md5');
+const data = require('../../config/index');
 
 module.exports = (req, res, next) => {
     User
@@ -15,7 +16,7 @@ module.exports = (req, res, next) => {
                 info.pass = req.body.pass;
                 res.cookie('sid',info.token,
                     {
-                        domain:'localhost',
+                        domain: data.auth.sidDomain,
                         path:"/",
                         httpOnly: true
                     });

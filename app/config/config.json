@@ -17,23 +17,8 @@
     },
     "auth": {
       "successRedirect": "/",
-      "failureRedirect": "/login"
-    },
-    "session": {
-      "secret": "seecretAdn45Hrz",
-      "resave": true,
-      "rolling": true,
-      "saveUninitialized": false,
-      "cookie": {
-        "secure": false,
-        "maxAge": 3600000
-      },
-      "cookieSave": {
-        "secure": true,
-        "maxAge": 3600000
-      },
-      "url": "mongodb://ydm1011:adn45hrf@ds249249.mlab.com:49249/talents",
-      "touchAfter": 86400
+      "failureRedirect": "/login",
+      "sidDomain": "*.tasteol1.com"
     },
     "facebook": {
       "clientID": "1644388132319517",

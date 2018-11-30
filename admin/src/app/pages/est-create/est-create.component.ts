@@ -10,6 +10,7 @@ import {ApiService} from "../../api.service";
 export class EstCreateComponent implements OnInit {
 
   public id:any;
+  public name:any;
   public menu:any;
   public menus:any = [];
   public MCI:any = [];
