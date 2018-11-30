@@ -93,7 +93,8 @@ app.use(logger('dev'));
 app.use(bodyParser.json({limit: '5mb', "strict": false,}));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(cookieParser());
-
+app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.set('subdomain offset', 2);
 app.use((req,res,next)=>{
