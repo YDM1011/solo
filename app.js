@@ -35,10 +35,8 @@ const originsWhitelist = [
     'http://*.localhost:5000',
     'http://localhost:3000',
     'http://*.localhost:3000',
-    'https://*.tasteol1.com',
-    'https://tasteol1.com',
-    'https://*.tasteol.com',
-    'https://tasteol.com',
+    'https://tasteol1.com', /\.tasteol1\.com$/,
+    'https://tasteol.com', /\.tasteol\.com$/
 ];
 const corsOptions = {
     origin: function(origin, callback){
@@ -93,7 +91,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json({limit: '5mb', "strict": false,}));
 app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.set('subdomain offset', 2);
@@ -120,7 +118,7 @@ app.use(function(err, req, res, next) {
     if(err.status == 404){
         console.log(req.subdomains, req.cookies);
         switch(req.subdomains[0]){
-            case '':res.render('index1', { title: req.params.path });
+            case undefined:res.render('index1', { title: req.params.path });
             break;
             case 'solo':res.render('index2', { title: req.params.path });
             break;
