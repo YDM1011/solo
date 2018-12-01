@@ -6,6 +6,10 @@ const mcat = new Schema({
 });
 const model = new Schema({
     name: String,
+    av: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "avatar"
+    },
     products:  [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "product"

@@ -8,7 +8,7 @@ const portionschema = new Schema({
 });
 const ingredientisschema = new Schema({
     name: String,
-    check: Boolean
+    check: {type: Boolean, default: false}
 });
 const dishingredientname = new Schema({
     name: String,

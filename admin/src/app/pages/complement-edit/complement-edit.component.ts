@@ -67,7 +67,7 @@ export class ComplementEditComponent implements OnInit {
   }
   selected(obj){
     let s = this;
-    s[s.key].maincategory[s[s.key].maincategory.length]={
+    s[s.key].maincategory ={
       name:obj.name,
       label:obj.label,
       id:obj.id

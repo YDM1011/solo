@@ -7,7 +7,7 @@ const maincategoryschema = new Schema({
 });
 const model = new Schema({
     name: String,
-    maincategory: [maincategoryschema],
+    maincategory: maincategoryschema,
     massa: String,
     energy: String,
     price: String,
@@ -49,7 +49,31 @@ const preUpdate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     delete req.body['owneruser'];
     delete req.body['ownerest'];
-    next()
+    if (req.body.maincategory){
+        mongoose.model('category')
+            .findOne({_id: req.body.maincategory.id, complementbox:{$in:req.params.id}})
+            .exec((err, info) => {
+                if(err) return res.badRequest('Something broke!');
+                // info.like = info.like || [];
+                // info.like.push(req.userId);
+                if(info){return next()}
+                if(!info){
+                    mongoose.model('category')
+                        .findOneAndUpdate({_id: req.body.maincategory.id},
+                            {$push:{complementbox:req.params.id}}, {new: true})
+                        .exec((err, content) =>{
+                            if(err) {
+                                return res.badRequest(err)
+                            } else {
+                                return next()
+                            }
+                        });
+                }
+            });
+    }else{
+        next()
+    }
+
 };
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);

@@ -36,10 +36,8 @@
       <h5>maincategory</h5>
     </div>
     <div class="col s12 m8">
-      <div class="category-for" *ngIf="complement.maincategory.length>0 ">
-        <span *ngFor="let elem of complement.maincategory; let i = index"
-              class="dishingredient"
-              (click)="delingredient(i)">{{elem.label}}</span>
+      <div class="category-for" *ngIf="complement.maincategory ">
+        <span class="dishingredient">{{complement.maincategory.label}}</span>
       </div>
       <app-select *ngIf="option.length>0"
                   [option]="option"

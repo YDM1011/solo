@@ -11,7 +11,8 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['../../dashboard/dashboard.component.css','./create-establishment.component.css']
 })
 export class CreateEstablishmentComponent implements OnInit {
-  domain: string = environment.apiDomain;
+  public domain: string = environment.apiDomain;
+  public host: string = environment.apiDomain.split('//')[1];
   public showPop:boolean = false;
   public establishment:any = {};
   public myEst: any = [];
@@ -34,7 +35,7 @@ export class CreateEstablishmentComponent implements OnInit {
   getEstablishment(id){
     let self = this;
     let query = JSON.stringify({owner:id});
-    let select = "subdomain,_id";
+    let select = "subdomain,_id,name";
     self.http.get(`${self.domain}/api/establishment?query=${query}&select=${select}`, self.api.getHeaders())
       .subscribe((res: any) => {
         console.log(res);

@@ -13,7 +13,7 @@ export class ComplementCreateComponent implements OnInit {
     massa:'',
     energy:'',
     price:'',
-    maincategory:[]
+    maincategory:''
   };
   public option:any = [];
   private key:string='complement';

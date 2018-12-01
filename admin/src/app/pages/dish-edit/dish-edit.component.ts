@@ -14,6 +14,7 @@ export class DishEditComponent implements OnInit {
   public setArg:any;
   public setArg2:any;
   public option:any=[];
+  public DCoption:any=[];
   public isFormAdd:boolean=false;
   public portion:any={
     massa:'',
@@ -63,6 +64,22 @@ export class DishEditComponent implements OnInit {
     let req1=['option'];
     req1.forEach((select)=>{
       this.api.get('category',id).then((res:any)=>{
+        if(res){
+          self[select] = [];
+          res.map((item:any)=>{
+            self.option.push({
+              name:item.maincategory,
+              label:item.name,
+              id:item._id
+            })
+          });
+          self[select] = self.option;
+        }
+      }).catch((err:any)=>{});
+    });
+    let req2=['DCoption'];
+    req2.forEach((select)=>{
+      this.api.get('complement',id).then((res:any)=>{
         if(res){
           self[select] = [];
           res.map((item:any)=>{

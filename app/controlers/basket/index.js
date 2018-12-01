@@ -38,6 +38,7 @@ const create = (req,res,estId)=>{
     };
     let newBasket = {
         name: estId.name,
+        av: estId.av,
         ownerest: estId._id,
         owneruser: req.userId
     };
@@ -68,7 +69,7 @@ module.exports.addProduct = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     Establishment
         .findOne({subdomain: est})
-        .select('_id name')
+        .select('_id name av')
         .exec((err, estId)=>{
             if (err) return res.badRequest(err);
             if (!estId) return res.serverError('Somesing broken');
@@ -97,7 +98,7 @@ module.exports.getBasketEst = (req, res, next) => {
             if (!estId) return res.serverError('Somesing broken');
             if (estId) {
                 Basket.findOne({ownerest:estId._id,owneruser:req.userId})
-                    .populate({path: 'products', populate:{path:'info'}})
+                    .populate({path: 'products', populate:{path:'info', populate:{path:'dishcategory', populate:{path:'complementbox'}}}})
                     .exec((err,doc)=>{
                         if (err) return res.badRequest(err);
                         if (!doc) {
