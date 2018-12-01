@@ -24,7 +24,7 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.customParams = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     let select = req.query.select;//`${req.params['id']} _id`;
     let populate = JSON.parse(req.query.populate);
     Establishment
@@ -37,7 +37,7 @@ module.exports.customParams = (req, res, next) => {
         })
 };
 module.exports.custom = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     let select = req.query.select;//`${req.params['id']} _id`;
     let populate = JSON.parse(req.query.populate);
     Establishment
@@ -51,7 +51,7 @@ module.exports.custom = (req, res, next) => {
 };
 
 module.exports.estPost = (req, res, next) => {
-    let est = req.subdomains[0] || 'Solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
 
     mongoose.model('post').schema.eachPath(function(path) {
         console.log(path);
@@ -65,7 +65,7 @@ module.exports.estPost = (req, res, next) => {
         })
 };
 module.exports.estMenu = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
 
     Establishment
         .findOne({subdomain: est})
@@ -81,7 +81,7 @@ module.exports.estMenu = (req, res, next) => {
         })
 };
 module.exports.estEst = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
 
     Establishment
         .findOne({subdomain: est})

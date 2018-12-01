@@ -57,7 +57,7 @@ const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     Est.findOne({subdomain:est})
         .select('_id')
         .exec((err,resId)=>{

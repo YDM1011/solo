@@ -65,7 +65,7 @@ const create = (req,res,estId)=>{
 };
 
 module.exports.addProduct = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     Establishment
         .findOne({subdomain: est})
         .select('_id name')
@@ -88,7 +88,7 @@ module.exports.addProduct = (req, res, next) => {
         });
 };
 module.exports.getBasketEst = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     Establishment
         .findOne({subdomain: est})
         .select('_id')

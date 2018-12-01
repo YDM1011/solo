@@ -150,7 +150,7 @@ const getFavorit = (req,res,mod)=>{
         });
 };
 const getFavoritEst = (req,res,mod)=>{
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     Est.findOne({subdomain:est})
         .select(mod)
         .exec((err,favEst)=>{
@@ -173,7 +173,7 @@ module.exports.myProfile = (req, res, next) => {
         });
 };
 module.exports.favorite = (req, res, next) => {
-    let est = req.subdomains[0] || 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[0];
     Est.findOne({subdomain:est}).exec((err,favEst)=>{
        if(err) return res.badRequest(err);
        if(!favEst) return res.badRequest('error');
