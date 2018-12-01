@@ -55,8 +55,17 @@ const preRead = (req,res,next)=>{
                 if (!doc) return res.notFound('Somesing broken');
                 if (doc) {
                     let estId = new mongoose.mongo.ObjectId(doc._id);
-                    req.query.query = JSON.stringify({ownerest: estId});
-                    return next();
+                    req.query.query = {ownerest: estId};
+                    // return next();
+                    mongoose.model('menu')
+                        .find({ownerest: estId})
+                        .populate(JSON.parse(req.query.populate))
+                        .select(req.query.select)
+                        .exec((err,info)=>{
+                            if (err) return res.serverError(err);
+                            if (!info) return res.notFound('Not found');
+                            if (info) return res.ok(info);
+                        })
                 }
             });
 
