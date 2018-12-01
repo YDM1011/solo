@@ -57,15 +57,28 @@ const preRead = (req,res,next)=>{
                     let estId = new mongoose.mongo.ObjectId(doc._id);
                     req.query.query = {ownerest: estId};
                     // return next();
-                    mongoose.model('menu')
-                        .find({ownerest: estId})
-                        .populate(JSON.parse(req.query.populate))
-                        .select(req.query.select)
-                        .exec((err,info)=>{
-                            if (err) return res.serverError(err);
-                            if (!info) return res.notFound('Not found');
-                            if (info) return res.ok(info);
-                        })
+                    if(req.params['id']){
+                        mongoose.model('menu')
+                            .findOne({_id: req.params['id']})
+                            .populate(JSON.parse(req.query.populate))
+                            .select(req.query.select)
+                            .exec((err,info)=>{
+                                if (err) return res.serverError(err);
+                                if (!info) return res.notFound('Not found');
+                                if (info) return res.ok(info);
+                            })
+                    }else{
+                        mongoose.model('menu')
+                            .find({ownerest: estId})
+                            .populate(JSON.parse(req.query.populate))
+                            .select(req.query.select)
+                            .exec((err,info)=>{
+                                if (err) return res.serverError(err);
+                                if (!info) return res.notFound('Not found');
+                                if (info) return res.ok(info);
+                            })
+                    }
+
                 }
             });
 
