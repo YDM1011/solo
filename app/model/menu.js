@@ -45,31 +45,33 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.query.populate || req.query.select || req.query.query){
-        let est = req.headers.origin.split("//")[1].split(".")[0];
-
+        let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[1] : 'solo';
+        console.log(est);
         mongoose.model('establishment')
             .findOne({subdomain: est})
             .select('_id')
             .exec((err, doc)=>{
-                if (err) return res.badRequest(err);
-                if (!doc) return res.serverError('Somesing broken');
+                if (err) return res.serverError(err);
+                if (!doc) return res.notFound('Somesing broken');
                 if (doc) {
                     let estId = new mongoose.mongo.ObjectId(doc._id);
-                    req.query.query = {ownerest: estId};
+                    req.query.query = JSON.stringify({ownerest: estId});
                     return next();
                 }
             });
 
-    }
-    mongoose.model('menu')
-        .find({ownerest: req.params['id']})
-        .populate({path:'dishes', select:'name _id',
+    }else{
+        mongoose.model('menu')
+            .find({ownerest: req.params['id']})
+            .populate({path:'dishes', select:'name _id',
                 populate:{path:'dishcategory', select:'name _id'}})
-        .exec((err,info)=>{
-            if (err) return res.serverError(err);
-            if (!info) return res.notFound('Not found');
-            if (info) return res.ok(info);
-        })
+            .exec((err,info)=>{
+                if (err) return res.serverError(err);
+                if (!info) return res.notFound('Not found');
+                if (info) return res.ok(info);
+            })
+    }
+
 
 };
 const preUpdate = (req,res,next)=>{
