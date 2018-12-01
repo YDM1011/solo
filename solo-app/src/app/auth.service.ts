@@ -12,6 +12,8 @@ import {BehaviorSubject} from "rxjs";
 export class AuthService {
 
   private domain = environment.apiDomain + '/api';
+  private domainCoock = environment.apiDomain;
+  private isProd = environment.production;
   private _signin = `${this.domain}/signin`;
   private _signup = `${this.domain}/signup`;
   private _confirm = `${this.domain}/confirm`;
@@ -109,12 +111,20 @@ export class AuthService {
     return promise;
   }
   setToken(res){
-    let host = location.host;
-    let domainParts = host.split('.');
-    domainParts.shift();
-    let domain = '.'+domainParts.join('.') == '.' ? host.split(':')[0] : '.'+domainParts.join('.');
-    document.cookie = "userid="+res._id+"; path=/; domain="+domain;
-    console.log(domain);
+
+    if(this.isProd){
+      let domain = '.'+this.domainCoock.split('.')[1];
+      let sdomain = '.'+this.domainCoock.split('.')[0].split("//")[1];
+      document.cookie = "userid="+res._id+"; path=/; domain="+sdomain+domain;
+      console.log(domain);
+    }else{
+      let host = location.host;
+      let domainParts = host.split('.');
+      domainParts.shift();
+      let domain = '.'+domainParts.join('.') == '.' ? host.split(':')[0] : '.'+domainParts.join('.');
+      document.cookie = "userid="+res._id+"; path=/; domain="+domain;
+      console.log(domain);
+    }
     // this.cookieService.set( 'token', res.token );
     // this.cookieService.set( 'userid', res._id );
     return
