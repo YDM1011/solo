@@ -45,7 +45,7 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.query.populate || req.query.select || req.query.query){
-        let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[1] : 'solo';
+        let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
         console.log(est);
         mongoose.model('establishment')
             .findOne({subdomain: est})
