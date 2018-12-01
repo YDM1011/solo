@@ -102,8 +102,8 @@ const glob = require('glob');
 glob.restify.serve(
     glob.route,
     mongoose.model('avatar'),{
-        preCreate: [glob.jsonParser, glob.getId, preCreate],
-        postCreate: [glob.jsonParser, glob.getId, postCreate]
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        postCreate: [glob.jsonParser, glob.cookieParser, glob.getId, postCreate]
     });
 
 
