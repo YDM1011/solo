@@ -45,7 +45,19 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.query.populate || req.query.select || req.query.query){
-        return next();
+        let est = req.headers.origin.split("//")[1].split(".")[0];
+        Establishment
+            .findOne({subdomain: est})
+            .select('_id')
+            .exec((err, doc)=>{
+                if (err) return res.badRequest(err);
+                if (!doc) return res.serverError('Somesing broken');
+                if (doc) {
+                    req.query.query = {ownerest: doc._id};
+                    return next();
+                }
+            });
+
     }
     mongoose.model('menu')
         .find({ownerest: req.params['id']})
