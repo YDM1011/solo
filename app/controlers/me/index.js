@@ -193,7 +193,7 @@ module.exports.getFavorite = (req, res, next) => {
     switch(req.params.key){
         case 'favoritest': getFavorit(req,res,'favoritest'); break;
         case 'est': getFavorit(req,res,'choiceest'); break;
-        case 'dish': getFavorit(req,res,'favoritdish'); break;
+            case 'dish': getFavorit(req,res,'favoritdish'); break;
         default: getFavoriteE(req, res, next); break;
     }
 };

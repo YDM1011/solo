@@ -19,11 +19,6 @@ export class ApiInterceptor implements HttpInterceptor {
       },
       withCredentials: true
     });
-    console.log("----request----");
-
-    console.log(request);
-
-    console.log("--- end of request---");
 
 
     return next.handle(request)
@@ -31,15 +26,8 @@ export class ApiInterceptor implements HttpInterceptor {
         tap(event => {
           if (event instanceof HttpResponse) {
 
-            console.log(" all looks good");
           }
         }, error => {
-          // http response status code
-          console.log("----response----");
-          console.error("status code:");
-          console.error(error.status);
-          console.error(error.message);
-          console.log("--- end of response---");
 
         })
       )

@@ -51,13 +51,12 @@ module.exports.custom = (req, res, next) => {
 };
 
 module.exports.estPost = (req, res, next) => {
-    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'Solo';
 
-    mongoose.model('post').schema.eachPath(function(path) {
-        console.log(path);
-    });
     mongoose.model('post')
         .find({"inPlace.place": est})
+        .populate({path:'userId'})
+        .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
         .exec((err, doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) return res.serverError('Somesing broken');

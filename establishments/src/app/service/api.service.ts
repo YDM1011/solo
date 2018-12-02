@@ -17,6 +17,9 @@ export class ApiService {
   private image = new BehaviorSubject<any>(null);
   public onImg = this.image.asObservable();
 
+  private av = new BehaviorSubject<any>(null);
+  public onAvatar = this.av.asObservable();
+
   constructor(
     private http: HttpClient,
   ) { }
@@ -39,6 +42,9 @@ export class ApiService {
         .subscribe(
           (res:any) => {
             self.global[api + (id || '') + (select || '')] = res;
+            if(id == 'av'){
+              if(res.av.larg) self.av.next(res.av.larg);
+            }
             resolve(res);
           },
           err => reject(err)

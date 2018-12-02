@@ -10,6 +10,7 @@ export class ImgComponent implements OnInit {
 
   @Input() img:any = {url: '', name: '', id: ''};
   @Input() pic:string;
+
   private id:any;
   constructor(
     private api: ApiService

@@ -174,5 +174,5 @@ glob.restify.serve(
     {
         preRead: [glob.jsonParser, preRead],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preCreate],
-        preUpdate: [glob.jsonParser, glob.isProfile, preSave]
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preSave]
     });

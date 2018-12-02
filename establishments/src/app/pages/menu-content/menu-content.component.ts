@@ -28,4 +28,13 @@ export class MenuContentComponent implements OnInit {
   initApi(id){
 
   }
+  categDel(id){
+    let s = this;
+    s.menu.categories.map(category=>{
+      if(id != category._id){
+        category.hidden = true;
+      }
+    })
+    console.log(s.menu.categories);
+  }
 }

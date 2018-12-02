@@ -7,7 +7,7 @@
 <article class="collapsible-body mn_li_c" style="display: block;">
   <ng-container *ngIf="menu">
     <ng-container *ngFor="let category of menu.categories">
-      <div class="mn_li_h1">
+      <div class="mn_li_h1" *ngIf="!category.hidden">
         <h1 class="mn_li_t1 c_t14">{{category.name}}</h1>
         <div class="mn_li_btn-c">
           <button type="button" class="btn-trans mn_li_btn">
@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <app-dish [categoryId]="category._id"></app-dish> <!--id-->
+      <app-dish [categoryId]="category._id" (onNull)="categDel($event)"></app-dish> <!--id-->
 
     </ng-container>
   </ng-container>

@@ -49,26 +49,26 @@ const preCreate = (req,res,next)=>{
             if (err) {
                 console.log(info);
                 return res.send(err)
+            }else{
+                mongoose.model('post')
+                    .findOneAndUpdate({_id: info.postId},
+                        {$push: {commentId: info._id}}, {new: true})
+                    .exec((err, content) => {
+                        if (err) {
+                            return res.send(err)
+                        } else if (content) {
+                            mongoose.model('comment')
+                                .findOne({_id:info._id})
+                                .populate({path:"userIdCom"})
+                                .exec((err,doc)=>{
+                                    if (err) return res.send(err);
+                                    return res.ok(doc)
+                                });
+
+                        }
+                    });
             }
 
-        mongoose.model('post')
-            .findOneAndUpdate({_id: info.postId},
-                {$push: {commentId: info._id}}, {new: true})
-            .exec((err, content) => {
-                if (err) {
-                    return res.send(err)
-                } else if (content) {
-                    mongoose.model('comment')
-                        .findOne({_id:info._id})
-                        .populate({path:"userIdCom",
-                            populate:{path:"photo",select:"preload _id"}})
-                        .exec((err,doc)=>{
-                            if (err) return res.send(err);
-                            return res.ok(doc)
-                        });
-
-                }
-            });
         })
 };
 glob.restify.serve(
@@ -76,6 +76,6 @@ glob.restify.serve(
     mongoose.model('comment'),
     {
         preRead: [glob.jsonParser],
-        preCreate: [glob.jsonParser, glob.isAuth, preCreate]
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.isAuth, preCreate]
 
     });

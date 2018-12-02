@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Post = mongoose.model('post');
 const Comment = mongoose.model('comment');
 const Dish = mongoose.model('dish');
+const User = mongoose.model('user');
 module.exports.put = (req, res, next) => {
     console.log(req.body.postId);
     Post
@@ -92,7 +93,16 @@ module.exports.putDish = (req, res, next) => {
                             if(err) {
                                 res.send(err)
                             } else {
-                                return res.ok(content.dishlike)
+                                User
+                                    .findOneAndUpdate({_id:req.userId},
+                                        {$pull:{favoritdish:req.body._id}},
+                                        {new: true}).exec((err, info) =>{
+                                    if(err) {
+                                        res.send(err)
+                                    } else {
+                                        return res.ok(content.dishlike)
+                                    }
+                                });
                             }
                         });
             }
@@ -105,9 +115,20 @@ module.exports.putDish = (req, res, next) => {
                             if(err) {
                                 res.send(err)
                             } else {
-                                return res.ok(content.dishlike)
+                                User
+                                    .findOneAndUpdate({_id:req.userId},
+                                        {$push:{favoritdish:req.body._id}},
+                                        {new: true}).exec((err, info) =>{
+                                    if(err) {
+                                        res.send(err)
+                                    } else {
+                                        console.log(info.favoritdish);
+                                        return res.ok(content.dishlike)
+                                    }
+                                });
                             }
                         });
+
             }
 
         });

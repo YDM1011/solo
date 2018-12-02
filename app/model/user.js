@@ -129,8 +129,8 @@ glob.restify.serve(
     glob.route,
     mongoose.model('user'),
     {
-        preUpdate: [glob.jsonParser, glob.isProfile, preUpdate],
-        preRead: [glob.jsonParser, preRead],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preUpdate],
+        preRead: [glob.jsonParser, glob.cookieParser, preRead],
         outputFn: async (req, res) => {
             const result = [];
             const statusCode = req.erm.statusCode;

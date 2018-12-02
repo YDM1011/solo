@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ApiService} from "../../service/api.service";
 
 @Component({
@@ -9,6 +9,7 @@ import {ApiService} from "../../service/api.service";
 export class DishComponent implements OnInit {
 
   @Input() categoryId:any;
+  @Output() onNull: EventEmitter<any> = new EventEmitter<any>();
   public portion:any = [];
   public dishes:any;
   constructor(
@@ -21,10 +22,15 @@ export class DishComponent implements OnInit {
     let s = this;
     s.dishes = obj;
     let count = 0;
-    s.dishes.map(item=>{
-      s.portion[count] = item.portion[0];
-      count++;
-    });
+    if (s.dishes.length>0){
+      s.onNull.next(s.categoryId);
+    }else{
+      s.dishes.map(item=>{
+        s.portion[count] = item.portion[0];
+        count++;
+      });
+    }
+
   }
   select(obj, i){
     let s = this;
