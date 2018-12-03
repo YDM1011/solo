@@ -22,12 +22,12 @@ export class SigninComponent implements OnInit {
         .then((res: any) => {
           if (res){
             this.router.navigate([`user/${res._id}`]);
-            console.log('res',res)
+            console.log('res',res);
           }else{
-            console.log('err',res)
+            console.log('err',res);
           }
         }, (err:any)=>{
-          console.log('err',err)
+          console.log('err',err);
         });
   }
 }

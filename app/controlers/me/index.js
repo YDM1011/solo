@@ -172,6 +172,19 @@ module.exports.myProfile = (req, res, next) => {
             if(!info){return res.badRequest('Something broke!');}
         });
 };
+module.exports.getFriend = (req, res, next) => {
+    User
+        .findOne({_id: req.userId})
+        .select("-token -pass -login")
+        .populate({path: "myFriends", populate:{path:'photo',select:"imgMin"}})
+        .exec((err, info) => {
+            if(err) return res.badRequest('Something broke!');
+            if(info){
+                res.ok(info)
+            }
+            if(!info){return res.badRequest('Something broke!');}
+        });
+};
 module.exports.favorite = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     Est.findOne({subdomain:est}).exec((err,favEst)=>{
@@ -193,7 +206,7 @@ module.exports.getFavorite = (req, res, next) => {
     switch(req.params.key){
         case 'favoritest': getFavorit(req,res,'favoritest'); break;
         case 'est': getFavorit(req,res,'choiceest'); break;
-            case 'dish': getFavorit(req,res,'favoritdish'); break;
+        case 'dish': getFavorit(req,res,'favoritdish'); break;
         default: getFavoriteE(req, res, next); break;
     }
 };

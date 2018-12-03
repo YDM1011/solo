@@ -58,17 +58,18 @@
 
       <span class="info_user_friend" *ngIf="item.withFriend.length > 0">
         <span class="info_user_event"> разом з</span>
-        <strong class="info_user_friend_name" *ngFor="let friend of item.withFriend"> {{friend.name}}</strong>
+        <strong class="info_user_friend_name" *ngFor="let friend of item.withFriend"><a [routerLink]="'/user/'+friend.id"> {{friend.firstName}} </a></strong>
       </span>
 
       <span class="info_user_place"  *ngIf="item.inPlace.place">
         <span class="info_user_event"> у </span>
-        <span class="info_user_place_link">
-            <span class="info_user_place_link_img">
-              <img class="img" src="http://hronika.info/uploads/posts/2018-09/thumbs/1536401825_img_top.jpg" alt="">
+        <a  href="//{{item.inPlace.place+'.'+host}}" class="info_user_place_link">
+            <span class="info_user_place_link_img" >
+              <img class="img" src="{{item.inPlace.value}}" alt="">
             </span>
             <strong>{{item.inPlace.place}}</strong>
-        </span>
+        </a>
+
       </span>
     </span>
 

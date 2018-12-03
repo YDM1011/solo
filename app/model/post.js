@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const friend = new Schema({
     id: String,
-    name: String
+    firstName: String
 });
 const place = new Schema({
     id: String,

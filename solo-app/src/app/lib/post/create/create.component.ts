@@ -22,16 +22,8 @@ export class CreateComponent implements OnInit {
     {name: 'обурено'},
     {name: 'жахливо'},
   ];
-  public places = [
-    {name: 'Solo'},
-    {name: 'Ring'},
-    {name: 'Bazelic'}
-  ];
-  public friends = [
-    {name: 'Den'},
-    {name: 'Misha'},
-    {name: 'Andry'}
-  ];
+  public places = [];
+  public friends = [];
   public active: string;
   public placeActive: string;
   public friendActive: string;
@@ -42,12 +34,26 @@ export class CreateComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    let s = this;
     //noinspection TypeScriptValidateTypes
     this.postObg.userId = this.cooki.get('userid');
+
+    this.post.getEst().then((val: any) => {
+      if (val) {
+        s.places = [];
+        s.places = val;
+      }
+    });
+    this.post.getFriend().then((val: any) => {
+      if (val) {
+        s.friends = [];
+        s.friends = val;
+      }
+    });
   }
 
-  addPost(post){
-    let self = this;
+  addPost(post) {
+    const self = this;
     self.post.pushPost(post);
     self.postObg = new Post();
     //noinspection TypeScriptValidateTypes
@@ -56,19 +62,22 @@ export class CreateComponent implements OnInit {
     this.placeActive = '';
     this.active = '';
   }
-  take(imression){
+  take(imression) {
     this.postObg.imression.name = imression.name;
     this.active = imression.name;
   }
-  takePlace(place){
-    this.postObg.inPlace.place = place.name;
+  takePlace(place) {
+    this.postObg.inPlace.place = place.subdomain;
+    this.postObg.inPlace.id = place._id;
+    this.postObg.inPlace.value = place.av.preload;
     this.placeActive = place.name;
   }
-  takeFriend(item){
+  takeFriend(item) {
+    item.id = item._id;
     this.postObg.withFriend.push(item);
     this.friendActive = item.name;
   }
-  delet(i){
+  delet(i) {
     //noinspection TypeScriptValidateTypes
     this.postObg.withFriend.splice(i, 1) ;
   }

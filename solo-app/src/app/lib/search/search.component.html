@@ -1,15 +1,29 @@
+<ng-container *ngIf="type == 'user'">
+<div class="search-contain" *ngIf="!searchDropD">
+  <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="search" autocomplete="off">
+  <ul class="search-items create-post_sl">
+    <li class="search-item" *ngFor="let itemp of array | search: 'firstName': searchText" (click)="onFind.emit(itemp)">
+      <span class="search-item_img">
+        <img src="{{itemp.photo.imgMin || itemp.av.preload}}" alt="">
+      </span>
+      <span class="search-item_title">{{itemp.firstName || itemp.name}}</span>
+    </li>
+  </ul>
+</div>
+</ng-container>
+<ng-container *ngIf="type == 'est'">
 <div class="search-contain" *ngIf="!searchDropD">
   <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="search" autocomplete="off">
   <ul class="search-items create-post_sl">
     <li class="search-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
       <span class="search-item_img">
-        <img src="https://i.ytimg.com/vi/M-gs-5_irOs/hqdefault.jpg" alt="">
+        <img src="{{itemp.av.preload}}" alt="">
       </span>
       <span class="search-item_title">{{itemp.name}}</span>
     </li>
   </ul>
 </div>
-
+</ng-container>
 
 <div class="search-dropdown" *ngIf="searchDropD">
   <input id="search-input" class="nav_search" type="text"

@@ -11,7 +11,8 @@ import {environment} from "../../environments/environment";
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit, OnChanges {
-  domain: string = environment.apiDomain;
+  public domain: string = environment.apiDomain;
+  public host: string = environment.apiDomain.split('//')[1];
   public user: any;
   public people: any = [];
   public id: string;
@@ -23,6 +24,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public isGaleryPage: boolean = false;
   public count = 0;
   public loader;
+  public favoriteEst;
   public limit = 4;
   public posts = [];
   public friends;
@@ -89,6 +91,14 @@ export class DashboardComponent implements OnInit, OnChanges {
           .subscribe((res: any) => {
             self.posts = (user);
             self.setcount(res);
+          });
+      });
+    this.http.get(this.domain+'/api/favorite/favoritest', this.api.getHeaders())
+      .subscribe((est: any) => {
+        self.favoriteEst = est.favoritest;
+        this.http.get(this.domain + '/api/avatar/' + self.favoriteEst.av + '?select=larg', this.api.getHeaders())
+          .subscribe((estAv: any) => {
+            self.favoriteEst.av = estAv;
           });
       });
     this.http.get(this.domain+'/api/getFriends?userId='+idc, this.api.getHeaders())

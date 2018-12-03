@@ -26,7 +26,7 @@ export class FormApiService {
     e.target.classList.remove("error");
     item.elem.classList.remove("error");
     item.elem.innerText = item.elem.getAttribute('data-defoult-text');
-    e.target.innerText = e.target.getAttribute('data-defoult-text')
+    e.target.innerText = e.target.getAttribute('data-defoult-text');
   }
   error(err, valid) {
     let self = this;

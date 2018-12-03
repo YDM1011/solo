@@ -28,6 +28,8 @@ router.post('/api/uploadImage', [orign, upload.single("file")], uploadFile);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
 router.get('/api/me', [orign, glob.cookieParser, glob.getId], me.myProfile);
+router.get('/api/get_friend', [orign, glob.cookieParser, glob.getId], me.getFriend);
+
 router.post('/api/like', [orign, glob.getId], like.put);
 router.post('/api/likeCom', [orign, glob.getId], like.putCom);
 router.post('/api/likeDish', [orign, glob.getId], like.putDish);

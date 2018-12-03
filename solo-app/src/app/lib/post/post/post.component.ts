@@ -21,6 +21,8 @@ export class PostComponent implements OnInit {
   public next: boolean = false;
   public isShow: boolean = true;
   public domain: string = environment.apiDomain;
+  public host: string = environment.apiDomain.split('//')[1];
+  public protocol: string = environment.apiDomain.split('//')[0];
   @Input() id: string;
   @Input() posts;
   constructor(

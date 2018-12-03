@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import {CookieService} from "ngx-cookie-service";
-import {environment} from "../environments/environment";
-import {HttpHeaders, HttpClient} from "@angular/common/http";
-import swal from "sweetalert2";
-import {BehaviorSubject} from "rxjs";
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../environments/environment';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import swal from 'sweetalert2';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -47,10 +47,10 @@ export class CoreService {
       self.http.get<any>(this._setting, self.getHeaders()).subscribe(
         (res: any) => {
           if (res && !res.err) {
-            resolve(res)
+            resolve(res);
           } else if (res.err) {
             swal("Error", res.err, "error");
-            reject(res)
+            reject(res);
           }
         },
         (err: any) => {
@@ -59,7 +59,7 @@ export class CoreService {
             reject(err)
           }
         }
-      )
+      );
     });
     return promise;
   }

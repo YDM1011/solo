@@ -45,7 +45,7 @@
       <div class="cont_left-bar" #leftBar>
         <div class="left-bar_cont" [appLeftBarScroll]="leftBar.getBoundingClientRect()" [style.width.px]="leftBar.clientWidth">
           <div class="left-bar_cont_content">
-            <div class="star-el_cont-link">
+            <a *ngIf="favoriteEst" href="//{{favoriteEst.subdomain+'.'+host}}" class="star-el_cont-link">
               <div class="star-el_hdr">
                   <span class="star-el_hdr_img">
                       <svg x="0px" y="0px" viewBox="0 0 53.867 53.867" style="enable-background:new 0 0 30 30;" ><polygon style="fill:#EFCE4A;" points="26.934,1.318 35.256,18.182 53.867,20.887 40.4,34.013 43.579,52.549 26.934,43.798 10.288,52.549 13.467,34.013 0,20.887 18.611,18.182 "/></svg>
@@ -53,10 +53,13 @@
                   <span class="star-el_hdr_text">Улюблений заклад</span>
               </div>
               <div class="star-el_content">
-                  <span class="star-el_item pre-bg">
+                  <span class="star-el_item pre-bg" *ngIf="!favoriteEst.av">
+                  </span>
+                  <span class="star-el_item pre-bg" *ngIf="favoriteEst.av">
+                    <img src="{{favoriteEst.av.larg}}" alt="">
                   </span>
               </div>
-            </div>
+            </a>
 
             <div class="el_cont like-el-cont">
               <div class="el_hdr">

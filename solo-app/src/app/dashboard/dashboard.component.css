@@ -802,3 +802,9 @@ app-last-name{
   .user-gall_item {
     width: 17.099vw;
     height: 17.099vw; } }
+.star-el_item.pre-bg{
+  overflow: hidden;
+}
+.star-el_item.pre-bg img{
+  max-width: 100%;
+}
