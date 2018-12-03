@@ -18,7 +18,7 @@ export class NavbarComponent implements OnInit  {
     {name: 'Andry'}
   ];
   public userId: string;
-  public userPhoto = {};
+  public userPhoto:any;
   public userName: string;
   public activSearch: boolean = false;
   public isShow: boolean = false;
@@ -49,7 +49,7 @@ export class NavbarComponent implements OnInit  {
   ) { }
   ngOnInit () {
     let self = this;
-    this.userPhoto['_id'] = '';
+    // this.userPhoto['_id'] = '';
     self.user.getMe().then((val:any)=>{
       if(val){
         self.userId = val._id;

@@ -12,9 +12,8 @@ export class SignupComponent implements OnInit {
     login: '',
     firstName: '',
     lastName: '',
-    pass: ''
   };
-  public isConfirm: boolean = false;
+  public isConfirm:boolean = false;
   constructor(
     private router: Router,
     private auth: AuthService
@@ -28,7 +27,7 @@ export class SignupComponent implements OnInit {
       .then((res: any) => {
         if (res){
           // this.router.navigate(['confirm']);
-          console.log('res',res)
+          console.log('res',res);
         }
       },err=>{});
   }

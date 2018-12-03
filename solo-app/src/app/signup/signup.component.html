@@ -2,7 +2,6 @@
   <input type="text" [(ngModel)]="form.login" placeholder="login" name="login">
   <input type="text" [(ngModel)]="form.firstName" placeholder="name" name="firstName">
   <input type="text" [(ngModel)]="form.lastName" placeholder="second name" name="lastName">
-  <input type="password" [(ngModel)]="form.pass" placeholder="password" name="password">
   <button class="waves-effect waves-light btn" type="submit">Sign Up</button>
 </form>
 <app-confirm *ngIf="form && isConfirm" [form]="form"></app-confirm>

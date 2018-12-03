@@ -9,7 +9,7 @@ const pages = new Schema({
     gender: String,
     hash: String,
     borned: Date,
-    verify:{type: Boolean, default: false},
+    verify:{type: Boolean, default: true},
     favoritest:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"
@@ -59,12 +59,16 @@ const pages = new Schema({
     toJSON: {
         transform: function (doc, ret) {
             delete ret.pass;
+            delete ret.token;
+            delete ret.hash;
             delete ret.login;
         },
     },
     toObject: {
         transform: function (doc, ret) {
             delete ret.pass;
+            delete ret.token;
+            delete ret.hash;
             delete ret.login;
         },
         virtuals: false

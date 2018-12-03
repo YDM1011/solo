@@ -4,6 +4,15 @@ const email = require('../email');
 const md5 = require('md5');
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
+const generatePassword = () => {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
+};
 module.exports.create = (req, res, next) => {
 
     User
@@ -11,10 +20,10 @@ module.exports.create = (req, res, next) => {
         .exec((err, info) => {
             if(err) return res.status(500).send({err:'Something broke!'});
             if(info) return res.status(200).send({err:'login in use'});
-            const hash = Math.random();
+            const hash = generatePassword();
             info = req.body;
             info.hash = hash;
-            info.pass = md5(req.body.pass);
+            info.pass = md5(hash);
             info.token = jwt.sign({ id: req.body.login }, glob.secret);
             User.create(info, (err, content) =>{
                 if(err) {
@@ -24,6 +33,7 @@ module.exports.create = (req, res, next) => {
                         mail: req.body.login,
                         hash: hash
                     });
+                    delete content.hash;
                     res.send(content)
                 }
             })
