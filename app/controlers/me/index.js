@@ -22,40 +22,6 @@ const getFavoriteEByUsId = (req, res, next) => {
     }
 };
 
-const lickeFavorite = (req,res,favEst) => {
-    Est
-        .findOne({_id: favEst._id, thebest:{$in: req.userId}})
-        .exec((err, info) => {
-            if (err) return res.badRequest('Something broke!');
-            // info.like = info.like || [];
-            // info.like.push(req.userId);
-            if (info) {
-                Est
-                    .findOneAndUpdate({_id: favEst._id},
-                        {$pull:{thebest: req.userId}}, {new: true})
-                    .exec((err, content) =>{
-                        if(err) {
-                            return res.send(err)
-                        } else {
-                            res.ok(content.thebest)
-                        }
-                    });
-            }
-            if (!info) {
-                Est
-                    .findOneAndUpdate({_id: favEst._id},
-                        {$push:{thebest: req.userId}}, {new: true})
-                    .exec((err, content) =>{
-                        if(err) {
-                            return res.send(err)
-                        } else {
-                            res.ok(content.thebest)
-                        }
-                    });
-            }
-        })
-
-};
 
 const favoritEst = (req,res,favEst)=>{
     let activeObj = {
@@ -77,22 +43,73 @@ const favoritEst = (req,res,favEst)=>{
                         if(err) {
                             return res.send(err)
                         } else {
-                            lickeFavorite(req,res,favEst)
+                            Est
+                                .findOneAndUpdate({_id: favEst._id},
+                                    {$pull:{thebest: req.userId}}, {new: true})
+                                .exec((err, content) =>{
+                                    if(err) {
+                                        return res.send(err)
+                                    } else {
+                                        res.ok(content.thebest)
+                                    }
+                                });
                         }
                     });
 
             }
             if(!info){
                 User
-                    .findOneAndUpdate({_id: req.userId},
-                        {favoritest: favEst._id}, {new: true})
-                    .exec((err, content) =>{
-                        if(err) {
-                            return res.send(err)
-                        } else {
-                            lickeFavorite(req,res,favEst)
+                    .findOne({_id: req.userId})
+                    .exec((err,result)=>{
+                        if(err) return res.badRequest('Something broke!');
+                        if(!result.favoritest){
+                            User
+                                .findOneAndUpdate({_id: req.userId},
+                                    {favoritest: favEst._id}, {new: true})
+                                .exec((err, content) =>{
+                                    if(err) {
+                                        return res.send(err)
+                                    } else {
+                                        Est
+                                            .findOneAndUpdate({_id: favEst._id},
+                                                {$push:{thebest: req.userId}}, {new: true})
+                                            .exec((err, content) =>{
+                                                if(err) {
+                                                    return res.send(err)
+                                                } else {
+                                                    res.ok(content.thebest)
+                                                }
+                                            });
+                                    }
+                                });
+                        }
+                        if(result.favoritest){
+                            User
+                                .findOneAndUpdate({_id: req.userId},
+                                    {favoritest: favEst._id}, {new: true})
+                                .exec((err, content) =>{
+                                    if(err) {
+                                        return res.send(err)
+                                    } else {
+                                        Est.findOneAndUpdate({_id: result.favoritest}, {$pull:{thebest: req.userId}}, {new: true}).exec((err, content) =>{
+                                            if(err) {return res.send(err)}else{
+                                                Est.findOneAndUpdate({_id: favEst._id}, {$push:{thebest: req.userId}}, {new: true}).exec((err, content) =>{
+                                                        if(err) {
+                                                            return res.send(err)
+                                                        } else {
+                                                            res.ok(content.thebest)
+                                                        }
+                                                    });
+                                            }
+
+                                        });
+
+
+                                    }
+                                });
                         }
                     });
+
             }
 
         });
