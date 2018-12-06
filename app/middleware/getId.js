@@ -23,6 +23,7 @@ glob.getId = (req,res,next)=>{
                     if (err) return next(err);
                     if (!info) return res.forbidden("forbidden");
                     req.userId = info._id;
+                    req.ownerId = info._id;
                     // req.avatar = info.avatar;
                     next()
                 });

@@ -269,7 +269,7 @@ glob.restify.serve(
     glob.route,
     mongoose.model('establishment'),
     {
-        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preRead],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
     });

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {ApiService} from "../../api.service";
+import {HttpClient} from '@angular/common/http';
+import {ApiService} from '../../api.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import {ApiService} from "../../api.service";
 })
 export class HeaderComponent implements OnInit {
 
-  public ests:any = [];
+  public ests: any = [];
   constructor(
     private api: ApiService
   ) { }
@@ -18,12 +18,11 @@ export class HeaderComponent implements OnInit {
 
     this.getEstablishment();
   }
-  getEstablishment(){
-    let select = "subdomain,_id";
-    let self = this;
-    this.api.getEsts(select).then((res:any)=>{
+  getEstablishment() {
+    const self = this;
+    this.api.get('get_est').then((res: any) => {
       self.ests = res;
-    })
+    });
 
   }
 }

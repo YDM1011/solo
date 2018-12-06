@@ -45,6 +45,7 @@ router.post('/api/delMeetFriend', [orign, glob.getId], friend.delMeetFriend);
 router.post('/api/offerFriend', [orign, glob.getId], friend.offerFriend);
 
 router.post('/api/create_establishment', [orign, glob.getId, verify], establishment.create);
+router.get('/api/get_est', [orign, glob.getId], establishment.getMy);
 
 // estaplishment API
 router.get('/api/est', [orign], establishment.custom);
@@ -54,6 +55,7 @@ router.get('/api/est_menu', [orign], establishment.estMenu);
 router.get('/api/est_est', [orign], establishment.estEst);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
 router.get('/api/favorite/:key', [orign, glob.getId], me.getFavorite);
+router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId);
 
 // basket API
 router.post('/api/add_product', [orign, glob.getId], basket.addProduct);

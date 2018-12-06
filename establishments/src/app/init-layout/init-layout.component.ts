@@ -14,7 +14,7 @@ export class InitLayoutComponent implements OnInit {
   public favorite:any;
   constructor(
     private route: ActivatedRoute,
-    private router:Router,
+    private router: Router,
     private api: ApiService
   ) {  }
 

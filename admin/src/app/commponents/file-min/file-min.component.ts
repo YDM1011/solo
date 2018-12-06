@@ -54,7 +54,7 @@ export class FileMinComponent implements OnInit {
               canvasImg.width = this.resultSize(size.width, smallSide, item);
               canvasImg.height = this.resultSize(size.height, smallSide, item);
               this.cx.drawImage(img, 0, 0, canvasImg.width , canvasImg.height );
-              this.imageObj.push(canvasImg.toDataURL('image/jpeg', 0.8));
+              this.imageObj.push(canvasImg.toDataURL('image/png', 0.8));
             });
             this.Pics={
               larg:this.imageObj[0],
@@ -94,7 +94,7 @@ export class FileMinComponent implements OnInit {
             canvasImg.width = this.resultSize(size.width, smallSide, item);
             canvasImg.height = this.resultSize(size.height, smallSide, item);
             this.cx.drawImage(img, 0, 0, canvasImg.width , canvasImg.height );
-            this.imageObj.push(canvasImg.toDataURL('image/jpeg', 0.8));
+            this.imageObj.push(canvasImg.toDataURL('image/png', 0.8));
           });
           this.Pics={
             larg:this.imageObj[0],

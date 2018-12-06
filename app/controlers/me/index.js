@@ -13,6 +13,50 @@ const getFavoriteE = (req, res, next) => {
     }
 };
 
+const getFavoriteEByUsId = (req, res, next) => {
+
+    switch(req.params.key){
+        case 'favorite': getFavoritEst(req,res,'favorite'); break;
+        case 'thebest': getFavoritEst(req,res,'thebest'); break;
+        default: res.badRequest('Key is wrong'); break;
+    }
+};
+
+const lickeFavorite = (req,res,favEst) => {
+    Est
+        .findOne({_id: favEst._id, thebest:{$in: req.userId}})
+        .exec((err, info) => {
+            if (err) return res.badRequest('Something broke!');
+            // info.like = info.like || [];
+            // info.like.push(req.userId);
+            if (info) {
+                Est
+                    .findOneAndUpdate({_id: favEst._id},
+                        {$pull:{thebest: req.userId}}, {new: true})
+                    .exec((err, content) =>{
+                        if(err) {
+                            return res.send(err)
+                        } else {
+                            res.ok(content.thebest)
+                        }
+                    });
+            }
+            if (!info) {
+                Est
+                    .findOneAndUpdate({_id: favEst._id},
+                        {$push:{thebest: req.userId}}, {new: true})
+                    .exec((err, content) =>{
+                        if(err) {
+                            return res.send(err)
+                        } else {
+                            res.ok(content.thebest)
+                        }
+                    });
+            }
+        })
+
+};
+
 const favoritEst = (req,res,favEst)=>{
     let activeObj = {
         _id: req.userId,
@@ -33,20 +77,10 @@ const favoritEst = (req,res,favEst)=>{
                         if(err) {
                             return res.send(err)
                         } else {
+                            lickeFavorite(req,res,favEst)
+                        }
+                    });
 
-                        }
-                    });
-                Est
-                    .findOneAndUpdate({_id: favEst._id},
-                        {$pull:{thebest: req.userId}}, {new: true})
-                    .exec((err, content) =>{
-                        if(err) {
-                            return res.send(err)
-                        } else {
-                            res.ok(content.thebest)
-                        }
-                    });
-                // return res.notFound('like is active');
             }
             if(!info){
                 User
@@ -56,17 +90,7 @@ const favoritEst = (req,res,favEst)=>{
                         if(err) {
                             return res.send(err)
                         } else {
-
-                        }
-                    });
-                Est
-                    .findOneAndUpdate({_id: favEst._id},
-                        {$push:{thebest: req.userId}}, {new: true})
-                    .exec((err, content) =>{
-                        if(err) {
-                            return res.send(err)
-                        } else {
-                            res.ok(content.thebest)
+                            lickeFavorite(req,res,favEst)
                         }
                     });
             }
@@ -149,6 +173,23 @@ const getFavorit = (req,res,mod)=>{
             }
         });
 };
+const getFavoritByUsId = (req,res,mod,usId)=>{
+    User
+        .findOne({_id: usId})
+        .populate({path:mod})
+        .select(mod)
+        .exec((err, content) =>{
+            if(err) {
+                return res.badRequest(err);
+            }
+            if(!content) {
+                return res.notFound("not Found");
+            }
+            if(content) {
+                res.ok(content)
+            }
+        });
+};
 const getFavoritEst = (req,res,mod)=>{
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     Est.findOne({subdomain:est})
@@ -208,6 +249,16 @@ module.exports.getFavorite = (req, res, next) => {
         case 'est': getFavorit(req,res,'choiceest'); break;
         case 'dish': getFavorit(req,res,'favoritdish'); break;
         default: getFavoriteE(req, res, next); break;
+    }
+};
+
+module.exports.getFavoriteByUsId = (req, res, next) => {
+
+    switch(req.params.key){
+        case 'favoritest': getFavoritByUsId(req,res,'favoritest', req.params.usId); break;
+        case 'est': getFavoritByUsId(req,res,'choiceest', req.params.usId); break;
+        case 'dish': getFavoritByUsId(req,res,'favoritdish', req.params.usId); break;
+        default: getFavoriteEByUsId(req, res, next); break;
     }
 };
 

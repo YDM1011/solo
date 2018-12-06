@@ -217,9 +217,8 @@ export class ApiService {
     });
   }
 
-  getEsts(... select){
+  getEsts(){
     let self = this;
-    let model = select ? '?select='+select : '';
-    return this.get('establishment','',select);
+    return this.get('establishment','',);
   }
 }

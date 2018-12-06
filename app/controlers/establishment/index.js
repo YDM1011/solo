@@ -23,6 +23,16 @@ module.exports.create = (req, res, next) => {
     });
 };
 
+module.exports.getMy = (req, res, next) => {
+    Establishment.find({owner: req.ownerId})
+        .select("subdomain _id")
+        .exec((err,result)=>{
+            if(err) return res.badRequest(err);
+            if (!result) return res.serverError('Somesing broken');
+            if (result) return res.ok(result);
+        })
+};
+
 module.exports.customParams = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     let select = req.query.select;//`${req.params['id']} _id`;
@@ -51,7 +61,7 @@ module.exports.custom = (req, res, next) => {
 };
 
 module.exports.estPost = (req, res, next) => {
-    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'Solo';
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
 
     mongoose.model('post')
         .find({"inPlace.place": est})

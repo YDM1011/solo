@@ -20,6 +20,7 @@ glob.jsonParser = bodyParser.json({limit: '5mb', extended: true});
 glob.cookieParser = cookieParser();
 glob.secret = "seecret";
 require('./app/middleware/getId');
+require('./app/middleware/getOwner');
 require('./app/middleware/isAuth');
 require('./app/middleware/isProfile');
 require('./app/middleware/isMyProfile');

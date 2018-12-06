@@ -15,8 +15,7 @@ export class ApiInterceptor implements HttpInterceptor {
     // modify request
     request = request.clone({
       setHeaders: {
-        Authorization: `${this.cookie.get('token')}`,
-        Origin: "*"
+        Authorization: `${this.cookie.get('token')}`
       },
       withCredentials: true
     });
