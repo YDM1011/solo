@@ -15,23 +15,26 @@
     <span class="h_t16">Варіанти меню</span>
   </div>
   <ng-container *ngIf="menus">
-    <ng-container *ngFor="let menu of menus">
-      <a [routerLink]="'/menu/'+menu._id" class="cont_c p-m_i" (click)="isShow=false">
-        <div class="p-m_h">
+    <ng-container *ngIf="menus.length > 0">
+      <ng-container *ngFor="let menu of menus">
+        <a [routerLink]="'/menu/'+menu._id" class="cont_c p-m_i" (click)="isShow=false">
+          <div class="p-m_h">
           <span class="p-m_svg">
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 224 369.1" style="enable-background:new 0 0 18.2 30;fill:#61148f;"><g><g><path d="M208-1c-7.6,1.5-24.8,5.9-39.8,20.8c-24.5,24.3-22.9,56.8-22.5,62c0.2,46.8,0.3,93.6,0.5,140.3c15.9-0.1,31.8-0.1,47.8-0.2c0,49.1,0,98.2,0,147.2h15h15V-1.7C218.7-1.5,213.3-1.3,208-1z"/></g></g><path d="M91.7,0c0.1,29,0.1,57.9,0.2,86.9c-5.3-0.1-10.6-0.1-15.8-0.2C75.9,57.8,75.9,28.9,75.8,0h-30c0.1,28.8,0.2,57.6,0.3,86.4c-5.4-0.1-10.8-0.1-16.2-0.2c0-28.7,0-57.5,0-86.2H0v95.5c0,31.9,19.5,58.8,45.8,66.4v207.2h30V161.9c26.3-7.5,45.8-34.4,45.8-66.4V0H91.7z"/></svg>
       </span>
-          <span class="c_t14">{{menu.name}}</span>
-        </div>
-        <div class="p-m_с">
-          <p class="p-m_t o5" *ngFor="let est of menu.forest">{{est.name}}</p>
-        </div>
-      </a>
+            <span class="c_t14">{{menu.name}}</span>
+          </div>
+          <div class="p-m_с">
+            <p class="p-m_t o5" *ngFor="let est of menu.forest">{{est.name}}</p>
+          </div>
+        </a>
+      </ng-container>
+    </ng-container>
+    <ng-container *ngIf="menus.length == 0">
+      <p class="cont_c p-m_i">Немає активного меню</p>
     </ng-container>
   </ng-container>
-  <ng-container *ngIf="!menus">
-    <p class="cont_c p-m_i">Немає активного меню</p>
-  </ng-container>
+
 
 </div>
 <div class="md-fixed" [ngClass]="{'active': isShow}" (click)="isShow=false"></div>

@@ -5746,7 +5746,7 @@ input.p-d_i_num_inp[type=number] {
   visibility: visible;
   transition: transform .2s ease-in-out, opacity .2s ease-in-out, visibility .2s ease-in-out;
   opacity: 1;
-  z-index: 1000; }
+  z-index: 99999; }
 .md:not(.md-full) {
   top: 10%;
   max-height: 80%;
@@ -5781,7 +5781,7 @@ input.p-d_i_num_inp[type=number] {
   height: calc(100vh + 60px);
   overflow: hidden;
   background: #000000;
-  z-index: 999;
+  z-index: 9999;
   align-items: center;
   justify-content: center;
   opacity: 0;
