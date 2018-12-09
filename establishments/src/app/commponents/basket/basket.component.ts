@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class BasketComponent implements OnInit {
 
   public basket: any;
+  public totalPrice: any = 0;
 
   constructor() { }
 
@@ -17,6 +18,9 @@ export class BasketComponent implements OnInit {
   result(data) {
     let s = this;
     s.basket = data;
+    s.basket.products.map(product => {
+      s.totalPrice += parseInt(product.portionCheck.price);
+    });
     console.log(data);
 
   }

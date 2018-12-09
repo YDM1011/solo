@@ -21,7 +21,7 @@
 
       <div class="ord_ct_in">
         <span class="ord_ct_time">{{ basket.data | date: "dd.MM.yy" }}</span>
-        <span class="ord_ct_val">3 565</span>
+        <span class="ord_ct_val">{{totalPrice}} грн</span>
         <span class="arrow">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 129 129" enable-background="new 0 0 30 30"> <g> <path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path> </g></svg>
       </span>
@@ -83,7 +83,7 @@
                 <div>{{product.portionCheck.massa || product.portionCheck.name || ''}}</div>
 
                 <div class="ord_pr_offer_prices">
-                  <span class="c_t14">{{product.portionCheck.price}}</span>
+                  <span class="c_t14">{{product.portionCheck.price}} грн</span>
                 </div>
               </div>
             </div>
@@ -220,7 +220,7 @@
 
                 <p class="ord-m_in">
                   <span class="c_t14">До сплати:</span>
-                  <span class="c_t16">3 565грн.</span>
+                  <span class="c_t16">{{totalPrice}} грн.</span>
                 </p>
 
                 <div class="ord-m_btn">
@@ -372,7 +372,7 @@
           </p>
           <p class="ord_in_i">
             <span class="ord_in_i-t">Загальна вартість:</span>
-            <span class="ord_in_i-val">3 565грн.</span>
+            <span class="ord_in_i-val">{{totalPrice}} грн.</span>
           </p>
         </div>
 
@@ -416,7 +416,7 @@
               </div>
               <div class="dt_i">
                 <span class="dt_t">Вартість замовлення:</span>
-                <span class="dt_t">3 565 грн</span>
+                <span class="dt_t">{{totalPrice}} грн</span>
               </div>
             </div>
           </li>
