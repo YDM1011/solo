@@ -29,6 +29,9 @@
       </a>
     </ng-container>
   </ng-container>
+  <ng-container *ngIf="!menus">
+    <p class="cont_c p-m_i">Немає активного меню</p>
+  </ng-container>
 
 </div>
 <div class="md-fixed" [ngClass]="{'active': isShow}" (click)="isShow=false"></div>

@@ -1,12 +1,12 @@
 import {Component, OnInit, Input} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {CoreService} from "../../../core.service";
-import {environment} from "../../../../environments/environment";
-import {PostService} from "../post.service";
-import {count} from "rxjs/internal/operators";
-import {AuthService} from "../../../auth.service";
-import {FormApiService} from "../../form-api/form-api.service";
-import {RouterLink} from "@angular/router";
+import {HttpClient} from '@angular/common/http';
+import {CoreService} from '../../../core.service';
+import {environment} from '../../../../environments/environment';
+import {PostService} from '../post.service';
+import {count} from 'rxjs/internal/operators';
+import {AuthService} from '../../../auth.service';
+import {FormApiService} from '../../form-api/form-api.service';
+import {RouterLink} from '@angular/router';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -18,8 +18,8 @@ export class PostComponent implements OnInit {
   public limit = 4;
   public user;
   public obj;
-  public next: boolean = false;
-  public isShow: boolean = true;
+  public next = false;
+  public isShow = true;
   public domain: string = environment.apiDomain;
   public host: string = environment.apiDomain.split('//')[1];
   public protocol: string = environment.apiDomain.split('//')[0];
@@ -35,20 +35,20 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     this.obj = JSON.stringify({id: this.id});
-    let self = this;
-    self.auth.onUserData.subscribe(value=>{
-      if(value){
+    const self = this;
+    self.auth.onUserData.subscribe(value => {
+      if (value) {
         this.user = value[0];
       }
     });
 
   }
-  addShare(obj){
+  addShare(obj) {
     // /api/share
-    let self = this;
-    this.http.post(this.domain+'/api/share', obj, this.api.getHeaders())
+    const self = this;
+    this.http.post(this.domain + '/api/share', obj, this.api.getHeaders())
       .subscribe((post: any) => {
-      if(post.userId._id == self.auth.getUserId()){
+      if (post.userId._id == self.auth.getUserId()) {
         console.log(post);
         // post.share.userIdShare = self.auth.getUserData().avatar;
         self.posts.unshift(post);

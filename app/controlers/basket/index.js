@@ -111,3 +111,18 @@ module.exports.getBasketEst = (req, res, next) => {
             }
         });
 };
+module.exports.getBasket = (req, res, next) => {
+
+    Basket.find({owneruser:req.userId})
+        .populate({path: 'products', populate:{path:'info', populate:{path:'dishcategory pic', select:'preload', populate:{path:'complementbox'}}}})
+        .populate({path: 'av', select: 'preload'})
+        .exec((err,doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) {
+                return res.serverError('Somesing broken');
+            }
+            if (doc){
+                return res.ok(doc);
+            }
+        })
+};

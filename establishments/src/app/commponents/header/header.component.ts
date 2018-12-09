@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from "ngx-cookie-service";
+import { CookieService } from 'ngx-cookie-service';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -8,20 +9,21 @@ import { CookieService } from "ngx-cookie-service";
 })
 export class HeaderComponent implements OnInit {
 
-  public id:any;
-  public user:any;
-  public access: boolean = false;
-  constructor(private cookie:CookieService) { }
+  public id: any;
+  public user: any;
+  public access = false;
+  public host: string = environment.apiDomain;
+  constructor(private cookie: CookieService) { }
 
   ngOnInit() {
-    this.id = this.cookie.get('userid')
+    this.id = this.cookie.get('userid');
   }
-  forbidden(mes){
-    let s = this;
+  forbidden(mes) {
+    const s = this;
     s.access = false;
   }
-  result(data){
-    let s = this;
+  result(data) {
+    const s = this;
     s.user = (data);
     s.access = true;
   }

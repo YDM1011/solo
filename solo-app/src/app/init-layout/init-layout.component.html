@@ -1,30 +1,39 @@
 <app-navbar *ngIf="isLoged"></app-navbar>
 <router-outlet></router-outlet>
-<div *ngIf="!isLoged">
-  <h1><i>Landing</i> page</h1>
-  <br>
-  <hr>
-  <div class="row container">
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Sign in</span>
-          <p>
-            <app-signin></app-signin>
-          </p>
+<ng-container *ngIf="isLoged && isHome">
+  <div class="cont-tape">
+    <app-news-list></app-news-list>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!isLoged">
+  <div>
+    <h1><i>Landing</i> page</h1>
+    <br>
+    <hr>
+    <div class="row container">
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Sign in</span>
+            <p>
+              <app-signin></app-signin>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="col s12 m6">
-      <div class="card blue-grey darken-1">
-        <div class="card-content white-text">
-          <span class="card-title">Sign up</span>
-          <p>
-            <app-signup></app-signup>
-          </p>
+      <div class="col s12 m6">
+        <div class="card blue-grey darken-1">
+          <div class="card-content white-text">
+            <span class="card-title">Sign up</span>
+            <p>
+              <app-signup></app-signup>
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-container>
+
 

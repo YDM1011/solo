@@ -60,5 +60,6 @@ router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId
 // basket API
 router.post('/api/add_product', [orign, glob.getId], basket.addProduct);
 router.get('/api/basket_from_est', [orign, glob.getId], basket.getBasketEst);
+router.get('/api/basket_user', [orign, glob.getId], basket.getBasket);
 
 module.exports = router;

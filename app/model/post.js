@@ -142,7 +142,7 @@ const preRead = (req,res,next)=>{
 
     let optionFind = req.query.query ? JSON.parse(req.query.query) : {};
 
-    if (req.query.limit && req.query.skip && optionFind){
+    if (req.query.limit || (req.query.skip && optionFind)){
         require("../responces/ok")(req, res);
         req.body.userId = req.userId;
         mongoose.model('post')

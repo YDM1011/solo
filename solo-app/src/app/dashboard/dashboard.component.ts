@@ -1,6 +1,6 @@
 import {Component, OnInit, OnChanges} from '@angular/core';
 import {AuthService} from '../auth.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {CoreService} from '../core.service';
 import {FormApiService} from '../lib/form-api/form-api.service';
 import {HttpClient} from '@angular/common/http';
@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public isShow = false;
   public isFriendPage = false;
   public isGaleryPage = false;
+  public isBascketPage = false;
   public count = 0;
   public loader;
   public favoriteEst;
@@ -29,6 +30,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public posts = [];
   public friends;
   public photos;
+  public isHome;
   public mutual = [];
   public obj: any;
   public sel: any;
@@ -65,6 +67,24 @@ export class DashboardComponent implements OnInit, OnChanges {
       this.id = this.route.snapshot.paramMap.get('id');
       this.obj = JSON.stringify({id: this.id});
       self.apiInitial(params.id);
+    });
+
+    if (this.router.url.search('basket') < 0) {
+      self.isHome = true;
+    } else {
+      self.isHome = false;
+    }
+
+
+    this.router.events.subscribe(res => {
+      if (res instanceof NavigationEnd) {
+        if (res.url.search('basket') < 0) {
+          self.isHome = true;
+        } else {
+          self.isHome = false;
+        }
+        console.log(res.url);
+      }
     });
   }
 
@@ -159,6 +179,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     const self = this;
     self.isFriendPage = false;
     self.isGaleryPage = false;
+    self.isBascketPage = false;
   }
   friendPage(data) {
     this.mainPage();
@@ -167,5 +188,9 @@ export class DashboardComponent implements OnInit, OnChanges {
   galeryPage(data) {
     this.mainPage();
     this.isGaleryPage = true;
+  }
+  bascketPage(data) {
+    this.mainPage();
+    this.isBascketPage = true;
   }
 }

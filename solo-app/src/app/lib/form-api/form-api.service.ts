@@ -17,7 +17,6 @@ export class FormApiService {
   private httpOptions: {withCredentials: boolean};
   getHeaders(type: string = 'application/json') {
     this.httpOptions = {
-
       withCredentials: true
     };
     return this.httpOptions;
