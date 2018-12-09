@@ -32,6 +32,7 @@ export class FavoritComponent implements OnInit {
     }
     s.api.get('favorite', s.type, '').then((val: any) => {
       if (val) {
+        console.log(val);
         s.res = val;
         s.onRes.emit(val);
       }

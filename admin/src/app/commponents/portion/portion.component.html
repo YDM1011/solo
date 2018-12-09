@@ -1,0 +1,24 @@
+<div class="row" *ngIf="obj">
+  <div class="col s12 m4">
+    <h5>Порція</h5>
+  </div>
+  <div class="col s12 m8" >
+    <div *ngFor="let prtn of portions" class="links-form">
+      <label> massa <input type="text" [(ngModel)]="prtn.massa" name="massa"></label>
+      <label> name <input type="text" [(ngModel)]="prtn.name" name="name"></label>
+      <label> about <input type="text" [(ngModel)]="prtn.about" name="about"></label>
+      <label> price <input type="text" [(ngModel)]="prtn.price" name="price"></label>
+    </div>
+    <button class="btn" (click)="isFormAdd = true">add portion</button>
+    <div *ngIf="isFormAdd">
+      <label> massa <input type="text" [(ngModel)]="portion['massa']" name="massa"></label>
+      <br>
+      <label> name <input type="text" [(ngModel)]="portion['name']" name="name"></label>
+      <br>
+      <label> about <input type="text" [(ngModel)]="portion['about']" name="about"></label>
+      <br>
+      <label> price <input type="text" [(ngModel)]="portion['price']" name="price"></label>
+      <button class="btn" (click)="addPortion()">add</button>
+    </div>
+  </div>
+</div>

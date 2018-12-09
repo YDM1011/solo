@@ -20,7 +20,10 @@ const model = new Schema({
         ref: "category"
     },
     about: String,
-    portion: [portionschema],
+    portion: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "portItem"
+    }],
     dishingredient: Array,
     ingredientis: [ingredientisschema],
     pic: {
@@ -72,7 +75,8 @@ const preRead = (req,res,next)=>{
         mongoose.model('dish')
             .find({ownerest: req.params['id']})
             .populate({path:'dishcategory', select:'name _id'})
-            .select('dishcategory name _id')
+            .populate({path:'portion'})
+            .select('dishcategory name portion _id')
             .exec((err,info)=>{
                 if (err) return res.serverError(err);
                 if (!info) return res.notFound('Not found');
@@ -86,6 +90,7 @@ const preRead = (req,res,next)=>{
             .find({ownerest: req.params['id']})
             .populate({path:'pic', select:'preload _id'})
             .populate({path:'dishcategory', select:'name _id'})
+            .populate({path:'portion'})
             .exec((err,info)=>{
                 if (err) return res.serverError(err);
                 if (!info) return res.notFound('Not found');
@@ -102,6 +107,7 @@ const postUpdate = (req,res,next)=>{
         .find({ownerest: req.erm.result.ownerest})
         .populate({path:'pic', select:'preload _id'})
         .populate({path:'dishcategory', select:'name _id'})
+        .populate({path:'portion'})
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.notFound('Not found');
@@ -187,6 +193,7 @@ const preUpdate = (req,res,next)=>{
                             .findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
                             .populate({path:'dishcategory', select:'name _id'})
                             .populate({path:"pic",select:"_id larg"})
+                            .populate({path:'portion'})
                             .exec((err,doc)=>{
                                 if (err) return res.serverError(err);
                                 if (!doc) return res.notFound('Not found');
@@ -206,6 +213,7 @@ const preUpdate = (req,res,next)=>{
                             .findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
                             .populate({path:'dishcategory', select:'name _id'})
                             .populate({path:"pic",select:"_id larg"})
+                            .populate({path:'portion'})
                             .exec((err,doc)=>{
                                 if (err) return res.serverError(err);
                                 if (!doc) return res.notFound('Not found');
@@ -262,6 +270,7 @@ const postCreate = (req,res,next)=>{
     mongoose.model('dish')
         .findOne({_id: req.erm.result._id})
         .populate({path: 'pic', select: 'larg _id'})
+        .populate({path:'portion'})
         .exec((err,info)=>{
             if(err) return res.badRequest(err);
             if(!info) return res.notFound('You are not valid');

@@ -6,23 +6,26 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
   styleUrls: ['./check-option.component.css']
 })
 export class CheckOptionComponent implements OnInit {
-  @Input() option:any = [];
+  @Input() option: any = [];
+  @Input() menuId: any;
   @Output() onCheck: EventEmitter<any> = new EventEmitter<any>();
-  public slected:any = [];
+
+  public selected: any = [];
   constructor() { }
 
   ngOnInit() {
   }
 
-  selectOption(opt){
-    let s = this;
-    s.slected = [];
-    opt.map(item=>{
-      if(item.check){
+  selectOption(opt) {
+    const s = this;
+    s.selected = [];
+    opt.map(item => {
+      if (item.check) {
         // delete item.check;
-        s.slected.push(item)
+        s.selected.push(item);
       }
     });
-    s.onCheck.emit(s.slected);
+    console.log(s.selected);
+    s.onCheck.emit(s.selected);
   }
 }

@@ -68,7 +68,7 @@
       <h5>Страви для меню</h5>
     </div>
     <div class="col s12 m8">
-      <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+      <app-check-option [menuId]="menu._id" [option]="option" (onCheck)="getDish($event)"></app-check-option>
     </div>
   </div>
   <div class="row">

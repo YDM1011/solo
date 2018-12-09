@@ -4,6 +4,9 @@
       <input class="filled-in" type="checkbox" [(ngModel)]="item.check" name="check">
       <span>{{item.label}}</span>
     </label>
+    <ng-container *ngIf="item.obj">
+      <app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>
+    </ng-container>
   </div>
   <span (click)="selectOption(option)" class="btn">ok</span>
 </div>

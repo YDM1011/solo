@@ -7,14 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BasketComponent implements OnInit {
 
-  public basket:any;
+  public basket: any;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  result(data){
+  result(data) {
     let s = this;
     s.basket = data;
     console.log(data);

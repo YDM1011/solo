@@ -14,6 +14,7 @@ import { SelectComponent } from './select/select.component';
 import { CheckOptionComponent } from './check-option/check-option.component';
 import {FormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
+import { PortionComponent } from './portion/portion.component';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { MapComponent } from './map/map.component';
     PicComponent,
     SelectComponent,
     CheckOptionComponent,
-    MapComponent
+    MapComponent,
+    PortionComponent
   ],
   providers: []
 })

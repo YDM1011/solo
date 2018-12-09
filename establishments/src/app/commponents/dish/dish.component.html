@@ -8,12 +8,25 @@
 <ng-container *ngIf="dishes">
   <div class="mn_i-c">
     <ng-container *ngFor="let dish of dishes; let i = index">
+
+      <ng-container>
+        <app-custom-res style="display: none" [model]="{
+            url:'portItem',
+            select: '-__v',
+            query:{
+              menuId: menuId,
+              dishId: dish._id
+            }
+          }"
+          (onRes)="dish.portion = $event"></app-custom-res>
+      </ng-container>
+
       <section class="mn_i" >
         <div class="mn_i_pr">
           <div class="mn_i_img pre-bg">
             <div class="pr_ev">
-              <span class="pr_ev-s ev-s_new"></span>
-              <span class="pr_ev-s ev-s_xit"></span>
+              <span class="pr_ev-s ev-s_new" *ngIf="dish.isnew"></span>
+              <span class="pr_ev-s ev-s_xit" *ngIf="dish.ishit"></span>
               <span class="pr_ev-s ev-s_int"></span>
             </div>
             <app-img [img]="{id:dish.pic}" ></app-img>
