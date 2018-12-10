@@ -1,21 +1,23 @@
 import {NgModule, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from "@angular/router";
-import {NotFoundComponent} from "./not-found/not-found.component";
-import {IsLoginedGuard} from "./is-logined.guard";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {SigninComponent} from "./signin/signin.component";
-import {IsLogoutGuard} from "./is-logout.guard";
-import {LandingPageComponent} from "./landing-page/landing-page.component";
-import {SignupComponent} from "./signup/signup.component";
-import {InitLayoutComponent} from "./init-layout/init-layout.component";
-import {ConfirmComponent} from "./confirm/confirm.component";
+import {RouterModule, Routes} from '@angular/router';
+import {NotFoundComponent} from './not-found/not-found.component';
+import {IsLoginedGuard} from './is-logined.guard';
+import {DashboardComponent} from './dashboard/dashboard.component';
+import {SigninComponent} from './signin/signin.component';
+import {IsLogoutGuard} from './is-logout.guard';
+import {LandingPageComponent} from './landing-page/landing-page.component';
+import {SignupComponent} from './signup/signup.component';
+import {InitLayoutComponent} from './init-layout/init-layout.component';
+import {ConfirmComponent} from './confirm/confirm.component';
+import {BasketComponent} from './basket/basket.component';
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
-
     children: [
-      {path:'user/:id', component:DashboardComponent, canActivate: [IsLoginedGuard],}
+      {path: 'user/:id', component: DashboardComponent, canActivate: [IsLoginedGuard], children: [
+          {path: 'basket', component: BasketComponent, canActivate: [IsLoginedGuard], }
+        ]}
     ]
   },
   {

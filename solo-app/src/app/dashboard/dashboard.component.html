@@ -243,7 +243,9 @@
           </div>
         </div>
 
-        <div *ngIf="!isFriendPage && !isGaleryPage">
+        <ng-container *ngIf="isHome">
+
+          <div *ngIf="!isFriendPage && !isGaleryPage && !isBascketPage">
           <div>
             <div class="create-post" *ngIf="!user">
               <div class="create-post_user-img pre-bg"></div>
@@ -255,27 +257,27 @@
               <div class="create-post_control">
                 <div class="create-post_select">
                   <div class="create-post_select_item">
-                  <span class="create-post_select_svg">
-                    <svg x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 16 16;fill:#61148f;"  width="17px" height="17px"><g><g><path d="M367.57,256.909c-9.839-4.677-19.878-8.706-30.093-12.081C370.56,219.996,392,180.455,392,136C392,61.01,330.991,0,256,0c-74.991,0-136,61.01-136,136c0,44.504,21.488,84.084,54.633,108.911c-30.368,9.998-58.863,25.555-83.803,46.069c-45.732,37.617-77.529,90.086-89.532,147.743c-3.762,18.066,0.745,36.622,12.363,50.908C25.222,503.847,42.365,512,60.693,512H307c11.046,0,20-8.954,20-20c0-11.046-8.954-20-20-20H60.693c-8.538,0-13.689-4.766-15.999-7.606c-3.989-4.905-5.533-11.29-4.236-17.519c20.755-99.695,108.691-172.521,210.24-174.977c1.759,0.068,3.526,0.102,5.302,0.102c1.793,0,3.578-0.035,5.354-0.104c31.12,0.73,61.05,7.832,89.044,21.14c9.977,4.74,21.907,0.499,26.649-9.478C381.789,273.582,377.547,261.651,367.57,256.909z M260.878,231.877c-1.623-0.029-3.249-0.044-4.878-0.044c-1.614,0-3.228,0.016-4.84,0.046C200.465,229.35,160,187.312,160,136c0-52.935,43.065-96,96-96s96,43.065,96,96C352,187.299,311.555,229.329,260.878,231.877z"/></g></g><g><g><path d="M492,397h-55v-55c0-11.046-8.954-20-20-20c-11.046,0-20,8.954-20,20v55h-55c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h55v55c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20v-55h55c11.046,0,20-8.954,20-20C512,405.954,503.046,397,492,397z"/></g></g></svg>
-                  </span>
+                    <span class="create-post_select_svg">
+                      <svg x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 16 16;fill:#61148f;"  width="17px" height="17px"><g><g><path d="M367.57,256.909c-9.839-4.677-19.878-8.706-30.093-12.081C370.56,219.996,392,180.455,392,136C392,61.01,330.991,0,256,0c-74.991,0-136,61.01-136,136c0,44.504,21.488,84.084,54.633,108.911c-30.368,9.998-58.863,25.555-83.803,46.069c-45.732,37.617-77.529,90.086-89.532,147.743c-3.762,18.066,0.745,36.622,12.363,50.908C25.222,503.847,42.365,512,60.693,512H307c11.046,0,20-8.954,20-20c0-11.046-8.954-20-20-20H60.693c-8.538,0-13.689-4.766-15.999-7.606c-3.989-4.905-5.533-11.29-4.236-17.519c20.755-99.695,108.691-172.521,210.24-174.977c1.759,0.068,3.526,0.102,5.302,0.102c1.793,0,3.578-0.035,5.354-0.104c31.12,0.73,61.05,7.832,89.044,21.14c9.977,4.74,21.907,0.499,26.649-9.478C381.789,273.582,377.547,261.651,367.57,256.909z M260.878,231.877c-1.623-0.029-3.249-0.044-4.878-0.044c-1.614,0-3.228,0.016-4.84,0.046C200.465,229.35,160,187.312,160,136c0-52.935,43.065-96,96-96s96,43.065,96,96C352,187.299,311.555,229.329,260.878,231.877z"/></g></g><g><g><path d="M492,397h-55v-55c0-11.046-8.954-20-20-20c-11.046,0-20,8.954-20,20v55h-55c-11.046,0-20,8.954-20,20c0,11.046,8.954,20,20,20h55v55c0,11.046,8.954,20,20,20c11.046,0,20-8.954,20-20v-55h55c11.046,0,20-8.954,20-20C512,405.954,503.046,397,492,397z"/></g></g></svg>
+                    </span>
                     <span class="create-post_select_title">Позначити друзів</span>
                   </div>
                   <div class="create-post_select_item">
-                  <span class="create-post_select_svg">
-                    <svg x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 20 20;fill:#61148f;"  width="16px" height="16px"><g><g><path d="M256,0C156.748,0,76,80.748,76,180c0,33.534,9.289,66.26,26.869,94.652l142.885,230.257 c2.737,4.411,7.559,7.091,12.745,7.091c0.04,0,0.079,0,0.119,0c5.231-0.041,10.063-2.804,12.75-7.292L410.611,272.22 C427.221,244.428,436,212.539,436,180C436,80.748,355.252,0,256,0z M384.866,256.818L258.272,468.186l-129.905-209.34 C113.734,235.214,105.8,207.95,105.8,180c0-82.71,67.49-150.2,150.2-150.2S406.1,97.29,406.1,180 C406.1,207.121,398.689,233.688,384.866,256.818z" /></g></g><g><g><path d="M256,90c-49.626,0-90,40.374-90,90c0,49.309,39.717,90,90,90c50.903,0,90-41.233,90-90C346,130.374,305.626,90,256,90z M256,240.2c-33.257,0-60.2-27.033-60.2-60.2c0-33.084,27.116-60.2,60.2-60.2s60.1,27.116,60.1,60.2 C316.1,212.683,289.784,240.2,256,240.2z"/></g></g></svg>
-                  </span>
+                    <span class="create-post_select_svg">
+                      <svg x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 20 20;fill:#61148f;"  width="16px" height="16px"><g><g><path d="M256,0C156.748,0,76,80.748,76,180c0,33.534,9.289,66.26,26.869,94.652l142.885,230.257 c2.737,4.411,7.559,7.091,12.745,7.091c0.04,0,0.079,0,0.119,0c5.231-0.041,10.063-2.804,12.75-7.292L410.611,272.22 C427.221,244.428,436,212.539,436,180C436,80.748,355.252,0,256,0z M384.866,256.818L258.272,468.186l-129.905-209.34 C113.734,235.214,105.8,207.95,105.8,180c0-82.71,67.49-150.2,150.2-150.2S406.1,97.29,406.1,180 C406.1,207.121,398.689,233.688,384.866,256.818z" /></g></g><g><g><path d="M256,90c-49.626,0-90,40.374-90,90c0,49.309,39.717,90,90,90c50.903,0,90-41.233,90-90C346,130.374,305.626,90,256,90z M256,240.2c-33.257,0-60.2-27.033-60.2-60.2c0-33.084,27.116-60.2,60.2-60.2s60.1,27.116,60.1,60.2 C316.1,212.683,289.784,240.2,256,240.2z"/></g></g></svg>
+                    </span>
                     <span class="create-post_select_title">Відмітитись</span>
                   </div>
                   <div class="create-post_select_item">
-                    <span class="create-post_select_svg">
-                      <svg x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 20 20;fill:#61148f;" ><g><path d="M57,6H1C0.448,6,0,6.447,0,7v44c0,0.553,0.448,1,1,1h56c0.552,0,1-0.447,1-1V7C58,6.447,57.552,6,57,6z M56,50H2V8h54V50z"/><path d="M16,28.138c3.071,0,5.569-2.498,5.569-5.568C21.569,19.498,19.071,17,16,17s-5.569,2.498-5.569,5.569C10.431,25.64,12.929,28.138,16,28.138z M16,19c1.968,0,3.569,1.602,3.569,3.569S17.968,26.138,16,26.138s-3.569-1.601-3.569-3.568S14.032,19,16,19z"/><path d="M7,46c0.234,0,0.47-0.082,0.66-0.249l16.313-14.362l10.302,10.301c0.391,0.391,1.023,0.391,1.414,0s0.391-1.023,0-1.414l-4.807-4.807l9.181-10.054l11.261,10.323c0.407,0.373,1.04,0.345,1.413-0.062c0.373-0.407,0.346-1.04-0.062-1.413l-12-11c-0.196-0.179-0.457-0.268-0.72-0.262c-0.265,0.012-0.515,0.129-0.694,0.325l-9.794,10.727l-4.743-4.743c-0.374-0.373-0.972-0.392-1.368-0.044L6.339,44.249c-0.415,0.365-0.455,0.997-0.09,1.412C6.447,45.886,6.723,46,7,46z"/></g></svg>
-                    </span>
+                      <span class="create-post_select_svg">
+                        <svg x="0px" y="0px" viewBox="0 0 58 58" style="enable-background:new 0 0 20 20;fill:#61148f;" ><g><path d="M57,6H1C0.448,6,0,6.447,0,7v44c0,0.553,0.448,1,1,1h56c0.552,0,1-0.447,1-1V7C58,6.447,57.552,6,57,6z M56,50H2V8h54V50z"/><path d="M16,28.138c3.071,0,5.569-2.498,5.569-5.568C21.569,19.498,19.071,17,16,17s-5.569,2.498-5.569,5.569C10.431,25.64,12.929,28.138,16,28.138z M16,19c1.968,0,3.569,1.602,3.569,3.569S17.968,26.138,16,26.138s-3.569-1.601-3.569-3.568S14.032,19,16,19z"/><path d="M7,46c0.234,0,0.47-0.082,0.66-0.249l16.313-14.362l10.302,10.301c0.391,0.391,1.023,0.391,1.414,0s0.391-1.023,0-1.414l-4.807-4.807l9.181-10.054l11.261,10.323c0.407,0.373,1.04,0.345,1.413-0.062c0.373-0.407,0.346-1.04-0.062-1.413l-12-11c-0.196-0.179-0.457-0.268-0.72-0.262c-0.265,0.012-0.515,0.129-0.694,0.325l-9.794,10.727l-4.743-4.743c-0.374-0.373-0.972-0.392-1.368-0.044L6.339,44.249c-0.415,0.365-0.455,0.997-0.09,1.412C6.447,45.886,6.723,46,7,46z"/></g></svg>
+                      </span>
                     <span class="create-post_select_title">Додати фото</span>
                   </div>
                   <div class="create-post_select_item">
-                  <span class="create-post_select_svg">
-                    <svg x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 20 20;fill:#61148f;"  width="16px" height="16px"><g><g><path d="M256,0C156.748,0,76,80.748,76,180c0,33.534,9.289,66.26,26.869,94.652l142.885,230.257 c2.737,4.411,7.559,7.091,12.745,7.091c0.04,0,0.079,0,0.119,0c5.231-0.041,10.063-2.804,12.75-7.292L410.611,272.22 C427.221,244.428,436,212.539,436,180C436,80.748,355.252,0,256,0z M384.866,256.818L258.272,468.186l-129.905-209.34 C113.734,235.214,105.8,207.95,105.8,180c0-82.71,67.49-150.2,150.2-150.2S406.1,97.29,406.1,180 C406.1,207.121,398.689,233.688,384.866,256.818z" /></g></g><g><g><path d="M256,90c-49.626,0-90,40.374-90,90c0,49.309,39.717,90,90,90c50.903,0,90-41.233,90-90C346,130.374,305.626,90,256,90z M256,240.2c-33.257,0-60.2-27.033-60.2-60.2c0-33.084,27.116-60.2,60.2-60.2s60.1,27.116,60.1,60.2 C316.1,212.683,289.784,240.2,256,240.2z"/></g></g></svg>
-                  </span>
+                    <span class="create-post_select_svg">
+                      <svg x="0px" y="0px" viewBox="0 0 512 512" style="enable-background:new 0 0 20 20;fill:#61148f;"  width="16px" height="16px"><g><g><path d="M256,0C156.748,0,76,80.748,76,180c0,33.534,9.289,66.26,26.869,94.652l142.885,230.257 c2.737,4.411,7.559,7.091,12.745,7.091c0.04,0,0.079,0,0.119,0c5.231-0.041,10.063-2.804,12.75-7.292L410.611,272.22 C427.221,244.428,436,212.539,436,180C436,80.748,355.252,0,256,0z M384.866,256.818L258.272,468.186l-129.905-209.34 C113.734,235.214,105.8,207.95,105.8,180c0-82.71,67.49-150.2,150.2-150.2S406.1,97.29,406.1,180 C406.1,207.121,398.689,233.688,384.866,256.818z" /></g></g><g><g><path d="M256,90c-49.626,0-90,40.374-90,90c0,49.309,39.717,90,90,90c50.903,0,90-41.233,90-90C346,130.374,305.626,90,256,90z M256,240.2c-33.257,0-60.2-27.033-60.2-60.2c0-33.084,27.116-60.2,60.2-60.2s60.1,27.116,60.1,60.2 C316.1,212.683,289.784,240.2,256,240.2z"/></g></g></svg>
+                    </span>
                     <span class="create-post_select_title">Враження</span>
                   </div>
                 </div>
@@ -296,188 +298,194 @@
           ></app-form>
         </div>
 
-        <div *ngIf="isFriendPage">
+          <div *ngIf="isFriendPage">
 
-          <div class="fr-cont">
-            <div class="fr-cont_hdr">
-              <div class="fr-cont_cat-parent">
-              <span #friend class="fr-cont_cat active"
-                    (click)="friend.classList.add('active'); newFriend.classList.remove('active');"
-              >Всі друзі</span>
-                <span #newFriend class="fr-cont_cat"
-                      (click)="newFriend.classList.add('active'); friend.classList.remove('active');"
-                >Нові друзі</span>
-              </div>
-            </div>
-            <div class="fr-cont_content" *ngIf="!friends">
-              <div class="fr-cont_el">
-                <div class="fr-cont_el_user">
-                  <div class="fr-cont_el_user-img-link pre-bg"></div>
-                  <div class="fr-cont_el_user-info">
-                    <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
-                    <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
-                  </div>
-                </div>
-                <div class="fr-cont_el_button">
-                  <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
-                  <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
+            <div class="fr-cont">
+              <div class="fr-cont_hdr">
+                <div class="fr-cont_cat-parent">
+                <span #friend class="fr-cont_cat active"
+                      (click)="friend.classList.add('active'); newFriend.classList.remove('active');"
+                >Всі друзі</span>
+                  <span #newFriend class="fr-cont_cat"
+                        (click)="newFriend.classList.add('active'); friend.classList.remove('active');"
+                  >Нові друзі</span>
                 </div>
               </div>
-              <div class="fr-cont_el">
-                <div class="fr-cont_el_user">
-                  <div class="fr-cont_el_user-img-link pre-bg"></div>
-                  <div class="fr-cont_el_user-info">
-                    <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
-                    <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
-                  </div>
-                </div>
-                <div class="fr-cont_el_button">
-                  <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
-                  <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
-                </div>
-              </div>
-              <div class="fr-cont_el">
-                <div class="fr-cont_el_user">
-                  <div class="fr-cont_el_user-img-link pre-bg"></div>
-                  <div class="fr-cont_el_user-info">
-                    <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
-                    <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
-                  </div>
-                </div>
-                <div class="fr-cont_el_button">
-                  <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
-                  <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
-                </div>
-              </div>
-              <div class="fr-cont_el">
-                <div class="fr-cont_el_user">
-                  <div class="fr-cont_el_user-img-link pre-bg"></div>
-                  <div class="fr-cont_el_user-info">
-                    <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
-                    <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
-                  </div>
-                </div>
-                <div class="fr-cont_el_button">
-                  <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
-                  <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
-                </div>
-              </div>
-              <div class="fr-cont_el">
-                <div class="fr-cont_el_user">
-                  <div class="fr-cont_el_user-img-link pre-bg"></div>
-                  <div class="fr-cont_el_user-info">
-                    <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
-                    <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
-                  </div>
-                </div>
-                <div class="fr-cont_el_button">
-                  <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
-                  <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
-                </div>
-              </div>
-            </div>
-
-            <div [hidden]="false" class="fr-cont_content" *ngIf="friends.myFriends.length > 0">
-
-              <div class="fr-cont_el" *ngFor="let friend of friends.myFriends">
-                <app-form *ngIf="friend._id != userId"
-                  style="display: none"
-                  [hidden]="true"
-                  [method]="'get'"
-                  [url]="'/api/getMutual/'+friend._id"
-                  (onRes)="setMutual($event)"
-                  [click]="true"
-                ></app-form>
-                <div class="fr-cont_el_user">
-                  <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+friend._id">
-                    <app-avatar *ngIf="friend.photo"
-                                [avatar]="friend.photo"
-                                [customClass]="'inherit'"
-                                [type]="'imgMin'"
-                                class="inherit"></app-avatar>
-                  </a>
-                  <div class="fr-cont_el_user-info">
-                    <a class="fr-cont_el_user-info_name-link" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
-                    <p class="fr-cont_el_user-info_common" *ngIf="mutual[friend._id]">Спільне: <span>{{mutual[friend._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
-                  </div>
-                </div>
-
-                <div class="fr-cont_el_button">
-                  <app-del-friend [userId]="friend._id"></app-del-friend>
-                  <app-meet-friend [userId]="friend._id"></app-meet-friend>
-
-                </div>
-
-              </div>
-            </div>
-
-            <div [hidden]="false" class="fr-cont_content" *ngIf="people.length > 0">
-              <div *ngFor="let mean of people">
-                <div class="fr-cont_el"  *ngIf="mean._id != userId">
+              <div class="fr-cont_content" *ngIf="!friends">
+                <div class="fr-cont_el">
                   <div class="fr-cont_el_user">
-                    <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+mean._id">
-                      <app-avatar *ngIf="mean.photo"
-                                  [avatar]="mean.photo"
-                                  [avatarId]="mean.photo._id"
+                    <div class="fr-cont_el_user-img-link pre-bg"></div>
+                    <div class="fr-cont_el_user-info">
+                      <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
+                      <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
+                    </div>
+                  </div>
+                  <div class="fr-cont_el_button">
+                    <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
+                    <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
+                  </div>
+                </div>
+                <div class="fr-cont_el">
+                  <div class="fr-cont_el_user">
+                    <div class="fr-cont_el_user-img-link pre-bg"></div>
+                    <div class="fr-cont_el_user-info">
+                      <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
+                      <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
+                    </div>
+                  </div>
+                  <div class="fr-cont_el_button">
+                    <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
+                    <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
+                  </div>
+                </div>
+                <div class="fr-cont_el">
+                  <div class="fr-cont_el_user">
+                    <div class="fr-cont_el_user-img-link pre-bg"></div>
+                    <div class="fr-cont_el_user-info">
+                      <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
+                      <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
+                    </div>
+                  </div>
+                  <div class="fr-cont_el_button">
+                    <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
+                    <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
+                  </div>
+                </div>
+                <div class="fr-cont_el">
+                  <div class="fr-cont_el_user">
+                    <div class="fr-cont_el_user-img-link pre-bg"></div>
+                    <div class="fr-cont_el_user-info">
+                      <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
+                      <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
+                    </div>
+                  </div>
+                  <div class="fr-cont_el_button">
+                    <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
+                    <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
+                  </div>
+                </div>
+                <div class="fr-cont_el">
+                  <div class="fr-cont_el_user">
+                    <div class="fr-cont_el_user-img-link pre-bg"></div>
+                    <div class="fr-cont_el_user-info">
+                      <span class="fr-cont_el_user-info_name-link pre-fr-cont_el_user-info_name-link pre-bg"></span>
+                      <p class="fr-cont_el_user-info_common pre-fr-cont_el_user-info_common pre-bg"></p>
+                    </div>
+                  </div>
+                  <div class="fr-cont_el_button">
+                    <span class="fr-cont_el_button-false pre-fr-cont_el_button-false pre-bg"></span>
+                    <span class="fr-cont_el_button-true pre-fr-cont_el_button-true pre-bg"></span>
+                  </div>
+                </div>
+              </div>
+
+              <div [hidden]="false" class="fr-cont_content" *ngIf="friends.myFriends.length > 0">
+
+                <div class="fr-cont_el" *ngFor="let friend of friends.myFriends">
+                  <app-form *ngIf="friend._id != userId"
+                            style="display: none"
+                            [hidden]="true"
+                            [method]="'get'"
+                            [url]="'/api/getMutual/'+friend._id"
+                            (onRes)="setMutual($event)"
+                            [click]="true"
+                  ></app-form>
+                  <div class="fr-cont_el_user">
+                    <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+friend._id">
+                      <app-avatar *ngIf="friend.photo"
+                                  [avatar]="friend.photo"
                                   [customClass]="'inherit'"
                                   [type]="'imgMin'"
                                   class="inherit"></app-avatar>
                     </a>
                     <div class="fr-cont_el_user-info">
-                      <a class="fr-cont_el_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
-                      <p class="fr-cont_el_user-info_common" *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+                      <a class="fr-cont_el_user-info_name-link" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
+                      <p class="fr-cont_el_user-info_common" *ngIf="mutual[friend._id]">Спільне: <span>{{mutual[friend._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
                     </div>
                   </div>
 
                   <div class="fr-cont_el_button">
-                    <app-init-invite [userId]="mean._id"></app-init-invite>
+                    <app-del-friend [userId]="friend._id"></app-del-friend>
+                    <app-meet-friend [userId]="friend._id"></app-meet-friend>
 
-                    <app-invite-friend [userId]="mean._id"></app-invite-friend>
-                    <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
-                    <app-offer-friend [userId]="mean._id"></app-offer-friend>
-
-                    <app-form
-                      style="display: none"
-                      [hidden]="true"
-                      [method]="'get'"
-                      [url]="'/api/getMutual/'+mean._id"
-                      (onRes)="setMutual($event)"
-                      [click]="true"
-                    ></app-form>
                   </div>
+
                 </div>
+              </div>
 
+              <div [hidden]="false" class="fr-cont_content" *ngIf="people.length > 0">
+                <div *ngFor="let mean of people">
+                  <div class="fr-cont_el"  *ngIf="mean._id != userId">
+                    <div class="fr-cont_el_user">
+                      <a class="fr-cont_el_user-img-link" [routerLink]="'/user/'+mean._id">
+                        <app-avatar *ngIf="mean.photo"
+                                    [avatar]="mean.photo"
+                                    [avatarId]="mean.photo._id"
+                                    [customClass]="'inherit'"
+                                    [type]="'imgMin'"
+                                    class="inherit"></app-avatar>
+                      </a>
+                      <div class="fr-cont_el_user-info">
+                        <a class="fr-cont_el_user-info_name-link" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
+                        <p class="fr-cont_el_user-info_common" *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+                      </div>
+                    </div>
+
+                    <div class="fr-cont_el_button">
+                      <app-init-invite [userId]="mean._id"></app-init-invite>
+
+                      <app-invite-friend [userId]="mean._id"></app-invite-friend>
+                      <app-uninvite-friend [userId]="mean._id"></app-uninvite-friend>
+                      <app-offer-friend [userId]="mean._id"></app-offer-friend>
+
+                      <app-form
+                        style="display: none"
+                        [hidden]="true"
+                        [method]="'get'"
+                        [url]="'/api/getMutual/'+mean._id"
+                        (onRes)="setMutual($event)"
+                        [click]="true"
+                      ></app-form>
+                    </div>
+                  </div>
+
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div *ngIf="isGaleryPage">
-          <div class="user-gall-cont">
-            <div class="user-gall_hdr">
-              <div class="user-gall_cat-parent">
-                <span class="user-gall_cat active">Мої фото</span>
-                <span class="user-gall_cat">Фото зі мною</span>
+          <div *ngIf="isGaleryPage">
+            <div class="user-gall-cont">
+              <div class="user-gall_hdr">
+                <div class="user-gall_cat-parent">
+                  <span class="user-gall_cat active">Мої фото</span>
+                  <span class="user-gall_cat">Фото зі мною</span>
+                </div>
+              </div>
+              <div class="user-gall_content" *ngIf="!photos">
+                <span class="user-gall_item pre-bg"></span>
+                <span class="user-gall_item pre-bg"></span>
+                <span class="user-gall_item pre-bg"></span>
+                <span class="user-gall_item pre-bg"></span>
+                <span class="user-gall_item pre-bg"></span>
+                <span class="user-gall_item pre-bg"></span>
+                <span class="user-gall_item pre-bg"></span>
+              </div>
+              <div class="user-gall_content" *ngIf="photos.gallery.length > 0">
+              <span class="user-gall_item pre-bg" *ngFor="let photo of photos.gallery">
+                 <app-avatar class="inherit"
+                             [customClass]="'inherit'"
+                             [type]="'imgMax'"
+                             [avatar]="photo"></app-avatar>
+              </span>
               </div>
             </div>
-            <div class="user-gall_content" *ngIf="!photos">
-              <span class="user-gall_item pre-bg"></span>
-              <span class="user-gall_item pre-bg"></span>
-              <span class="user-gall_item pre-bg"></span>
-              <span class="user-gall_item pre-bg"></span>
-              <span class="user-gall_item pre-bg"></span>
-              <span class="user-gall_item pre-bg"></span>
-              <span class="user-gall_item pre-bg"></span>
-            </div>
-            <div class="user-gall_content" *ngIf="photos.gallery.length > 0">
-            <span class="user-gall_item pre-bg" *ngFor="let photo of photos.gallery">
-               <app-avatar class="inherit"
-                           [customClass]="'inherit'"
-                           [type]="'imgMax'"
-                           [avatar]="photo"></app-avatar>
-            </span>
-            </div>
           </div>
+
+        </ng-container>
+
+        <div *ngIf="!isHome">
+          <router-outlet></router-outlet>
         </div>
 
       </div>

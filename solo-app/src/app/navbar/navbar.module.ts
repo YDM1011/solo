@@ -11,6 +11,7 @@ import {FormatNumberPipe} from "./format-number.pipe";
 import {SearchModule} from "../lib/search/search.module";
 import {UserModule} from "../lib/user/user.module";
 import {ScrollDirective} from "./scroll.directive";
+import {PostModule} from "../lib/post/post.module";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {ScrollDirective} from "./scroll.directive";
     FormApiModule,
     SearchModule,
     UserModule,
+    PostModule,
   ],
   exports: [NavbarComponent, AppRoutingModule],
   declarations: [NavbarComponent, AsaidbarComponent, FormatNumberPipe, ScrollDirective]

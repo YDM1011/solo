@@ -82,4 +82,5 @@ export class CoreService {
     this.isValidProfile = bool;
     this.validProfile.next(bool);
   }
+
 }

@@ -1,19 +1,17 @@
-import {Component, OnInit, Input, EventEmitter, Output, AfterViewInit, OnDestroy} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {HttpHeaders} from '@angular/common/http';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {environment} from '../../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {UserService} from '../user/user.service';
+import {CoreService} from '../../core.service';
 import {CookieService} from 'ngx-cookie-service';
-import {AuthService} from '../auth.service';
-import {UserService} from '../lib/user/user.service';
-import {CoreService} from '../core.service';
-import {environment} from '../../environments/environment';
-import {FormApiService} from '../lib/form-api/form-api.service';
+import {FormApiService} from '../form-api/form-api.service';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  selector: 'app-news-list',
+  templateUrl: './news-list.component.html',
+  styleUrls: ['./news-list.component.css']
 })
-export class NavbarComponent implements OnInit, OnDestroy {
+export class NewsListComponent implements OnInit, OnDestroy {
   public friends = [];
   public userId: string;
   public userPhoto: any;
@@ -40,7 +38,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
         'Authorization': self.cookieService.get('token')
-        }),
+      }),
       withCredentials: true
     };
     return this.httpOptions;
@@ -55,7 +53,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit () {
     const self = this;
     this.count = 0;
-    // this.userId = this.cookieService.get('userid');
+    // this.userPhoto['_id'] = '';
     self.user.getMe().then((val: any) => {
       if (val) {
         self.userId = val._id;
@@ -81,6 +79,16 @@ export class NavbarComponent implements OnInit, OnDestroy {
       });
   }
 
+  morePosts() {
+    const self = this;
+    self.count++;
+    this.http.get(this.domain + '/api/post?skip=' + self.count * self.limit, this.api.getHeaders())
+      .subscribe((post: any) => {
+        self.posts = self.posts.concat(post);
+        self.check();
+      });
+  }
+
   ngOnDestroy () {
     this.count = 0;
   }
@@ -101,5 +109,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
   click() {
     const self = this;
     self.core.click();
+  }
+
+  morePost() {
+    const self = this;
+    self.morePosts();
   }
 }

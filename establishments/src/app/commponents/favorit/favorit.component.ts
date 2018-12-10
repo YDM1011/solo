@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {ApiService} from '../../service/api.service';
 import { CookieService } from 'ngx-cookie-service';
-import {environment} from '../../../../../solo-app/src/environments/environment';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'app-favorit',

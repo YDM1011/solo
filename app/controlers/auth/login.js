@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const md5 = require('md5');
 const data = require('../../config/index');
-
+var time = 14 * 24 * 3600000;
 module.exports = (req, res, next) => {
     User
         .findOne({login: req.body.login})
@@ -18,6 +18,7 @@ module.exports = (req, res, next) => {
                     {
                         domain: data.auth.sidDomain,
                         path:"/",
+                        maxAge: time,
                         httpOnly: true
                     });
                 res.ok(info);

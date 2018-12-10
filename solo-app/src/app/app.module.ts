@@ -2,31 +2,33 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 import { NotFoundComponent } from './not-found/not-found.component';
-import {NavbarModule} from "./navbar/navbar.module";
+import {NavbarModule} from './navbar/navbar.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { SigninComponent } from './signin/signin.component';
-import {AuthService} from "./auth.service";
-import {CookieService} from "ngx-cookie-service";
+import {AuthService} from './auth.service';
+import {CookieService} from 'ngx-cookie-service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { MzCollapsibleModule} from "ngx-materialize";
+import { MzCollapsibleModule} from 'ngx-materialize';
 import { SignupComponent } from './signup/signup.component';
-import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
-import {UserModule} from "./lib/user/user.module";
-import {CoreService} from "./core.service";
-import {PostModule} from "./lib/post/post.module";
-import {FormApiModule} from "./lib/form-api/form-api.module";
-import {FriendModule} from "./lib/friend/friend.module";
-import {UploadModule} from "./lib/upload/upload.module";
+import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
+import {UserModule} from './lib/user/user.module';
+import {CoreService} from './core.service';
+import {PostModule} from './lib/post/post.module';
+import {FormApiModule} from './lib/form-api/form-api.module';
+import {FriendModule} from './lib/friend/friend.module';
+import {UploadModule} from './lib/upload/upload.module';
 import { InitLayoutComponent } from './init-layout/init-layout.component';
 import { GalleryComponent } from './lib/gallery/gallery.component';
 import { ConfirmComponent } from './confirm/confirm.component';
 import { CreateEstablishmentComponent } from './lib/create-establishment/create-establishment.component';
-import {IsMyProfileModule} from "./lib/is-my-profile/is-my-profile.module";
+import {IsMyProfileModule} from './lib/is-my-profile/is-my-profile.module';
 import { LeftBarScrollDirective } from './dashboard/left-bar-scroll.directive';
 import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive';
+import { NewsListComponent } from './lib/news-list/news-list.component';
+import {BasketComponent} from './basket/basket.component';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive'
     CreateEstablishmentComponent,
     LeftBarScrollDirective,
     RightBarScrollDirective,
+    NewsListComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
-import {NavigationEnd, Router, ActivatedRoute} from "@angular/router";
-import {ApiService} from "../service/api.service";
+import {NavigationEnd, Router, ActivatedRoute} from '@angular/router';
+import {ApiService} from '../service/api.service';
 
 @Component({
   selector: 'app-init-layout',
@@ -9,9 +9,9 @@ import {ApiService} from "../service/api.service";
 })
 export class InitLayoutComponent implements OnInit {
 
-  public isHome: boolean = true;
-  public thebest:any;
-  public favorite:any;
+  public isHome = true;
+  public thebest: any;
+  public favorite: any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -19,18 +19,18 @@ export class InitLayoutComponent implements OnInit {
   ) {  }
 
   ngOnInit() {
-    let self = this;
-    if (this.router.url == '/'){
+    const self = this;
+    if (this.router.url == '/') {
       self.isHome = true;
-    }else{
+    } else {
       self.isHome = false;
     }
 
-    this.router.events.subscribe(res=>{
-      if(res instanceof NavigationEnd){
-        if(res.url == '/'){
+    this.router.events.subscribe(res => {
+      if (res instanceof NavigationEnd) {
+        if (res.url == '/') {
           self.isHome = true;
-        }else{
+        } else {
           self.isHome = false;
         }
       }
@@ -38,15 +38,15 @@ export class InitLayoutComponent implements OnInit {
 
   }
 
-  setFavorite(arg){
-    let s = this;
-    s.api.post('favorite', {key: arg}).then((val:any)=>{
-      switch(arg){
+  setFavorite(arg) {
+    const s = this;
+    s.api.post('favorite', {key: arg}).then((val: any) => {
+      switch (arg) {
         case'oneest': s.thebest = val; break;
         case'est': s.favorite = val; break;
       }
 
-    })
+    });
   }
 
 }
