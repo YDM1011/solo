@@ -6,7 +6,7 @@ import {Directive, ElementRef} from '@angular/core';
 export class ScrollDirective {
 
   constructor (private el:ElementRef) {}
-  private status: boolean = ( document.documentElement.clientWidth < 922 &&  document.documentElement.clientHeight < 992);
+  private status: boolean = ( window.innerWidth < 922 &&  window.innerHeight < 992);
 
   ngOnInit() {
     if (this.status){
@@ -25,14 +25,12 @@ export class ScrollDirective {
     }
   }
 
-  private scrollPosition: number = 0;
   private start: number;
   private elHeight: number = 0;
 
 
   scroll = (): void => {
-    this.scrollPosition = window.pageYOffset;
-    if ( this.scrollPosition <=  this.elHeight ) this.open( 0, '.1s');
+    if (  window.pageYOffset <=  this.elHeight ) this.open( 0, '.1s');
   };
 
   touchS = ($event): void => {
@@ -40,13 +38,10 @@ export class ScrollDirective {
   };
 
   touch = ($event): void => {
-    let move;
-    move = $event.changedTouches[0].pageY;
-    if (this.status) {
-      (this.scrollPosition <= this.elHeight + 5) ? this.open(0, '.2s') :
-        (this.start > move) ?
-          this.close(this.elHeight, '.25s') : this.open(0, '.2s');
-    }
+    let move = $event.changedTouches[0].pageY;
+    ( window.pageYOffset <= this.elHeight + 5) ? this.open(0, '.2s') :
+      (this.start > move) ?
+        this.close(this.elHeight, '.25s') : this.open(0, '.2s');
   };
 
   private open(height, speed: string) {

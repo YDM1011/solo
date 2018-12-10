@@ -19,8 +19,6 @@ export class RightBarScrollDirective {
   }
   public scrollPosition: number = 0;
   public headHeight: number = 59;
-  public docWidth = document.documentElement.clientWidth;
-  public docHeight = document.documentElement.clientHeight;
   public barH: number = 0;
   public max: number = 0;
   public pageY: number = 59;
@@ -28,13 +26,13 @@ export class RightBarScrollDirective {
 
   paramPush (): void {
     this.barH = this.el.nativeElement.offsetHeight;
-    this.max = this.barH - this.docHeight;
-    this.status = (this.docHeight < this.barH);
+    this.max = this.barH - window.innerHeight;
+    this.status = (window.innerHeight < this.barH);
   }
 
   scroll = (): void => {
 
-    if (this.docWidth < 992 && this.docHeight < 500) return;
+    if (window.innerWidth < 992 && window.innerHeight < 500) return;
 
     if (this.status) (this.scrollPosition < window.pageYOffset) ? this.bottom(window.pageYOffset) : this.top(window.pageYOffset);
 
@@ -43,7 +41,6 @@ export class RightBarScrollDirective {
   };
 
   resize = (): void => {
-    this.docHeight = document.documentElement.clientHeight;
     this.paramPush ()
   };
   private bottom(posScroll: number) {

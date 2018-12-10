@@ -30,10 +30,13 @@
               "src/assets/style/mat.css",
               "src/assets/style/style.css",
               "src/assets/style/zv.css",
-              "src/assets/leaflet/leaflet.css"
+              "src/assets/leaflet/leaflet.css",
+              "node_modules/materialize-css/dist/css/materialize.min.css"
             ],
             "scripts": [
-              "src/assets/leaflet/leaflet.js"
+              "src/assets/leaflet/leaflet.js",
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/materialize-css/dist/js/materialize.min.js"
             ]
           },
           "configurations": {

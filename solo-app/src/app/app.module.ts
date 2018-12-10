@@ -42,7 +42,7 @@ import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive'
     ConfirmComponent,
     CreateEstablishmentComponent,
     LeftBarScrollDirective,
-    RightBarScrollDirective
+    RightBarScrollDirective,
   ],
   imports: [
     BrowserModule,

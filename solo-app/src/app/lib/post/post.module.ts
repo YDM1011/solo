@@ -14,6 +14,7 @@ import { CommentComponent } from './comment/comment.component';
 import {AppRoutingModule} from "../../app-routing.module";
 import {UserModule} from "../user/user.module";
 import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
+import {CreatePostDirective} from "./create/create-post.directive";
 
 @NgModule({
   imports: [
@@ -30,6 +31,6 @@ import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],
-  declarations: [PostComponent, CreateComponent, LikeComponent, CommentComponent]
+  declarations: [PostComponent, CreateComponent, LikeComponent, CommentComponent,CreatePostDirective]
 })
 export class PostModule { }

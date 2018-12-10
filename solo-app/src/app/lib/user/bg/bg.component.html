@@ -1,5 +1,5 @@
-<div *ngIf="user">
-  <div *ngIf="user.bg" class="user-bg">
+<div *ngIf="user" class="inherit-bg">
+  <div *ngIf="user.bg" class="inherit-bg">
     <app-avatar class="inherit"
                 [avatar]="user.bg"
                 [avatarId]="user.bg._id"
