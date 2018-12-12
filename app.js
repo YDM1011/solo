@@ -81,10 +81,6 @@ const static1 = require('./app/route/mainindex');
 const static2 = require('./app/route/apiindex');
 const api = require('./app/api/index');
 
-app.get("/about", function(req, res){
-    res.render('index4', { title: "Landing" });
-});
-
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
@@ -102,6 +98,17 @@ app.use((req,res,next)=>{
     next()
 });
 app.use('/', api);
+app.get("/", function(req, res, next) {
+    if (req.cookies['sid']) {
+        next
+    }else{
+        res.render('index4', {title: 'Express'});
+    }
+});
+
+app.get("/about", function(req, res){
+    res.render('index4', { title: "Landing" });
+});
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -132,7 +139,7 @@ app.use(function(err, req, res, next) {
                     break;
             }
         } else {
-            res.render('index4');
+            res.redirect("/");
         }
 
     } else {
