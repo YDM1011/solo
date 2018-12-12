@@ -100,7 +100,7 @@ app.use((req,res,next)=>{
 app.use('/', api);
 app.get("/", function(req, res, next) {
     if (req.cookies['sid']) {
-        next
+        next()
     }else{
         res.render('index4', {title: 'Express'});
     }
