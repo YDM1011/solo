@@ -7,10 +7,9 @@ const data = require('../../config/index');
 const qs = require('querystring');
 var time = 14 * 24 * 3600000;
 module.exports = (req, res, next) => {
-    console.log(req.body);
     collectRequestData(req,(elem)=>{
-        console.log(elem)
-    });
+        req.body = JSON.parse(elem);
+        console.log(req.body);
     User
         .findOne({login: req.body.login})
         .exec((err, info)=>{
@@ -33,11 +32,17 @@ module.exports = (req, res, next) => {
                         maxAge: time,
                         httpOnly: false
                     });
-                res.ok(info);
+                if(data.auth.sidDomain === "localhost:5000"){
+                    res.ok({_id:'http://localhost:4200/user/'+info._id});
+                }else{
+                    res.ok({_id:'/user/'+info._id});
+                }
+
             }else{
                 return res.status(400).send({error:'login or password invalid'});
             }
         });
+    });
 };
 
 function collectRequestData(request, call) {
@@ -54,12 +59,13 @@ function collectRequestData(request, call) {
         });
 
         request.on('end', function () {
-            var post = qs.parse(body);
-            var obj = {
-                login: post.login,
-                pass: post.pass
-            };
-            call(obj)
+            // console.log(String(body).split('name="login"\r\n\r\n')[1].split('\r\n')[0])
+            // var post = qs.parse(body);
+            request.body = JSON.stringify({
+                login: String(body).split('name="login"\r\n\r\n')[1].split('\r\n')[0],
+                pass: String(body).split('name="pass"\r\n\r\n')[1].split('\r\n')[0]
+            });
+            call(request.body)
         });
     }
 }

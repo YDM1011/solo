@@ -132,7 +132,7 @@ app.use(function(err, req, res, next) {
                     break;
             }
         } else {
-            res.render('index4', { title: "Landing" });
+            res.render('index4');
         }
 
     } else {

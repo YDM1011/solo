@@ -10,7 +10,7 @@ glob.getId = (req,res,next)=>{
     const protect = req.cookies['sid'];
 
     if(!protect){
-        return res.forbidden("forbidden");
+        return res.forbidden("forbidden1");
     }
     const connect = protect.split(" ");
 
@@ -21,7 +21,7 @@ glob.getId = (req,res,next)=>{
             User.findOne({login: data.id })
                 .exec((err, info)=>{
                     if (err) return next(err);
-                    if (!info) return res.forbidden("forbidden");
+                    if (!info) return res.forbidden("forbidden2");
                     req.userId = info._id;
                     req.ownerId = info._id;
                     // req.avatar = info.avatar;

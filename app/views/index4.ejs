@@ -143,7 +143,7 @@
         <form method="post"
               name="submit"
               action-xhr="/api/signup"
-              target="_blank">
+              target="_top">
 
             <label class="p-up_form_i">
                 <span>Ваш E-mail</span>
@@ -190,7 +190,9 @@
             </button>
         </div>
 
-        <form  method="POST" action-xhr="/api/signin">
+        <form name="submit" method="post"
+              action-xhr="/api/signin"
+              on="submit-success: AMP.navigateTo( url=event.response._id)">
             <label class="p-up_form_i">
                 <span>Email</span>
                 <input class="inp-pop" type="email" placeholder="Впишіть ваш Email" name="login" required>
