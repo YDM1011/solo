@@ -613,6 +613,9 @@ body {
   width: 100%;
   height: 30vw;
   max-height: 150px; }
+.s-el_i .img{
+  object-fit: contain;
+}
 
 .like-el-cont {
   margin: 5px 0 5px 5px;
@@ -905,7 +908,7 @@ body {
 
 .mob-m_close {
   display: block;
-  margin: 0 16px 15px auto;
+  margin: 20px 16px 15px auto;
   opacity: .5; }
 
 .mob-m_close:hover {

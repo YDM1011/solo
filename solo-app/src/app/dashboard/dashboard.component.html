@@ -1,33 +1,29 @@
 <div class="cont-page">
   <div class="cont-page_one">
 
-    <div class="cont_head-prof" style="overflow: hidden">
-      <div class="head-prof">
+    <div class="cont_h-pf">
 
-        <div class="head-prof_user">
-          <app-avatar class="head-prof_user_av"
+        <div class="cont_h-pf_user">
+          <app-avatar class="cont_h-pf_user_av"
                       [customClass]="'inherit'"
                       [type]="'imgMax'"></app-avatar>
-          <div class="head-prof_user-name" *ngIf="true">
+          <div class="cont_h-pf_user-name" *ngIf="true">
             <app-first-name></app-first-name>
             <app-last-name></app-last-name>
           </div>
-          <app-upload class="head-prof_user_up"
+          <app-upload class="cont_h-pf_user_up"
                       [btnName]="btn"
                       (getImg)="loader = $event"></app-upload>
         </div>
 
+        <app-bg class="h-pf_bg pre-bg"></app-bg>
 
-        <div class="head-prof_bg">
-          <app-bg></app-bg>
-        </div>
-        
         <app-user-init [user]="user"></app-user-init>
 
-        <!--<app-update-user class="head-prof_update" [id]="id"></app-update-user>-->
+        <!--<app-update-user class="cont_h-pf_update" [id]="id"></app-update-user>-->
 
 
-        <div class="head-prof_loader">
+        <div class="cont_h-pf_loader">
           <img class="img" [src]="loader.larg" *ngIf="loader">
         </div>
 
@@ -38,7 +34,6 @@
                   [url]="'/api/avatar'"
         ></app-form>
 
-      </div>
     </div>
 
     <div class="cont-content">
@@ -53,10 +48,9 @@
                   <span class="star-el_hdr_text">Улюблений заклад</span>
               </div>
               <div class="star-el_content">
-                  <span class="star-el_item pre-bg" *ngIf="!favoriteEst.av">
-                  </span>
-                  <span class="star-el_item pre-bg" *ngIf="favoriteEst.av">
-                    <img src="{{favoriteEst.av.larg}}" alt="">
+                  <span class="star-el_item pre-bg" *ngIf="!favoriteEst.av"></span>
+                  <span class="star-el_item" *ngIf="favoriteEst.av">
+                    <img class="img" src="{{favoriteEst.av.larg}}" alt="">
                   </span>
               </div>
             </a>

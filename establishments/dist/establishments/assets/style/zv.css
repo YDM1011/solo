@@ -897,7 +897,7 @@ body {
   margin-left: calc(50% - 90px);
   margin-right: 5px; }
 
-:host /deep/ .side-nav {
+ side-nav {
   box-sizing: border-box;
   max-width: 500px;
   width: 100%;
@@ -905,7 +905,7 @@ body {
 
 .mob-m_close {
   display: block;
-  margin: 0 16px 15px auto;
+  margin: 20px 16px 15px auto;
   opacity: .5; }
 
 .mob-m_close:hover {
@@ -930,7 +930,7 @@ body {
 
 .mob-m .us-s_l {
   line-height: 28px;
-  margin: 2px 0; }
+  margin: 25px 0; }
 
 .svg-m_ab {
   display: block;
