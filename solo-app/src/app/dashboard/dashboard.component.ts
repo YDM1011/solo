@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public mutual = [];
   public obj: any;
   public sel: any;
+  public populate: any = JSON.stringify({path:'photo', select:'preload _id'});
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,

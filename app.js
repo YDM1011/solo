@@ -81,6 +81,10 @@ const static1 = require('./app/route/mainindex');
 const static2 = require('./app/route/apiindex');
 const api = require('./app/api/index');
 
+app.get("/about", function(req, res){
+    res.render('index4', { title: "Landing" });
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
@@ -92,6 +96,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('subdomain offset', 2);
 app.use((req,res,next)=>{
     next()
@@ -115,17 +120,22 @@ app.use(function(err, req, res, next) {
   // res.render('error');
     if(err.status == 404){
         console.log(req.subdomains, req.cookies);
-        switch(req.subdomains[0]){
-            case undefined:res.render('index1', { title: req.params.path });
-            break;
-            case 'solo':res.render('index2', { title: req.params.path });
-            break;
-            case 'admin':res.render('index3', { title: req.params.path });
-            break;
-            default: res.render('index2', { title: req.params.path });
-            break;
+        if (req.cookies['sid']){
+            switch(req.subdomains[0]){
+                case undefined:res.render('index1', { title: req.params.path });
+                    break;
+                case 'solo':res.render('index2', { title: req.params.path });
+                    break;
+                case 'admin':res.render('index3', { title: req.params.path });
+                    break;
+                default: res.render('index2', { title: req.params.path });
+                    break;
+            }
+        } else {
+            res.render('index4', { title: "Landing" });
         }
-    }else{
+
+    } else {
         res.render('error');
     }
 });

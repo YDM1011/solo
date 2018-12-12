@@ -16,7 +16,7 @@
   <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="search" autocomplete="off">
   <ul class="search-items create-post_sl">
     <li class="search-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
-      <span class="search-item_img">
+      <span class="search-item_img" *ngIf="itemp.av">
         <img src="{{itemp.av.preload}}" alt="">
       </span>
       <span class="search-item_title">{{itemp.name}}</span>

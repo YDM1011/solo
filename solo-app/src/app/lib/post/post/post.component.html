@@ -50,9 +50,9 @@
       </span>
 
           <span class="info_user">
-      <strong class="info_user_name">
+      <a [routerLink]="'/user/'+item.userId._id" class="info_user_name">
         {{item.userId.firstName || user.firstName}}
-        {{item.userId.lastName || user.lastName}}</strong>
+        {{item.userId.lastName || user.lastName}}</a>
 
       <span class="info_user_event" *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
       <span class="info_user_event" *ngIf="item.img[0] && !item.imression.name"> додав фото</span>
@@ -78,7 +78,7 @@
     </span>
 
           <p class="info_data">
-            <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y hh:mm"}}</time>
+            <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y H:mm"}}</time>
           </p>
 
           <div class="info_user-select">
@@ -161,15 +161,15 @@
       </span>
 
           <span class="info_user">
-        <strong class="info_user_name">
+        <a [routerLink]="'/user/'+item.userId._id" class="info_user_name">
           {{item.share.userIdShare.firstName || user.firstName}}
-          {{item.share.userIdShare.lastName || user.lastName}}</strong>
+          {{item.share.userIdShare.lastName || user.lastName}}</a>
 
         <span class="info_user_event" *ngIf="true"> поширив допис</span>
       </span>
 
           <p class="info_data">
-            <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y hh:mm"}}</time>
+            <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y H:mm"}}</time>
           </p>
 
           <div class="info_user-select">
@@ -231,7 +231,7 @@
             </span>
           </span>
               <p class="info_data">
-                <time [attr.dateTime]="item.share.data">{{item.share.data | date:"dd.MM.y hh:mm"}}</time>
+                <time [attr.dateTime]="item.share.data">{{item.share.data | date:"dd.MM.y H:mm"}}</time>
               </p>
             </div>
             <div class="post_content">
