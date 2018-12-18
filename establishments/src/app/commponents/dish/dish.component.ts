@@ -60,7 +60,7 @@ export class DishComponent implements OnInit {
   }
   preToBasket(d){
     let s = this;
-    s.isAddPop = true
+    s.isAddPop = true;
     s.dishObject = Object.assign({},d);
   }
   toBasket(id, portion) {
