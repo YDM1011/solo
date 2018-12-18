@@ -46,7 +46,7 @@ import {BasketComponent} from './basket/basket.component';
     LeftBarScrollDirective,
     RightBarScrollDirective,
     NewsListComponent,
-    BasketComponent
+    BasketComponent,
   ],
   imports: [
     BrowserModule,

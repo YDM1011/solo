@@ -290,13 +290,13 @@ body {
     position: fixed;
     top: 64px; }
   .cont_right-bar {
-    position: absolute;
+    position: fixed;
     min-height: 1151px;
     width: 215px;
-    top: 60px;
+    top: 59px;
     right: 10px;
     margin-top: 5px;
-    transition: 30ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+    transition: 50ms cubic-bezier(0.22, 0.61, 0.36, 1); }
   .cont_h-pf {
     width: auto;
     flex-grow: 0.5;
@@ -306,6 +306,8 @@ body {
     height: 200px; } }
 
 @media (min-width: 1220px) {
+  .cont-page_one {
+    margin-right: 215px; }
   .cont_left-bar {
     margin: 0; }
   .cont_right-bar {

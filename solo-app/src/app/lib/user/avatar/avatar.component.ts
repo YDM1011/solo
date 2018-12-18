@@ -11,7 +11,7 @@ import {FormApiService} from '../../form-api/form-api.service';
 })
 export class AvatarComponent implements OnInit, OnChanges {
   public photo: any;
-  public btn = '<span class="button-av"><span class="button-av_img"></span><span class="button-av_text">Редагувати</span></span> ';
+  public btn = '<span class="btn-av"><span class="btn-av_img"></span><span class="btn-av_tt">Редагувати</span></span>';
   public loader: any;
   public img: any;
   domain: string = environment.apiDomain;
