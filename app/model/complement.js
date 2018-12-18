@@ -23,7 +23,10 @@ const model = new Schema({
         virtuals: false
     },
     createRestApi: true,
-    strict: true
+    strict: true,
+    paths: {
+        "maincategory.id": [Object],
+    }
 });
 
 mongoose.model('complement', model);

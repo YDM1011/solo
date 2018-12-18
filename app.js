@@ -99,7 +99,7 @@ app.use((req,res,next)=>{
 });
 app.use('/', api);
 app.get("/", function(req, res, next) {
-    if (req.cookies['sid']) {
+    if (req.cookies['sid'] || (req.subdomains[0] && req.subdomains[0] != "admin")) {
         next()
     }else{
         res.render('index4', {title: 'Express'});

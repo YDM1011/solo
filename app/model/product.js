@@ -5,15 +5,19 @@ const portionschema = new Schema({
     massa: String,
     name: String,
     about: String,
-    price: String
+    price: String,
+
 });
 const model = new Schema({
-    portionCheck: portionschema,
-    count: Number,
     info: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "dish"
     },
+    portionCheck: [{
+        count: {type: Number, default: 1},
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "portItem"
+    }],
     data: {type: Date, default: new Date()},
     ownerest: {
         type: mongoose.Schema.Types.ObjectId,

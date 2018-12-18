@@ -13,6 +13,7 @@ import { InfoComponent } from './info/info.component';
 import { FavoritComponent } from './favorit/favorit.component';
 import { MapComponent } from './map/map.component';
 import { BasketComponent } from './basket/basket.component';
+import { PopProdAddComponent } from './pop-prod-add/pop-prod-add.component';
 
 @NgModule({
   imports: [
@@ -44,7 +45,8 @@ import { BasketComponent } from './basket/basket.component';
     InfoComponent,
     FavoritComponent,
     MapComponent,
-    BasketComponent
+    BasketComponent,
+    PopProdAddComponent
   ]
 })
 export class CommponentsModule { }

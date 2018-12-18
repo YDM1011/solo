@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('user');
+const Category = mongoose.model('category');
+const Complement = mongoose.model('complement');
 const Establishment = mongoose.model('establishment');
 const Product = mongoose.model('product');
 const Basket = mongoose.model('basket');
@@ -116,6 +117,19 @@ module.exports.getBasket = (req, res, next) => {
     Basket.find({owneruser:req.userId})
         .populate({path: 'products', populate:{path:'info', populate:{path:'dishcategory pic', select:'preload', populate:{path:'complementbox'}}}})
         .populate({path: 'av', select: 'preload'})
+        .exec((err,doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) {
+                return res.serverError('Somesing broken');
+            }
+            if (doc){
+                return res.ok(doc);
+            }
+        })
+};
+module.exports.checkbox = (req, res, next) => {
+
+    Complement.find({'maincategory.id':req.params.id})
         .exec((err,doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) {

@@ -155,13 +155,13 @@
           <!--</span>-->
           <span class="post_info_user-img pre-bg">
         <app-avatar class="inherit" [customClass]="'inherit'"
-                    [avatar]="item.userId.photo"
-                    [avatarId]="item.userId.photo._id"
+                    [avatar]="item.share.userIdShare.photo"
+                    [avatarId]="item.share.userIdShare.photo._id"
                     [type]="'imgMin'"></app-avatar>
       </span>
 
           <span class="info_user">
-        <a [routerLink]="'/user/'+item.userId._id" class="info_user_name">
+        <a [routerLink]="'/user/'+item.share.userIdShare._id" class="info_user_name">
           {{item.share.userIdShare.firstName || user.firstName}}
           {{item.share.userIdShare.lastName || user.lastName}}</a>
 

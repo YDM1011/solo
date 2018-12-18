@@ -19,7 +19,10 @@ export class BasketComponent implements OnInit {
     let s = this;
     s.basket = data;
     s.basket.products.map(product => {
-      s.totalPrice += parseInt(product.portionCheck.price);
+      if(product.portionCheck){
+        s.totalPrice += parseInt(product.portionCheck.price);
+      }
+
     });
     console.log(data);
 

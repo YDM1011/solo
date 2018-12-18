@@ -117,10 +117,13 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.http.get(this.domain + '/api/favorite/favoritest/' + idc, this.api.getHeaders())
       .subscribe((est: any) => {
         self.favoriteEst = est.favoritest;
-        this.http.get(this.domain + '/api/avatar/' + self.favoriteEst.av + '?select=larg', this.api.getHeaders())
-          .subscribe((estAv: any) => {
-            self.favoriteEst.av = estAv;
-          });
+        if(self.favoriteEst){
+          this.http.get(this.domain + '/api/avatar/' + self.favoriteEst.av + '?select=larg', this.api.getHeaders())
+            .subscribe((estAv: any) => {
+              self.favoriteEst.av = estAv;
+            });
+        }
+
       });
     this.http.get(this.domain + '/api/getFriends?userId=' + idc, this.api.getHeaders())
       .subscribe((friends: any) => {

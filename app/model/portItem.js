@@ -43,6 +43,20 @@ const preCreate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     next()
 };
+const postCreate = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    console.log(req.erm.result);
+    mongoose.model('dish')
+        .findOneAndUpdate({_id: req.body.dishId}, {$push:{portion:req.erm.result._id}}, {new: true})
+        .exec((err,info)=>{
+            if(err) return res.badRequest("error");
+            if(info) return next();
+        });
+
+
+};
 
 glob.restify.serve(
     glob.route,
@@ -51,4 +65,5 @@ glob.restify.serve(
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        postCreate: [glob.jsonParser, glob.cookieParser, glob.getId, postCreate],
     });

@@ -54,12 +54,13 @@ router.get('/api/est_post', [orign], establishment.estPost);
 router.get('/api/est_menu', [orign], establishment.estMenu);
 router.get('/api/est_est', [orign], establishment.estEst);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
-router.get('/api/favorite/:key', [orign, glob.getId], me.getFavorite);
+router.get('/api/favorite/:key', [orign], me.getFavorite);
 router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId);
 
 // basket API
 router.post('/api/add_product', [orign, glob.getId], basket.addProduct);
 router.get('/api/basket_from_est', [orign, glob.getId], basket.getBasketEst);
 router.get('/api/basket_user', [orign, glob.getId], basket.getBasket);
+router.get('/api/checkbox/:id', [orign, glob.getId], basket.checkbox);
 
 module.exports = router;

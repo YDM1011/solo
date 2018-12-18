@@ -1,0 +1,6 @@
+.md-fixed{
+  background: rgba(0, 0, 0, 0.15);
+}
+.collapsible-body.active{
+  display: block!important;
+}
