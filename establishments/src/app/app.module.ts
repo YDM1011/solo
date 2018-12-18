@@ -11,11 +11,15 @@ import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {ApiInterceptor} from "./api-interceptor";
 import {CookieService} from "ngx-cookie-service";
 import {ApiService} from "./service/api.service";
+import {LeftBarScrollDirective} from "./init-layout/left-bar-scroll.directive";
+import {RightBarScrollDirective} from "./init-layout/right-bar-scroll.directive";
 
 @NgModule({
   declarations: [
     AppComponent,
-    InitLayoutComponent
+    InitLayoutComponent,
+    LeftBarScrollDirective,
+    RightBarScrollDirective
   ],
   imports: [
     HttpClientModule,

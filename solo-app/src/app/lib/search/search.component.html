@@ -1,6 +1,6 @@
 <ng-container *ngIf="type == 'user'">
 <div class="search-contain" *ngIf="!searchDropD">
-  <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="search" autocomplete="off">
+  <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="Пошук" autocomplete="off">
   <ul class="search-items create-post_sl">
     <li class="search-item" *ngFor="let itemp of array | search: 'firstName': searchText" (click)="onFind.emit(itemp)">
       <span class="search-item_img">
@@ -13,7 +13,7 @@
 </ng-container>
 <ng-container *ngIf="type == 'est'">
 <div class="search-contain" *ngIf="!searchDropD">
-  <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="search" autocomplete="off">
+  <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="Пошук" autocomplete="off">
   <ul class="search-items create-post_sl">
     <li class="search-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
       <span class="search-item_img" *ngIf="itemp.av">

@@ -1,56 +1,44 @@
-<div class="post_com">
-  <article class="com" *ngFor="let com of comments">
-    <div class="com_user">
+<div class="post_cm">
+  <article class="cm" *ngFor="let com of comments">
+    <div class="cm_us">
+     <app-avatar  class="img40 pre-bg"
+                  [avatar]="com.userIdCom.photo"
+                  [type]="'imgMin'"
+                  [avatarId]="com.userIdCom.photo._id"
+                  [customClass]="'inherit'"></app-avatar>
 
-      <div class="com_user_img pre-bg">
-       <app-avatar  [avatar]="com.userIdCom.photo"
-                    [type]="'imgMin'"
-                    [avatarId]="com.userIdCom.photo._id"
-                    class="inherit"
-                    [customClass]="'inherit'"></app-avatar>
-      </div>
-
-      <div class="com_user_info">
-        <p class="com_user_name">
-          <strong class="com_user_name-title">{{com.userIdCom.firstName}} {{com.userIdCom.lastName}}</strong>
+      <div class="cm_us_in">
+        <p>
+          <strong class="cm_us_tt">{{com.userIdCom.firstName}} {{com.userIdCom.lastName}}</strong>
         </p>
-        <p class="com_user_data">
-          <time [attr.dateTime]="com.data">{{com.data | date:"dd.MM.y H:mm"}}</time>
-        </p>
+        <p class="cm_us_data"><time [attr.dateTime]="com.data">{{com.data | date:"dd.MM.y hh:mm"}}</time></p>
       </div>
     </div>
-
-    <p class="com_text">{{com.des}}</p>
-    <button type="button" (click)="likeCom(com._id)" style="display: none">{{'like: '+com.likeCom.length || 0}}</button>
+    <p class="cm_d">{{com.des}}</p>
+    <!--<button type="button" (click)="likeCom(com._id)" style="display: none">{{'like: '+com.likeCom.length || 0}}</button>-->
   </article>
 
-  <div class="com-new">
+  <div class="cm_nw">
 
-    <div class="com_user_img pre-bg">
-      <div class="inherit">
+    <div class="img40 pre-bg">
         <img class="img" *ngIf="userPhoto['imgMin']" [src]="userPhoto.imgMin">
-      </div>
     </div>
 
-    <div class="com-new_com">
-      <div class="com-new_fantom" #comNewFantom style="visibility:hidden;position:absolute;z-index:-1">{{comment.des}}</div>
-      <textarea class="com-new_com_text"
+    <div class="cm_nw_com">
+      <div class="cm_fnt" #comNewFantom>{{comment.des}}</div>
+      <textarea class="cm_area"
                 #desIn
                 placeholder="Поділіться своїми враженнями..."
                 (resize)="desIn.style.height = comNewFantom.offsetHeight + 'px'"
                 [(ngModel)]="comment.des"
                 [style.height.px]="comNewFantom.offsetHeight"
                 name="des"
-                data-length="120"
       ></textarea>
-
-      <div class="com-new_send">
-        <button class="com-new_button" type="submit" (click)="commented()">
-          <span class="com-new_button_svg">
-            <svg x="0px" y="0px" viewBox="0 0 490.282 490.282" style="enable-background:new 0 0 30 30;fill:#946fb0" xml:space="preserve"><g><path d="M0.043,245.197c0.6,10.1,7.3,18.6,17,21.5l179.6,54.3l6.6,123.8c0.3,4.9,3.6,9.2,8.3,10.8c1.3,0.5,2.7,0.7,4,0.7c3.5,0,6.8-1.4,9.2-4.1l63.5-70.3l90,62.3c4,2.8,8.7,4.3,13.6,4.3c11.3,0,21.1-8,23.5-19.2l74.7-380.7c0.9-4.4-0.8-9-4.2-11.8c-3.5-2.9-8.2-3.6-12.4-1.9l-459,186.8C5.143,225.897-0.557,235.097,0.043,245.197z M226.043,414.097l-4.1-78.1l46,31.8L226.043,414.097z M391.443,423.597l-163.8-113.4l229.7-222.2L391.443,423.597z M432.143,78.197l-227.1,219.7l-179.4-54.2L432.143,78.197z"/></g></svg>
-          </span>
-        </button>
-      </div>
+      <button class="cm_btn" type="submit" (click)="commented()">
+        <span class="svg20">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" x="0px" y="0px" viewBox="0 0 490.282 490.282" fill="#946fb0"><g><path class="act" d="M0.043,245.197c0.6,10.1,7.3,18.6,17,21.5l179.6,54.3l6.6,123.8c0.3,4.9,3.6,9.2,8.3,10.8c1.3,0.5,2.7,0.7,4,0.7c3.5,0,6.8-1.4,9.2-4.1l63.5-70.3l90,62.3c4,2.8,8.7,4.3,13.6,4.3c11.3,0,21.1-8,23.5-19.2l74.7-380.7c0.9-4.4-0.8-9-4.2-11.8c-3.5-2.9-8.2-3.6-12.4-1.9l-459,186.8C5.143,225.897-0.557,235.097,0.043,245.197z M226.043,414.097l-4.1-78.1l46,31.8L226.043,414.097z M391.443,423.597l-163.8-113.4l229.7-222.2L391.443,423.597z M432.143,78.197l-227.1,219.7l-179.4-54.2L432.143,78.197z"/></g></svg>
+        </span>
+      </button>
     </div>
   </div>
 </div>

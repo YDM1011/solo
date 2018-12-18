@@ -18,6 +18,8 @@ export class CreatePostDirective {
       this.el.nativeElement.classList.add('active');
       document.documentElement.style.overflowY = 'hidden';
       document.body.style.overflowY = 'hidden';
+      this.el.nativeElement.scrollIntoView({block: 'start', behavior: 'smooth'});
+      // window.scrollTo(0, this.el.nativeElement.getBoundingClientRect().y + window.pageYOffset - 15)
     }
     else{
       status.classList.remove('active');

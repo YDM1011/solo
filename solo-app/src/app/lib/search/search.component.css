@@ -31,34 +31,14 @@ input[type=text].nav_search {
   display: block;
   width: 100%;
 }
-:host-context /deep/ #dropdown-search{
-  display: none;
-  height: auto;
-  top: 32px!important;
-  background: #f4f4f4;
-  border: 1px solid #e8e8e8;
-  left: 0!important;
-  box-shadow: none;
-}
-:host-context /deep/ #dropdown-search li{
-  min-height: 25px;
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
-  background: transparent;
-  transition: .25s;
-}
-:host-context /deep/ #dropdown-search li:hover,
-:host-context /deep/ #dropdown-search li:focus{
-  background: rgba(0, 0, 0, 0.05);
-}
+
 input[type=text].nav_search:focus{
-  border-bottom: 1px solid rgba(82, 172, 98, 0.5) !important;
-  box-shadow: 0 1px 0 0 rgba(82, 172, 98, 0.5)!important;
+  border-bottom: 1px solid rgba(97, 20, 143, 0.5)!important;
+  box-shadow: 0 1px 0 0 rgba(97, 20, 143, 0.5)!important;
 }
 input[type=text].search:focus{
- border-bottom: 1px solid rgba(82, 172, 98, 0.5) !important;
- box-shadow: 0 1px 0 0 rgba(82, 172, 98, 0.5)!important;
+ border-bottom: 1px solid rgba(97, 20, 143, 0.5) !important;
+ box-shadow: 0 1px 0 0 rgba(97, 20, 143, 0.5) !important;
 }
 
 .search-items.nav_search{
@@ -111,29 +91,11 @@ input[type=text].search:focus{
     font-size: 12px;
     padding: 0 30px 0 12px;
   }
-  :host-context /deep/ #dropdown-search{
-    top: 40px!important;
-    background: #ffffff;
-  }
-  :host-context /deep/ #dropdown-search li{
-    padding: 0 12px;
-  }
 }
 @media (min-width: 992px) {
   input[type=text].nav_search {
     height: 40px;
     line-height: 40px;
     padding: 0 35px 0 12px;
-  }
-  :host-context /deep/ #dropdown-search{
-    top: 42px!important;
-  }
-  :host-context /deep/ #dropdown-search li{
-    min-height: 34px;
-    display: flex;
-    align-items: center;
-    padding: 0 10px;
-    background: transparent;
-    transition: .25s;
   }
 }

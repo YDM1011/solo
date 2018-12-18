@@ -4,15 +4,10 @@
   top: 0;
   left: 0;
 }
-
 .inherit-bg {
   display: block;
   width: inherit;
   height: 100%; }
-
-.inherit-bg .img{
-  object-position: 40%;
-}
 
 .user-bg{
   cursor: pointer;
@@ -30,8 +25,6 @@
 .user-bg:hover{
   filter: opacity(95%);
 }
-
-
 
 @media (min-width: 620px) {
   .user-bg{

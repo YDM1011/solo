@@ -12,7 +12,6 @@ export class LeftBarScrollDirective {
     if ( window.innerWidth >= 768 && window.innerHeight > 500) window.addEventListener('scroll', this.scroll, false);
     if ( window.innerWidth >= 768 && window.innerHeight > 500) window.addEventListener('resize', this.resize, false);
     this.hrhHeight = document.querySelector('.hdr').clientHeight +5;
-
   }
   ngOnDestroy() {
     if ( window.innerWidth >= 768 && window.innerHeight > 500) window.removeEventListener('scroll', this.scroll, false);
@@ -22,7 +21,7 @@ export class LeftBarScrollDirective {
   private hrhHeight: number = 0;
 
   resize = (): void => {
-    this.hrhHeight = document.querySelector('.hdr').clientHeight + 5;
+    this.hrhHeight = 0;
   };
 
   scroll = (): void => {

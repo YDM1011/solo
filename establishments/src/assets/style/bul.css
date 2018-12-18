@@ -67,6 +67,12 @@ body {
   .btn-red:focus {
     background: #f0f0f0;
     color: #1e1e1e; }
+.btn-trans.active svg .like{
+  fill: #D75A4A;
+}
+.btn-trans.active svg .act{
+  fill: #61148f!important;
+}
 
 .btn-trans, .datepicker-cancel, .datepicker-done, .confirmation-btns .btn-flat {
   display: block;
@@ -516,9 +522,6 @@ input[type="file"] {
     margin-bottom: 25px; }
   .zf1_img {
     margin: 10px 0 0 0; } }
-
-.btn-active svg {
-  filter: drop-shadow(0px 0px 5px rgba(97, 20, 143, 0.8)); }
 
 .btn0-bg_img {
   display: block;
