@@ -14,6 +14,9 @@ export class DishComponent implements OnInit {
   @Output() onNull: EventEmitter<any> = new EventEmitter<any>();
   public portion: any = [];
   public dishes: any;
+  public portionActive: any;
+  public isAddPop = false;
+  public dishObject = {};
   constructor(
     private api: ApiService
   ) { }
@@ -41,11 +44,11 @@ export class DishComponent implements OnInit {
       console.log(s.dishes);
       s.onNull.next(s.categoryId);
     }
-
+    s.setPortion(obj);
   }
-  select(obj, i) {
+  select(obj, dish) {
     const s = this;
-    s.portion[i] = obj;
+    dish.prt = obj;
   }
   liked(dish) {
     const s = this;
@@ -54,6 +57,11 @@ export class DishComponent implements OnInit {
         dish.dishlike = res;
       }
     });
+  }
+  preToBasket(d){
+    let s = this;
+    s.isAddPop = true
+    s.dishObject = Object.assign({},d);
   }
   toBasket(id, portion) {
     const s = this;
@@ -65,5 +73,11 @@ export class DishComponent implements OnInit {
     s.api.post('add_product', obj).then((res: any) => {
       console.log(res);
     });
+  }
+  setPortion(e){
+    e.map(dish=>{
+      dish.prt = dish.portion[0];
+    })
+
   }
 }

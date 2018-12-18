@@ -92,11 +92,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'public')));
 app.set('subdomain offset', 2);
 app.use((req,res,next)=>{
     next()
 });
 app.use('/', api);
+app.get("/", function(req, res, next) {
+    if (req.cookies['sid'] || (req.subdomains[0] && req.subdomains[0] != "admin")) {
+        next()
+    }else{
+        res.render('index4', {title: 'Express'});
+    }
+});
+
+app.get("/about", function(req, res){
+    res.render('index4', { title: "Landing" });
+});
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -115,17 +127,22 @@ app.use(function(err, req, res, next) {
   // res.render('error');
     if(err.status == 404){
         console.log(req.subdomains, req.cookies);
-        switch(req.subdomains[0]){
-            case undefined:res.render('index1', { title: req.params.path });
-            break;
-            case 'solo':res.render('index2', { title: req.params.path });
-            break;
-            case 'admin':res.render('index3', { title: req.params.path });
-            break;
-            default: res.render('index2', { title: req.params.path });
-            break;
+        if (req.cookies['sid']){
+            switch(req.subdomains[0]){
+                case undefined:res.render('index1', { title: req.params.path });
+                    break;
+                case 'solo':res.render('index2', { title: req.params.path });
+                    break;
+                case 'admin':res.render('index3', { title: req.params.path });
+                    break;
+                default: res.render('index2', { title: req.params.path });
+                    break;
+            }
+        } else {
+            res.redirect("/");
         }
-    }else{
+
+    } else {
         res.render('error');
     }
 });

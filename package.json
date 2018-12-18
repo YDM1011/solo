@@ -30,6 +30,7 @@
     "nconf": "^0.10.0",
     "nodemailer": "^4.6.8",
     "nodemon": "^1.18.4",
+    "querystring": "^0.2.0",
     "restify": "^7.2.1",
     "serve-favicon": "~2.4.5",
     "underscore": "^1.9.1"

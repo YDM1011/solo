@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const Est = mongoose.model('establishment');
-
+const glob = require('glob');
 
 
 const getFavoriteE = (req, res, next) => {
@@ -173,22 +173,51 @@ const favoritEsts = (req,res,favEst)=>{
 
         });
 };
+const getId = (req,res,callbeack)=>{
+    const jwt = require('jsonwebtoken');
+    const User = mongoose.model('user');
+    const protect = req.cookies['sid'];
+
+    if(!protect){
+        return res.forbidden("forbidden1");
+    }
+    const connect = protect.split(" ");
+
+    jwt.verify(connect[0], glob.secret, (err,data)=>{
+        if (err) {
+            return res.serverError("Token error");
+        }else{
+            User.findOne({login: data.id })
+                .exec((err, info)=>{
+                    if (err) return next(err);
+                    if (!info) return res.forbidden("forbidden2");
+                    req.userId = info._id;
+                    req.ownerId = info._id;
+                    // req.avatar = info.avatar;
+                    callbeack()
+                });
+        }
+    });
+};
 const getFavorit = (req,res,mod)=>{
-    User
-        .findOne({_id: req.userId})
-        .populate({path:mod})
-        .select(mod)
-        .exec((err, content) =>{
-            if(err) {
-                return res.badRequest(err);
-            }
-            if(!content) {
-                return res.notFound("not Found");
-            }
-            if(content) {
-                res.ok(content)
-            }
-        });
+    getId(req,res,()=>{
+        User
+            .findOne({_id: req.userId})
+            .populate({path:mod})
+            .select(mod)
+            .exec((err, content) =>{
+                if(err) {
+                    return res.badRequest(err);
+                }
+                if(!content) {
+                    return res.notFound("not Found");
+                }
+                if(content) {
+                    res.ok(content)
+                }
+            });
+    });
+
 };
 const getFavoritByUsId = (req,res,mod,usId)=>{
     User

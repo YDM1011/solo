@@ -45,9 +45,9 @@
                       [avatarId]="item.userId.photo._id"
                       [type]="'imgMin'"></app-avatar>
           <span class="in_us">
-            <strong class="name">
+            <a [routerLink]="'/user/'+item.userId._id" class="name">
               {{item.userId.firstName || user.firstName}}
-              {{item.userId.lastName || user.lastName}}</strong>
+              {{item.userId.lastName || user.lastName}}</a>
 
             <span *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
             <span *ngIf="item.img[0] && !item.imression.name"> додав фото</span>
