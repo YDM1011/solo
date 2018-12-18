@@ -17,7 +17,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
   public complement;
   public dishData;
-  public totalPrice = 0;
+  public totalPrice: number = 0;
   public isComplement = false;
 
   constructor(
@@ -35,12 +35,12 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   calcPrice(item){
     let s = this;
     item.isCheck = !item.isCheck;
-    s.totalPrice = parseInt(s.dishData.price);
+    s.totalPrice = parseInt(s.dishData.prt.price);
     console.log("OK");
     s.complement.map(item=>{
       console.log(item.isCheck);
       if (item.isCheck) {
-        s.totalPrice += parseInt(item.price);
+        s.totalPrice += parseInt(item.price) * parseInt(item.count);
       }
     })
   }
@@ -52,11 +52,11 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     }else{
       item.isCheck=false;
     }
-    s.totalPrice = parseInt(s.dishData.price);
+    s.totalPrice = parseInt(s.dishData.prt.price);
     s.complement.map(item=>{
       console.log(item.isCheck);
       if (item.isCheck) {
-        s.totalPrice += parseInt(item.price) * item.count;
+        s.totalPrice += parseInt(item.price) * parseInt(item.count);
       }
     })
   }
@@ -64,18 +64,18 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     const s= this;
     item.count = item.count+1;
     item.isCheck=true;
-    s.totalPrice = parseInt(s.dishData.price);
+    s.totalPrice = parseInt(s.dishData.prt.price);
     s.complement.map(item=>{
       console.log(item.isCheck);
       if (item.isCheck) {
-        s.totalPrice += parseInt(item.price) * item.count;
+        s.totalPrice += parseInt(item.price) * parseInt(item.count);
       }
     })
   }
   preToBasket(){
     let s = this;
         s.dishData = Object.assign({}, s.dish);
-        console.log(s.dish, s.dishId);
+        console.log(s.dishData.prt);
         if(s.dishData.prt){s.totalPrice = s.dishData.prt.price;}
         s.api.get('checkbox', s.dishData.dishcategory).then((val:any)=>{
           val.map(item=>{
