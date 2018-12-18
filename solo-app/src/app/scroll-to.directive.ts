@@ -11,6 +11,6 @@ export class ScrollToDirective {
   @HostListener('click', ['$event']) onClick(): void {
     setTimeout( ()=> {
       document.querySelector('.' + this.targetScroll).scrollIntoView({block: "start", behavior: "smooth"});
-    },100)
+    },0)
   }
 }

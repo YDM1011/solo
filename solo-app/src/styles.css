@@ -1043,6 +1043,7 @@ app-file-min{
     display: block;
   }
   .el_i {
+    min-height: auto;
     width: calc((100% / 3) - 6px);
     height: 60px;
   }
