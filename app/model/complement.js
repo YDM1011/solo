@@ -54,24 +54,30 @@ const preUpdate = (req,res,next)=>{
     delete req.body['ownerest'];
     if (req.body.maincategory){
         mongoose.model('category')
-            .findOne({_id: req.body.maincategory.id, complementbox:{$in:req.params.id}})
-            .exec((err, info) => {
+            .findOne({complementbox:{$in:req.params.id}})
+            .exec((err,doc)=>{
+                console.log("DOC", doc);
                 if(err) return res.badRequest('Something broke!');
-                // info.like = info.like || [];
-                // info.like.push(req.userId);
-                if(info){return next()}
-                if(!info){
-                    mongoose.model('category')
-                        .findOneAndUpdate({_id: req.body.maincategory.id},
-                            {$push:{complementbox:req.params.id}}, {new: true})
-                        .exec((err, content) =>{
-                            if(err) {
-                                return res.badRequest(err)
-                            } else {
-                                return next()
-                            }
-                        });
-                }
+
+                mongoose.model('category')
+                    .findOneAndUpdate({_id: doc._id},
+                        {$pull:{complementbox:req.params.id}}, {new: true})
+                    .exec((err, content) =>{
+                        if(err) {
+                            return res.badRequest(err)
+                        } else {
+                            mongoose.model('category')
+                                .findOneAndUpdate({_id: req.body.maincategory.id},
+                                    {$push:{complementbox:req.params.id}}, {new: true})
+                                .exec((err, content) =>{
+                                    if(err) {
+                                        return res.badRequest(err)
+                                    } else {
+                                        return next()
+                                    }
+                                });
+                        }
+                    });
             });
     }else{
         next()

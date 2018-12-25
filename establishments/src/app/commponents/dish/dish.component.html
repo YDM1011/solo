@@ -48,7 +48,7 @@
               <div class="mn_i_of_i">
                 <div class="select-tr">
                   <ul>
-                    <li *ngFor="let prt of dish.portion" (click)="select(prt, dish)">{{prt.name}}</li>
+                    <li *ngFor="let prt of dish.portion" (click)="select(prt, dish)">{{prt.name || prt.massa }}</li>
                   </ul>
                 </div>
               </div>

@@ -10,7 +10,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
   @Input() selfBtn;
   @Input() isShow=false;
-  @Output() isShowChange=new EventEmitter<string>();
+  @Output() isShowChange=new EventEmitter<any>();
 
   @Input() dish;
   @Input() dishId;
@@ -19,6 +19,8 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   public dishData;
   public totalPrice: number = 0;
   public isComplement = false;
+  public comment = '';
+  public portion = [];
 
   constructor(
     private api: ApiService
@@ -74,17 +76,55 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   }
   preToBasket(){
     let s = this;
-        s.dishData = Object.assign({}, s.dish);
-        console.log(s.dishData.prt);
-        if(s.dishData.prt){s.totalPrice = s.dishData.prt.price;}
-        s.api.get('checkbox', s.dishData.dishcategory).then((val:any)=>{
-          val.map(item=>{
-            item.isCheck = false;
-            item.count = 1;
-          });
-          s.complement = val;
-          console.log(s.complement)
-        })
-      }
+    s.dishData = Object.assign({}, s.dish);
+    console.log(s.dishData);
+    if(s.dishData.prt){
+      s.totalPrice = s.dishData.prt.price;
+      s.dishData.prt.count = 1;
+      // s.portion = [];
+      // s.portion[0] = s.dishData.prt;
+      // s.dishData.portion.map(prt=>{
+      //   if (prt._id != s.dishData.prt._id){
+      //     prt.count = 0;
+      //     s.portion.push(prt);
+      //   }
+      // });
+      // s.portion = s.dishData.portion
+    }
+    s.api.get('checkbox', s.dishData.dishcategory).then((val:any)=>{
+      val.map(item=>{
+        item.isCheck = false;
+        item.count = 1;
+      });
+      s.complement = val;
+      console.log(s.complement)
+    })
+  }
 
+  cancel(){
+    let s = this;
+    s.isShow = false;
+    s.isShowChange.emit(false);
+  }
+
+  toBasket() {
+    const s = this;
+    const obj = {
+      portionCheck: s.dishData.prt._id,
+      dishId: s.dishData._id,
+      complementCheck: s.dishData.ingredientis,
+      comment: s.comment,
+      complement: [],
+      totalPrice: s.totalPrice
+    };
+    s.complement.map(com=>{
+      if (com.isCheck){
+        obj.complement.push(com._id);
+      }
+    });
+
+    s.api.post('add_product', obj).then((res: any) => {
+      console.log(res);
+    });
+  }
 }

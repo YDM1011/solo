@@ -9,6 +9,8 @@ const pages = new Schema({
     gender: String,
     hash: String,
     borned: Date,
+    mobile: {type: String},
+    address: Object,
     verify:{type: Boolean, default: true},
     favoritest:{
         type: mongoose.Schema.Types.ObjectId,

@@ -43,12 +43,12 @@
                 <span class="pr_ev-s ev-s_xit"></span>
                 <span class="pr_ev-s ev-s_int"></span>
               </div>
-              <app-img [img]="{id: product.info.pic}"></app-img>
+              <app-img [img]="{id: product.dishId.pic}"></app-img>
             </div>
 
             <div class="ord_pr_in">
               <div class="ord_pr_in_h">
-                <h1 class="ord_pr_t">{{product.info.name}}</h1>
+                <h1 class="ord_pr_t">{{product.dishId.name}}</h1>
                 <button type="button" class="ord_pr_btn-ed btn-trans">
                   <app-pop-prod-add></app-pop-prod-add>
                   <span class="ord_pr_btn-ed_svg">
@@ -56,25 +56,32 @@
               </span>
                 </button>
               </div>
-              <p class="ord_pr_in_d">{{product.info.about}}</p>
+              <p class="ord_pr_in_d">{{product.dishId.about}}</p>
               <div class="ord_pr_in_add">
                 <p class="ord_pr_in_d">Додатково:</p>
                 <ul class="ord_pr_in_add_list">
-                  <li class="ord_pr_in_add_i" *ngFor="let compl of product.info.dishcategory.complementbox">
-                    <!--product.info.dishcategory.complementbox-->
-                    <span class="ord-check"></span>{{compl.name}}  ({{compl.massa}} - {{compl.price}})
+                  <li class="ord_pr_in_add_i" *ngFor="let compl of product.dishId.dishcategory.complementbox">
+                    <!--product.dishId.dishcategory.complementbox-->
+                    <!--<span class="ord-check"></span>-->
+                    <label class="ord_check">
+                      <input type="checkbox" [checked]="compl.check == true"
+                             (change)="checkPrice(compl, product)">
+                      <span></span>
+                    </label>
+                    {{compl.name}}  ({{compl.massa}} - {{compl.price}} грн)
                   </li>
                 </ul>
-                <p class="ord_pr_in_add_com">« Замість гострого перцю, болгарський перець »</p>
+                <p class="ord_pr_in_add_com">{{product.comment}}</p>
               </div>
               <div class="pr_num">
                 <span class="pr_num_t">Кількість:</span>
                 <div class="pr_num_c">
-                  <button type="button" class="btn-trans btn-pr_num">
+                  <button type="button" class="btn-trans btn-pr_num" (click)="decPP(product)">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 25 25;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M39,25H13c-0.552,0-1,0.447-1,1s0.448,1,1,1h26c0.552,0,1-0.447,1-1S39.552,25,39,25z"></path></g></svg>
                   </button>
-                  <input class="pr_num_inp" type="number" value="{{product.count}}">
-                  <button type="button" class="btn-trans btn-pr_num">
+                  <input class="pr_num_inp" type="number" name="number"
+                         [value]="product.count" (blur)="checkPP(product)">
+                  <button type="button" class="btn-trans btn-pr_num" (click)="addPP(product)">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 10 10;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.5,25H27V14c0-0.553-0.448-1-1-1s-1,0.447-1,1v11H13.5c-0.552,0-1,0.447-1,1s0.448,1,1,1H25v12c0,0.553,0.448,1,1,1s1-0.447,1-1V27h11.5c0.552,0,1-0.447,1-1S39.052,25,38.5,25z"></path></g></svg>
                   </button>
                 </div>
@@ -86,13 +93,13 @@
                   <span class="c_t14">{{product.portionCheck.price}} грн</span>
                 </div>
               </div>
+              <div class="ord_pr_in_offer">
+                <div>Ціна з додатками</div>
+                <div class="ord_pr_offer_prices">
+                  <span class="c_t14">{{product.totalPrice}} грн</span>
+                </div>
+              </div>
             </div>
-
-
-
-
-
-
           </section>
         </ng-container>
         <!--
@@ -277,7 +284,7 @@
           </li>
         </ul>
         <div class="ord_btn-cont">
-          <button class="btn-green ord_btn">замовити</button>
+          <app-to-order></app-to-order>
           <button class="btn-red ord_btn">скасувати</button>
         </div>
 
