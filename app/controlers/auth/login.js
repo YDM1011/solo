@@ -15,7 +15,11 @@ module.exports = (req, res, next) => {
         .exec((err, info)=>{
             if (err) return res.status(500).send({error:'Something broke!'});
             if (!info) return res.notFound({error:'login or password invalid'});
-            if (info.pass === md5(req.body.pass) && info.verify){
+            if (info.pass === md5(req.body.pass)){
+                if(!info.verify){
+                    User.findOneAndUpdate({login: req.body.login}, {verify: true})
+                        .exec()
+                }
                 const token = jwt.sign({ id: req.body.login }, glob.secret);
                 info.pass = req.body.pass;
                 res.cookie('sid',info.token,
@@ -32,7 +36,7 @@ module.exports = (req, res, next) => {
                         maxAge: time,
                         httpOnly: false
                     });
-                if(data.auth.sidDomain === "localhost:5000"){
+                if(data.auth.sidDomain === "localhost"){
                     res.ok({_id:'http://localhost:4200/user/'+info._id});
                 }else{
                     res.ok({_id:'/user/'+info._id});
@@ -52,15 +56,11 @@ function collectRequestData(request, call) {
         request.on('data', function (data) {
             body += data;
 
-            // Too much POST data, kill the connection!
-            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
             if (body.length > 1e6)
                 request.connection.destroy();
         });
 
         request.on('end', function () {
-            // console.log(String(body).split('name="login"\r\n\r\n')[1].split('\r\n')[0])
-            // var post = qs.parse(body);
             request.body = JSON.stringify({
                 login: String(body).split('name="login"\r\n\r\n')[1].split('\r\n')[0],
                 pass: String(body).split('name="pass"\r\n\r\n')[1].split('\r\n')[0]

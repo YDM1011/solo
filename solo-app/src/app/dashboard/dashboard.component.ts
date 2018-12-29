@@ -23,6 +23,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public isFriendPage = false;
   public isGaleryPage = false;
   public isBascketPage = false;
+  public isProfilePage = false;
   public count = 0;
   public loader;
   public favoriteEst;
@@ -184,6 +185,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     self.isFriendPage = false;
     self.isGaleryPage = false;
     self.isBascketPage = false;
+    self.isProfilePage = false;
   }
   friendPage(data) {
     this.mainPage();
@@ -196,5 +198,9 @@ export class DashboardComponent implements OnInit, OnChanges {
   bascketPage(data) {
     this.mainPage();
     this.isBascketPage = true;
+  }
+  profilePage(data) {
+    this.mainPage();
+    this.isProfilePage = true;
   }
 }

@@ -11,7 +11,7 @@ const pages = new Schema({
     borned: Date,
     mobile: {type: String},
     address: Object,
-    verify:{type: Boolean, default: true},
+    verify:{type: Boolean, default: false},
     favoritest:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"

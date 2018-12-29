@@ -50,36 +50,35 @@ export class BasketComponent implements OnInit {
 
   checkPP(product){
     let s = this;
-    product.totalPrice = parseInt(product.portionCheck.price) * parseInt(product.count);
+    product.totalPrice = parseInt(product.portionCheck.price);
     product.dishId.dishcategory.complementbox.map(compl=>{
-      console.log(compl.check);
       if (compl.check){
-        s.totalPrice += parseInt(compl.price) * parseInt(product.count);
         product.totalPrice += parseInt(compl.price) * parseInt(product.count);
       }
     });
+    s.totalPrice += product.totalPrice;
     // product.totalPrice = product.totalPrice * product.count;
   }
 
   checkPrice(compl, product){
     let s = this;
     compl.check = !compl.check;
-    if(compl.check){
-      s.totalPrice += parseInt(compl.price)
-      product.totalPrice += parseInt(compl.price)
-    }else{
-      s.totalPrice -= parseInt(compl.price)
-      product.totalPrice -= parseInt(compl.price)
-    }
+    s.totalPrice -= product.totalPrice;
     s.checkPP(product);
+    if(product.count < 1){
+      product.count = 1;
+    }
   }
   addPP(product){
+    this.totalPrice -= product.totalPrice;
     product.count++;
     this.checkPP(product)
   }
   decPP(product){
-    if (product.count > 1)
-    product.count--;
-    this.checkPP(product)
+    if (product.count > 1){
+      this.totalPrice -= product.totalPrice;
+      product.count--;
+      this.checkPP(product)
+    }
   }
 }
