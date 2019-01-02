@@ -3,19 +3,19 @@
   height: 20px;
   object-fit: cover;
 }
-.us-s_cont.mob-m{
+.us-s.mob-m{
   display: block;
   margin-bottom: 25px;
 }
-.mob-m .us-s_el{
+.mob-m .us-s_i{
   justify-content: flex-start;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
-.mob-m .us-s_el_t{
+.mob-m .us-s_t{
   min-width: 140px;
   text-align: center;
 }
-.us-s_el {
+.us-s_i {
   display: flex;
   align-items: center;
   width: 100%;
@@ -41,21 +41,21 @@
 .mob-m_close:hover{
   opacity: .8;
 }
-.mob-m .us-s_ul{
+.mob-m .us-s_list{
   margin-left: calc(50% - 110px);
   margin-top: 25px;
   display: block;
 }
-.mob-m .us-s_ul, .mob-m .us-s_l{
+.mob-m .us-s_list, .mob-m .us-s_l{
   list-style-type: none!important;
 }
-.mob-m .us-s_el{
+.mob-m .us-s_i{
   background: rgba(255, 255, 255, 0.8);
   margin: 2px 0;
 }
-.mob-m .us-s_el:hover{
+.mob-m .us-s_i:hover{
   background: transparent;
-}.mob-m .us-s_el:hover .us-s_el_t{
+}.mob-m .us-s_i:hover .us-s_t{
    color: #000000;
  }
 .mob-m .us-s_l{

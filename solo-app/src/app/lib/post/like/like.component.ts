@@ -19,6 +19,8 @@ export class LikeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('id', this.id);
+    console.log('likes', this.likes);
   }
   liked(){
     let self = this;

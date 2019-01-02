@@ -6,7 +6,7 @@ import {Directive, ElementRef} from '@angular/core';
 export class ScrollDirective {
 
   constructor (private el:ElementRef) {}
-  private status: boolean = ( window.innerWidth < 922 &&  window.innerHeight < 992);
+  private status: boolean = ( window.innerWidth < 992 &&  window.innerHeight < 550) || ( window.innerWidth < 500 &&  window.innerHeight < 992);
 
   ngOnInit() {
     if (this.status){
@@ -29,7 +29,7 @@ export class ScrollDirective {
 
 
   scroll = (): void => {
-    ( window.pageYOffset <=  this.elHeight ) ? this.open( 0, '.1s') :
+    ( window.pageYOffset <  this.elHeight ) ? this.open( 0, '.1s') :
       ( window.pageYOffset <= this.scrollPos - 20 ) ? this.open(0, '.2s') : ( window.pageYOffset > this.scrollPos + 10 ) ? this.close(this.elHeight, '.25s') : '';
 
   };
