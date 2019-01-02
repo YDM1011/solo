@@ -24,15 +24,14 @@ export class RightBarScrollDirective {
   public height: number = 0;
 
   paramPush (offsetH: number): void {
-      this.barH = offsetH;
-      this.max = this.barH - (window.innerHeight - 60);
+    this.barH = offsetH;
+    this.max = this.barH - (window.innerHeight - 60);
   }
   load = (): void => {
     this.paramPush(this.el.nativeElement.offsetHeight);
   };
   scroll = (): void => {
     if (this.barH !== this.el.nativeElement.offsetHeight) this.paramPush (this.el.nativeElement.offsetHeight);
-
     if (window.innerWidth < 992) return;
 
     (this.scrollPosition <= window.pageYOffset) ? this.bottom(window.pageYOffset) : this.top(window.pageYOffset);

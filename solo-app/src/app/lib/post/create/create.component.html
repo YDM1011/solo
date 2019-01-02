@@ -1,5 +1,5 @@
-<article #createP class="cr-cont" isMyProfile  appCreatePost [activePost]="false">
-  <div class="cr_close" (click)="place.close(0);place.close(1);place.close(2);" appCreatePost [activePost]="createP">
+<article #createP class="cr-cont" isMyProfile  [appCreatePost]="false">
+  <div class="cr_close" (click)="place.close(0);place.close(1);place.close(2);" [appCreatePost]="createP">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" x="0px" y="0px" viewBox="0 0 47.971 47.971" fill="#818181"><g><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/></g></svg>
   </div>
 
@@ -41,6 +41,8 @@
     <div class="cr-pst_img" *ngIf="postObg.img.length > 0">
       <div class="cr-pst_img_i" *ngFor="let img of postObg.img">
           <img class="img" [src]="img.larg">
+          <span class="">rotate</span>
+          <span>del</span>
       </div>
     </div>
 
@@ -110,8 +112,8 @@
                 [valid]="[
                 {name:'des', elem:des, input:desIn}]"
                 (onRes)="addPost($event)"
-                appCreatePost [activePost]="createP"></app-form>
+                [appCreatePost]="createP"></app-form>
     </div>
   </form>
-  <div class="fon" (click)="place.close(0);place.close(1);place.close(2);" appCreatePost [activePost]="createP"></div>
+  <div class="fon" (click)="place.close(0);place.close(1);place.close(2);" [appCreatePost]="createP"></div>
 </article>

@@ -1,0 +1,8 @@
+<label *ngIf="!multiple">
+  <input type="file" style="display: none" (change)="uploadImg($event)" *ngIf="!multiple">
+  <div [innerHTML]="btn || 'upload'"></div>
+</label>
+<label *ngIf="multiple">
+  <input type="file" style="display: none" (change)="uploadImg($event)"  multiple="multiple">
+  <div [innerHTML]="btn || 'upload'"></div>
+</label>`
