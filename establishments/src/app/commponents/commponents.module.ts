@@ -15,12 +15,15 @@ import { MapComponent } from './map/map.component';
 import { BasketComponent } from './basket/basket.component';
 import {ScrollDirective} from "./header/scroll.directive";
 import { PopProdAddComponent } from './pop-prod-add/pop-prod-add.component';
+import {FormsModule} from "@angular/forms";
+import { ToOrderComponent } from './to-order/to-order.component';
 
 @NgModule({
   imports: [
     CommonModule,
     RoutingModule,
-    MzSidenavModule
+    MzSidenavModule,
+    FormsModule
   ],
   exports: [
     ImgComponent,
@@ -48,7 +51,8 @@ import { PopProdAddComponent } from './pop-prod-add/pop-prod-add.component';
     MapComponent,
     BasketComponent,
     ScrollDirective,
-    PopProdAddComponent
+    PopProdAddComponent,
+    ToOrderComponent
   ]
 })
 export class CommponentsModule { }

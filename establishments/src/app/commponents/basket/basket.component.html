@@ -43,12 +43,12 @@
                 <span class="pr_ev-s ev-s_xit"></span>
                 <span class="pr_ev-s ev-s_int"></span>
               </div>
-              <app-img [img]="{id: product.info.pic}"></app-img>
+              <app-img [img]="{id: product.dishId.pic}"></app-img>
             </div>
 
             <div class="ord_pr_in">
               <div class="ord_pr_in_h">
-                <h1 class="ord_pr_t">{{product.info.name}}</h1>
+                <h1 class="ord_pr_t">{{product.dishId.name}}</h1>
                 <button type="button" class="ord_pr_btn-ed btn-trans">
                   <app-pop-prod-add></app-pop-prod-add>
                   <span class="ord_pr_btn-ed_svg">
@@ -56,25 +56,33 @@
               </span>
                 </button>
               </div>
-              <p class="ord_pr_in_d">{{product.info.about}}</p>
+              <p class="ord_pr_in_d">{{product.dishId.about}}</p>
               <div class="ord_pr_in_add">
                 <p class="ord_pr_in_d">Додатково:</p>
                 <ul class="ord_pr_in_add_list">
-                  <li class="ord_pr_in_add_i" *ngFor="let compl of product.info.dishcategory.complementbox">
-                    <!--product.info.dishcategory.complementbox-->
-                    <span class="ord-check"></span>{{compl.name}}  ({{compl.massa}} - {{compl.price}})
+                  <li class="ord_pr_in_add_i" *ngFor="let compl of product.dishId.dishcategory.complementbox">
+                    <!--product.dishId.dishcategory.complementbox-->
+                    <!--<span class="ord-check"></span>-->
+                    <label class="ord_check">
+                      <input type="checkbox" [checked]="compl.check == true"
+                             (change)="checkPrice(compl, product)">
+                      <span></span>
+                    </label>
+                    {{compl.name}}  ({{compl.massa}} - {{compl.price}} грн)
                   </li>
                 </ul>
-                <p class="ord_pr_in_add_com">« Замість гострого перцю, болгарський перець »</p>
+                <p class="ord_pr_in_add_com">{{product.comment}}</p>
               </div>
               <div class="pr_num">
                 <span class="pr_num_t">Кількість:</span>
                 <div class="pr_num_c">
-                  <button type="button" class="btn-trans btn-pr_num">
+                  <button type="button" class="btn-trans btn-pr_num" (click)="decPP(product)">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 25 25;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M39,25H13c-0.552,0-1,0.447-1,1s0.448,1,1,1h26c0.552,0,1-0.447,1-1S39.552,25,39,25z"></path></g></svg>
                   </button>
-                  <input class="pr_num_inp" type="number" value="{{product.count}}">
-                  <button type="button" class="btn-trans btn-pr_num">
+                  <input class="pr_num_inp" type="number" name="number"
+                         [(ngModel)]="product.count"
+                         (blur)="totalPrice=totalPrice - product.totalPrice; checkPP(product)">
+                  <button type="button" class="btn-trans btn-pr_num" (click)="addPP(product)">
                     <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 10 10;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.5,25H27V14c0-0.553-0.448-1-1-1s-1,0.447-1,1v11H13.5c-0.552,0-1,0.447-1,1s0.448,1,1,1H25v12c0,0.553,0.448,1,1,1s1-0.447,1-1V27h11.5c0.552,0,1-0.447,1-1S39.052,25,38.5,25z"></path></g></svg>
                   </button>
                 </div>
@@ -86,139 +94,15 @@
                   <span class="c_t14">{{product.portionCheck.price}} грн</span>
                 </div>
               </div>
-            </div>
-
-
-
-
-
-
-          </section>
-        </ng-container>
-        <!--
-        <section class="ord_pr phantom">
-          <label class="ord_pr_check">
-            <input type="checkbox">
-            <span></span>
-          </label>
-
-          <div class="ord_pr_img pre-bg">
-            <div class="pr_ev">
-              <span class="pr_ev-s ev-s_xit"></span>
-            </div>
-            <img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">
-          </div>
-
-          <div class="ord_pr_in">
-            <div class="ord_pr_in_h">
-              <h1 class="ord_pr_t">Салат "Цезар"</h1>
-              <button data-target="modal" class="ord_pr_btn-ed btn-trans">
-                <span class="ord_pr_btn-ed_t">редагувати</span>
-                <span class="ord_pr_btn-ed_svg">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 469.331 469.331" style="enable-background:new 0 0 15 15;"><g><path d="M438.931,30.403c-40.4-40.5-106.1-40.5-146.5,0l-268.6,268.5c-2.1,2.1-3.4,4.8-3.8,7.7l-19.9,147.4c-0.6,4.2,0.9,8.4,3.8,11.3c2.5,2.5,6,4,9.5,4c0.6,0,1.2,0,1.8-0.1l88.8-12c7.4-1,12.6-7.8,11.6-15.2c-1-7.4-7.8-12.6-15.2-11.6l-71.2,9.6l13.9-102.8l108.2,108.2c2.5,2.5,6,4,9.5,4s7-1.4,9.5-4l268.6-268.5c19.6-19.6,30.4-45.6,30.4-73.3S458.531,49.903,438.931,30.403z M297.631,63.403l45.1,45.1l-245.1,245.1l-45.1-45.1L297.631,63.403z M160.931,416.803l-44.1-44.1l245.1-245.1l44.1,44.1L160.931,416.803z M424.831,152.403l-107.9-107.9c13.7-11.3,30.8-17.5,48.8-17.5c20.5,0,39.7,8,54.2,22.4s22.4,33.7,22.4,54.2C442.331,121.703,436.131,138.703,424.831,152.403z"></path></g></svg>
-                </span>
-              </button>
-            </div>
-
-            <p class="ord_pr_in_d"><span class="false">куриное филе</span>, <span>салат Айсберг</span>, помидоры черри, сыр пармезан, соуса Цезарь</p>
-
-            <div class="pr_num">
-              <span class="pr_num_t">Кількість:</span>
-              <div class="pr_num_c">
-                <button type="button" class="btn-trans btn-pr_num">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 25 25;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M39,25H13c-0.552,0-1,0.447-1,1s0.448,1,1,1h26c0.552,0,1-0.447,1-1S39.552,25,39,25z"></path></g></svg>
-                </button>
-                <input class="pr_num_inp" type="number" value="1">
-                <button type="button" class="btn-trans btn-pr_num">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 10 10;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.5,25H27V14c0-0.553-0.448-1-1-1s-1,0.447-1,1v11H13.5c-0.552,0-1,0.447-1,1s0.448,1,1,1H25v12c0,0.553,0.448,1,1,1s1-0.447,1-1V27h11.5c0.552,0,1-0.447,1-1S39.052,25,38.5,25z"></path></g></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="ord_pr_in_offer">
-              <div>350гр.</div>
-
-              <div class="ord_pr_offer_prices true">
-                <span class="c_t14">55грн.</span>
-                <span class="c_t14">40грн.</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section class="ord_pr">
-          <label class="ord_pr_check">
-            <input type="checkbox">
-            <span></span>
-          </label>
-
-          <div class="ord_pr_img pre-bg">
-            <div class="pr_ev">
-              <span class="pr_ev-s ev-s_new"></span>
-              <span class="pr_ev-s ev-s_xit"></span>
-              <span class="pr_ev-s ev-s_int"></span>
-            </div>
-            <img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">
-          </div>
-
-          <div class="ord_pr_in">
-            <div class="ord_pr_in_h">
-              <h1 class="ord_pr_t">Салат "Цезар"</h1>
-              <button data-target="modal" class="ord_pr_btn-ed btn-trans">
-                <span class="ord_pr_btn-ed_t">редагувати</span>
-                <span class="ord_pr_btn-ed_svg">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 469.331 469.331" style="enable-background:new 0 0 15 15;"><g><path d="M438.931,30.403c-40.4-40.5-106.1-40.5-146.5,0l-268.6,268.5c-2.1,2.1-3.4,4.8-3.8,7.7l-19.9,147.4c-0.6,4.2,0.9,8.4,3.8,11.3c2.5,2.5,6,4,9.5,4c0.6,0,1.2,0,1.8-0.1l88.8-12c7.4-1,12.6-7.8,11.6-15.2c-1-7.4-7.8-12.6-15.2-11.6l-71.2,9.6l13.9-102.8l108.2,108.2c2.5,2.5,6,4,9.5,4s7-1.4,9.5-4l268.6-268.5c19.6-19.6,30.4-45.6,30.4-73.3S458.531,49.903,438.931,30.403z M297.631,63.403l45.1,45.1l-245.1,245.1l-45.1-45.1L297.631,63.403z M160.931,416.803l-44.1-44.1l245.1-245.1l44.1,44.1L160.931,416.803z M424.831,152.403l-107.9-107.9c13.7-11.3,30.8-17.5,48.8-17.5c20.5,0,39.7,8,54.2,22.4s22.4,33.7,22.4,54.2C442.331,121.703,436.131,138.703,424.831,152.403z"></path></g></svg>
-                </span>
-              </button>
-            </div>
-
-            <p class="ord_pr_in_d">куриное филе, <span>салат Айсберг</span>, помидоры черри, сыр пармезан, соуса Цезарь</p>
-
-            <div class="ord_pr_in_add">
-              <p class="ord_pr_in_d">Додатково:</p>
-              <ul class="ord_pr_in_add_list">
-                <li class="ord_pr_in_add_i">
-                  <span class="ord-check"></span>Куряче філе  (50гр. - 80грн.)
-                </li>
-                <li class="ord_pr_in_add_i">
-                  <span class="ord-check"></span>Куряче філе  (50гр. - 80грн.)
-                </li>
-              </ul>
-            </div>
-
-            <div class="pr_num">
-              <span class="pr_num_t">Кількість:</span>
-              <div class="pr_num_c">
-                <button type="button" class="btn-trans btn-pr_num">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 25 25;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M39,25H13c-0.552,0-1,0.447-1,1s0.448,1,1,1h26c0.552,0,1-0.447,1-1S39.552,25,39,25z"></path></g></svg>
-                </button>
-                <input class="pr_num_inp" type="number" value="1">
-                <button type="button" class="btn-trans btn-pr_num">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 52 52" style="enable-background:new 0 0 10 10;"><g><path d="M26,0C11.664,0,0,11.663,0,26s11.664,26,26,26s26-11.663,26-26S40.336,0,26,0z M26,50C12.767,50,2,39.233,2,26S12.767,2,26,2s24,10.767,24,24S39.233,50,26,50z"></path><path d="M38.5,25H27V14c0-0.553-0.448-1-1-1s-1,0.447-1,1v11H13.5c-0.552,0-1,0.447-1,1s0.448,1,1,1H25v12c0,0.553,0.448,1,1,1s1-0.447,1-1V27h11.5c0.552,0,1-0.447,1-1S39.052,25,38.5,25z"></path></g></svg>
-                </button>
-              </div>
-            </div>
-
-            <div class="ord_pr_in_offer">
-              <div class="c_t">
-                <div class="select-tr">
-                  <div class="select-wrapper">
-                    <input class="select-dropdown dropdown-trigger" type="text" readonly="true" data-target="select-options-58f31233-bf19-e7c6-badc-33f439d35c99">
-                    <ul id="select-options-58f31233-bf19-e7c6-badc-33f439d35c99" class="dropdown-content select-dropdown" tabindex="0"><li id="select-options-58f31233-bf19-e7c6-badc-33f439d35c990" tabindex="0" class="selected"><span>Розмір 32см.</span></li><li id="select-options-58f31233-bf19-e7c6-badc-33f439d35c991" tabindex="0"><span>Розмір 20см.</span></li></ul><svg class="caret" viewBox="0 0 129 129" enable-background="new 0 0 15 15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"><g><path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path></g></svg><select tabindex="-1">
-                    <option value="0" selected="">Розмір 32см.</option>
-                    <option value="1">Розмір 20см.</option>
-                  </select>
-                  </div>
+              <div class="ord_pr_in_offer">
+                <div>Ціна з додатками</div>
+                <div class="ord_pr_offer_prices">
+                  <span class="c_t14">{{product.totalPrice}} грн</span>
                 </div>
               </div>
-
-              <div class="ord_pr_offer_prices">
-                <span class="c_t14">55грн.</span>
-              </div>
             </div>
-          </div>
-        </section>
-        -->
+          </section>
+        </ng-container>
 
         <div class="ord_in">
           <p class="ord_in_i">
@@ -277,7 +161,7 @@
           </li>
         </ul>
         <div class="ord_btn-cont">
-          <button class="btn-green ord_btn">замовити</button>
+          <app-to-order></app-to-order>
           <button class="btn-red ord_btn">скасувати</button>
         </div>
 

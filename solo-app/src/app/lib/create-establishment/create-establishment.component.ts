@@ -8,7 +8,7 @@ import {ActivatedRoute} from "@angular/router";
 @Component({
   selector: 'app-create-establishment',
   templateUrl: './create-establishment.component.html',
-  styleUrls: ['../../dashboard/dashboard.component.css','./create-establishment.component.css']
+  styleUrls: ['./create-establishment.component.css']
 })
 export class CreateEstablishmentComponent implements OnInit {
   public domain: string = environment.apiDomain;

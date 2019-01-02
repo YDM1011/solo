@@ -9,7 +9,9 @@ const pages = new Schema({
     gender: String,
     hash: String,
     borned: Date,
-    verify:{type: Boolean, default: true},
+    mobile: {type: String},
+    address: Object,
+    verify:{type: Boolean, default: false},
     favoritest:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"

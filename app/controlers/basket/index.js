@@ -6,13 +6,10 @@ const Product = mongoose.model('product');
 const Basket = mongoose.model('basket');
 
 const update = (req,res,estId,doc)=>{
-    let obj = {
-        portionCheck: req.body.portion,
-        count: req.body.count,
-        info: req.body.dishId,
-        ownerest: estId,
-        owneruser: req.userId
-    };
+    let obj = req.body;
+    obj['ownerest'] = estId;
+    obj['owneruser'] = req.userId;
+
     Product.create(obj, (err, prdct)=>{
         if (err) return res.badRequest(err);
         if (!prdct) return res.serverError('Somesing broken');
@@ -30,13 +27,11 @@ const update = (req,res,estId,doc)=>{
     })
 };
 const create = (req,res,estId)=>{
-    let obj = {
-        portionCheck: req.body.portion,
-        count: req.body.count,
-        info: req.body.dishId,
-        ownerest: estId._id,
-        owneruser: req.userId
-    };
+
+    let obj = req.body;
+    obj['ownerest'] = estId._id;
+    obj['owneruser'] = req.userId;
+
     let newBasket = {
         name: estId.name,
         av: estId.av,
@@ -99,7 +94,13 @@ module.exports.getBasketEst = (req, res, next) => {
             if (!estId) return res.serverError('Somesing broken');
             if (estId) {
                 Basket.findOne({ownerest:estId._id,owneruser:req.userId})
-                    .populate({path: 'products', populate:{path:'info', populate:{path:'dishcategory', populate:{path:'complementbox'}}}})
+                    .populate({path: 'products',
+                        populate:{path:'portionCheck'}})
+                    .populate({path: 'products',
+                        populate:{path:'dishId',
+                            populate:{path:'dishcategory',
+                                populate:{path:'complementbox'}}},
+                        })
                     .exec((err,doc)=>{
                         if (err) return res.badRequest(err);
                         if (!doc) {
@@ -117,6 +118,17 @@ module.exports.getBasket = (req, res, next) => {
     Basket.find({owneruser:req.userId})
         .populate({path: 'products', populate:{path:'info', populate:{path:'dishcategory pic', select:'preload', populate:{path:'complementbox'}}}})
         .populate({path: 'av', select: 'preload'})
+        .populate({path: 'products',
+            populate:{path:'portionCheck'}})
+        .populate({path: 'products',
+            populate:{path:'dishId',
+                populate:{path:'pic'}},
+        })
+        .populate({path: 'products',
+            populate:{path:'dishId',
+                populate:{path:'dishcategory',
+                    populate:{path:'complementbox'}}},
+        })
         .exec((err,doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) {

@@ -11,12 +11,18 @@ import {SignupComponent} from './signup/signup.component';
 import {InitLayoutComponent} from './init-layout/init-layout.component';
 import {ConfirmComponent} from './confirm/confirm.component';
 import {BasketComponent} from './basket/basket.component';
+import {ShowFriendsComponent} from "./lib/friend/show-friends/show-friends.component";
+import {GalleryComponent} from "./lib/gallery/gallery.component";
+import {ProfileComponent} from "./profile/profile.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
     children: [
       {path: 'user/:id', component: DashboardComponent, canActivate: [IsLoginedGuard], children: [
-          {path: 'basket', component: BasketComponent, canActivate: [IsLoginedGuard], }
+          {path: 'basket', component: BasketComponent, canActivate: [IsLoginedGuard], },
+          {path: 'friends', component: ShowFriendsComponent, canActivate: [IsLoginedGuard], },
+          {path: 'galery', component: GalleryComponent, canActivate: [IsLoginedGuard], },
+          {path: 'profile', component: ProfileComponent, canActivate: [IsLoginedGuard], },
         ]}
     ]
   },

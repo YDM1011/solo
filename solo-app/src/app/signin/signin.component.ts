@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../auth.service";
 import {Router} from "@angular/router";
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-signin',
@@ -12,16 +13,18 @@ export class SigninComponent implements OnInit {
   public form = {login: '', pass: ''};
   constructor(
       private router: Router,
+      private location: Location,
       private auth: AuthService
   ) { }
-
   ngOnInit() {
   }
   send(){
+    let s = this;
     this.auth.signIn(this.form)
         .then((res: any) => {
           if (res){
-            this.router.navigate([`user/${res._id}`]);
+            s.location.go(res._id);
+            // this.router.navigate([`user/${res._id}`]);
             console.log('res',res);
           }else{
             console.log('err',res);

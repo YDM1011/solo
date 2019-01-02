@@ -63,17 +63,7 @@ export class DishComponent implements OnInit {
     s.isAddPop = true;
     s.dishObject = Object.assign({},d);
   }
-  toBasket(id, portion) {
-    const s = this;
-    const obj = {
-      portion: portion,
-      count: 1,
-      dishId: id,
-    };
-    s.api.post('add_product', obj).then((res: any) => {
-      console.log(res);
-    });
-  }
+
   setPortion(e){
     e.map(dish=>{
       dish.prt = dish.portion[0];

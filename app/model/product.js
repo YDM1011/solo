@@ -9,16 +9,22 @@ const portionschema = new Schema({
 
 });
 const model = new Schema({
-    info: {
+    dishId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "dish"
     },
-    portionCheck: [{
-        count: {type: Number, default: 1},
+    portionCheck: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "portItem"
+    },
+    complementCheck: [],
+    complement: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "complement"
     }],
+    comment: {type: String},
     data: {type: Date, default: new Date()},
+    count: {type: Number, default: 1},
     ownerest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"

@@ -29,6 +29,9 @@ import { LeftBarScrollDirective } from './dashboard/left-bar-scroll.directive';
 import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive';
 import { NewsListComponent } from './lib/news-list/news-list.component';
 import {BasketComponent} from './basket/basket.component';
+import { ToOrderComponent } from './basket/to-order/to-order.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
 
 
 @NgModule({
@@ -47,6 +50,9 @@ import {BasketComponent} from './basket/basket.component';
     RightBarScrollDirective,
     NewsListComponent,
     BasketComponent,
+    ToOrderComponent,
+    ProfileComponent,
+    ProfileInfoComponent,
   ],
   imports: [
     BrowserModule,
