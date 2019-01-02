@@ -58,14 +58,19 @@
                 <a [routerLink]="'/user/'+friend.id"> {{friend.firstName}} </a>
               </strong>
             </span>
-            <span class="us_zv" *ngIf="item.inPlace.place"> у
-              <a href="//{{item.inPlace.place+'.'+host}}" class="us_zv_link">
-                  <span class="us_zv_img">
-                    <img class="img" src="{{item.inPlace.value}}" alt="{{item.inPlace.place}}">
-                  </span>
-                  <strong class="name">{{item.inPlace.place}}</strong>
-              </a>
-            </span>
+            <ng-container *ngIf="item.inPlace">
+              <span class="us_zv" *ngIf="item.inPlace.name"> у
+                <a href="//{{item.inPlace.subdomain+'.'+host}}" class="us_zv_link">
+                    <span class="us_zv_img">
+                      <app-avatar class="img20 pre-bg" [customClass]="'inherit'"
+                                  [avatar]="item.inPlace.av"
+                                  [type]="'preload'"></app-avatar>
+                      <!--<img class="img" src="{{item.inPlace.value}}" alt="{{item.inPlace.place}}">-->
+                    </span>
+                    <strong class="name">{{item.inPlace.name}}</strong>
+                </a>
+              </span>
+            </ng-container>
           </span>
           <p class="in_dt">
             <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y hh:mm"}}</time>
@@ -178,14 +183,18 @@
                      <a [routerLink]="'/user/'+friend.id"> {{friend.firstName}} </a>
                    </strong>
                 </span>
-                <span class="us_zv" *ngIf="item.inPlace.place"> у
-                  <span class="us_zv_link">
-                      <span class="us_zv_img">
-                        <img class="img" src="{{item.inPlace.value}}" alt="{{item.inPlace.place}}">
-                      </span>
-                      <strong class="name">{{item.inPlace.place}}</strong>
+                <ng-container *ngIf="item.inPlace">
+                  <span class="us_zv" *ngIf="item.inPlace.name"> у
+                    <span class="us_zv_link">
+                        <span class="us_zv_img">
+                          <app-avatar class="img20 pre-bg" [customClass]="'inherit'"
+                                      [avatar]="item.inPlace.av"
+                                      [type]="'preload'"></app-avatar>
+                        </span>
+                        <strong class="name">{{item.inPlace.name}}</strong>
+                    </span>
                   </span>
-                </span>
+                </ng-container>
               </span>
 
               <p class="in_dt">

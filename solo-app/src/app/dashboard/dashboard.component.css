@@ -514,3 +514,9 @@ app-last-name{
 }
 
 
+.fr-cont_content{
+  display: none;
+}
+.fr-cont_content.active{
+  display: block;
+}

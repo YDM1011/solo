@@ -2,7 +2,7 @@ export class Post {
   des: string | '';
   img: any;
   withFriend: any;
-  inPlace: {place: '', id: '', value: ''};
+  inPlace: string | '';
   imression: {name: ''};
   userId: string | '';
   share: any;
@@ -12,7 +12,7 @@ export class Post {
     this.userId = '';
     this.share = {};
     this.withFriend = [];
-    this.inPlace = {place: '', id: '', value: ''};
+    this.inPlace = '';
     this.imression = {name: ''};
   }
 }

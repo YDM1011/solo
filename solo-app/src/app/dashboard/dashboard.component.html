@@ -992,10 +992,12 @@
               <div class="fr-cont_hdr">
                 <div class="fr-cont_cat-parent">
                 <span #friend class="fr-cont_cat active"
-                      (click)="friend.classList.add('active'); newFriend.classList.remove('active');"
+                      (click)="friend.classList.add('active'); newFriend.classList.remove('active');
+                      isFriends = true"
                 >Всі друзі</span>
                   <span #newFriend class="fr-cont_cat"
-                        (click)="newFriend.classList.add('active'); friend.classList.remove('active');"
+                        (click)="newFriend.classList.add('active'); friend.classList.remove('active');
+                        isFriends = false"
                   >Нові друзі</span>
                 </div>
               </div>
@@ -1067,7 +1069,7 @@
                 </div>
               </div>
 
-              <div [hidden]="false" class="fr-cont_content" *ngIf="friends.myFriends.length > 0">
+              <div [ngClass]="{'active': isFriends}" class="fr-cont_content" *ngIf="friends.myFriends.length > 0">
 
                 <div class="fr-cont_el" *ngFor="let friend of friends.myFriends">
                   <app-form *ngIf="friend._id != userId"
@@ -1101,9 +1103,7 @@
                 </div>
               </div>
 
-              <div><h3>Користувачі мережі</h3></div>
-
-              <div [hidden]="false" class="fr-cont_content" *ngIf="people.length > 0">
+              <div [ngClass]="{'active': !isFriends}" class="fr-cont_content" *ngIf="people.length > 0">
                 <div *ngFor="let mean of people">
                   <div class="fr-cont_el"  *ngIf="mean._id != userId">
                     <div class="fr-cont_el_user">
