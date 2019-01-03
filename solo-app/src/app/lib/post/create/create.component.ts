@@ -15,6 +15,7 @@ export class CreateComponent implements OnInit {
   @Input() id: string;
   public btn = '<span class="post-up_button"><span class="post-up_svg"></span><span class="post-up_title">Додати фото</span></span>';
   public postObg = new Post();
+  public inPlace = {place: '', id: '', value: ''};
   public impressions = [
     {name: 'чудово'},
     {name: 'задоволено'},
@@ -67,9 +68,10 @@ export class CreateComponent implements OnInit {
     this.active = imression.name;
   }
   takePlace(place) {
-    this.postObg.inPlace.place = place.subdomain;
-    this.postObg.inPlace.id = place._id;
-    this.postObg.inPlace.value = place.av.preload;
+    this.inPlace.place = place.subdomain;
+    this.inPlace.id = place._id;
+    this.inPlace.value = place.av.preload;
+    this.postObg.inPlace = place._id;
     this.placeActive = place.name;
   }
   takeFriend(item) {

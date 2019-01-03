@@ -32,6 +32,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public friends;
   public photos;
   public isHome;
+  public isFriends = true;
   public mutual = [];
   public obj: any;
   public sel: any;

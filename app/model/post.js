@@ -8,8 +8,7 @@ const friend = new Schema({
 });
 const place = new Schema({
     id: String,
-    place: String,
-    value: String
+    place: String
 });
 const impresion = new Schema({
     value: String,
@@ -48,7 +47,10 @@ const pages = new Schema({
     }],
     data: {type: Date, default: new Date()},
     withFriend: [friend],
-    inPlace: place,
+    inPlace: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
+    },
     imression: impresion,
     token: String
 },{
@@ -74,7 +76,6 @@ const pages = new Schema({
         data: [Object],
         withFriend: [Object],
         inPlace: [Object],
-        "inPlace.place": [Object],
         imression: [Object],
         token: [Object],
         _id: [Object],
@@ -144,6 +145,8 @@ const preRead = (req,res,next)=>{
 
     if (req.query.limit || (req.query.skip && optionFind)){
         require("../responces/ok")(req, res);
+        require("../responces/badRequest")(req, res);
+        require("../responces/notFound")(req, res);
         req.body.userId = req.userId;
         mongoose.model('post')
             .find(optionFind)
@@ -151,6 +154,8 @@ const preRead = (req,res,next)=>{
             .sort({data: -1})
             .skip(parseInt(req.query.skip))
             .populate({path:'img', select: '_id preload'})
+            .populate({path:'inPlace', select: 'name _id av subdomain',
+                populate:{path: 'av', select:'preload _id'}})
             .populate({path:'userId', select:'_id firstName lastName',
                 populate:{path: 'photo', select:'preload _id'}})
             .populate({path:'share.userIdShare', select:'_id firstName lastName',
