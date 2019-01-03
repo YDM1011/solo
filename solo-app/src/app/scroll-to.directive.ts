@@ -11,7 +11,7 @@ export class ScrollToDirective {
   }
 
   @HostListener('click', ['$event']) onClick(): void {
-
+    console.log('scrollTo')
     window.scrollBy(0, this.top());
   }
 
