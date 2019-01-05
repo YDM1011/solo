@@ -11,7 +11,7 @@ import { SigninComponent } from './signin/signin.component';
 import {AuthService} from './auth.service';
 import {CookieService} from 'ngx-cookie-service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { MzCollapsibleModule} from 'ngx-materialize';
+import {MzCollapsibleModule, MzSelectModule} from 'ngx-materialize';
 import { SignupComponent } from './signup/signup.component';
 import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {UserModule} from './lib/user/user.module';
@@ -32,6 +32,7 @@ import {BasketComponent} from './basket/basket.component';
 import { ToOrderComponent } from './basket/to-order/to-order.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
+import {ScrollToDirective} from "./scroll-to.directive";
 import { HomePageComponent } from './home-page/home-page.component';
 import { FriendPageComponent } from './friend-page/friend-page.component';
 import { GaleryPageComponent } from './galery-page/galery-page.component';
@@ -56,6 +57,7 @@ import { GaleryPageComponent } from './galery-page/galery-page.component';
     ToOrderComponent,
     ProfileComponent,
     ProfileInfoComponent,
+    ScrollToDirective,
     HomePageComponent,
     FriendPageComponent,
     GaleryPageComponent,
@@ -71,6 +73,7 @@ import { GaleryPageComponent } from './galery-page/galery-page.component';
     FriendModule,
     UploadModule,
     IsMyProfileModule,
+    MzSelectModule,
     SweetAlert2Module.forRoot()
   ],
   providers: [ AuthService, CookieService, CoreService ],
