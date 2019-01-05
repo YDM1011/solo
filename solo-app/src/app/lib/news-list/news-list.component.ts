@@ -69,7 +69,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
   getPosts() {
     const self = this;
-    this.http.get(this.domain + '/api/post?skip=' + self.count * self.limit, this.api.getHeaders())
+    this.http.get(this.domain + '/api/post?skip=0', this.api.getHeaders())
       .subscribe((post: any) => {
         this.http.get(this.domain + '/api/post/count', this.api.getHeaders())
           .subscribe((res: any) => {

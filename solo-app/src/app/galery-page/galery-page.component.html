@@ -1,0 +1,16 @@
+<div class="cont gl-cont">
+  <div class="gl_h">
+    <span class="gl_ct">Мої фото</span>
+  </div>
+  <div class="gl_c" *ngIf="photos.length == 0">
+    <p>Ви іще не завантажували фото</p>
+  </div>
+  <ng-container *ngIf="photos.gallery">
+  <div class="gl_c" *ngIf="photos.gallery.length > 0">
+    <app-avatar class="gl_i pre-bg"
+                *ngFor="let photo of photos.gallery"
+                [type]="'imgMax'"
+                [avatar]="photo"></app-avatar>
+  </div>
+  </ng-container>
+</div>

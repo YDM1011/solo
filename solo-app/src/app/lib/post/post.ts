@@ -5,6 +5,8 @@ export class Post {
   inPlace: string | '';
   imression: {name: ''};
   userId: string | '';
+  mobile: string | '';
+  login: string | '';
   share: any;
   constructor() {
     this.des = '';
@@ -13,6 +15,8 @@ export class Post {
     this.share = {};
     this.withFriend = [];
     this.inPlace = '';
+    this.mobile = '';
+    this.login = '';
     this.imression = {name: ''};
   }
 }

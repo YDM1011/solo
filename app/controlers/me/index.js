@@ -249,7 +249,20 @@ const getFavoritEst = (req,res,mod)=>{
 module.exports.myProfile = (req, res, next) => {
     User
         .findOne({_id: req.userId})
-        .select("-token -pass -login")
+        .select("-token -pass -hash")
+        .populate({path: "photo", select:"imgMin"})
+        .exec((err, info) => {
+            if(err) return res.badRequest('Something broke!');
+            if(info){
+                res.ok(info)
+            }
+            if(!info){return res.badRequest('Something broke!');}
+        });
+};
+module.exports.userDate = (req, res, next) => {
+    User
+        .findOne({_id: req.params.id})
+        .select("-token -pass -hash")
         .populate({path: "photo", select:"imgMin"})
         .exec((err, info) => {
             if(err) return res.badRequest('Something broke!');

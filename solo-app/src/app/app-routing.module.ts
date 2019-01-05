@@ -14,14 +14,18 @@ import {BasketComponent} from './basket/basket.component';
 import {ShowFriendsComponent} from "./lib/friend/show-friends/show-friends.component";
 import {GalleryComponent} from "./lib/gallery/gallery.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {HomePageComponent} from "./home-page/home-page.component";
+import {FriendPageComponent} from "./friend-page/friend-page.component";
+import {GaleryPageComponent} from "./galery-page/galery-page.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
     children: [
       {path: 'user/:id', component: DashboardComponent, canActivate: [IsLoginedGuard], children: [
+          {path: '', component: HomePageComponent, canActivate: [IsLoginedGuard], },
           {path: 'basket', component: BasketComponent, canActivate: [IsLoginedGuard], },
-          {path: 'friends', component: ShowFriendsComponent, canActivate: [IsLoginedGuard], },
-          {path: 'galery', component: GalleryComponent, canActivate: [IsLoginedGuard], },
+          {path: 'friends', component: FriendPageComponent, canActivate: [IsLoginedGuard], },
+          {path: 'galery', component: GaleryPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'profile', component: ProfileComponent, canActivate: [IsLoginedGuard], },
         ]}
     ]

@@ -40,10 +40,13 @@
       <article class="cont pst" *ngIf="!item.share.data">
 
         <div class="pst_in">
-          <app-avatar class="img40 pre-bg" [customClass]="'inherit'"
-                      [avatar]="item.userId.photo"
-                      [avatarId]="item.userId.photo._id"
-                      [type]="'imgMin'"></app-avatar>
+          <ng-container *ngIf="item.userId.photo">
+            <app-avatar class="img40 pre-bg" [customClass]="'inherit'"
+                        [avatar]="item.userId.photo"
+                        [avatarId]="item.userId.photo._id"
+                        [type]="'imgMin'"></app-avatar>
+          </ng-container>
+
           <span class="in_us">
             <a [routerLink]="'/user/'+item.userId._id" class="name">
               {{item.userId.firstName || user.firstName}}
@@ -85,7 +88,7 @@
               <li class="in_us_l">
                 <span>Відкрити у новій вкладці</span>
               </li>
-              <li class="in_us_l">
+              <li class="in_us_l" (click)="deletePost(item)">
                 <span>Видалити</span>
               </li>
             </ul>

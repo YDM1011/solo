@@ -8,9 +8,18 @@ const pages = new Schema({
     lastName: {type: String, required: [true, "Last name must be created"]},
     gender: String,
     hash: String,
-    borned: Date,
+    bornedData: Date,
+    bornedPlace: String,
+    education: String,
     mobile: {type: String},
-    address: Object,
+    address: String,
+    aboutme: String,
+    worksPlace: String,
+    familyStatus: String,
+    familyStatusName: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
     verify:{type: Boolean, default: false},
     favoritest:{
         type: mongoose.Schema.Types.ObjectId,
@@ -63,7 +72,6 @@ const pages = new Schema({
             delete ret.pass;
             delete ret.token;
             delete ret.hash;
-            delete ret.login;
         },
     },
     toObject: {
@@ -71,7 +79,6 @@ const pages = new Schema({
             delete ret.pass;
             delete ret.token;
             delete ret.hash;
-            delete ret.login;
         },
         virtuals: false
     },
@@ -99,8 +106,9 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.query.populate || req.params || req.query.select){
+        console.log("OK!!!++", req.params);
         return next();
-    }
+    }else
     if (!req.query.query){
         mongoose.model('user')
             .find({})
@@ -142,8 +150,8 @@ glob.restify.serve(
             const statusCode = req.erm.statusCode;
             req.erm.result.forEach( (item)=>{
                 delete item.pass;
-                delete item.login;
                 delete item.token;
+                delete item.hash;
                 result.push(item)
             });
             return await res.status(statusCode).json(result)

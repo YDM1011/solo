@@ -32,6 +32,9 @@ import {BasketComponent} from './basket/basket.component';
 import { ToOrderComponent } from './basket/to-order/to-order.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { FriendPageComponent } from './friend-page/friend-page.component';
+import { GaleryPageComponent } from './galery-page/galery-page.component';
 
 
 @NgModule({
@@ -53,6 +56,9 @@ import { ProfileInfoComponent } from './profile/profile-info/profile-info.compon
     ToOrderComponent,
     ProfileComponent,
     ProfileInfoComponent,
+    HomePageComponent,
+    FriendPageComponent,
+    GaleryPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -55,4 +55,12 @@ export class PostComponent implements OnInit {
       }
       });
   }
+  deletePost(post){
+    this.http.delete(this.domain + '/api/post/'+post._id, this.api.getHeaders())
+      .subscribe((val:any)=>{
+        console.log(val);
+        let index = this.posts.indexOf(post);
+        this.posts = this.posts.slice(index,1);
+      });
+  }
 }

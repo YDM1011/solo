@@ -28,14 +28,11 @@ export class DashboardComponent implements OnInit, OnChanges {
   public loader;
   public favoriteEst;
   public limit = 4;
-  public posts = [];
   public friends;
   public photos;
   public isHome;
-  public isFriends = true;
   public mutual = [];
   public obj: any;
-  public sel: any;
   public populate: any = JSON.stringify({path:'photo', select:'preload _id'});
   constructor(
     private route: ActivatedRoute,
@@ -58,11 +55,9 @@ export class DashboardComponent implements OnInit, OnChanges {
     self.userId = self.auth.getUserId();
     this.id = this.route.snapshot.paramMap.get('id');
     this.obj = JSON.stringify({id: this.id});
-    this.check();
 
     this.core.onClick.subscribe((val: any) => {
       if (val) {
-        self.mainPage();
       }
     });
 
@@ -71,29 +66,10 @@ export class DashboardComponent implements OnInit, OnChanges {
       this.obj = JSON.stringify({id: this.id});
       self.apiInitial(params.id);
     });
-
-    if (this.router.url.search('basket') < 0) {
-      self.isHome = true;
-    } else {
-      self.isHome = false;
-    }
-
-
-    this.router.events.subscribe(res => {
-      if (res instanceof NavigationEnd) {
-        if (res.url.search('basket') < 0) {
-          self.isHome = true;
-        } else {
-          self.isHome = false;
-        }
-        console.log(res.url);
-      }
-    });
   }
 
   apiInitial(idc) {
     const self = this;
-    self.mainPage();
     console.log(idc);
     const id = JSON.stringify({id: idc}),
         getFriends = JSON.stringify({path: 'myFriends'}),
@@ -107,14 +83,6 @@ export class DashboardComponent implements OnInit, OnChanges {
         return self.router.navigate([`user/${self.auth.getUserId()}`]);
       }
         self.getSetting(user);
-      });
-    this.http.get(this.domain + '/api/post?query=' + id + '&limit=' + limit + '&skip=' + count * limit, this.api.getHeaders())
-      .subscribe((user: any) => {
-        this.http.get(this.domain + '/api/post/count?query=' + id, this.api.getHeaders())
-          .subscribe((res: any) => {
-            self.posts = (user);
-            self.setcount(res);
-          });
       });
     this.http.get(this.domain + '/api/favorite/favoritest/' + idc, this.api.getHeaders())
       .subscribe((est: any) => {
@@ -130,12 +98,6 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.http.get(this.domain + '/api/getFriends?userId=' + idc, this.api.getHeaders())
       .subscribe((friends: any) => {
         self.friends = (friends);
-        // friends.myFriends.forEach((friend)=>{
-        //   this.http.get(this.domain+'/api/getMutual/'+friend._id, this.api.getHeaders())
-        //     .subscribe((res: any) => {
-        //       this.mutual[friend._id] = res.mutual;
-        //     });
-        // })
       });
     this.http.get(this.domain + '/api/getPhoto?userId=' + idc, this.api.getHeaders())
       .subscribe((photo: any) => {
@@ -160,48 +122,5 @@ export class DashboardComponent implements OnInit, OnChanges {
   }
   setcount(s) {
     this.maxcount = s.count;
-    this.check();
-  }
-  morePost() {
-    const self = this;
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.obj = JSON.stringify({id: this.id});
-    self.count++;
-    this.http.get(this.domain + '/api/post?query=' + this.obj + '&limit=' + this.limit + '&skip=' + this.count * this.limit, this.api.getHeaders())
-      .subscribe((user: any) => {
-        self.posts = self.posts.concat(user);
-        self.check();
-      });
-
-  }
-  check() {
-    if (this.maxcount - this.limit <= this.limit * this.count) {
-      this.isShow = false;
-    } else {
-      this.isShow = true;
-    }
-  }
-  mainPage() {
-    const self = this;
-    self.isFriendPage = false;
-    self.isGaleryPage = false;
-    self.isBascketPage = false;
-    self.isProfilePage = false;
-  }
-  friendPage(data) {
-    this.mainPage();
-    this.isFriendPage = true;
-  }
-  galeryPage(data) {
-    this.mainPage();
-    this.isGaleryPage = true;
-  }
-  bascketPage(data) {
-    this.mainPage();
-    this.isBascketPage = true;
-  }
-  profilePage(data) {
-    this.mainPage();
-    this.isProfilePage = true;
   }
 }

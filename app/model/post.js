@@ -165,7 +165,7 @@ const preRead = (req,res,next)=>{
                     populate:{path: 'userIdCom likeCom', select:'_id firstName lastName',
                         populate:{path: 'photo', select:'preload'}}})
             .exec((err, info) => {
-                if(err) return res.badRequest('Something broke!');
+                if(err) return res.badRequest(err);
                 if(!info) return res.notFound('You are not valid');
                 // next();
                 return res.ok(info);
@@ -173,11 +173,30 @@ const preRead = (req,res,next)=>{
     }else{ return next()}
 
 };
+
+const preDelete = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/badRequest")(req, res);
+    require("../responces/notFound")(req, res);
+    mongoose.model('post')
+        .findOne({_id:req.params.id})
+        .exec((err,info)=>{
+            if(err) return res.badRequest(err);
+            if(!info) return res.notFound('You are not valid');
+            if(info){
+                let id = mongoose.Types.ObjectId(info.userId).toString();
+                console.log(req.userId, id);
+                if(req.userId == id){ next() } else { res.badRequest(info) }
+            }
+        })
+};
+
 glob.restify.serve(
     glob.route,
     mongoose.model('post'),
     {
-        preRead: [glob.jsonParser, preRead],
+        preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, preDelete],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preSave]
     });
