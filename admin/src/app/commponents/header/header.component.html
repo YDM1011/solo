@@ -1,27 +1,47 @@
-<ul>
-  <li><a [routerLink]="'/'"> Home </a></li>
-  <li *ngFor="let est of ests">
-    <a [routerLink]="'/chain/'+est._id"> Мережа {{est.subdomain}}</a>
-    <ul>
-      <li><a [routerLink]="'/establishments/'+est._id"> Заклади </a></li>
-      <li><a [routerLink]="'/work_time/'+est._id"> Графік роботи </a></li>
-      <li><a [routerLink]="'/menu/'+est._id"> Меню </a>
-        <ul>
-          <li><a [routerLink]="'/dish/'+est._id"> Страви </a></li>
-          <li><a [routerLink]="'/category/'+est._id"> Категорії </a></li>
-          <li><a [routerLink]="'/global_category/'+est._id"> Глобальні категорії </a></li>
-          <li><a [routerLink]="'/complement/'+est._id"> Додатки </a></li>
-          <li><a [routerLink]="'/box/'+est._id"> Упаковка </a></li>
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu" id="side-menu">
+      <li class="nav-header">
+        <div class="dropdown profile-element">
+          <span>
+            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+         </span>
+
+        </div>
+        <div class="logo-element">
+          IN+
+        </div>
+      </li>
+      <li class="active">
+        <a [routerLink]="'/'"><i class="fa fa-laptop"></i> <span class="nav-label">Home</span></a>
+      </li>
+
+      <li *ngFor="let est of ests">
+        <a [routerLink]="'/chain/'+est._id"><i class="fa fa-th-large"></i> <span class="nav-label">Мережа {{est.subdomain}}</span> <span class="fa arrow"></span></a>
+        <ul class="nav nav-second-level">
+          <li><a [routerLink]="'/establishments/'+est._id"><i class="fa fa-university"></i><span class="nav-label"> Заклади </span></a></li>
+          <li><a [routerLink]="'/work_time/'+est._id"><i class="fa fa-clock">f2e7</i><span class="nav-label"> Графік роботи </span></a></li>
+          <li><a [routerLink]="'/menu/'+est._id"><i class="fas fa-utensils"></i><span class="nav-label"> Меню </span><span class="fa arrow"></span></a>
+            <ul class="nav nav-second-level collapse">
+              <li><a [routerLink]="'/dish/'+est._id"> Страви </a></li>
+              <li><a [routerLink]="'/category/'+est._id"> Категорії </a></li>
+              <li><a [routerLink]="'/global_category/'+est._id"> Глобальні категорії </a></li>
+              <li><a [routerLink]="'/complement/'+est._id"> Додатки </a></li>
+              <li><a [routerLink]="'/box/'+est._id"> Упаковка </a></li>
+            </ul>
+          </li>
+          <li><a [routerLink]="'/order/'+est._id"><span class="nav-label">Замовлення</span></a>
+            <ul class="nav nav-second-level collapse">
+              <li><a [routerLink]="'/delivery/'+est._id">Доставка</a></li>
+              <li><a [routerLink]="'/get_by_self/'+est._id">На виніс</a></li>
+              <li><a [routerLink]="'/reservation/'+est._id">Бронь столу</a></li>
+            </ul>
+          </li>
         </ul>
       </li>
-      <li><a [routerLink]="'/order/'+est._id"> Замовлення </a>
-        <ul>
-          <li><a [routerLink]="'/delivery/'+est._id"> Доставка </a></li>
-          <li><a [routerLink]="'/get_by_self/'+est._id"> На виніс </a></li>
-          <li><a [routerLink]="'/reservation/'+est._id"> Бронь столу </a></li>
-        </ul>
+      <li>
+        <a [routerLink]="'/setting'"><i class="fa fa-cogs"></i> <span class="nav-label">Setting</span></a>
       </li>
     </ul>
-  </li>
-  <li><a [routerLink]="'/setting'"> Setting </a></li>
-</ul>
+  </div>
+</nav>

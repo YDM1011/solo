@@ -1,0 +1,6 @@
+.upl-btn{
+  margin: 10px 0 5px;
+}
+.upl-btn .btn:last-of-type{
+  margin: 0 10px;
+}

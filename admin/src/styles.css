@@ -1,6 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body{
-  font-family: Tahoma, sans-serif;
+.flx{
+  display: flex;
+}
+.flx.l-r{
+  align-items: center;
+  justify-content: space-between;
+}
+.page-heading h2{
+  text-transform: capitalize;
+}
+.mrg-b{
+  margin: 0 0 20px;
 }
 .btn:hover{
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
@@ -31,4 +41,7 @@ img{
   line-height: 2em;
   padding: 0 15px;
   width: calc(100% - 30px);
+}
+.leaflet-bottom.leaflet-right{
+  display: none;
 }

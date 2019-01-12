@@ -1,134 +1,231 @@
-<p>
-  Інформація про мережу: Назва, субдомен, телефон, опис мережі, пошта, аватар (логотип), обкладинка, власний сайт або соцмережі. Можливості: доставка, на виніс, забронювати стіл. Мінімальна сума замовлення (за замовчуванням буде 50грн і можна буде лише поставити більше)
-</p>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Назва мережі</h5>
-      <span class="btn" (click)="update({name:name},'name')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="name" name="name">
-    </div>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>{{name}}</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="'/'">Home</a>
+      </li>
+      <li class="active">
+        <strong>Мережа {{name}}</strong>
+      </li>
+    </ol>
   </div>
+  <div class="col-lg-2"></div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
   <div class="row">
-    <div class="col s12 m4">
-      <h5>subdomain мережі</h5>
-      <span class="btn" (click)="update({subdomain:subdomain},'subdomain')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="subdomain" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>телефон</h5>
-      <span class="btn" (click)="update({mobile:mobile},'mobile')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="mobile" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>опис мережі</h5>
-      <span class="btn" (click)="update({about:about},'about')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="about" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>пошта</h5>
-      <span class="btn" (click)="update({mail:mail},'mail')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="mail" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Мінімальна сума замовлення</h5>
-      <span class="btn" (click)="update({minPrice:minPrice},'minPrice')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="minPrice" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Робочий час</h5>
-      <span class="btn" (click)="update({worksTime:worksTime},'worksTime')">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="worksTime" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>власний сайт або соцмережі</h5>
-      <span class="btn" (click)="update({links:links},'links'); isFormAdd = false">Зберегти</span>
-    </div>
-    <div class="col s12 m8">
-      <div *ngFor="let link of links" class="links-form">
-        <label> Name <input type="text" [(ngModel)]="link.label" name="label"></label>
-        <label> URL <input type="text" [(ngModel)]="link.url" name="url"></label>
-      </div>
-      <button class="btn" (click)="isFormAdd = true">add link</button>
-      <div *ngIf="isFormAdd">
-        <label> Name <input type="text" [(ngModel)]="link['label']" name="label"></label>
-        <br>
-        <label> URL <input type="text" [(ngModel)]="link['url']" name="url"></label>
-        <button class="btn" (click)="links[links.length] = link">add</button>
+    <div class="col-lg-8">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Персоналізація мережі</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row">
+            <div class="col-md-6 b-r">
+              <h4>Фон мережі</h4>
+              <app-img *ngIf="bg" [imgObj]="bg"></app-img>
+              <app-upload (onLoadImg)="update($event,'bg'); bg = $event" [btn]="btnBG"></app-upload>
+            </div>
+
+            <div class="col-md-6">
+              <h4>Аватар мережі</h4>
+              <app-img *ngIf="av" [imgObj]="av"></app-img>
+              <app-upload (onLoadImg)="update($event,'av'); av = $event" [btn]="btnBG"></app-upload>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <div class="col-lg-4">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Власний сайт або соцмережі</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row">
+            <div class="col-sm-12 b-r">
+              <div class="flx mrg-b">
+                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="isFormAdd = true"><strong>Додати url-адресу</strong></button>
+              </div>
+
+              <div *ngFor="let link of links">
+                <div class="form-group"><label>Name</label>
+                  <input type="text" [(ngModel)]="link.label" name="label" class="form-control">
+                </div>
+                <div class="form-group"><label>URL</label>
+                  <input type="text" [(ngModel)]="link.url" name="url" class="form-control">
+                </div>
+                <hr>
+              </div>
+
+              <div *ngIf="isFormAdd">
+                <div class="form-group"><label>Name</label>
+                  <input type="text" [(ngModel)]="link['label']" name="label" class="form-control">
+                </div>
+                <div class="form-group"><label>URL</label>
+                  <input type="text" [(ngModel)]="link['url']" name="url" class="form-control">
+                </div>
+                <div>
+                  <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="links[links.length] = link"><strong>Додати</strong></button>
+                </div>
+              </div>
+
+              <div class="flx">
+                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="update({links:links},'links'); isFormAdd = false"><strong>Зберегти</strong></button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+
   <div class="row">
-    <div class="col s12 m4">
-      <h5>Фон мережі</h5>
-      <app-upload (onLoadImg)="update($event,'bg'); bg = $event" [btn]="btnBG"></app-upload>
-    </div>
-    <div class="col s12 m8">
-      <app-img *ngIf="bg" [imgObj]="bg"></app-img>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Аватар мережі</h5>
-      <app-upload (onLoadImg)="update($event,'av'); av = $event" [btn]="btnBG"></app-upload>
-    </div>
-    <div class="col s12 m8">
-      <app-img *ngIf="av" [imgObj]="av"></app-img>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               (change)="update({delivery:delivery},'delivery')"
-               [(ngModel)]="delivery"
-               class="filled-in">
-        <span>Доставка</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               (change)="update({getself:getself},'getself')"
-               [(ngModel)]="getself"
-               class="filled-in">
-        <span>На виніс</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               (change)="update({reservation:reservation},'reservation')"
-               [(ngModel)]="reservation"
-               class="filled-in">
-        <span>Бронювання</span>
-      </label>
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Інформація про мережу:</h5>
+          <div class="ibox-tools">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up"></i>
+            </a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="form-horizontal">
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Назва мережі</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="name" name="name" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({name:name},'name')">Зберегти</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">subdomain мережі</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="subdomain" name="name" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({subdomain:subdomain},'subdomain')">Зберегти</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Телефон</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="mobile" name="name" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({mobile:mobile},'mobile')">Зберегти</button>
+                  </span>
+                </div>
+                <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Пошта</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="email" [(ngModel)]="mail" name="email" class="form-control" placeholder="email@example.com">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({mail:mail},'mail')">Зберегти</button>
+                  </span>
+                </div>
+                <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Опис мережі</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="about" name="name" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({about:about},'about')">Зберегти</button>
+                  </span>
+                </div>
+                <span class="help-block m-b-none">A block of help text that breaks onto a new line and may extend beyond one line.</span>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Мінімальна сума замовлення</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="minPrice" name="name" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({minPrice:minPrice},'minPrice')">Зберегти</button>
+                  </span>
+                </div>
+                <span class="help-block m-b-none">(за замовчуванням 50грн але можна поставити більше)</span>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-2 control-label">Робочий час</label>
+              <div class="col-sm-10">
+                <div class="input-group">
+                  <input type="text" [(ngModel)]="worksTime" name="name" class="form-control">
+                  <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary" (click)="update({worksTime:worksTime},'worksTime')">Зберегти</button>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group"><label class="col-sm-2 control-label">Можливості мережі<br/></label>
+              <div class="col-sm-10">
+                <div class="i-checks"><label> <input type="checkbox"
+                                                     (change)="update({delivery:delivery},'delivery')"
+                                                     [(ngModel)]="delivery"> <i></i> Доставка </label></div>
+                <div class="i-checks"><label> <input type="checkbox"
+                                                    (change)="update({getself:getself},'getself')"
+                                                    [(ngModel)]="getself"> <i></i> На виніс </label></div>
+                <div class="i-checks"><label> <input type="checkbox"
+                                                     (change)="update({reservation:reservation},'reservation')"
+                                                     [(ngModel)]="reservation"> <i></i> Бронювання </label></div>
+              </div>
+            </div>
+
+            <div class="hr-line-dashed"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

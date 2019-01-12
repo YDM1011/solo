@@ -14,7 +14,7 @@ export class ChainComponent implements OnInit, OnChanges {
   public getself:boolean = false;
   public reservation:boolean = false;
   public result;
-  public btnBG:string='<span class="btn">Завантажити фон</span>';
+  public btnBG:string='<span class="btn btn-sm btn-primary pull-left"><strong>Завантажити</strong></span>';
   public bg:any={};
   public av:any={};
   public name:any;

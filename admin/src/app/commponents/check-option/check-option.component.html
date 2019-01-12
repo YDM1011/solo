@@ -1,12 +1,12 @@
 <div class="check-option-wrap" *ngIf="option">
   <div class="check-option cart" *ngFor="let item of option; let i = index">
-    <label>
-      <input class="filled-in" type="checkbox" [(ngModel)]="item.check" name="check">
-      <span>{{item.label}}</span>
-    </label>
+    <div class="i-checks">
+      <label><input type="checkbox"
+                    [(ngModel)]="item.check" name="check"> <i></i> {{item.label}} </label>
+    </div>
     <ng-container *ngIf="item.obj">
       <app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>
     </ng-container>
   </div>
-  <span (click)="selectOption(option)" class="btn">ok</span>
+  <button (click)="selectOption(option)" class="btn btn-primary">ok</button>
 </div>

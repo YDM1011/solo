@@ -1,7 +1,13 @@
 <app-file-min (fileResult)="fileresult($event)" [btn]="btn"></app-file-min>
-<div *ngIf="isResult">Оновити?
+<div *ngIf="isResult">
+  <div class="flx l-r">
+    <span><strong>Оновити?</strong></span>
+    <div class="upl-btn">
+      <button class="btn btn-sm btn-primary pull-right" (click)="onLoadImg.emit(this.pics); isResult=null"><strong>Так</strong></button>
+      <button class="btn btn-sm btn-light pull-right" (click)="pics = null; isResult=null"><strong>Ні</strong></button>
+    </div>
+  </div>
   <app-img *ngIf="pics" [imgObj]="pics"></app-img>
-  <button (click)="onLoadImg.emit(this.pics); isResult=null"> Так </button>
-  <button (click)="pics = null; isResult=null"> Ні </button>
+
 </div>
 
