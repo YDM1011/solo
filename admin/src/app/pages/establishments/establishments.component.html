@@ -39,16 +39,20 @@
             <table class="table table-hover">
               <tbody>
                 <tr *ngFor="let est of myest">
+                  <td class="project-status">
+                    <span class="label label-primary">Active</span>
+                  </td>
                   <td class="project-title">
                     <strong>{{est.name}}</strong>
                     <br/>
-                    <small>Created 14.08.2014</small>
+                    <small>Номер телефону: {{est.mobile}}</small>
+                    <br/>
+                    <small>{{est.address}}</small>
+                    <br/>
+                    <small>{{est.worksTime}}</small>
                   </td>
                   <td class="project-completion">
-                    <small>Completion with: 48%</small>
-                    <div class="progress progress-mini">
-                      <div style="width: 48%;" class="progress-bar"></div>
-                    </div>
+                    <small>{{est.about}}</small>
                   </td>
                   <td class="project-actions">
                     <a (click)="delet(est._id)" class="btn btn-danger btn-sm"><i class="fa fa-folder"></i> Видалити </a>
