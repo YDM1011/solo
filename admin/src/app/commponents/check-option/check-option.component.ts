@@ -29,3 +29,9 @@ export class CheckOptionComponent implements OnInit {
     s.onCheck.emit(s.selected);
   }
 }
+/**
+  {
+    label: string,
+    check: boolean
+  }
+ **/

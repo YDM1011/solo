@@ -36,7 +36,35 @@ import {ScrollToDirective} from "./scroll-to.directive";
 import { HomePageComponent } from './home-page/home-page.component';
 import { FriendPageComponent } from './friend-page/friend-page.component';
 import { GaleryPageComponent } from './galery-page/galery-page.component';
+import { ImgComponent } from './lib/img/img.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
+import * as moment from 'moment';
 
+export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
+  constructor(private momentFormat: string) {
+    super();
+  };
+  format(date: NgbDateStruct): string {
+    if (date === null) {
+      return '';
+    }
+    let d = moment({ year: date.year,
+      month: date.month - 1,
+      date: date.day });
+    return d.isValid() ? d.format(this.momentFormat) : '';
+  }
+
+  parse(value: string): NgbDateStruct {
+    if (!value) {
+      return null;
+    }
+    let d = moment(value, this.momentFormat);
+    return d.isValid() ? { year: d.year(),
+      month: d.month() + 1,
+      day: d.date() } : null;
+  }
+}
 
 @NgModule({
   declarations: [
@@ -61,6 +89,7 @@ import { GaleryPageComponent } from './galery-page/galery-page.component';
     HomePageComponent,
     FriendPageComponent,
     GaleryPageComponent,
+    ImgComponent,
   ],
   imports: [
     BrowserModule,
@@ -74,9 +103,14 @@ import { GaleryPageComponent } from './galery-page/galery-page.component';
     UploadModule,
     IsMyProfileModule,
     MzSelectModule,
+    NgbModule,
     SweetAlert2Module.forRoot()
   ],
-  providers: [ AuthService, CookieService, CoreService ],
+    providers: [ AuthService, CookieService, CoreService,
+    {
+      provide: NgbDateParserFormatter,
+      useFactory: () => { return new NgbDateMomentParserFormatter("DD.MM.YYYY") }
+    } ],
   bootstrap: [
     AppComponent
   ]

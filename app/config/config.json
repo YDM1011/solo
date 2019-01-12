@@ -18,7 +18,8 @@
     "auth": {
       "successRedirect": "/",
       "failureRedirect": "/login",
-      "sidDomain": "tasteol1.com"
+      "sidDomain": "localhost",
+      "apiDomain": "http://localhost:5000/"
     },
     "facebook": {
       "clientID": "1644388132319517",

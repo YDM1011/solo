@@ -1,17 +1,31 @@
-<!--<<<<<<< HEAD-->
+
 <div isMyProfile>
   <!--<label>-->
     <!--<div [innerHTML]="btnName"></div>-->
     <!--<input *ngIf="multiple" class="profile-avatar" #it (change)="uploadFile($event)" multiple="multiple" type="file">-->
-    <!--&lt;!&ndash;<app-file-min (fileResult)="res($event)" [btn]="btn"></app-file-min>&ndash;&gt;-->
+    <!--&lt;!&ndash;&ndash;&gt;-->
     <!--<input *ngIf="!multiple" class="profile-avatar" #it (change)="uploadFile($event)" type="file">-->
   <!--</label>-->
-<!--=======-->
-  <!--<label >-->
-    <!--<div [innerHTML]="btnName"></div>-->
+
+  <label >
+    <div [innerHTML]="btnName"></div>
+    <app-file-min (fileResult)="res($event)" [btn]="btn"></app-file-min>
     <!--<input *ngIf="multiple" class="profile-avatar" (change)="uploadFile()" multiple="multiple" type="file">-->
     <!--<input *ngIf="!multiple" class="profile-avatar" (change)="uploadFile()" type="file">-->
-  <!--</label>-->
-  <app-file-min [btn]="btnName" [multiple]="multiple" (fileResult)="getPics($event)"></app-file-min>
-<!--&gt;>>>>>> 818a20ae5dc0caca1c28f2b4cbd549154bbff290-->
+  </label>
+
+</div>
+<div class="pop-wrap" *ngIf="avatar">
+<div class="pop-form" >
+  <div class="pop-img">
+    <img src="{{avatar}}">
+  </div>
+  <div>
+    <button (click)="avatar = ''">cancel</button>
+    <button (click)="savePics()">save</button>
+  </div>
+</div>
+<div class="pop-bg" (click)="avatar = ''"  >
+
+</div>
 </div>

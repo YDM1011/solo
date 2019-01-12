@@ -23,40 +23,45 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
   }
-  getPics(pics){
+  savePics(pics){
     console.log(pics);
+    this.uploadFile();
     this.getImg.emit(pics);
   }
+  res(er){
+    console.log(er);
+    this.avatar = er.imgMax;
+  }
+
   uploadFile(){
     const self = this;
     this.fileInputElement = TemplateRef;
 
     //noinspection TypeScriptUnresolvedVariable,TypeScriptValidateTypes
     const inputEl = document.querySelectorAll('.profile-avatar');
-    //noinspection TypeScriptUnresolvedFunction
     for (let i=0; i<inputEl.length; i++ ) {
-      const elem =  <any>inputEl[i];
-        const fileCount: number = elem.files.length;
-        if (fileCount && elem.files.item(0)) {
-          for (let i=0; i<elem.files.length; i++){
-            console.log(elem.files[i]);
-            const formData = new FormData();
-            formData.append('file', elem.files.item(i));
-            self.core.uploadAvatar(formData).then((res: any) => {
-              this.avatar = 'data:image/png;base64,' + res.image;
-              this.getImg.emit(self.avatar);
-            }).catch(
-              error => {
-                console.log(error);
-              });
-          }
-
-          elem.value = '';
-          return
+      const elem = <any>inputEl[i];
+      const fileCount: number = elem.files.length;
+      if (fileCount && elem.files.item(0)) {
+        for (let i=0; i<elem.files.length; i++){
+          console.log(elem.files[i]);
+          const formData = new FormData();
+          formData.append('file', elem.files.item(i));
+          formData.append('text', self.avatar);
+          // console.log(elem.files.item(i));
+          self.core.uploadAvatar(formData).then((res: any) => {
+            this.avatar = res.image;
+            console.log(self.avatar);
+            // this.getImg.emit({larg:self.avatar});
+          }).catch(
+            error => {
+              console.log(error);
+            });
         }
+      }
+
+      elem.value = '';
+      return
     }
-  }
-  res(er){
-    console.log(er);
   }
 }

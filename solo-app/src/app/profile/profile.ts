@@ -6,9 +6,11 @@ export class userData {
   address: string | '';
   aboutme: string | '';
   worksPlace: string | '';
-  familyStatus: string | '';
   _id: string | '';
-  familyStatusName: any;
+  familyStatus: any;
+  bg: any;
+  photo: any;
+  links: any;
   constructor() {
     let s = this;
     s.bornedData = '';
@@ -18,8 +20,10 @@ export class userData {
     s.address = '';
     s.aboutme = '';
     s.worksPlace = '';
-    s.familyStatus = '';
+    s.bg = '';
+    s.photo = '';
     s._id = '';
-    s.familyStatusName = {};
+    s.familyStatus = {};
+    s.links = {};
   }
 }

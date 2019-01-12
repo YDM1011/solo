@@ -263,7 +263,7 @@ module.exports.userDate = (req, res, next) => {
     User
         .findOne({_id: req.params.id})
         .select("-token -pass -hash")
-        .populate({path: "photo", select:"imgMin"})
+        .populate({path:"familyStatus.personId", select:"firstName lastName photo"})
         .exec((err, info) => {
             if(err) return res.badRequest('Something broke!');
             if(info){

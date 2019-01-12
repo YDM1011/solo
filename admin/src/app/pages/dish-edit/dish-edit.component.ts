@@ -15,6 +15,10 @@ export class DishEditComponent implements OnInit {
   public setArg2: any;
   public option: any = [];
   public DCoption: any = [];
+  public complements: any = [];
+  public complementsM: any = [];
+  public complementsOpt: any = [];
+  public complementsOptM: any = [];
   public isFormAdd = false;
   public portion: any = {
     massa: '',
@@ -58,15 +62,14 @@ export class DishEditComponent implements OnInit {
               }
               }
             });
+            self.getComp()
           }
         });
       }).catch((err: any) => {});
     });
-    const req1 = ['option'];
-    req1.forEach((select) => {
       this.api.get('category', id).then((res: any) => {
         if (res) {
-          self[select] = [];
+          self.option = [];
           res.map((item: any) => {
             self.option.push({
               name: item.maincategory,
@@ -74,27 +77,67 @@ export class DishEditComponent implements OnInit {
               id: item._id
             });
           });
-          self[select] = self.option;
         }
       }).catch((err: any) => {});
-    });
-    const req2 = ['DCoption'];
-    req2.forEach((select) => {
       this.api.get('complement', id).then((res: any) => {
         if (res) {
-          self[select] = [];
+          self.DCoption = [];
           res.map((item: any) => {
-            self.option.push({
+            self.DCoption.push({
               name: item.maincategory,
               label: item.name,
               id: item._id
             });
           });
-          self[select] = self.option;
         }
       }).catch((err: any) => {});
+  }
+
+  getComp(){
+    let self = this;
+    this.api.get('checkBox').then((res: any) => {
+      if (res) {
+        self.complementsOpt = [];
+        self.complements = [];
+        res.map((item: any) => {
+          self.complementsOpt.push({
+            check: false,
+            label: item.name,
+            id: item._id
+          });
+        });
+        res.map((item: any) => {
+          self.complements.push({
+            check: false,
+            label: item.name,
+            id: item._id
+          });
+        });
+      }
+      self.ComMap()
+    }).catch((err: any) => {});
+  }
+
+  ComMap(){
+    let self = this;
+    self.dish.dishingredient.map(ing=>{
+      self.complements.map(it=>{
+        if(ing == it.id){
+          it.check = true;
+          self.complementsM.push(it.label);
+        }
+      })
+    });
+    self.dish.ingredientis.map(ing=>{
+      self.complementsOpt.map(it=>{
+        if(ing == it.id){
+          it.check = true;
+          self.complementsOptM.push(it.label);
+        }
+      })
     });
   }
+
   update(obj) {
     const self = this;
     this.api.set('dish', obj, self.editid).then((res: any) => {
@@ -106,20 +149,6 @@ export class DishEditComponent implements OnInit {
         });
       }
     }).catch((err: any) => {});
-  }
-  check() {
-    const self = this;
-    if (self.setArg[self.setArg.length - 1] == ',') {
-      self.dish.dishingredient.push(self.setArg.split(',')[0]);
-      return self.setArg = null;
-    }
-  }
-  check2() {
-    const self = this;
-    if (self.setArg2[self.setArg2.length - 1] == ',') {
-      self.dish.ingredientis.push({name: self.setArg2.split(',')[0], check: true});
-      return self.setArg2 = null;
-    }
   }
   delingredient(index) {
     const self = this;
@@ -134,5 +163,26 @@ export class DishEditComponent implements OnInit {
       _id: obj.id,
       name: obj.label
     };
+  }
+
+  checkCom(e){
+    let s = this;
+    console.log(e);
+    s.dish.dishingredient=[];
+    s.complementsM=[];
+    e.map(el=>{
+      s.dish.dishingredient.push(el.id);
+    });
+    s.ComMap();
+  }
+  checkComOpt(e){
+    let s = this;
+    console.log(e);
+    s.dish.ingredientis=[];
+    s.complementsOptM=[];
+    e.map(el=>{
+      s.dish.ingredientis.push(el.id);
+    });
+    s.ComMap();
   }
 }

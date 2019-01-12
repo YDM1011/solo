@@ -24,8 +24,14 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "portItem"
     }],
-    dishingredient: Array,
-    ingredientis: [ingredientisschema],
+    dishingredient: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "checkBox"
+    }],
+    ingredientis: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "checkBox"
+    }],
     pic: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "avatar"

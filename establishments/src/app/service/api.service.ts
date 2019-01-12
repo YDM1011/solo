@@ -33,7 +33,6 @@ export class ApiService {
     } else {
       return self.getAndUpdate(api, id, select, model);
     }
-
   }
   getAndUpdate(api, id= null, select= null, model= null) {
     const self = this;

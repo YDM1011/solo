@@ -62,15 +62,15 @@
               </strong>
             </span>
             <ng-container *ngIf="item.inPlace">
-              <span class="us_zv" *ngIf="item.inPlace.name"> у
-                <a href="//{{item.inPlace.subdomain+'.'+host}}" class="us_zv_link">
+              <span class="us_zv" *ngIf="item.inPlace.id.name"> у
+                <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="us_zv_link">
                     <span class="us_zv_img">
                       <app-avatar class="img20 pre-bg" [customClass]="'inherit'"
-                                  [avatar]="item.inPlace.av"
+                                  [avatar]="item.inPlace.id.av"
                                   [type]="'preload'"></app-avatar>
                       <!--<img class="img" src="{{item.inPlace.value}}" alt="{{item.inPlace.place}}">-->
                     </span>
-                    <strong class="name">{{item.inPlace.name}}</strong>
+                    <strong class="name">{{item.inPlace.id.name}}</strong>
                 </a>
               </span>
             </ng-container>
@@ -199,14 +199,14 @@
                    </strong>
                 </span>
                 <ng-container *ngIf="item.inPlace">
-                  <span class="us_zv" *ngIf="item.inPlace.name"> у
+                  <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                     <span class="us_zv_link">
                         <span class="us_zv_img">
                           <app-avatar class="img20 pre-bg" [customClass]="'inherit'"
-                                      [avatar]="item.inPlace.av"
+                                      [avatar]="item.inPlace.id.av"
                                       [type]="'preload'"></app-avatar>
                         </span>
-                        <strong class="name">{{item.inPlace.name}}</strong>
+                        <strong class="name">{{item.inPlace.id.name}}</strong>
                     </span>
                   </span>
                 </ng-container>

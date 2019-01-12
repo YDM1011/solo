@@ -21,20 +21,6 @@
                   (onCheck)="selected($event)"></app-select>
     </div>
   </div>
-  <!--<div class="row">-->
-    <!--<div class="col s12 m4">-->
-      <!--<h5>dishcomment</h5>-->
-    <!--</div>-->
-    <!--<div class="col s12 m8">-->
-      <!--<div class="category-for" *ngIf="dish.dishcomment">-->
-        <!--<span class="dishingredient">{{dish.dishcomment.name}}</span>-->
-      <!--</div>-->
-      <!--<app-select *ngIf="option.length>0"-->
-                  <!--[option]="option"-->
-                  <!--[defoult]="'check'"-->
-                  <!--(onCheck)="selected($event)"></app-select>-->
-    <!--</div>-->
-  <!--</div>-->
   <div class="row">
     <div class="col s12 m4">
       <h5>Про страву</h5>
@@ -50,8 +36,8 @@
     <div class="col s12 m8">
       <span class="dishingredient"
             (click)="delingredient(i)"
-            *ngFor="let ing of dish.dishingredient; let i = index">{{ing}}</span>
-      <input type="text" (keyup)="check()" [(ngModel)]="setArg" name="name">
+            *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
+      <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
     </div>
   </div>
   <div class="row">
@@ -61,8 +47,8 @@
     <div class="col s12 m8">
       <span class="dishingredient"
             (click)="delingredient2(i)"
-            *ngFor="let ing of dish.ingredientis; let i = index">{{ing.name}}</span>
-      <input type="text" (keyup)="check2()" [(ngModel)]="setArg2" name="name">
+            *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
+      <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
     </div>
   </div>
   <div class="row">
