@@ -1,0 +1,13 @@
+.wrap{
+  display: flex;
+}
+.content{
+  flex-grow: 1;
+  padding: 15px 10px;
+}
+
+.sidebar{
+  background-color: #f8f4ff;
+  padding: 15px 10px;
+  min-height: calc(100vh - 30px);
+}

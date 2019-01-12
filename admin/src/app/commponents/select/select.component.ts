@@ -1,13 +1,13 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.css']
 })
-export class SelectComponent implements OnInit {
+export class SelectComponent implements OnInit, OnChanges {
 
-  @Input() option:any = [];
+  @Input() option;
   @Input() defoult:string = '';
   @Output() onCheck: EventEmitter<any> = new EventEmitter<any>();
   public isActive:boolean=false;
@@ -16,6 +16,8 @@ export class SelectComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  ngOnChanges(){}
 
   selectOption(opt){
     let s = this;

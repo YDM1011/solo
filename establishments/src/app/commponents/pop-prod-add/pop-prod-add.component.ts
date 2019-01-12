@@ -21,6 +21,10 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   public isComplement = false;
   public comment = '';
   public portion = [];
+  public complements = [];
+  public complementsM = [];
+  public complementsOpt = [];
+  public complementsOptM = [];
 
   constructor(
     private api: ApiService
@@ -77,7 +81,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   preToBasket(){
     let s = this;
     s.dishData = Object.assign({}, s.dish);
-    console.log(s.dishData);
+    s.getComp();
     if(s.dishData.prt){
       s.totalPrice = s.dishData.prt.price;
       s.dishData.prt.count = 1;
@@ -91,7 +95,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       // });
       // s.portion = s.dishData.portion
     }
-    s.api.get('checkbox', s.dishData.dishcategory).then((val:any)=>{
+    s.api.get('checkboxCom', s.dishData.dishcategory).then((val:any)=>{
       val.map(item=>{
         item.isCheck = false;
         item.count = 1;
@@ -99,6 +103,51 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       s.complement = val;
       console.log(s.complement)
     })
+  }
+
+  getComp(){
+    let self = this;
+    this.api.get('checkBox').then((res: any) => {
+      if (res) {
+        self.complementsOpt = [];
+        self.complements = [];
+        res.map((item: any) => {
+          self.complementsOpt.push({
+            check: false,
+            label: item.name,
+            id: item._id
+          });
+        });
+        res.map((item: any) => {
+          self.complements.push({
+            check: false,
+            label: item.name,
+            id: item._id
+          });
+        });
+      }
+      self.ComMap()
+    }).catch((err: any) => {});
+  }
+
+  ComMap(){
+    let self = this;
+    self.dishData.dishingredient.map(ing=>{
+      self.complements.map(it=>{
+        if(ing == it.id){
+          it.check = true;
+          self.complementsM.push(it.label);
+        }
+      })
+    });
+    self.dishData.ingredientis.map(ing=>{
+      self.complementsOpt.map(it=>{
+        if(ing == it.id){
+          it.check = false;
+          self.complementsOptM.push(it);
+        }
+      })
+    });
   }
 
   cancel(){
@@ -109,10 +158,11 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
   toBasket() {
     const s = this;
+
     const obj = {
       portionCheck: s.dishData.prt._id,
       dishId: s.dishData._id,
-      complementCheck: s.dishData.ingredientis,
+      complementCheck: s.complementsOptM,
       comment: s.comment,
       complement: [],
       totalPrice: s.totalPrice

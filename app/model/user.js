@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const status = new Schema();
+
 const pages = new Schema({
     login: {type: String, unique: true, required: [true, "Login must be created"]},
     pass: {type: String, unique: true, required: [true, "Password must be created"]},
@@ -8,17 +10,22 @@ const pages = new Schema({
     lastName: {type: String, required: [true, "Last name must be created"]},
     gender: String,
     hash: String,
-    bornedData: Date,
+    bornedData: String,
     bornedPlace: String,
     education: String,
     mobile: {type: String},
     address: String,
     aboutme: String,
     worksPlace: String,
-    familyStatus: String,
-    familyStatusName: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user"
+    familyStatus: {
+        label: String,
+        name: String,
+        personId:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user"
+        },
+        personName: String,
+        person: {type: Boolean, default: false}
     },
     verify:{type: Boolean, default: false},
     favoritest:{
@@ -83,7 +90,11 @@ const pages = new Schema({
         virtuals: false
     },
     createRestApi: true,
-    strict: true
+    strict: true,
+    paths: {
+        "familyStatus" : Object,
+        "familyStatus.personId" : Object
+    }
 });
 const User = mongoose.model('user', pages, 'users');
 module.exports = User;
@@ -96,7 +107,7 @@ const preUpdate = (req,res,next)=>{
         .findOneAndUpdate({_id: req.userId}, req.body)
         .select('-pass -token -_id')
         .exec((err, info) => {
-            if(err) return res.badRequest('Something broke!');
+            if(err) return res.badRequest(err);
             if(!info) return res.notFound('You are not valid');
             return res.ok(info)
         });

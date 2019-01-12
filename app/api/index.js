@@ -5,6 +5,7 @@ const verification = require('../middleware/verification');
 const verify = require('../middleware/verify');
 
 const login = require('../controlers/auth/login');
+const admLogin = require('../controlers/auth/admLogin');
 const signup = require('../controlers/auth/signup');
 const uploadFile = require('../controlers/uploadFile');
 const setting = require('../controlers/setting');
@@ -62,6 +63,10 @@ router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId
 router.post('/api/add_product', [orign, glob.getId], basket.addProduct);
 router.get('/api/basket_from_est', [orign, glob.getId], basket.getBasketEst);
 router.get('/api/basket_user', [orign, glob.getId], basket.getBasket);
-router.get('/api/checkbox/:id', [orign, glob.getId], basket.checkbox);
+router.get('/api/checkboxCom/:id', [orign, glob.getId], basket.checkbox);
+
+// ADM
+router.post('/api/adm/signin', [orign, verification], admLogin);
+
 
 module.exports = router;
