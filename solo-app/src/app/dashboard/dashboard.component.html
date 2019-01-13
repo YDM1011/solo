@@ -4,12 +4,14 @@
     <div class="cont_h-pf">
 
         <div class="h-pf_img">
-          <!--<app-img [model]="'user'" [field]="'photo'"></app-img>-->
-          <app-avatar class="inherit"></app-avatar>
+          <app-img [model]="'user'" [field]="'photo'"></app-img>
 
-          <!--<app-upload [btnName]="btn"-->
-                      <!--[multiple]="false"-->
-                      <!--(getImg)="loader = $event"></app-upload>-->
+          <!--<app-avatar class="inherit"></app-avatar>-->
+
+          <app-upload [btnName]="btn"
+                      [model]="'user'"
+                      [field]="'photo'"
+                      [multiple]="false"></app-upload>
         </div>
 
         <div class="h-pf_tt">
@@ -19,7 +21,20 @@
 
         <button class="btn-green">Зустрітись з друзями</button>
 
-        <app-bg class="h-pf_bg pre-bg"></app-bg>
+        <div class="h-pf_bg pre-bg">
+
+          <ng-container *ngIf="user">
+            <ng-container *ngIf="user.bg">
+              <app-img [id]="user.bg._id"></app-img>
+            </ng-container>
+          </ng-container>
+
+          <app-upload [btnName]="btnBg"
+                      [model]="'user'"
+                      [field]="'bg'"
+                      [multiple]="false"></app-upload>
+        </div>
+        <!--<app-bg class="h-pf_bg pre-bg"></app-bg>-->
 
         <app-user-init [user]="user"></app-user-init>
 

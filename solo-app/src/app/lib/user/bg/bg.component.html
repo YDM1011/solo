@@ -7,7 +7,7 @@
 <app-upload [btnName]="btn"
             [model]="'user'"
             [field]="'bg'"
-            [id]="user.bg._id"
+            [multiple]="false"
             (getImg)="getLoader($event)"></app-upload>
 
 <app-form class="loader"

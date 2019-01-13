@@ -19,6 +19,7 @@ export class BgComponent implements OnInit {
 
   ngOnInit() {
     this.auth.onUserData.subscribe((val: any)=>{
+      console.log('val', val);
       this.user = val;
       console.log(val);
     })

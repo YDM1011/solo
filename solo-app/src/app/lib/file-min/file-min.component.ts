@@ -31,14 +31,11 @@ export class FileMinComponent implements OnInit {
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  calcRatios = new Ratios().getRatios(this.model,this.field);
+  calcRatios = new Ratios().getRatios('user','photo');
   ratios: number = this.calcRatios;
 
   constructor() { }
   ngOnInit() {
-    switch (this.model) {
-      case 'avatar': this.ratios = 1 / 1;
-    }
     this.fileResize = [1024, 1024];
   }
 

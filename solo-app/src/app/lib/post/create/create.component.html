@@ -6,7 +6,12 @@
   <form class="cont cr-pst" isMyProfile>
 
     <div class="img60 pre-bg">
-      <app-img [id]="avatar"></app-img>
+      <ng-container *ngIf="avatar">
+        <ng-container *ngIf="avatar._id">
+          <app-img [id]="avatar._id"></app-img>
+        </ng-container>
+      </ng-container>
+
       <!--<app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>-->
     </div>
 

@@ -33,7 +33,7 @@
   </div>
 </div>
 <ng-container *ngIf="user && id && posts">
-<app-create *ngIf="user" [avatar]="user.photo._id" [id]="id" [firstName]="user.firstName"></app-create>
+<app-create *ngIf="user" [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create>
 <app-post [id]="id" [posts]="posts"></app-post>
 <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
 </ng-container>
