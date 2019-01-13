@@ -23,14 +23,20 @@ module.exports = (req,res,next)=>{
     if (req.body.base64default.search("image/png") >= 0){
         base64Data = req.body.base64default.replace(/^data:image\/png;base64,/, "");
     }
+    var base64DataCrop;
+    if (req.body.base64crop.search("image/jpeg") >= 0){
+        base64DataCrop = req.body.base64crop.replace(/^data:image\/jpeg;base64,/, "");
+    } else
+    if (req.body.base64crop.search("image/png") >= 0){
+        base64DataCrop = req.body.base64crop.replace(/^data:image\/png;base64,/, "");
+    }
 
-    fs.writeFile(`upload/${req.body.file}`, base64Data, 'base64', function(err) {
-        res.ok({
-            url: `${data.auth.apiDomain}${req.body.file}`,
+    fs.writeFile(`upload/Crop${req.body.file}`, base64DataCrop, 'base64', function(err) {
+        fs.writeFile(`upload/${req.body.file}`, base64Data, 'base64', function(err) {
+            res.ok({
+                url: `${data.auth.apiDomain}Crop${req.body.file}`,
+            });
         });
-        // fs.unlink(req.file.path,err=>{
-        //
-        // });
     });
 
     // return fs.unlink(req.file.path);

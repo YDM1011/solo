@@ -63,6 +63,10 @@ export class UploadComponent implements OnInit {
     let formObj = {
       file: elem.files.item(i).name,
       base64default: self.avatar[i].def,
+      base64crop: self.avatar[i].crop,
+      model: self.model,
+      field: self.field,
+      id: self.id,
     };
     console.log(formObj);
     self.core.uploadAvatar(formObj, i).then((res: any) => {
@@ -73,7 +77,6 @@ export class UploadComponent implements OnInit {
       }else{
         return elem.value = '';
       }
-      // this.getImg.emit({larg:self.avatar});
     }).catch(
 
       error => {

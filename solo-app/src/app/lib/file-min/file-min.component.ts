@@ -1,5 +1,6 @@
 import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
+import {Ratios} from "./ratios";
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
@@ -29,8 +30,8 @@ export class FileMinComponent implements OnInit {
   croppedImage: any = '';
   format: string = 'jpeg';
 
-
-  ratios: number = 16 / 9;
+  calcRatios = new Ratios().getRatios('user','photo');
+  ratios: number = this.calcRatios;
 
   constructor() { }
   ngOnInit() {
