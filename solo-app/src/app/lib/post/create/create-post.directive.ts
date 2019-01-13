@@ -16,7 +16,6 @@ export class CreatePostDirective {
 
   private active(status) {
     if (!status) {
-      console.log('active');
       this.el.nativeElement.classList.add('active');
       document.documentElement.style.overflowY = 'hidden';
       document.body.style.overflowY = 'hidden';

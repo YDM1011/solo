@@ -14,6 +14,9 @@ export class UploadComponent implements OnInit {
   @Output() getImg = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
   @Input()  multiple: boolean = false;
+  @Input()  model;
+  @Input()  field;
+  @Input()  id;
   public btn = '<span class="btn waves-effect  deep-purple darken-4">Додати фото</span>';
 
   constructor(
@@ -26,11 +29,11 @@ export class UploadComponent implements OnInit {
   savePics(pics){
     console.log(pics);
     this.uploadFile();
-    this.getImg.emit(pics);
+    this.getImg.emit(this.avatar);
   }
   res(er){
     console.log(er);
-    this.avatar = er.imgMax;
+    this.avatar = er.crop;
   }
 
   uploadFile(){
@@ -47,7 +50,11 @@ export class UploadComponent implements OnInit {
           console.log(elem.files[i]);
           const formData = new FormData();
           formData.append('file', elem.files.item(i));
-          formData.append('text', self.avatar);
+          formData.append('base64default', self.avatar[i]);
+          formData.append('base64crop', self.avatar[i]);
+          formData.append('model', self.model);
+          formData.append('field', self.field);
+          formData.append('id', self.id);
           // console.log(elem.files.item(i));
           self.core.uploadAvatar(formData).then((res: any) => {
             this.avatar = res.image;

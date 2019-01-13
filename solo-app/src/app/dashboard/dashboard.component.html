@@ -7,6 +7,9 @@
           <app-avatar class="inherit"
                       [type]="'imgMax'"></app-avatar>
           <app-upload [btnName]="btn"
+                      [model]="'avatar'"
+                      [field]=""
+                      [id]="id"
                       (getImg)="loader = $event"></app-upload>
         </div>
 
