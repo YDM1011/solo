@@ -54,8 +54,12 @@ export class UploadComponent implements OnInit {
     let formData = new FormData();
     formData.append('file', elem.files.item(i));
     formData.append('base64default', self.avatar[i].def);
-    // console.log(elem.files.item(i));
-    self.core.uploadAvatar(formData, i).then((res: any) => {
+    let formObj = {
+      file: elem.files.item(i).name,
+      base64default: self.avatar[i].def,
+    };
+    console.log(formObj);
+    self.core.uploadAvatar(formObj, i).then((res: any) => {
       let index = res.i+1;
       this.avatar[res.i].def = res.res.url;
       if(elem.files.item(index)){

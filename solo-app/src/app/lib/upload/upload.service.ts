@@ -31,7 +31,7 @@ export class UploadService {
   uploadAvatar(formData: any, i) {
     const self = this;
     this.cookieService.get('token');
-    const options = this.getHeaders('multipart/form-data');
+    const options = this.getHeaders('application/json');
 //noinspection TypeScriptUnresolvedVariable,TypeScriptUnresolvedFunction
     return new Promise(function(resolve, reject) {
       formData.id = self.cookieService.get('userid');
