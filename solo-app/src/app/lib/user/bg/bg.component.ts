@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {UserService} from "../user.service";
 import {User} from "../user";
 
@@ -7,7 +7,7 @@ import {User} from "../user";
   templateUrl: './bg.component.html',
   styleUrls: ['./bg.component.css']
 })
-export class BgComponent implements OnInit {
+export class BgComponent implements OnInit, OnChanges {
 
   public btn = '<span class="btn-bg button-upload"><span class="btn-bg_img"></span><span class="btn-bg_tt">Редагувати</span></span>';
   public user: User;
@@ -18,6 +18,11 @@ export class BgComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.auth.onUserData.subscribe((val: any)=>{
+      this.user = val;
+    })
+  }
+  ngOnChanges() {
     this.auth.onUserData.subscribe((val: any)=>{
       this.user = val;
       console.log(val);

@@ -98,8 +98,6 @@ export class UserService {
         reject(new Error('not found id'))
       })
     }
-
-
   }
   getImg(){
     return this.img;

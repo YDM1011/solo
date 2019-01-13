@@ -11,7 +11,7 @@ import {CookieService} from "ngx-cookie-service";
 export class CreateComponent implements OnInit {
 
   @Input() firstName: string = '';
-  @Input() avatar: string = '';
+  @Input() avatar: any;
   @Input() id: string;
   public btn = '<span class="post-up_button"><span class="post-up_svg"></span><span class="post-up_title">Додати фото</span></span>';
   public postObg = new Post();

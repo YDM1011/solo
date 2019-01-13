@@ -1,13 +1,12 @@
 <ng-container *ngIf="user">
   <ng-container *ngIf="user.bg">
-    <app-img [id]="user.bg._id"></app-img>
+    <app-img [id]="user.bg"></app-img>
   </ng-container>
 </ng-container>
 
 <app-upload [btnName]="btn"
             [model]="'user'"
             [field]="'bg'"
-            [id]="user.bg._id"
             (getImg)="getLoader($event)"></app-upload>
 
 <app-form class="loader"
@@ -15,3 +14,4 @@
           [option]="loader"
           [url]="'/api/avatar'"
 ></app-form>
+

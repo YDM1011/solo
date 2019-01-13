@@ -1,4 +1,14 @@
-import {Component, OnInit, TemplateRef, ElementRef, Output, EventEmitter, Input} from '@angular/core';
+import {
+  Component,
+  OnInit,
+  TemplateRef,
+  ElementRef,
+  Output,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy
+} from '@angular/core';
 import {UploadService} from "./upload.service";
 
 @Component({
@@ -7,16 +17,16 @@ import {UploadService} from "./upload.service";
   inputs: ['key'],
   styleUrls: ['./upload.component.css']
 })
-export class UploadComponent implements OnInit {
+export class UploadComponent implements OnInit, OnChanges, OnDestroy {
 
   public avatar=[];
   private fileInputElement: any;
   @Output() getImg = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
   @Input()  multiple: boolean = false;
-  @Input()  model;
-  @Input()  field;
-  @Input()  id;
+  @Input()  model = null;
+  @Input()  field = null;
+  @Input()  id = null;
 
   constructor(
     private core: UploadService,
@@ -25,7 +35,15 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
   }
-  savePics(){
+  ngOnChanges(){
+  }
+  ngOnDestroy(){
+    const s = this;
+    s.model=null;
+    s.field=null;
+    s.id=null;
+  }
+  savePics() {
     console.log();
     this.uploadFile();
     this.getImg.emit(this.avatar);
@@ -36,9 +54,9 @@ export class UploadComponent implements OnInit {
     console.log(this.avatar);
   }
 
-
   uploadFile(){
     const self = this;
+
     this.fileInputElement = TemplateRef;
     //noinspection TypeScriptUnresolvedVariable,TypeScriptValidateTypes
     const inputEl = document.querySelectorAll('.profile-avatar');
@@ -52,23 +70,14 @@ export class UploadComponent implements OnInit {
 
     let fileCount: number = elem.files.length;
     if (fileCount && elem.files.item(0)) {
-
-    let formData = new FormData();
-    formData.append('file', elem.files.item(i));
-    formData.append('base64default', self.avatar[i].def);
-    formData.append('base64crop', self.avatar[i].crop);
-    formData.append('model', self.model);
-    formData.append('field', self.field);
-    formData.append('id', self.id);
-    let formObj = {
+    let formObj = Object.assign({},{
       file: elem.files.item(i).name,
       base64default: self.avatar[i].def,
       base64crop: self.avatar[i].crop,
       model: self.model,
       field: self.field,
-      id: self.id,
-    };
-    console.log(formObj);
+      id: this.id,
+    });
     self.core.uploadAvatar(formObj, i).then((res: any) => {
       let index = res.i+1;
       this.avatar[res.i].def = res.res.url;

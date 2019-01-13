@@ -105,6 +105,7 @@ export class HomePageComponent implements OnInit, OnChanges {
     const s = this;
     if (res) {
       s.user = res[0];
+      console.log(s.user);
       s.core.setValidProfile(res[1]);
       s.auth.setUserData(res);
     }

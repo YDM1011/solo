@@ -40,13 +40,14 @@
 
 
 <ng-container *ngIf="user">
-    <app-img [model]="'user'" [field]="'photo'"></app-img>
+  <ng-container *ngIf="user.photo">
+    <app-img [id]="user.photo"></app-img>
+  </ng-container>
 </ng-container>
 
 <app-upload [btnName]="btn"
             [model]="'user'"
             [field]="'photo'"
-            [id]="user.photo._id"
             [multiple]="false"
             (getImg)="getLoader($event)"></app-upload>
 

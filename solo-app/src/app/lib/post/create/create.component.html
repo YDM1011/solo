@@ -5,8 +5,8 @@
 
   <form class="cont cr-pst" isMyProfile>
 
-    <div class="img60 pre-bg">
-      <app-img [id]="avatar"></app-img>
+    <div class="img60 pre-bg" *ngIf="avatar">
+      <app-img [id]="avatar._id"></app-img>
       <!--<app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>-->
     </div>
 
