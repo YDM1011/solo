@@ -100,7 +100,7 @@
             <a [routerLink]="'/user/'+userId" class="user" (click)="click()">
               <span class="user_img pre-bg" *ngIf="!userPhoto"></span>
               <span class="user_img pre-bg" *ngIf="userPhoto">
-                <img class="img" [src]="userPhoto.imgMin">
+                <app-img [id]="userPhoto._id"></app-img>
               </span>
               <strong class="user_title">{{userName}}</strong>
             </a>

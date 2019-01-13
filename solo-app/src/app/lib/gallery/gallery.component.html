@@ -7,8 +7,9 @@
 </a>
 <div class="el_cntt" *ngIf="photos.length > 0">
   <div class="el_i" *ngFor="let photo of photos | slice:0:6">
-    <app-avatar class="inherit-wh"
-                [type]="'img'"
-                [avatar]="photo"></app-avatar>
+    <app-img class="inherit-wh" [id]="photo._id"></app-img>
+    <!--<app-avatar class="inherit-wh"-->
+                <!--[type]="'img'"-->
+                <!--[avatar]="photo"></app-avatar>-->
   </div>
 </div>

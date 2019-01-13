@@ -10,7 +10,7 @@
       <!--<span class="s-el_i pre-bg"></span>-->
       <span class="s-el_i">
           <span class="inherit" *ngIf="res.favoritest">
-              <app-img [img]="{id:res.favoritest.av}" ></app-img>
+              <app-img [id]="res.favoritest.av._id" ></app-img>
           </span>
       </span>
     </div>
@@ -28,7 +28,7 @@
 
       <a href="" class="el_i pre-bg" *ngFor = "let img of res.favoritdish">
         <div class="inherit" *ngIf="img">
-          <app-img [img]="{id:img.pic}"></app-img>
+          <app-img [id]="img.pic._id"></app-img>
         </div>
       </a>
 

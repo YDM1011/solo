@@ -19,7 +19,8 @@ export class FileMinComponent implements OnInit {
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  multiple: boolean = false;
-  @Input()  model: string = 'defalt';
+  @Input()  model: string;
+  @Input()  field: string;
   public imageObj: any = [];
   public Pics: any = {
     def: '',
@@ -30,7 +31,7 @@ export class FileMinComponent implements OnInit {
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  calcRatios = new Ratios().getRatios('user','photo');
+  calcRatios = new Ratios().getRatios(this.model,this.field);
   ratios: number = this.calcRatios;
 
   constructor() { }

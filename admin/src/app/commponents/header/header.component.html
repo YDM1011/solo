@@ -22,7 +22,7 @@
           <li><a [routerLink]="'/establishments/'+est._id"><i class="fa fa-university"></i><span class="nav-label"> Заклади </span></a></li>
           <li><a [routerLink]="'/work_time/'+est._id"><i class="fa fa-clock"></i><span class="nav-label"> Графік роботи </span></a></li>
           <li><a [routerLink]="'/menu/'+est._id"><i class="fas fa-utensils"></i><span class="nav-label"> Меню </span><span class="fa arrow"></span></a>
-            <ul class="nav nav-second-level collapse">
+            <ul class="nav nav-second-level">
               <li><a [routerLink]="'/dish/'+est._id"> Страви </a></li>
               <li><a [routerLink]="'/category/'+est._id"> Категорії </a></li>
               <li><a [routerLink]="'/global_category/'+est._id"> Глобальні категорії </a></li>
@@ -31,7 +31,7 @@
             </ul>
           </li>
           <li><a [routerLink]="'/order/'+est._id"><span class="nav-label">Замовлення</span></a>
-            <ul class="nav nav-second-level collapse">
+            <ul class="nav nav-second-level">
               <li><a [routerLink]="'/delivery/'+est._id">Доставка</a></li>
               <li><a [routerLink]="'/get_by_self/'+est._id">На виніс</a></li>
               <li><a [routerLink]="'/reservation/'+est._id">Бронь столу</a></li>

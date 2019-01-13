@@ -143,6 +143,18 @@ export class ApiService {
         );
     });
   }
+  doPost(api, obj) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.http.post(`${self.domain}/api/${api}`, obj)
+        .subscribe(
+          (res: any) => {
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
+  }
   create(api, obj, id, select= null) {
     const self = this;
     obj['id'] = id;

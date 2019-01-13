@@ -15,12 +15,14 @@ import { CheckOptionComponent } from './check-option/check-option.component';
 import {FormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
 import { PortionComponent } from './portion/portion.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   imports: [
     CommonModule,
     RoutingModule,
-    FormsModule
+    FormsModule,
+    ImageCropperModule
   ],
   exports: [
     HeaderComponent,

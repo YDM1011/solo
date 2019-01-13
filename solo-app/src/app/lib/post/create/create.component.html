@@ -6,7 +6,8 @@
   <form class="cont cr-pst" isMyProfile>
 
     <div class="img60 pre-bg">
-      <app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>
+      <app-img [id]="avatar"></app-img>
+      <!--<app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>-->
     </div>
 
     <div class="cr-pst_us">
@@ -40,9 +41,10 @@
 
     <div class="cr-pst_img" *ngIf="postObg.img.length > 0">
       <div class="cr-pst_img_i" *ngFor="let img of postObg.img">
-          <img class="img" [src]="img.larg">
-          <span class="">rotate</span>
-          <span>del</span>
+        <app-img [id]="img.crop"></app-img>
+          <!--<img class="img" [src]="img.larg">-->
+          <!--<span class="">rotate</span>-->
+          <!--<span>del</span>-->
       </div>
     </div>
 
@@ -83,7 +85,7 @@
           </mz-collapsible-item-body>
         </mz-collapsible-item>
 
-        <app-upload class="cr-pst_sl_i" [multiple]="true" [btnName]="btn" (getImg)="postObg.img.push($event)"></app-upload>
+        <app-upload class="cr-pst_sl_i" [model]="'post'" [field]="'img'" [multiple]="true" [btnName]="btn" (getImg)="postObg.img.push($event)"></app-upload>
 
         <mz-collapsible-item [active]="false">
           <mz-collapsible-item-header>

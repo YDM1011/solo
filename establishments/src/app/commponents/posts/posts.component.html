@@ -40,7 +40,9 @@
   <ng-container *ngFor="let post of posts">
     <article class="cont pst">
       <div class="pst_in">
-        <app-img class="img40 pre-bg" [img]="{id: post.userId.photo}"></app-img>
+
+        <app-img class="img40 pre-bg" [id]="post.userId.photo._id"></app-img>
+
         <span class="in_us">
           <strong class="name">{{post.userId.firstName}} {{post.userId.lastName}}</strong>
           <span *ngIf="post.img.length > 0"> додав фото</span>
@@ -79,7 +81,7 @@
         <p class="pst_d">{{post.des}}</p>
         <div class="pst_img">
           <div class="cont-img" [class.array]="post.img.length >= 2" *ngFor="let img of post.img">
-            <app-img class="img_i" [img]="{id: img}"></app-img>
+            <app-img class="img_i" [id]="img._id"></app-img>
           </div>
         </div>
       </div>
@@ -117,7 +119,7 @@
             <ng-container *ngFor="let coment of post.commentId">
               <article class="cm">
                 <div class="cm_us">
-                  <app-img class="img40 pre-bg" [img]="{id: coment.userIdCom.photo}"></app-img>
+                  <app-img class="img40 pre-bg" [id]="coment.userIdCom.photo._id"></app-img>
 
                   <div class="cm_us_in">
                     <p>

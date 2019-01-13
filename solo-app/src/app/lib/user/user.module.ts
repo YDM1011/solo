@@ -11,6 +11,7 @@ import { UserInitComponent } from './user-init/user-init.component';
 import { FirstNameComponent } from './first-name/first-name.component';
 import { LastNameComponent } from './last-name/last-name.component';
 import {FormsModule} from "@angular/forms";
+import {ImgComponent} from "../img/img.component";
 
 @NgModule({
   imports: [
@@ -18,14 +19,14 @@ import {FormsModule} from "@angular/forms";
     UploadModule,
     CommonModule,
     IsMyProfileModule,
-    FormsModule
+    FormsModule,
   ],
   exports: [AvatarComponent, BgComponent,
     UpdateUserComponent, UserInitComponent,
-    FirstNameComponent, LastNameComponent ],
+    FirstNameComponent, LastNameComponent, ImgComponent ],
   providers: [UserService],
   declarations: [AvatarComponent, BgComponent,
     UpdateUserComponent, UserInitComponent,
-    FirstNameComponent, LastNameComponent ]
+    FirstNameComponent, LastNameComponent, ImgComponent]
 })
 export class UserModule { }

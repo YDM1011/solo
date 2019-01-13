@@ -14,7 +14,7 @@
     <div class="collapsible-header ord_ct" tabindex="0">
       <div class="ord_ct_link">
       <span class="ord_ct_img pre-bg">
-        <app-img [img]="{url:'est', name:'av'}" ></app-img>
+        <app-img [id]="basket.av._id" ></app-img>
       </span>
         <strong class="ord_ct_t">{{basket.name}}</strong>
       </div>
@@ -43,7 +43,7 @@
                 <span class="pr_ev-s ev-s_xit"></span>
                 <span class="pr_ev-s ev-s_int"></span>
               </div>
-              <app-img [img]="{id: product.dishId.pic}"></app-img>
+              <app-img [id]="product.dishId.pic._id"></app-img>
             </div>
 
             <div class="ord_pr_in">

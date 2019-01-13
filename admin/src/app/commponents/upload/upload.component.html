@@ -1,13 +1,32 @@
-<app-file-min (fileResult)="fileresult($event)" [btn]="btn"></app-file-min>
-<div *ngIf="isResult">
-  <div class="flx l-r">
-    <span><strong>Оновити?</strong></span>
-    <div class="upl-btn">
-      <button class="btn btn-sm btn-primary pull-right" (click)="onLoadImg.emit(this.pics); isResult=null"><strong>Так</strong></button>
-      <button class="btn btn-sm btn-light pull-right" (click)="pics = null; isResult=null"><strong>Ні</strong></button>
+<!--<app-file-min (fileResult)="fileresult($event)" [btn]="btn"></app-file-min>-->
+<!--<div *ngIf="isResult">-->
+  <!--<div class="flx l-r">-->
+    <!--<span><strong>Оновити?</strong></span>-->
+    <!--<div class="upl-btn">-->
+      <!--<button class="btn btn-sm btn-primary pull-right" (click)="onLoadImg.emit(this.pics); isResult=null"><strong>Так</strong></button>-->
+      <!--<button class="btn btn-sm btn-light pull-right" (click)="pics = null; isResult=null"><strong>Ні</strong></button>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<app-img *ngIf="pics" [imgObj]="pics"></app-img>-->
+
+<!--</div>-->
+
+
+<app-file-min (fileResult)="res($event)" [btn]="btnName" [multiple]="multiple" [model]="model"></app-file-min>
+
+
+<div class="pop-wrap" *ngIf="avatar.length>0">
+  <div class="pop-form" >
+
+    <div class="pop-img" *ngFor="let img of avatar">
+      <img src="{{img.crop}}" style="width: 300px;object-fit: contain">
+    </div>
+    <div>
+      <button (click)="avatar = []">cancel</button>
+      <button (click)="savePics()">save</button>
     </div>
   </div>
-  <app-img *ngIf="pics" [imgObj]="pics"></app-img>
+  <div class="pop-bg" (click)="avatar = ''">
 
+  </div>
 </div>
-

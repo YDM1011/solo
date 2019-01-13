@@ -23,10 +23,11 @@ import {CreatePostDirective} from "./create/create-post.directive";
     FormApiModule,
     UploadModule,
     MzCollapsibleModule,
-    SearchModule,
+
     IsMyProfileModule,
     AppRoutingModule,
     UserModule,
+    SearchModule,
     MzDropdownModule,
     SweetAlert2Module.forRoot()
   ],

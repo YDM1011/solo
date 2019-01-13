@@ -36,7 +36,7 @@
         <div class="us_c_i">
           <div class="us_c_img">
             <div class="img60 pre-bg">
-              <app-img [img]="{id: me.photo}"></app-img>
+              <app-img [id]="me.photo._id"></app-img>
             </div>
           </div>
           <span class="c_t-colF">5%</span>
@@ -51,7 +51,7 @@
 
               </span>
             </label>
-            <app-img [img]="{id: me.bg}"></app-img>
+            <app-img [id]="me.bg._id"></app-img>
             <span class="us_c_img_t c_t">Фото обкладинки</span>
           </div>
           <span class="c_t-colF o5">5%</span>

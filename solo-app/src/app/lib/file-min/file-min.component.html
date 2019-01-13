@@ -7,10 +7,6 @@
   <div [innerHTML]="btn || 'upload'"></div>
 </label>`
 
-<!--<button (click)="rotateLeft()">Rotate left</button>-->
-<!--<button (click)="rotateRight()">Rotate right</button>-->
-<!--<button (click)="flipHorizontal()">Flip horizontal</button>-->
-<!--<button (click)="flipVertical()">Flip vertical</button>-->
 <div #pop [class.active]="pop.val">
   <div class="p-up-fix" tabindex="0" role="button" (click)="pop.val = !pop.val"></div>
   <section class="p-up p-up-big">

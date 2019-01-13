@@ -66,10 +66,12 @@
   <div class="row">
     <div class="col s12 m4">
       <h5>dish.pic</h5>
-      <app-upload (onLoadImg)="dish.pic = $event" [btn]="btnBG"></app-upload>
+      <!--<app-upload (onLoadImg)="dish.pic = $event" [btn]="btnBG"></app-upload>-->
+      <app-upload [model]="'dish'" [field]="'pic'" [id]="dish._id" [btnName]="btnBG"></app-upload>
+
     </div>
     <div class="col s12 m8">
-      <app-img *ngIf="dish.pic" [imgObj]="dish.pic"></app-img>
+      <app-img *ngIf="dish.pic" [id]="dish.pic._id"></app-img>
     </div>
   </div>
   <div class="row">

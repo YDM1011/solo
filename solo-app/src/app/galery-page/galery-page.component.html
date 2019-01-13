@@ -7,10 +7,11 @@
   </div>
   <ng-container *ngIf="photos.gallery">
   <div class="gl_c" *ngIf="photos.gallery.length > 0">
-    <app-avatar class="gl_i pre-bg"
-                *ngFor="let photo of photos.gallery"
-                [type]="'imgMax'"
-                [avatar]="photo"></app-avatar>
+    <app-img  class="gl_i pre-bg" *ngFor="let photo of photos.gallery" [id]="photo._id"></app-img>
+    <!--<app-avatar class="gl_i pre-bg"-->
+                <!--*ngFor="let photo of photos.gallery"-->
+                <!--[type]="'imgMax'"-->
+                <!--[avatar]="photo"></app-avatar>-->
   </div>
   </ng-container>
 </div>

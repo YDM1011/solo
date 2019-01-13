@@ -89,7 +89,6 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     HomePageComponent,
     FriendPageComponent,
     GaleryPageComponent,
-    ImgComponent,
   ],
   imports: [
     BrowserModule,

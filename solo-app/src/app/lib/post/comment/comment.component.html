@@ -1,11 +1,14 @@
 <div class="post_cm">
   <article class="cm" *ngFor="let com of comments">
     <div class="cm_us">
-     <app-avatar  class="img40 pre-bg"
-                  [avatar]="com.userIdCom.photo"
-                  [type]="'imgMin'"
-                  [avatarId]="com.userIdCom.photo._id"
-                  [customClass]="'inherit'"></app-avatar>
+
+      <app-img class="img40 pre-bg" [id]="com.userIdCom.photo._id"></app-img>
+
+      <!--<app-avatar  class="img40 pre-bg"-->
+                  <!--[avatar]="com.userIdCom.photo"-->
+                  <!--[type]="'imgMin'"-->
+                  <!--[avatarId]="com.userIdCom.photo._id"-->
+                  <!--[customClass]="'inherit'"></app-avatar>-->
 
       <div class="cm_us_in">
         <p>
@@ -21,7 +24,8 @@
   <div class="cm_nw">
 
     <div class="img40 pre-bg" *ngIf="userPhoto">
-        <img class="img" *ngIf="userPhoto['imgMin']" [src]="userPhoto.imgMin">
+        <app-img [id]="userPhoto._id"></app-img>
+        <!--<img class="img" *ngIf="userPhoto['imgMin']" [src]="userPhoto.imgMin">-->
     </div>
 
     <div class="cm_nw_com">

@@ -41,10 +41,11 @@
 
         <div class="pst_in">
           <ng-container *ngIf="item.userId.photo">
-            <app-avatar class="img40 pre-bg" [customClass]="'inherit'"
-                        [avatar]="item.userId.photo"
-                        [avatarId]="item.userId.photo._id"
-                        [type]="'imgMin'"></app-avatar>
+            <!--<app-avatar class="img40 pre-bg" [customClass]="'inherit'"-->
+                        <!--[avatar]="item.userId.photo"-->
+                        <!--[avatarId]="item.userId.photo._id"-->
+                        <!--[type]="'imgMin'"></app-avatar>-->
+            <app-img class="img40 pre-bg" [id]="item.userId.photo._id"></app-img>
           </ng-container>
 
           <span class="in_us">
@@ -65,10 +66,11 @@
               <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                 <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="us_zv_link">
                     <span class="us_zv_img">
-                      <app-avatar class="img20 pre-bg" [customClass]="'inherit'"
-                                  [avatar]="item.inPlace.id.av"
-                                  [type]="'preload'"></app-avatar>
-                      <!--<img class="img" src="{{item.inPlace.value}}" alt="{{item.inPlace.place}}">-->
+                      <app-img [id]="item.inPlace.id.av._id"></app-img>
+
+                      <!--<app-avatar class="img20 pre-bg" [customClass]="'inherit'"-->
+                                  <!--[avatar]="item.inPlace.id.av"-->
+                                  <!--[type]="'preload'"></app-avatar>-->
                     </span>
                     <strong class="name">{{item.inPlace.id.name}}</strong>
                 </a>
@@ -97,9 +99,15 @@
 
         <div class="pst_cnt">
           <p class="pst_d" *ngIf="item.des">{{item.des}}</p>
-          <app-avatar *ngIf="item.img" class="pst_img"
-                      [array]="item.img"
-                      [type]="'larg'"></app-avatar>
+          <!--<app-avatar *ngIf="item.img" class="pst_img"-->
+                      <!--[array]="item.img"-->
+                      <!--[type]="'larg'"></app-avatar>-->
+
+          <div class="pst_img" *ngIf="item.img">
+            <div class="cont-img" [class.array]="item.img.length >= 2" *ngFor="let img of item.img">
+              <app-img class="img_i" [id]="img._id"></app-img>
+            </div>
+          </div>
         </div>
 
         <div class="pst_btn">
@@ -143,10 +151,11 @@
       <article class="cont pst" *ngIf="item.share.data">
 
         <div class="pst_in share" *ngIf="item.share.userIdShare">
-          <app-avatar class="img40 pre-bg" [customClass]="'inherit'"
-                  [avatar]="item.userId.photo"
-                  [avatarId]="item.userId.photo._id"
-                  [type]="'imgMin'"></app-avatar>
+          <!--<app-avatar class="img40 pre-bg" [customClass]="'inherit'"-->
+                  <!--[avatar]="item.userId.photo"-->
+                  <!--[avatarId]="item.userId.photo._id"-->
+                  <!--[type]="'imgMin'"></app-avatar>-->
+          <app-img class="img40 pre-bg" [id]="item.userId.photo._id"></app-img>
 
           <span class="in_us">
             <strong class="name">
@@ -181,10 +190,12 @@
 
           <article class="pst pst_share">
             <div class="pst_in">
-              <app-avatar class="img40 pre-bg" [customClass]="'inherit'"
-                          [avatar]="item.userId.photo"
-                          [avatarId]="item.userId.photo._id"
-                          [type]="'imgMin'"></app-avatar>
+              <!--<app-avatar class="img40 pre-bg" [customClass]="'inherit'"-->
+                          <!--[avatar]="item.userId.photo"-->
+                          <!--[avatarId]="item.userId.photo._id"-->
+                          <!--[type]="'imgMin'"></app-avatar>-->
+
+              <app-img class="img40 pre-bg" [id]="item.userId.photo._id"></app-img>
 
               <span class="in_us">
                 <a [routerLink]="'/user/'+item.userId._id" class="name">
@@ -202,9 +213,10 @@
                   <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                     <span class="us_zv_link">
                         <span class="us_zv_img">
-                          <app-avatar class="img20 pre-bg" [customClass]="'inherit'"
-                                      [avatar]="item.inPlace.id.av"
-                                      [type]="'preload'"></app-avatar>
+                          <app-img [id]="item.inPlace.id.av._id"></app-img>
+                          <!--<app-avatar class="img20 pre-bg" [customClass]="'inherit'"-->
+                                      <!--[avatar]="item.inPlace.id.av"-->
+                                      <!--[type]="'preload'"></app-avatar>-->
                         </span>
                         <strong class="name">{{item.inPlace.id.name}}</strong>
                     </span>
@@ -219,9 +231,16 @@
 
             <div class="pst_cnt">
               <p *ngIf="item.des" class="pst_d">{{item.des}}</p>
-              <app-avatar *ngIf="item.img" class="pst_img"
-                          [array]="item.img"
-                          [type]="'larg'"></app-avatar>
+              <!--<app-avatar *ngIf="item.img" class="pst_img"-->
+                          <!--[array]="item.img"-->
+                          <!--[type]="'larg'"></app-avatar>-->
+
+              <div class="pst_img" *ngIf="item.img">
+                <div class="cont-img" [class.array]="item.img.length >= 2" *ngFor="let img of item.img">
+                  <app-img class="img_i" [id]="img._id"></app-img>
+                </div>
+              </div>
+
             </div>
           </article>
         </div>

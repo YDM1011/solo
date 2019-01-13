@@ -1,20 +1,17 @@
 <ng-container *ngIf="user">
   <ng-container *ngIf="user.bg">
-    <app-avatar class="inherit-bg"
-                [avatar]="user.bg"
-                [avatarId]="user.bg._id"
-                [type]="'larg'"></app-avatar>
+    <app-img [id]="user.bg._id"></app-img>
   </ng-container>
 </ng-container>
 
 <app-upload [btnName]="btn"
+            [model]="'user'"
+            [field]="'bg'"
+            [id]="user.bg._id"
             (getImg)="getLoader($event)"></app-upload>
-
-<img class="img" [src]="loader.larg" *ngIf="loader">
 
 <app-form class="loader"
           *ngIf="loader" [text]="'Зберегти аватар'"
-          [class]="'btn waves-effect waves-light'"
           [option]="loader"
           [url]="'/api/avatar'"
 ></app-form>

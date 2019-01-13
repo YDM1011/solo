@@ -4,11 +4,12 @@
     <div class="cont_h-pf">
 
         <div class="h-pf_img">
-          <!--<app-avatar class="inherit"-->
-                      <!--[type]="'imgMax'"></app-avatar>-->
-          <app-upload [btnName]="btn"
-                      [multiple]="false"
-                      (getImg)="loader = $event"></app-upload>
+          <!--<app-img [model]="'user'" [field]="'photo'"></app-img>-->
+          <app-avatar class="inherit"></app-avatar>
+
+          <!--<app-upload [btnName]="btn"-->
+                      <!--[multiple]="false"-->
+                      <!--(getImg)="loader = $event"></app-upload>-->
         </div>
 
         <div class="h-pf_tt">
@@ -26,7 +27,7 @@
 
 
         <div class="cont_h-pf_loader">
-          <img class="img" [src]="loader.larg" *ngIf="loader">
+          <!--<img class="img" [src]="loader.larg" *ngIf="loader">-->
         </div>
 
 
@@ -63,7 +64,7 @@
               <div class="br-lv_cntt">
                   <div class="br-lv_i pre-bg" *ngIf="!favoriteEst.av"></div>
                   <div class="br-lv_i" *ngIf="favoriteEst.av">
-                    <img class="img" src="{{favoriteEst.av.larg}}" alt="">
+                    <app-img [id]="favoriteEst.av._id"></app-img>
                   </div>
               </div>
             </a>

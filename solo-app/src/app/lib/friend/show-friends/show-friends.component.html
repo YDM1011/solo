@@ -7,9 +7,10 @@
 </a>
 <div class="el_cntt" *ngIf="friends.length > 0">
   <a class="el_i" *ngFor="let friend of friends | slice:0:6" [routerLink]="'/user/'+friend._id">
-    <app-avatar class="inherit-wh"
-                [type]="'img'"
-                [avatar]="friend.photo"></app-avatar>
+    <app-img class="inherit-wh" [id]="friend.photo._id"></app-img>
+    <!--<app-avatar class="inherit-wh"-->
+                <!--[type]="'img'"-->
+                <!--[avatar]="friend.photo"></app-avatar>-->
     <!--<span>{{friend.firstName}} {{friend.lastName}}</span>-->
   </a>
 </div>

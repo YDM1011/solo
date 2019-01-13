@@ -16,10 +16,11 @@
         <mz-collapsible-item-header class="ord_ct">
           <div class="ord_ct_link">
       <span class="ord_ct_img">
-        <app-avatar class="inherit" [customClass]="'inherit'"
-                    [avatar]="basket.av"
-                    [avatarId]="basket.av._id"
-                    [type]="'preload'"></app-avatar>
+        <app-img class="inherit" [id]="basket.av._id"></app-img>
+        <!--<app-avatar class="inherit" [customClass]="'inherit'"-->
+                    <!--[avatar]="basket.av"-->
+                    <!--[avatarId]="basket.av._id"-->
+                    <!--[type]="'preload'"></app-avatar>-->
       </span>
             <strong class="ord_ct_t">{{basket.name}}</strong>
           </div>
@@ -47,10 +48,11 @@
                     <span class="pr_ev-s ev-s_xit"></span>
                     <span class="pr_ev-s ev-s_int"></span>
                   </div>
-                  <app-avatar class="inherit"
-                              [avatar]="product.dishId.pic"
-                              [avatarId]="product.dishId.pic._id"
-                              [type]="'larg'"></app-avatar>
+                  <app-img [id]="product.dishId.pic._id"></app-img>
+                  <!--<app-avatar class="inherit"-->
+                              <!--[avatar]="product.dishId.pic"-->
+                              <!--[avatarId]="product.dishId.pic._id"-->
+                              <!--[type]="'larg'"></app-avatar>-->
                 </div>
 
                 <div [class.phantom]="!checkPr.checked" class="ord_pr_in">
