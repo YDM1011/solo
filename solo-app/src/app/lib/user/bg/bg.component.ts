@@ -19,6 +19,7 @@ export class BgComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.auth.onUserData.subscribe((val: any)=>{
+      console.log('val', val);
       this.user = val;
     })
   }

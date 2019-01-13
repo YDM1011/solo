@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public id: string;
   public userId: string;
   public btn = '<span class="btn-av"><span class="btn-av_img"></span><span class="btn-av_tt">Редагувати</span></span>';
+  public btnBg = '<span class="btn-bg button-upload"><span class="btn-bg_img"></span><span class="btn-bg_tt">Редагувати</span></span>';
   private maxcount: number;
   public isShow = false;
   public isFriendPage = false;

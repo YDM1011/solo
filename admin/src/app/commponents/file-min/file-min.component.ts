@@ -32,7 +32,7 @@ export class FileMinComponent implements OnInit {
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  calcRatios = new Ratios().getRatios(this.model,this.field);
+  calcRatios = new Ratios().getRatios('user','bg');
   ratios: number = this.calcRatios;
 
   constructor() { }

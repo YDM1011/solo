@@ -293,6 +293,43 @@ svg{
   background: #e86060; }
 .btn-red:hover svg, .btn-red:focus svg {
   fill: #000000; }
+
+.loader{
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+}
+.inherit-bg {
+  display: block;
+  width: inherit;
+  height: 100%; }
+
+.user-bg{
+  cursor: pointer;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin-top: -22px;
+  overflow: hidden;
+  z-index: -1;
+  transition: .5s filter;
+}
+.user-bg:hover{
+  filter: opacity(95%);
+}
+
+@media (min-width: 620px) {
+  .user-bg{
+    bottom: 0;
+    margin-top: 0;
+  }
+}
+
+
 /*end global css*/
 
 .collapsible-body {

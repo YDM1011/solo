@@ -44,13 +44,11 @@
     <app-img [id]="user.photo"></app-img>
   </ng-container>
 </ng-container>
-
 <app-upload [btnName]="btn"
             [model]="'user'"
             [field]="'photo'"
             [multiple]="false"
             (getImg)="getLoader($event)"></app-upload>
-
 <app-form class="loader"
           *ngIf="loader" [text]="'Зберегти аватар'"
           [option]="loader"
