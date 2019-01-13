@@ -28,18 +28,18 @@ export class UploadService {
     };
     return this.httpOptions;
   }
-  uploadAvatar(formData: any) {
+  uploadAvatar(formData: any, i) {
     const self = this;
     this.cookieService.get('token');
     const options = this.getHeaders('multipart/form-data');
 //noinspection TypeScriptUnresolvedVariable,TypeScriptUnresolvedFunction
     return new Promise(function(resolve, reject) {
       formData.id = self.cookieService.get('userid');
-      console.log(formData)
+      console.log(formData);
       self.http.post(`${self.domain}/api/uploadImage`,
         formData,
         options).subscribe(
-        res => {self.core.error(res); resolve(res)},
+        res => {self.core.error(res); resolve({res,i})},
         err => {self.core.error(err); reject(err)}
       );
     });

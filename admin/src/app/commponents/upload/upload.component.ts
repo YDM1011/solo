@@ -20,7 +20,6 @@ export class UploadComponent implements OnInit, OnChanges {
   fileresult(data){
     this.pics = data;
     this.isResult = true;
-
   }
 
 }

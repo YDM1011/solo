@@ -9,19 +9,19 @@
 
   <label >
     <div [innerHTML]="btnName"></div>
-    <app-file-min (fileResult)="res($event)" [btn]="btn"></app-file-min>
+    <app-file-min (fileResult)="res($event)" [btn]="btn" [multiple]="multiple"></app-file-min>
     <!--<input *ngIf="multiple" class="profile-avatar" (change)="uploadFile()" multiple="multiple" type="file">-->
     <!--<input *ngIf="!multiple" class="profile-avatar" (change)="uploadFile()" type="file">-->
   </label>
 
 </div>
-<div class="pop-wrap" *ngIf="avatar">
+<div class="pop-wrap" *ngIf="avatar.length>0">
 <div class="pop-form" >
-  <div class="pop-img">
-    <img src="{{avatar}}">
+  <div class="pop-img" *ngFor="let img of avatar">
+    <img src="{{img.def}}">
   </div>
   <div>
-    <button (click)="avatar = ''">cancel</button>
+    <button (click)="avatar = []">cancel</button>
     <button (click)="savePics()">save</button>
   </div>
 </div>
