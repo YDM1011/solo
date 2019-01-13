@@ -4,12 +4,10 @@
     <div class="cont_h-pf">
 
         <div class="h-pf_img">
-          <app-avatar class="inherit"
-                      [type]="'imgMax'"></app-avatar>
+          <!--<app-avatar class="inherit"-->
+                      <!--[type]="'imgMax'"></app-avatar>-->
           <app-upload [btnName]="btn"
-                      [model]="'avatar'"
-                      [field]=""
-                      [id]="id"
+                      [multiple]="false"
                       (getImg)="loader = $event"></app-upload>
         </div>
 

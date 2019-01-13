@@ -52,7 +52,7 @@ export class ImgComponent implements OnInit, OnChanges {
       const query2 = '?populate=' + JSON.stringify({path: mod.name, select: '_id larg'}) + '&select=' + mod.name;
       s.get(mod.url, mod.name, '', query).then((val: any) => {
         if (val) {
-          console.log(query, val)
+          console.log(query, val);
           s.pic = val[mod.name].preload;
           s.getAndUpdate(mod.url, mod.name, '', query2).then((res: any) => {
             if (res) {

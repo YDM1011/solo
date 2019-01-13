@@ -20,7 +20,7 @@
 
   <div class="cm_nw">
 
-    <div class="img40 pre-bg">
+    <div class="img40 pre-bg" *ngIf="userPhoto">
         <img class="img" *ngIf="userPhoto['imgMin']" [src]="userPhoto.imgMin">
     </div>
 

@@ -1,46 +1,61 @@
-import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
+import {ImageCropperComponent} from "ngx-image-cropper";
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
 })
 
 export class FileMinComponent implements OnInit {
+  get imageCropper(): ImageCropperComponent {
+    return this._imageCropper;
+  }
+
+  set imageCropper(value: ImageCropperComponent) {
+    this._imageCropper = value;
+  }
   public file: any;
   private fileResize: any;
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  multiple: boolean = false;
+  @Input()  model: string = 'defalt';
   public imageObj: any = [];
   public Pics: any = {
     def: '',
     crop: ''
   };
-  //
+
   imageChangedEvent: any = '';
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  ratios: number = 9 / 16;
-  //
+
+  ratios: number = 16 / 9;
+
   constructor() { }
   ngOnInit() {
+    switch (this.model) {
+      case 'avatar': this.ratios = 1 / 1;
+    }
     this.fileResize = [1024, 1024];
   }
 
+  @ViewChild(ImageCropperComponent) private _imageCropper: ImageCropperComponent;
+
   private cx: CanvasRenderingContext2D;
 
-  // rotateLeft() {
-  //   this.imageCropper.rotateLeft();
-  // }
-  // rotateRight() {
-  //   this.imageCropper.rotateRight();
-  // }
-  // flipHorizontal() {
-  //   this.imageCropper.flipHorizontal();
-  // }
-  // flipVertical() {
-  //   this.imageCropper.flipVertical();
-  // }
+  rotateLeft() {
+    this.imageCropper.rotateLeft();
+  }
+  rotateRight() {
+    this.imageCropper.rotateRight();
+  }
+  flipHorizontal() {
+    this.imageCropper.flipHorizontal();
+  }
+  flipVertical() {
+    this.imageCropper.flipVertical();
+  }
   //
 
   public uploadImg(event: any) {
@@ -114,7 +129,6 @@ export class FileMinComponent implements OnInit {
         this.Pics = {
           def: this.imageObj[0],
           crop: this.imageObj[1],
-          imgMin: this.imageObj[1],
         };
         this.fileResult.emit(this.Pics);
         this.imageObj = [];
@@ -126,9 +140,9 @@ export class FileMinComponent implements OnInit {
   push(){
     this.Pics = {
       def: this.imageObj[0],
-      crop: this.imageObj[1],
-      imgMin: this.imageObj[1],
+      crop: this.imageObj[this.imageObj.length - 1],
     };
+    console.log(this.Pics)
     this.fileResult.emit(this.Pics);
     this.imageObj = [];
   }
@@ -160,100 +174,4 @@ export class FileMinComponent implements OnInit {
     }
 
   }
-
-  // public uploadImg(ev: any) {
-  //   for (let i = 0; i < ev.target.files.length; i++) {
-  //     if (/image[/]/i.test(ev.target.files[i].type)) {
-  //       this.file = ev.target.files[i];
-  //       const format = (/image[/]png/i.test(ev.target.files[i].type)) ? ev.target.files[i].type : 'image/jpeg';
-  //       console.log(format);
-  //       this.loadImg(format);
-  //     } else {
-  //       console.log('Error type');
-  //     }
-  //   }
-  // }
-
-  // public uploadImg(ev: any) {
-  //   if (this.multiple) {
-  //     for (let i = 0; i < ev.target.files.length; i++) {
-  //       this.file = ev.target.files[i];
-  //       if ( !/image/i.test(this.file.type)) {
-  //         console.log('Error type');
-  //         this.fileResult.emit(false);
-  //         return;
-  //       }
-  //       const fileReader: FileReader = new FileReader();
-  //       fileReader.readAsDataURL(this.file);
-  //       fileReader.onload = (event: any) => {
-  //         const img: HTMLImageElement = new Image();
-  //         img.src = event.target.result;
-  //         img.onload = () => {
-  //           const canvasImg = <HTMLCanvasElement> document.createElement('canvas');
-  //           this.cx = canvasImg.getContext('2d');
-  //           const size: any = {
-  //             width: img.naturalWidth,
-  //             height: img.naturalHeight
-  //           };
-  //           const smallSide: number = (size.width >= size.height) ? size.height : size.width;
-  //           this.fileResize.forEach(item => {
-  //             canvasImg.width = this.resultSize(size.width, smallSide, item);
-  //             canvasImg.height = this.resultSize(size.height, smallSide, item);
-  //             this.cx.drawImage(img, 0, 0, canvasImg.width , canvasImg.height );
-  //             this.imageObj.push(canvasImg.toDataURL('image/jpeg', 0.3));
-  //           });
-  //           this.Pics = {
-  //             larg: this.imageObj[0],
-  //             imgMax: this.imageObj[1],
-  //             img: this.imageObj[2],
-  //             imgMin: this.imageObj[3],
-  //             preload: this.imageObj[4]
-  //           };
-  //           this.fileResult.emit(this.Pics);
-  //           this.imageObj = [];
-  //         };
-  //       };
-  //     }
-  //
-  //   } else {
-  //     this.file = ev.target.files[0];
-  //     if ( !/image/i.test(this.file.type)) {
-  //       console.log('Error type');
-  //       this.fileResult.emit(false);
-  //       return;
-  //     }
-  //     const fileReader: FileReader = new FileReader();
-  //     fileReader.readAsDataURL(this.file);
-  //     fileReader.onload = (event: any) => {
-  //       const img: HTMLImageElement = new Image();
-  //       img.src = event.target.result;
-  //       img.onload = () => {
-  //         const canvasImg = <HTMLCanvasElement> document.createElement('canvas');
-  //         this.cx = canvasImg.getContext('2d');
-  //         const size: any = {
-  //           width: img.naturalWidth,
-  //           height: img.naturalHeight
-  //         };
-  //         const smallSide: number = (size.width >= size.height) ? size.height : size.width;
-  //         this.fileResize.forEach(item => {
-  //           canvasImg.width = this.resultSize(size.width, smallSide, item);
-  //           canvasImg.height = this.resultSize(size.height, smallSide, item);
-  //           this.cx.drawImage(img, 0, 0, canvasImg.width , canvasImg.height );
-  //           this.imageObj.push(canvasImg.toDataURL('image/jpeg', 0.8));
-  //         });
-  //         this.Pics = {
-  //           larg: this.imageObj[0],
-  //           imgMax: this.imageObj[1],
-  //           img: this.imageObj[2],
-  //           imgMin: this.imageObj[3],
-  //           preload: this.imageObj[4]
-  //         };
-  //         this.fileResult.emit(this.Pics);
-  //         this.imageObj = [];
-  //       };
-  //     };
-  //   }
-  //
-  //
-  // }
 }

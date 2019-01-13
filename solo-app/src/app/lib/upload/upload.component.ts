@@ -9,7 +9,7 @@ import {UploadService} from "./upload.service";
 })
 export class UploadComponent implements OnInit {
 
-  public avatar = '';
+  public avatar=[];
   private fileInputElement: any;
   @Output() getImg = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
@@ -17,7 +17,6 @@ export class UploadComponent implements OnInit {
   @Input()  model;
   @Input()  field;
   @Input()  id;
-  public btn = '<span class="btn waves-effect  deep-purple darken-4">Додати фото</span>';
 
   constructor(
     private core: UploadService,
@@ -26,49 +25,60 @@ export class UploadComponent implements OnInit {
 
   ngOnInit() {
   }
-  savePics(pics){
-    console.log(pics);
+  savePics(){
+    console.log();
     this.uploadFile();
     this.getImg.emit(this.avatar);
   }
   res(er){
     console.log(er);
-    this.avatar = er.crop;
+    this.avatar.push({def:er.def, crop:er.crop});
+    console.log(this.avatar);
   }
+
 
   uploadFile(){
     const self = this;
     this.fileInputElement = TemplateRef;
-
     //noinspection TypeScriptUnresolvedVariable,TypeScriptValidateTypes
     const inputEl = document.querySelectorAll('.profile-avatar');
-    for (let i=0; i<inputEl.length; i++ ) {
-      const elem = <any>inputEl[i];
-      const fileCount: number = elem.files.length;
-      if (fileCount && elem.files.item(0)) {
-        for (let i=0; i<elem.files.length; i++){
-          console.log(elem.files[i]);
-          const formData = new FormData();
-          formData.append('file', elem.files.item(i));
-          formData.append('base64default', self.avatar[i]);
-          formData.append('base64crop', self.avatar[i]);
-          formData.append('model', self.model);
-          formData.append('field', self.field);
-          formData.append('id', self.id);
-          // console.log(elem.files.item(i));
-          self.core.uploadAvatar(formData).then((res: any) => {
-            this.avatar = res.image;
-            console.log(self.avatar);
-            // this.getImg.emit({larg:self.avatar});
-          }).catch(
-            error => {
-              console.log(error);
-            });
-        }
-      }
+    const elem = <any>inputEl[0];
+    self.nextLoad(elem, 0)
+  }
 
-      elem.value = '';
-      return
+  nextLoad(elem, i){
+    console.log(elem, i);
+    let self = this;
+
+    let fileCount: number = elem.files.length;
+    if (fileCount && elem.files.item(0)) {
+
+    let formData = new FormData();
+    formData.append('file', elem.files.item(i));
+    formData.append('base64default', self.avatar[i].def);
+    formData.append('base64crop', self.avatar[i].crop);
+    formData.append('model', self.model);
+    formData.append('field', self.field);
+    formData.append('id', self.id);
+    let formObj = {
+      file: elem.files.item(i).name,
+      base64default: self.avatar[i].def,
+    };
+    console.log(formObj);
+    self.core.uploadAvatar(formObj, i).then((res: any) => {
+      let index = res.i+1;
+      this.avatar[res.i].def = res.res.url;
+      if(elem.files.item(index)){
+        self.nextLoad(elem, index)
+      }else{
+        return elem.value = '';
+      }
+      // this.getImg.emit({larg:self.avatar});
+    }).catch(
+
+      error => {
+        console.log(error);
+      });
     }
   }
 }

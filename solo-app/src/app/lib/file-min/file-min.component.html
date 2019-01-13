@@ -15,7 +15,11 @@
   <div class="p-up-fix" tabindex="0" role="button" (click)="pop.val = !pop.val"></div>
   <section class="p-up p-up-big">
     <div class="p-up-c">
-      <button (click)="push();pop.val=false">OK</button>
+
+      <button (click)="rotateLeft()">Rotate left</button>
+      <button (click)="rotateRight()">Rotate right</button>
+      <button (click)="flipHorizontal()">Flip horizontal</button>
+      <button (click)="flipVertical()">Flip vertical</button>
       <image-cropper
         [imageChangedEvent]="imageChangedEvent"
         [maintainAspectRatio]="true"
@@ -31,9 +35,12 @@
         (loadImageFailed)="loadImageFailed()"
         style="max-height: 60vh"
       ></image-cropper>
-
-      <img [src]="croppedImage" />
-
+      <div style="max-height: 10vh;">
+        <img [src]="croppedImage" style="max-height: 10vh;object-fit: contain"/>
+      </div>
+      <div>
+        <button (click)="push();pop.val=false">OK</button>
+      </div>
     </div>
   </section>
 </div>
