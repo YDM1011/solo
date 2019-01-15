@@ -5,9 +5,11 @@
 
   <form class="cont cr-pst" isMyProfile>
 
-    <div class="img60 pre-bg" *ngIf="avatar">
-      <app-img [id]="avatar._id"></app-img>
-      <!--<app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>-->
+    <div class="img60 pre-bg">
+      <ng-container *ngIf="avatar">
+        <app-img class="inherit" [id]="avatar._id"></app-img>
+        <!--<app-avatar class="inherit" [customClass]="'inherit'"></app-avatar>-->
+      </ng-container>
     </div>
 
     <div class="cr-pst_us">

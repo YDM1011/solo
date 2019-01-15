@@ -40,13 +40,17 @@
       <article class="cont pst" *ngIf="!item.share.data">
 
         <div class="pst_in">
-          <ng-container *ngIf="item.userId.photo">
-            <!--<app-avatar class="img40 pre-bg" [customClass]="'inherit'"-->
-                        <!--[avatar]="item.userId.photo"-->
-                        <!--[avatarId]="item.userId.photo._id"-->
-                        <!--[type]="'imgMin'"></app-avatar>-->
-            <app-img class="img40 pre-bg" [id]="item.userId.photo._id"></app-img>
-          </ng-container>
+
+          <div class="img40 pre-bg">
+            <ng-container *ngIf="item.userId.photo">
+              <!--<app-avatar class="img40 pre-bg" [customClass]="'inherit'"-->
+              <!--[avatar]="item.userId.photo"-->
+              <!--[avatarId]="item.userId.photo._id"-->
+              <!--[type]="'imgMin'"></app-avatar>-->
+              <app-img class="inherit" [id]="item.userId.photo._id"></app-img>
+            </ng-container>
+          </div>
+
 
           <span class="in_us">
             <a [routerLink]="'/user/'+item.userId._id" class="name">
@@ -63,18 +67,19 @@
               </strong>
             </span>
             <ng-container *ngIf="item.inPlace">
-              <span class="us_zv" *ngIf="item.inPlace.id.name"> у
+              <ng-container *ngIf="item.inPlace.id">
+                <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                 <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="us_zv_link">
                     <span class="us_zv_img">
-                      <app-img [id]="item.inPlace.id.av._id"></app-img>
-
+                      <app-img class="img20" [id]="item.inPlace.id.av._id"></app-img>
                       <!--<app-avatar class="img20 pre-bg" [customClass]="'inherit'"-->
-                                  <!--[avatar]="item.inPlace.id.av"-->
-                                  <!--[type]="'preload'"></app-avatar>-->
+                      <!--[avatar]="item.inPlace.id.av"-->
+                      <!--[type]="'preload'"></app-avatar>-->
                     </span>
                     <strong class="name">{{item.inPlace.id.name}}</strong>
                 </a>
               </span>
+              </ng-container>
             </ng-container>
           </span>
           <p class="in_dt">
@@ -210,17 +215,19 @@
                    </strong>
                 </span>
                 <ng-container *ngIf="item.inPlace">
-                  <span class="us_zv" *ngIf="item.inPlace.id.name"> у
+                  <ng-container *ngIf="item.inPlace.id">
+                    <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                     <span class="us_zv_link">
                         <span class="us_zv_img">
-                          <app-img [id]="item.inPlace.id.av._id"></app-img>
+                          <app-img class="img20" [id]="item.inPlace.id.av._id"></app-img>
                           <!--<app-avatar class="img20 pre-bg" [customClass]="'inherit'"-->
-                                      <!--[avatar]="item.inPlace.id.av"-->
-                                      <!--[type]="'preload'"></app-avatar>-->
+                          <!--[avatar]="item.inPlace.id.av"-->
+                          <!--[type]="'preload'"></app-avatar>-->
                         </span>
                         <strong class="name">{{item.inPlace.id.name}}</strong>
                     </span>
                   </span>
+                  </ng-container>
                 </ng-container>
               </span>
 

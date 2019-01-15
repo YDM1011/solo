@@ -32,6 +32,75 @@ export class ProfileComponent implements OnInit {
   public data;
   public link = {};
   public links = new profileLinks();
+  public dateOfBirth;
+
+  public options: Pickadate.DateOptions = {
+    clear: 'Очистити',
+    close: 'Обрати',
+    today: 'Сьогодні',
+    closeOnClear: true,
+    closeOnSelect: false,
+    format: 'dd.mm.yyyy',
+    formatSubmit: 'yyyy-mm-dd',
+    hiddenName: true,
+    onSet: (context) => {
+      if ( context.select != null) this.data = this.dataToObject2( new Date(context.select));
+      console.log(this.data)
+    },
+    selectMonths: true,
+    selectYears: 10,
+    firstDay: true,
+    min: new Date(1950,1,1),
+    max: new Date(),
+    monthsFull: [
+      'Січень',
+      'Лютий',
+      'Березень',
+      'Квітень',
+      'Травень',
+      'Червень',
+      'Липень',
+      'Серпень',
+      'Вересень',
+      'Жовтень',
+      'Листопад',
+      'Грудень'
+    ],
+    monthsShort: [
+      'Січня',
+      'Лютого',
+      'Березя',
+      'Квітеня',
+      'Травеня',
+      'Червеня',
+      'Липеня',
+      'Серпеня',
+      'Вересеня',
+      'Жовтня',
+      'Листопада',
+      'Груденя'
+    ],
+    weekdaysFull: [
+      'Нд',
+      'Пн',
+      'Вт',
+      'Ср',
+      'Чт',
+      'Пт',
+      'Сб'
+    ],
+    weekdaysShort:[
+      'Неділя',
+      'Понеділок',
+      'Вівторок',
+      'Середа',
+      'Четвер',
+      'П\'ятниця',
+      'Субота'
+    ],
+    showMonthsShort: undefined,
+    showWeekdaysFull: true,
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -44,6 +113,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.statuse = this.status.getStatuse();
+
   }
 
   stsCheck(key){
@@ -61,8 +131,10 @@ export class ProfileComponent implements OnInit {
     let s = this;
     s.me.bornedData = s.dataToString(s.data);
     s.me.familyStatus = Object.assign({}, s.statusCheck);
+    console.log(s.me.bornedData);
     this.http.post(`${this.domain}/api/user/${s.me._id}`, s.me, this.api.getHeaders())
       .subscribe((user: any) => {
+        console.log(s.me.bornedData);
         alert("success")
       });
   }
@@ -72,14 +144,22 @@ export class ProfileComponent implements OnInit {
     let s = this;
     s.me = (e);
     s.data = s.dataToObject(s.me.bornedData);
+    s.dateOfBirth = s.me.bornedData;
     s.maxDate = s.dataToObject(moment().toISOString());
     s.statusCheck = Object.assign({}, s.me.familyStatus);
     if(this.statusCheck.person){this.isStsWith = true}else{this.isStsWith = false}
     s.isReady = true;
   }
 
+  dataToObject2(data){
+    return {
+      year: data.getFullYear(),
+      month: data.getMonth(),
+      day: data.getDate()
+    }
+  }
+
   dataToObject(data){
-    console.log(data);
     let dp, dt, dz;
     dp = data.split("T")[0];
     dt = data.split("T")[1];
@@ -89,6 +169,7 @@ export class ProfileComponent implements OnInit {
       day: parseInt(dp.split("-")[2])
     }
   }
+
   dataToString(obj){
     return ( moment(
       `${obj.year}-${obj.month}-${obj.day} 00:00:00`,
@@ -97,7 +178,7 @@ export class ProfileComponent implements OnInit {
 
   onDateSelect(e){
     let s = this;
-    console.log(e);
-    s.dataToString(s.data);
+    console.log('e', e);
+    console.log(s.dataToString(s.data));
   }
 }

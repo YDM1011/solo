@@ -35,7 +35,7 @@ export class InitLayoutComponent implements OnInit {
         }
       }
     });
-
+    console.log(this.favorite)
   }
 
   setFavorite(arg) {

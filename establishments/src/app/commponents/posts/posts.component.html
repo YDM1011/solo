@@ -51,10 +51,10 @@
             <span class="us_fr-name" *ngFor="let friend of post.withFriend"> {{friend.name}} </span>
           </ng-container>
           <span class="us_zv"> у
-            <a href="" class="us_zv_link">
-              <app-img class="us_zv_img" [pic]="estAvatar"></app-img>
+            <span class="us_zv_link">
+              <app-img class="us_zv_img" [id]="estAvatar._id"></app-img>
               <strong class="name">{{post.inPlace.place}}</strong>
-            </a>
+            </span>
           </span>
         </span>
 
@@ -134,7 +134,7 @@
           </ng-container>
 
           <div class="cm_nw" *ngIf="estMyAvatar">
-            <app-img class="img40 pre-bg" [pic]="estMyAvatar"></app-img>
+            <app-img class="img40 pre-bg" [id]="estMyAvatar._id"></app-img>
 
             <div class="cm_nw_com">
               <div class="cm_fnt" #cmNewFn>{{des.value}}</div>

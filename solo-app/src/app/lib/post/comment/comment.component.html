@@ -23,10 +23,13 @@
 
   <div class="cm_nw">
 
-    <div class="img40 pre-bg" *ngIf="userPhoto">
+    <div class="img40 pre-bg">
+      <ng-container *ngIf="userPhoto">
         <app-img [id]="userPhoto._id"></app-img>
         <!--<img class="img" *ngIf="userPhoto['imgMin']" [src]="userPhoto.imgMin">-->
+      </ng-container>
     </div>
+
 
     <div class="cm_nw_com">
       <div class="cm_fnt" #comNewFantom>{{comment.des}}</div>

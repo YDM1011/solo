@@ -23,15 +23,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
-              "src/assets/style/materialize.css",
+              "node_modules/materialize-css/dist/css/materialize.min.css",
+              "src/assets/leaflet/leaflet.css",
               "src/assets/style/bul.css",
               "src/assets/style/head.css",
-              "src/assets/style/mat.css",
               "src/assets/style/style.css",
               "src/assets/style/zv.css",
-              "src/assets/leaflet/leaflet.css",
-              "node_modules/materialize-css/dist/css/materialize.min.css"
+              "src/styles.css"
             ],
             "scripts": [
               "src/assets/leaflet/leaflet.js",

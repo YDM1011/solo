@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImgComponent } from './img/img.component';
 import { HeaderComponent } from './header/header.component';
-import { MzSidenavModule } from "ngx-materialize";
+import {MzCollapsibleModule, MzDatepickerModule, MzSidenavModule, MzTimepickerModule} from "ngx-materialize";
 import {RoutingModule} from "../routing/routing.module";
 import { PostsComponent } from './posts/posts.component';
 import { MenuComponent } from './menu/menu.component';
@@ -23,7 +23,10 @@ import { ToOrderComponent } from './to-order/to-order.component';
     CommonModule,
     RoutingModule,
     MzSidenavModule,
-    FormsModule
+    FormsModule,
+    MzDatepickerModule,
+    MzTimepickerModule,
+    MzCollapsibleModule
   ],
   exports: [
     ImgComponent,
