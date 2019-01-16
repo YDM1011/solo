@@ -212,13 +212,14 @@
                    </strong>
                 </span>
                 <ng-container *ngIf="item.inPlace">
-                  <span class="us_zv" *ngIf="item.inPlace.id.name"> у
+                  <ng-container *ngIf="item.inPlace.id">
+                    <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                     <span class="us_zv_link">
                         <span class="us_zv_img">
-                          <app-img [id]="item.inPlace.id.av._id"></app-img>
+                          <app-img class="img20" [id]="item.inPlace.id.av._id"></app-img>
                           <!--<app-avatar class="img20 pre-bg" [customClass]="'inherit'"-->
-                                      <!--[avatar]="item.inPlace.id.av"-->
-                                      <!--[type]="'preload'"></app-avatar>-->
+                          <!--[avatar]="item.inPlace.id.av"-->
+                          <!--[type]="'preload'"></app-avatar>-->
                         </span>
                         <strong class="name">{{item.inPlace.id.name}}</strong>
                     </span>

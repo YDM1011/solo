@@ -39,7 +39,7 @@ export class PostsComponent implements OnInit {
     console.log(err);
   }
   result(val) {
-    this.estMyAvatar = val.photo.imgMin;
+    this.estMyAvatar = val.photo;
   }
   liked(post) {
     const s = this;

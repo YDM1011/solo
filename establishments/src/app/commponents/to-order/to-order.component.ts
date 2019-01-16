@@ -8,9 +8,100 @@ import { Component, OnInit } from '@angular/core';
 export class ToOrderComponent implements OnInit {
 
   public isShow:boolean=false;
+  public maxDate = new Date();
+  public data;
+  public dateOfBirth = new Date();
+  public time = `${new Date().getHours()}:${new Date().getMinutes()+30}`;
+  public options: Pickadate.DateOptions = {
+    clear: 'Очистити',
+    close: 'Обрати',
+    today: 'Сьогодні',
+    closeOnClear: true,
+    closeOnSelect: false,
+    format: 'dd.mm.yyyy',
+    formatSubmit: 'yyyy-mm-dd',
+    hiddenName: true,
+    onSet: (context) => {
+      if ( context.select != null) this.data = this.dataToObject2( new Date(context.select)); // select data!!!
+      console.log(this.data)
+    },
+    selectMonths: true,
+    selectYears: 10,
+    firstDay: true,
+    min: new Date(),
+    max: new Date( this.maxDate.getFullYear()+1, this.maxDate.getMonth(), this.maxDate.getDate()),
+    monthsFull: [
+      'Січень',
+      'Лютий',
+      'Березень',
+      'Квітень',
+      'Травень',
+      'Червень',
+      'Липень',
+      'Серпень',
+      'Вересень',
+      'Жовтень',
+      'Листопад',
+      'Грудень'
+    ],
+    monthsShort: [
+      'Січня',
+      'Лютого',
+      'Березя',
+      'Квітеня',
+      'Травеня',
+      'Червеня',
+      'Липеня',
+      'Серпеня',
+      'Вересеня',
+      'Жовтня',
+      'Листопада',
+      'Груденя'
+    ],
+    weekdaysFull: [
+      'Нд',
+      'Пн',
+      'Вт',
+      'Ср',
+      'Чт',
+      'Пт',
+      'Сб'
+    ],
+    weekdaysShort:[
+      'Неділя',
+      'Понеділок',
+      'Вівторок',
+      'Середа',
+      'Четвер',
+      'П\'ятниця',
+      'Субота'
+    ],
+    showMonthsShort: undefined,
+    showWeekdaysFull: true,
+  };
+
+  public timeOptions: Pickadate.TimeOptions = {
+    default: 'now', // Set default time: 'now', '1:30AM', '16:30'
+    fromnow: 0,       // set default time to * milliseconds from now (using with default = 'now')
+    twelvehour: false, // Use AM/PM or 24-hour format
+    donetext: 'Обрати',
+    cleartext: 'Clear', // text for clear-button
+    canceltext: 'Повернутися',
+    autoclose: true,
+    ampmclickable: true, // make AM PM clickable
+    aftershow: () => console.log('AfterShow has been invoked.'), // function for after opening timepicker
+  };
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  dataToObject2(data){
+    return {
+      year: data.getFullYear(),
+      month: data.getMonth(),
+      day: data.getDate()
+    }
+  }
 }

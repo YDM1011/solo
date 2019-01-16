@@ -11,7 +11,7 @@ import { SigninComponent } from './signin/signin.component';
 import {AuthService} from './auth.service';
 import {CookieService} from 'ngx-cookie-service';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import {MzCollapsibleModule, MzSelectModule} from 'ngx-materialize';
+import {MzCollapsibleModule, MzTimepickerModule, MzDatepickerModule, MzSelectModule } from 'ngx-materialize';
 import { SignupComponent } from './signup/signup.component';
 import {SweetAlert2Module} from '@toverux/ngx-sweetalert2';
 import {UserModule} from './lib/user/user.module';
@@ -109,6 +109,8 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     UploadModule,
     IsMyProfileModule,
     MzSelectModule,
+    MzDatepickerModule,
+    MzTimepickerModule,
     NgbModule,
     SweetAlert2Module.forRoot()
   ],
