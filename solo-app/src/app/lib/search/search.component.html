@@ -4,7 +4,7 @@
   <ul class="search-items create-post_sl">
     <li class="search-item" *ngFor="let itemp of array | search: 'firstName': searchText" (click)="onFind.emit(itemp)">
       <span class="search-item_img">
-        <app-img [id]="itemp.photo._id"></app-img>
+        <app-img [id]="itemp.photo"></app-img>
       </span>
       <span class="search-item_title">{{itemp.firstName || itemp.name}}</span>
     </li>

@@ -4,7 +4,7 @@ export interface User {
   lastName: string,
   gender: string,
   borned: any,
-  photo: string,
-  bg: string,
+  photo: any,
+  bg: any,
   token: string
 }

@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const status = new Schema();
-
-const pages = new Schema({
+const user = new Schema({
     login: {type: String, unique: true, required: [true, "Login must be created"]},
     pass: {type: String, unique: true, required: [true, "Password must be created"]},
     firstName: {type: String, required: [true, "First name must be created"]},
@@ -50,7 +48,7 @@ const pages = new Schema({
     }],
     gallery:[{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     }],
     meetFriend:[{
         type: mongoose.Schema.Types.ObjectId,
@@ -66,28 +64,28 @@ const pages = new Schema({
     }],
     photo: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     },
     bg:  {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     },
-    token: String
+    token: String,
+    owner: String
 },{
     toJSON: {
         transform: function (doc, ret) {
             delete ret.pass;
             delete ret.token;
             delete ret.hash;
-        },
+        }
     },
     toObject: {
         transform: function (doc, ret) {
             delete ret.pass;
             delete ret.token;
             delete ret.hash;
-        },
-        virtuals: false
+        }
     },
     createRestApi: true,
     strict: true,
@@ -96,7 +94,8 @@ const pages = new Schema({
         "familyStatus.personId" : Object
     }
 });
-const User = mongoose.model('user', pages, 'users');
+const User = mongoose.model('user', user, 'users');
+
 module.exports = User;
 const glob = require('glob');
 const preUpdate = (req,res,next)=>{
@@ -125,8 +124,8 @@ const preRead = (req,res,next)=>{
             .find({})
             .where({verify: true})
             .select('-pass -token -login')
-            .populate({path:'photo', select:'preload _id'})
-            .populate({path:'bg', select:'preload _id'})
+            .populate({path:'photo'})
+            .populate({path:'bg'})
             .exec((err, info) => {
                 if(err) return res.badRequest('Something broke!');
                 if(!info) return res.notFound('You are not valid');
@@ -138,8 +137,8 @@ const preRead = (req,res,next)=>{
             .findOne({_id: id})
             .where({verify: true})
             .select('-pass -token -login')
-            .populate({path:'photo', select:'preload _id'})
-            .populate({path:'bg', select:'preload _id'})
+            .populate({path:'photo'})
+            .populate({path:'bg'})
             .exec((err, info) => {
                 if(err) return res.badRequest('Something broke!');
                 if(!info) return res.notFound('You are not valid');

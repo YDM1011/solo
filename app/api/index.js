@@ -25,7 +25,7 @@ const glob = require('glob');
 router.post('/api/signin', [orign, verification], login);
 router.post('/api/signup', [orign, verification], signup.create);
 router.post('/api/confirm', [orign, verification], signup.confirm);
-router.post('/api/uploadImage', uploadFile);
+router.post('/api/uploadImage', [orign, glob.getId], uploadFile);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
 router.get('/api/me', [orign, glob.cookieParser, glob.getId], me.myProfile);

@@ -5,7 +5,7 @@
 <label *ngIf="multiple">
   <input type="file" style="display: none" class="profile-avatar" (change)="uploadImg($event)"  multiple="multiple">
   <div [innerHTML]="btn || 'upload'"></div>
-</label>`
+</label>
 
 <div #pop [class.active]="pop.val">
   <div class="p-up-fix" tabindex="0" role="button" (click)="pop.val = !pop.val"></div>

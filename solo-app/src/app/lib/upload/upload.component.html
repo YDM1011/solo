@@ -1,5 +1,8 @@
 <div isMyProfile>
-    <app-file-min (fileResult)="res($event)" [btn]="btnName" [multiple]="multiple" [model]="model" [field]="field"></app-file-min>
+    <app-file-min (fileResult)="res($event)"
+                    [btn]="btnName"
+                  [multiple]="multiple"
+                  [model]="model" [field]="field"></app-file-min>
 </div>
 
 <div class="pop-wrap" *ngIf="avatar.length>0">

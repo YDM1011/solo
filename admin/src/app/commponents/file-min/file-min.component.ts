@@ -145,7 +145,6 @@ export class FileMinComponent implements OnInit {
       def: this.imageObj[0],
       crop: this.imageObj[this.imageObj.length - 1],
     };
-    console.log(this.Pics)
     this.fileResult.emit(this.Pics);
     this.imageObj = [];
   }

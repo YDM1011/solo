@@ -111,52 +111,54 @@ const preCreate = (req,res,next)=>{
     if(req.body.img.length < 1 && !req.body.des){
         return res.badRequest("Завантажте фото чи напишіть опис публікації")
     }
-    mongoose.model("establishment")
+    /*mongoose.model("establishment")
         .findOne({_id: req.body.inPlace})
         .select('subdomain')
         .exec((err,info)=>{
+            console.log("OK");
             if (err){return res.badRequest(err);}
             if (!info){return res.badRequest(err);}
             if (info){
                 req.body.inPlace = {
-                    id: req.body.inPlace,
+                    _id: req.body.inPlace,
                     place: info.subdomain,
                 };
-                console.log(req.body);
-                new Promise((resolve, reject)=>{
-                    let imgArr = [];
-                    if (req.body.img.length < 1) resolve(imgArr);
-                    req.body.img.forEach(img=>{
-                        mongoose.model('avatar').create(img, (err, docImg)=>{
-                            if(err) return res.badRequest('Something broke!');
-                            imgArr.push(docImg._id);
-                            if (img == req.body.img[req.body.img.length-1]){
-                                resolve(imgArr)
-                            }
-                        })
-                    });
-                }).then(arr=>{
-                    req.body.img = arr;
-                    mongoose.model('post')
-                        .create(req.body, (err, content) =>{
-                            if(err) {
-                                res.send(err)
-                            } else {
-                                return res.ok(content)
-                            }
-                        });
-                    mongoose.model('user')
-                        .findOneAndUpdate({_id: req.userId},
-                            {$push:{gallery:req.body.img}})
-                        .exec((err, content) =>{
-                            if(err) {
-                                res.send(err)
-                            }
-                        })
-                });
-            }
-        });
 
+            }
+        });*/
+    console.log(req.body);
+    req.body.inPlace.id = req.body.inPlace.id || null;
+    new Promise((resolve, reject)=>{
+        let imgArr = [];
+        if (req.body.img.length < 1) resolve(imgArr);
+        req.body.img.forEach(img=>{
+            mongoose.model('avatar').create(img, (err, docImg)=>{
+                if(err) return res.badRequest('Something broke!');
+                imgArr.push(docImg._id);
+                if (img == req.body.img[req.body.img.length-1]){
+                    resolve(imgArr)
+                }
+            })
+        });
+    }).then(arr=>{
+        req.body.img = arr;
+        mongoose.model('post')
+            .create(req.body, (err, content) =>{
+                if(err) {
+                    res.send(err)
+                } else {
+                    return res.ok(content)
+                }
+            });
+        mongoose.model('user')
+            .findOneAndUpdate({_id: req.userId},
+                {$push:{gallery:req.body.img}})
+            .exec((err, content) =>{
+                if(err) {
+                    res.send(err)
+                }
+            })
+    });
     // next()
 };
 const preRead = (req,res,next)=>{
@@ -176,14 +178,14 @@ const preRead = (req,res,next)=>{
             .populate({path:'img', select: '_id preload'})
             .populate({path:'inPlace.id', select: 'name _id av subdomain',
                 populate:{path: 'av', select:'preload _id'}})
-            .populate({path:'userId', select:'_id firstName lastName',
-                populate:{path: 'photo', select:'preload _id'}})
-            .populate({path:'share.userIdShare', select:'_id firstName lastName',
-                populate:{path: 'photo', select:'preload _id'}})
+            .populate({path:'userId', select:'_id firstName photo lastName',
+                populate:{path: 'photo'}})
+            .populate({path:'share.userIdShare', select:'_id photo firstName lastName',
+                populate:{path: 'photo'}})
             .populate(
-                {path:'commentId', select:'_id des data',
-                    populate:{path: 'userIdCom likeCom', select:'_id firstName lastName',
-                        populate:{path: 'photo', select:'preload'}}})
+                {path:'commentId', select:'_id des data userIdCom likeCom',
+                    populate:{path: 'userIdCom likeCom', select:'_id photo firstName lastName',
+                        populate:{path: 'photo'}}})
             .exec((err, info) => {
                 if(err) return res.badRequest(err);
                 if(!info) return res.notFound('You are not valid');
@@ -216,7 +218,7 @@ glob.restify.serve(
     mongoose.model('post'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preCreate],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
         preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, preDelete],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.isProfile, preSave]
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preSave]
     });

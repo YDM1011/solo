@@ -14,7 +14,6 @@ import {UploadService} from "./upload.service";
 @Component({
   selector: 'app-upload',
   templateUrl: './upload.component.html',
-  inputs: ['key'],
   styleUrls: ['./upload.component.css']
 })
 export class UploadComponent implements OnInit, OnChanges, OnDestroy {
@@ -44,13 +43,14 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
     s.id=null;
   }
   savePics() {
-    console.log();
+    console.log(this.avatar);
     this.uploadFile();
     this.getImg.emit(this.avatar);
   }
   res(er){
     console.log(er);
-    this.avatar.push({def:er.def, crop:er.crop});
+    let obj = Object.assign({},er);
+    this.avatar.push(obj);
     console.log(this.avatar);
   }
 
@@ -61,33 +61,32 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
     //noinspection TypeScriptUnresolvedVariable,TypeScriptValidateTypes
     const inputEl = document.querySelectorAll('.profile-avatar');
     const elem = <any>inputEl[0];
-    self.nextLoad(elem, 0)
+    self.nextLoad(0)
   }
 
-  nextLoad(elem, i){
-    console.log(elem, i);
-    let self = this;
+  nextLoad(i){
 
-    let fileCount: number = elem.files.length;
-    if (fileCount && elem.files.item(0)) {
+    let self = this;
+    console.log(self.avatar[i]);
+    let fileCount: number = self.avatar[i].size;
+    if (fileCount && self.avatar[i].name) {
     let formObj = Object.assign({},{
-      file: elem.files.item(i).name,
+      file: self.avatar[i].name,
       base64default: self.avatar[i].def,
       base64crop: self.avatar[i].crop,
       model: self.model,
       field: self.field,
-      id: this.id,
+      id: self.id,
     });
     self.core.uploadAvatar(formObj, i).then((res: any) => {
       let index = res.i+1;
       this.avatar[res.i].def = res.res.url;
-      if(elem.files.item(index)){
-        self.nextLoad(elem, index)
+      if(self.avatar[index]){
+        self.nextLoad(index)
       }else{
-        return elem.value = '';
+        return
       }
     }).catch(
-
       error => {
         console.log(error);
       });

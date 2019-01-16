@@ -1,31 +1,39 @@
 <div class="cont-page">
   <div class="cont-page_one">
 
-    <div class="cont_h-pf">
+    <div class="cont_h-pf" *ngIf="user">
 
         <div class="h-pf_img">
-          <app-img [model]="'user'" [field]="'photo'"></app-img>
-
-          <!--<app-avatar class="inherit"></app-avatar>-->
-
+          <ng-container *ngIf="user.photo">
+            <img  src="{{user.photo.picCrop}}">
+          </ng-container>
+          <ng-container *ngIf="!user.photo">
+            <app-prev-avatar></app-prev-avatar>
+          </ng-container>
           <app-upload [btnName]="btn"
                       [model]="'user'"
                       [field]="'photo'"
-                      [multiple]="false"></app-upload>
+                      [multiple]="false"
+          ></app-upload>
         </div>
 
         <div class="h-pf_tt">
-          <app-first-name></app-first-name>
-          <app-last-name></app-last-name>
+          <span>{{user.firstName}} </span>
+          <span>{{user.lastName}} </span>
+          <!--<app-first-name></app-first-name>-->
+          <!--<app-last-name></app-last-name>-->
         </div>
 
-        <button class="btn-green">Зустрітись з друзями</button>
+        <button class="btn-green" isMyProfile>Зустрітись з друзями</button>
 
         <div class="h-pf_bg pre-bg">
 
           <ng-container *ngIf="user">
             <ng-container *ngIf="user.bg">
-              <app-img [id]="user.bg._id"></app-img>
+              <img  src="{{user.bg.picCrop}}">
+            </ng-container>
+            <ng-container *ngIf="!user.bg">
+              <app-prev-bg></app-prev-bg>
             </ng-container>
           </ng-container>
 

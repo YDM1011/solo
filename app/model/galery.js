@@ -16,6 +16,10 @@ const pics = new Schema({
     fileName: {
         type: String,
     },
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
     date:{
         type: Date,
         default: new Date()
@@ -37,18 +41,22 @@ const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
+    console.log(req.body);
+    next()
 
 };
 const postCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
+    next()
 
 };
 const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
+    next()
 
 };
 const glob = require('glob');
