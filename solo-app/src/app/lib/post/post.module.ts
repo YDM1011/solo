@@ -23,7 +23,6 @@ import {CreatePostDirective} from "./create/create-post.directive";
     FormApiModule,
     UploadModule,
     MzCollapsibleModule,
-
     IsMyProfileModule,
     AppRoutingModule,
     UserModule,
@@ -33,6 +32,12 @@ import {CreatePostDirective} from "./create/create-post.directive";
   ],
   providers: [PostService],
   exports: [PostComponent, CreateComponent],
-  declarations: [PostComponent, CreateComponent, LikeComponent, CommentComponent,CreatePostDirective]
+  declarations: [
+    PostComponent,
+    CreateComponent,
+    LikeComponent,
+    CommentComponent,
+    CreatePostDirective,
+  ]
 })
 export class PostModule { }

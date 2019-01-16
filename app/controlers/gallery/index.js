@@ -1,10 +1,8 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('user');
+const User = mongoose.model('galery');
 module.exports.getPhoto = (req, res, next) => {
     User
-        .findOne({_id: req.query.userId})
-        .populate({path:'gallery', select:"preload _id"})
-        .select("gallery")
+        .find({owner: req.query.userId})
         .exec((err, content) =>{
             if(err) {
                 res.send(err)

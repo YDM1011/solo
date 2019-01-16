@@ -1,47 +1,6 @@
-<!--<ng-container *ngIf="photo && !avatar  && !array">-->
-    <!--<img *ngIf="!photo[type]"-->
-         <!--class="materialboxed img"-->
-         <!--[src]="photo.preload">-->
-    <!--<img *ngIf="photo[type]"-->
-         <!--class="img"-->
-         <!--[src]="photo[type] || photo.imgMin">-->
-<!--</ng-container>-->
-
-<!--<ng-container *ngIf="type && avatar">-->
-  <!--<img *ngIf="!avatar[type]" class="img"-->
-       <!--[src]="avatar.preload">-->
-  <!--<img *ngIf="avatar[type]" class="img"-->
-       <!--[src]="avatar[type]">-->
-<!--</ng-container>-->
-
-<!--<ng-container *ngIf="array && type">-->
-  <!--<ng-container *ngIf="array[0]">-->
-    <!--<div *ngIf="!array[0][type]" class="cont-img" [class.array]="array.length >= 2">-->
-      <!--<div  *ngFor="let img of array" class="img_i">-->
-        <!--<img class="activator img" *ngIf="!img[type]" [src]="img.preload">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div *ngIf="array[0][type]" class="cont-img" [class.array]="array.length >= 2">-->
-      <!--<div  *ngFor="let img of array" class="img_i">-->
-        <!--<img class="activator img" *ngIf="img[type]" [src]="img[type]">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div  *ngFor="let img of array">-->
-      <!--<app-form-->
-        <!--[hidden]="true"-->
-        <!--[method]="'get'"-->
-        <!--[url]="'/api/avatar/'+img._id+'?select='+type"-->
-        <!--(onRes)="img[type] = $event[type]"-->
-        <!--[click]="true"-->
-      <!--&gt;</app-form>-->
-    <!--</div>-->
-  <!--</ng-container>-->
-<!--</ng-container>-->
-
-
 <ng-container *ngIf="user">
   <ng-container *ngIf="user.photo">
-    <app-img [id]="user.photo"></app-img>
+    <img class="avatar32" src="{{user.photo.picCrop}}">
   </ng-container>
 </ng-container>
 <app-upload [btnName]="btn"

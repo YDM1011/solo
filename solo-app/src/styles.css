@@ -15,7 +15,9 @@
   outline: none;
   box-sizing: border-box !important;
 }
-
+img{
+  max-width: 100%;
+}
 body {
   display: block;
   margin: 0;

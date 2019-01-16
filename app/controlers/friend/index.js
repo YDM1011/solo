@@ -139,8 +139,8 @@ module.exports.getFriends = (req, res, next) => {
     // populate:{path:"photo bg", select:"preload _id"}
     User
         .findOne({_id: req.query.userId})
-        .populate({path:'myFriends', select:"firstName lastName _id",
-            populate:{path:"photo bg", select:"preload _id"}})
+        .populate({path:'myFriends', select:"firstName lastName photo bg _id",
+            populate:{path:"photo bg"}})
         .select("myFriends")
         .exec((err, content) =>{
             if(err) {

@@ -22,21 +22,28 @@ export class FileMinComponent implements OnInit {
   @Input()  model: string;
   @Input()  field: string;
   public imageObj: any = [];
+  public name;
+  public size;
   public Pics: any = {
     def: '',
-    crop: ''
+    crop: '',
+    name: '',
+    size: ''
   };
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  calcRatios = new Ratios().getRatios('user','photo');
-  ratios: number = this.calcRatios;
+  ratios: number;
 
   constructor() { }
   ngOnInit() {
     this.fileResize = [1024, 1024];
+    this.ratios = new Ratios().getRatios(this.model,this.field);
+  }
+  ngOnChanges(){
+    this.ratios = new Ratios().getRatios(this.model,this.field);
   }
 
   @ViewChild(ImageCropperComponent) private _imageCropper: ImageCropperComponent;
@@ -103,14 +110,20 @@ export class FileMinComponent implements OnInit {
   }
 
   loadReader(format: string, file: any) {
+    this.file = file;
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
+
+      if(file)
       this.loadImg(format, ev.target.result)
     };
   }
 
   loadImg (format: string, base64: string) {
+    this.name = this.file.name;
+    this.size = this.file.size;
+    console.log("OK",this.name, this.size);
     const img: HTMLImageElement = new Image();
     img.src = base64;
     img.onload = () => {
@@ -128,6 +141,8 @@ export class FileMinComponent implements OnInit {
         this.Pics = {
           def: this.imageObj[0],
           crop: this.imageObj[1],
+          name: this.name,
+          size: this.size
         };
         this.fileResult.emit(this.Pics);
         this.imageObj = [];
@@ -140,8 +155,9 @@ export class FileMinComponent implements OnInit {
     this.Pics = {
       def: this.imageObj[0],
       crop: this.imageObj[this.imageObj.length - 1],
+      name: this.name,
+      size: this.size
     };
-    console.log(this.Pics)
     this.fileResult.emit(this.Pics);
     this.imageObj = [];
   }

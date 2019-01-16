@@ -32,6 +32,7 @@ export class UploadService {
     const self = this;
     this.cookieService.get('token');
     const options = this.getHeaders('application/json');
+    console.log(formData);
 //noinspection TypeScriptUnresolvedVariable,TypeScriptUnresolvedFunction
     return new Promise(function(resolve, reject) {
       self.http.post(`${self.domain}/api/uploadImage`,

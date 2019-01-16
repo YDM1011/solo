@@ -332,3 +332,6 @@ app-last-name{
 .btn{
   cursor: pointer;
 }
+img {
+  width: 100%;
+}
