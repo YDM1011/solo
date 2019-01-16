@@ -2,7 +2,7 @@
   <div class="col-lg-12">
     <div class="ibox float-e-margins">
       <div class="ibox-title">
-        <h5>Редагувати <strong>{{myest.name}}</strong></h5>
+        <h5>Редагувати <strong>"{{myest.name}}"</strong></h5>
         <div class="ibox-tools">
           <a class="collapse-link">
             <i class="fa fa-chevron-up"></i>
@@ -11,7 +11,7 @@
       </div>
       <div class="ibox-content">
         <div class="form-horizontal">
-        <div class="rowк">
+        <div class="row">
           <div class="col-md-6">
             <div class="form-group">
               <label class="col-sm-4 control-label">Назва закладу</label>
@@ -106,7 +106,8 @@
         </div>
 
         <div class="row">
-          <button class="btn btn-primary" (click)="update({
+          <div class="right">
+            <button class="btn btn-primary" (click)="update({
           name:myest.name,
           menus:myest.menus,
           mobile:myest.mobile,
@@ -118,7 +119,8 @@
           delivery:myest.delivery,
           coordinates:myest.coordinates,
           address:myest.address
-          },'myest')">Створити</button>
+          },'myest')">Зберегти</button>
+          </div>
         </div>
 
         </div>
