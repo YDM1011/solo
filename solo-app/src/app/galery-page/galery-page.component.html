@@ -5,9 +5,9 @@
   <div class="gl_c" *ngIf="photos.length == 0">
     <p>Ви іще не завантажували фото</p>
   </div>
-  <ng-container *ngIf="photos.gallery">
-  <div class="gl_c" *ngIf="photos.gallery.length > 0">
-    <app-img  class="gl_i pre-bg" *ngFor="let photo of photos.gallery" [id]="photo._id"></app-img>
+  <ng-container *ngIf="photos">
+  <div class="gl_c" *ngIf="photos.length > 0">
+    <img  class="gl_i pre-bg" *ngFor="let photo of photos" [src]="photo.picCrop">
     <!--<app-avatar class="gl_i pre-bg"-->
                 <!--*ngFor="let photo of photos.gallery"-->
                 <!--[type]="'imgMax'"-->

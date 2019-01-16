@@ -64,6 +64,7 @@
                 <a [routerLink]="'/user/'+friend.id"> {{friend.firstName}} </a>
               </strong>
             </span>
+            <ng-container *ngIf="item.inPlace">
             <ng-container *ngIf="item.inPlace.id">
               <span class="us_zv" *ngIf="item.inPlace.id.name"> у
                 <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="us_zv_link">
@@ -73,6 +74,7 @@
                     <strong class="name">{{item.inPlace.id.name}}</strong>
                 </a>
               </span>
+              </ng-container>
             </ng-container>
           </span>
           <p class="in_dt">
@@ -224,6 +226,7 @@
                         <strong class="name">{{item.inPlace.id.name}}</strong>
                     </span>
                   </span>
+                  </ng-container>
                 </ng-container>
               </span>
 
