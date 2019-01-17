@@ -36,32 +36,9 @@ export class ImgComponent implements OnInit, OnChanges {
   initApi(mod) {
     const s = this;
     if (mod.id && !mod.url && !mod.name) {
-      let query = '?select=preload,_id';
-      query += '&query=' + JSON.stringify({_id: mod.id});
-      s.get('avatar', mod.id, '', query).then((res: any) => {
+      s.get('galery', mod.id, '').then((res: any) => {
         if (res) {
-          s.pic = res.larg || res.preload;
-          if (!res.larg) {
-            s.getAndUpdate('avatar', mod.id, '', '').then((res: any) => {
-              if (res) {
-                s.pic = res.larg;
-              }
-            });
-          }
-        }
-      });
-    } else if (!mod.id && mod.url && mod.name) {
-      const query = '?populate=' + JSON.stringify({path: mod.name, select: '_id preload'}) + '&select=' + mod.name;
-      const query2 = '?populate=' + JSON.stringify({path: mod.name, select: '_id larg'}) + '&select=' + mod.name;
-      s.get(mod.url, mod.name, '', query).then((val: any) => {
-        if (val) {
-          console.log(query, val);
-          s.pic = val[mod.name].preload;
-          s.getAndUpdate(mod.url, mod.name, '', query2).then((res: any) => {
-            if (res) {
-              s.pic = res[mod.name].larg;
-            }
-          });
+          s.pic = res.picCrop
         }
       });
     }

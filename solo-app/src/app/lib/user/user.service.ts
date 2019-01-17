@@ -13,7 +13,7 @@ export class UserService {
   private user: any;
   private img: any = [];
   private domain = environment.apiDomain;
-  private _avatar = `${this.domain}/api/avatar/`;
+  private _avatar = `${this.domain}/api/galery/`;
   private _me = `${this.domain}/api/me/`;
   private userdata = new BehaviorSubject<any>(undefined);
   public onUserData = this.userdata.asObservable();

@@ -7,11 +7,21 @@
   </div>
   <ng-container *ngIf="photos">
   <div class="gl_c" *ngIf="photos.length > 0">
-    <img  class="gl_i pre-bg" *ngFor="let photo of photos" [src]="photo.picCrop">
+    <img  class="gl_i pre-bg"
+          *ngFor="let photo of photos"
+          [src]="photo.picCrop"
+          (click)="show(photo)"
+    >
     <!--<app-avatar class="gl_i pre-bg"-->
                 <!--*ngFor="let photo of photos.gallery"-->
                 <!--[type]="'imgMax'"-->
                 <!--[avatar]="photo"></app-avatar>-->
   </div>
   </ng-container>
+</div>
+<div class="pop-full-pic" *ngIf="fullPic">
+  <div class="wrap-full-pic" (click)="fullPic = ''"></div>
+  <div class="full-pic">
+    <img src="{{fullPic.picDefault}}" alt="{{fullPic.fileName}}">
+  </div>
 </div>

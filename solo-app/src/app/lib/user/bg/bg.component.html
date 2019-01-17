@@ -1,6 +1,6 @@
 <ng-container *ngIf="user">
   <ng-container *ngIf="user.bg">
-    <app-img [id]="user.bg"></app-img>
+    <app-img [img]="{id:user.bg}"></app-img>
   </ng-container>
 </ng-container>
 
@@ -13,5 +13,5 @@
 <app-form class="loader"
           *ngIf="loader" [text]="'Зберегти аватар'"
           [option]="loader"
-          [url]="'/api/avatar'"
+          [url]="'/api/galery'"
 ></app-form>

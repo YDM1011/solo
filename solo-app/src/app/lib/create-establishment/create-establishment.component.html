@@ -14,7 +14,7 @@
       </span>
       <span  class="us-s_t">{{est.name}}</span>
     </a>
-    <a href="//{{'admin.'+host+'/chain/'+est._id}}" class="us-s_i" isMyProfile>
+    <a href="//{{'admin.'+host+'/chain/'+est._id}}" class="us-s_i" *ngIf="isMyProfile">
       <span class="us-s_t">Профіль мережі {{est.name}}</span>
     </a>
   </div>

@@ -34,7 +34,7 @@ const model = new Schema({
     }],
     pic: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     },
     dishlike: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -51,8 +51,14 @@ const model = new Schema({
     countlike: Number,
     countcomment: Number,
     countshare: Number,
-    owneruser: String,
-    ownerest: String,
+    owneruser: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    ownerest: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
+    },
     isnew: {type: Boolean, default: true},
     ishit: {type: Boolean, default: true},
     isdelivery: {type: Boolean, default: true},
@@ -66,7 +72,11 @@ const model = new Schema({
         virtuals: false
     },
     createRestApi: true,
-    strict: true
+    strict: true,
+    paths: {
+        "owneruser" : Object,
+        "ownerest" : Object,
+    }
 });
 
 mongoose.model('dish', model);
@@ -94,7 +104,7 @@ const preRead = (req,res,next)=>{
         }
         mongoose.model('dish')
             .find({ownerest: req.params['id']})
-            .populate({path:'pic', select:'preload _id'})
+            .populate({path:'pic'})
             .populate({path:'dishcategory', select:'name _id'})
             .populate({path:'portion'})
             .exec((err,info)=>{
@@ -111,7 +121,7 @@ const postUpdate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     mongoose.model('dish')
         .find({ownerest: req.erm.result.ownerest})
-        .populate({path:'pic', select:'preload _id'})
+        .populate({path:'pic'})
         .populate({path:'dishcategory', select:'name _id'})
         .populate({path:'portion'})
         .exec((err,info)=>{
@@ -119,36 +129,6 @@ const postUpdate = (req,res,next)=>{
             if (!info) return res.notFound('Not found');
             if (info) return res.ok(info);
         })
-};
-const createPic = (req,res)=>{
-    return new Promise((resolve, reject)=>{
-    mongoose.model('avatar')
-        .create(req.body['pic'], (err, doc)=>{
-            if (err) return res.serverError(err);
-            if (!doc) return res.notFound('Not found 1');
-            if (doc) {
-                resolve(doc['_id']);
-            }
-        })
-    });
-};
-const updatePic = (req,res, id)=>{
-    return new Promise((resolve, reject)=>{
-        let obj = {
-            preload: req.body['pic'].preload,
-            larg: req.body['pic'].larg,
-        };
-    mongoose.model('avatar')
-        .findOneAndUpdate({_id: id}, obj, {new: true})
-        .exec((err, doc)=>{
-            if (err) return res.serverError(err);
-            if (!doc) return res.notFound('Not found 2');
-            if (doc) {
-                console.log(doc['_id']);
-                resolve(doc['_id']);
-            }
-        })
-    });
 };
 const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
@@ -187,67 +167,24 @@ const preUpdate = (req,res,next)=>{
     }
 
     mongoose.model('dish')
-        .findOne({_id: req.body._id})
-        .exec((err,info)=>{
-            if (err) return;
-            if (!info.pic) {
-                createPic(req,res).then((val)=>{
-                    if(val){
-                        req.body['pic'] = val;
-                        // next();
-                        mongoose.model('dish')
-                            .findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
-                            .populate({path:'dishcategory', select:'name _id'})
-                            .populate({path:"pic",select:"_id larg"})
-                            .populate({path:'portion'})
-                            .exec((err,doc)=>{
-                                if (err) return res.serverError(err);
-                                if (!doc) return res.notFound('Not found');
-                                if (doc) return res.ok(doc);
-                            })
-                    }
-                }).catch(err=>{
-                    return res.serverError(err);
-                });
-            }
-            if (info.pic) {
-                updatePic(req,res,info.pic).then((val)=>{
-                    if(val){
-                        req.body['pic'] = val;
-                        // next();
-                        mongoose.model('dish')
-                            .findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
-                            .populate({path:'dishcategory', select:'name _id'})
-                            .populate({path:"pic",select:"_id larg"})
-                            .populate({path:'portion'})
-                            .exec((err,doc)=>{
-                                if (err) return res.serverError(err);
-                                if (!doc) return res.notFound('Not found');
-                                if (doc) return res.ok(doc);
-                            })
-                    }
-                }).catch(err=>{
-                    return res.serverError(err);
-                });
-            }
-        });
+        .findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
+        .populate({path:'dishcategory', select:'name _id'})
+        .populate({path:"pic"})
+        .populate({path:'portion'})
+        .exec((err,doc)=>{
+            if (err) return res.serverError(err);
+            if (!doc) return res.notFound('Not found');
+            if (doc) return res.ok(doc);
+        })
         // .findOneAndUpdate({_id: req.body._id}, req.body)
 };
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    mongoose.model('avatar')
-        .create(req.body['pic'], (err, doc)=>{
-            if (err) return res.serverError(err);
-            if (!doc) return res.notFound('Not found');
-            if (doc) {
-                req.body['pic'] = doc['_id'];
-                req.body['owneruser'] = req.userId;
-                req.body['ownerest'] = req.body.estId;
-                next();
-            }
-        })
+    req.body['owneruser'] = req.userId;
+    req.body['ownerest'] = req.body.estId || null;
+    next();
 };
 const postCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
@@ -275,7 +212,7 @@ const postCreate = (req,res,next)=>{
         });
     mongoose.model('dish')
         .findOne({_id: req.erm.result._id})
-        .populate({path: 'pic', select: 'larg _id'})
+        .populate({path: 'pic'})
         .populate({path:'portion'})
         .exec((err,info)=>{
             if(err) return res.badRequest(err);

@@ -1,11 +1,11 @@
 import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
 import {Ratios} from "./ratios";
+
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
 })
-
 export class FileMinComponent implements OnInit {
   get imageCropper(): ImageCropperComponent {
     return this._imageCropper;
@@ -123,7 +123,6 @@ export class FileMinComponent implements OnInit {
   loadImg (format: string, base64: string) {
     this.name = this.file.name;
     this.size = this.file.size;
-    console.log("OK",this.name, this.size);
     const img: HTMLImageElement = new Image();
     img.src = base64;
     img.onload = () => {

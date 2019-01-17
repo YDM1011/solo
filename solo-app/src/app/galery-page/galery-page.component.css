@@ -332,3 +332,27 @@ app-last-name{
 .btn{
   cursor: pointer;
 }
+.wrap-full-pic{
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.full-pic img {
+  max-width: 100%;
+}
+.full-pic{
+  position: fixed;
+  top: 120px;
+  background: #fff;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  left: 60px;
+  right: 60px;
+  max-height: calc(100vh - 120px);
+}
+

@@ -35,7 +35,7 @@ export class DishComponent implements OnInit {
       self.initApi(params.id);
     });
 
-    this.api.onImg.subscribe((pic:any)=>{
+    /*this.api.onImg.subscribe((pic:any)=>{
       if(pic){
         self.dish.map(item=>{
           console.log(item.pic, pic);
@@ -44,14 +44,14 @@ export class DishComponent implements OnInit {
           }
         })
       }
-    })
+    })*/
   }
 
   initApi(id){
     let self = this;
     let req=['dish'];
     req.forEach((select)=>{
-      this.api.get('dish',id).then((res:any)=>{
+      this.api.get('getDish',id).then((res:any)=>{
         console.log(res);
         if(res){
           self[select] = res;

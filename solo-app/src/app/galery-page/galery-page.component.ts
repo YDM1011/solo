@@ -17,6 +17,7 @@ export class GaleryPageComponent implements OnInit {
 
   public id:any;
   public obj:any;
+  public fullPic:any;
   public photos:any = [];
 
   constructor(
@@ -45,7 +46,14 @@ export class GaleryPageComponent implements OnInit {
       .subscribe((photo: any) => {
         self.photos = (photo);
       });
-
   }
-
+  show(el){
+    let s = this;
+    s.fullPic = el;
+  }
+  hide(){
+    let s = this;
+    s.fullPic = ''
+  }
 }
+

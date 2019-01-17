@@ -21,6 +21,7 @@ export class IsMyProfileDirective {
         //noinspection TypeScriptUnresolvedVariable
         el.nativeElement.hidden = false;
       }
+      return val ? false : true
     })
   }
 }

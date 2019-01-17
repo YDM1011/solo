@@ -23,7 +23,7 @@
         <div class="frn_us">
           <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
             <ng-container *ngIf="friend.photo">
-              <app-img [id]="friend.photo._id"></app-img>
+              <app-img [img]="{id:friend.photo}"></app-img>
             </ng-container>
             <!--<app-avatar *ngIf="friend.photo"-->
                         <!--[avatar]="friend.photo"-->
@@ -64,12 +64,7 @@
         <div class="frn_i" *ngIf="mean._id != userId">
           <div class="frn_us">
             <a class="frn_img pre-bg" [routerLink]="'/user/'+mean._id">
-              <app-img *ngIf="mean.photo" [id]="mean.photo._id"></app-img>
-              <!--<app-avatar *ngIf="mean.photo"-->
-                          <!--[avatar]="mean.photo"-->
-                          <!--[avatarId]="mean.photo._id"-->
-                          <!--[type]="'imgMin'"-->
-                          <!--class="inherit"></app-avatar>-->
+              <app-img *ngIf="mean.photo" [img]="{id:mean.photo}"></app-img>
             </a>
             <div class="frn_in">
               <a class="frn_name" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>

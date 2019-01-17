@@ -42,6 +42,8 @@ import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap'
 import * as moment from 'moment';
 import { PrevAvatarComponent } from './lib/prev-avatar/prev-avatar.component';
 import { PrevBgComponent } from './lib/prev-bg/prev-bg.component';
+import { LikeEstComponent } from './lib/like-est/like-est.component';
+import { LikeDishComponent } from './lib/like-dish/like-dish.component';
 
 export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
   constructor(private momentFormat: string) {
@@ -93,6 +95,8 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     GaleryPageComponent,
     PrevAvatarComponent,
     PrevBgComponent,
+    LikeEstComponent,
+    LikeDishComponent,
   ],
   exports:[
     PrevAvatarComponent
