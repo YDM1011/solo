@@ -7,13 +7,14 @@
 .h-pf_img {
   display: block;
   position: relative;
-  z-index: 1;
   background: rgba(0, 0, 0, 0.04);
   width: 100px;
   height: 100px;
   max-width: 200px;
   max-height: 200px;
+  z-index: 10;
 }
+
 .h-pf_tt {
   position: absolute;
   padding: 0 10px;
