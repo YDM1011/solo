@@ -18,7 +18,7 @@
               <span class="pr_ev-s ev-s_xit" *ngIf="dish.ishit"></span>
               <span class="pr_ev-s ev-s_int"></span>
             </div>
-            <app-img [id]="dish.pic._id" ></app-img>
+            <app-img [img]="{id:dish.pic}" ></app-img>
           </div>
 
           <app-pop-prod-add *ngIf="dish.prt"

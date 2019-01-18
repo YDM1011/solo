@@ -3,62 +3,45 @@
 
     <div class="cont_h-pf" *ngIf="user">
 
-        <div class="h-pf_img">
-          <ng-container *ngIf="user.photo">
-            <img  src="{{user.photo.picCrop}}">
+      <div class="h-pf_bg pre-bg">
+        <ng-container *ngIf="user">
+          <ng-container *ngIf="user.bg">
+            <img class="img" src="{{user.bg.picCrop}}">
           </ng-container>
-          <ng-container *ngIf="!user.photo">
-            <app-prev-avatar></app-prev-avatar>
+          <ng-container *ngIf="!user.bg">
+            <app-prev-bg></app-prev-bg>
           </ng-container>
-          <app-upload [btnName]="btn"
-                      [model]="'user'"
-                      [field]="'photo'"
-                      [multiple]="false"
-          ></app-upload>
-        </div>
+        </ng-container>
 
-        <div class="h-pf_tt">
-          <span>{{user.firstName}} </span>
-          <span>{{user.lastName}} </span>
-          <!--<app-first-name></app-first-name>-->
-          <!--<app-last-name></app-last-name>-->
-        </div>
+        <app-upload [btnName]="btnBg"
+                    [model]="'user'"
+                    [field]="'bg'"
+                    [multiple]="false"></app-upload>
+      </div>
 
-        <button class="btn-green" isMyProfile>Зустрітись з друзями</button>
+      <div class="h-pf_img">
+        <ng-container *ngIf="user.photo">
+          <img class="img" src="{{user.photo.picCrop}}">
+        </ng-container>
+        <ng-container *ngIf="!user.photo">
+          <app-prev-avatar></app-prev-avatar>
+        </ng-container>
+        <app-upload [btnName]="btn"
+                    [model]="'user'"
+                    [field]="'photo'"
+                    [multiple]="false"
+        ></app-upload>
+      </div>
 
-        <div class="h-pf_bg pre-bg">
+      <div class="h-pf_tt">{{user.firstName}} {{user.lastName}}</div>
 
-          <ng-container *ngIf="user">
-            <ng-container *ngIf="user.bg">
-              <img  src="{{user.bg.picCrop}}">
-            </ng-container>
-            <ng-container *ngIf="!user.bg">
-              <app-prev-bg></app-prev-bg>
-            </ng-container>
-          </ng-container>
+      <button class="btn-green" isMyProfile>Зустрітись з друзями</button>
 
-          <app-upload [btnName]="btnBg"
-                      [model]="'user'"
-                      [field]="'bg'"
-                      [multiple]="false"></app-upload>
-        </div>
-        <!--<app-bg class="h-pf_bg pre-bg"></app-bg>-->
-
-        <app-user-init [user]="user"></app-user-init>
-
-        <!--<app-update-user class="cont_h-pf_update" [id]="id"></app-update-user>-->
-
-
-        <div class="cont_h-pf_loader">
-          <!--<img class="img" [src]="loader.larg" *ngIf="loader">-->
-        </div>
-
-
-        <app-form *ngIf="loader" [text]="'Зберегти аватар'"
-                  [class]="'btn waves-effect waves-light'"
-                  [option]="loader"
-                  [url]="'/api/avatar'"
-        ></app-form>
+      <app-form *ngIf="loader" [text]="'Зберегти аватар'"
+                [class]="'btn waves-effect waves-light'"
+                [option]="loader"
+                [url]="'/api/avatar'"
+      ></app-form>
     </div>
 
     <div class="cont-content">
@@ -88,28 +71,14 @@
               </div>
               <div class="br-lv_cntt">
                   <div class="br-lv_i pre-bg" *ngIf="!favoriteEst.av"></div>
-                  <div class="br-lv_i" *ngIf="favoriteEst.av">
-                    <app-img [id]="favoriteEst.av._id"></app-img>
+                  <div class="br-lv_i" >
+                    <ng-container *ngIf="favoriteEst.av.picCrop; else favEst">
+                      <img [src]="favoriteEst.av.picCrop">
+                    </ng-container>
                   </div>
               </div>
             </a>
-
-            <div class="cont el_cont br-lk">
-              <div class="el_h">
-                <span class="svg20">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 485.027 485.027" width="30" height="30"><g><g><path style="fill:#3C92CA;" d="M109.4,459.991H13c-2.1,0-3.9-1.8-3.9-3.9v-248.4c0-2.1,1.8-3.9,3.9-3.9h96.4c2.1,0,3.9,1.8,3.9,3.9v248.4C113.3,458.191,111.6,459.991,109.4,459.991z"/><path d="M284.6,20.391c-28.2-20.7-67.2-8.8-68.8-8.3c-3.8,1.2-6.3,4.7-6.3,8.6v85.8c0,29.1-13.8,53.7-41.1,73.2c-21.1,15.1-42.7,21.3-42.9,21.4c-0.2,0-0.3,0.1-0.5,0.2l-5.1,1.7c-3-4.9-8.3-8.2-14.5-8.2H16.9c-9.3,0-16.9,7.6-16.9,16.9v240.5c0,9.3,7.6,16.9,16.9,16.9h88.6c8,0,14.7-5.6,16.4-13c11.9,12.7,28.8,20.7,47.6,20.7h209.8c44.6,0,73.1-23.3,78.1-64l26.8-170.2c3.9-24.7-6.2-49.7-25.8-63.7c-11.1-8-24.2-12.2-37.9-12.2H311.4v-79.6C311.4,55.891,302.4,33.491,284.6,20.391z M104.2,450.891H18.1v-238h86.1V450.891z M420.5,184.791c9.9,0,19.3,3,27.3,8.8c14,10.1,21.3,28.2,18.4,46.2l-26.7,170.3c0,0.1,0,0.2,0,0.3c-4.9,39.8-35.4,48.2-60.2,48.2H169.5c-26,0-47.1-21.1-47.1-47.1v-190.2l8.3-2.8c2.9-0.8,25.2-7.6,47.8-23.7c32.1-22.8,49.1-53.3,49.1-88.2v-78.6c10.4-2,31.3-4,46.4,7.1c12.8,9.4,19.3,26.9,19.3,52v88.7c0,5,4.1,9.1,9.1,9.1h118.1V184.791z"/></g></g></svg>
-                </span>
-                <span class="el_h_tt">Подобаються</span>
-              </div>
-              <div class="el_cntt">
-                <span class="el_i pre-bg"></span>
-                <span class="el_i pre-bg"></span>
-                <span class="el_i pre-bg"></span>
-                <span class="el_i pre-bg"></span>
-                <span class="el_i pre-bg"></span>
-                <span class="el_i pre-bg"></span>
-              </div>
-            </div>
+            <app-like-est style="width: 100%"></app-like-est>
           </div>
           <div class="lf-br_btn">
             <button class="btn-green">
@@ -158,7 +127,6 @@
                   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 58 58" width="20" height="20" fill="#61148f"><g><path d="M57,6H1C0.448,6,0,6.447,0,7v44c0,0.553,0.448,1,1,1h56c0.552,0,1-0.447,1-1V7C58,6.447,57.552,6,57,6z M56,50H2V8h54V50z"/><path d="M16,28.138c3.071,0,5.569-2.498,5.569-5.568C21.569,19.498,19.071,17,16,17s-5.569,2.498-5.569,5.569C10.431,25.64,12.929,28.138,16,28.138z M16,19c1.968,0,3.569,1.602,3.569,3.569S17.968,26.138,16,26.138s-3.569-1.601-3.569-3.568S14.032,19,16,19z"/><path d="M7,46c0.234,0,0.47-0.082,0.66-0.249l16.313-14.362l10.302,10.301c0.391,0.391,1.023,0.391,1.414,0s0.391-1.023,0-1.414l-4.807-4.807l9.181-10.054l11.261,10.323c0.407,0.373,1.04,0.345,1.413-0.062c0.373-0.407,0.346-1.04-0.062-1.413l-12-11c-0.196-0.179-0.457-0.268-0.72-0.262c-0.265,0.012-0.515,0.129-0.694,0.325l-9.794,10.727l-4.743-4.743c-0.374-0.373-0.972-0.392-1.368-0.044L6.339,44.249c-0.415,0.365-0.455,0.997-0.09,1.412C6.447,45.886,6.723,46,7,46z"/></g></svg>
                 </div>
                 <span class="el_h_tt">Фото</span>
-                <span class="el_h_vl">{{photos.length}}</span>
               </div>
               <div class="el_cntt">
                 <span class="el_i pre-bg"></span>
@@ -172,26 +140,7 @@
             <app-gallery *ngIf="photos" [photos]="photos"></app-gallery>
           </div>
 
-          <div class="cont el_cont">
-            <div class="el_h">
-              <span class="svg20">
-                <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 485.027 485.027" width="20" height="20" fill="#61148f"><g><g><path style="fill:#3C92CA;" d="M109.4,459.991H13c-2.1,0-3.9-1.8-3.9-3.9v-248.4c0-2.1,1.8-3.9,3.9-3.9h96.4c2.1,0,3.9,1.8,3.9,3.9v248.4C113.3,458.191,111.6,459.991,109.4,459.991z"/><path d="M284.6,20.391c-28.2-20.7-67.2-8.8-68.8-8.3c-3.8,1.2-6.3,4.7-6.3,8.6v85.8c0,29.1-13.8,53.7-41.1,73.2c-21.1,15.1-42.7,21.3-42.9,21.4c-0.2,0-0.3,0.1-0.5,0.2l-5.1,1.7c-3-4.9-8.3-8.2-14.5-8.2H16.9c-9.3,0-16.9,7.6-16.9,16.9v240.5c0,9.3,7.6,16.9,16.9,16.9h88.6c8,0,14.7-5.6,16.4-13c11.9,12.7,28.8,20.7,47.6,20.7h209.8c44.6,0,73.1-23.3,78.1-64l26.8-170.2c3.9-24.7-6.2-49.7-25.8-63.7c-11.1-8-24.2-12.2-37.9-12.2H311.4v-79.6C311.4,55.891,302.4,33.491,284.6,20.391z M104.2,450.891H18.1v-238h86.1V450.891z M420.5,184.791c9.9,0,19.3,3,27.3,8.8c14,10.1,21.3,28.2,18.4,46.2l-26.7,170.3c0,0.1,0,0.2,0,0.3c-4.9,39.8-35.4,48.2-60.2,48.2H169.5c-26,0-47.1-21.1-47.1-47.1v-190.2l8.3-2.8c2.9-0.8,25.2-7.6,47.8-23.7c32.1-22.8,49.1-53.3,49.1-88.2v-78.6c10.4-2,31.3-4,46.4,7.1c12.8,9.4,19.3,26.9,19.3,52v88.7c0,5,4.1,9.1,9.1,9.1h118.1V184.791z"/></g></g></svg>
-              </span>
-              <span class="el_h_tt">Подобаються страви</span>
-              <span class="el_h_vl">0</span>
-            </div>
-            <div class="el_cntt el_cntt-big">
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-              <span class="el_i pre-bg"></span>
-            </div>
-          </div>
+          <app-like-dish></app-like-dish>
 
           <div class="us-s">
 
@@ -959,9 +908,6 @@
           </div>
 
           <router-outlet></router-outlet>
-          <!--<div *ngIf="!isHome">-->
-           <!---->
-          <!--</div>-->
         </div>
 
       </div>
@@ -969,3 +915,22 @@
   </div>
 </div>
 
+<ng-template #favEst>
+  <svg xmlns="http://www.w3.org/2000/svg" width="366" height="432" viewBox="0 0 366 432" fill="none">
+    <g clip-path="url(#clip0)">
+      <path d="M362.081 234.638L190.524 85.9555C186.224 82.2271 179.841 82.2271 175.541 85.9555L114.375 138.932V117.476C114.375 104.849 104.127 94.602 91.5011 94.602C78.8749 94.602 68.6264 104.85 68.6264 117.476V178.573L3.93763 234.638C-0.820157 238.778 -1.34613 246.007 2.7939 250.787C6.95725 255.545 14.1628 256.049 18.9431 251.931L182.999 109.744L347.031 251.931C349.226 253.807 351.857 254.722 354.533 254.722C357.758 254.722 360.892 253.372 363.157 250.787C367.365 246.007 366.816 238.824 362.081 234.638Z" fill="#C3C3C3"/>
+      <path d="M197.477 168.44C193.291 164.986 188.145 163.225 182.998 163.225C177.851 163.225 172.704 164.963 168.496 168.44L54.1243 262.201C48.8172 266.548 45.7524 273.021 45.7524 279.906V391.967C45.7524 404.594 56.0002 414.841 68.6264 414.841H137.249V300.471H228.746V414.842H297.369C309.973 414.842 320.243 404.594 320.243 391.968V279.907C320.243 272.998 317.155 266.548 311.848 262.225L197.477 168.44Z" fill="#C3C3C3"/>
+    </g>
+    <g clip-path="url(#clip1)">
+      <path d="M89.754 16.6069C93.0635 8.76279 100.624 3.28191 109.418 3.28191C121.263 3.28191 129.795 13.4155 130.867 25.4924C130.867 25.4924 131.446 28.4904 130.172 33.8876C128.437 41.2381 124.358 47.7686 118.859 52.7525L89.754 78.7203L61.1393 52.7509C55.6404 47.7686 51.5617 41.2364 49.8266 33.886C48.5523 28.4887 49.1312 25.4908 49.1312 25.4908C50.2038 13.4138 58.735 3.28027 70.5808 3.28027C79.3761 3.28027 86.4445 8.76279 89.754 16.6069Z" fill="#C3C3C3"/>
+    </g>
+    <defs>
+      <clipPath id="clip0">
+        <rect width="366" height="366" fill="white" transform="translate(0 66)"/>
+      </clipPath>
+      <clipPath id="clip1">
+        <rect width="82" height="82" fill="white" transform="translate(49)"/>
+      </clipPath>
+    </defs>
+  </svg>
+</ng-template>

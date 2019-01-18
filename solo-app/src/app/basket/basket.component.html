@@ -16,7 +16,7 @@
         <mz-collapsible-item-header class="ord_ct">
           <div class="ord_ct_link">
             <div class="ord_ct_img">
-              <app-img class="inherit" [id]="basket.av._id"></app-img>
+              <app-img class="inherit" [img]="{id:basket.av}"></app-img>
               <!--<app-avatar class="inherit" [customClass]="'inherit'"-->
               <!--[avatar]="basket.av"-->
               <!--[avatarId]="basket.av._id"-->
@@ -49,7 +49,7 @@
                     <span class="pr_ev-s ev-s_xit"></span>
                     <span class="pr_ev-s ev-s_int"></span>
                   </div>
-                  <app-img [id]="product.dishId.pic._id"></app-img>
+                  <app-img [img]="{id:product.dishId.pic}"></app-img>
                   <!--<app-avatar class="inherit"-->
                   <!--[avatar]="product.dishId.pic"-->
                   <!--[avatarId]="product.dishId.pic._id"-->

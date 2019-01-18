@@ -12,6 +12,10 @@ export class DishCreateComponent implements OnInit {
   public setArg:string='';
   public option:any=[];
   public isFormAdd:boolean=false;
+  public complements: any = [];
+  public complementsM: any = [];
+  public complementsOpt: any = [];
+  public complementsOptM: any = [];
   public portion:any={
     massa:'',
     name:'',
@@ -23,13 +27,13 @@ export class DishCreateComponent implements OnInit {
     category:'',
     portion:[],
     about:'',
-    dishcategory:'',
+    dishcategory:null,
     dishingredient:[],
     ingredientis:[],
     isnew:true,
     ishit:true,
     isdelivery:true,
-    pic:{},
+    pic:null,
     estId:''
   };
 
@@ -69,6 +73,7 @@ export class DishCreateComponent implements OnInit {
         }
       }).catch((err:any)=>{});
     });
+    self.getComp();
   }
 
   check(){
@@ -89,5 +94,50 @@ export class DishCreateComponent implements OnInit {
         });
       }
     }).catch((err:any)=>{});
+  }
+
+  getComp(){
+    let self = this;
+    this.api.get('checkBox').then((res: any) => {
+      if (res) {
+        self.complementsOpt = [];
+        self.complements = [];
+        res.map((item: any) => {
+          self.complementsOpt.push({
+            check: false,
+            label: item.name,
+            id: item._id
+          });
+        });
+        res.map((item: any) => {
+          self.complements.push({
+            check: false,
+            label: item.name,
+            id: item._id
+          });
+        });
+      }
+      self.ComMap()
+    }).catch((err: any) => {});
+  }
+
+  ComMap(){
+    let self = this;
+    self.dish.dishingredient.map(ing=>{
+      self.complements.map(it=>{
+        if(ing == it.id){
+          it.check = true;
+          self.complementsM.push(it.label);
+        }
+      })
+    });
+    self.dish.ingredientis.map(ing=>{
+      self.complementsOpt.map(it=>{
+        if(ing == it.id){
+          it.check = true;
+          self.complementsOptM.push(it.label);
+        }
+      })
+    });
   }
 }

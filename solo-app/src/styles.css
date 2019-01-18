@@ -896,11 +896,6 @@ app-upload{
   cursor: pointer;
   z-index: 1;
 }
-app-upload div,
-app-upload label{
-  width: inherit;
-  height: inherit;
-}
 app-upload .button-upload{
   display: flex;
   align-items: center;
@@ -6820,5 +6815,53 @@ input[type="radio"], input[type="radio"] {
   pointer-events: none;
 }
 
+.crop{
+  padding-bottom: 10px;
+}
+.crop_cn{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 10px 15px 60px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.crop_img{
+  display: flex;
+  min-height: 185px;
+  justify-content: center;
+  align-items: center;
+  height: 55vh;
+  max-height: 485px;
+  flex-shrink: 0;
+}
+.crop_btn{
+   display: flex;
+   height: 50px;
+ }
+.crop_btn_i{
+  margin: 15px 0 15px 15px;
+}
 
-
+.crop_prod{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  min-height: 60px;
+  max-height: 10vh;
+  padding-top: 5px;
+}
+.crop_pre{
+  margin-right: 15px;
+  max-height: 10vh;
+}
+.crop_pre img{
+  object-fit: contain;
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-height: inherit;
+}
+.crop_prod .btn-green{
+  flex-shrink: 0;
+}

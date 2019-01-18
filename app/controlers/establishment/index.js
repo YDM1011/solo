@@ -33,6 +33,28 @@ module.exports.getMy = (req, res, next) => {
         })
 };
 
+module.exports.getLikeEsts = (req, res, next) => {
+    User.find({_id: req.params.id})
+        .select('choiceest')
+        .populate({path:'choiceest'})
+        .exec((err,result)=>{
+            if(err) return res.badRequest(err);
+            if (!result) return res.serverError('Somesing broken');
+            if (result) return res.ok(result[0].choiceest);
+        })
+};
+module.exports.getLikeDish = (req, res, next) => {
+    User.find({_id: req.params.id})
+        .select('favoritdish')
+        .populate({path:'favoritdish', populate:{path: 'ownerest'}})
+        .exec((err,result)=>{
+
+            if(err) return res.badRequest(err);
+            if (!result) return res.serverError('Somesing broken');
+            if (result) return res.ok(result[0].favoritdish);
+        })
+};
+
 module.exports.customParams = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     let select = req.query.select;//`${req.params['id']} _id`;
@@ -102,3 +124,27 @@ module.exports.estEst = (req, res, next) => {
             if (doc) return res.ok(doc);
         })
 };
+module.exports.getDish = (req, res, next) => {
+    let id = toObjectId(req.params['id']);
+    let userId = toObjectId(req.userId);
+    console.log(id, id == req.params['id']);
+    mongoose.model('dish')
+        .find({owneruser: userId})
+        .populate({path:'dishcategory', select:'name _id'})
+        .populate({path:'portion'})
+        .select('dishcategory name portion _id')
+        .exec((err,info)=>{
+            if (err) return res.serverError(err);
+            if (!info) return res.notFound('Not found');
+            if (info) return res.ok(info);
+        })
+};
+function toObjectId(ids) {
+
+    if (ids.constructor === Array) {
+        return ids.map(mongoose.Types.ObjectId);
+    }
+
+    return mongoose.Types.ObjectId(ids).toString();
+    // mongoose.Types.ObjectId(info.userId).toString();
+}

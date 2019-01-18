@@ -185,4 +185,8 @@ export class DishEditComponent implements OnInit {
     });
     s.ComMap();
   }
+  getImg(e){
+    console.log(e.result._id);
+    this.dish.pic = e.result._id;
+  }
 }

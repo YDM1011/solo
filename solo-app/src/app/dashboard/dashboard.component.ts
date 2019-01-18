@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit, OnChanges {
       .subscribe((est: any) => {
         self.favoriteEst = est.favoritest;
         if(self.favoriteEst){
-          this.http.get(this.domain + '/api/avatar/' + self.favoriteEst.av + '?select=larg', this.api.getHeaders())
+          this.http.get(this.domain + '/api/galery/' + self.favoriteEst.av, this.api.getHeaders())
             .subscribe((estAv: any) => {
               self.favoriteEst.av = estAv;
             });
@@ -104,11 +104,11 @@ export class DashboardComponent implements OnInit, OnChanges {
       .subscribe((photo: any) => {
         self.photos = (photo);
       });
-
   }
   setMutual(res) {
     this.mutual[res.id] = res.mutual;
   }
+
   getSetting(res) {
     const self = this;
     if (res) {

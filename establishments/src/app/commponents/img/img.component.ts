@@ -20,22 +20,12 @@ export class ImgComponent implements OnInit {
     const s = this;
     s.initApi(s.img);
   }
-
   initApi(mod) {
     const s = this;
     if (mod.id && !mod.url && !mod.name) {
-      let query = '?select=preload,_id';
-      query += '&query=' + JSON.stringify({_id: mod.id});
-      s.api.get('avatar', mod.id, '', query).then((res: any) => {
+      s.api.get('galery', mod.id, '').then((res: any) => {
         if (res) {
-          s.pic = res.larg || res.preload;
-          if (!res.larg) {
-            s.api.getAndUpdate('avatar', mod.id, '', '').then((res: any) => {
-              if (res) {
-                s.pic = res.larg;
-              }
-            });
-          }
+          s.pic = res.picCrop;
         }
       });
     } else if (!mod.id && mod.url && mod.name) {

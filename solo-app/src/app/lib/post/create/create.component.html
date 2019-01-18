@@ -45,10 +45,7 @@
 
     <div class="cr-pst_img" *ngIf="postObg.img.length > 0">
       <div class="cr-pst_img_i" *ngFor="let img of postObg.img">
-        <app-img [id]="img.crop"></app-img>
-          <!--<img class="img" [src]="img.larg">-->
-          <!--<span class="">rotate</span>-->
-          <!--<span>del</span>-->
+        <app-img [img]="{id: img}"></app-img>
       </div>
     </div>
 

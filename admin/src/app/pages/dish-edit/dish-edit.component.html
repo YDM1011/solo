@@ -55,9 +55,13 @@
     <div class="col s12 m4">
       <h5>dish.pic</h5>
       <!--<app-upload (onLoadImg)="dish.pic = $event" [btn]="btnBG"></app-upload>-->
-      <app-upload [model]="'dish'" [field]="'pic'" [id]="dish._id" [btnName]="btnBG"></app-upload>
+      <app-upload [model]="'dish'" [field]="'pic'"
+                  [id]="dish._id"
+                  (getImg)="getImg($event)"
+                  [btnName]="btnBG"></app-upload>
     </div>
     <div class="col s12 m8">
+      <!--<img src="{{dish.pic}}" alt="">-->
       <app-pic *ngIf="dish.pic" [pic]="dish.pic"></app-pic>
     </div>
   </div>

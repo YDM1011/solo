@@ -90,9 +90,17 @@
             </li>
             <li *ngIf="access">
               <a href="{{host}}/user/{{id}}" class="user" target="_blank" *ngIf="user">
-                <span class="user_img" *ngIf="user.photo">
-                  <img class="img" [src]="user.photo.imgMin" alt="">
+                <span class="user_img">
+                  <ng-container *ngIf="user.photo; else prevAvatar">
+                    <ng-container *ngIf="user.photo.picCrop; else prevAvatar">
+                      <img class="img" [src]="user.photo.picCrop" alt="">
+                    </ng-container>
+                  </ng-container>
+
                 </span>
+                <ng-template #prevAvatar>
+                  <app-prev-av></app-prev-av>
+                </ng-template>
                 <strong class="user_title">
                   {{user.firstName}} {{user.lastName}}
                 </strong>

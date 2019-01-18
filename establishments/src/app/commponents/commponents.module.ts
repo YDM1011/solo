@@ -17,6 +17,9 @@ import {ScrollDirective} from "./header/scroll.directive";
 import { PopProdAddComponent } from './pop-prod-add/pop-prod-add.component';
 import {FormsModule} from "@angular/forms";
 import { ToOrderComponent } from './to-order/to-order.component';
+import { PrevAvComponent } from './prev-av/prev-av.component';
+import { PrevBgComponent } from './prev-bg/prev-bg.component';
+import { PrevDishComponent } from './prev-dish/prev-dish.component';
 
 @NgModule({
   imports: [
@@ -55,7 +58,10 @@ import { ToOrderComponent } from './to-order/to-order.component';
     BasketComponent,
     ScrollDirective,
     PopProdAddComponent,
-    ToOrderComponent
+    ToOrderComponent,
+    PrevAvComponent,
+    PrevBgComponent,
+    PrevDishComponent
   ]
 })
 export class CommponentsModule { }

@@ -29,33 +29,32 @@ export class UploadComponent implements OnInit {
   savePics(){
     console.log();
     this.uploadFile();
-    this.getImg.emit(this.avatar);
+
   }
   res(er){
     console.log(er);
-    this.avatar.push({def:er.def, crop:er.crop});
+    this.avatar.push({
+      def:er.def,
+      crop:er.crop,
+      name: er.name,
+      size: er.size,
+    });
     console.log(this.avatar);
   }
 
 
   uploadFile(){
     const self = this;
-    this.fileInputElement = TemplateRef;
-    //noinspection TypeScriptUnresolvedVariable,TypeScriptValidateTypes
-    const inputEl = document.querySelectorAll('.profile-avatar');
-    const elem = <any>inputEl[0];
-    self.nextLoad(elem, 0)
+    self.nextLoad(0)
   }
 
-  nextLoad(elem, i){
-    console.log(elem, i);
+  nextLoad(i){
     let self = this;
 
-    let fileCount: number = elem.files.length;
-    if (fileCount && elem.files.item(0)) {
-
+    let fileCount: number = self.avatar[i].size;
+    if (fileCount && self.avatar[i].name) {
       let formObj = {
-        file: elem.files.item(i).name,
+        fileName: self.avatar[i].name,
         base64default: self.avatar[i].def,
         base64crop: self.avatar[i].crop,
         model: self.model,
@@ -64,16 +63,14 @@ export class UploadComponent implements OnInit {
       };
       console.log(formObj);
       self.core.doPost('uploadImage', formObj).then((res: any) => {
-        this.avatar[self.index].def = res.url;
-        if(elem.files.item(self.index)){
-          self.nextLoad(elem, self.index);
-          self.index++;
+        self.index = i+1;
+        if(self.avatar[self.index]){
+          self.nextLoad(self.index);
         }else{
-          self.index = 0;
-          return elem.value = '';
+          this.getImg.emit(res);
+          return
         }
       }).catch(
-
         error => {
           console.log(error);
         });

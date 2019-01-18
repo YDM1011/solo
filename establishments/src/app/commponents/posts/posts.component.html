@@ -41,7 +41,7 @@
     <article class="cont pst">
       <div class="pst_in">
 
-        <app-img class="img40 pre-bg" [id]="post.userId.photo._id"></app-img>
+        <app-img class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>
 
         <span class="in_us">
           <strong class="name">{{post.userId.firstName}} {{post.userId.lastName}}</strong>
@@ -52,7 +52,7 @@
           </ng-container>
           <span class="us_zv"> у
             <span class="us_zv_link">
-              <app-img class="us_zv_img" [id]="estAvatar._id"></app-img>
+              <app-img class="us_zv_img" [img]="{id:estAvatar}"></app-img>
               <strong class="name">{{post.inPlace.place}}</strong>
             </span>
           </span>
@@ -81,7 +81,7 @@
         <p class="pst_d">{{post.des}}</p>
         <div class="pst_img">
           <div class="cont-img" [class.array]="post.img.length >= 2" *ngFor="let img of post.img">
-            <app-img class="img_i" [id]="img._id"></app-img>
+            <app-img class="img_i" [img]="{id:img}"></app-img>
           </div>
         </div>
       </div>
@@ -119,7 +119,7 @@
             <ng-container *ngFor="let coment of post.commentId">
               <article class="cm">
                 <div class="cm_us">
-                  <app-img class="img40 pre-bg" [id]="coment.userIdCom.photo._id"></app-img>
+                  <app-img class="img40 pre-bg" [img]="{id:coment.userIdCom.photo}"></app-img>
 
                   <div class="cm_us_in">
                     <p>
@@ -134,8 +134,12 @@
           </ng-container>
 
           <div class="cm_nw" *ngIf="estMyAvatar">
-            <app-img class="img40 pre-bg" [id]="estMyAvatar._id"></app-img>
-
+            <ng-container *ngIf="estMyAvatar.picCrop">
+              <img class="img40 pre-bg" [src]="estMyAvatar.picCrop">
+            </ng-container>
+            <ng-container *ngIf="!estMyAvatar.picCrop">
+              <app-prev-av></app-prev-av>
+            </ng-container>
             <div class="cm_nw_com">
               <div class="cm_fnt" #cmNewFn>{{des.value}}</div>
               <textarea class="cm_area" #des

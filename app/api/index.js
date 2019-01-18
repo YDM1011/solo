@@ -48,6 +48,8 @@ router.post('/api/offerFriend', [orign, glob.getId], friend.offerFriend);
 
 router.post('/api/create_establishment', [orign, glob.getId, verify], establishment.create);
 router.get('/api/get_est', [orign, glob.getId], establishment.getMy);
+router.get('/api/getLikeEsts/:id', [orign, glob.getId], establishment.getLikeEsts);
+router.get('/api/getLikeDish/:id', [orign, glob.getId], establishment.getLikeDish);
 
 // estaplishment API
 router.get('/api/est', [orign], establishment.custom);
@@ -55,6 +57,7 @@ router.get('/api/est/:id', [orign], establishment.customParams);
 router.get('/api/est_post', [orign], establishment.estPost);
 router.get('/api/est_menu', [orign], establishment.estMenu);
 router.get('/api/est_est', [orign], establishment.estEst);
+router.get('/api/getDish/:id', [orign, glob.getId], establishment.getDish);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
 router.get('/api/favorite/:key', [orign], me.getFavorite);
 router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId);

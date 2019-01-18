@@ -56,24 +56,18 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
 
   uploadFile(){
     const self = this;
-
-    this.fileInputElement = TemplateRef;
-    //noinspection TypeScriptUnresolvedVariable,TypeScriptValidateTypes
-    const inputEl = document.querySelectorAll('.profile-avatar');
-    const elem = <any>inputEl[0];
     self.nextLoad(0)
   }
 
   nextLoad(i){
-
     let self = this;
     console.log(self.avatar[i]);
     let fileCount: number = self.avatar[i].size;
     if (fileCount && self.avatar[i].name) {
     let formObj = Object.assign({},{
-      file: self.avatar[i].name,
       base64default: self.avatar[i].def,
       base64crop: self.avatar[i].crop,
+      fileName: self.avatar[i].name,
       model: self.model,
       field: self.field,
       id: self.id,

@@ -1,11 +1,10 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
 import {Ratios} from "./ratios";
 
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
-  styleUrls: ['./file-min.component.css']
 })
 export class FileMinComponent implements OnInit {
   get imageCropper(): ImageCropperComponent {
@@ -23,24 +22,28 @@ export class FileMinComponent implements OnInit {
   @Input()  model: string;
   @Input()  field: string;
   public imageObj: any = [];
+  public name;
+  public size;
   public Pics: any = {
     def: '',
-    crop: ''
+    crop: '',
+    name: '',
+    size: ''
   };
 
   imageChangedEvent: any = '';
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  calcRatios = new Ratios().getRatios('user','bg');
-  ratios: number = this.calcRatios;
+  ratios: number;
 
   constructor() { }
   ngOnInit() {
-    switch (this.model) {
-      case 'avatar': this.ratios = 1 / 1;
-    }
     this.fileResize = [1024, 1024];
+    this.ratios = new Ratios().getRatios(this.model,this.field);
+  }
+  ngOnChanges(){
+    this.ratios = new Ratios().getRatios(this.model,this.field);
   }
 
   @ViewChild(ImageCropperComponent) private _imageCropper: ImageCropperComponent;
@@ -107,14 +110,19 @@ export class FileMinComponent implements OnInit {
   }
 
   loadReader(format: string, file: any) {
+    this.file = file;
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
-      this.loadImg(format, ev.target.result)
+
+      if(file)
+        this.loadImg(format, ev.target.result)
     };
   }
 
   loadImg (format: string, base64: string) {
+    this.name = this.file.name;
+    this.size = this.file.size;
     const img: HTMLImageElement = new Image();
     img.src = base64;
     img.onload = () => {
@@ -132,6 +140,8 @@ export class FileMinComponent implements OnInit {
         this.Pics = {
           def: this.imageObj[0],
           crop: this.imageObj[1],
+          name: this.name,
+          size: this.size
         };
         this.fileResult.emit(this.Pics);
         this.imageObj = [];
@@ -144,6 +154,8 @@ export class FileMinComponent implements OnInit {
     this.Pics = {
       def: this.imageObj[0],
       crop: this.imageObj[this.imageObj.length - 1],
+      name: this.name,
+      size: this.size
     };
     this.fileResult.emit(this.Pics);
     this.imageObj = [];

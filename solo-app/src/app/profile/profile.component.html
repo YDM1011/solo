@@ -40,9 +40,7 @@
           <div class="us_c_img">
             <div class="img60 pre-bg">
               <ng-container *ngIf="me.photo">
-                <ng-container *ngIf="me.photo._id">
-                  <app-img [id]="me.photo._id"></app-img>
-                </ng-container>
+                <app-img [img]="{id:me.photo}"></app-img>
               </ng-container>
             </div>
             <span class="us_c_img_t c_t">Фото аватару</span>
@@ -54,9 +52,7 @@
           <div class="us_c_img">
             <div class="img60 pre-bg">
               <ng-container *ngIf="me.bg">
-                <ng-container *ngIf="me.bg._id">
-                  <app-img [id]="me.bg._id"></app-img>
-                </ng-container>
+                <app-img [img]="{id:me.bg}"></app-img>
               </ng-container>
             </div>
             <span class="us_c_img_t c_t">Фото обкладинки</span>
