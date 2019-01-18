@@ -162,7 +162,9 @@ glob.restify.serve(
                 delete item.pass;
                 delete item.token;
                 delete item.hash;
-                result.push(item)
+                if (item.login != 'admin'){
+                    result.push(item)
+                }
             });
             return await res.status(statusCode).json(result)
         }

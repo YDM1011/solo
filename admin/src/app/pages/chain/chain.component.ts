@@ -47,10 +47,16 @@ export class ChainComponent implements OnInit, OnChanges {
   }
   initApi(id){
     let self = this;
-    let req=['bg','av','name','subdomain', 'worksTime',
+    let req=['name','subdomain', 'worksTime',
       'mobile','about','links', 'minPrice','mail',
       'delivery','getself','reservation'];
     req.forEach((select)=>{
+      this.api.get('establishment',id,select).then((res:any)=>{
+        self[select] = res[select];
+      }).catch((err:any)=>{});
+    });
+    let req2=['bg','av'];
+    req2.forEach((select)=>{
       this.api.get('establishment',id,select).then((res:any)=>{
         self[select] = res[select];
       }).catch((err:any)=>{});

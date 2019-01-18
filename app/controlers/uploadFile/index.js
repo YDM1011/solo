@@ -85,9 +85,12 @@ const sendPicToModel = (reqBody, res, imgId) => {
 
     return new Promise((resolve, reject)=>{
         mongoose.model(reqBody.model)
-            .findOneAndUpdate(query, obj, {new: true}, (err, result) =>{
+            .findOneAndUpdate(query, obj, {new: true}, async (err, result) =>{
                 if (err) return res.badRequest(err);
-                if (!result) return res.notFound();
+                if (!result){
+                    await delFile(reqBody);
+                    return res.notFound();
+                }
                 if (result) {
                     resolve(result);
                 }
@@ -131,7 +134,8 @@ const delFile = (reqBody)=>{
 
 const getFieldOfProtect = (model) => {
     const obj = {
-      dish: "owneruser"
+      dish: "owneruser",
+      establishment: "owner",
     };
     return obj[model];
 };

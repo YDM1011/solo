@@ -28,7 +28,7 @@
       <div class="ibox float-e-margins">
         <div class="ibox-title">
           <h5>Всі страви <strong></strong></h5>
-          <div class="ibox-tools" *ngIf="dish.length > 0">
+          <div class="ibox-tools">
             <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn btn-primary btn-sm"><strong>Створити страву</strong></a>
           </div>
         </div>
@@ -36,10 +36,14 @@
           <div class="row" *ngIf="dish.length > 0">
             <div class="col s12 m4" *ngFor="let dsh of dish">
               <div class="card">
-                <div *ngIf="dsh.pic">
-                  <app-pic [pic]="dsh.pic"></app-pic>
-                </div>
-
+                <ng-container *ngIf="dsh.pic; else preDishPic">
+                  <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
+                    <img class="img40" src="{{dsh.pic.picCrop}}" alt="">
+                  </ng-container>
+                </ng-container>
+                <ng-template #preDishPic>
+                  <app-prev-dish></app-prev-dish>
+                </ng-template>
                 <span>{{dsh.name}}</span>
                 <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn">Редагувати</a>
                 <span (click)="delet(dsh._id)" class="btn">del</span>

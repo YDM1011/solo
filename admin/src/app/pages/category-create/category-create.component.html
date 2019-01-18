@@ -20,11 +20,6 @@
       <h5>maincategory</h5>
     </div>
     <div class="col s12 m8">
-      <div class="category-for" *ngIf="category.maincategory.length>0 ">
-        <span *ngFor="let elem of category.maincategory; let i = index"
-              class="dishingredient"
-              (click)="delingredient(i)">{{elem.label}}</span>
-      </div>
       <app-select *ngIf="option.length>0"
                   [option]="option"
                   [defoult]="key"

@@ -5,8 +5,12 @@ const mcat = new Schema({
     label: String,
 });
 const model = new Schema({
-    name: String,
-    maincategory: mcat,
+    name: {type: String},
+    maincategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "maincategory",
+        required: [true, "MainCategory must be checked"]
+    },
     globcategory: String,
     boxcategory: Array,
     owneruser: String,
@@ -55,7 +59,31 @@ const preUpdate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     delete req.body['owneruser'];
     delete req.body['ownerest'];
-    next()
+    if (!req.body['name']){
+        mongoose.model('maincategory')
+            .findOne({_id: req.body['maincategory']})
+            .select("name")
+            .exec((err,result)=>{
+                if (err) return res.badRequest(err);
+                if (!result) return res.notFound("1");
+                if (result) {
+                    req.body['name'] = result.name;
+                    next();
+                }
+            })
+    }else{
+        mongoose.model('maincategory')
+            .findOne({_id: req.body['maincategory']})
+            .select("name")
+            .exec((err,result)=>{
+                if (err) return res.badRequest(err);
+                if (!result) return res.notFound();
+                if (result) {
+                    console.log(result);
+                    next();
+                }
+            })
+    }
 };
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
@@ -63,7 +91,31 @@ const preCreate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     req.body['owneruser'] = req.userId;
     req.body['ownerest'] = req.body.estId;
-    next();
+    if (!req.body['name']){
+        mongoose.model('maincategory')
+            .findOne({_id: req.body['maincategory']})
+            .select("name")
+            .exec((err,result)=>{
+                if (err) return res.badRequest(err);
+                if (!result) return res.notFound();
+                if (result) {
+                    req.body['name'] = result.name;
+                    next();
+                }
+            })
+    }else{
+        mongoose.model('maincategory')
+            .findOne({_id: req.body['maincategory']})
+            .select("name")
+            .exec((err,result)=>{
+                if (err) return res.badRequest(err);
+                if (!result) return res.notFound();
+                if (result) {
+                    console.log(result);
+                    next();
+                }
+            })
+    }
 
 };
 const preDelete = (req,res,next)=>{

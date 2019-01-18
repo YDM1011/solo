@@ -20,6 +20,7 @@ import { ToOrderComponent } from './to-order/to-order.component';
 import { PrevAvComponent } from './prev-av/prev-av.component';
 import { PrevBgComponent } from './prev-bg/prev-bg.component';
 import { PrevDishComponent } from './prev-dish/prev-dish.component';
+import { PrevEstComponent } from './prev-est/prev-est.component';
 
 @NgModule({
   imports: [
@@ -61,7 +62,8 @@ import { PrevDishComponent } from './prev-dish/prev-dish.component';
     ToOrderComponent,
     PrevAvComponent,
     PrevBgComponent,
-    PrevDishComponent
+    PrevDishComponent,
+    PrevEstComponent
   ]
 })
 export class CommponentsModule { }

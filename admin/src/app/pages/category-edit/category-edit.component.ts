@@ -64,9 +64,9 @@ export class CategoryEditComponent implements OnInit {
   }
   update(obj){
     let self = this;
-    this.api.set('category',obj,self.editid).then((res:any)=>{
+    this.api.set('category', obj, self.editid).then((res:any)=>{
       if(res){
-        self.api.updateDate('category',res,self.id,).then((val:any)=>{
+        self.api.updateDate('category', res, self.id,).then((val:any)=>{
           this.router.navigate(['/category/'+self.id]);
         });
       }
@@ -78,10 +78,6 @@ export class CategoryEditComponent implements OnInit {
   }
   selected(obj){
     let s = this;
-    s[s.key].maincategory[s[s.key].maincategory.length]={
-      name:obj.name,
-      label:obj.label,
-      id:obj.id
-    };
+    s[s.key].maincategory = obj.id;
   }
 }

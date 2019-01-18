@@ -31,6 +31,7 @@ export class DishCreateComponent implements OnInit {
     dishingredient:[],
     ingredientis:[],
     isnew:true,
+    isActia:false,
     ishit:true,
     isdelivery:true,
     pic:null,
@@ -139,5 +140,9 @@ export class DishCreateComponent implements OnInit {
         }
       })
     });
+  }
+  getImg(e){
+    console.log(e.result._id);
+    this.dish.pic = e.result._id;
   }
 }

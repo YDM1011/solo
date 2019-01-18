@@ -9,22 +9,21 @@ export class CreatePostDirective {
   @Input('appCreatePost') activePost: any;
 
   @HostListener('click', ['$event']) onClick(event: Event): void {
-    event.preventDefault();
     event.stopPropagation();
-    this.active(this.activePost || false);
+    this.active(this.activePost || event.target);
   }
 
   private active(status) {
-    if (!status) {
+    if (status.classList.contains('cr-open')) {
       this.el.nativeElement.classList.add('active');
       document.documentElement.style.overflowY = 'hidden';
       document.body.style.overflowY = 'hidden';
       window.scrollTo(0, this.getCoords());
       this.el.nativeElement.querySelector('textarea').focus();
-    } else {
+    } else if (this.activePost){
       status.classList.remove('active');
-      document.documentElement.style.overflowY = 'auto';
-      document.body.style.overflowY = 'auto';
+      document.documentElement.style.overflowY = '';
+      document.body.style.overflowY = '';
     }
   }
   private getCoords () {

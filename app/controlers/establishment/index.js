@@ -88,6 +88,7 @@ module.exports.estPost = (req, res, next) => {
     mongoose.model('post')
         .find({"inPlace.place": est})
         .populate({path:'userId'})
+        .populate({path:'inPlace.id', select:'av name'})
         .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
         .exec((err, doc)=>{
             if (err) return res.badRequest(err);
@@ -132,7 +133,8 @@ module.exports.getDish = (req, res, next) => {
         .find({owneruser: userId})
         .populate({path:'dishcategory', select:'name _id'})
         .populate({path:'portion'})
-        .select('dishcategory name portion _id')
+        .populate({path:'pic'})
+        .select('dishcategory pic name portion _id')
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.notFound('Not found');

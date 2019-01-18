@@ -5,19 +5,9 @@ export class Ratios {
   getRatios(model, field){
     let key = `${model}_${field}`;
     let obj = {
-      user_bg:{
-        ration: 16 / 9,
-        width: 850
-      },
-      user_photo:{
-        ration: 1 / 1,
-        width: 250
-      },
-      dish_pic:{
-        ration: 1 / 1,
-        width: 250
-      },
-
+      dish_pic:1/1,
+      establishment_av:1/1,
+      establishment_bg:195/70,
     };
     return obj[key];
   }

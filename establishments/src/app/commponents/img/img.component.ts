@@ -8,7 +8,7 @@ import { ApiService } from '../../service/api.service';
 })
 export class ImgComponent implements OnInit {
 
-  @Input() img: any = {url: '', name: '', id: ''};
+  @Input() img: any = {model: '', field: '', id: ''};
   @Input() pic: string;
 
   private id: any;
@@ -22,24 +22,19 @@ export class ImgComponent implements OnInit {
   }
   initApi(mod) {
     const s = this;
-    if (mod.id && !mod.url && !mod.name) {
+    if (mod.id && !mod.model && !mod.field) {
       s.api.get('galery', mod.id, '').then((res: any) => {
         if (res) {
           s.pic = res.picCrop;
         }
       });
-    } else if (!mod.id && mod.url && mod.name) {
-      const query = '?populate=' + JSON.stringify({path: mod.name, select: '_id preload'}) + '&select=' + mod.name;
-      const query2 = '?populate=' + JSON.stringify({path: mod.name, select: '_id larg'}) + '&select=' + mod.name;
-      s.api.get(mod.url, mod.name, '', query).then((val: any) => {
+    } else if (!mod.id && mod.model && mod.field) {
+      const query = '?query=' + JSON.stringify({model: mod.model, field: mod.field});
+      s.api.get('galery', '', '', query).then((val: any) => {
         if (val) {
+          console.log(val);
 
-          s.pic = val[mod.name].preload;
-          s.api.getAndUpdate(mod.url, mod.name, '', query2).then((res: any) => {
-            if (res) {
-              s.pic = res[mod.name].larg;
-            }
-          });
+          s.pic = val[0].picCrop;
         }
       });
     }

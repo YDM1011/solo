@@ -18,7 +18,10 @@ const model = new Schema({
     name: String,
     mobile: {type: String},
     build: [onebuild],
-    worksTime: String,
+    worksTime: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "timeWork"
+    },
     about: String,
     mail: String,
     links: [oneLinks],
@@ -28,7 +31,7 @@ const model = new Schema({
     reservation:{type: Boolean, default: true},
     bg: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     },
     like: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -44,7 +47,7 @@ const model = new Schema({
     }],
     av: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     },
     verify:{type: Boolean, default: false},
     owner:{
@@ -75,8 +78,7 @@ const glob = require('glob');
 const bg = (req,res,id,model)=>{
     mongoose.model('establishment')
         .findOne({_id:id})
-        .populate({path: model,select:'larg _id'})
-        .select(model+' -_id')
+        .populate({path: model}).select(model)
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.ok('Not found bg');
@@ -227,6 +229,7 @@ const preRead = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    require("../responces/serverError")(req, res);
     if (req.query.populate || req.query.query){
         return next();
     }
@@ -246,7 +249,9 @@ const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    require("../responces/serverError")(req, res);
     delete req.body['own'];
+    delete req.body['owner'];
     if (req.params){
         console.log(req.params);
         switch (req.query.select){
@@ -261,7 +266,12 @@ const preUpdate = (req,res,next)=>{
     }
 };
 const preCreate = (req,res,next)=>{
-    req.body['own'] = req.body.owner;
+    req.body['owner'] = req.body.owner;
+    next();
+};
+const preDelete = (req,res,next)=>{
+    delete req.body['own'];
+    delete req.body['owner'];
     next();
 };
 
@@ -269,7 +279,8 @@ glob.restify.serve(
     glob.route,
     mongoose.model('establishment'),
     {
-        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preRead],
+        preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preDelete],
     });

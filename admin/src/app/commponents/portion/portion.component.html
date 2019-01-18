@@ -8,6 +8,7 @@
       <label> name <input type="text" [(ngModel)]="prtn.name" name="name"></label>
       <label> about <input type="text" [(ngModel)]="prtn.about" name="about"></label>
       <label> price <input type="text" [(ngModel)]="prtn.price" name="price"></label>
+      <span class="btn"  (click)="delete(prtn)">del</span>
     </div>
     <button class="btn" (click)="isFormAdd = true">add portion</button>
     <div *ngIf="isFormAdd">

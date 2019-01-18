@@ -1,0 +1,6 @@
+.popup-crop{
+  display: none!important;
+}
+.popup-crop.active{
+  display: block!important;
+}

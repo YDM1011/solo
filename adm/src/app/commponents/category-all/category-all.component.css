@@ -1,0 +1,27 @@
+.checkBox{
+  border: 1px solid #dedede;
+  border-radius: 4px;
+  margin: 5px;
+  padding: 3px;
+  display: inline-block;
+}
+.chName{
+  color: #333;
+}
+.chOwner{
+  font-size: 12px;
+  color: #b3b3b3;
+  margin: 0 7px;
+}
+.err{
+  background-color: #ff545d;
+  color: #fff;
+}
+.info{
+  background-color: #709cff;
+  color: #fff;
+}
+.chBtn{
+  border: none;
+  border-radius: 3px;
+}

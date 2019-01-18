@@ -1,0 +1,12 @@
+<div class="wrap-all-checkBox">
+  <app-category-all [update]="chBox.v" #chAll (onEdit)="chAll.v = $event"></app-category-all>
+</div>
+
+<div class="wrap-create-checkBox"  >
+  <button type="button" (click)="iscreate=!iscreate"> Create </button>
+  <app-category-create #chBox (onCreate)="chBox.v = $event;iscreate=!iscreate" [hidden]="!iscreate" ></app-category-create>
+</div>
+
+<div class="wrap-edit-checkBox">
+  <app-category-edit [chBox]="chAll.v"></app-category-edit>
+</div>

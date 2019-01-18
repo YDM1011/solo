@@ -15,6 +15,8 @@ import {AppRoutingModule} from "../../app-routing.module";
 import {UserModule} from "../user/user.module";
 import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
 import {CreatePostDirective} from "./create/create-post.directive";
+import {UploadPostComponent} from "../upload-post/upload-post.component";
+import {FileMinPostComponent} from "../file-min-post/file-min-post.component";
 
 @NgModule({
   imports: [
@@ -38,6 +40,8 @@ import {CreatePostDirective} from "./create/create-post.directive";
     LikeComponent,
     CommentComponent,
     CreatePostDirective,
+    UploadPostComponent,
+    FileMinPostComponent,
   ]
 })
 export class PostModule { }

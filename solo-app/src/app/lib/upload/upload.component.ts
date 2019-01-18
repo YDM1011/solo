@@ -45,7 +45,7 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
   savePics() {
     console.log(this.avatar);
     this.uploadFile();
-    this.getImg.emit(this.avatar);
+
   }
   res(er){
     console.log(er);
@@ -78,6 +78,8 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
       if(self.avatar[index]){
         self.nextLoad(index)
       }else{
+        this.getImg.emit(this.avatar);
+        self.avatar = [];
         return
       }
     }).catch(

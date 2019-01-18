@@ -16,6 +16,7 @@ import {FormsModule} from "@angular/forms";
 import { MapComponent } from './map/map.component';
 import { PortionComponent } from './portion/portion.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { PrevDishComponent } from './prev-dish/prev-dish.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     PicComponent,
     SelectComponent,
     CheckOptionComponent,
-    MapComponent
+    MapComponent,
+    PrevDishComponent
   ],
   declarations: [
     HeaderComponent,
@@ -51,7 +53,8 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     SelectComponent,
     CheckOptionComponent,
     MapComponent,
-    PortionComponent
+    PortionComponent,
+    PrevDishComponent
   ],
   providers: []
 })

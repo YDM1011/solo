@@ -43,15 +43,6 @@ export class ApiService {
           (res: any) => {
             self.global[api + (id || '') + (select || '') + (any || '')] = res;
             resolve(res);
-            if (res[0]) {
-              if (res[0].pic) {
-                res.map(obj => {
-                  if (obj.pic) {
-                    self.gImg('avatar', obj.pic._id, api, id, select);
-                  }
-                });
-              }
-            }
           },
           err => reject(err)
         );
@@ -66,39 +57,12 @@ export class ApiService {
           (res: any) => {
             self.global[api + (id || '') + (select || '')] = res;
             resolve(res);
-            if (res[0]) {
-              if (res[0].pic) {
-                res.map(obj => {
-                  if (obj.pic) {
-                    self.gImg('avatar', obj.pic._id, api, id, select);
-                  }
-                });
-              }
-            }
           },
           err => reject(err)
         );
     });
   }
-  gImg(apiImg, idImg, api, id= null, select= null) {
-    const self = this;
-    const model = `?select=larg,preload`;
-    self.http.get(`${self.domain}/api/${apiImg}/${idImg}${model}`)
-      .subscribe(
-        (res: any) => {
-          if (Array.isArray([])) {
-            self.global[api + (id || '') + (select || '')].map(item => {
-              if (item.pic._id === res._id) {
-                item.pic = res;
-              }
-            });
-          } else {
-            self.global[api + (id || '') + (select || '')].pic = res;
-          }
-          self.image.next(Object.assign({}, res));
-        },
-        err => {});
-  }
+
   set(api, obj, id, select= null) {
     const self = this;
     if (select) {
@@ -229,7 +193,6 @@ export class ApiService {
         } else if (!Array.isArray(self.global[api + id + select][select])) {
             self.global[api + id + select][select] = res;
         }
-
         resolve(self.global[api + id + select]);
         this.updat.next([self.global[api + id + select], select]);
       });
@@ -244,10 +207,9 @@ export class ApiService {
         } else {
           return null;
         }
-
         resolve(self.global[api + (id || '')]);
         this.updat.next([self.global[api + (id || '')], api]);
-      });
+      })
     }
 
   }
