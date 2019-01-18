@@ -3,8 +3,11 @@ const Schema = mongoose.Schema;
 
 const model = new Schema({
     name: String,
-    maincategory: String,
-    globcategory: String,
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
+    status: String,
     data: {type: Date, default: new Date()}
 },{
     toJSON: {
@@ -29,9 +32,21 @@ const preRead = (req,res,next)=>{
     next();
 };
 
+const preCreate = (req,res,next)=>{
+    req.body['owner'] = req.userId;
+    next()
+};
+
+const preUpdate = (req,res,next)=>{
+    delete req.body['owner'];
+    next()
+};
+
 glob.restify.serve(
     glob.route,
-    mongoose.model('category'),
+    mongoose.model('maincategory'),
     {
-        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead]
+        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preCreate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preUpdate]
     });

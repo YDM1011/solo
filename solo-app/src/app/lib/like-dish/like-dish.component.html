@@ -21,9 +21,9 @@
     <span class="el_i" *ngFor="let est of dishes">
       <a href="//{{est.ownerest.subdomain+'.'+host}}">
       <ng-container *ngIf="est.pic; else picEst">
-        <ng-container *ngIf="est.pic.picCrop; else picEst">
-          <img [src]="est.pic.picCrop">
-        </ng-container>
+        <!--<ng-container *ngIf="est.pic.picCrop; else picEst">-->
+        <app-img [img]="{id:est.pic}"></app-img>
+        <!--</ng-container>-->
       </ng-container>
       <ng-template #picEst>
         <svg xmlns="http://www.w3.org/2000/svg" width="446" height="459" viewBox="0 0 446 459" fill="none">

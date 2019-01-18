@@ -2,7 +2,7 @@ export class Post {
   des: string | '';
   img: any;
   withFriend: any;
-  inPlace: string | '';
+  inPlace: any;
   imression: {name: ''};
   userId: string | '';
   mobile: string | '';
@@ -14,7 +14,7 @@ export class Post {
     this.userId = '';
     this.share = {};
     this.withFriend = [];
-    this.inPlace = '';
+    this.inPlace = {id:null,place:''};
     this.mobile = '';
     this.login = '';
     this.imression = {name: ''};

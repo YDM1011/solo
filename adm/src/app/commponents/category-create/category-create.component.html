@@ -1,0 +1,15 @@
+
+<form (submit)="save()" >
+  <label>
+    <span>name category*</span>
+    <input type="text" name="name-checkBox" [(ngModel)] = "box.name">
+  </label>
+  <!--<label>-->
+  <!--<span>filter</span>-->
+  <!--<input type="text" name="filter type" [(ngModel)] = "box.filter">-->
+  <!--</label>-->
+  <div class="btn-wrap">
+    <button type="button" (click)="cancel()">cancel</button>
+    <button type="submit">create</button>
+  </div>
+</form>

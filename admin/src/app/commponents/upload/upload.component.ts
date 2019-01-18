@@ -68,6 +68,7 @@ export class UploadComponent implements OnInit {
           self.nextLoad(self.index);
         }else{
           this.getImg.emit(res);
+          self.avatar = [];
           return
         }
       }).catch(

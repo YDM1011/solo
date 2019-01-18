@@ -22,13 +22,11 @@
         ></app-form>
         <div class="frn_us">
           <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
+            {{friend | json}}
             <ng-container *ngIf="friend.photo">
+
               <app-img [img]="{id:friend.photo}"></app-img>
             </ng-container>
-            <!--<app-avatar *ngIf="friend.photo"-->
-                        <!--[avatar]="friend.photo"-->
-                        <!--[type]="'imgMin'"-->
-                        <!--class="inherit"></app-avatar>-->
           </a>
           <div class="frn_in">
             <a class="frn_name" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>

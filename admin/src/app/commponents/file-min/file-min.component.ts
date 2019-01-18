@@ -5,6 +5,7 @@ import {Ratios} from "./ratios";
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
+  styleUrls: ['./file-min.component.css']
 })
 export class FileMinComponent implements OnInit {
   get imageCropper(): ImageCropperComponent {

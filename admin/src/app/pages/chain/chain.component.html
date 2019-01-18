@@ -29,16 +29,13 @@
           <div class="row">
             <div class="col-md-6 b-r">
               <h4>Фон мережі</h4>
-              <app-img *ngIf="bg" [id]="bg._id"></app-img>
-              <!--<app-upload (onLoadImg)="update($event,'bg'); bg = $event" ></app-upload>-->
-              <app-upload [model]="'establishment'" [field]="'bg'" [id]="bg._id" [btnName]="btnBG"></app-upload>
+              <img src="{{bg.picCrop}}" alt="">
+              <app-upload [model]="'establishment'" [field]="'bg'" [id]="id" [btnName]="btnBG"></app-upload>
             </div>
-
             <div class="col-md-6">
               <h4>Аватар мережі</h4>
-              <app-img *ngIf="av" [id]="av._id"></app-img>
-              <!--<app-upload (onLoadImg)="update($event,'av'); av = $event" [btn]="btnBG"></app-upload>-->
-              <app-upload [model]="'establishment'" [field]="'av'" [id]="av._id" [btnName]="btnBG"></app-upload>
+              <img src="{{av.picCrop}}" alt="">
+              <app-upload [model]="'establishment'" [field]="'av'" [id]="id" [btnName]="btnBG"></app-upload>
 
             </div>
           </div>

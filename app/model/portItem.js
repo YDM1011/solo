@@ -7,6 +7,10 @@ const model = new Schema({
     price: String,
     dishId: String,
     menuId: String,
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    },
     data: {type: Date, default: new Date()},
 },{
     toJSON: {
@@ -35,13 +39,28 @@ const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    delete req.body['owner'];
     next()
 };
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    req.body['owner'] = req.userId;
     next()
+};
+const preDelete = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    req.body['owner'] = req.userId;
+    mongoose.model('portItem')
+        .findOneAndRemove({_id:req.params.id, owner: req.userId})
+        .exec((err,result)=>{
+            if (err) res.badRequest(err);
+            if (!result) res.notFound('not found');
+            if (result) res.ok({succses:true});
+        })
 };
 const postCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
@@ -65,5 +84,6 @@ glob.restify.serve(
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, preDelete],
         postCreate: [glob.jsonParser, glob.cookieParser, glob.getId, postCreate],
     });

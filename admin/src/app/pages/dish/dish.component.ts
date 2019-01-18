@@ -34,17 +34,6 @@ export class DishComponent implements OnInit {
       self.editid = params.editid;
       self.initApi(params.id);
     });
-
-    /*this.api.onImg.subscribe((pic:any)=>{
-      if(pic){
-        self.dish.map(item=>{
-          console.log(item.pic, pic);
-          if(item.pic._id == pic._id){
-            item.pic = pic;
-          }
-        })
-      }
-    })*/
   }
 
   initApi(id){

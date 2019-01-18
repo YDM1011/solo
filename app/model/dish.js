@@ -61,6 +61,7 @@ const model = new Schema({
     },
     isnew: {type: Boolean, default: true},
     ishit: {type: Boolean, default: true},
+    isActia: {type: Boolean, default: false},
     isdelivery: {type: Boolean, default: true},
     data: {type: Date, default: new Date()},
 },{

@@ -68,10 +68,6 @@ export class CategoryCreateComponent implements OnInit {
   }
   selected(obj) {
     const s = this;
-    s[s.key].maincategory = {
-      name: obj.name,
-      label: obj.label,
-      id: obj.id
-    };
+    s[s.key].maincategory = obj.id;
   }
 }

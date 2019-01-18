@@ -1,7 +1,2 @@
-<div *ngIf="imgObj['preload'] && !imgObj['larg']">
-  <img [src]="imgObj['preload']">
-</div>
-<div *ngIf="imgObj['larg']">
-  <img [src]="imgObj['larg']">
-</div>
-
+<img class="img" *ngIf="pic" [src]="pic" alt="">
+<img class="img" *ngIf="!pic" src="../../../assets/img/errImg.png" alt="nit found">

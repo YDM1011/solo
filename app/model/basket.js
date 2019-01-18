@@ -8,7 +8,7 @@ const model = new Schema({
     name: String,
     av: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     },
     products:  [{
         type: mongoose.Schema.Types.ObjectId,

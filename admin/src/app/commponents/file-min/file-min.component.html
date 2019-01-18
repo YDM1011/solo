@@ -7,7 +7,7 @@
   <div [innerHTML]="btn || 'upload'"></div>
 </label>
 
-<div #pop [class.active]="pop.val">
+<div #pop class="popup-crop" [ngClass]="{'active':pop.val}">
   <div class="p-up-fix" tabindex="0" role="button" (click)="pop.val = !pop.val"></div>
   <section class="p-up p-up-big">
     <div class="p-up-c">

@@ -17,9 +17,7 @@
     <span class="el_i" *ngFor="let est of ests">
       <a href="//{{est.subdomain+'.'+host}}">
       <ng-container *ngIf="est.av; else picEst">
-        <ng-container *ngIf="est.av.picCrop; else picEst">
-          <img [src]="est.av.picCrop">
-        </ng-container>
+        <app-img [img]="{id:est.av}"></app-img>
       </ng-container>
       <ng-template #picEst>
         <svg xmlns="http://www.w3.org/2000/svg" width="366" height="432" viewBox="0 0 366 432" fill="none">

@@ -17,6 +17,10 @@ import { HomeComponent } from './pages/home/home.component';
 import { CheckBoxCreateComponent } from './commponents/check-box-create/check-box-create.component';
 import { CheckBoxAllComponent } from './commponents/check-box-all/check-box-all.component';
 import { CheckBoxEditComponent } from './commponents/check-box-edit/check-box-edit.component';
+import { CategoryComponent } from './pages/category/category.component';
+import { CategoryAllComponent } from './commponents/category-all/category-all.component';
+import { CategoryCreateComponent } from './commponents/category-create/category-create.component';
+import { CategoryEditComponent } from './commponents/category-edit/category-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { CheckBoxEditComponent } from './commponents/check-box-edit/check-box-ed
     HomeComponent,
     CheckBoxCreateComponent,
     CheckBoxAllComponent,
-    CheckBoxEditComponent
+    CheckBoxEditComponent,
+    CategoryComponent,
+    CategoryAllComponent,
+    CategoryCreateComponent,
+    CategoryEditComponent
   ],
   imports: [
     BrowserModule,

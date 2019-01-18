@@ -159,14 +159,21 @@
   </div>
   <div class="row">
     <div class="col s12 m4">
-      <h5>dish.pic</h5>
-      <!--<app-upload (onLoadImg)="dish.pic = $event" [btn]="btnBG"></app-upload>-->
-      <app-upload [model]="'dish'" [field]="'pic'" [id]="dish._id"
-                  (getImg)="dish.pic = $event[0].result._id"
+      <h5>Зображення страви</h5>
+      <app-upload [model]="'dish'" [field]="'pic'"
+                  [id]="dish._id"
+                  (getImg)="getImg($event)"
                   [btnName]="btnBG"></app-upload>
     </div>
     <div class="col s12 m8">
-      <app-pic *ngIf="dish.pic" [pic]="dish.pic"></app-pic>
+      <ng-container *ngIf="dish.pic; else preDishPic">
+        <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
+          <img src="{{dish.pic.picCrop}}" alt="">
+        </ng-container>
+      </ng-container>
+      <ng-template #preDishPic>
+        <app-prev-dish></app-prev-dish>
+      </ng-template>
     </div>
   </div>
   <div class="row">
@@ -192,6 +199,14 @@
                [(ngModel)]="dish.ishit"
                class="filled-in">
         <span>ishit</span>
+      </label>
+    </div>
+    <div class="col s12 m4">
+      <label>
+        <input type="checkbox"
+               [(ngModel)]="dish.isActia"
+               class="filled-in">
+        <span>isActia</span>
       </label>
     </div>
   </div>

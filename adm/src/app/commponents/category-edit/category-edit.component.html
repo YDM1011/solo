@@ -1,0 +1,16 @@
+<ng-container *ngIf="chBox">
+  <form (submit)="save()">
+    <label>
+      <span>name category*</span>
+      <input type="text" name="name-checkBox" [(ngModel)] = "chBox.name">
+    </label>
+    <!--<label>-->
+    <!--<span>filter</span>-->
+    <!--<input type="text" name="filter type" [(ngModel)] = "chBox.filter">-->
+    <!--</label>-->
+    <div class="btn-wrap">
+      <button type="button" (click)="chBox = ''">cancel</button>
+      <button type="submit">edit</button>
+    </div>
+  </form>
+</ng-container>
