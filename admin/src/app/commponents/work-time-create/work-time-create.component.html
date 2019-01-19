@@ -1,0 +1,36 @@
+<div>
+  <input type="text" name="name-calendar"
+         placeholder="Назва каледаря*"
+         [(ngModel)]="calendar.name">
+</div>
+<div class="wrap" *ngFor="let key of keyArr">
+  <div>
+    <input type="text" name="name-day" [(ngModel)]="calendar[key].nameDay">
+  </div>
+  <div *ngIf="calendar[key].isTimeRange">
+    <input type="text" name="start-calendar" [(ngModel)]="calendar[key].timeStart">
+    <input type="text" name="end-calendar" [(ngModel)]="calendar[key].timeEnd">
+  </div>
+  <div>
+    <div (click)="radioCheck('isTimeRange',calendar[key])" class="label">
+    <span class="radio" >
+      <span class="radioActive" [ngClass]="{'check':calendar[key].isTimeRange}"></span>
+    </span>
+      <span>timeRange</span>
+    </div>
+    <div (click)="radioCheck('isAllTime',calendar[key])" class="label">
+    <span class="radio" >
+      <span class="radioActive" [ngClass]="{'check':calendar[key].isAllTime}"></span>
+    </span>
+      <span>isAllTime</span>
+    </div>
+    <div (click)="radioCheck('isWeekend',calendar[key])" class="label">
+    <span class="radio" >
+      <span class="radioActive" [ngClass]="{'check':calendar[key].isWeekend}"></span>
+    </span>
+      <span>isWeekend</span>
+    </div>
+  </div>
+</div>
+
+<button (click)="save()" class="btn">Save</button>

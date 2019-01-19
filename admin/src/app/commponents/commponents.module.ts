@@ -17,6 +17,9 @@ import { MapComponent } from './map/map.component';
 import { PortionComponent } from './portion/portion.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { PrevDishComponent } from './prev-dish/prev-dish.component';
+import { WorkTimeCreateComponent } from './work-time-create/work-time-create.component';
+import { WorkTimeEditComponent } from './work-time-edit/work-time-edit.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   imports: [
@@ -38,7 +41,10 @@ import { PrevDishComponent } from './prev-dish/prev-dish.component';
     SelectComponent,
     CheckOptionComponent,
     MapComponent,
-    PrevDishComponent
+    PrevDishComponent,
+    WorkTimeCreateComponent,
+    WorkTimeEditComponent,
+    CalendarComponent
   ],
   declarations: [
     HeaderComponent,
@@ -54,7 +60,10 @@ import { PrevDishComponent } from './prev-dish/prev-dish.component';
     CheckOptionComponent,
     MapComponent,
     PortionComponent,
-    PrevDishComponent
+    PrevDishComponent,
+    WorkTimeCreateComponent,
+    WorkTimeEditComponent,
+    CalendarComponent
   ],
   providers: []
 })

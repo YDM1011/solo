@@ -32,8 +32,6 @@ import { BoxEditComponent } from './box-edit/box-edit.component';
 import { BoxCreateComponent } from './box-create/box-create.component';
 import { MenuCreateComponent } from './menu-create/menu-create.component';
 import { MenuEditComponent } from './menu-edit/menu-edit.component';
-import { WorkTimeCreateComponent } from './work-time-create/work-time-create.component';
-import { WorkTimeEditComponent } from './work-time-edit/work-time-edit.component';
 
 @NgModule({
   imports: [
@@ -72,8 +70,6 @@ import { WorkTimeEditComponent } from './work-time-edit/work-time-edit.component
     BoxCreateComponent,
     MenuCreateComponent,
     MenuEditComponent,
-    WorkTimeCreateComponent,
-    WorkTimeEditComponent
   ],
   providers: [
     ApiService,

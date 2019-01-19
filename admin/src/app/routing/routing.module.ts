@@ -29,8 +29,6 @@ import {BoxCreateComponent} from "../pages/box-create/box-create.component";
 import {BoxEditComponent} from "../pages/box-edit/box-edit.component";
 import {MenuCreateComponent} from "../pages/menu-create/menu-create.component";
 import {MenuEditComponent} from "../pages/menu-edit/menu-edit.component";
-import {WorkTimeCreateComponent} from "../pages/work-time-create/work-time-create.component";
-import {WorkTimeEditComponent} from "../pages/work-time-edit/work-time-edit.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
@@ -41,8 +39,6 @@ const routes: Routes = [
         {path:'edit/:pid/:id',component:EstEditComponent}
       ]},
       {path:'work_time/:id',component:WorkTimeComponent,children:[
-        {path:'create/:id',component:WorkTimeCreateComponent},
-        {path:':id/:editid',component:WorkTimeEditComponent}
       ]},
       {path:'menu/:id', component:MenuComponent,children:[
         {path:'create/:id',component:MenuCreateComponent},
