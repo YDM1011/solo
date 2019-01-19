@@ -96,9 +96,9 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <div class="form-group">
+            <div class="form-group edit-map">
               <strong class="control-label">GPS координати</strong>
-              <div>
+              <div class="map">
                 <app-map (onxy)="myest.coordinates = $event"></app-map>
               </div>
             </div>
@@ -106,7 +106,7 @@
         </div>
 
         <div class="row">
-          <div class="right">
+          <div class="flx-right">
             <button class="btn btn-primary" (click)="update({
           name:myest.name,
           menus:myest.menus,

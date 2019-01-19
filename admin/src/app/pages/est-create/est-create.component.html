@@ -1,114 +1,121 @@
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Назва закладу</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="name" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Телефон</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="mobile" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Меню</h5>
-    </div>
-    <div class="col s12 m8">
-      <div class="category-for" *ngIf="menus">
-        <span class="dishingredient" *ngFor="let menu of menus">{{menu}}</span>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="ibox float-e-margins">
+      <div class="ibox-title">
+        <h5>Створити заклад</h5>
+        <div class="ibox-tools">
+          <button class="btn btn-primary btn-sm" (click)="create({
+          name:name,
+          menus:MCI,
+          mobile:mobile,
+          about:about,
+          worksTime:worksTime,
+          status:status,
+          reservation:reservation,
+          getself:getself,
+          delivery:delivery,
+          coordinates:coordinates,
+          address:address
+          },'myest')"><strong>Створити</strong></button>
+        </div>
       </div>
-      <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+      <div class="ibox-content">
+        <div class="form-horizontal">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Назва закладу</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" [(ngModel)]="name" name="name" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Телефон</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" [(ngModel)]="mobile" name="name" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Адреса</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" [(ngModel)]="address" name="name" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">GPS координати</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" [(ngModel)]="coordinates" name="name" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <h5 class="col-sm-4 control-label">Меню</h5>
+
+                <div class="col s12 m8">
+                  <div class="category-for" *ngIf="menus">
+                    <span class="dishingredient" *ngFor="let menu of menus">{{menu}}</span>
+                  </div>
+                  <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Опис закладу</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <textarea type="text" [(ngModel)]="about" name="name"></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Графік роботи</label>
+                <div class="col-sm-8">
+                  <div class="input-group">
+                    <input type="text" [(ngModel)]="worksTime" name="name" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group"><label class="col-sm-4 control-label">Статус<br/></label>
+                <div class="col-sm-8">
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="status"> <i></i> Діючий заклад </label></div>
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="delivery"> <i></i> Доставка </label></div>
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="getself"> <i></i> На виніс </label></div>
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="reservation"> <i></i> Бронювання </label></div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Опис закладу</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="about" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Адреса</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="address" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>GPS координати</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="coordinates" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Графік роботи</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="worksTime" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Статус</h5>
-    </div>
-    <div class="col s12 m8">
-      <label>
-        <input type="checkbox" [(ngModel)]="status" class="filled-in" />
-        <span>Діючий заклад</span>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="delivery"
-               class="filled-in">
-        <span>Доставка</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="getself"
-               class="filled-in">
-        <span>На виніс</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="reservation"
-               class="filled-in">
-        <span>Бронювання</span>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <span class="btn" (click)="create({
-    name:name,
-    menus:MCI,
-    mobile:mobile,
-    about:about,
-    worksTime:worksTime,
-    status:status,
-    reservation:reservation,
-    getself:getself,
-    delivery:delivery,
-    coordinates:coordinates,
-    address:address
-    },'myest')">Створити</span>
   </div>
 </div>
