@@ -1,9 +1,5 @@
-<label *ngIf="!multiple">
-  <input type="file" style="display: none" class="profile-avatar" (change)="uploadImg($event);pop.val=true;" *ngIf="!multiple">
-  <div [innerHTML]="btn || 'upload'"></div>
-</label>
-<label *ngIf="multiple">
-  <input type="file" style="display: none" class="profile-avatar" (change)="uploadImg($event)"  multiple="multiple">
+<label>
+  <input type="file" style="display: none" class="profile-avatar" (change)="uploadImg($event);pop.val=true;">
   <div [innerHTML]="btn || 'upload'"></div>
 </label>
 
