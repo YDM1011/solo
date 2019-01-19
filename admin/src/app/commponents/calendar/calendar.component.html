@@ -1,0 +1,18 @@
+<div *ngIf="calendar" class="calendar-wrap-cart">
+  <div class="title">
+    {{calendar.label}}
+  </div>
+  <div class="wrap">
+    <div *ngFor="let key of keyArr">
+    <div>
+      {{calendar[key].nameDay}}
+    </div>
+    <div *ngIf="calendar[key].isTimeRange">
+      {{calendar[key].timeStart}} <br>
+      {{calendar[key].timeEnd}}
+    </div>
+    <div *ngIf="calendar[key].isAllTime">isAllTime</div>
+    <div *ngIf="calendar[key].isWeekend">isWeekend</div>
+    </div>
+  </div>
+</div>

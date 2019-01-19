@@ -24,6 +24,8 @@ export class ChainComponent implements OnInit, OnChanges {
   public about:any;
   public id:any;
   public worksTime:any;
+  public worksTimeView:any;
+  public worksTimeAll:any;
   public minPrice:number;
   public links:any=[];
   constructor(
@@ -40,6 +42,7 @@ export class ChainComponent implements OnInit, OnChanges {
       self.id = params.id;
       self.initApi(params.id);
     });
+    self.getAllCalendars()
     // this.initApi();
   }
   ngOnChanges() {
@@ -47,7 +50,7 @@ export class ChainComponent implements OnInit, OnChanges {
   }
   initApi(id){
     let self = this;
-    let req=['name','subdomain', 'worksTime',
+    let req=['name','subdomain',
       'mobile','about','links', 'minPrice','mail',
       'delivery','getself','reservation'];
     req.forEach((select)=>{
@@ -61,6 +64,31 @@ export class ChainComponent implements OnInit, OnChanges {
         self[select] = res[select];
       }).catch((err:any)=>{});
     });
+    let req3=['worksTime'];
+    req3.forEach((select)=>{
+      this.api.get('establishment',id,select).then((res:any)=>{
+        self[select] = res[select];
+        self.getCalendarActive()
+      }).catch((err:any)=>{});
+    });
+  }
+  getCalendarActive(){
+    const s = this;
+    s.api.justGet(`timeWork/${s.worksTime}`).then((val:any)=>{
+      s.worksTimeView = val;
+    })
+  }
+  getAllCalendars(){
+    const s = this;
+    s.api.justGet(`timeWork?query={"ownerEst":"${s.id}"}`).then((val:any)=>{
+      s.worksTimeAll = [];
+      val.map(it=>{
+        s.worksTimeAll.push({
+          label: it.name,
+          obj: it
+        })
+      });
+    })
   }
   update(obj,model){
     let self = this;
@@ -68,5 +96,11 @@ export class ChainComponent implements OnInit, OnChanges {
     this.api.set('establishment',obj,self.id,model).then((res:any)=>{
       self[model] = res[model];
     }).catch((err:any)=>{});
+  }
+  getCalendar(e){
+    let s = this;
+    console.log(e.obj);
+    s.worksTime = e.obj._id;
+    s.worksTimeView = e.obj;
   }
 }

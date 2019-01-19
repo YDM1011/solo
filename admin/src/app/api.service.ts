@@ -159,6 +159,18 @@ export class ApiService {
         );
     });
   }
+  doDel(api,_id){
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.http.delete(`${self.domain}/api/${api}/${_id}`)
+        .subscribe(
+          res => {
+            resolve(res)
+          },
+          err => reject(err)
+        );
+    });
+  }
   deletSelect(api, _id, id, select, mod) {
     const self = this;
     return new Promise((resolve, reject) => {

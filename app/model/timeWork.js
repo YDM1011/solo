@@ -5,12 +5,14 @@ const timeRangeSchema = {
     nameDay: String,
     timeStart:  {type: String, default: "9:00"},
     timeEnd: {type: String, default: "20:00"},
+    isTimeRange: {type: Boolean, default: true},
     isAllTime: {type: Boolean, default: false},
     isWeekend: {type: Boolean, default: false}
 };
 
 const model = new Schema({
     name: {type: String, required: [true, 'enter name']},
+    label: {type: String},
     timeRange1: timeRangeSchema,
     timeRange2: timeRangeSchema,
     timeRange3: timeRangeSchema,
@@ -105,6 +107,9 @@ const preCreate = (req,res,next)=> {
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     req.body['owner'] = req.userId;
+    if (!req.body['label']) {
+        req.body['label'] = req.body['name'];
+    }
     next()
 };
 
