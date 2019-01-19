@@ -14,6 +14,8 @@ export class EstEditComponent implements OnInit {
   public myest:any;
   public option:any = [];
   public menus:any = [];
+  public worksTimeAll:any;
+  public worksTimeView:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -37,6 +39,8 @@ export class EstEditComponent implements OnInit {
   initApi(id){
     let self = this;
     let req=['myest'];
+    self.getAllCalendars();
+
     req.forEach((select)=>{
       this.api.get('oneest',id,select).then((res:any)=>{
         self[select] = res;
@@ -45,7 +49,8 @@ export class EstEditComponent implements OnInit {
         self[select].menus.map(item=>{
           console.log("test",item);
           self.menus.push(item.name);
-        })
+        });
+        self.getCalendarActive();
       }).catch((err:any)=>{});
     });
     let req1=['option'];
@@ -101,5 +106,34 @@ export class EstEditComponent implements OnInit {
       s.myest.menus.push(item.id);
       s.menus.push(item.name);
     })
+  }
+  getAllCalendars(){
+    const s = this;
+    s.api.justGet(`timeWork?query={"ownerEst":"${s.pid}"}`).then((val:any)=>{
+      s.worksTimeAll = [];
+      val.map(it=>{
+        s.worksTimeAll.push({
+          label: it.name,
+          obj: it
+        })
+      });
+    })
+  }
+  getCalendar(e){
+    let s = this;
+    console.log(e.obj);
+    s.myest.worksTime = e.obj.label || e.obj.name;
+    s.myest.worksTimeId = e.obj._id;
+    s.worksTimeView = e.obj;
+  }
+  getCalendarActive(){
+    const s = this;
+    console.log(s.myest)
+    if(s.myest.worksTimeId){
+      s.api.justGet(`timeWork/${s.myest.worksTimeId}`).then((val:any)=>{
+        s.myest.worksTime = val.label || val.name;
+        s.worksTimeView = val;
+      })
+    }
   }
 }

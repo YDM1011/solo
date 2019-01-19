@@ -5,13 +5,17 @@ const oneLinks = new Schema({
     label: String
 });
 const model = new Schema({
-    name: String,
-    city: String,
-    address: String,
+    name: {type:String, required:[true, "Enter name"]},
+    city: {type:String, required:[true, "Enter city"]},
+    address: {type:String, required:[true, "Enter address"]},
     coordinates: Array,
     mobile: {type: String},
     mobiles: [{type: String}],
     worksTime: String,
+    worksTimeId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "timeWork"
+    },
     about: String,
     mail: String,
     status:{type: Boolean, default: true},

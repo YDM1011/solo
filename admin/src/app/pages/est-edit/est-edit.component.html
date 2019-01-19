@@ -69,11 +69,21 @@
             </div>
           </div>
           <div class="col-md-6">
+            <div class="input-group">
+              <app-calendar [calendar]="worksTimeView"></app-calendar>
+            </div>
+            <div>
+              <app-select [option]="worksTimeAll"
+                          (onCheck)="getCalendar($event)"
+                          [defoult]="'calendar'"></app-select>
+            </div>
+          </div>
+          <div class="col-md-6">
             <div class="form-group">
               <label class="col-sm-6 control-label">Графік роботи</label>
               <div class="col-sm-6">
                 <div class="input-group">
-                  <input type="text" [(ngModel)]="myest.worksTime" name="name" class="form-control">
+                  {{myest.worksTime}}
                 </div>
               </div>
             </div>
@@ -113,6 +123,7 @@
           mobile:myest.mobile,
           about:myest.about,
           worksTime:myest.worksTime,
+          worksTimeId:myest.worksTimeId,
           status:myest.status,
           reservation:myest.reservation,
           getself:myest.getself,

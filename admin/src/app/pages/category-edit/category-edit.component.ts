@@ -34,23 +34,13 @@ export class CategoryEditComponent implements OnInit {
   }
   initApi(id){
     let self = this;
-    let req=['category'];
-    req.forEach((select)=>{
-      this.api.get('category',id).then((res:any)=>{
 
-        res.map(item=>{
-          if (item._id == self.editid){
-            self[select] = Object.assign({},item);
-          }
-        });
-      }).catch((err:any)=>{});
-    });
     let req1=['option'];
     req1.forEach((select)=>{
-      this.api.get('category',id).then((res:any)=>{
+      this.api.get('maincategory').then((res:any)=>{
         if(res){
           self[select] = [];
-            res.map((item:any)=>{
+          res.map((item:any)=>{
             self.option.push({
               name:item.maincategory,
               label:item.name,
@@ -58,6 +48,21 @@ export class CategoryEditComponent implements OnInit {
             })
           });
           self[select] = self.option;
+          let req=['category'];
+          req.forEach((select)=>{
+            this.api.get('category',id).then((res:any)=>{
+              res.map(item=>{
+                if (item._id == self.editid){
+                  self[select] = Object.assign({},item);
+                  self.option.map(it=>{
+                    if (it.id == item.maincategory){
+                      self.key = it.label;
+                    }
+                  })
+                }
+              });
+            }).catch((err:any)=>{});
+          });
         }
       }).catch((err:any)=>{});
     });
@@ -79,5 +84,15 @@ export class CategoryEditComponent implements OnInit {
   selected(obj){
     let s = this;
     s[s.key].maincategory = obj.id;
+  }
+
+  getById(id){
+    let s = this;
+    s.option.map(it=>{
+      console.log(it.id, id);
+      if(it.id == id){
+        return it.label;
+      }
+    });
   }
 }
