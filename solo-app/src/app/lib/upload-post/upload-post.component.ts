@@ -27,10 +27,17 @@ export class UploadPostComponent implements OnInit {
   }
 
   res(er){
-    console.log(er);
-    let obj = Object.assign({},er);
-    this.avatar.push(obj);
-    console.log(this.avatar);
+    console.log('er', er);
+    let obj = Object.assign({},{
+      base64default: er.def,
+      base64crop: er.def,
+      fileName: er.name,
+      model: this.model,
+      field: this.field,
+      id: this.id,
+    });
+    this.getImg.emit(obj);
+    // this.avatar.push(obj);
   }
   savePics() {
     console.log(this.avatar);

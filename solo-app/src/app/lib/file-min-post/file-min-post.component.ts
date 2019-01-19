@@ -7,16 +7,12 @@ import {Component, EventEmitter, Input, OnInit, Output,} from '@angular/core';
 })
 export class FileMinPostComponent implements OnInit {
 
-  public file: any;
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
 
   public imageObj: string;
-  public name;
-  public size;
   public Pics: any = {
     def: '',
-    crop: '',
     name: '',
     size: ''
   };
@@ -37,30 +33,25 @@ export class FileMinPostComponent implements OnInit {
   }
 
   loadReader(format: string, file: any) {
-    this.file = file;
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
-      if(file) this.loadImg(format, ev.target.result)
+      if(file) this.loadImg(format, ev.target.result, file.name, file.size)
     };
   }
 
-  loadImg (format: string, base64: string) {
-    this.name = this.file.name;
-    this.size = this.file.size;
-    console.log("OK",this.name, this.size);
+  loadImg (format: string, base64: string, name: string, size: number) {
     const img: HTMLImageElement = new Image();
     img.src = base64;
     img.onload = () => {
       this.createImg(img, format);
       this.Pics = {
         def: this.imageObj,
-        name: this.name,
-        size: this.size
+        name: name,
+        size: size
       };
       this.fileResult.emit(this.Pics);
       this.imageObj = '';
-      console.log(this.Pics);
     };
   }
 
