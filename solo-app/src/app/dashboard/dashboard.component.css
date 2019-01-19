@@ -7,13 +7,14 @@
 .h-pf_img {
   display: block;
   position: relative;
-  z-index: 1;
   background: rgba(0, 0, 0, 0.04);
   width: 100px;
   height: 100px;
   max-width: 200px;
   max-height: 200px;
+  /*z-index: 10;*/
 }
+
 .h-pf_tt {
   position: absolute;
   padding: 0 10px;
@@ -42,16 +43,6 @@ app-last-name{
   right: 0;
   bottom: 20px;
   width: 100%; }
-
-.cont_h-pf_loader {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-}
 
 @media (min-width: 400px) {
   .h-pf_img {

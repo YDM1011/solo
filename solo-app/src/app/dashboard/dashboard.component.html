@@ -1,11 +1,30 @@
 <div class="cont-page">
   <div class="cont-page_one">
 
-    <div class="cont_h-pf" *ngIf="user">
+    <div class="cont_h-pf">
+      <ng-container *ngIf="!user">
+        <div class="h-pf_bg pre-bg"></div>
+        <div class="h-pf_img pre-bg"></div>
+        <div class="btn-green">Зустрітись з друзями</div>
+      </ng-container>
+
+      <ng-container *ngIf="user">
+        <div class="h-pf_bg pre-bg">
+          <ng-container *ngIf="user.bg">
+            <img class="img" src="{{user.bg.picCrop}}">
+          </ng-container>
+          <ng-container *ngIf="!user.bg">
+            <app-prev-bg></app-prev-bg>
+          </ng-container>
+          <app-upload [btnName]="btnBg"
+                      [model]="'user'"
+                      [field]="'bg'"
+                      [multiple]="false"></app-upload>
+        </div>
 
         <div class="h-pf_img">
           <ng-container *ngIf="user.photo">
-            <img  src="{{user.photo.picCrop}}">
+            <img class="img" src="{{user.photo.picCrop}}">
           </ng-container>
           <ng-container *ngIf="!user.photo">
             <app-prev-avatar></app-prev-avatar>
@@ -17,48 +36,16 @@
           ></app-upload>
         </div>
 
-        <div class="h-pf_tt">
-          <span>{{user.firstName}} </span>
-          <span>{{user.lastName}} </span>
-          <!--<app-first-name></app-first-name>-->
-          <!--<app-last-name></app-last-name>-->
-        </div>
+        <div class="h-pf_tt">{{user.firstName}} {{user.lastName}}</div>
 
         <button class="btn-green" isMyProfile>Зустрітись з друзями</button>
-
-        <div class="h-pf_bg pre-bg">
-
-          <ng-container *ngIf="user">
-            <ng-container *ngIf="user.bg">
-              <img  src="{{user.bg.picCrop}}">
-            </ng-container>
-            <ng-container *ngIf="!user.bg">
-              <app-prev-bg></app-prev-bg>
-            </ng-container>
-          </ng-container>
-
-          <app-upload [btnName]="btnBg"
-                      [model]="'user'"
-                      [field]="'bg'"
-                      [multiple]="false"></app-upload>
-        </div>
-        <!--<app-bg class="h-pf_bg pre-bg"></app-bg>-->
-
-        <app-user-init [user]="user"></app-user-init>
-
-        <!--<app-update-user class="cont_h-pf_update" [id]="id"></app-update-user>-->
-
-
-        <div class="cont_h-pf_loader">
-          <!--<img class="img" [src]="loader.larg" *ngIf="loader">-->
-        </div>
-
 
         <app-form *ngIf="loader" [text]="'Зберегти аватар'"
                   [class]="'btn waves-effect waves-light'"
                   [option]="loader"
                   [url]="'/api/avatar'"
         ></app-form>
+      </ng-container>
     </div>
 
     <div class="cont-content">
@@ -90,7 +77,7 @@
                   <div class="br-lv_i pre-bg" *ngIf="!favoriteEst.av"></div>
                   <div class="br-lv_i" >
                     <ng-container *ngIf="favoriteEst.av.picCrop; else favEst">
-                      <img [src]="favoriteEst.av.picCrop">
+                      <img class="img" [src]="favoriteEst.av.picCrop">
                     </ng-container>
                   </div>
               </div>

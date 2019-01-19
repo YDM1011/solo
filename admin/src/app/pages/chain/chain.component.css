@@ -6,3 +6,6 @@ app-img{
   min-height: 200px;
   margin-bottom: 15px;
 }
+.wrapper.wrapper-content.animated.fadeInRight{
+   animation-fill-mode: none;
+}

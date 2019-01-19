@@ -1,33 +1,61 @@
 <p>
-  Список усіх страв мережі по категоріям: категоріям, назва, опис, фото, новинка, хіт, статус: чи дозволена доставка чи лише у закладі; кількість лайків, моментів, поширень. Сортування за лайками, коментами, поширеннями. Склад страви: це масив (чекбокси) з продуктів. Порції страви: обов’язково одна: з вагою, назвою, калоріями. Можна створювати багато порцій, тоді для кожної порції різні ціни в меню.
+  Список усіх страв мережі по категоріям: категоріям, назва, опис, фото, новинка, хіт, статус: чи дозволена доставка чи
+  лише у закладі; кількість лайків, моментів, поширень. Сортування за лайками, коментами, поширеннями. Склад страви: це
+  масив (чекбокси) з продуктів. Порції страви: обов’язково одна: з вагою, назвою, калоріями. Можна створювати багато
+  порцій, тоді для кожної порції різні ціни в меню.
 </p>
-<router-outlet></router-outlet>
-<div class="container-fluid">
-  <div class="row" *ngIf="dish.length == 0">
-    <div class="card">
-      <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">create</a>
-    </div>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>Страви</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="'/'">Home</a>
+      </li>
+      <li class="active">
+        <a href="">Мережа</a>
+      </li>
+      <li class="active">
+        <strong>Страви</strong>
+      </li>
+    </ol>
   </div>
-  <div class="row" *ngIf="dish.length > 0">
-    <div class="col s12 m4" *ngFor="let dsh of dish">
-      <div class="card">
-        <ng-container *ngIf="dsh.pic; else preDishPic">
-          <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
-            <img class="img40" src="{{dsh.pic.picCrop}}" alt="">
-          </ng-container>
-        </ng-container>
-        <ng-template #preDishPic>
-          <app-prev-dish></app-prev-dish>
-        </ng-template>
-
-        <span>{{dsh.name}}</span>
-        <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn">Редагувати</a>
-        <span (click)="delet(dsh._id)" class="btn">del</span>
-      </div>
-    </div>
-    <div class="col s12 m4">
-      <div class="card">
-        <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">create</a>
+  <div class="col-lg-2"></div>
+</div>
+<router-outlet></router-outlet>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Всі страви <strong></strong></h5>
+          <div class="ibox-tools">
+            <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn btn-primary btn-sm"><strong>Створити страву</strong></a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="row" *ngIf="dish.length > 0">
+            <div class="col s12 m4" *ngFor="let dsh of dish">
+              <div class="card">
+                <ng-container *ngIf="dsh.pic; else preDishPic">
+                  <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
+                    <img class="img40" src="{{dsh.pic.picCrop}}" alt="">
+                  </ng-container>
+                </ng-container>
+                <ng-template #preDishPic>
+                  <app-prev-dish></app-prev-dish>
+                </ng-template>
+                <span>{{dsh.name}}</span>
+                <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn">Редагувати</a>
+                <span (click)="delet(dsh._id)" class="btn">del</span>
+              </div>
+            </div>
+            <div class="col s12 m4">
+              <div class="card">
+                <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">create</a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
