@@ -100,7 +100,7 @@ export class ToOrderComponent implements OnInit {
   dataToObject2(data){
     return {
       year: data.getFullYear(),
-      month: data.getMonth(),
+      month: data.getMonth()+1,
       day: data.getDate()
     }
   }

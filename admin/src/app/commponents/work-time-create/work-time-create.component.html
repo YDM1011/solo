@@ -1,36 +1,64 @@
-<div>
-  <input type="text" name="name-calendar"
-         placeholder="Назва каледаря*"
-         [(ngModel)]="calendar.name">
-</div>
-<div class="wrap" *ngFor="let key of keyArr">
-  <div>
-    <input type="text" name="name-day" [(ngModel)]="calendar[key].nameDay">
-  </div>
-  <div *ngIf="calendar[key].isTimeRange">
-    <input type="text" name="start-calendar" [(ngModel)]="calendar[key].timeStart">
-    <input type="text" name="end-calendar" [(ngModel)]="calendar[key].timeEnd">
-  </div>
-  <div>
-    <div (click)="radioCheck('isTimeRange',calendar[key])" class="label">
-    <span class="radio" >
-      <span class="radioActive" [ngClass]="{'check':calendar[key].isTimeRange}"></span>
-    </span>
-      <span>timeRange</span>
-    </div>
-    <div (click)="radioCheck('isAllTime',calendar[key])" class="label">
-    <span class="radio" >
-      <span class="radioActive" [ngClass]="{'check':calendar[key].isAllTime}"></span>
-    </span>
-      <span>isAllTime</span>
-    </div>
-    <div (click)="radioCheck('isWeekend',calendar[key])" class="label">
-    <span class="radio" >
-      <span class="radioActive" [ngClass]="{'check':calendar[key].isWeekend}"></span>
-    </span>
-      <span>isWeekend</span>
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins">
+        <div class="ibox-title">
+          <h5>Новий календар</h5>
+          <div class="ibox-tools">
+            <button (click)="save()" class="btn btn-primary btn-sm">Зберегти</button>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="form-horizontal">
+          <div class="form-group">
+            <label class="col-md-2 control-label">Назва каледаря*</label>
+            <div class="col-md-10">
+              <input type="text" name="name-calendar"
+                     class="form-control"
+                     [(ngModel)]="calendar.name">
+            </div>
+          </div>
+          <div class="calendar_cn">
+            <div class="calendar_i" *ngFor="let key of keyArr; let i = index">
+              <div>
+                <input class="form-control" type="text" name="name-day" [(ngModel)]="calendar[key].nameDay">
+              </div>
+
+              <div *ngIf="calendar[key].isTimeRange">
+                <timepicker [(ngModel)]="timeArray[i].timeStart" [showMeridian]="false" [arrowkeys]="true" (isValid)="timeArray[i].isValidS = $event"></timepicker>
+                <timepicker [(ngModel)]="timeArray[i].timeEnd" [showMeridian]="false" [arrowkeys]="true" (isValid)="timeArray[i].isValidE = $event"></timepicker>
+                <!--<input class="form-control" type="text" name="start-calendar" [(ngModel)]="calendar[key].timeStart">-->
+                <!--<input class="form-control" type="text" name="end-calendar" [(ngModel)]="calendar[key].timeEnd">-->
+              </div>
+              <div>
+                <div (click)="radioCheck('isTimeRange',calendar[key])" class="label">
+                <span class="radio" >
+                  <span class="radioActive" [ngClass]="{'check':calendar[key].isTimeRange}"></span>
+                </span>
+                  <span>timeRange</span>
+                </div>
+                <div (click)="radioCheck('isAllTime',calendar[key])" class="label">
+                <span class="radio" >
+                  <span class="radioActive" [ngClass]="{'check':calendar[key].isAllTime}"></span>
+                </span>
+                  <span>isAllTime</span>
+                </div>
+                <div (click)="radioCheck('isWeekend',calendar[key])" class="label">
+                  <span class="radio" >
+                    <span class="radioActive" [ngClass]="{'check':calendar[key].isWeekend}"></span>
+                  </span>
+                  <span>isWeekend</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
-<button (click)="save()" class="btn">Save</button>
+
+

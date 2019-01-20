@@ -20,12 +20,15 @@ export class WorkTimeCreateComponent implements OnInit {
     "timeRange6",
     "timeRange7",
   ];
+  public timeArray = [];
+
   @Output() onCreate = new EventEmitter();
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService
   ) { }
+  myTime = new Date();
 
   ngOnInit() {
     let s = this;
@@ -34,6 +37,7 @@ export class WorkTimeCreateComponent implements OnInit {
       s.id = params.id;
       s.initApi(params.id);
     });
+    this.createDateT()
   }
 
   ngOnChanges() {
@@ -44,6 +48,37 @@ export class WorkTimeCreateComponent implements OnInit {
       s.initApi(params.id);
     });
   }
+  createDateT() {
+    this.keyArr.forEach( item => {
+      let arrTimeS = this.calendar[item].timeStart.split(':');
+      let arrTimeE = this.calendar[item].timeEnd.split(':');
+      this.timeArray.push({
+          timeStart: new Date(2019, 0, 1, arrTimeS[0], arrTimeS[1]),
+          timeEnd: new Date(2019, 0, 1, arrTimeE[0], arrTimeE[1]),
+          isValidS: true,
+          isValidE: true
+        });
+    });
+  }
+
+  dateToString(pull: any, push: object) {
+    console.log(pull)
+    this.keyArr.forEach( (item, num) => {
+      if (pull[num].isValidS) {
+        let timeS = pull[num].timeStart.toTimeString();
+        timeS = timeS.split(' ');
+        timeS = timeS[0].split(':');
+        push[item].timeStart = `${timeS[0]}:${timeS[1]}`;
+      }
+      if (pull[num].isValidE) {
+        let timeE = pull[num].timeEnd.toTimeString();
+        timeE = timeE.split(' ');
+        timeE = timeE[0].split(':');
+        push[item].timeEnd = `${timeE[0]}:${timeE[1]}`;
+      }
+    });
+  }
+
   ngOnDestroy(){}
 
   initApi(id){}
@@ -75,6 +110,7 @@ export class WorkTimeCreateComponent implements OnInit {
   save(){
     let s = this;
     s.calendar.ownerEst = s.id;
+    s.dateToString(s.timeArray, s.calendar);
     console.log(s.calendar);
     s.api.doPost('timeWork', s.calendar).then((val:any)=>{
       if(val){

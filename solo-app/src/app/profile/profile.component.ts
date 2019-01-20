@@ -145,6 +145,7 @@ export class ProfileComponent implements OnInit {
     s.me = (e);
     s.data = s.dataToObject(s.me.bornedData);
     s.dateOfBirth = s.me.bornedData;
+    console.log(s.dateOfBirth);
     s.maxDate = s.dataToObject(moment().toISOString());
     s.statusCheck = Object.assign({}, s.me.familyStatus);
     if(this.statusCheck.person){this.isStsWith = true}else{this.isStsWith = false}
@@ -154,7 +155,7 @@ export class ProfileComponent implements OnInit {
   dataToObject2(data){
     return {
       year: data.getFullYear(),
-      month: data.getMonth(),
+      month: data.getMonth()+1,
       day: data.getDate()
     }
   }

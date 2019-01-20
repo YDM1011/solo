@@ -20,13 +20,15 @@ import { PrevDishComponent } from './prev-dish/prev-dish.component';
 import { WorkTimeCreateComponent } from './work-time-create/work-time-create.component';
 import { WorkTimeEditComponent } from './work-time-edit/work-time-edit.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 
 @NgModule({
   imports: [
     CommonModule,
     RoutingModule,
     FormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    TimepickerModule.forRoot(),
   ],
   exports: [
     HeaderComponent,
