@@ -8,7 +8,7 @@ import {Router, ActivatedRoute} from "@angular/router";
   styleUrls: ['./dish-create.component.css']
 })
 export class DishCreateComponent implements OnInit {
-  public btnBG:string='<span class="btn">Завантажити фон</span>';
+  public btnBG:string='<span class="btn btn-sm btn-primary"><strong>Завантажити фон</strong></span>';
   public setArg:string='';
   public option:any=[];
   public isFormAdd:boolean=false;

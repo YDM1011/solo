@@ -28,7 +28,6 @@ export class WorkTimeCreateComponent implements OnInit {
     private router: Router,
     private api: ApiService
   ) { }
-  myTime = new Date();
 
   ngOnInit() {
     let s = this;
@@ -62,7 +61,6 @@ export class WorkTimeCreateComponent implements OnInit {
   }
 
   dateToString(pull: any, push: object) {
-    console.log(pull)
     this.keyArr.forEach( (item, num) => {
       if (pull[num].isValidS) {
         let timeS = pull[num].timeStart.toTimeString();

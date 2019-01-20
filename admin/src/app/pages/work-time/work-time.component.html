@@ -1,61 +1,72 @@
-<p>
-  Список графіків роботи. Час відкриття і закриття на кожен день тижня і назва графіка для зручності обирати закладу.
-</p>
 <router-outlet></router-outlet>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-4">
+    <h2>Графік роботи</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="'/'">Home</a>
+      </li>
+      <li>
+        <a [routerLink]="'/chain/'+id">Мережа</a>
+      </li>
+      <li class="active">
+        <strong>Графік роботи</strong>
+      </li>
+    </ol>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
 
-<div class="wrapper wrapper-content animated fadeInRight">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="ibox float-e-margins">
-        <div class="ibox-title">
-          <h5>Календар <strong></strong></h5>
-          <div class="ibox-tools">
+    <app-work-time-create
+      *ngIf="isCreate"
+      (onCreate)="calendarsAdd($event); isCreate = false"></app-work-time-create>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Календар <strong></strong></h5>
+              <div class="ibox-tools">
+                <button (click)="isCreate = true" *ngIf="!isCreate" class="btn btn-primary btn-sm">Створити календар</button>
+              </div>
+            </div>
+            <div class="ibox-content">
+              <div class="calendar_cn">
+                <ng-container *ngFor="let calendar of calendars">
+                  <div class="calendar_cn_i" *ngIf="!isShow[calendar._id]">
+                      <div class="ibox-title calendar_tt">
+                        <strong>{{calendar.name}}</strong><span>{{calendar.label}}</span>
+                      </div>
+                      <div class="calendar_wrap">
+                        <div class="calendar_i" *ngFor="let key of keyArr">
+                          <strong class="calendar_i_tt">{{calendar[key].nameDay}}</strong>
+                          <br>
+                          <div *ngIf="calendar[key].isTimeRange">Час роботи: {{calendar[key].timeStart}} – {{calendar[key].timeEnd}}</div>
+                          <div *ngIf="calendar[key].isAllTime">Цілодобово</div>
+                          <div *ngIf="calendar[key].isWeekend">Зачиненно</div>
+                        </div>
+                      </div>
+                      <div class="btn-wrap">
+                        <button (click)="del(calendar._id)" class="btn btn-danger btn-sm">Видалити</button>
+
+                        <button (click)="isShow[calendar._id] = true" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Редагувати</button>
+                      </div>
+                  </div>
+                  <app-work-time-edit
+                    [obj]="calendar"
+                    (onEdit)="calendarsEdit($event,calendar)"
+                    *ngIf="isShow[calendar._id]"
+                  ></app-work-time-edit>
+                </ng-container>
+
+              </div>
+            </div>
           </div>
         </div>
-        <div class="ibox-content">
-
-        </div>
       </div>
     </div>
   </div>
 </div>
-
-<div class="wrap-calendar" *ngFor="let calendar of calendars">
-  <div *ngIf="!isShow[calendar._id]">
-    <div>
-      <input type="text" name="name-calendar"
-             placeholder="Назва каледаря*"
-             [(ngModel)]="calendar.name">
-    </div>
-    <div>
-      <input type="text" name="name-calendar"
-             placeholder="Підпис каледаря*"
-             [(ngModel)]="calendar.label">
-    </div>
-    <div class="wrap" *ngFor="let key of keyArr">
-      <div>
-        <input type="text" name="name-day" [(ngModel)]="calendar[key].nameDay">
-      </div>
-      <div *ngIf="calendar[key].isTimeRange">
-        <input type="text" name="start-calendar" [(ngModel)]="calendar[key].timeStart">
-        <input type="text" name="end-calendar" [(ngModel)]="calendar[key].timeEnd">
-      </div>
-      <div *ngIf="calendar[key].isAllTime">isAllTime</div>
-      <div *ngIf="calendar[key].isWeekend">isWeekend</div>
-    </div>
-    <span class="btn" (click)="isShow[calendar._id] = true">edit</span>
-    <span (click)="del(calendar._id)" class="btn">del</span>
-  </div>
-  <app-work-time-edit
-                      [obj]="calendar"
-                      (onEdit)="calendarsEdit($event,calendar)"
-                      *ngIf="isShow[calendar._id]"
-  ></app-work-time-edit>
-</div>
-<div>
-  <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Create</button>
-  <app-work-time-create
-    *ngIf="isCreate"
-    (onCreate)="calendarsAdd($event); isCreate = false"></app-work-time-create>
-</div>
-<br><br><br><br><br>
+<br><br>

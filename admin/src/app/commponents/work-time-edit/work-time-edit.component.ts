@@ -20,6 +20,8 @@ export class WorkTimeEditComponent implements OnInit {
     "timeRange6",
     "timeRange7",
   ];
+  public timeArray = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,7 +29,7 @@ export class WorkTimeEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.createDateT()
   }
 
   ngOnChanges(){
@@ -65,8 +67,39 @@ export class WorkTimeEditComponent implements OnInit {
     }
   }
 
+  createDateT() {
+    this.keyArr.forEach( item => {
+      let arrTimeS = this.obj[item].timeStart.split(':');
+      let arrTimeE = this.obj[item].timeEnd.split(':');
+      this.timeArray.push({
+        timeStart: new Date(2019, 0, 1, arrTimeS[0], arrTimeS[1]),
+        timeEnd: new Date(2019, 0, 1, arrTimeE[0], arrTimeE[1]),
+        isValidS: true,
+        isValidE: true
+      });
+    });
+  }
+
+  dateToString(pull: any, push: object) {
+    this.keyArr.forEach( (item, num) => {
+      if (pull[num].isValidS) {
+        let timeS = pull[num].timeStart.toTimeString();
+        timeS = timeS.split(' ');
+        timeS = timeS[0].split(':');
+        push[item].timeStart = `${timeS[0]}:${timeS[1]}`;
+      }
+      if (pull[num].isValidE) {
+        let timeE = pull[num].timeEnd.toTimeString();
+        timeE = timeE.split(' ');
+        timeE = timeE[0].split(':');
+        push[item].timeEnd = `${timeE[0]}:${timeE[1]}`;
+      }
+    });
+  }
+
   save(){
     let s = this;
+    s.dateToString(s.timeArray, s.obj);
     console.log(s.obj);
     s.api.doPost(`timeWork/${s.obj._id}`, s.obj).then((val:any)=>{
       if(val){

@@ -1,42 +1,82 @@
-<ng-container *ngIf="obj">
-  <div>
-    <input type="text" name="name-calendar"
-           placeholder="Назва каледаря*"
-           [(ngModel)]="obj.name">
-  </div>
-  <div>
-    <input type="text" name="name-calendar"
-           placeholder="Підпис каледаря*"
-           [(ngModel)]="obj.label">
-  </div>
-  <div class="wrap" *ngFor="let key of keyArr">
-    <div>
-      <input type="text" name="name-day" [(ngModel)]="obj[key].nameDay">
-    </div>
-    <div *ngIf="obj[key].isTimeRange">
-      <input type="text" name="start-calendar" [(ngModel)]="obj[key].timeStart">
-      <input type="text" name="end-calendar" [(ngModel)]="obj[key].timeEnd">
-    </div>
-    <div>
-      <div (click)="radioCheck('isTimeRange',obj[key])" class="label">
-        <span class="radio" >
-          <span class="radioActive" [ngClass]="{'check':obj[key].isTimeRange}"></span>
-        </span>
-        <span>timeRange</span>
-      </div>
-      <div (click)="radioCheck('isAllTime',obj[key])" class="label">
-        <span class="radio" >
-          <span class="radioActive" [ngClass]="{'check':obj[key].isAllTime}"></span>
-        </span>
-        <span>isAllTime</span>
-      </div>
-      <div (click)="radioCheck('isWeekend',obj[key])" class="label">
-        <span class="radio" >
-          <span class="radioActive" [ngClass]="{'check':obj[key].isWeekend}"></span>
-        </span>
-        <span>isWeekend</span>
-      </div>
+<div class="edit-calender" *ngIf="obj">
+  <div class="ibox-title">
+    <div>Редагувати календар: <h5>{{obj.name}}</h5></div>
+    <div class="ibox-tools">
+      <button (click)="save()" class="btn btn-primary btn-sm">Зберегти</button>
     </div>
   </div>
-  <button (click)="save()" class="btn">Save</button>
-</ng-container>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <label class="col-md-2 control-label">Назва каледаря*</label>
+      <div class="col-md-10">
+        <input type="text" name="name-calendar" class="form-control"
+               [(ngModel)]="obj.name">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-4 control-label">Підпис каледаря*</label>
+      <div class="col-md-8">
+        <input type="text" name="name-calendar" class="form-control"
+               [(ngModel)]="obj.label">
+      </div>
+    </div>
+
+    <div class="cr-calendar_cn">
+      <div class="cr-calendar_i" *ngFor="let key of keyArr; let i = index">
+        <div class="form-group">
+          <label class="col-sm-4 control-label">День</label>
+          <div class="col-sm-8">
+            <input class="form-control" type="text" name="name-day" [(ngModel)]="obj[key].nameDay">
+          </div>
+        </div>
+
+        <div [class.disabled]="!obj[key].isTimeRange" class="tm-picker">
+          <div class="tm-picker_i">
+            <label class="control-label">Час відкриття</label>
+            <div class="tm-picker_time">
+              <timepicker [(ngModel)]="timeArray[i].timeStart" [showMeridian]="false" [arrowkeys]="true" (isValid)="timeArray[i].isValidS = $event"></timepicker>
+            </div>
+          </div>
+
+          <div class="tm-picker_i">
+            <label class="control-label">Час закриття</label>
+            <div class="tm-picker_time">
+              <timepicker [(ngModel)]="timeArray[i].timeEnd" [showMeridian]="false" [arrowkeys]="true" (isValid)="timeArray[i].isValidE = $event"></timepicker>
+            </div>
+          </div>
+        </div>
+
+        <div class="status-check">
+          <label class="control-label">Статус<br/></label>
+          <div>
+            <div class="i-checks">
+              <div (click)="radioCheck('isTimeRange',obj[key])" class="i-label">
+              <span class="i-radio">
+                <span class="radioActive" [ngClass]="{'check':obj[key].isTimeRange}"></span>
+              </span>
+                <span>Діапазон часу</span>
+              </div>
+            </div>
+            <div class="i-checks">
+              <div (click)="radioCheck('isAllTime',obj[key])" class="i-label">
+              <span class="i-radio">
+                <span class="radioActive" [ngClass]="{'check':obj[key].isAllTime}"></span>
+              </span>
+                <span>Цілодобово</span>
+              </div>
+            </div>
+
+            <div class="i-checks">
+              <div (click)="radioCheck('isWeekend',obj[key])" class="i-label">
+              <span class="i-radio">
+                <span class="radioActive" [ngClass]="{'check':obj[key].isWeekend}"></span>
+              </span>
+                <span>Вихідний</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
