@@ -15,6 +15,7 @@ import {FormApiService} from '../lib/form-api/form-api.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   public friends = [];
+  public arrEts = [];
   public userId: string;
   public userPhoto: any;
   public userName: string;
@@ -105,6 +106,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   goSearch(e){
+    let s = this;
     console.log(e);
+    this.http.get(this.domain + '/api/search?search="s"', this.api.getHeaders())
+      .subscribe((res: any) => {
+        s.friends = res.users;
+        s.arrEts = res.est;
+      });
   }
 }

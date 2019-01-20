@@ -88,7 +88,8 @@
           <li class="basic-search">
             <app-search class="form-search"
                         [array]="friends"
-                        (onFind)="goSearch($evenr)"
+                        [arrayEts]="arrEts"
+                        (onFind)="goSearch($event)"
                         [type]="'user'"
                         [searchDropD]="true"
             ></app-search>

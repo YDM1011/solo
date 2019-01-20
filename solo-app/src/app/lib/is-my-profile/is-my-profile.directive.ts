@@ -7,7 +7,7 @@ import {CoreService} from "../../core.service";
 })
 export class IsMyProfileDirective {
 
-  @Output() onValid: EventEmitter = new EventEmitter();
+  @Output() onValid: EventEmitter<any> = new EventEmitter();
   constructor(
     el: ElementRef,
     core: CoreService
