@@ -1,8 +1,8 @@
 <ng-container *ngIf="type == 'user'">
-<div class="search-contain" *ngIf="!searchDropD">
+<div class="search-contain" *ngIf="!searchDropD" (click)="onFind.emit(searchText)">
   <input class="search create-post_sl" type="text"[(ngModel)]="searchText" placeholder="Пошук" autocomplete="off">
   <ul class="search-items create-post_sl" *ngIf="array">
-    <li class="search-item" *ngFor="let itemp of array | search: 'firstName': searchText" (click)="onFind.emit(itemp)">
+    <li class="search-item" *ngFor="let itemp of array | search: 'firstName': searchText" >
       <span class="search-item_img">
         <ng-container *ngIf="itemp.photo">
           <img  src="{{itemp.photo.picCrop}}">
@@ -26,9 +26,7 @@
     <li class="search-item" *ngFor="let itemp of array | search: 'name': searchText" (click)="onFind.emit(itemp)">
       <span class="search-item_img">
         <ng-container *ngIf="itemp.av; else prev">
-          <ng-container *ngIf="itemp.av.photo; else prev">
-              <img  src="{{itemp.av.photo.picCrop}}">
-          </ng-container>
+          <app-img  [img]="{id:itemp.av._id}"></app-img>
         </ng-container>
         <ng-template #prev>
           <svg xmlns="http://www.w3.org/2000/svg" width="366" height="432" viewBox="0 0 366 432" fill="none">
@@ -84,4 +82,8 @@
     </mz-dropdown-item>
   </mz-dropdown>
 </div>
-
+<ng-container *ngIf="type == 'user'">
+<span class="search-svg" (click)="onFind.emit(searchText)">
+  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 53.627 53.627" width="15" height="15"><path d="M53.627,49.385L37.795,33.553C40.423,30.046,42,25.709,42,21C42,9.42,32.58,0,21,0S0,9.42,0,21s9.42,21,21,21c4.709,0,9.046-1.577,12.553-4.205l15.832,15.832L53.627,49.385z M2,21C2,10.523,10.523,2,21,2s19,8.523,19,19s-8.523,19-19,19S2,31.477,2,21z M35.567,36.093c0.178-0.172,0.353-0.347,0.525-0.525c0.146-0.151,0.304-0.29,0.445-0.445l14.262,14.262l-1.415,1.415L35.123,36.537C35.278,36.396,35.416,36.238,35.567,36.093z"/></svg>
+</span>
+</ng-container>

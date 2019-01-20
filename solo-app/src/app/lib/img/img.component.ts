@@ -40,7 +40,7 @@ export class ImgComponent implements OnInit, OnChanges {
         if (res) {
           s.pic = res.picCrop
         }
-      });
+      }).catch(err=>{});
     }
   }
 
@@ -61,12 +61,9 @@ export class ImgComponent implements OnInit, OnChanges {
       self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model ? model : ''}`, this.api.getHeaders())
         .subscribe(
           (res: any) => {
-            self.global[api + (id || '') + (select || '')] = res;
-            if (id === 'av') {
-              if (res.av.larg) {  }
-            }
-            resolve(res);
-          },
+                self.global[api + (id || '') + (select || '')] = res;
+                resolve(res);
+              },
           err => reject(err)
         );
     });

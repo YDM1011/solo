@@ -47,6 +47,7 @@ export class CoreService {
       self.http.get<any>(this._setting, self.getHeaders()).subscribe(
         (res: any) => {
           if (res && !res.err) {
+            self.setValidProfile(res[1]);
             resolve(res);
           } else if (res.err) {
             swal("Error", res.err, "error");
