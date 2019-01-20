@@ -103,4 +103,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const self = this;
     self.core.click();
   }
+
+  goSearch(e){
+    console.log(e);
+  }
 }

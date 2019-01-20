@@ -92,7 +92,7 @@
               <li class="in_us_l">
                 <span>Відкрити у новій вкладці</span>
               </li>
-              <li class="in_us_l" (click)="deletePost(item)">
+              <li class="in_us_l" (click)="deletePost(item)" isMyProfile>
                 <span>Видалити</span>
               </li>
             </ul>
@@ -104,9 +104,7 @@
           <div class="pst_img" *ngIf="item.img">
             <div class="cont-img" [class.array]="item.img.length >= 2" *ngFor="let img of item.img">
               <ng-container *ngIf="item.img; else brokenPic">
-                <ng-container *ngIf="item.img.picCrop; else brokenPic">
-                  <img class="img_i"  src="{{item.img.picCrop}}">
-                </ng-container>
+                <app-img class="img_i" [img]="{id:img}"></app-img>
               </ng-container>
             </div>
           </div>
@@ -183,7 +181,7 @@
               <li class="in_us_l">
                 <span>Відкрити у новій вкладці</span>
               </li>
-              <li class="in_us_l">
+              <li class="in_us_l" (click)="deletePost(item)" isMyProfile>
                 <span>Видалити</span>
               </li>
             </ul>
@@ -241,13 +239,10 @@
               <div class="pst_img" *ngIf="item.img">
                 <div class="cont-img" [class.array]="item.img.length >= 2" *ngFor="let img of item.img">
                   <ng-container *ngIf="item.img; else brokenPic">
-                    <ng-container *ngIf="item.img.picCrop; else brokenPic">
-                      <img class="img_i"  src="{{item.img.picCrop}}">
-                    </ng-container>
+                    <app-img class="img_i"  [img]="{id:img}"></app-img>
                   </ng-container>
                 </div>
               </div>
-
             </div>
           </article>
         </div>

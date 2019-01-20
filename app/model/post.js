@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-
+const data = require('../config/config').data;
+const fs = require('fs');
 const Schema = mongoose.Schema;
 
 const friend = new Schema({
@@ -131,15 +132,20 @@ const preCreate = (req,res,next)=>{
     new Promise((resolve, reject)=>{
         let imgArr = [];
         if (req.body.img.length < 1) resolve(imgArr);
-        req.body.img.forEach(img=>{
-            mongoose.model('avatar').create(img, (err, docImg)=>{
-                if(err) return res.badRequest('Something broke!');
-                imgArr.push(docImg._id);
-                if (img == req.body.img[req.body.img.length-1]){
-                    resolve(imgArr)
-                }
-            })
-        });
+        for(let i = 0; i<req.body.img.length; i++){
+            let img = req.body.img[i];
+            upload(img, (prefics)=>{
+                img.picCrop = `${data.auth.apiDomain}${prefics}Crop${img.fileName}`;
+                img.picDefault = `${data.auth.apiDomain}${prefics}${img.fileName}`;
+                mongoose.model('galery').create(img, (err, docImg)=>{
+                    if(err) return res.badRequest('Something broke!');
+                    imgArr.push(docImg._id);
+                    if (img == req.body.img[req.body.img.length-1]){
+                        resolve(imgArr)
+                    }
+                })
+            });
+        }
     }).then(arr=>{
         req.body.img = arr;
         mongoose.model('post')
@@ -161,6 +167,28 @@ const preCreate = (req,res,next)=>{
     });
     // next()
 };
+const upload = (img,next)=>{
+    let base64Data, base64DataCrop;
+
+    if (img.base64default.search("image/jpeg") >= 0){
+        base64Data = img.base64default.replace(/^data:image\/jpeg;base64,/, "");
+    } else
+    if (img.base64default.search("image/png") >= 0){
+        base64Data = img.base64default.replace(/^data:image\/png;base64,/, "");
+    }
+    if (img.base64crop.search("image/jpeg") >= 0){
+        base64DataCrop = img.base64crop.replace(/^data:image\/jpeg;base64,/, "");
+    } else
+    if (img.base64crop.search("image/png") >= 0){
+        base64DataCrop = img.base64crop.replace(/^data:image\/png;base64,/, "");
+    }
+    let prefics = new Date().getTime();
+    fs.writeFile(`upload/${prefics}Crop${img.fileName}`, base64DataCrop, 'base64', function(err) {
+        fs.writeFile(`upload/${prefics}${img.fileName}`, base64Data, 'base64', function(err) {
+            next(prefics)
+        });
+    });
+};
 const preRead = (req,res,next)=>{
 
     let optionFind = req.query.query ? JSON.parse(req.query.query) : {};
@@ -175,7 +203,6 @@ const preRead = (req,res,next)=>{
             .limit(4)
             .sort({data: -1})
             .skip(parseInt(req.query.skip))
-            .populate({path:'img', select: '_id preload'})
             .populate({path:'inPlace.id', select: 'name _id av subdomain',
                 populate:{path: 'av', select:'preload _id'}})
             .populate({path:'userId', select:'_id firstName photo lastName',

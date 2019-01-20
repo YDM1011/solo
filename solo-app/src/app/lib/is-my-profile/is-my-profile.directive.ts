@@ -1,4 +1,4 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, Output} from '@angular/core';
 import {CoreService} from "../../core.service";
 
 
@@ -7,21 +7,22 @@ import {CoreService} from "../../core.service";
 })
 export class IsMyProfileDirective {
 
+  @Output() onValid: EventEmitter = new EventEmitter();
   constructor(
     el: ElementRef,
     core: CoreService
   ) {
     //noinspection TypeScriptUnresolvedVariable
     core.onGetValid.subscribe(val=>{
-      console.log("directive",el);
+      console.log("directive",el,val);
       if(!val){
         //noinspection TypeScriptUnresolvedVariable
-        el.nativeElement.hidden = true;
+        el.nativeElement.style.display = "none";
       }else{
         //noinspection TypeScriptUnresolvedVariable
-        el.nativeElement.hidden = false;
+        el.nativeElement.style.display = "";
       }
-      return val ? false : true
+      this.onValid.emit(val);
     })
   }
 }

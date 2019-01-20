@@ -17,6 +17,7 @@ const mutual = require('../controlers/mutual');
 const me = require('../controlers/me');
 const establishment = require('../controlers/establishment');
 const basket = require('../controlers/basket');
+const search = require('../controlers/search');
 
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
@@ -50,6 +51,8 @@ router.post('/api/create_establishment', [orign, glob.getId, verify], establishm
 router.get('/api/get_est', [orign, glob.getId], establishment.getMy);
 router.get('/api/getLikeEsts/:id', [orign, glob.getId], establishment.getLikeEsts);
 router.get('/api/getLikeDish/:id', [orign, glob.getId], establishment.getLikeDish);
+
+router.get('/api/search', [orign, glob.getId], search.get);
 
 // estaplishment API
 router.get('/api/est', [orign], establishment.custom);
