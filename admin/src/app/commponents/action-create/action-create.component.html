@@ -1,0 +1,14 @@
+<div>
+  <textarea name="pic" id="" [(ngModel)]="action.about" cols="30" rows="10"></textarea>
+</div>
+<div *ngIf="action">
+<div *ngIf="action.picC">
+  <img [src]="action.picC" alt="">
+</div>
+</div>
+<app-load-action
+  [model]="'action'"
+  (getImg)="getPic($event)"
+  [field]="'pic'"></app-load-action>
+
+<button (click)="save()" class="btn">Save</button>

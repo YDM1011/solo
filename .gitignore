@@ -2,7 +2,6 @@
 .idea
 npm-debug.log
 node_modules
-config.json
 
 app/config/config.json
 

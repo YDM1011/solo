@@ -1,0 +1,27 @@
+<router-outlet></router-outlet>
+<div class="wrap-calendar" *ngFor="let item of actions">
+  <div *ngIf="!isShow[item._id]">
+    <div>
+      <textarea type="text" name="name-calendar"
+                [(ngModel)]="item.about"></textarea>
+    </div>
+    <div>
+      <img [src]="item.picC" alt="">
+    </div>
+    <span class="btn" (click)="isShow[item._id] = true">edit</span>
+    <span (click)="del(item._id)" class="btn">del</span>
+  </div>
+  <app-action-edit
+    [obj]="item"
+    (onEdit)="calendarsEdit($event,item)"
+    *ngIf="isShow[item._id]"
+  ></app-action-edit>
+</div>
+<div>
+  <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Create</button>
+  <app-action-create
+    *ngIf="isCreate"
+    (onCreate)="calendarsAdd($event); isCreate = false"></app-action-create>
+</div>
+<br><br><br><br><br>
+

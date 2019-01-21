@@ -21,6 +21,7 @@ import { PrevAvComponent } from './prev-av/prev-av.component';
 import { PrevBgComponent } from './prev-bg/prev-bg.component';
 import { PrevDishComponent } from './prev-dish/prev-dish.component';
 import { PrevEstComponent } from './prev-est/prev-est.component';
+import { ActionComponent } from './action/action.component';
 
 @NgModule({
   imports: [
@@ -43,7 +44,8 @@ import { PrevEstComponent } from './prev-est/prev-est.component';
     InfoComponent,
     FavoritComponent,
     MapComponent,
-    BasketComponent
+    BasketComponent,
+    ActionComponent
   ],
   declarations: [
     ImgComponent,
@@ -63,7 +65,8 @@ import { PrevEstComponent } from './prev-est/prev-est.component';
     PrevAvComponent,
     PrevBgComponent,
     PrevDishComponent,
-    PrevEstComponent
+    PrevEstComponent,
+    ActionComponent
   ]
 })
 export class CommponentsModule { }

@@ -32,6 +32,7 @@ import { BoxEditComponent } from './box-edit/box-edit.component';
 import { BoxCreateComponent } from './box-create/box-create.component';
 import { MenuCreateComponent } from './menu-create/menu-create.component';
 import { MenuEditComponent } from './menu-edit/menu-edit.component';
+import { ActionComponent } from './action/action.component';
 
 @NgModule({
   imports: [
@@ -70,6 +71,7 @@ import { MenuEditComponent } from './menu-edit/menu-edit.component';
     BoxCreateComponent,
     MenuCreateComponent,
     MenuEditComponent,
+    ActionComponent,
   ],
   providers: [
     ApiService,
