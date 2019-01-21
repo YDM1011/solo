@@ -32,8 +32,14 @@ const preRead = (req,res,next)=> {
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    req.query['query'] = JSON.stringify({ownerEst: req.ownerEst});
-    next()
+    mongoose.model('action')
+        .find({ownerEst: req.ownerEst})
+        .exec((err,doc)=>{
+            if(err) return res.badRequest(err);
+            if(!doc) return res.notFound();
+            if(doc) return res.ok(doc);
+    });
+    // next()
 };
 
 const preUpdate = (req,res,next)=> {
@@ -78,7 +84,8 @@ const getEst = (req,res,next) =>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    let est ='solo';
+
     mongoose.model('establishment')
         .findOne({subdomain: est})
         .exec((err,result)=>{
@@ -86,6 +93,7 @@ const getEst = (req,res,next) =>{
             if (!result) return res.notFound();
             if (result) {
                 req.ownerEst = result._id;
+
                 next()
             }
         })
