@@ -20,6 +20,7 @@ import { PrevDishComponent } from './prev-dish/prev-dish.component';
 import { WorkTimeCreateComponent } from './work-time-create/work-time-create.component';
 import { WorkTimeEditComponent } from './work-time-edit/work-time-edit.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { LoadActionComponent } from './load-action/load-action.component';
 import { ActionCreateComponent } from './action-create/action-create.component';
 import { ActionEditComponent } from './action-edit/action-edit.component';
@@ -29,7 +30,8 @@ import { ActionEditComponent } from './action-edit/action-edit.component';
     CommonModule,
     RoutingModule,
     FormsModule,
-    ImageCropperModule
+    ImageCropperModule,
+    TimepickerModule.forRoot(),
   ],
   exports: [
     HeaderComponent,

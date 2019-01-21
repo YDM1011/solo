@@ -1,207 +1,123 @@
-<!--не готова верстка-->
-<!--<div class="wrapper wrapper-content animated fadeInRight">-->
-  <!--<div class="row">-->
-    <!--<div class="col-lg-12">-->
-      <!--<div class="ibox float-e-margins">-->
-        <!--<div class="ibox-title">-->
-          <!--<h5>Створити страву</h5>-->
-          <!--<div class="ibox-tools">-->
-            <!--<a class="collapse-link">-->
-              <!--<i class="fa fa-chevron-up"></i>-->
-            <!--</a>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="ibox-content" *ngIf="dish">-->
+<div class="wrapper wrapper-content animated fadeInRight">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox float-e-margins" *ngIf="dish">
+        <div class="ibox-title">
+          <h5>Створити страву</h5>
+          <div class="ibox-tools">
+            <button class="btn btn-primary" (click)="create(dish)">Створити</button>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="form-horizontal">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Назва</label>
+                  <div class="col-sm-10">
+                    <input type="text" [(ngModel)]="dish.name" name="name" class="form-control">
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
 
-          <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label">Назва</label>-->
-            <!--<div class="col-sm-10">-->
-              <!--<div class="input-group">-->
-                <!--<input type="text" [(ngModel)]="dish.name" name="name" class="form-control">-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="hr-line-dashed"></div>-->
-
-
-
-          <!--<div class="row">-->
-            <!--<div class="col s12 m4">-->
-              <!--<h5>category</h5>-->
-            <!--</div>-->
-            <!--<div class="col s12 m8" #it>-->
-              <!--<div class="category-for" *ngIf="it.label">-->
-                <!--<span class="dishingredient" >{{it.label}}</span>-->
-              <!--</div>-->
-              <!--<app-select *ngIf="option.length>0"-->
-                          <!--[option]="option"-->
-                          <!--[defoult]="'check'"-->
-                          <!--(onCheck)="it.label = $event.label; dish.dishcategory = $event.id"></app-select>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--<div class="form-group">-->
-            <!--<label class="col-sm-2 control-label">Опис</label>-->
-            <!--<div class="col-sm-10">-->
-              <!--<div class="input-group">-->
-                <!--<input type="text" [(ngModel)]="dish.about" name="name" class="form-control">-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="hr-line-dashed"></div>-->
-
-
-          <!--<div class="row">-->
-            <!--<div class="col s12 m4">-->
-              <!--<h5>dishingredient</h5>-->
-            <!--</div>-->
-            <!--<div class="col s12 m8">-->
-              <!--<span class="dishingredient" *ngFor="let ing of dish.dishingredient">{{ing}}</span>-->
-              <!--<input type="text" (keyup)="check()" [(ngModel)]="setArg" name="name">-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--<div class="row">-->
-            <!--<div class="col s12 m4">-->
-              <!--<h5>Порція</h5>-->
-            <!--</div>-->
-
-            <!--<div class="col s12 m8">-->
-              <!--<div *ngFor="let prtn of dish.portion" class="links-form">-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Маса</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="prtn.massa" name="massa" class="form-control">-->
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Категорія</label>
+                  <div class="col-sm-8" #it>
+                    <label *ngIf="it.label" class="control-label">{{it.label}}</label>
+                    <!--<div class="category-for" >-->
+                      <!--<span class="dishingredient" ></span>-->
                     <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Назва</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="prtn.name" name="name" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Опис</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="prtn.about" name="about" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Ціна</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="prtn.price" name="price" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-              <!--<button class="btn" (click)="isFormAdd = true">add portion</button>-->
-              <!--<div *ngIf="isFormAdd">-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Маса</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="portion['massa']" name="massa" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Назва</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="portion['name']" name="name" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Опис</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="portion['about']" name="about" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+                    <app-select *ngIf="option.length>0"
+                                [option]="option"
+                                [defoult]="'check'"
+                                (onCheck)="it.label = $event.label; dish.dishcategory = $event.id"></app-select>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
 
-                <!--<div class="form-group">-->
-                  <!--<label class="col-sm-2 control-label">Ціна</label>-->
-                  <!--<div class="col-sm-10">-->
-                    <!--<div class="input-group">-->
-                      <!--<input type="text" [(ngModel)]="portion['price']" name="price" class="form-control">-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-                <!--<div class="form-group">-->
-                  <!--<div class="col-sm-4 ">-->
-                  <!--<button class="btn btn-primary" (click)="dish.portion[dish.portion.length] = portion;-->
-                                       <!--isFormAdd = false">Додати</button>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
+                <div class="form-group">
+                  <label class="col-sm-2 control-label">Опис</label>
+                  <div class="col-sm-10">
+                    <textarea type="text" [(ngModel)]="dish.about" name="name" class="form-control"></textarea>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+              </div>
 
-          <!--<div class="hr-line-dashed"></div>-->
+              <div class="col-md-6">
 
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Зображення страви</label>
+                  <div class="col-sm-8">
+                    <app-upload [model]="'dish'" [field]="'pic'"
+                                [id]="dish._id"
+                                (getImg)="getImg($event)"
+                                [btnName]="btnBG"></app-upload>
+                  </div>
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-8">
+                    <div class="img-prod">
+                      <ng-container *ngIf="dish.pic; else preDishPic">
+                        <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
+                          <img class="img" src="{{dish.pic.picCrop}}" alt="">
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #preDishPic>
+                        <app-prev-dish class="inherit"></app-prev-dish>
+                      </ng-template>
+                    </div>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
 
-          <!--<div class="form-group"><label class="col-sm-2 control-label">Порція</label>-->
+                <div class="form-group"><label class="col-sm-4 control-label">Статус<br/></label>
+                  <div class="col-sm-8">
+                    <div class="i-checks"><label> <input type="checkbox"
+                                                         [(ngModel)]="dish.isdelivery"> <i></i> Доставка </label></div>
+                    <div class="i-checks"><label> <input type="checkbox"
+                                                         [(ngModel)]="dish.isnew"> <i></i> Новинка </label></div>
+                    <div class="i-checks"><label> <input type="checkbox"
+                                                         [(ngModel)]="dish.ishit"> <i></i> Хіт </label></div>
+                    <div class="i-checks"><label> <input type="checkbox"
+                                                         [(ngModel)]="dish.isActia"> <i></i> Активна </label></div>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+              </div>
 
-            <!--<div class="col-sm-10">-->
-              <!--<div class="input-group m-b"><input type="text" placeholder="Username" class="form-control"></div>-->
-              <!--<div class="input-group m-b"><input type="text" class="form-control"> <span class="input-group-addon">.00</span></div>-->
-              <!--<div class="input-group m-b"><span class="input-group-addon">$</span> <input type="text" class="form-control"> <span class="input-group-addon">.00</span></div>-->
-              <!--<div class="input-group m-b"><span class="input-group-addon"> <input type="checkbox"> </span> <input type="text" class="form-control"></div>-->
-              <!--<div class="input-group"><span class="input-group-addon"> <input type="radio"> </span> <input type="text" class="form-control"></div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--<div class="hr-line-dashed"></div>-->
+              <div class="row">
+                <div class="col s12 m4">
+                  <h5>Обов'язкові компоненти страви</h5>
+                </div>
+                <div class="col s12 m8">
+                  <span class="dishingredient"
+                        (click)="delingredient(i)"
+                        *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
+                  <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
+                </div>
+              </div>
 
+              <div class="row">
+                <div class="col s12 m4">
+                  <h5>Не обов'язкові компоненти страви</h5>
+                </div>
+                <div class="col s12 m8">
+                  <span class="dishingredient"
+                        (click)="delingredient2(i)"
+                        *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
+                  <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
+                </div>
+              </div>
 
-          <!--<div class="row">-->
-            <!--<div class="col s12 m4">-->
-              <!--<h5>dish.pic</h5>-->
-              <!--&lt;!&ndash;<app-upload (onLoadImg)="dish.pic = $event" [btn]="btnBG"></app-upload>&ndash;&gt;-->
-              <!--<app-upload [model]="'dish'" [field]="'pic'" [id]="dish._id" [btnName]="btnBG"></app-upload>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-            <!--</div>-->
-            <!--<div class="col s12 m8">-->
-              <!--<app-img *ngIf="dish.pic" [id]="dish.pic._id"></app-img>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--<div class="form-group">-->
-            <!--<div class="col-sm-12">-->
-              <!--<div class="i-checks"><label> <input type="checkbox"-->
-                                                   <!--[(ngModel)]="dish.isdelivery"> <i></i> Доставка </label></div>-->
-              <!--<div class="i-checks"><label> <input type="checkbox"-->
-                                                   <!--[(ngModel)]="dish.isnew"> <i></i> isnew </label></div>-->
-              <!--<div class="i-checks"><label> <input type="checkbox"-->
-                                                   <!--[(ngModel)]="dish.ishit"> <i></i> ishit </label></div>-->
-            <!--</div>-->
-          <!--</div>-->
-
-          <!--<div class="hr-line-dashed"></div>-->
-
-          <!--<div class="row">-->
-            <!--<div class="form-group">-->
-              <!--<div class="col-sm-4 col-sm-offset-2">-->
-                <!--<button class="btn btn-primary" (click)="create(dish)">Створити</button>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-
-        <!--</div>-->
-      <!--</div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-<!--не готова верстка кінець-->
-
+<!--dish create-->
 
 <!--<div class="container-fluid">-->
   <!--<div class="row">-->
@@ -309,114 +225,124 @@
     <!--<span class="btn" (click)="create(dish)">Створити</span>-->
   <!--</div>-->
 <!--</div>-->
-<div class="container-fluid" *ngIf="dish">
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Назва</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="dish.name" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Категория страви</h5>
-    </div>
-    <div class="col s12 m8">
-      <div class="category-for" *ngIf="dish.dishcategory">
-        <span class="dishingredient">{{dish.dishcategory.name}}</span>
-      </div>
-      <app-select *ngIf="option.length>0"
-                  [option]="option"
-                  [defoult]="'check'"
-                  (onCheck)="selected($event)"></app-select>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Про страву</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="dish.about" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Обов'язкові компоненти страви</h5>
-    </div>
-    <div class="col s12 m8">
-      <span class="dishingredient"
-            (click)="delingredient(i)"
-            *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
-      <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Не обов'язкові компоненти страви</h5>
-    </div>
-    <div class="col s12 m8">
-      <span class="dishingredient"
-            (click)="delingredient2(i)"
-            *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
-      <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Зображення страви</h5>
-      <app-upload [model]="'dish'" [field]="'pic'"
-                  [id]="dish._id"
-                  (getImg)="getImg($event)"
-                  [btnName]="btnBG"></app-upload>
-    </div>
-    <div class="col s12 m8">
-      <ng-container *ngIf="dish.pic; else preDishPic">
-        <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
-          <img src="{{dish.pic.picCrop}}" alt="">
-        </ng-container>
-      </ng-container>
-      <ng-template #preDishPic>
-        <app-prev-dish></app-prev-dish>
-      </ng-template>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="dish.isdelivery"
-               class="filled-in">
-        <span>Доставка</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="dish.isnew"
-               class="filled-in">
-        <span>isnew</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="dish.ishit"
-               class="filled-in">
-        <span>ishit</span>
-      </label>
-    </div>
-    <div class="col s12 m4">
-      <label>
-        <input type="checkbox"
-               [(ngModel)]="dish.isActia"
-               class="filled-in">
-        <span>isActia</span>
-      </label>
-    </div>
-  </div>
-  <div class="row">
-    <span class="btn" (click)="create(dish)">Редагувати</span>
-  </div>
-</div>
+<!--end dish create-->
+
+<!--new dish create-->
+<!--<div class="container-fluid" *ngIf="dish">-->
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<h5>Назва</h5>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<input type="text" [(ngModel)]="dish.name" name="name">-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<h5>Категория страви</h5>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<div class="category-for" *ngIf="dish.dishcategory">-->
+        <!--<span class="dishingredient">{{dish.dishcategory.name}}</span>-->
+      <!--</div>-->
+      <!--<app-select *ngIf="option.length>0"-->
+                  <!--[option]="option"-->
+                  <!--[defoult]="'check'"-->
+                  <!--(onCheck)="selected($event)"></app-select>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<h5>Про страву</h5>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<input type="text" [(ngModel)]="dish.about" name="name">-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<h5>Обов'язкові компоненти страви</h5>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<span class="dishingredient"-->
+            <!--(click)="delingredient(i)"-->
+            <!--*ngFor="let ing of complementsM; let i = index">{{ing}}</span>-->
+      <!--<app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<h5>Не обов'язкові компоненти страви</h5>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<span class="dishingredient"-->
+            <!--(click)="delingredient2(i)"-->
+            <!--*ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>-->
+      <!--<app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<h5>Зображення страви</h5>-->
+      <!--<app-upload [model]="'dish'" [field]="'pic'"-->
+                  <!--[id]="dish._id"-->
+                  <!--(getImg)="getImg($event)"-->
+                  <!--[btnName]="btnBG"></app-upload>-->
+    <!--</div>-->
+    <!--<div class="col s12 m8">-->
+      <!--<ng-container *ngIf="dish.pic; else preDishPic">-->
+        <!--<ng-container *ngIf="dish.pic.picCrop; else preDishPic">-->
+          <!--<img src="{{dish.pic.picCrop}}" alt="">-->
+        <!--</ng-container>-->
+      <!--</ng-container>-->
+      <!--<ng-template #preDishPic>-->
+        <!--<app-prev-dish></app-prev-dish>-->
+      <!--</ng-template>-->
+    <!--</div>-->
+  <!--</div>-->
+
+  <!--<div class="row">-->
+    <!--<div class="col s12 m4">-->
+      <!--<label>-->
+        <!--<input type="checkbox"-->
+               <!--[(ngModel)]="dish.isdelivery"-->
+               <!--class="filled-in">-->
+        <!--<span>Доставка</span>-->
+      <!--</label>-->
+    <!--</div>-->
+    <!--<div class="col s12 m4">-->
+      <!--<label>-->
+        <!--<input type="checkbox"-->
+               <!--[(ngModel)]="dish.isnew"-->
+               <!--class="filled-in">-->
+        <!--<span>isnew</span>-->
+      <!--</label>-->
+    <!--</div>-->
+    <!--<div class="col s12 m4">-->
+      <!--<label>-->
+        <!--<input type="checkbox"-->
+               <!--[(ngModel)]="dish.ishit"-->
+               <!--class="filled-in">-->
+        <!--<span>ishit</span>-->
+      <!--</label>-->
+    <!--</div>-->
+    <!--<div class="col s12 m4">-->
+      <!--<label>-->
+        <!--<input type="checkbox"-->
+               <!--[(ngModel)]="dish.isActia"-->
+               <!--class="filled-in">-->
+        <!--<span>isActia</span>-->
+      <!--</label>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="row">-->
+    <!--<span class="btn" (click)="create(dish)">Редагувати</span>-->
+  <!--</div>-->
+<!--</div>-->
+<!--end new dish create-->
 

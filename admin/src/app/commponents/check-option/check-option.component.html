@@ -1,12 +1,25 @@
-<div class="check-option-wrap" *ngIf="option">
-  <div class="check-option cart" *ngFor="let item of option; let i = index">
-    <div class="i-checks">
-      <label><input type="checkbox"
-                    [(ngModel)]="item.check" name="check"> <i></i> {{item.label}} </label>
-    </div>
+<!--<div class="check-option-wrap" *ngIf="option">-->
+  <!--<div class="check-option cart" *ngFor="let item of option; let i = index">-->
+    <!--<div class="i-checks">-->
+      <!--<label><input type="checkbox"-->
+                    <!--[(ngModel)]="item.check" name="check"> <i></i> {{item.label}} </label>-->
+    <!--</div>-->
+    <!--<ng-container *ngIf="item.obj">-->
+      <!--<app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>-->
+    <!--</ng-container>-->
+  <!--</div>-->
+  <!--<button (click)="selectOption(option)" class="btn btn-primary">ok</button>-->
+<!--</div>-->
+
+
+<div class="col-sm-8" *ngIf="option">
+  <ng-container  *ngFor="let item of option; let i = index">
+    <div class="i-checks"><label> <input type="checkbox"
+                                         [(ngModel)]="item.check"> <i></i> {{item.label}} </label></div>
     <ng-container *ngIf="item.obj">
       <app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>
     </ng-container>
-  </div>
+  </ng-container>
   <button (click)="selectOption(option)" class="btn btn-primary">ok</button>
 </div>
+

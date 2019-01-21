@@ -533,7 +533,7 @@ svg{
   }
   .search-svg{
     margin: 0;
-    pointer-events: none;
+    /*pointer-events: none;*/
     position: absolute;
     right: 22px;
     top: calc(50% - 7.5px);
@@ -851,14 +851,19 @@ svg{
 }
 #dropdown-search li{
   min-height: 25px;
-  display: flex;
-  align-items: center;
-  padding: 0 6px;
+  display: block;
+  padding: 0;
   background: transparent;
   transition: .25s;
 }
-#dropdown-search li:hover,
-#dropdown-search li:focus{
+#dropdown-search a{
+  display: flex;
+  align-items: center;
+  min-height: 25px;
+  padding: 0 6px;
+}
+#dropdown-search a:hover,
+#dropdown-search a:focus{
   background: rgba(0, 0, 0, 0.05);
 }
 @media (min-width: 768px) and (min-height: 500px) {
@@ -872,7 +877,7 @@ svg{
     top: 40px!important;
     background: #ffffff;
   }
-  #dropdown-search li{
+  #dropdown-search a{
     padding: 0 12px;
   }
 }
@@ -880,7 +885,7 @@ svg{
   #dropdown-search{
     top: 42px!important;
   }
-  #dropdown-search li{
+  #dropdown-search a{
     min-height: 34px;
     display: flex;
     align-items: center;
