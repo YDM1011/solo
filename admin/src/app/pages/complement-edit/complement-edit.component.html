@@ -1,51 +1,64 @@
-<div class="container-fluid" *ngIf="complement">
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>Назва</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="complement.name" name="name">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>massa</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="complement.massa" name="maincategory">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>energy</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="complement.energy" name="globcategory">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>price</h5>
-    </div>
-    <div class="col s12 m8">
-      <input type="text" [(ngModel)]="complement.price" name="globcategory">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col s12 m4">
-      <h5>maincategory</h5>
-    </div>
-    <div class="col s12 m8">
-      <div class="category-for" *ngIf="complement.maincategory ">
-        <span class="dishingredient">{{complement.maincategory.label}}</span>
+<div class="row" *ngIf="complement">
+  <div class="col-lg-12">
+    <div class="wrapper wrapper-content animated fadeInUp">
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Редагувати додаток "{{complement.name}}"</h5>
+          <div class="ibox-tools">
+            <button (click)="update(complement)" class="btn btn-primary">Редагувати</button>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="form-horizontal">
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Назва</label>
+              <div class="col-sm-8">
+                <input type="text" [(ngModel)]="complement.name" name="name" class="form-control">
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Вага</label>
+              <div class="col-sm-8">
+                <input type="text" [(ngModel)]="complement.massa" name="maincategory" class="form-control">
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Калорійність</label>
+              <div class="col-sm-8">
+                <input type="text" [(ngModel)]="complement.energy" name="globcategory" class="form-control">
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Ціна</label>
+              <div class="col-sm-8">
+                <input type="text" [(ngModel)]="complement.price" name="globcategory" class="form-control">
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Основна категорія</label>
+              <div class="col-sm-8">
+                <app-select *ngIf="option.length>0"
+                            [option]="option"
+                            [defoult]="complement.maincategory.label"
+                            (onCheck)="selected($event)"></app-select>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+            <br>
+          </div>
+        </div>
       </div>
-      <app-select *ngIf="option.length>0"
-                  [option]="option"
-                  [defoult]="key"
-                  (onCheck)="selected($event)"></app-select>
     </div>
-  </div>
-  <div class="row">
-    <span class="btn" (click)="update(complement)">Редагувати</span>
   </div>
 </div>
+
+

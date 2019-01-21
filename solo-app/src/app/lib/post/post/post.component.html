@@ -102,9 +102,11 @@
         <div class="pst_cnt">
           <p class="pst_d" *ngIf="item.des">{{item.des}}</p>
           <div class="pst_img" *ngIf="item.img">
-            <div class="cont-img" [class.array]="item.img.length >= 2" *ngFor="let img of item.img">
-              <ng-container *ngIf="item.img; else brokenPic">
-                <app-img class="img_i" [img]="{id:img}"></app-img>
+            <div class="cont-img" [class.array]="item.img.length >= 2">
+              <ng-container *ngFor="let img of item.img">
+                <ng-container *ngIf="item.img; else brokenPic">
+                  <app-img class="img_i" [img]="{id:img}"></app-img>
+                </ng-container>
               </ng-container>
             </div>
           </div>
@@ -237,9 +239,11 @@
             <div class="pst_cnt">
               <p *ngIf="item.des" class="pst_d">{{item.des}}</p>
               <div class="pst_img" *ngIf="item.img">
-                <div class="cont-img" [class.array]="item.img.length >= 2" *ngFor="let img of item.img">
-                  <ng-container *ngIf="item.img; else brokenPic">
-                    <app-img class="img_i"  [img]="{id:img}"></app-img>
+                <div class="cont-img" [class.array]="item.img.length >= 2">
+                  <ng-container *ngFor="let img of item.img">
+                    <ng-container *ngIf="item.img; else brokenPic">
+                      <app-img class="img_i"  [img]="{id:img}"></app-img>
+                    </ng-container>
                   </ng-container>
                 </div>
               </div>
