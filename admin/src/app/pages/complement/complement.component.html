@@ -1,29 +1,58 @@
 <p>
   Список додатків до страв: +50г сиру до піци, до салату додати ще 50г помідорів. Кожен додаток має назву, вагу, калорійність і список категорій страв, куди його можна додатки (до піци, до салатів, …) Нц і звичайно ціну в даному меню як і страв.
 </p>
-<router-outlet></router-outlet>
-<div class="container-fluid">
-  <div class="row" *ngIf="complement.length == 0">
-    <div class="card">
-      <a [routerLink]="'/complement/'+id+'/create/'+id" class="btn">create</a>
-    </div>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-sm-4">
+    <h2>Додатки</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="'/'">Home</a>
+      </li>
+      <li>
+        <a [routerLink]="'/chain/'+id">Мережа</a>
+      </li>
+      <li>
+        <a [routerLink]="'/menu/'+id">Меню</a>
+      </li>
+      <li class="active">
+        <strong>Додатки</strong>
+      </li>
+    </ol>
   </div>
-  <div class="row" *ngIf="complement.length > 0">
-    <div class="col s12 m4" *ngFor="let item of complement">
-      <div class="card">
-        <div *ngIf="item.pic">
-          <app-pic [pic]="item.pic"></app-pic>
-        </div>
+</div>
+<div class="row">
+  <div class="col-lg-12">
+    <router-outlet></router-outlet>
+    <div class="wrapper wrapper-content animated fadeInUp">
 
-        <span>{{item.name}}</span>
-        <a [routerLink]="'/complement/'+id+'/'+id+'/'+item._id" class="btn">Редагувати</a>
-        <span (click)="delet(item._id)" class="btn">del</span>
-      </div>
-    </div>
-    <div class="col s12 m4">
-      <div class="card">
-        <a [routerLink]="'/complement/'+id+'/create/'+id" class="btn">create</a>
+      <div class="ibox">
+        <div class="ibox-title">
+          <h5>Додатки до страв</h5>
+          <div class="ibox-tools">
+            <a [routerLink]="'/complement/'+id+'/create/'+id" class="btn btn-primary btn-sm"><strong>Створити</strong></a>
+          </div>
+        </div>
+        <div class="ibox-content">
+          <div class="form-horizontal" *ngIf="complement.length > 0">
+            <ng-container *ngFor="let item of complement">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">{{item.name}}</label>
+                <div class="col-sm-10">
+                  <div *ngIf="item.pic">
+                    <app-pic [pic]="item.pic"></app-pic>
+                  </div>
+                  <div class="btn-wrap">
+                    <a [routerLink]="'/complement/'+id+'/'+id+'/'+item._id" class="btn btn-white btn-sm pull-right"><i class="fa fa-pencil"></i> Редагувати</a>
+                    <button (click)="delet(item._id)" class="btn btn-danger btn-sm pull-right">Видалити</button>
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </ng-container>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </div>
+

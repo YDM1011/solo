@@ -16,7 +16,7 @@ export class ComplementCreateComponent implements OnInit {
     maincategory:''
   };
   public option:any = [];
-  private key:string='complement';
+  private key:string='доповнення';
   public id:any;
   constructor(
     private route: ActivatedRoute,

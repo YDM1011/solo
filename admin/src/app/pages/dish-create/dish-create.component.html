@@ -22,15 +22,11 @@
 
                 <div class="form-group">
                   <label class="col-sm-4 control-label">Категорія</label>
-                  <div class="col-sm-8" #it>
-                    <label *ngIf="it.label" class="control-label">{{it.label}}</label>
-                    <!--<div class="category-for" >-->
-                      <!--<span class="dishingredient" ></span>-->
-                    <!--</div>-->
+                  <div class="col-sm-8">
                     <app-select *ngIf="option.length>0"
                                 [option]="option"
-                                [defoult]="'check'"
-                                (onCheck)="it.label = $event.label; dish.dishcategory = $event.id"></app-select>
+                                [defoult]="'Обрати категорію'"
+                                (onCheck)="dish.dishcategory = $event.id"></app-select>
                   </div>
                 </div>
                 <div class="hr-line-dashed"></div>
@@ -38,10 +34,31 @@
                 <div class="form-group">
                   <label class="col-sm-2 control-label">Опис</label>
                   <div class="col-sm-10">
-                    <textarea type="text" [(ngModel)]="dish.about" name="name" class="form-control"></textarea>
+                    <textarea [(ngModel)]="dish.about" name="name" class="form-control"></textarea>
                   </div>
                 </div>
                 <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <label class="col-sm-6 control-label">Обов'язкові компоненти страви</label>
+                  <div class="col-sm-6">
+                  <span class="dishingredient"
+                        (click)="delingredient(i)"
+                        *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
+                    <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-6 control-label">Не обов'язкові компоненти страви</label>
+                  <div class="col-sm-6">
+                  <span class="dishingredient"
+                        (click)="delingredient2(i)"
+                        *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
+                    <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
+                  </div>
+                </div>
+
               </div>
 
               <div class="col-md-6">
@@ -83,30 +100,6 @@
                   </div>
                 </div>
                 <div class="hr-line-dashed"></div>
-              </div>
-
-              <div class="row">
-                <div class="col s12 m4">
-                  <h5>Обов'язкові компоненти страви</h5>
-                </div>
-                <div class="col s12 m8">
-                  <span class="dishingredient"
-                        (click)="delingredient(i)"
-                        *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
-                  <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col s12 m4">
-                  <h5>Не обов'язкові компоненти страви</h5>
-                </div>
-                <div class="col s12 m8">
-                  <span class="dishingredient"
-                        (click)="delingredient2(i)"
-                        *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
-                  <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
-                </div>
               </div>
 
             </div>

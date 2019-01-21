@@ -12,7 +12,7 @@
 <!--</div>-->
 
 
-<div class="col-sm-8" *ngIf="option">
+<div class="option" *ngIf="option">
   <ng-container  *ngFor="let item of option; let i = index">
     <div class="i-checks"><label> <input type="checkbox"
                                          [(ngModel)]="item.check"> <i></i> {{item.label}} </label></div>
@@ -20,6 +20,6 @@
       <app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>
     </ng-container>
   </ng-container>
-  <button (click)="selectOption(option)" class="btn btn-primary">ok</button>
+  <button (click)="selectOption(option)" class="btn btn-primary">Обрати</button>
 </div>
 
