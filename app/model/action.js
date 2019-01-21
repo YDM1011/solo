@@ -84,8 +84,7 @@ const getEst = (req,res,next) =>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    let est ='solo';
-
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     mongoose.model('establishment')
         .findOne({subdomain: est})
         .exec((err,result)=>{
