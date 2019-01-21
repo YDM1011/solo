@@ -1,0 +1,16 @@
+<app-custom-res [model]="{
+    url:'action'
+    }" (onRes)="actions = $event"></app-custom-res>
+<div class="el_cont" *ngIf="actions">
+  <div class="el_content">
+    <div *ngFor="let act of actions">
+      <div>
+        {{act.about}}
+      </div>
+      <div class="inherit">
+        <img [src]="act.picC" alt="">
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -6935,3 +6935,6 @@ input[type="radio"], input[type="radio"] {
     border: 4px solid #ffffff;
   }
 }
+.leaflet-pane .leaflet-marker-icon{
+  border-radius: 50%!important;
+}

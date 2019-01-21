@@ -109,7 +109,7 @@
             <div class="form-group">
               <strong class="control-label">GPS координати</strong>
               <div>
-                <app-map (onxy)="myest.coordinates = $event"></app-map>
+                <app-map [XY]="myest.coordinates" (onxy)="myest.coordinates = $event"></app-map>
               </div>
             </div>
           </div>

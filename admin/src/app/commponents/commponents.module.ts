@@ -20,6 +20,9 @@ import { PrevDishComponent } from './prev-dish/prev-dish.component';
 import { WorkTimeCreateComponent } from './work-time-create/work-time-create.component';
 import { WorkTimeEditComponent } from './work-time-edit/work-time-edit.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { LoadActionComponent } from './load-action/load-action.component';
+import { ActionCreateComponent } from './action-create/action-create.component';
+import { ActionEditComponent } from './action-edit/action-edit.component';
 
 @NgModule({
   imports: [
@@ -44,7 +47,10 @@ import { CalendarComponent } from './calendar/calendar.component';
     PrevDishComponent,
     WorkTimeCreateComponent,
     WorkTimeEditComponent,
-    CalendarComponent
+    CalendarComponent,
+    LoadActionComponent,
+    ActionCreateComponent,
+    ActionEditComponent
   ],
   declarations: [
     HeaderComponent,
@@ -63,7 +69,10 @@ import { CalendarComponent } from './calendar/calendar.component';
     PrevDishComponent,
     WorkTimeCreateComponent,
     WorkTimeEditComponent,
-    CalendarComponent
+    CalendarComponent,
+    LoadActionComponent,
+    ActionCreateComponent,
+    ActionEditComponent
   ],
   providers: []
 })

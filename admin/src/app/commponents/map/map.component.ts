@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input} from '@angular/core';
 declare let L;
 
 @Component({
@@ -10,7 +10,7 @@ declare let L;
 export class MapComponent implements OnInit {
 
   public marker:any;
-  public XY:any = [50.7464, 25.3262];
+  @Input() XY:any = [50.7464, 25.3262];
   @Output() onxy: EventEmitter<any> = new EventEmitter<any>();
   constructor() {
 

@@ -112,6 +112,19 @@ module.exports.estMenu = (req, res, next) => {
             if (doc) return res.ok(doc);
         })
 };
+module.exports.estWorkTime = (req, res, next) => {
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+
+    Establishment
+        .findOne({subdomain: est})
+        .populate({path:'worksTime',select:'label'})
+        .select('worksTime')
+        .exec((err, doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) return res.serverError('Somesing broken');
+            if (doc) return res.ok(doc);
+        })
+};
 module.exports.estEst = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
 

@@ -11,6 +11,7 @@ export class InitLayoutComponent implements OnInit {
 
   public isHome = true;
   public thebest: any;
+  public workTime;
   public favorite: any;
   constructor(
     private route: ActivatedRoute,

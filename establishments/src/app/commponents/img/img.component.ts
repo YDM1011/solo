@@ -27,16 +27,15 @@ export class ImgComponent implements OnInit {
         if (res) {
           s.pic = res.picCrop;
         }
-      });
+      }, err=>{});
     } else if (!mod.id && mod.model && mod.field) {
       const query = '?query=' + JSON.stringify({model: mod.model, field: mod.field});
       s.api.get('galery', '', '', query).then((val: any) => {
         if (val) {
           console.log(val);
-
           s.pic = val[0].picCrop;
         }
-      });
+      }, err=>{console.log(err)});
     }
   }
 }

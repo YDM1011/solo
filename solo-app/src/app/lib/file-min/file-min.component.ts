@@ -77,6 +77,8 @@ export class FileMinComponent implements OnInit {
     // this.showCropper = true;
     console.log('Image loaded')
   }
+  cropperReady(){}
+  loadImageFailed(){}
 
   loadReader(format: string, file: any) {
     this.file = file;

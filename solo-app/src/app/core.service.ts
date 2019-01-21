@@ -64,6 +64,24 @@ export class CoreService {
     });
     return promise;
   }
+  doGet(api) {
+    let self = this;
+    //noinspection TypeScriptUnresolvedFunction
+    let promise = new Promise((resolve, reject) => {
+      self.http.get<any>(`${this.domain}/api/${api}`, self.getHeaders()).subscribe(
+        (res: any) => {
+          resolve(res);
+        },
+        (err: any) => {
+          if (err && err.error.error) {
+            swal("Error", err.error.error, "error");
+            reject(err)
+          }
+        }
+      );
+    });
+    return promise;
+  }
 
   error(err) {
     try{

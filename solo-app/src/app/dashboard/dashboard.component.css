@@ -326,3 +326,7 @@ app-last-name{
 img {
   width: 100%;
 }
+.cont-page{
+  position: relative;
+  z-index: 10;
+}

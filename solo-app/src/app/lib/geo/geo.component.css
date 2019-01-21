@@ -1,0 +1,57 @@
+.geo{
+  display: flex;
+  background-color: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.p-l {
+  position: fixed;
+  z-index: 999999;
+  height: calc(100% - 100px);
+  width: calc(100% - 100px);
+  align-self: center;
+  justify-self: center;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  background: #fff;
+}
+.p-l_ic2 .l_i_bg {
+  height: 200px;
+}
+.distanse{
+  margin-top: 30px;
+  color: #000;
+}
+.l_i:hover .l_i_h-t {
+  font-size: 14px;
+}
+.loader{
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader div{
+  padding: 30px;
+  background-color: #fff;
+  box-shadow: 0 0 15px 0 #000;
+  border-radius: 5px;
+}
+.cart{
+  display: block;
+}
+.l_i_bg.pre-bg img{
+  margin-top: 60px;
+}

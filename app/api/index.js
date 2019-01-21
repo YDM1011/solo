@@ -18,6 +18,7 @@ const me = require('../controlers/me');
 const establishment = require('../controlers/establishment');
 const basket = require('../controlers/basket');
 const search = require('../controlers/search');
+const geo = require('../controlers/geo');
 
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
@@ -53,12 +54,14 @@ router.get('/api/getLikeEsts/:id', [orign, glob.getId], establishment.getLikeEst
 router.get('/api/getLikeDish/:id', [orign, glob.getId], establishment.getLikeDish);
 
 router.get('/api/search', [orign, glob.getId], search.get);
+router.get('/api/geo', [orign, glob.getId], geo.get);
 
 // estaplishment API
 router.get('/api/est', [orign], establishment.custom);
 router.get('/api/est/:id', [orign], establishment.customParams);
 router.get('/api/est_post', [orign], establishment.estPost);
 router.get('/api/est_menu', [orign], establishment.estMenu);
+router.get('/api/est_worktime', [orign], establishment.estWorkTime);
 router.get('/api/est_est', [orign], establishment.estEst);
 router.get('/api/getDish/:id', [orign, glob.getId], establishment.getDish);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
