@@ -29,12 +29,18 @@
           <div class="row">
             <div class="col-md-6 b-r">
               <h4>Фон мережі</h4>
-              <img src="{{bg.picCrop}}" alt="">
+              <ng-container *ngIf="bg">
+                <img src="{{bg.picCrop}}" alt="">
+              </ng-container>
+
               <app-upload [model]="'establishment'" [field]="'bg'" [id]="id" [btnName]="btnBG"></app-upload>
             </div>
             <div class="col-md-6">
               <h4>Аватар мережі</h4>
-              <img src="{{av.picCrop}}" alt="">
+              <ng-container *ngIf="av">
+                <img src="{{av.picCrop}}" alt="">
+              </ng-container>
+
               <app-upload [model]="'establishment'" [field]="'av'" [id]="id" [btnName]="btnBG"></app-upload>
 
             </div>

@@ -108,8 +108,12 @@
           <div class="col-lg-12">
             <div class="form-group edit-map">
               <strong class="control-label">GPS координати</strong>
-              <div class="map">
-                <app-map (onxy)="myest.coordinates = $event"></app-map>
+              <div class="map" *ngIf="myest">
+                <ng-container>
+                  <app-map (onxy)="myest.coordinates = $event"
+                           [XY]="myest.coordinates">
+                  </app-map>
+                </ng-container>
               </div>
             </div>
           </div>

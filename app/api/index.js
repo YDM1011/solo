@@ -63,6 +63,7 @@ router.get('/api/est_post', [orign], establishment.estPost);
 router.get('/api/est_menu', [orign], establishment.estMenu);
 router.get('/api/est_worktime', [orign], establishment.estWorkTime);
 router.get('/api/est_est', [orign], establishment.estEst);
+router.get('/api/est_pics', [orign], establishment.estPics);
 router.get('/api/getDish/:id', [orign, glob.getId], establishment.getDish);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
 router.get('/api/favorite/:key', [orign], me.getFavorite);

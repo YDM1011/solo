@@ -57,7 +57,9 @@
                 <label class="col-sm-4 control-label">GPS координати</label>
                 <div class="col-sm-8">
                   <div class="input-group">
-                    <input type="text" [(ngModel)]="coordinates" name="name" class="form-control">
+                    <app-map (onxy)="coordinates = $event"
+                             [XY]="coordinates">
+                    </app-map>
                   </div>
                 </div>
               </div>

@@ -6,7 +6,7 @@ declare let L;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, OnChanges, OnDestroy {
+export class MapComponent implements OnInit {
   @Input() XY:any = [];
   @Input() me:any = [];
   @Input() meAvatar;
@@ -16,10 +16,9 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
   ngOnInit() {
    if( this.XY.length>0 && this.me.length>0 ) this.initMap()
   }
-  ngOnChanges() {
-   if( this.XY.length>0 && this.me.length>0 ) this.initMap()
-  }
-  ngOnDestroy(){}
+  // ngOnChanges() {
+  //  if( this.XY.length>0 && this.me.length>0 ) this.initMap()
+  // }
   initMap(){
     let s = this;
     setTimeout(()=>{
@@ -37,7 +36,7 @@ export class MapComponent implements OnInit, OnChanges, OnDestroy {
       oxy[0] = xyc.x;
       oxy[1] = xyc.y;
       L.marker(oxy, {clickable: true,
-        icon: new L.Icon({ iconUrl: xyc.av,
+        icon: new L.Icon({ iconUrl: './favicon.ico',
           iconSize: [30, 30],
           iconAnchor: [15, 15]  })
       }).addTo(map);

@@ -50,6 +50,19 @@ export class ApiService {
         );
     });
   }
+  justGet(api, id= null, select= null, model= null) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model ? model : ''}`)
+        .subscribe(
+          (res: any) => {
+            self.global[api + (id || '') + (select || '')] = res;
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
+  }
   gImg(apiImg, idImg, api, id= null, select= null) {
     const self = this;
     const model = `?select=larg,preload`;

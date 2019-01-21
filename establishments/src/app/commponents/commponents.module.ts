@@ -45,6 +45,10 @@ import { ActionComponent } from './action/action.component';
     FavoritComponent,
     MapComponent,
     BasketComponent,
+    PrevAvComponent,
+    PrevBgComponent,
+    PrevDishComponent,
+    PrevEstComponent,
     ActionComponent
   ],
   declarations: [

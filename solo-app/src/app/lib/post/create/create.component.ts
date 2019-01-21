@@ -70,9 +70,10 @@ export class CreateComponent implements OnInit {
   takePlace(place) {
     this.inPlace.place = place.subdomain;
     this.inPlace.id = place._id;
-    this.inPlace.value = place.av.preload;
+    this.inPlace.value = place.av ? place.av.picCrop : null;
     this.postObg.inPlace = this.inPlace;
     this.placeActive = place.name;
+    console.log(place);
   }
   takeFriend(item) {
     item.id = item._id;
