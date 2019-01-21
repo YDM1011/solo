@@ -2,7 +2,7 @@
 <div class="wrap-calendar" *ngFor="let item of actions">
   <div *ngIf="!isShow[item._id]">
     <div>
-      <textarea type="text" name="name-calendar"
+      <textarea name="name-calendar"
                 [(ngModel)]="item.about"></textarea>
     </div>
     <div>
