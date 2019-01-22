@@ -135,7 +135,12 @@ img{
   height: 65vh;
   min-height: 260px;
 }
-
+.box-ctg{
+  display: flex;
+}
+.box-ctg div:last-of-type{
+  margin-left: 5px;
+}
 .calendar_cn_i{
   margin-bottom: 25px;
   padding-bottom: 15px;
@@ -192,6 +197,12 @@ img{
   display: flex;
   justify-content: flex-end;
   margin: 0 10px 0;
+}
+.ctg.label.label-primary{
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 7px 5px 10px 0;
 }
 .btn-wrap .btn{
   margin-left: 10px;
