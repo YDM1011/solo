@@ -1,25 +1,75 @@
 <div class="row" *ngIf="obj">
-  <div class="col s12 m4">
-    <h5>Порція</h5>
+  <div class="col-xs-2">
+    <h5><strong>Порція</strong></h5>
   </div>
-  <div class="col s12 m8" >
-    <div *ngFor="let prtn of portions" class="links-form">
-      <label> massa <input type="text" [(ngModel)]="prtn.massa" name="massa"></label>
-      <label> name <input type="text" [(ngModel)]="prtn.name" name="name"></label>
-      <label> about <input type="text" [(ngModel)]="prtn.about" name="about"></label>
-      <label> price <input type="text" [(ngModel)]="prtn.price" name="price"></label>
-      <span class="btn"  (click)="delete(prtn)">del</span>
+  <div class="col-xs-12">
+    <ng-container *ngFor="let prtn of portions">
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Вага</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="prtn.massa" name="massa" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Назва</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="prtn.name" name="name" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Опис</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="prtn.about" name="about" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Ціна</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="prtn.price" name="price" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <div class="col-xs-12">
+          <button class="btn btn-danger btn-sm pull-right" (click)="delete(prtn)">Видалити</button>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="col-xs-12">
+      <button class="btn btn-primary btn-sm pull-right" (click)="isFormAdd = true">Додати порцію</button>
     </div>
-    <button class="btn" (click)="isFormAdd = true">add portion</button>
-    <div *ngIf="isFormAdd">
-      <label> massa <input type="text" [(ngModel)]="portion['massa']" name="massa"></label>
-      <br>
-      <label> name <input type="text" [(ngModel)]="portion['name']" name="name"></label>
-      <br>
-      <label> about <input type="text" [(ngModel)]="portion['about']" name="about"></label>
-      <br>
-      <label> price <input type="text" [(ngModel)]="portion['price']" name="price"></label>
-      <button class="btn" (click)="addPortion()">add</button>
+
+    <br>
+    <div *ngIf="isFormAdd" class="col-xs-12 port">
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Вага</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="portion['massa']" name="massa" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Назва</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="portion['name']" name="name" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Опис</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="portion['about']" name="about" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <label class="col-xs-2 control-label">Ціна</label>
+        <div class="col-xs-10">
+          <input type="text" [(ngModel)]="portion['price']" name="price" class="form-control">
+        </div>
+      </div>
+      <div class="port_i">
+        <div class="col-xs-12">
+          <button class="btn btn-primary btn-sm pull-right" (click)="addPortion()">Додати</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

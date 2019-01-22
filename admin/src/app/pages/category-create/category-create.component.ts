@@ -13,7 +13,7 @@ export class CategoryCreateComponent implements OnInit {
     maincategory: {},
     globcategory: ''
   };
-  private key = 'category';
+  private key = 'Не обрана';
 
   public id: any;
   public option: any = [];

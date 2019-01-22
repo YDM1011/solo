@@ -1,9 +1,4 @@
 /*header prof*/
-.cont_h-pf_update {
-  position: absolute;
-  right: 15px;
-  bottom: 10px;
-}
 .h-pf_img {
   display: block;
   position: relative;
@@ -12,9 +7,7 @@
   height: 100px;
   max-width: 200px;
   max-height: 200px;
-  /*z-index: 10;*/
 }
-
 .h-pf_tt {
   position: absolute;
   padding: 0 10px;
@@ -30,9 +23,6 @@
   z-index: 2;
 }
 .cont_h-pf .btn-green{
-  display: none;
-}
-app-last-name{
   display: none;
 }
 .h-pf_bg {
@@ -320,13 +310,4 @@ app-last-name{
   }
 }
 /*end gallery*/
-.btn{
-  cursor: pointer;
-}
-img {
-  width: 100%;
-}
-.cont-page{
-  position: relative;
-  z-index: 10;
-}
+

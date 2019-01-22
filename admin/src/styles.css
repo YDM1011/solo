@@ -74,6 +74,12 @@ img{
 .wrapper-content{
   padding-bottom: 0!important;
 }
+.wrapper.wrapper-content.animated.fadeInRight{
+  animation-fill-mode: none!important;
+}
+.wrapper.wrapper-content.animated.fadeInUp{
+  animation-fill-mode: none!important;
+}
 .select-wrap{
   margin: 0 0 15px;
 }
@@ -125,7 +131,8 @@ img{
   justify-content: flex-end;
 }
 #map{
-  max-height: 70vh;
+  max-height: 650px;
+  height: 65vh;
   min-height: 260px;
 }
 
@@ -151,7 +158,36 @@ img{
   flex-wrap: wrap;
   margin-bottom: 10px;
 }
-
+.compo_wrap{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px 5px;
+}
+.compo_i{
+  width: 100%;
+  padding: 12px 15px 20px;
+  margin: 0 10px 10px;
+  min-width: 220px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.compo_i-b{
+  min-width: 150px;
+  max-width: 160px;
+  display: flex;
+  justify-content: space-between;
+}
+.compo_i strong{
+  text-transform: capitalize;
+}
+.compo_i div{
+  margin-bottom: 5px;
+}
+.compo_i div:first-of-type{
+  margin-bottom: 10px;
+}
+.compo_i .btn-wrap{
+  margin-top: 15px;
+}
 .calendar_cn_i .btn-wrap{
   display: flex;
   justify-content: flex-end;
@@ -243,6 +279,20 @@ img{
   display: none;
   border-radius: 50%;
 }
+.port{
+  margin: 10px 0 0;
+}
+.port_i{
+  display: flex;
+  align-items: center;
+  margin: 5px 0 10px;
+}
+.port_i label{
+  font-weight: 400;
+}
+.port_i .btn{
+  margin-left: auto;
+}
 textarea.form-control{
   resize: none;
   min-height: 154px;
@@ -255,6 +305,11 @@ textarea.form-control{
     width: calc(50% - 20px);
   }
 }
+@media (min-width: 650px) {
+  .compo_i{
+    width: calc(50% - 20px);
+  }
+}
 @media (min-width: 1160px) {
   .cr-calendar_i{
     width: calc((100% / 3) - 20px);
@@ -263,12 +318,20 @@ textarea.form-control{
     width: calc((100% / 4) - 20px);
   }
 }
+@media (min-width: 1240px) {
+  .compo_i{
+    width: calc((100% / 3) - 20px);
+  }
+}
 @media (min-width: 1500px) {
   .cr-calendar_i{
     width: calc((100% / 4) - 20px);
   }
   .calendar_i{
     width: calc((100% / 5) - 20px);
+  }
+  .compo_i{
+    width: calc((100% / 4) - 20px);
   }
 }
 @media (min-width: 1800px) {
@@ -282,6 +345,9 @@ textarea.form-control{
 @media (min-width: 1950px) {
   .cr-calendar_i{
     width: calc((100% / 6) - 20px);
+  }
+  .compo_i{
+    width: calc((100% / 5) - 20px);
   }
 }
 @media (min-width: 2300px) {
