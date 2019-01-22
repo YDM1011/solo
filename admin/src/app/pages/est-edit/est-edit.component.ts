@@ -44,6 +44,7 @@ export class EstEditComponent implements OnInit {
     req.forEach((select)=>{
       this.api.get('oneest',id,select).then((res:any)=>{
         self[select] = res;
+        self[select].coordinates = res.coordinates ? res.coordinates : [50.7464, 25.3262];
         self.menus=[];
         console.log("test",self[select]);
         self[select].menus.map(item=>{
@@ -128,7 +129,7 @@ export class EstEditComponent implements OnInit {
   }
   getCalendarActive(){
     const s = this;
-    console.log(s.myest)
+    console.log(s.myest);
     if(s.myest.worksTimeId){
       s.api.justGet(`timeWork/${s.myest.worksTimeId}`).then((val:any)=>{
         s.myest.worksTime = val.label || val.name;

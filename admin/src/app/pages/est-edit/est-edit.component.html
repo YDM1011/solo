@@ -79,7 +79,8 @@
           <div class="form-group">
             <label class="col-sm-4 control-label">Графік роботи</label>
             <div class="col-sm-8">
-              <div class="control-label tt-left">{{myest.worksTime}}</div>
+                <div class="control-label tt-left">{{myest.worksTime}}</div>
+                <!--<app-calendar [calendar]="worksTimeView"></app-calendar>-->
             </div>
           </div>
           <div class="hr-line-dashed"></div>
@@ -118,7 +119,9 @@
           <div class="form-group edit-map">
             <strong class="control-label">GPS координати</strong>
             <div class="map">
-              <app-map (onxy)="myest.coordinates = $event"></app-map>
+              <app-map (onxy)="myest.coordinates = $event"
+                       [XY]="myest.coordinates">
+              </app-map>
             </div>
           </div>
         </div>

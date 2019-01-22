@@ -23,7 +23,6 @@ export class ApiService {
 
   get(api, id= null, select= null, any= null) {
     const self = this;
-    console.log(self.global);
     if (self.global[api + (id || '') + (select || '')]) {
       return new Promise((resolve, reject) => {
         resolve(self.global[api + (id || '') + (select || '') + (any || '')]);

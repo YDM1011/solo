@@ -151,8 +151,7 @@ const sendRes = async (req,res) => {
         model : model,
         field : field,
         fileName: fileName,
-        picCrop : req.body.picCrop,
-        picDefault : req.body.picDefault
+        picCrop : req.body.picCrop
     };
 
     if (model && field){
@@ -195,28 +194,19 @@ const sendRes = async (req,res) => {
 module.exports = (req,res,next)=>{
     console.log(req.body.fileName);
 
-    let base64Data, base64DataCrop;
+    let base64Data;
 
-    if (req.body.base64default.search("image/jpeg") >= 0){
-        base64Data = req.body.base64default.replace(/^data:image\/jpeg;base64,/, "");
-    } else
-    if (req.body.base64default.search("image/png") >= 0){
-        base64Data = req.body.base64default.replace(/^data:image\/png;base64,/, "");
-    }
     if (req.body.base64crop.search("image/jpeg") >= 0){
-        base64DataCrop = req.body.base64crop.replace(/^data:image\/jpeg;base64,/, "");
+        base64Data = req.body.base64crop.replace(/^data:image\/jpeg;base64,/, "");
     } else
     if (req.body.base64crop.search("image/png") >= 0){
-        base64DataCrop = req.body.base64crop.replace(/^data:image\/png;base64,/, "");
+        base64Data = req.body.base64crop.replace(/^data:image\/png;base64,/, "");
     }
     let prefics = new Date().getTime();
-    fs.writeFile(`upload/${prefics}Crop${req.body.fileName}`, base64DataCrop, 'base64', function(err) {
-        fs.writeFile(`upload/${prefics}${req.body.fileName}`, base64Data, 'base64', function(err) {
+    fs.writeFile(`upload/${prefics}${req.body.fileName}`, base64Data, 'base64', function(err) {
 
-            req.body.picCrop = `${data.auth.apiDomain}${prefics}Crop${req.body.fileName}`;
-            req.body.picDefault = `${data.auth.apiDomain}${prefics}${req.body.fileName}`;
-            sendRes(req,res);
-        });
+        req.body.picCrop = `/${prefics}${req.body.fileName}`;
+        sendRes(req,res);
     });
 
 };

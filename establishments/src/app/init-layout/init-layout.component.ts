@@ -1,6 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {NavigationEnd, Router, ActivatedRoute} from '@angular/router';
 import {ApiService} from '../service/api.service';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-init-layout',
@@ -13,6 +14,8 @@ export class InitLayoutComponent implements OnInit {
   public thebest: any;
   public workTime;
   public favorite: any;
+  public pics: any;
+  public host: string = environment.host;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -36,7 +39,17 @@ export class InitLayoutComponent implements OnInit {
         }
       }
     });
+    self.getPics();
     console.log(this.favorite)
+  }
+
+  getPics(){
+    const s = this;
+    s.api.justGet('est_pics').then((val: any) => {
+      if(val){
+        s.pics=val;
+      }
+    });
   }
 
   setFavorite(arg) {

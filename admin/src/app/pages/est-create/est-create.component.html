@@ -42,7 +42,12 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label">Адреса</label>
                 <div class="col-sm-8">
-                  <input type="text" [(ngModel)]="address" name="name" class="form-control">
+                  <div class="map">
+                    <app-map (onxy)="coordinates = $event"
+                             [XY]="coordinates">
+                    </app-map>
+                  </div>
+
                 </div>
               </div>
               <div class="hr-line-dashed"></div>
@@ -50,7 +55,7 @@
               <div class="form-group">
                 <h5 class="col-sm-4 control-label">Меню</h5>
 
-                <div class="col s12 m8">
+                <div class="col-sm-6">
                   <div class="category-for" *ngIf="menus">
                     <span class="dishingredient" *ngFor="let menu of menus">{{menu}}</span>
                   </div>
@@ -90,15 +95,6 @@
                 </div>
               </div>
               <div class="hr-line-dashed"></div>
-            </div>
-
-            <div class="col-lg-12">
-              <div class="form-group edit-map">
-                <strong class="control-label">GPS координати</strong>
-                <div class="map">
-                  <app-map (onxy)="coordinates = $event"></app-map>
-                </div>
-              </div>
             </div>
 
           </div>

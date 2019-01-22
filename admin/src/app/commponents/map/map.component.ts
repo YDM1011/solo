@@ -10,7 +10,7 @@ declare let L;
 export class MapComponent implements OnInit {
 
   public marker:any;
-  @Input() XY:any = [50.7464, 25.3262];
+  @Input() XY;
   @Output() onxy: EventEmitter<any> = new EventEmitter<any>();
   constructor() {
 

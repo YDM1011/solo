@@ -74,9 +74,12 @@ export class ChainComponent implements OnInit, OnChanges {
   }
   getCalendarActive(){
     const s = this;
-    s.api.justGet(`timeWork/${s.worksTime}`).then((val:any)=>{
-      s.worksTimeView = val;
-    })
+    if(s.worksTime){
+      s.api.justGet(`timeWork/${s.worksTime}`).then((val:any)=>{
+        s.worksTimeView = val;
+      })
+    }
+
   }
   getAllCalendars(){
     const s = this;

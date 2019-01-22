@@ -19,7 +19,7 @@ export class EstCreateComponent implements OnInit {
   public about:any;
   public mail:any;
   public address:any;
-  public coordinates:any;
+  public coordinates:any = [50.7464, 25.3262];
   public worksTime:any;
   public status:boolean=true;
   public delivery:boolean=false;

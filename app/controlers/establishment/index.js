@@ -138,6 +138,20 @@ module.exports.estEst = (req, res, next) => {
             if (doc) return res.ok(doc);
         })
 };
+module.exports.estPics = (req, res, next) => {
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+
+    Establishment
+        .findOne({subdomain: est})
+        .populate({path:'bg'})
+        .populate({path:'av'})
+        .select('bg av')
+        .exec((err, doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) return res.serverError('Somesing broken');
+            if (doc) return res.ok(doc);
+        })
+};
 module.exports.getDish = (req, res, next) => {
     let id = toObjectId(req.params['id']);
     let userId = toObjectId(req.userId);

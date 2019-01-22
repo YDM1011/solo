@@ -4,9 +4,6 @@ const pics = new Schema({
     picCrop: {
         type: String,
     },
-    picDefault: {
-        type: String,
-    },
     field: {
         type: String,
     },

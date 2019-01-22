@@ -155,8 +155,8 @@
         <div class="pst_in share" *ngIf="item.share.userIdShare">
 
           <div class="img40">
-            <ng-container *ngIf="item.userId.photo; else preAv">
-              <ng-container *ngIf="item.userId.photo.picCrop; else preAv">
+            <ng-container *ngIf="item.share.userIdShare.photo; else preAv">
+              <ng-container *ngIf="item.share.userIdShare.photo.picCrop; else preAv">
                 <img class="img"  src="{{item.share.userIdShare.photo.picCrop}}">
               </ng-container>
             </ng-container>

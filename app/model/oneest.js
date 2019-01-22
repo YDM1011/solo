@@ -8,7 +8,7 @@ const model = new Schema({
     name: {type:String, required:[true, "Enter name"]},
     city: {type:String, required:[true, "Enter city"]},
     address: {type:String, required:[true, "Enter address"]},
-    coordinates: Array,
+    coordinates: {type:Array, required:[true, "Enter coordinates"]},
     mobile: {type: String},
     mobiles: [{type: String}],
     worksTime: String,

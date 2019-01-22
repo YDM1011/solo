@@ -61,7 +61,13 @@
       <div class="h-pf_c">
         <div class="h-pf_us pre-bg">
           <div class="inherit">
-            <app-img [img]="{model:'establishment', field:'av'}" ></app-img>
+            <ng-container *ngIf="pics">
+              <ng-container *ngIf="pics.av; else avE">
+                <ng-container *ngIf="pics.av.picCrop; else avE">
+                  <img [src]="host+pics.av.picCrop" alt="">
+                </ng-container>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
         <div class="h-pf_btn">
@@ -72,7 +78,13 @@
       <div class="h-pf_bg pre-bg">
         <div class="inherit-bg">
           <div class="inherit">
-            <app-img [img]="{model:'establishment', field:'bg'}"></app-img>
+            <ng-container *ngIf="pics">
+              <ng-container *ngIf="pics.bg; else bgE">
+                <ng-container *ngIf="pics.bg.picCrop; else bgE">
+                  <img [src]="host+pics.bg.picCrop" alt="">
+                </ng-container>
+              </ng-container>
+            </ng-container>
           </div>
         </div>
       </div>
@@ -237,5 +249,10 @@
   </div>
 </div>
 
-
+<ng-template #avE>
+  <app-prev-av></app-prev-av>
+</ng-template>
+<ng-template #bgE>
+  <app-prev-bg></app-prev-bg>
+</ng-template>
 
