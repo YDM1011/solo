@@ -1,27 +1,71 @@
-<router-outlet></router-outlet>
-<div class="wrap-calendar" *ngFor="let item of actions">
-  <div *ngIf="!isShow[item._id]">
-    <div>
-      <textarea name="name-calendar"
-                [(ngModel)]="item.about"></textarea>
-    </div>
-    <div>
-      <img [src]="item.picC" alt="">
-    </div>
-    <span class="btn" (click)="isShow[item._id] = true">edit</span>
-    <span (click)="del(item._id)" class="btn">del</span>
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-10">
+    <h2>{{name}}</h2>
+    <ol class="breadcrumb">
+      <li>
+        <a [routerLink]="'/'">Home</a>
+      </li>
+      <li>
+        <a [routerLink]="'/chain/'+id">Мережа</a>
+      </li>
+      <li class="active">
+        <strong>Акції </strong>
+      </li>
+    </ol>
   </div>
-  <app-action-edit
-    [obj]="item"
-    (onEdit)="calendarsEdit($event,item)"
-    *ngIf="isShow[item._id]"
-  ></app-action-edit>
+  <div class="col-lg-2"></div>
 </div>
-<div>
-  <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Create</button>
-  <app-action-create
-    *ngIf="isCreate"
-    (onCreate)="calendarsAdd($event); isCreate = false"></app-action-create>
+<div class="row">
+  <div class="col-lg-12">
+
+    <router-outlet></router-outlet>
+
+    <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="ibox float-e-margins">
+            <div class="ibox-title">
+              <h5>Акції</h5>
+              <div class="ibox-tools">
+                <a class="collapse-link">
+                  <i class="fa fa-chevron-up"></i>
+                </a>
+              </div>
+            </div>
+            <div class="ibox-content">
+
+
+              <div class="wrap-calendar" *ngFor="let item of actions">
+                <div *ngIf="!isShow[item._id]">
+                  <div>
+                    <textarea name="name-calendar" class="form-control"
+                              [(ngModel)]="item.about"></textarea>
+                  </div>
+                  <div>
+                    <img [src]="item.picC" alt="">
+                  </div>
+                  <span class="btn" (click)="isShow[item._id] = true">edit</span>
+                  <span (click)="del(item._id)" class="btn">del</span>
+                </div>
+                <app-action-edit
+                  [obj]="item"
+                  (onEdit)="calendarsEdit($event,item)"
+                  *ngIf="isShow[item._id]"
+                ></app-action-edit>
+              </div>
+              <div>
+                <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Create</button>
+                <app-action-create
+                  *ngIf="isCreate"
+                  (onCreate)="calendarsAdd($event); isCreate = false"></app-action-create>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<br><br><br><br><br>
 
