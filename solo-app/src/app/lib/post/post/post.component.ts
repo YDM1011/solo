@@ -3,10 +3,9 @@ import {HttpClient} from '@angular/common/http';
 import {CoreService} from '../../../core.service';
 import {environment} from '../../../../environments/environment';
 import {PostService} from '../post.service';
-import {count} from 'rxjs/internal/operators';
 import {AuthService} from '../../../auth.service';
 import {FormApiService} from '../../form-api/form-api.service';
-import {RouterLink} from '@angular/router';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',

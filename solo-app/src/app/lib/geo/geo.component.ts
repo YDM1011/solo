@@ -59,29 +59,31 @@ export class GeoComponent implements OnInit {
     s.isShow = true;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
-        x = position.coords.latitude;
-        y = position.coords.longitude;
-        s.meXY.push(position.coords.latitude);
-        s.meXY.push(position.coords.longitude);
-        s.api.doGet(`geo`).then((val:any)=>{
-          s.distans = [];
-          s.cordinates = [];
-          val.map(item=>{
-            if(item.coordinates){
-              if ( item.coordinates[0] && item.coordinates[1]){
-                let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
-                s.cordinates.push({x:  item.coordinates[0],y: item.coordinates[1], av:av});
-                item['distans'] = s.geo.calc(
-                  {lat: item.coordinates[0], lng: item.coordinates[1]},
-                  {lat: x, lng: y}
-                );
-                s.distans.push(item);
+        navigator.geolocation.watchPosition((position) => {
+          x = position.coords.latitude;
+          y = position.coords.longitude;
+          s.meXY.push(position.coords.latitude);
+          s.meXY.push(position.coords.longitude);
+          s.api.doGet(`geo`).then((val:any)=>{
+            s.distans = [];
+            s.cordinates = [];
+            val.map(item=>{
+              if(item.coordinates){
+                if ( item.coordinates[0] && item.coordinates[1]){
+                  let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                  s.cordinates.push({x:  item.coordinates[0],y: item.coordinates[1], av:av});
+                  item['distans'] = s.geo.calc(
+                    {lat: item.coordinates[0], lng: item.coordinates[1]},
+                    {lat: x, lng: y}
+                  );
+                  s.distans.push(item);
+                }
               }
-            }
-          });
-          s.onLoad = true;
-          console.log(s.distans);
-        })
+            });
+            s.onLoad = true;
+            console.log(s.distans);
+          })
+        });
       },(err)=>{}, {
         enableHighAccuracy: false,
         timeout: 10000,

@@ -46,6 +46,7 @@ const postCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
+    req.body['owner'] = req.userId;
     next()
 
 };
@@ -53,6 +54,7 @@ const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
+    delete req.body['owner'];
     next()
 
 };

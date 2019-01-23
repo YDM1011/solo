@@ -20,6 +20,7 @@
   transform: translate(-50%, -50%);
   top: 50%;
   background: #fff;
+  display: none;
 }
 .p-l_ic2 .l_i_bg {
   height: 200px;
@@ -54,4 +55,7 @@
 }
 .l_i_bg.pre-bg img{
   margin-top: 60px;
+}
+.p-l.active{
+  display: flex;
 }
