@@ -17,11 +17,12 @@ export class CreateComponent implements OnInit {
   public postObg = new Post();
   public inPlace = {place: '', id: '', value: ''};
   public impressions = [
-    {name: 'чудово'},
-    {name: 'задоволено'},
-    {name: 'розчаровано'},
-    {name: 'обурено'},
-    {name: 'жахливо'},
+    {name: 'Без вражень', val:''},
+    {name: 'Чудово', val: 'чудово'},
+    {name: 'Задоволено', val: 'задоволено'},
+    {name: 'Розчаровано', val: 'розчаровано'},
+    {name: 'Обурено', val: 'обурено'},
+    {name: 'Жахливо', val: 'жахливо'},
   ];
   public places = [];
   public friends = [];
@@ -64,8 +65,8 @@ export class CreateComponent implements OnInit {
     this.active = '';
   }
   take(imression) {
-    this.postObg.imression.name = imression.name;
-    this.active = imression.name;
+    this.postObg.imression.name = imression.val;
+    this.active = imression.val;
   }
   takePlace(place) {
     this.inPlace.place = place.subdomain;
@@ -73,7 +74,13 @@ export class CreateComponent implements OnInit {
     this.inPlace.value = place.av ? place.av.picCrop : null;
     this.postObg.inPlace = this.inPlace;
     this.placeActive = place.name;
-    console.log(place);
+  }
+  clearPlace(){
+    this.inPlace.place = '';
+    this.inPlace.id = null;
+    this.inPlace.value = null;
+    this.postObg.inPlace = '';
+    this.placeActive = '';
   }
   takeFriend(item) {
     item.id = item._id;

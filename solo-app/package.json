@@ -20,6 +20,7 @@
     "@angular/platform-browser": "^6.1.0",
     "@angular/platform-browser-dynamic": "^6.1.0",
     "@angular/router": "^6.1.0",
+    "@asymmetrik/ngx-leaflet": "^5.0.1",
     "@mdi/font": "^2.6.95",
     "@ng-bootstrap/ng-bootstrap": "^4.0.1",
     "@toverux/ngx-sweetalert2": "^4.0.0",

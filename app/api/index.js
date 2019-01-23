@@ -55,6 +55,7 @@ router.get('/api/getLikeDish/:id', [orign, glob.getId], establishment.getLikeDis
 
 router.get('/api/search', [orign, glob.getId], search.get);
 router.get('/api/geo', [orign, glob.getId], geo.get);
+router.get('/api/resetEst', [orign, glob.getId], geo.get1);
 
 // estaplishment API
 router.get('/api/est', [orign], establishment.custom);

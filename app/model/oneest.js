@@ -24,6 +24,10 @@ const model = new Schema({
     reservation:{type: Boolean, default: true},
     data: {type: Date, default: new Date()},
     links: [oneLinks],
+    ownerEst:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
+    },
     menus: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "menu"

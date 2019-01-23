@@ -45,6 +45,17 @@ export class GeoComponent implements OnInit {
   public isShow = false;
   public cordinates = [];
   public meXY = [];
+
+  private id;
+  private options = {
+    enableHighAccuracy: true,
+    maximumAge: 0
+  };
+  private target = {
+    latitude : 0,
+    longitude: 0
+  };
+
   @Input() avatar;
   constructor(
     protected api: CoreService
@@ -54,16 +65,19 @@ export class GeoComponent implements OnInit {
   }
 
   findMe() {
-    let x,y;
+
     let s = this;
     s.isShow = true;
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        navigator.geolocation.watchPosition((position) => {
-          x = position.coords.latitude;
-          y = position.coords.longitude;
-          s.meXY.push(position.coords.latitude);
-          s.meXY.push(position.coords.longitude);
+      // navigator.geolocation.getCurrentPosition((position) => {
+        s.id = navigator.geolocation.watchPosition((pos)=> {
+          let crd = pos.coords;
+          let x,y;
+          x = pos.coords.latitude;
+          y = pos.coords.longitude;
+          s.meXY.push(pos.coords.latitude);
+          s.meXY.push(pos.coords.longitude);
+          console.log(pos.coords);
           s.api.doGet(`geo`).then((val:any)=>{
             s.distans = [];
             s.cordinates = [];
@@ -81,14 +95,16 @@ export class GeoComponent implements OnInit {
               }
             });
             s.onLoad = true;
+            navigator.geolocation.clearWatch(s.id);
             console.log(s.distans);
-          })
-        });
-      },(err)=>{}, {
-        enableHighAccuracy: false,
-        timeout: 10000,
-        maximumAge: 60000
-      });
+          });
+
+          if (s.target.latitude === x && s.target.longitude === y) {
+            console.log('Congratulations, you reached the target');
+            navigator.geolocation.clearWatch(s.id);
+          }
+        }, s.error, s.options);
+      // });
     } else {
       alert("Geolocation is not supported by this browser.");
     }
@@ -96,4 +112,10 @@ export class GeoComponent implements OnInit {
   close(){
     this.isShow = false;
   }
+
+  error(err) {
+    console.warn('ERROR(' + err.code + '): ' + err.message);
+  }
+
+
 }
