@@ -1,10 +1,10 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CoreService} from '../../../core.service';
-import {environment} from '../../../../environments/environment';
 import {PostService} from '../post.service';
 import {AuthService} from '../../../auth.service';
 import {FormApiService} from '../../form-api/form-api.service';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'app-post',
