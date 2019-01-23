@@ -46,7 +46,7 @@
             <div class="col-sm-8">
               <app-select *ngIf="option.length>0"
                           [option]="option"
-                          [defoult]="key"
+                          [defoult]="'Не обрана'"
                           (onCheck)="complement.maincategory = $event"></app-select>
             </div>
           </div>

@@ -35,7 +35,6 @@ export class ComplementComponent implements OnInit {
       self.editid = params.editid;
       self.initApi(params.id);
     });
-
   }
 
   initApi(id){

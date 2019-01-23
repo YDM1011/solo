@@ -24,7 +24,7 @@ export class EstCreateComponent implements OnInit {
   public status:boolean=true;
   public delivery:boolean=false;
   public getself:boolean=false;
-  public reservation:boolean=false;
+  public reservation:boolean=false;z
   constructor(
     private route: ActivatedRoute,
     private router: Router,

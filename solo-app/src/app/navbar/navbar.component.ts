@@ -28,7 +28,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
   @Input() word;
   @Output() onClick = new EventEmitter<any>();
   @Output() onNew: EventEmitter<any> = new EventEmitter<any>();
-  public menuList = [];
   private httpOptions: {
     headers: HttpHeaders,
     withCredentials: boolean };

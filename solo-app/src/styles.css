@@ -10,13 +10,9 @@
   font-style: normal;
   unicode-range: U+0020-04FF
 }
-
 * {
   outline: none;
   box-sizing: border-box !important;
-}
-img{
-  max-width: 100%;
 }
 body {
   display: block;
@@ -31,27 +27,16 @@ body {
   -webkit-tap-highlight-color: transparent;
   tap-highlight-color: transparent;
 }
-
 ::selection{
   background: rgba(0, 0, 0, 0.12);
 }
-body::-webkit-scrollbar {
-  -webkit-appearance: none;
-}
-body::-webkit-scrollbar:vertical {
-  width: 5px;
-}
-body::-webkit-scrollbar-thumb {
-  background-color: #000000;
-}
-body::-webkit-scrollbar-track {
-  border: 5px solid #9c9c9c;
-}
-
 input,
 button,
 textarea{
   font-family: CenturyGothic, sans-serif!important;
+}
+img{
+  max-width: 100%;
 }
 #contTape{
   height: 100vh;
@@ -333,22 +318,9 @@ svg{
     margin-top: 0;
   }
 }
-
-
 /*end global css*/
 
-.collapsible-body {
-  clear: both;
-  z-index: 2;
-}
-/*.collapsible{*/
-  /*display: flex;*/
-  /*justify-content:space-around;*/
-  /*align-items: center;*/
-  /*z-index: 1;*/
-/*}*/
-
-
+/*start header*/
 .hdr{
   display: block;
   position: fixed;
@@ -356,6 +328,7 @@ svg{
   left: 0;
   right: 0;
   z-index: 10;
+  user-select: none;
 }
 .nav{
   background-color: #f4f4f4;
@@ -377,31 +350,6 @@ svg{
   width: 100%;
   display: block;
 }
-@media (min-width: 992px){
-  .nav{
-    height: 59px;
-    background-color: #fff;
-    border-bottom: 1px solid #dcdcdc;
-  }
-}
-
-@media (min-width: 992px){
-  .nav{
-    padding: 0 10px;
-  }
-  .nav-cont{
-    flex-wrap: nowrap;
-    flex-grow: 1;
-  }
-}
-@media (min-width: 1220px) {
-  .nav{
-    padding: 0;
-  }
-}
-
-/**/
-
 .nav_basic{
   display: block;
   max-width: calc(100% - 140px);
@@ -418,23 +366,18 @@ svg{
 .nav_basic li{
   height: inherit;
 }
-
 .logo{
   width: 110px;
   height: inherit;
   padding: 2px 0;
   margin-right: 2vw;
-}
-.logo{
   transition: filter 250ms ease-in-out;
 }
-.logo:hover{
+.logo:hover,
+.logo:focus{
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.15));
   background: transparent;
 }
-.logo:hover{
-  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.15));
-}
-
 .basic-search{
   position: relative;
   display: flex;
@@ -469,7 +412,6 @@ svg{
 .search-svg svg{
   fill: #b3b3b3;
 }
-
 .user{
   display: flex;
   align-items: center;
@@ -506,108 +448,6 @@ svg{
   color: #000;
   padding-left: 8px;
 }
-
-@media (min-width: 414px) {
-  .user_title{
-    display: inline;
-  }
-}
-@media (min-width: 560px) {
-  .active.form-search{
-    width: 155px;
-  }
-  .nav_basic {
-    max-width: calc(100% - 210px);
-  }
-}
-@media (min-width: 660px){
-  .logo{
-    width: 120px;
-    margin: 0;
-  }
-  .form-search{
-    position: static;
-    display: flex;
-    min-width: 160px;
-    align-items: center;
-    margin: 0 15px;
-    width: auto;
-    opacity: 1;
-  }
-  .search-svg{
-    margin: 0;
-    /*pointer-events: none;*/
-    position: absolute;
-    right: 22px;
-    top: calc(50% - 7.5px);
-  }
-}
-@media (min-width: 768px) and (min-height: 500px) {
-  .nav_basic {
-    max-width: calc(100% - 150px);
-    height: 45px;
-  }
-  .logo{
-    padding: 4px 0;
-    width: 150px;
-    margin: 0;
-  }
-  .form-search{
-    min-width: 195px;
-  }
-  .search-svg{
-    top: calc(50% - 10px);
-    width: 21px;
-    height: 21px;
-    right: 20px;
-  }
-}
-@media (min-width: 992px) {
-  .nav_basic {
-    max-width: none;
-    padding-left: 0;
-    flex-grow: 1;
-    height: inherit;
-  }
-  .nav_basic ul {
-    justify-content: space-between;
-  }
-  .logo{
-    padding: 6px 0;
-    width: 165px;
-    height: 59px;
-    line-height: 59px;
-  }
-  .user {
-    min-width: 110px;
-    padding: 0 15px;
-  }
-  .user_title{
-    font-size: 14px;
-    padding-left: 10px;
-  }
-  .form-search{
-    background: #ffffff;
-    margin: 0 10px;
-    min-width: 225px;
-  }
-}
-@media (min-width: 1100px){
-  .user {
-    padding: 0 5px;
-  }
-  .form-search{
-    min-width: 225px;
-  }
-}
-@media (min-width: 1220px){
-  .form-search{
-    background: #ffffff;
-    margin: 0 10px;
-    min-width: 290px;
-  }
-}
-/**/
 .nav_user{
   display: block;
   width: 100%;
@@ -672,47 +512,6 @@ svg{
   background: #61148f;
   color: #fff;
 }
-@media (min-width: 768px) and (min-height: 500px){
-  .nav_user_it {
-    height: 44px;
-    line-height: 44px;
-  }
-}
-@media (min-width: 992px) {
-  .nav_user{
-    background: transparent;
-    border: none;
-    width: auto;
-    padding: 0;
-    order: 2;
-    flex-grow: 2;
-  }
-  .nav_user_it {
-    padding: 0 10px;
-    height: 59px;
-    line-height: 59px;
-  }
-  .nav_user_it.tape .nav_user_it_svg{
-    display: none;
-  }
-  .nav_user_it.tape .nav_user_it_title{
-    display: inline;
-    font-size: 12px;
-    color: #000000;
-    text-align: center;
-    text-transform: capitalize;
-  }
-  .nav_user_it.tape .nav_user_it_badge{
-    display: none;
-  }
-}
-@media (min-width: 1100px){
-  .nav_user_it {
-    padding: 0 5px;
-  }
-}
-/**/
-
 .nav_coin{
   order: 2;
   padding: 0 10px 0 5px;
@@ -756,7 +555,6 @@ svg{
 .coin_value{
   padding-left: 8px;
 }
-
 .menu-mob-toggle{
   margin-left: 1.8vw;
   display: flex;
@@ -771,7 +569,18 @@ svg{
   height: 20px;
   line-height: 20px;
 }
+@media (min-width: 414px) {
+  .user_title{
+    display: inline;
+  }
+}
 @media (min-width: 560px) {
+  .active.form-search{
+    width: 155px;
+  }
+  .nav_basic {
+    max-width: calc(100% - 210px);
+  }
   .nav_coin{
     max-width: 210px;
   }
@@ -782,12 +591,55 @@ svg{
     margin-left: 15px;
   }
 }
+@media (min-width: 660px){
+  .logo{
+    width: 120px;
+    margin: 0;
+  }
+  .form-search{
+    position: static;
+    display: flex;
+    min-width: 160px;
+    align-items: center;
+    margin: 0 15px;
+    width: auto;
+    opacity: 1;
+  }
+  .search-svg{
+    margin: 0;
+    position: absolute;
+    right: 22px;
+    top: calc(50% - 7.5px);
+  }
+}
 @media (min-width: 700px) {
   .coin_name{
     display: none;
   }
 }
-@media (min-width: 768px) and (min-height: 500px){
+@media (min-width: 768px) and (min-height: 500px) {
+  .nav_basic {
+    max-width: calc(100% - 150px);
+    height: 45px;
+  }
+  .logo{
+    padding: 4px 0;
+    width: 150px;
+    margin: 0;
+  }
+  .form-search{
+    min-width: 195px;
+  }
+  .search-svg{
+    top: calc(50% - 10px);
+    width: 21px;
+    height: 21px;
+    right: 20px;
+  }
+  .nav_user_it {
+    height: 44px;
+    line-height: 44px;
+  }
   .nav_coin{
     height: 45px;
   }
@@ -802,6 +654,70 @@ svg{
   }
 }
 @media (min-width: 992px){
+  .nav{
+    padding: 0 10px;
+    height: 59px;
+    background-color: #fff;
+    border-bottom: 1px solid #dcdcdc;
+  }
+  .nav-cont{
+    flex-wrap: nowrap;
+    flex-grow: 1;
+  }
+  .nav_basic {
+    max-width: none;
+    padding-left: 0;
+    flex-grow: 1;
+    height: inherit;
+  }
+  .nav_basic ul {
+    justify-content: space-between;
+  }
+  .logo{
+    padding: 6px 0;
+    width: 165px;
+    height: 59px;
+    line-height: 59px;
+  }
+  .user {
+    min-width: 110px;
+    padding: 0 15px;
+  }
+  .user_title{
+    font-size: 14px;
+    padding-left: 10px;
+  }
+  .form-search{
+    background: #ffffff;
+    margin: 0 10px;
+    min-width: 225px;
+  }
+  .nav_user{
+    background: transparent;
+    border: none;
+    width: auto;
+    padding: 0;
+    order: 2;
+    flex-grow: 2;
+  }
+  .nav_user_it {
+    padding: 0 10px;
+    height: 59px;
+    line-height: 59px;
+  }
+  .nav_user_it.tape .nav_user_it_svg{
+    display: none;
+  }
+  .nav_user_it.tape .nav_user_it_title{
+    display: inline;
+    font-size: 12px;
+    color: #000000;
+    text-align: center;
+    text-transform: capitalize;
+  }
+  .nav_user_it.tape .nav_user_it_badge{
+    display: none;
+  }
   .nav_coin{
     display: flex;
     align-items: center;
@@ -833,6 +749,15 @@ svg{
   }
 }
 @media (min-width: 1100px){
+  .user {
+    padding: 0 5px;
+  }
+  .form-search{
+    min-width: 225px;
+  }
+  .nav_user_it {
+    padding: 0 5px;
+  }
   .coin_name{
     display: inline;
   }
@@ -840,7 +765,17 @@ svg{
     margin-left: auto;
   }
 }
-
+@media (min-width: 1220px) {
+  .nav{
+    padding: 0;
+  }
+  .form-search{
+    background: #ffffff;
+    margin: 0 10px;
+    min-width: 290px;
+  }
+}
+/*end*/
 
 
 #dropdown-search{
