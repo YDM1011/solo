@@ -46,13 +46,13 @@
           <div class="l_i_h distanse" *ngIf="est.distans < 1">{{(est.distans*1000) | number : '3.0-0'}} метрів</div>
           <div class="l_i_h distanse" *ngIf="est.distans >= 1">{{est.distans | number : '1.2-2'}} кілометрів</div>
           <div class="l_i_bg pre-bg">
-            <div class="inherit" *ngIf="est.bg">
-              <img [src]="est.bg.picCrop">
+            <div class="inherit" *ngIf="est.ownerEst.bg">
+              <img [src]="est.ownerEst.bg.picCrop">
             </div>
           </div>
           <div class="l_i_av pre-bg">
-            <div class="inherit" *ngIf="est.av">
-              <img [src]="est.av.picCrop">
+            <div class="inherit" *ngIf="est.ownerEst.av">
+              <img [src]="est.ownerEst.av.picCrop">
             </div>
           </div>
         </a>

@@ -74,6 +74,7 @@ const getEsts = () =>{
     return new Promise((resolv,reject)=>{
         mongoose.model('oneest')
             .find({})
+            .populate({path:'ownerEst', populate:{path: "bg av"}})
             .exec((err,result)=>{
                 if (result) {
                     resolv(result)
