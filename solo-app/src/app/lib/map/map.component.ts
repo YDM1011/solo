@@ -1,12 +1,12 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit} from '@angular/core';
-declare let L;
+declare let L
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit, OnDestroy {
+export class MapComponent implements OnInit {
   @Input() XY:any = [];
   @Input() me:any = [];
   @Input() meAvatar;
@@ -16,10 +16,8 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnInit() {
    if( this.XY.length>0 && this.me.length>0 ) this.initMap()
   }
-  // ngOnChanges() {
-  //  if( this.XY.length>0 && this.me.length>0 ) this.initMap()
-  // }
-  ngOnDestroy(){
+  ngOnChanges() {
+   if( this.XY.length>0 && this.me.length>0 ) this.initMap()
   }
   initMap(){
     let s = this;
@@ -42,18 +40,17 @@ export class MapComponent implements OnInit, OnDestroy {
           L.marker(oxy, {clickable: true,
             icon: new L.Icon({ iconUrl: './favicon.ico',
               iconSize: [30, 30],
-              iconAnchor: [15, 15]  })
+              iconAnchor: [30, 30]  })
           }).addTo(map);
         }
       });
 
         L.marker(s.me, {clickable: true,
           icon: new L.Icon({ iconUrl: s.meAvatar,
-            iconSize: [30, 30],
-            iconAnchor: [15, 15]  })
+            iconSize: [45, 45],
+            iconAnchor: [45, 45]  })
         }).addTo(map);
       },0);
     }
   }
-
 }
