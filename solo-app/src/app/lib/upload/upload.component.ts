@@ -51,7 +51,8 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
     console.log(er);
     let obj = Object.assign({},er);
     this.avatar.push(obj);
-    console.log(this.avatar);
+    this.savePics();
+    this.avatar = [];
   }
 
   uploadFile(){

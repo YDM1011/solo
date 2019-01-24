@@ -2,7 +2,6 @@
 .h-pf_img {
   display: block;
   position: relative;
-  background: rgba(0, 0, 0, 0.04);
   width: 100px;
   height: 100px;
   max-width: 200px;
