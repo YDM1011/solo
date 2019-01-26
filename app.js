@@ -105,7 +105,18 @@ app.use((req,res,next)=>{
 app.use('/', api);
 app.get("/", function(req, res, next) {
     if (req.cookies['sid'] || (req.subdomains[0] && req.subdomains[0] != "admin")) {
-        next()
+        if(req.cookies['sid']){
+            next()
+        }else{
+            switch(req.subdomains[0]){
+                case undefined:res.render('index1');
+                    break;
+                case 'solo':res.render('index2');
+                    break;
+                default: res.render('index2');
+                    break;
+            }
+        }
     }else{
         res.render('index4', {title: 'Express'});
     }

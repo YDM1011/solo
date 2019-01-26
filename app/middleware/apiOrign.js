@@ -3,6 +3,7 @@ module.exports = (req,res,next) =>{
         'http://localhost:4300',
         'http://localhost:4200',
         'http://*.localhost:5000',
+        'http://*.*.localhost:5000',
         'http://localhost:5000',
         'https://*.tasteol1.com',
         'https://tasteol1.com',
