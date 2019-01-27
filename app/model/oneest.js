@@ -6,7 +6,7 @@ const oneLinks = new Schema({
 });
 const model = new Schema({
     name: {type:String, required:[true, "Enter name"]},
-    city: {type:String, required:[true, "Enter city"]},
+    city: {type:String},
     address: {type:String, required:[true, "Enter address"]},
     coordinates: {type:Array, required:[true, "Enter coordinates"]},
     mobile: {type: String},
@@ -247,6 +247,7 @@ const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    req.body.mobile = req.body.mobile.replace(new RegExp(" ", 'g'), "");
     if (req.params){
         switch (req.query.select){
             case 'bg': bgu(req,res,req.params.id,req.query.select); break;
@@ -267,8 +268,9 @@ const preCreate = (req,res,next)=>{
     let id = req.body.id;
     let model = req.body.model;
     let obj = {};
+
     mongoose.model('oneest').create(req.body, (err, doc)=>{
-        if(err) return res.badRequest('Something broke!');
+        if(err) return res.badRequest(err);
         if(doc){
             mongoose.model('establishment')
                 .findOneAndUpdate({_id:id},

@@ -125,6 +125,9 @@ app.get("/", function(req, res, next) {
 app.get("/about", function(req, res){
     res.render('index4', { title: "Landing" });
 });
+app.get("/test", function(req, res){
+    res.render('test');
+});
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
