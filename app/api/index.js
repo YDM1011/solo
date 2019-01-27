@@ -5,6 +5,7 @@ const verification = require('../middleware/verification');
 const verify = require('../middleware/verify');
 
 const login = require('../controlers/auth/login');
+const facebook = require('../controlers/auth/facebook');
 const admLogin = require('../controlers/auth/admLogin');
 const signup = require('../controlers/auth/signup');
 const uploadFile = require('../controlers/uploadFile');
@@ -23,6 +24,13 @@ const geo = require('../controlers/geo');
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
 const glob = require('glob');
+
+
+var passport = require('passport');
+router.get('/api/facebook', passport.authenticate('facebook', {session: false}));
+router.get('/api/facebook/return',
+    passport.authenticate('facebook', {session: false, failureRedirect: '/login' }),
+    facebook.mdlAuth);
 
 router.post('/api/signin', [orign, verification], login);
 router.post('/api/signup', [orign, verification], signup.create);
