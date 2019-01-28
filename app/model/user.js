@@ -94,7 +94,7 @@ const user = new Schema({
         "familyStatus.personId" : Object
     }
 });
-const User = mongoose.model('user', user, 'users');
+const User = mongoose.model('user', user);
 
 module.exports = User;
 const glob = require('glob');
@@ -111,13 +111,30 @@ const preUpdate = (req,res,next)=>{
             return res.ok(info)
         });
 };
+const oth = (req,res)=>{
+    User.count({}, function(err, c) {
+        if(err) return res.badRequest(err);
+        if(!c) return res.notFound("");
+        res.ok({count: c})
+    });
+};
 const preRead = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.query.populate || req.params || req.query.select){
-        console.log("OK!!!++", req.params);
-        return next();
+
+        if(req.params){
+
+            if(req.params['id'] == 'countDocuments'){
+                oth(req,res);
+            }else{
+                return next();
+            }
+        }else{
+            return next();
+        }
+
     }else
     if (!req.query.query){
         mongoose.model('user')

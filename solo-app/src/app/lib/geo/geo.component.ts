@@ -82,7 +82,7 @@ export class GeoComponent implements OnInit {
             s.distans = [];
             s.cordinates = [];
             val.map(item=>{
-              if(item.coordinates){
+              if(item.coordinates && item.ownerEst){
                 if ( item.coordinates[0] && item.coordinates[1]){
                   let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
                   s.cordinates.push({x:  item.coordinates[0],y: item.coordinates[1], av:av});

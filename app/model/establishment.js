@@ -62,15 +62,15 @@ const model = new Schema({
 },{
     toJSON: {
         transform: function (doc, ret) {},
+        virtuals: true
     },
     toObject: {
         transform: function (doc, ret) {},
-        virtuals: false
+        virtuals: true
     },
     createRestApi: true,
-    strict: true
+    strict: true,
 });
-
 mongoose.model('establishment', model);
 
 const glob = require('glob');
@@ -225,11 +225,61 @@ const bgu = (req,res,id,mod)=>{
         return res.badRequest('error');
     }
 };
+
+const getPic = (req,res, est)=>{
+    return new Promise(async (resolve,reject)=>{
+        let ra = [];
+        await asyncForEach(est, async (es) => {
+            es =  await new Promise((resolve,reject)=> {
+                mongoose.model('establishment')
+                    .findOne({_id: es._id})
+                    .populate({path:'av bg'})
+                    .exec((err, result) => {
+                        // console.log(result)
+                        if (err) resolve(null);
+                        if (!result) resolve(null);
+                        if (result) resolve(result);
+                    })
+            });
+            ra.push(es);
+        });
+
+        resolve(ra)
+    });
+
+};
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
+const fl = (req,res)=>{
+    mongoose.model('establishment').aggregate(
+        [
+            { "$project": {
+                    "length": { "$size": "$favorite" }
+                }},
+            { "$sort": { "length": -1 } },
+            { "$limit": 10 }
+        ],
+        async function(err,results) {
+            if (err) return res.serverError(err);
+            if (!results) return res.ok('Not found bg');
+            if (results)  {
+                let r = await getPic(req,res,results);
+                res.ok(r)
+            }
+        }
+    )
+};
 const preRead = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/serverError")(req, res);
+    if (req.params['id'] == "topEst"){
+        return fl(req,res)
+    }
     if (req.query.populate || req.query.query){
         return next();
     }

@@ -140,7 +140,7 @@ module.exports.estEst = (req, res, next) => {
 };
 module.exports.estPics = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
-
+    // return res.ok(est);
     Establishment
         .findOne({subdomain: est})
         .populate({path:'bg'})

@@ -16,9 +16,9 @@ export class MapComponent implements OnInit {
   ngOnInit() {
    if( this.XY.length>0 && this.me.length>0 ) this.initMap()
   }
-  ngOnChanges() {
-   if( this.XY.length>0 && this.me.length>0 ) this.initMap()
-  }
+  // ngOnChanges() {
+  //  if( this.XY.length>0 && this.me.length>0 ) this.initMap()
+  // }
   initMap(){
     let s = this;
     if (s.me){
