@@ -71,14 +71,7 @@ export class FileMinComponent implements OnInit {
   imageCropped(event) {
     this.croppedImage = event.base64;
     this.loadImg(this.format, event.base64);
-    console.log(event);
   }
-  imageLoaded() {
-    // this.showCropper = true;
-    console.log('Image loaded')
-  }
-  cropperReady(){}
-  loadImageFailed(){}
 
   loadReader(format: string, file: any) {
     this.file = file;
@@ -94,7 +87,6 @@ export class FileMinComponent implements OnInit {
   loadImg (format: string, base64: string) {
     this.name = this.file.name;
     this.size = this.file.size;
-    console.log("OK",this.name, this.size);
     const img: HTMLImageElement = new Image();
     img.src = base64;
     img.onload = () => {

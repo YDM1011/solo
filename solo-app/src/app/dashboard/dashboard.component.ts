@@ -26,7 +26,6 @@ export class DashboardComponent implements OnInit, OnChanges {
   public isBascketPage = false;
   public isProfilePage = false;
   public count = 0;
-  public loader;
   public favoriteEst;
   public limit = 4;
   public friends;

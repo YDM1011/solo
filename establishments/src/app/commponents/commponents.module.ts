@@ -2,7 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ImgComponent } from './img/img.component';
 import { HeaderComponent } from './header/header.component';
-import {MzCollapsibleModule, MzDatepickerModule, MzSidenavModule, MzTimepickerModule} from "ngx-materialize";
+import {
+  MzCollapsibleModule,
+  MzDatepickerModule,
+  MzDropdownModule,
+  MzSidenavModule,
+  MzTimepickerModule
+} from "ngx-materialize";
 import {RoutingModule} from "../routing/routing.module";
 import { PostsComponent } from './posts/posts.component';
 import { MenuComponent } from './menu/menu.component';
@@ -22,6 +28,8 @@ import { PrevBgComponent } from './prev-bg/prev-bg.component';
 import { PrevDishComponent } from './prev-dish/prev-dish.component';
 import { PrevEstComponent } from './prev-est/prev-est.component';
 import { ActionComponent } from './action/action.component';
+import {SearchPipe} from "./header/search.pipe";
+import { NumberPhonePipe } from './number-phone.pipe';
 
 @NgModule({
   imports: [
@@ -31,7 +39,8 @@ import { ActionComponent } from './action/action.component';
     FormsModule,
     MzDatepickerModule,
     MzTimepickerModule,
-    MzCollapsibleModule
+    MzCollapsibleModule,
+    MzDropdownModule
   ],
   exports: [
     ImgComponent,
@@ -49,7 +58,8 @@ import { ActionComponent } from './action/action.component';
     PrevBgComponent,
     PrevDishComponent,
     PrevEstComponent,
-    ActionComponent
+    ActionComponent,
+    NumberPhonePipe
   ],
   declarations: [
     ImgComponent,
@@ -70,7 +80,9 @@ import { ActionComponent } from './action/action.component';
     PrevBgComponent,
     PrevDishComponent,
     PrevEstComponent,
-    ActionComponent
+    ActionComponent,
+    SearchPipe,
+    NumberPhonePipe
   ]
 })
 export class CommponentsModule { }

@@ -65,7 +65,6 @@
             <app-search class="search" (onFind)="takeFriend($event); place.close(0);"
                         [array]="friends"
                         [type] = "'post'"
-                        [searchDropD]="false"
             ></app-search>
           </mz-collapsible-item-body>
         </mz-collapsible-item>
@@ -81,7 +80,6 @@
             <app-search class="search" (onFind)="takePlace($event); place.close(1);"
                         [array]="places"
                         [type] = "'est'"
-                        [searchDropD]="false"
             ></app-search>
           </mz-collapsible-item-body>
         </mz-collapsible-item>

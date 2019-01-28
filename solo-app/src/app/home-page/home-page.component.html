@@ -32,8 +32,42 @@
     </div>
   </div>
 </div>
+<ng-container *ngIf="!posts">
+  <div class="cont pst">
+    <div class="pst_in">
+      <span class="img40 pre-bg"></span>
+      <span class="pre-in_us pre-bg"></span>
+      <div class="pre-in_dt pre-bg"></div>
+      <div class="in_us-drop pre-drop pre-bg"></div>
+    </div>
+    <div class="pst_img">
+      <div class="pre-img">
+        <div class="pre-pst_img_i pre-bg"></div>
+      </div>
+    </div>
+    <div class="pst_btn pre-bg"></div>
+  </div>
+  <div class="cont pst">
+    <div class="pst_in">
+      <span class="img40 pre-bg"></span>
+      <span class="pre-in_us pre-bg"></span>
+      <div class="pre-in_dt pre-bg"></div>
+      <div class="in_us-drop pre-drop pre-bg"></div>
+    </div>
+    <div class="pst_cnt">
+      <p class="pst_d pre-pst_d pre-bg"></p>
+      <div class="pst_img ">
+        <div class="pre-img array">
+          <div class="pre-pst_img_i pre-bg"></div>
+          <div class="pre-pst_img_i pre-bg"></div>
+        </div>
+      </div>
+    </div>
+    <div class="pst_btn pre-bg"></div>
+  </div>
+</ng-container>
 <ng-container *ngIf="user && id && posts">
-<app-create *ngIf="user" [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create>
-<app-post [id]="id" [posts]="posts"></app-post>
-<button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
+  <app-create *ngIf="user" [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create>
+  <app-post [id]="id" [posts]="posts"></app-post>
+  <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
 </ng-container>
