@@ -13,7 +13,7 @@
     <span class="el_i pre-bg"></span>
     <span class="el_i pre-bg"></span>
   </div>
-  <div class="el_cntt" *ngIf="ests">
+  <div class="el_cntt el_cntt-big" *ngIf="ests">
     <ng-container *ngFor="let est of ests">
       <a class="el_i" href="//{{est.subdomain+'.'+host}}">
         <ng-container *ngIf="est.av; else picEst">

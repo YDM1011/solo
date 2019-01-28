@@ -30,6 +30,8 @@ import { PrevEstComponent } from './prev-est/prev-est.component';
 import { ActionComponent } from './action/action.component';
 import {SearchPipe} from "./header/search.pipe";
 import { NumberPhonePipe } from './number-phone.pipe';
+import { PreProductionComponent } from './pre-production/pre-production.component';
+import { BarMenuComponent } from './bar-menu/bar-menu.component';
 
 @NgModule({
   imports: [
@@ -59,7 +61,9 @@ import { NumberPhonePipe } from './number-phone.pipe';
     PrevDishComponent,
     PrevEstComponent,
     ActionComponent,
-    NumberPhonePipe
+    NumberPhonePipe,
+    PreProductionComponent,
+    BarMenuComponent
   ],
   declarations: [
     ImgComponent,
@@ -82,7 +86,9 @@ import { NumberPhonePipe } from './number-phone.pipe';
     PrevEstComponent,
     ActionComponent,
     SearchPipe,
-    NumberPhonePipe
+    NumberPhonePipe,
+    PreProductionComponent,
+    BarMenuComponent
   ]
 })
 export class CommponentsModule { }

@@ -41,9 +41,9 @@ p{
   max-width: 100%;
   font-size: 12px;
   line-height: 18px;
-  color: #ffffff;
+  color: #333333;
   text-align: left;
-  background: #946fb0;
+  background: rgba(0, 163, 255, 0.1);
   padding: 12px 10px 10px;
   border-radius: 12px;
   margin: 5px 0;

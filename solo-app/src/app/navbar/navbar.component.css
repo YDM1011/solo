@@ -1,8 +1,3 @@
-.user_img img{
-  width: 20px;
-  height: 20px;
-  object-fit: cover;
-}
 .us-s.mob-m{
   display: block;
   margin-bottom: 25px;
@@ -14,19 +9,6 @@
 .mob-m .us-s_t{
   min-width: 140px;
   text-align: center;
-}
-.us-s_i {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  height: 40px;
-  box-shadow: 3px -3px 20px -1px rgba(0, 0, 0, 0.1);
-  margin: 5px 0;
-  box-sizing: border-box;
-  padding: 0 11px;
-  background: #ffffff;
-  cursor: pointer;
-  transition: .3s ease-in-out;
 }
 .mob-m .svg20{
   margin-left: calc(50% - 90px);

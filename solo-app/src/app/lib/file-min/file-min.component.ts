@@ -1,9 +1,39 @@
 import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
 import {Ratios} from "./ratios";
+import {animate, style, transition, trigger} from "@angular/animations";
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
+  animations: [
+    trigger('inOpacity', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('140ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('140ms', style({ opacity: 0 }))
+      ])
+    ]),
+    trigger('inPop', [
+      transition(':enter', [
+        style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }),
+        animate('220ms', style({
+          transform: 'scaleX(1) scaleY(1)',
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }))
+      ])
+    ])
+  ],
 })
 
 export class FileMinComponent implements OnInit {
@@ -33,7 +63,10 @@ export class FileMinComponent implements OnInit {
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  ratios: number;
+  ratios: any = {
+    ratios: '',
+    width: ''
+  };
 
   constructor() { }
   ngOnInit() {
@@ -63,8 +96,9 @@ export class FileMinComponent implements OnInit {
   public uploadImg(event: any) {
     if (/image[/]/i.test( event.target.files[0].type)) {
       this.format = (/image[/]png/i.test( event.target.files[0].type)) ? 'png' : 'jpeg';
-      this.imageChangedEvent = event;
+      document.querySelector('body').style.overflow = 'hidden';
       this.loadReader(this.format, event.target.files[0]);
+      this.imageChangedEvent = event;
     } else console.log('Error type');
   }
 
@@ -78,8 +112,6 @@ export class FileMinComponent implements OnInit {
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
-
-      if(file)
       this.loadImg(format, ev.target.result)
     };
   }
@@ -101,7 +133,11 @@ export class FileMinComponent implements OnInit {
       size: this.size
     };
     this.fileResult.emit(this.Pics);
+    this.clear()
+  }
+  clear() {
     this.imageObj = [];
+    document.querySelector('body').style.overflow = '';
   }
   createImg(images: any, format: string) {
     const canvasImg = <HTMLCanvasElement> document.createElement('canvas');
