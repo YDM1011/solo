@@ -40,8 +40,8 @@ const originsWhitelist = [
     'http://*.localhost:3000',
     'http://localhost:3200',
     'http://*.localhost:3200',
-    'https://tasteol1.com', 'https://solo.tasteol1.com', '.tasteol1.com', /\.tasteol1\.com$/,
-    'https://tasteol.com', 'https://*.tasteol1.com', 'https://.tasteol1.com'
+    'https://tasteol.com', '.tasteol.com', /\.tasteol\.com$/,
+    'https://tasteol.com', 'https://*.tasteol.com', 'https://.tasteol.com'
 ];
 const corsOptions = {
     origin:originsWhitelist,
