@@ -17,7 +17,7 @@ export class ScrollToDirective {
 
   leveler() {
     this.minisH = (window.innerWidth < 500 || window.innerHeight < 500 ) ?
-      0 : document.querySelector('.hdr').clientHeight + 10;
+      0 : document.querySelector('nav').clientHeight + 10;
   }
   minisH: number = 0;
 
