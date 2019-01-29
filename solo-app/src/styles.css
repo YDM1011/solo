@@ -4925,6 +4925,14 @@ input.inp_min[type=number] {
   line-height: 28px;
   position: relative;
   padding: 0 30px 0  8px; }
+input.ets-inp[type=text],
+input.ets-inp[type=number]{
+  height: 34px;
+  border: 1px solid #dcdcdc;
+  margin-top: 10px;
+  color: #000000;
+  padding: 0 15px;
+}
 
 .inp_big-svg {
   display: block;
