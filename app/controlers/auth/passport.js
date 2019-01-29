@@ -3,27 +3,15 @@
 var passport = require('passport');
 var Strategy = require('passport-facebook').Strategy;
 var jwt = require('jsonwebtoken');
-  // FacebookTokenStrategy = require('passport-facebook-token');
-  // User = require('mongoose').model('User');
+const mongoose = require('mongoose');
+const User = mongoose.model('user');
+const md5 = require('md5');
+const glob = require('glob');
 
-const createToken = auth => {
-    return jwt.sign({
-            id: auth.id
-        }, 'my-secret',
-        {
-            expiresIn: 60 * 120
-        });
-};
 module.exports.generateToken = (req, res, next) => {
-    console.log(req.auth);
-    req.token = createToken(req.auth);
-    sendToken(req,res)
+    console.log("ok",req.auth);
 };
 
-const sendToken = (req, res) => {
-    res.setHeader('x-auth-token', req.token);
-    res.status(200).send(req.auth);
-};
 module.exports.config = () => {
 
     passport.use(new Strategy({
@@ -36,4 +24,55 @@ module.exports.config = () => {
             // console.log(accessToken, refreshToken, profile);
             return cb(null, profile);
         }));
+};
+
+/**
+ * @function createUser
+ * @function findUser
+ * @function generatePassword
+ * @param req
+ * @param res
+ */
+const findUser = (req,res) =>{
+    new Promise((resolve,reject)=>{
+        User
+            .findOne({login: req.auth.id})
+            .exec((err, info)=>{
+                if (err) return res.status(500).send({error:err});
+                if (!info) return resolve(null);
+                if (info) return resolve(info);
+            })
+    });
+};
+
+const createUser = (req,res)=>{
+    new Promise((resolve,reject)=>{
+        const pass = generatePassword();
+        let info = {
+            login: req.user.id,
+            pass: md5(pass),
+            token: jwt.sign({id: req.user.id}, glob.secret),
+            firstName: req.user.firstName,
+            lastName: req.user.lastName,
+        };
+
+        User.create(info, (err, content) => {
+            if (err) {
+                res.send(err)
+            } else {
+                delete content.hash;
+                resolve(content);
+            }
+        })
+    });
+};
+
+const generatePassword = () => {
+    var length = 8,
+        charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
+        retVal = "";
+    for (var i = 0, n = charset.length; i < length; ++i) {
+        retVal += charset.charAt(Math.floor(Math.random() * n));
+    }
+    return retVal;
 };

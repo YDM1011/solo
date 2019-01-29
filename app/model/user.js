@@ -6,6 +6,7 @@ const user = new Schema({
     pass: {type: String, unique: true, required: [true, "Password must be created"]},
     firstName: {type: String, required: [true, "First name must be created"]},
     lastName: {type: String, required: [true, "Last name must be created"]},
+    email: String,
     gender: String,
     hash: String,
     bornedData: String,

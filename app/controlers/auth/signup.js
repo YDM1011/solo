@@ -25,6 +25,7 @@ module.exports.create = (req, res, next) => {
                 if (info) return res.status(200).send({err: 'login in use'});
                 const hash = generatePassword();
                 info = req.body;
+                info['email'] = req.body.login;
                 info.hash = hash;
                 info.pass = md5(hash);
                 info.token = jwt.sign({id: req.body.login}, glob.secret);
