@@ -291,7 +291,7 @@ glob.restify.serve(
     glob.route,
     mongoose.model('oneest'),
     {
-        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
+        preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
     });
