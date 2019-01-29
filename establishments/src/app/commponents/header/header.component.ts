@@ -13,6 +13,8 @@ export class HeaderComponent implements OnInit {
   public user: any;
   public access = false;
   public host: string = environment.apiDomain;
+  public arrayEts: any = [];
+  public searchText = '';
   constructor(private cookie: CookieService) { }
 
   ngOnInit() {

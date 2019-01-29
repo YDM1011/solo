@@ -42,7 +42,7 @@
                 <div class="form-group">
                   <label class="col-sm-6 control-label">Обов'язкові компоненти страви</label>
                   <div class="col-sm-6">
-                  <span class="dishingredient"
+                  <span class="ctg label label-primary"
                         (click)="delingredient(i)"
                         *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
                     <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
@@ -52,7 +52,7 @@
                 <div class="form-group">
                   <label class="col-sm-6 control-label">Не обов'язкові компоненти страви</label>
                   <div class="col-sm-6">
-                  <span class="dishingredient"
+                  <span class="ctg label label-primary"
                         (click)="delingredient2(i)"
                         *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
                     <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>

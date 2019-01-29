@@ -13,7 +13,6 @@ export class SearchComponent implements OnInit {
   @Input() array: any;
   @Input() arrayEts: any;
   @Input() type: any;
-  @Input() searchDropD;
   constructor() { }
   public searchText = '';
   ngOnInit() {

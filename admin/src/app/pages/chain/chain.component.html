@@ -209,15 +209,18 @@
               <div class="col-sm-10">
                 <div class="input-group">
                   <app-calendar [calendar]="worksTimeView"></app-calendar>
+
+                </div>
+                <div>
+                <div class="input-group">
+                  <app-select [option]="worksTimeAll"
+                              (onCheck)="getCalendar($event)"
+                              [defoult]="'calendar'"></app-select>
                   <span class="input-group-btn">
                     <button type="button" class="btn btn-primary"
                             (click)="update({worksTime:worksTime},'worksTime')">Зберегти</button>
                   </span>
                 </div>
-                <div>
-                  <app-select [option]="worksTimeAll"
-                              (onCheck)="getCalendar($event)"
-                              [defoult]="'calendar'"></app-select>
                   <!--<li *ngFor="let wt of worksTimeAll">{{wt.name}}</li>-->
                 </div>
               </div>

@@ -31,9 +31,9 @@
       <image-cropper
         [imageChangedEvent]="imageChangedEvent"
         [maintainAspectRatio]="true"
-        [aspectRatio]="ratios"
-        [resizeToWidth]="600"
-        [cropperMinWidth]="320"
+        [aspectRatio]="ratios.ratios"
+        [resizeToWidth]="ratios.width"
+        [cropperMinWidth]="200"
         [onlyScaleDown]="true"
         format="{{format}}"
         outputType="base64"

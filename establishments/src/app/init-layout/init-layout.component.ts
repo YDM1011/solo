@@ -41,6 +41,7 @@ export class InitLayoutComponent implements OnInit {
     });
     self.getPics();
     console.log(this.favorite)
+
   }
 
   getPics(){

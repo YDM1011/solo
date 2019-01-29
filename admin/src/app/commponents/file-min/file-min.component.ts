@@ -36,7 +36,10 @@ export class FileMinComponent implements OnInit {
   croppedImage: any = '';
   format: string = 'jpeg';
 
-  ratios: number;
+  ratios: any = {
+    ratios: '',
+    width: ''
+  };
 
   constructor() { }
   ngOnInit() {

@@ -5,8 +5,14 @@ export class Ratios {
   getRatios(model, field){
     let key = `${model}_${field}`;
     let obj = {
-      user_bg:195/70,
-      user_photo:1/1,
+      user_bg: {
+        ratios: 195/80,
+        width: 975
+      },
+      user_photo:{
+        ratios: 1/1,
+        width: 200
+      }
     };
     return obj[key];
   }
