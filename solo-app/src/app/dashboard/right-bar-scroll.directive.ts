@@ -22,10 +22,12 @@ export class RightBarScrollDirective {
   public barH: number = 0;
   public max: number = 0;
   public height: number = 0;
+  public hdrHeiht: number;
 
   paramPush (offsetH: number): void {
     this.barH = offsetH;
     this.max = this.barH - (window.innerHeight - 60);
+    this.hdrHeiht = document.querySelector('nav.nav').clientHeight;
   }
   load = (): void => {
     this.paramPush(this.el.nativeElement.offsetHeight);
@@ -43,11 +45,11 @@ export class RightBarScrollDirective {
   private bottom(posScroll: number) {
     let temp = this.height + (posScroll - this.scrollPosition);
     this.height = (temp < this.max) ? temp : this.max;
-    this.el.nativeElement.style.transform = `translateY(-${this.height}px)`;
+    this.el.nativeElement.style.top = `${ this.hdrHeiht - this.height}px`;
   }
   private top(posScroll: number) {
     this.height = this.height - (this.scrollPosition - posScroll);
     this.height = (this.height > 0 ) ? this.height : 0;
-    this.el.nativeElement.style.transform = `translateY(-${this.height}px)`;
+    this.el.nativeElement.style.top = `${this.hdrHeiht - this.height}px`;
   }
 }

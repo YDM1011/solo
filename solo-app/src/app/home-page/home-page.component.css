@@ -140,7 +140,7 @@
 }
 
 .btn-trans.active {
-  color: #61148f;
+  color: #00a3ff;
   text-decoration: underline;
   text-underline-position: under;
 }
@@ -267,7 +267,7 @@
 }
 .gl_ct {
   font-size: 14px;
-  color: #61148f;
+  color: #00a3ff;
   font-weight: bold;
   padding: 5px 15px;
 }

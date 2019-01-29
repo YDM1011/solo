@@ -88,7 +88,7 @@ img{
 .cont_right-bar{
   display: flex;
   flex-direction: column;
-  z-index: 1;
+  z-index: 2;
 }
 @media (min-width: 540px) {
   .cont_left-bar {
@@ -326,7 +326,21 @@ textarea:focus{
 /*end global css*/
 
 /*start header*/
-.hdr{
+/*.hdr{*/
+  /*display: block;*/
+  /*position: fixed;*/
+  /*top: 0;*/
+  /*left: 0;*/
+  /*right: 0;*/
+  /*z-index: 10;*/
+  /*user-select: none;*/
+/*}*/
+.nav{
+  background-color: #f4f4f4;
+  height: auto;
+  line-height: normal;
+  box-shadow: none;
+
   display: block;
   position: fixed;
   top: 0;
@@ -334,12 +348,6 @@ textarea:focus{
   right: 0;
   z-index: 10;
   user-select: none;
-}
-.nav{
-  background-color: #f4f4f4;
-  height: auto;
-  line-height: normal;
-  box-shadow: none;
 }
 .nav-cont {
   display: flex;
@@ -866,13 +874,6 @@ input[type=text].nav_search {
 }
 /*end*/
 
-app-upload,
-app-upload-post{
-  width: inherit;
-  height: inherit;
-  cursor: pointer;
-  z-index: 1;
-}
 .button-upload{
   display: flex;
   align-items: center;
@@ -1051,7 +1052,6 @@ app-file-min-post{
   padding: 4px 6px 4px 7px;
   min-height: 21px;
   background: rgba(0, 0, 0, 0.5);
-  z-index: 2;
   cursor: pointer;
 }
 .btn-av_img {
@@ -1829,7 +1829,6 @@ ol li p {
   right: 0;
   top: 0;
   bottom: 0;
-  z-index: 2;
   cursor: pointer;
 }
 .cr_close{
@@ -1838,7 +1837,6 @@ ol li p {
   right: 7px;
   opacity: 0;
   transition: .3s;
-  z-index: 1;
   width: 16px;
   height: 16px;
   pointer-events: none;
@@ -1856,10 +1854,12 @@ ol li p {
 .cr-pst{
   width: 100%;
   padding: 11px 6px 0;
-  transition: height .3s ease-in-out;
-  z-index: 1;
+  transition: height .2s ease-in-out;
 }
-
+.cr-pst textarea:focus{
+  border-bottom: none!important;
+  box-shadow: none!important;
+}
 .img{
   display: block;
   width: 100%;
@@ -2204,6 +2204,7 @@ ol li p {
   }
 }
 /*end cr-pst*/
+
 /*post start*/
 .pre-pst_img_i{
   margin: 5px;
@@ -2526,6 +2527,125 @@ ol li p {
   }
 }
 /*end post-img*/
+/*post-comment*/
+.post_cm{
+  display: flex;
+  flex-direction: column;
+}
+.cm{
+  margin: 10px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.cm_us{
+  display: flex;
+  align-items: center;
+  max-width: 650px;
+  padding: 0 2px;
+  margin-bottom: 8px;
+}
+.cm_us_in{
+  display: block;
+  font-size: 14px;
+  line-height: 18px;
+  padding: 0 8px;
+}
+
+.cm_us_tt{
+  text-transform: capitalize;
+  color: #00a3ff;
+  /*cursor: pointer;*/
+}
+.cm_us_data{
+  color: #8c8c8c;
+}
+/*.img40{*/
+/*cursor: pointer;*/
+/*}*/
+.cm_d{
+  display: inline-block;
+  max-width: 100%;
+  font-size: 12px;
+  line-height: 18px;
+  color: #333333;
+  text-align: left;
+  background: rgba(0, 163, 255, 0.1);
+  padding: 12px 10px 10px;
+  border-radius: 12px;
+  margin: 5px 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  text-overflow: ellipsis;
+}
+.cm_nw{
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 0 2px;
+  margin: 15px 0 18px;
+}
+.cm_nw_com{
+  display: block;
+  margin-left: 8px;
+  width: 100%;
+  position: relative;
+}
+.cm_area{
+  height: 20px;
+  resize: none;
+  box-shadow: none;
+  transition: .2s;
+  border: 1px solid #e8e8e8;
+}
+.cm_area,
+.cm_fnt{
+  display: block;
+  color: #000000;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+  letter-spacing: normal;
+  box-sizing: border-box;
+  padding: 12px 38px 12px 10px;
+  border-radius: 12px;
+  min-height: 40px;
+  overflow: hidden;
+  font-size: 11px;
+  line-height:16px;
+}
+.cm_fnt{
+  visibility:hidden;
+  position:absolute;
+  z-index:-1;
+  min-height: 20px;
+  border-left: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+.cm_btn{
+  position: absolute;
+  height: 38px;
+  width: 38px;
+  bottom: 1px;
+  right: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+@media (min-width:340px) {
+  .cm_area,
+  .cm_fnt{
+    font-size: 12px;
+  }
+}
+
+/*end post-coment*/
 /*post end*/
 
 /*button post*/
@@ -2724,7 +2844,8 @@ ol li p {
   width: 40px;
   height: 40px;
   flex-shrink: 0;
-  position: relative; }
+  position: relative;
+}
 
 .o3 {
   opacity: .3; }
