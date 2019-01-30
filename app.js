@@ -96,6 +96,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'solo-app/dist/adm')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
 app.set('subdomain offset', 2);
@@ -104,9 +105,14 @@ app.use((req,res,next)=>{
 });
 app.use('/', api);
 app.get("/", function(req, res, next) {
-    if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin" || req.subdomains[0] != "adm"))) {
+    if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin"))) {
         if(req.cookies['sid']){
-            next()
+            if(req.subdomains[0] != "adm"){
+                res.render('index5');
+            }else{
+                next()
+            }
+
         }else{
             switch(req.subdomains[0]){
                 case undefined:res.render('index1');
