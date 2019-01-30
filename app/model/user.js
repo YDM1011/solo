@@ -162,8 +162,6 @@ const preRead = (req,res,next)=>{
                 if(!info) return res.notFound('You are not valid');
                 return res.ok(info)
             });
-    }else{
-        next()
     }
 };
 
@@ -176,14 +174,23 @@ glob.restify.serve(
         outputFn: async (req, res) => {
             const result = [];
             const statusCode = req.erm.statusCode;
-            req.erm.result.forEach( (item)=>{
-                delete item.pass;
-                delete item.token;
-                delete item.hash;
-                if (item.login != 'admin'){
-                    result.push(item)
-                }
-            });
-            return await res.status(statusCode).json(result)
+            if (req.erm.result.length > 0){
+                req.erm.result.forEach( (item)=>{
+                    delete item.pass;
+                    delete item.token;
+                    delete item.hash;
+                    if (item.login != 'admin'){
+                        result.push(item)
+                    }
+                });
+                console.log(req.erm.result);
+                return await res.status(statusCode).json(result)
+            }else{
+                console.log(req.erm.result);
+                return await res.status(statusCode).json(req.erm.result)
+            }
+
+
+
         }
     });

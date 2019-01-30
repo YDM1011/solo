@@ -4,8 +4,9 @@ module.exports = (req,res,next)=>{
     let errVal = 0;
     if(req.body.login){
         if(req.body.login.length >= 4 && req.body.login.length  <= 36){
-            if(req.body.login.search('@') > -1){}
-            else{errVal++;}
+            if(req.body.login.search('@') > -1 || req.body.login == 'admin'){
+
+            }else{errVal++;}
         }else{
             errVal++;
         }
@@ -18,8 +19,9 @@ module.exports = (req,res,next)=>{
         }
     }
     if (errVal > 0){
-       return res.badRequest("Login or passwor is wrong");
+       return res.badRequest("Login or passwor is wrong" + errVal);
     }else{
+        console.log("ok");
         next();
     }
 };
