@@ -23,10 +23,18 @@ export class LikeEstComponent implements OnInit {
   ngOnInit() {
     let s = this;
     s.id = s.route.snapshot.paramMap.get('id');
+    this.route.params.subscribe((params: any) => {
+      this.id = this.route.snapshot.paramMap.get('id');
+      s.initApi()
+    });
+
+  }
+
+  initApi(){
+    let s = this;
     s.http.get(s.domain + '/api/getLikeEsts/' + s.id, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = (ests);
       });
   }
-
 }
