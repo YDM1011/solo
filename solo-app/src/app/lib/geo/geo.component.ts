@@ -111,11 +111,15 @@ export class GeoComponent implements OnInit {
   }
   close(){
     this.isShow = false;
+    this.hidden()
   }
 
   error(err) {
     console.warn('ERROR(' + err.code + '): ' + err.message);
   }
 
-
+  hidden() {
+    document.querySelector('body').style.overflow = this.isShow ? 'hidden' : '';
+  }
+  tab: boolean = true;
 }
