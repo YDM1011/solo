@@ -104,7 +104,7 @@ app.use((req,res,next)=>{
 });
 app.use('/', api);
 app.get("/", function(req, res, next) {
-    if (req.cookies['sid'] || (req.subdomains[0] && req.subdomains[0] != "admin")) {
+    if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin" || req.subdomains[0] != "adm"))) {
         if(req.cookies['sid']){
             next()
         }else{
@@ -112,6 +112,8 @@ app.get("/", function(req, res, next) {
                 case undefined:res.render('index1');
                     break;
                 case 'solo':res.render('index2');
+                    break;
+                case 'adm':res.render('index5');
                     break;
                 default: res.render('index2');
                     break;
