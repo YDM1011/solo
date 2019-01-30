@@ -7,21 +7,48 @@
   </div>
   <ng-container *ngIf="photos">
   <div class="gl_c" *ngIf="photos.length > 0">
-    <img  class="gl_i pre-bg"
-          *ngFor="let photo of photos"
-          [src]="photo.picCrop"
-          (click)="show(photo)"
-    >
-    <!--<app-avatar class="gl_i pre-bg"-->
-                <!--*ngFor="let photo of photos.gallery"-->
-                <!--[type]="'imgMax'"-->
-                <!--[avatar]="photo"></app-avatar>-->
+    <div class="gl_i pre-bg" *ngFor="let photo of photos; let i = index">
+      <img class="img"
+           [src]="photo.picCrop"
+           (click)="show(i)">
+    </div>
   </div>
   </ng-container>
 </div>
-<div class="pop-full-pic" *ngIf="fullPic">
-  <div class="wrap-full-pic" (click)="fullPic = ''"></div>
-  <div class="full-pic">
-    <img src="{{fullPic.picCrop}}" alt="{{fullPic.fileName}}">
+
+<ng-container *ngIf="fullPic">
+  <div class="cont md pop-gl" @inPop>
   </div>
-</div>
+  <div class="md-fixed gal active" (click)="hide($event)" @inOpacity>
+    <ngx-hm-carousel @inPop
+      [(ngModel)]="currentIndex"
+      [autoplay-speed]="speed"
+      [infinite]="false"
+      [drag-many]="true"
+      [aniTime]="200"
+      [data]="photos"
+      class="carousel c-accent">
+
+      <section ngx-hm-carousel-container class="content">
+        <article ngx-hm-carousel-item class="item cursor-pointer"
+                 *ngFor="let photo of photos; let i = index"
+                 [ngClass]="{'visible': currentIndex===i}">
+          <img class="img" [src]="photo.picDefault" alt="{{photo.fileName}}">
+        </article>
+        <ng-template #infiniteContainer></ng-template>
+      </section>
+
+      <ng-template #carouselPrev>
+        <div class="click-area">
+          <i class="material-icons">keyboard_arrow_left</i>
+        </div>
+      </ng-template>
+      <ng-template #carouselNext>
+        <div class="click-area">
+          <i class="material-icons">keyboard_arrow_right</i>
+        </div>
+      </ng-template>
+    </ngx-hm-carousel>
+  </div>
+</ng-container>
+
