@@ -37,6 +37,7 @@ textarea{
 img{
   max-width: 100%;
 }
+
 #contTape{
   height: 100vh;
 }
@@ -194,20 +195,6 @@ img{
 .el_h:hover .el_h_vl {
   color: #1e1e1e;
 }
-.el_h-i {
-  display: flex;
-  align-items: center;
-  padding: 0 13px 0;
-  height: 40px;
-  cursor: pointer;
-  transition: .25s ease-in-out;
-}
-.el_h-link {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  color: #000000;
-}
 .el_h_tt {
   text-transform: capitalize;
   padding: 0 10px;
@@ -295,8 +282,7 @@ img{
   }
 }
 @media (min-width: 992px) and (min-height: 500px){
-  .el_h,
-  .el_h-i{
+  .el_h{
     padding: 0 11px 0;
   }
   .cont_right-bar .el_cntt-big .el_i:nth-child(n) {
@@ -2553,7 +2539,9 @@ ol li p {
 /*end static pop-up*/
 
 /*bul*/
-
+.btnActive.active svg *{
+  fill: #00a3ff!important;
+}
 .btn_svg {
   display: block;
   width: 16px;

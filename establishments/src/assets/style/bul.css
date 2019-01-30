@@ -54,11 +54,8 @@
 .btn-red:focus {
   background: #f0f0f0;
   color: #1e1e1e; }
-.btn-trans.active svg .like{
-  fill: #D75A4A;
-}
-.btn-trans.active svg .act{
-  fill: #61148f!important;
+.btnActive.active svg *{
+  fill: #00a3ff!important;
 }
 
 .btn-trans, .datepicker-cancel, .datepicker-done, .confirmation-btns .btn-flat {
@@ -74,9 +71,17 @@
 
 .btn-green {
   background: #52ac62; }
-.btn-green svg {
+
+.btn-green > svg,
+.btn-green > span > svg,
+.btn-green > div > svg{
   fill: #ffffff; }
-.btn-green:hover svg, .btn-green:focus svg {
+.btn-green:hover > svg,
+.btn-green:focus > svg,
+.btn-green:hover > span > svg,
+.btn-green:focus > span > svg,
+.btn-green:hover > div > svg,
+.btn-green:focus > div > svg {
   fill: #000000; }
 
 .btn-yellow {

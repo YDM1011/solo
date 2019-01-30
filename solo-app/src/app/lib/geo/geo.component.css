@@ -9,19 +9,19 @@
   justify-content: center;
   align-items: center;
 }
-.p-l {
-  position: fixed;
-  z-index: 999999;
-  height: calc(100% - 100px);
-  width: calc(100% - 100px);
-  align-self: center;
-  justify-self: center;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  top: 50%;
-  background: #fff;
-  display: none;
-}
+/*.p-l {*/
+  /*position: fixed;*/
+  /*z-index: 999999;*/
+  /*height: calc(100% - 100px);*/
+  /*width: calc(100% - 100px);*/
+  /*align-self: center;*/
+  /*justify-self: center;*/
+  /*left: 50%;*/
+  /*transform: translate(-50%, -50%);*/
+  /*top: 50%;*/
+  /*background: #fff;*/
+  /*display: none;*/
+/*}*/
 .p-l_ic2 .l_i_bg {
   height: 200px;
 }
