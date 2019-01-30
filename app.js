@@ -96,7 +96,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
-app.use(express.static(path.join(__dirname, 'solo-app/dist/adm')));
+app.use(express.static(path.join(__dirname, 'adm/dist/adm')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
 app.set('subdomain offset', 2);
