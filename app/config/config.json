@@ -19,13 +19,14 @@
       "successRedirect": "/",
       "failureRedirect": "/login",
       "sidDomain": "tasteol.com",
-      "apiDomain": "https://tasteol.com/"
+      "apiDomain": "https://tasteol.com/",
+      "afterAuthDomain": ""
     },
     "facebook": {
-      "clientID": "1644388132319517",
-      "clientSecret": "4c5e3bdc2353eebf82cb743aa5e71b59",
-      "callbackURL": "https://talents-collection.herokuapp.com/auth/facebook/callback",
-      "profileFields": ["id", "displayName", "photos", "email", "profileUrl"]
+      "clientID": "184817025491397",
+      "clientSecret": "2df9691f43afef29b27e7361f5e0256c",
+      "callbackURL": "http://localhost:5000/api/facebook/return",
+      "profileFields": ["id", "displayName", "picture", "email", "first_name", "last_name"]
     },
     "confirmTime": 600000
   }

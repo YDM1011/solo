@@ -48,6 +48,9 @@ import { GeoComponent } from './lib/geo/geo.component';
 import { MapComponent } from './lib/map/map.component';
 import {PreProductionComponent} from "./lib/pre-production/pre-production.component";
 import { BarMenuComponent } from './lib/bar-menu/bar-menu.component';
+import { PrevDishComponent } from './lib/prev-dish/prev-dish.component';
+import 'hammerjs';
+import {NgxHmCarouselModule} from "ngx-hm-carousel";
 
 export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
   constructor(private momentFormat: string) {
@@ -105,6 +108,7 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     MapComponent,
     PreProductionComponent,
     BarMenuComponent,
+    PrevDishComponent,
   ],
   exports:[
     PrevAvatarComponent,
@@ -124,6 +128,7 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     MzDatepickerModule,
     MzTimepickerModule,
     NgbModule,
+    NgxHmCarouselModule,
     SweetAlert2Module.forRoot()
   ],
     providers: [ AuthService, CookieService, CoreService,

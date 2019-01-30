@@ -143,7 +143,7 @@ export class ProfileComponent implements OnInit {
     console.log(e);
     let s = this;
     s.me = (e);
-    s.data = s.dataToObject(s.me.bornedData);
+    s.data = s.dataToObject(s.me.bornedData || new Date().toISOString());
     s.dateOfBirth = s.me.bornedData;
     console.log(s.dateOfBirth);
     s.maxDate = s.dataToObject(moment().toISOString());

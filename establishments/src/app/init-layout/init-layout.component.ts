@@ -15,6 +15,7 @@ export class InitLayoutComponent implements OnInit {
   public workTime;
   public favorite: any;
   public pics: any;
+  public name: any;
   public host: string = environment.host;
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +41,7 @@ export class InitLayoutComponent implements OnInit {
       }
     });
     self.getPics();
+    self.getName();
     console.log(this.favorite)
 
   }
@@ -49,6 +51,14 @@ export class InitLayoutComponent implements OnInit {
     s.api.justGet('est_pics').then((val: any) => {
       if(val){
         s.pics=val;
+      }
+    });
+  }
+  getName(){
+    const s = this;
+    s.api.justGet('est_name').then((val: any) => {
+      if(val){
+        s.name=val;
       }
     });
   }

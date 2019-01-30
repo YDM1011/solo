@@ -1,15 +1,45 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../auth.service";
 import {CoreService} from "../core.service";
 import {HttpClient} from "@angular/common/http";
 import {FormApiService} from "../lib/form-api/form-api.service";
 import {environment} from "../../environments/environment";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-galery-page',
   templateUrl: './galery-page.component.html',
-  styleUrls: ['./galery-page.component.css']
+  styleUrls: ['./galery-page.component.css'],
+  animations: [
+    trigger('inOpacity', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('140ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('140ms', style({ opacity: 0 }))
+      ])
+    ]),
+    trigger('inPop', [
+      transition(':enter', [
+        style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }),
+        animate('220ms', style({
+          transform: 'scaleX(1) scaleY(1)',
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
 export class GaleryPageComponent implements OnInit {
 
@@ -17,8 +47,23 @@ export class GaleryPageComponent implements OnInit {
 
   public id:any;
   public obj:any;
-  public fullPic:any;
+  public fullPic: boolean;
   public photos:any = [];
+
+  currentIndex = 0;
+  speed = 5000;
+  direction = 'right';
+  directionToggle = true;
+  autoplay = false;
+  avatars = '1234567891234'.split('').map((x, i) => {
+    const num = i;
+    // const num = Math.floor(Math.random() * 1000);
+    return {
+      url: `https://picsum.photos/600/400/?${num}`,
+      title: `${num}`
+    };
+  });
+
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +71,8 @@ export class GaleryPageComponent implements OnInit {
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
-    private api: FormApiService
+    private api: FormApiService,
+    private el:ElementRef
   ) { }
 
   ngOnInit() {
@@ -47,13 +93,19 @@ export class GaleryPageComponent implements OnInit {
         self.photos = (photo);
       });
   }
-  show(el){
-    let s = this;
-    s.fullPic = el;
+  show(i){
+    this.fullPic = true;
+    this.currentIndex = i;
+    this.hidden();
   }
-  hide(){
-    let s = this;
-    s.fullPic = ''
+  hide(ev){
+    if (ev.target == this.el.nativeElement.querySelector('.md-fixed')){
+      this.fullPic = false;
+      this.hidden()
+    }
+  }
+  hidden(){
+    document.querySelector('body').style.overflow = this.fullPic ? 'hidden' : '';
   }
 }
 

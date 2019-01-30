@@ -46,7 +46,7 @@ glob.restify.serve(
     glob.route,
     mongoose.model('maincategory'),
     {
-        preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
+        preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preCreate],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preUpdate]
     });

@@ -7,6 +7,7 @@ const data = require('../../config/index');
 const qs = require('querystring');
 var time = 365 * 24 * 3600000;
 module.exports = (req, res, next) => {
+    console.log("ok",req.body);
     User
         .findOne({login: req.body.login})
         .exec((err, info)=>{

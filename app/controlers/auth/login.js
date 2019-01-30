@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const md5 = require('md5');
 const data = require('../../config/index');
-const qs = require('querystring');
 const time = 365 * 24 * 3600000;
+
 module.exports = (req, res, next) => {
     collectRequestData(req,(elem)=>{
         req.body = JSON.parse(elem);
