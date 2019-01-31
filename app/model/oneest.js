@@ -151,7 +151,7 @@ const subu = (req,res,id,model)=>{
     let text = '';
     if(req.body.subdomain){
         if(req.body.subdomain.length >= 1
-            && req.body.subdomain.length  <= 10){
+            && req.body.subdomain.length  <= 30){
             let est = req.body.subdomain;
             if((est.toLowerCase() == 'admin') ||
                 (est.toLowerCase() == 'api') ||
@@ -172,11 +172,11 @@ const subu = (req,res,id,model)=>{
             }
         }else{
             errVal++;
-            text = 'Сабдомен мусить бути не менше 1 символів і не більше 10!';
+            text = 'Сабдомен мусить бути не менше 1 символів і не більше 30!';
         }
     }else{
         errVal++;
-        text = 'Сабдомен мусить бути не менше 1 символів і не більше 10!';
+        text = 'Сабдомен мусить бути не менше 1 символів і не більше 30!';
     }
     
     if (errVal > 0){

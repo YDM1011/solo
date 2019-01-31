@@ -152,6 +152,18 @@ module.exports.estPics = (req, res, next) => {
             if (doc) return res.ok(doc);
         })
 };
+module.exports.estName = (req, res, next) => {
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    // return res.ok(est);
+    Establishment
+        .findOne({subdomain: est})
+        .select('name')
+        .exec((err, doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) return res.serverError('Somesing broken');
+            if (doc) return res.ok(doc);
+        })
+};
 module.exports.getDish = (req, res, next) => {
     let id = toObjectId(req.params['id']);
     let userId = toObjectId(req.userId);
