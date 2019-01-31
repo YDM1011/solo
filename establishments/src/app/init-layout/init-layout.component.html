@@ -75,7 +75,9 @@
               </ng-container>
             </ng-container>
         </div>
-        <span class="h-pf_zv">{{name.name}}</span>
+        <ng-container *ngIf="name">
+          <span class="h-pf_zv">{{name.name}}</span>
+        </ng-container>
         <button #goZv class="btn-green" (click)="goZv.val=true">Йдемо в Solo</button>
       </div>
       <app-pre-production [status]="goZv.val" (statusResult)="goZv.val = $event"></app-pre-production>
