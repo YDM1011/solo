@@ -20,7 +20,8 @@
         <label class="ord_m-ch-i" *ngFor="let component of complementsOptM">
           <input type="checkbox" value="Сир" [checked]="component.check == true"
                  (change)="component.check = !component.check">
-          <span class="ord_m-ch_t">{{component.label}}</span>
+          <ng-container *ngIf="component"><span class="ord_m-ch_t">{{component.label}}</span></ng-container>
+
         </label>
       </div>
 

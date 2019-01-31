@@ -40,8 +40,8 @@ const originsWhitelist = [
     'http://*.localhost:3000',
     'http://localhost:3200',
     'http://*.localhost:3200',
-    'https://tasteol1.com', 'https://solo.tasteol1.com', '.tasteol1.com', /\.tasteol1\.com$/,
-    'https://tasteol.com', 'https://*.tasteol1.com', 'https://.tasteol1.com'
+    'https://tasteol.com', '.tasteol.com', /\.tasteol\.com$/,
+    'https://tasteol.com', 'https://*.tasteol.com', 'https://.tasteol.com'
 ];
 const corsOptions = {
     origin:originsWhitelist,
@@ -96,6 +96,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
 app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
+app.use(express.static(path.join(__dirname, 'adm/dist/adm')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
 app.set('subdomain offset', 2);
@@ -104,14 +105,21 @@ app.use((req,res,next)=>{
 });
 app.use('/', api);
 app.get("/", function(req, res, next) {
-    if (req.cookies['sid'] || (req.subdomains[0] && req.subdomains[0] != "admin")) {
+    if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin"))) {
         if(req.cookies['sid']){
-            next()
+            if(req.subdomains[0] == "adm"){
+                res.render('index5');
+            }else{
+                next()
+            }
+
         }else{
             switch(req.subdomains[0]){
                 case undefined:res.render('index1');
                     break;
                 case 'solo':res.render('index2');
+                    break;
+                case 'adm':res.render('index5');
                     break;
                 default: res.render('index2');
                     break;
@@ -130,20 +138,20 @@ app.get("/about", function(req, res){
 // });
 
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  // res.status(err.status || 500);
-  // res.render('error');
+    // render the error page
+    // res.status(err.status || 500);
+    // res.render('error');
     if(err.status == 404){
         console.log(req.subdomains, req.cookies);
         if (req.cookies['sid']){

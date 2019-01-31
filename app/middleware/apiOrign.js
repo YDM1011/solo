@@ -8,9 +8,7 @@ module.exports = (req,res,next) =>{
         'https://*.tasteol1.com',
         'https://tasteol1.com',
         'https://*.tasteol.com',
-        'https://tasteol.com',
-        'https://shrouded-fortress-43229.herokuapp.com',
-        'https://*.shrouded-fortress-43229.herokuapp.com'];
+        'https://tasteol.com',];
     const origin = req.headers.origin;
     if(allowedOrigins.indexOf(origin) > -1){
         res.setHeader('Access-Control-Allow-Origin', origin);

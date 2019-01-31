@@ -1,7 +1,6 @@
 import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../api.service";
-import {Calendar} from "../work-time/work-time";
 
 @Component({
   selector: 'app-action',

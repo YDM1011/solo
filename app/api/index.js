@@ -25,7 +25,6 @@ const multer = require('multer');
 const upload = multer({dest: './upload/'});
 const glob = require('glob');
 
-
 var passport = require('passport');
 router.get('/api/facebook', passport.authenticate('facebook', {session: false}));
 router.get('/api/facebook/return',
