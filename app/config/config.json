@@ -1,6 +1,6 @@
 {
   "data": {
-    "db": "mongodb://localhost:27017/solo",
+    "db": "mongodb://ydm1011:adn45hrf@ds249249.mlab.com:49249/talents",
     "port": "3000",
     "email": {
       "host": "smtp.mail.yahoo.com",
@@ -18,14 +18,14 @@
     "auth": {
       "successRedirect": "/",
       "failureRedirect": "/login",
-      "sidDomain": "tasteol.com",
-      "apiDomain": "https://tasteol.com/",
-      "afterAuthDomain": ""
+      "sidDomain": "localhost",
+      "apiDomain": "http://localhost:3000/",
+      "afterAuthDomain": "http://localhost:4200"
     },
     "facebook": {
       "clientID": "184817025491397",
       "clientSecret": "2df9691f43afef29b27e7361f5e0256c",
-      "callbackURL": "https://tasteol.com/api/facebook/return",
+      "callbackURL": "http://localhost:5000/api/facebook/return",
       "profileFields": ["id", "displayName", "picture", "email", "first_name", "last_name"]
     },
     "confirmTime": 600000
