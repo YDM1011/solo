@@ -33,7 +33,7 @@
         <article ngx-hm-carousel-item class="item cursor-pointer"
                  *ngFor="let photo of photos; let i = index"
                  [ngClass]="{'visible': currentIndex===i}">
-          <img class="img" [src]="photo.picDefault" alt="{{photo.fileName}}">
+          <img class="img" [src]="photo.picCrop" alt="{{photo.fileName}}">
         </article>
         <ng-template #infiniteContainer></ng-template>
       </section>

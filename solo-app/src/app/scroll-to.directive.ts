@@ -5,23 +5,33 @@ import {Directive, HostListener} from '@angular/core';
 })
 export class ScrollToDirective {
 
+  padding: number = 0;
+  targetId: string = 'contTape';
+
   constructor() {}
   ngOnInit() {
-    this.leveler();
+    this.check();
+    window.addEventListener('resize', () => this.check(), false);
   }
-
+  check() {
+    this.padding = (window.innerWidth < 500 || window.innerHeight < 500 ) ?
+      5 : document.querySelector('nav').clientHeight + 10;
+  }
   @HostListener('click', ['$event']) onClick(): void {
-    console.log('scrollTo')
-    window.scrollBy(0, this.top());
-  }
+    let speed = .8,
+      y = window.pageYOffset,
+      t = document.getElementById(this.targetId).getBoundingClientRect().top - this.padding,
+      start = null;
 
-  leveler() {
-    this.minisH = (window.innerWidth < 500 || window.innerHeight < 500 ) ?
-      0 : document.querySelector('nav').clientHeight + 10;
-  }
-  minisH: number = 0;
-
-  top(): number {
-    return document.getElementById('contTape').getBoundingClientRect().top - this.minisH;
+    requestAnimationFrame(step);
+    function step(time) {
+      if (start === null) start = time;
+      let progress = time - start,
+        sY = (t < 0 ? Math.max(y - progress/speed, y + t) : Math.min(y + progress/speed, y + t));
+      window.scrollTo(0, sY);
+      if (sY != y + t) {
+        requestAnimationFrame(step)
+      }
+    }
   }
 }

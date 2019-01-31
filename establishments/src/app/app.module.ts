@@ -13,7 +13,6 @@ import {CookieService} from "ngx-cookie-service";
 import {ApiService} from "./service/api.service";
 import {LeftBarScrollDirective} from "./init-layout/left-bar-scroll.directive";
 import {RightBarScrollDirective} from "./init-layout/right-bar-scroll.directive";
-import {ScrollToDirective} from "./scroll-to.directive";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
@@ -22,7 +21,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     InitLayoutComponent,
     LeftBarScrollDirective,
     RightBarScrollDirective,
-    ScrollToDirective
   ],
   imports: [
     HttpClientModule,

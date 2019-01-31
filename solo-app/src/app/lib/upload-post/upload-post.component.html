@@ -1,6 +1,5 @@
 <div isMyProfile>
-  <app-file-min-post (fileResult)="res($event)"
-                [btn]="btnName"></app-file-min-post>
+  <app-file-min-post (fileResult)="res($event)" (editFileResult)="editRes($event)" [btn]="btnName" [push]="push"></app-file-min-post>
 </div>
 <!--<ng-container *ngIf="avatar.length>0">-->
   <!--<div class="cont md p-cont z-p pst-up active">-->

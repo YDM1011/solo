@@ -37,17 +37,28 @@ import {animate, style, transition, trigger} from "@angular/animations";
 })
 
 export class PreProductionComponent implements OnInit {
-  @Input () status: boolean = false;
+  @Input() status: boolean = false;
+  @Input() scroll: boolean = false;
   @Output() statusResult: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {}
 
   ngOnChanges(){
-    if (this.status) document.querySelector('body').style.overflow = 'hidden';
+    if (this.status) this.hidden();
   }
   close() {
     this.status = !this.status;
     this.statusResult.emit(this.status);
     document.querySelector('body').style.overflow = '';
+    if (this.scroll){
+      document.querySelector('nav').style.zIndex = '10';
+    }
+  }
+  hidden() {
+    if(this.scroll){
+      document.querySelector('nav').style.zIndex = '1';
+      window.scroll(0, 0);
+    }
+    document.querySelector('body').style.overflow = 'hidden';
   }
 }

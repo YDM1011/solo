@@ -66,7 +66,7 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
     let fileCount: number = self.avatar[i].size;
     if (fileCount && self.avatar[i].name) {
     let formObj = Object.assign({},{
-      base64default: self.avatar[i].def,
+      // base64default: self.avatar[i].def,
       base64crop: self.avatar[i].crop,
       fileName: self.avatar[i].name,
       model: self.model,

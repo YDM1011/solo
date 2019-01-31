@@ -42,6 +42,7 @@ export class BarMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.host)
   }
   popTerms: boolean = false;
   popConfid: boolean = false;

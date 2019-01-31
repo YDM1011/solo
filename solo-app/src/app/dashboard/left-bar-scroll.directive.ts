@@ -27,7 +27,7 @@ export class LeftBarScrollDirective {
 
   scroll = (): void => {
     this.pageY = this.bar.y + window.pageYOffset - this.hrhHeight;
-    (this.pageY <= window.pageYOffset) ? this.fixed() : this.static();
+    (this.pageY <= window.pageYOffset && window.pageYOffset > 0) ? this.fixed() : this.static();
   };
 
   private fixed() {

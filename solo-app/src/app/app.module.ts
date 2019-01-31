@@ -96,7 +96,6 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     ToOrderComponent,
     ProfileComponent,
     ProfileInfoComponent,
-    ScrollToDirective,
     HomePageComponent,
     FriendPageComponent,
     GaleryPageComponent,
@@ -112,6 +111,7 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
   ],
   exports:[
     PrevAvatarComponent,
+    PreProductionComponent,
   ],
   imports: [
     BrowserModule,
