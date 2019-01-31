@@ -107,7 +107,7 @@ app.use('/', api);
 app.get("/", function(req, res, next) {
     if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin"))) {
         if(req.cookies['sid']){
-            if(req.subdomains[0] != "adm"){
+            if(req.subdomains[0] == "adm"){
                 res.render('index5');
             }else{
                 next()
@@ -138,20 +138,20 @@ app.get("/about", function(req, res){
 // });
 
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+    var err = new Error('Not Found');
+    err.status = 404;
+    next(err);
 });
 
 // error handler
 app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  // res.status(err.status || 500);
-  // res.render('error');
+    // render the error page
+    // res.status(err.status || 500);
+    // res.render('error');
     if(err.status == 404){
         console.log(req.subdomains, req.cookies);
         if (req.cookies['sid']){
