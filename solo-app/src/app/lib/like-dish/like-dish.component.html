@@ -7,28 +7,28 @@
     <span class="el_h_vl" *ngIf="dishes">{{dishes.length}}</span>
   </div>
   <div class="el_cntt el_cntt-big" *ngIf="!dishes">
-    <span class="el_i">
+    <div class="el_i">
       <app-prev-dish></app-prev-dish>
-    </span>
-    <span class="el_i">
+    </div>
+    <div class="el_i">
       <app-prev-dish></app-prev-dish>
-    </span>
-    <span class="el_i">
+    </div>
+    <div class="el_i">
       <app-prev-dish></app-prev-dish>
-    </span>
-    <span class="el_i">
+    </div>
+    <div class="el_i">
       <app-prev-dish></app-prev-dish>
-    </span>
-    <span class="el_i">
+    </div>
+    <div class="el_i">
       <app-prev-dish></app-prev-dish>
-    </span>
-    <span class="el_i">
+    </div>
+    <div class="el_i">
       <app-prev-dish></app-prev-dish>
-    </span>
+    </div>
   </div>
   <ng-container *ngIf="dishes">
     <div class="el_cntt el_cntt-big" *ngIf="dishes.length > 0">
-      <a class="el_i" href="//{{est.ownerest.subdomain+'.'+host}}" *ngFor="let est of dishes">
+      <a class="el_i" href="//{{est.ownerest.subdomain+'.'+host}}" *ngFor="let est of dishes | slice:0:6">
         <ng-container *ngIf="est.pic; else picEst">
           <app-img [img]="{id:est.pic}"></app-img>
         </ng-container>

@@ -44,16 +44,16 @@ export class FileMinComponent implements OnInit {
   set imageCropper(value: ImageCropperComponent) {
     this._imageCropper = value;
   }
-  public file: any;
+  public file: any = null;
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  model: string;
   @Input()  field: string;
-  public imageObj: any = [];
+  public imageObj: any = '';
   public name;
   public size;
   public Pics: any = {
-    def: '',
+    // def: '',
     crop: '',
     name: '',
     size: ''
@@ -95,9 +95,10 @@ export class FileMinComponent implements OnInit {
 
   public uploadImg(event: any) {
     if (/image[/]/i.test( event.target.files[0].type)) {
+      this.file = event.target.files[0];
       this.format = (/image[/]png/i.test( event.target.files[0].type)) ? 'png' : 'jpeg';
       document.querySelector('body').style.overflow = 'hidden';
-      this.loadReader(this.format, event.target.files[0]);
+      // this.loadReader(this.format, event.target.files[0]);
       this.imageChangedEvent = event;
     } else console.log('Error type');
   }
@@ -127,8 +128,8 @@ export class FileMinComponent implements OnInit {
   }
   push(){
     this.Pics = {
-      def: this.imageObj[0],
-      crop: this.imageObj[this.imageObj.length - 1],
+      // def: this.imageObj[0],
+      crop: this.imageObj,
       name: this.name,
       size: this.size
     };
@@ -136,7 +137,8 @@ export class FileMinComponent implements OnInit {
     this.clear()
   }
   clear() {
-    this.imageObj = [];
+    this.file = null;
+    this.imageObj = '';
     document.querySelector('body').style.overflow = '';
   }
   createImg(images: any, format: string) {
@@ -145,9 +147,6 @@ export class FileMinComponent implements OnInit {
     canvasImg.width = images.naturalWidth;
     canvasImg.height = images.naturalHeight;
     this.cx.drawImage(images, 0, 0,  canvasImg.width ,  canvasImg.height);
-    if (this.imageObj.length == 0) {
-      this.imageObj.push(canvasImg.toDataURL(`image/${format}`, 0.8));
-    } else this.imageObj[1] = canvasImg.toDataURL(`image/${format}`, 0.8);
-
+    this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.8);
   }
 }

@@ -9,9 +9,11 @@ import {UploadService} from "./upload.service";
 export class UploadPostComponent implements OnInit {
   public avatar=[];
   @Output() getImg = new EventEmitter<any>();
+  @Output() editImg = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
   @Input()  model = null;
   @Input()  field = null;
+  @Input()  push: any;
   id = null;
 
   constructor(
@@ -27,9 +29,7 @@ export class UploadPostComponent implements OnInit {
   }
 
   res(er){
-    console.log('er', er);
     let obj = Object.assign({},{
-      base64default: er.def,
       base64crop: er.def,
       fileName: er.name,
       model: this.model,
@@ -39,6 +39,19 @@ export class UploadPostComponent implements OnInit {
     this.getImg.emit(obj);
     // this.avatar.push(obj);
   }
+  editRes(er) {
+    let obj = Object.assign({},{
+      base64crop: er.def,
+      fileName: er.name,
+      model: this.model,
+      field: this.field,
+      id: this.id,
+      index: er.index
+    });
+    this.editImg.emit(obj);
+  }
+
+
   savePics() {
     console.log(this.avatar);
     this.uploadFile();
@@ -54,7 +67,7 @@ export class UploadPostComponent implements OnInit {
     let fileCount: number = self.avatar[i].size;
     if (fileCount && self.avatar[i].name) {
       let formObj = Object.assign({},{
-        base64default: self.avatar[i].def,
+        // base64default: self.avatar[i].def,
         base64crop: self.avatar[i].def,
         fileName: self.avatar[i].name,
         model: self.model,

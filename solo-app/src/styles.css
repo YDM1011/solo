@@ -147,7 +147,6 @@ img{
   }
   .cont_right-bar{
     position: fixed;
-    min-height: 1151px;
     width: 215px;
     top: 59px;
     right: 10px;
@@ -491,7 +490,7 @@ textarea:focus{
   height: 34px;
   line-height: 34px;
   padding: 0 2vw;
-  transition: .25s ease-in-out;
+  transition: background-color .25s ease-in-out;
   cursor: pointer;
 }
 .nav_user_it.tape .nav_user_it_title{
@@ -637,6 +636,65 @@ input[type=text].nav_search {
   display: block;
   width: 100%;
 }
+.us-s.mob-m{
+  display: block;
+  margin-bottom: 25px;
+}
+.mob-m .us-s_i{
+  justify-content: flex-start;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.mob-m .us-s_t{
+  min-width: 140px;
+  text-align: center;
+}
+.mob-m .svg20{
+  margin-left: calc(50% - 90px);
+  margin-right: 5px;
+}
+
+.mob-m_close.svg20{
+  display: block;
+  margin: 15px 16px 15px auto;
+  opacity: .5;
+}
+.mob-m_close:hover{
+  opacity: .8;
+}
+.mob-m .us-s_list{
+  margin-left: calc(50% - 110px);
+  margin-top: 25px;
+  display: block;
+}
+.mob-m .us-s_list, .mob-m .us-s_l{
+  list-style-type: none!important;
+}
+.mob-m .us-s_i{
+  background: rgba(255, 255, 255, 0.8);
+  margin: 2px 0;
+}
+.mob-m .us-s_i:hover{
+  background: transparent;
+}.mob-m .us-s_i:hover .us-s_t{
+   color: #000000;
+ }
+.mob-m .us-s_l{
+  line-height: 28px;
+  margin: 2px 0;
+}
+.svg-m_ab{
+  display: block;
+  width: 300px;
+  height: 300px;
+  left: 0;
+  right: 0;
+  top: 20vh;
+  position: absolute;
+  margin: 0 auto;
+  z-index: -1;
+  opacity: .2;
+}
+
 @media (min-width: 414px) {
   .user_title{
     display: inline;
@@ -1208,6 +1266,7 @@ app-file-min-post{
   padding: 0 13px 0;
   height: 40px;
   color: #000000;
+  transition: color .25s ease-in-out;
 }
 .el_h:not(.notLink){
   cursor: pointer;
@@ -1222,11 +1281,11 @@ app-file-min-post{
 .el_h_tt {
   text-transform: capitalize;
   padding: 0 10px;
-  transition: color.25s ease-in-out;
+  transition: color .25s ease-in-out;
 }
 .el_h_vl {
   color: #a3a3a3;
-  transition: color.25s ease-in-out;
+  transition: color .25s ease-in-out;
 }
 .el_h_btn {
   display: block;
@@ -1821,6 +1880,8 @@ ol li p {
 }
 .cr-cont.active{
   z-index: 10;
+  max-height: calc(100% - 60px);
+  overflow-y: auto;
 }
 .cr-cont.active .cr-open{
   z-index: -1;
@@ -1852,6 +1913,10 @@ ol li p {
 /*create-post*/
 .cont.cr-pst{
   flex-flow: row wrap;
+}
+.active.cr-cont  .cont.cr-pst{
+  /*max-height: 90vh;*/
+  /*overflow-y: scroll;*/
 }
 .cr-pst{
   width: 100%;
@@ -1917,14 +1982,34 @@ ol li p {
   display: flex;
   flex-wrap: wrap;
   margin: 2px -3px 5px;
-  max-height: 75vh;
 }
 .cr-pst_img_i{
+  position: relative;
   margin: 3px;
-  display: flex;
-  flex: 140px 1 1;
+  width: calc((100% / 2) - 6px);
+  height: 44.06vw;
+  max-height: 55.7vh;
 }
-
+.cr-pst_img_btn-cn{
+  display: flex;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.cr-pst_img_btn{
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  width: 20px;
+  padding: 4px;
+  height: 20px;
+  margin: 5px 5px 0 0;
+  transition: background-color .15s ease-in-out, transform .15s ease-in-out;
+}
+.cr-pst_img_btn:hover,
+.cr-pst_img_btn:focus{
+  background-color: #ffffff;
+  transform: scale(.95);
+}
 .cr-pst_cm{
   display: flex;
   flex-direction: column;
@@ -1963,6 +2048,7 @@ ol li p {
 .cr-pst_lb.true{
   color: #000000;
   height: 100%;
+  padding-bottom: 15px;
 }
 #crPst-area{
   display: none;
@@ -2055,7 +2141,7 @@ ol li p {
 .cr-pst_sl .collapsible-body{
   position: absolute;
   min-width: 115px;
-  top: 30px;
+  bottom: 31px;
   padding: 0;
   background: #ffffff;
   border: 1px solid #e8e8e8;
@@ -2127,6 +2213,10 @@ ol li p {
     left: 0;
     right: 0;
   }
+  .cr-pst_img_i{
+    width: calc((100% / 3) - 6px);
+
+  }
 }
 @media (min-width: 768px) and (min-height: 500px){
   .cr-pst{
@@ -2195,6 +2285,10 @@ ol li p {
   .cr-pst_sl .collapsible-body li{
     padding: 2px 4px;
   }
+  .cr-pst_img_i{
+    height: 21.48vw;
+    max-height: 22vh;
+  }
 }
 @media (min-width: 1080px) {
   .cr-pst_control{
@@ -2203,6 +2297,18 @@ ol li p {
   }
   .cr-pst_sl{
     margin-right: 15px;
+  }
+}
+@media (min-width: 1200px) {
+  .cr-pst_img_i{
+    height: 21.48vw;
+    max-height: 233px;
+  }
+}
+@media (min-width: 992px) and (min-height: 992px) and (orientation: portrait){
+  .cr-pst_img_i{
+    height: 17.48vw;
+    max-height: 233px;
   }
 }
 /*end cr-pst*/
@@ -7278,7 +7384,7 @@ input[type="radio"], input[type="radio"] {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
+  height: calc(100% - 60px);
   padding: 10px 15px 60px;
   background: rgba(0, 0, 0, 0.05);
 }
@@ -7375,6 +7481,12 @@ textarea.us_area::-webkit-scrollbar-thumb {
 textarea.us_area::-webkit-scrollbar-track {
   background-color: transparent;
 }
+@media (max-height: 500px) {
+  .crop_img{
+    height: 40vh;
+    min-height: 130px;
+  }
+}
 @media (min-width: 768px) and (min-height: 500px){
   .sl_cm::-webkit-scrollbar,
   .sl_cm_t::-webkit-scrollbar,
@@ -7382,7 +7494,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar,
   .p-l_c-box::-webkit-scrollbar,
   .zf_comm_t::-webkit-scrollbar,
-  .zf_comm_t-f::-webkit-scrollbar {
+  .zf_comm_t-f::-webkit-scrollbar,
+  .cr-cont.active::-webkit-scrollbar{
     -webkit-appearance: none;
   }
 
@@ -7392,7 +7505,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar:vertical,
   .p-l_c-box::-webkit-scrollbar:vertical,
   .zf_comm_t::-webkit-scrollbar:vertical,
-  .zf_comm_t-f::-webkit-scrollbar:vertical{
+  .zf_comm_t-f::-webkit-scrollbar:vertical,
+  .cr-cont.active::-webkit-scrollbar:vertical{
     width: 4px;
   }
 
@@ -7402,7 +7516,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar-thumb,
   .p-l_c-box::-webkit-scrollbar-thumb,
   .zf_comm_t::-webkit-scrollbar-thumb,
-  .zf_comm_t-f::-webkit-scrollbar-thumb{
+  .zf_comm_t-f::-webkit-scrollbar-thumb,
+  .cr-cont.active::-webkit-scrollbar-thumb{
     background-color: #00a3ff
   }
 
@@ -7412,7 +7527,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar-track,
   .p-l_c-box::-webkit-scrollbar-track,
   .zf_comm_t::-webkit-scrollbar-track,
-  .zf_comm_t-f::-webkit-scrollbar-track {
+  .zf_comm_t-f::-webkit-scrollbar-track,
+  .cr-cont.active::-webkit-scrollbar-track{
     background-color: transparent;
   }
 }

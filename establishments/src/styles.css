@@ -148,7 +148,6 @@ img{
   }
   .cont_right-bar{
     position: fixed;
-    min-height: 1151px;
     width: 215px;
     top: 59px;
     right: 10px;
@@ -815,7 +814,7 @@ textarea:focus{
   height: 34px;
   line-height: 34px;
   padding: 0 2vw;
-  transition: .25s ease-in-out;
+  transition: background-color .25s ease-in-out;
   cursor: pointer;
 }
 .nav_user_it.tape .nav_user_it_title{
@@ -2269,6 +2268,9 @@ input[type=text].nav_search {
     display: block;
     box-sizing: border-box;
     padding-bottom: 15px;
+  }
+  .mob-m_close{
+    display: none;
   }
 }
 /*end us-s*/
@@ -6535,6 +6537,7 @@ input.p-d_i_num_inp[type=number] {
 .cz_m {
   flex-grow: 1;
   width: 100%;
+  z-index: 0;
 }
 
 .c-m {

@@ -32,6 +32,7 @@ import {SearchPipe} from "./header/search.pipe";
 import { NumberPhonePipe } from './number-phone.pipe';
 import { PreProductionComponent } from './pre-production/pre-production.component';
 import { BarMenuComponent } from './bar-menu/bar-menu.component';
+import {ScrollToDirective} from "../scroll-to.directive";
 
 @NgModule({
   imports: [
@@ -88,7 +89,8 @@ import { BarMenuComponent } from './bar-menu/bar-menu.component';
     SearchPipe,
     NumberPhonePipe,
     PreProductionComponent,
-    BarMenuComponent
+    BarMenuComponent,
+    ScrollToDirective
   ]
 })
 export class CommponentsModule { }

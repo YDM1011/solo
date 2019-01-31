@@ -10,7 +10,9 @@ export class RightBarScrollDirective {
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, false);
     window.addEventListener('resize', this.resize, false);
-    this.paramPush(this.el.nativeElement.offsetHeight);
+    this.paramPush();
+  }
+  ngOnChanges() {
   }
 
   ngOnDestroy() {
@@ -19,28 +21,28 @@ export class RightBarScrollDirective {
   }
   public scrollPosition: number = 0;
 
-  public barH: number = 0;
-  public max: number = 0;
+  public barH: number;
+  public max: number;
   public height: number = 0;
   public hdrHeiht: number;
 
-  paramPush (offsetH: number): void {
-    this.barH = offsetH;
-    this.max = this.barH - (window.innerHeight - 60);
-    this.hdrHeiht = document.querySelector('nav.nav').clientHeight;
+  paramPush (): void {
+    this.barH = this.el.nativeElement.offsetHeight;
+    this.hdrHeiht = document.querySelector('nav').clientHeight;
+    let max = this.barH - (window.innerHeight - this.hdrHeiht);
+    this.max = (max > 0) ? max : 0;
   }
   load = (): void => {
-    this.paramPush(this.el.nativeElement.offsetHeight);
+    this.paramPush();
   };
   scroll = (): void => {
-    if (this.barH !== this.el.nativeElement.offsetHeight) this.paramPush (this.el.nativeElement.offsetHeight);
+    if (this.barH !== this.el.nativeElement.offsetHeight) this.paramPush();
     if (window.innerWidth < 992) return;
-
     (this.scrollPosition <= window.pageYOffset) ? this.bottom(window.pageYOffset) : this.top(window.pageYOffset);
     this.scrollPosition = window.pageYOffset;
   };
   resize = (): void => {
-    this.paramPush (this.el.nativeElement.offsetHeight)
+    this.paramPush();
   };
   private bottom(posScroll: number) {
     let temp = this.height + (posScroll - this.scrollPosition);

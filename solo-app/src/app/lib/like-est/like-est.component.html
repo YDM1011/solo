@@ -6,15 +6,27 @@
     <span class="el_h_tt">Подобаються</span>
   </div>
   <div class="el_cntt" *ngIf="!ests">
-    <span class="el_i pre-bg"></span>
-    <span class="el_i pre-bg"></span>
-    <span class="el_i pre-bg"></span>
-    <span class="el_i pre-bg"></span>
-    <span class="el_i pre-bg"></span>
-    <span class="el_i pre-bg"></span>
+    <div class="el_i">
+      <app-prev-dish></app-prev-dish>
+    </div>
+    <div class="el_i">
+      <app-prev-dish></app-prev-dish>
+    </div>
+    <div class="el_i">
+      <app-prev-dish></app-prev-dish>
+    </div>
+    <div class="el_i">
+      <app-prev-dish></app-prev-dish>
+    </div>
+    <div class="el_i">
+      <app-prev-dish></app-prev-dish>
+    </div>
+    <div class="el_i">
+      <app-prev-dish></app-prev-dish>
+    </div>
   </div>
   <div class="el_cntt el_cntt-big" *ngIf="ests">
-    <ng-container *ngFor="let est of ests">
+    <ng-container *ngFor="let est of ests | slice:0:6">
       <a class="el_i" href="//{{est.subdomain+'.'+host}}">
         <ng-container *ngIf="est.av; else picEst">
           <app-img class="full" [img]="{id:est.av}"></app-img>

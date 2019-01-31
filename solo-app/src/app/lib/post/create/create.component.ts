@@ -30,6 +30,7 @@ export class CreateComponent implements OnInit {
   public placeActive: string;
   public friendActive: string;
   public search: string;
+  public editImg: any = null;
   constructor(
     private post: PostService,
     private cooki: CookieService
@@ -90,5 +91,21 @@ export class CreateComponent implements OnInit {
   delet(i) {
     //noinspection TypeScriptValidateTypes
     this.postObg.withFriend.splice(i, 1) ;
+  }
+  removeImg(i){
+    this.postObg.img.splice(i, 1);
+  }
+  rotate(i: number, transform: number){
+    this.editImg = {
+      def: this.postObg.img[i].base64crop,
+      name: this.postObg.img[i].fileName,
+      index: i,
+      transform: transform
+    };
+  }
+  newEditImg(obj) {
+    let index = obj.index;
+    delete obj.index;
+    this.postObg.img[index] = obj;
   }
 }
