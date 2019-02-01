@@ -12,7 +12,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
         animate('140ms', style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        animate('140ms', style({ opacity: 0 }))
+        animate('120ms', style({ opacity: 0 }))
       ])
     ]),
     trigger('inPop', [
@@ -50,9 +50,15 @@ export class PreProductionComponent implements OnInit {
     this.status = !this.status;
     this.statusResult.emit(this.status);
     document.querySelector('body').style.overflow = '';
+    if (this.scroll){
+      document.querySelector('nav').style.zIndex = '10';
+    }
   }
   hidden() {
-    if(this.scroll) window.scroll(0, 0);
+    if(this.scroll){
+      document.querySelector('nav').style.zIndex = '1';
+      window.scroll(0, 0);
+    }
     document.querySelector('body').style.overflow = 'hidden';
   }
 }

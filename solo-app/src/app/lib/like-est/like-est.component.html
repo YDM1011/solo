@@ -25,7 +25,7 @@
       <app-prev-dish></app-prev-dish>
     </div>
   </div>
-  <div class="el_cntt el_cntt-big" *ngIf="ests">
+  <div class="el_cntt" *ngIf="ests">
     <ng-container *ngFor="let est of ests | slice:0:6">
       <a class="el_i" href="//{{est.subdomain+'.'+host}}">
         <ng-container *ngIf="est.av; else picEst">

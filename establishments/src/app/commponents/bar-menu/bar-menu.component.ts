@@ -36,6 +36,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
   ]
 })
 export class BarMenuComponent implements OnInit {
+  public popPreProd: boolean = false;
 
   constructor() { }
 

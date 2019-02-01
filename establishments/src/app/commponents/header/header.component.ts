@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   public host: string = environment.apiDomain;
   public arrayEts: any = [];
   public searchText = '';
+  public popPreProd: boolean = false;
   constructor(private cookie: CookieService) { }
 
   ngOnInit() {

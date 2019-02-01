@@ -46,7 +46,6 @@ import { LikeEstComponent } from './lib/like-est/like-est.component';
 import { LikeDishComponent } from './lib/like-dish/like-dish.component';
 import { GeoComponent } from './lib/geo/geo.component';
 import { MapComponent } from './lib/map/map.component';
-import {PreProductionComponent} from "./lib/pre-production/pre-production.component";
 import { BarMenuComponent } from './lib/bar-menu/bar-menu.component';
 import { PrevDishComponent } from './lib/prev-dish/prev-dish.component';
 import 'hammerjs';
@@ -105,13 +104,11 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     LikeDishComponent,
     GeoComponent,
     MapComponent,
-    PreProductionComponent,
     BarMenuComponent,
     PrevDishComponent,
   ],
   exports:[
     PrevAvatarComponent,
-    PreProductionComponent,
   ],
   imports: [
     BrowserModule,

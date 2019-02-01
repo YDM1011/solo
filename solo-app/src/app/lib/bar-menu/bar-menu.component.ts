@@ -39,6 +39,8 @@ import {animate, style, transition, trigger} from "@angular/animations";
 export class BarMenuComponent implements OnInit {
   public domain: string = environment.apiDomain;
   public host: string = environment.apiDomain.split('//')[1];
+  public popPreProd = false;
+
   constructor() { }
 
   ngOnInit() {

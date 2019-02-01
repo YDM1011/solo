@@ -11,6 +11,7 @@ import {SearchModule} from "../lib/search/search.module";
 import {UserModule} from "../lib/user/user.module";
 import {ScrollDirective} from "./scroll.directive";
 import {PostModule} from "../lib/post/post.module";
+import {PreProductionComponent} from "../lib/pre-production/pre-production.component";
 
 @NgModule({
   imports: [
@@ -24,7 +25,8 @@ import {PostModule} from "../lib/post/post.module";
     UserModule,
     PostModule,
   ],
-  exports: [NavbarComponent, AppRoutingModule],
-  declarations: [NavbarComponent, FormatNumberPipe, ScrollDirective]
+  exports: [NavbarComponent, AppRoutingModule, PreProductionComponent],
+  declarations: [NavbarComponent, FormatNumberPipe, ScrollDirective,
+    PreProductionComponent]
 })
 export class NavbarModule { }
