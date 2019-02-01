@@ -18,7 +18,7 @@ export class ProfileInfoComponent implements OnInit, OnChanges {
 
   @Output() onShow = new EventEmitter<any>();
 
-  public userId = location.href.split("user/")[1].split("/")[0];
+  @Input() userId = location.href.split("user/")[1].split("/")[0];
   public me = new userData();
 
   constructor(
@@ -31,8 +31,18 @@ export class ProfileInfoComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
+    let self = this;
+    this.route.params.subscribe((params: any) => {
+      self.userId = params.id
+    });
   }
-  ngOnChanges(){}
+  ngOnChanges(){
+    let s = this;
+    this.http.get(this.domain+'/api/userDate/'+this.userId, this.api.getHeaders())
+      .subscribe((user: any) => {
+        s.me = (user)
+      });
+  }
 
   updateUserData(){
     let s = this;
