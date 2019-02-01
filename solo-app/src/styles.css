@@ -574,7 +574,7 @@ textarea:focus{
   padding-left: 8px;
 }
 .menu-mob-toggle{
-  margin: 0 10px;
+  margin: 0 10px 0 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -582,8 +582,8 @@ textarea:focus{
 .menu-mob-toggle .btn-menu{
   background: transparent;
   border: none;
-  padding: 0;
-  width: 20px;
+  padding: 0 0 0 10px;
+  width: 30px;
   height: 20px;
   line-height: 20px;
 }
@@ -694,7 +694,14 @@ input[type=text].nav_search {
   z-index: -1;
   opacity: .2;
 }
-
+.search-close{
+  display: block;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 7px;
+  opacity: .5;
+}
 @media (min-width: 414px) {
   .user_title{
     display: inline;
@@ -916,6 +923,9 @@ input[type=text].nav_search {
     height: 40px;
     line-height: 40px;
     padding: 0 35px 0 12px;
+  }
+  .mob-m_close.svg20 {
+    display: none;
   }
 }
 @media (min-width: 1100px){
@@ -2877,7 +2887,7 @@ ol li p {
   color: #a09da3;
   padding-left: 2px; }
 
-@media (min-width: 992px) {
+@media (min-width: 992px) and (min-height: 500px){
   .us-s{
     display: block;
     box-sizing: border-box;

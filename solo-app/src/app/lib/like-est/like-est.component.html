@@ -6,24 +6,12 @@
     <span class="el_h_tt">Подобаються</span>
   </div>
   <div class="el_cntt" *ngIf="!ests">
-    <div class="el_i">
-      <app-prev-dish></app-prev-dish>
-    </div>
-    <div class="el_i">
-      <app-prev-dish></app-prev-dish>
-    </div>
-    <div class="el_i">
-      <app-prev-dish></app-prev-dish>
-    </div>
-    <div class="el_i">
-      <app-prev-dish></app-prev-dish>
-    </div>
-    <div class="el_i">
-      <app-prev-dish></app-prev-dish>
-    </div>
-    <div class="el_i">
-      <app-prev-dish></app-prev-dish>
-    </div>
+    <app-prev-dish class="el_i"></app-prev-dish>
+    <app-prev-dish class="el_i"></app-prev-dish>
+    <app-prev-dish class="el_i"></app-prev-dish>
+    <app-prev-dish class="el_i"></app-prev-dish>
+    <app-prev-dish class="el_i"></app-prev-dish>
+    <app-prev-dish class="el_i"></app-prev-dish>
   </div>
   <div class="el_cntt" *ngIf="ests">
     <ng-container *ngFor="let est of ests | slice:0:6">

@@ -7,7 +7,7 @@ export class Ratios {
     let obj = {
       dish_pic:{
         ratios: 1/1,
-        width: 200
+        width: 700
       },
       establishment_av:{
         ratios: 1/1,
@@ -15,7 +15,7 @@ export class Ratios {
       },
       action_pic:{
         ratios: 1/1,
-        width: 200
+        width: 700
       },
       establishment_bg:{
         ratios: 195/80,
