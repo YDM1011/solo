@@ -44,7 +44,6 @@ import { LikeEstComponent } from './lib/like-est/like-est.component';
 import { LikeDishComponent } from './lib/like-dish/like-dish.component';
 import { GeoComponent } from './lib/geo/geo.component';
 import { MapComponent } from './lib/map/map.component';
-import { BarMenuComponent } from './lib/bar-menu/bar-menu.component';
 import { PrevDishComponent } from './lib/prev-dish/prev-dish.component';
 import 'hammerjs';
 import {NgxHmCarouselModule} from "ngx-hm-carousel";
@@ -85,7 +84,6 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     InitLayoutComponent,
     GalleryComponent,
     ConfirmComponent,
-    CreateEstablishmentComponent,
     LeftBarScrollDirective,
     RightBarScrollDirective,
     NewsListComponent,
@@ -102,7 +100,6 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     LikeDishComponent,
     GeoComponent,
     MapComponent,
-    BarMenuComponent,
     PrevDishComponent,
   ],
   exports:[
