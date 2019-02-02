@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-bar-menu',
@@ -41,7 +42,9 @@ export class BarMenuComponent implements OnInit {
   public host: string = environment.apiDomain.split('//')[1];
   public popPreProd = false;
 
-  constructor() { }
+  constructor(
+    protected cookie: CookieService
+  ) { }
 
   ngOnInit() {
     console.log(this.host)

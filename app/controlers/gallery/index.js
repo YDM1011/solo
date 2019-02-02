@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const User = mongoose.model('galery');
+const Gallery = mongoose.model('galery');
 module.exports.getPhoto = (req, res, next) => {
-    User
-        .find({owner: req.query.userId})
+    Gallery
+        .find({owner: req.query.userId, forGallery: true})
         .exec((err, content) =>{
             if(err) {
                 res.send(err)

@@ -17,6 +17,10 @@ const pics = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
+    forGallery:{
+        type: Boolean,
+        default: false
+    },
     date:{
         type: Date,
         default: new Date()
@@ -38,7 +42,7 @@ const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
-    console.log(req.body);
+    req.body['owner'] = req.userId;
     next()
 
 };
@@ -46,7 +50,7 @@ const postCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
-    req.body['owner'] = req.userId;
+
     next()
 
 };

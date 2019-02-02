@@ -136,7 +136,8 @@ const preCreate = (req,res,next)=>{
             let img = req.body.img[i];
             upload(img, (prefics)=>{
                 img.picCrop = `${data.auth.apiDomain}${prefics}Crop${img.fileName}`;
-                img.picDefault = `${data.auth.apiDomain}${prefics}${img.fileName}`;
+                img['forGallery'] = true;
+                img['owner'] = req.userId;
                 mongoose.model('galery').create(img, (err, docImg)=>{
                     if(err) return res.badRequest('Something broke!');
                     imgArr.push(docImg._id);
@@ -169,13 +170,6 @@ const preCreate = (req,res,next)=>{
 };
 const upload = (img,next)=>{
     let base64Data, base64DataCrop;
-
-    if (img.base64default.search("image/jpeg") >= 0){
-        base64Data = img.base64default.replace(/^data:image\/jpeg;base64,/, "");
-    } else
-    if (img.base64default.search("image/png") >= 0){
-        base64Data = img.base64default.replace(/^data:image\/png;base64,/, "");
-    }
     if (img.base64crop.search("image/jpeg") >= 0){
         base64DataCrop = img.base64crop.replace(/^data:image\/jpeg;base64,/, "");
     } else
