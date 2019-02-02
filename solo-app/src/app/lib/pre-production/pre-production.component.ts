@@ -12,7 +12,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
         animate('140ms', style({ opacity: 1 }))
       ]),
       transition(':leave', [
-        animate('140ms', style({ opacity: 0 }))
+        animate('120ms', style({ opacity: 0 }))
       ])
     ]),
     trigger('inPop', [

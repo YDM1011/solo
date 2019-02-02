@@ -25,7 +25,11 @@ import {PreProductionComponent} from "../lib/pre-production/pre-production.compo
     UserModule,
     PostModule,
   ],
-  exports: [NavbarComponent, PreProductionComponent, AppRoutingModule],
+  exports: [
+    NavbarComponent,
+    AppRoutingModule,
+    PreProductionComponent
+  ],
   declarations: [
     NavbarComponent,
     FormatNumberPipe,
