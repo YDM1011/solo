@@ -1,3 +1,6 @@
 :host-context{
   position: absolute;
 }
+.clr{
+  color: #000!important;
+}

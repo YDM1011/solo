@@ -32,11 +32,9 @@ import {BasketComponent} from './basket/basket.component';
 import { ToOrderComponent } from './basket/to-order/to-order.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileInfoComponent } from './profile/profile-info/profile-info.component';
-import {ScrollToDirective} from "./scroll-to.directive";
 import { HomePageComponent } from './home-page/home-page.component';
 import { FriendPageComponent } from './friend-page/friend-page.component';
 import { GaleryPageComponent } from './galery-page/galery-page.component';
-import { ImgComponent } from './lib/img/img.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import * as moment from 'moment';
@@ -105,13 +103,11 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     LikeDishComponent,
     GeoComponent,
     MapComponent,
-    PreProductionComponent,
     BarMenuComponent,
     PrevDishComponent,
   ],
   exports:[
     PrevAvatarComponent,
-    PreProductionComponent,
   ],
   imports: [
     BrowserModule,
@@ -128,6 +124,7 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     MzDatepickerModule,
     MzTimepickerModule,
     NgbModule,
+    NavbarModule,
     NgxHmCarouselModule,
     SweetAlert2Module.forRoot()
   ],

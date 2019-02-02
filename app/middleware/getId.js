@@ -10,7 +10,7 @@ glob.getId = (req,res,next)=>{
     const protect = req.cookies['sid'];
 
     if(!protect){
-        return res.forbidden("forbidden1");
+        return res.forbidden("forbidden12");
     }
     const connect = protect.split(" ");
 

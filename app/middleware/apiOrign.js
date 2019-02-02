@@ -2,6 +2,9 @@ module.exports = (req,res,next) =>{
     const allowedOrigins = [
         'http://localhost:4300',
         'http://localhost:4200',
+        'http://*.localhost:4200',
+        'http://*.localhost:3000',
+        'http://localhost:3000',
         'http://*.localhost:5000',
         'http://*.*.localhost:5000',
         'http://localhost:5000',

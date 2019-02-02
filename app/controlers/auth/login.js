@@ -36,11 +36,8 @@ module.exports = (req, res, next) => {
                         maxAge: time,
                         httpOnly: false
                     });
-                if(data.auth.sidDomain === "localhost"){
-                    res.ok({_id:'http://localhost:4200/user/'+info._id});
-                }else{
-                    res.ok({_id:'/user/'+info._id});
-                }
+                // res.redirect(`${data.auth.afterAuthDomain}/user/${info._id}`);
+                res.ok({_id:`${data.auth.afterAuthDomain}/user/${info._id}`});
 
             }else{
                 return res.status(400).send({error:'login or password invalid'});
