@@ -2146,7 +2146,7 @@ input[type=text].nav_search {
   }
 }
 .name {
-  font-weight: 600;
+  font-weight: 500;
   display: inline-block;
   text-transform: capitalize;
   color: #00a3ff;

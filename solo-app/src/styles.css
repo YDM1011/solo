@@ -2380,6 +2380,7 @@ ol li p {
 .name{
   cursor: pointer;
   transition: text-shadow .25s ease-in-out;
+  font-weight: 500;
 }
 .us_fr-name a{
   color: #000000;
