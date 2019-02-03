@@ -3,6 +3,7 @@
 npm-debug.log
 node_modules
 config.json
+app/config/config.json
 upload
 app/config/config.json
 

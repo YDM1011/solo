@@ -268,7 +268,7 @@ const preCreate = (req,res,next)=>{
     let id = req.body.id;
     let model = req.body.model;
     let obj = {};
-
+    req.body['ownerEst'] = id;
     mongoose.model('oneest').create(req.body, (err, doc)=>{
         if(err) return res.badRequest(err);
         if(doc){
