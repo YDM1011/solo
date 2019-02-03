@@ -1,7 +1,7 @@
 <div class="cont frn">
   <div class="frn_h" >
     <span class="frn_name" (click)="isFriends = true">Всі друзі</span>
-    <span class="frn_name" (click)="isFriends = false">Ви можете їх знати</span>
+    <span class="frn_name" IsNotMe (click)="isFriends = false">Спільні друзі</span>
   </div>
 
   <ng-container *ngIf="!friends">
@@ -46,15 +46,7 @@
   </ng-container>
 
   <ng-container *ngIf="!isFriends">
-    <app-form
-      [hidden]="true"
-      [text]="'More'"
-      [class]="'btn waves-effect waves-light'"
-      [method]="'get'"
-      [url]="'/api/user?populate='+populate"
-      (onRes)="more($event)"
-      [click]="true"
-    ></app-form>
+    
     <ng-container *ngIf="people.length > 0">
       <div *ngFor="let mean of people">
         <div class="frn_i" *ngIf="mean._id != userId">

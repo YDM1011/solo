@@ -39,8 +39,8 @@ module.exports.getLikeEsts = (req, res, next) => {
         .populate({path:'choiceest'})
         .exec((err,result)=>{
             if(err) return res.badRequest(err);
-            if (!result) return res.serverError('Somesing broken');
-            if (result) return res.ok(result[0].choiceest);
+            if (!result[0]) return res.serverError('Somesing broken');
+            if (result[0]) return res.ok(result[0].choiceest);
         })
 };
 module.exports.getLikeDish = (req, res, next) => {
@@ -50,8 +50,8 @@ module.exports.getLikeDish = (req, res, next) => {
         .exec((err,result)=>{
 
             if(err) return res.badRequest(err);
-            if (!result) return res.serverError('Somesing broken');
-            if (result) return res.ok(result[0].favoritdish);
+            if (!result[0]) return res.serverError('Somesing broken');
+            if (result[0]) return res.ok(result[0].favoritdish);
         })
 };
 

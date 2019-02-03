@@ -1,0 +1,130 @@
+<div class="cont frn">
+  <div class="frn_h" >
+    <span class="frn_name" (click)="checkTab(1)"> Вас запрошують </span>
+    <span class="frn_name st" (click)="checkTab(2)"> Мої запрошення </span>
+    <span class="frn_name st" (click)="checkTab(3)"> Мої запрошення </span>
+  </div>
+
+  <ng-container *ngIf="meOffer">
+    <ng-container *ngIf="friends">
+      <ng-container *ngIf="friends.length > 0">
+        <div class="frn_i" *ngFor="let friend of friends">
+          <app-form *ngIf="friend._id != userId"
+                    style="display: none"
+                    [hidden]="true"
+                    [method]="'get'"
+                    [url]="'/api/getMutual/'+friend._id"
+                    (onRes)="setMutual($event)"
+                    [click]="true"
+          ></app-form>
+          <div class="frn_us">
+            <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
+              <ng-container *ngIf="friend.photo">
+                <img [src]="friend.photo.picCrop" alt="">
+              </ng-container>
+            </a>
+            <div class="frn_in">
+              <a class="frn_name" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
+              <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та 0 вподобань</p>
+            </div>
+          </div>
+          <div class="frn_btn">
+            <div class="frn-green">
+              <app-init-invite [userId]="friend._id"></app-init-invite>
+              <app-meet-friend [userId]="friend._id"></app-meet-friend>
+              <app-uninvite-friend [userId]="friend._id"></app-uninvite-friend>
+              <app-offer-friend [userId]="friend._id"></app-offer-friend>
+              <app-invite-friend [userId]="friend._id"></app-invite-friend>
+            </div>
+            <app-del-friend [userId]="friend._id"></app-del-friend>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="myOffer">
+    <ng-container *ngIf="invite">
+      <ng-container *ngIf="invite.length > 0">
+        <div class="frn_i" *ngFor="let friend of invite">
+          <app-form *ngIf="friend._id != userId"
+                    style="display: none"
+                    [hidden]="true"
+                    [method]="'get'"
+                    [url]="'/api/getMutual/'+friend._id"
+                    (onRes)="setMutual($event)"
+                    [click]="true"
+          ></app-form>
+          <div class="frn_us">
+            <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
+              <ng-container *ngIf="friend.photo">
+                <img [src]="friend.photo.picCrop" alt="">
+              </ng-container>
+            </a>
+            <div class="frn_in">
+              <a class="frn_name" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
+              <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та 0 вподобань</p>
+            </div>
+          </div>
+          <div class="frn_btn">
+            <div class="frn-green">
+              <app-init-invite [userId]="friend._id"></app-init-invite>
+              <app-meet-friend [userId]="friend._id"></app-meet-friend>
+              <app-uninvite-friend [userId]="friend._id"></app-uninvite-friend>
+              <app-offer-friend [userId]="friend._id"></app-offer-friend>
+              <app-invite-friend [userId]="friend._id"></app-invite-friend>
+            </div>
+            <app-del-friend [userId]="friend._id"></app-del-friend>
+          </div>
+        </div>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="isAll">
+    <app-form
+      [hidden]="true"
+      [text]="'More'"
+      [class]="'btn waves-effect waves-light'"
+      [method]="'get'"
+      [url]="'/api/user?populate='+populate"
+      (onRes)="more($event)"
+      [click]="true"
+    ></app-form>
+    <ng-container *ngIf="people.length > 0">
+      <div *ngFor="let mean of people">
+        <div class="frn_i" *ngIf="mean._id != userId">
+          <div class="frn_us">
+            <a class="frn_img pre-bg" [routerLink]="'/user/'+mean._id">
+              <!--<app-img *ngIf="mean.photo" [img]="{id:mean.photo}"></app-img>-->
+              <ng-container *ngIf="mean.photo">
+                <app-img [img]="{id:mean.photo._id}"></app-img>
+              </ng-container>
+            </a>
+            <div class="frn_in">
+              <a class="frn_name" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
+              <p *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+            </div>
+          </div>
+
+          <div class="frn_btn">
+            <div>
+              <app-init-invite [userId]="mean._id" class="fr-btn-gr"></app-init-invite>
+              <app-invite-friend [userId]="mean._id" class="fr-btn-gr"></app-invite-friend>
+              <app-uninvite-friend [userId]="mean._id" class="fr-btn-gr"></app-uninvite-friend>
+              <app-offer-friend [userId]="mean._id" class="fr-btn-gr"></app-offer-friend>
+            </div>
+            <app-form
+              style="display: none"
+              [hidden]="true"
+              [method]="'get'"
+              [url]="'/api/getMutual/'+mean._id"
+              (onRes)="setMutual($event)"
+              [click]="true"
+            ></app-form>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</div>

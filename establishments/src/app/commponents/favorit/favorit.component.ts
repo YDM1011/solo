@@ -16,6 +16,7 @@ export class FavoritComponent implements OnInit {
   @Output() onRes: EventEmitter<any> = new EventEmitter<any>();
   @Output() onErr: EventEmitter<any> = new EventEmitter<any>();
   public res: any;
+  public hits: any;
   public host: string = environment.apiDomain.split('//')[1];
   constructor(
     private api: ApiService,
@@ -34,6 +35,11 @@ export class FavoritComponent implements OnInit {
       if (val) {
         s.res = val;
         s.onRes.emit(val);
+      }
+    });
+    s.api.get('dishHit').then((val: any) => {
+      if (val) {
+        s.hits = val;
       }
     });
   }

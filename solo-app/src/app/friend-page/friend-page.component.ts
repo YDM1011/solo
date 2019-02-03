@@ -50,12 +50,20 @@ export class FriendPageComponent implements OnInit, OnChanges {
       .subscribe((friends: any) => {
         s.friends = (friends);
         s.isFriends = true;
-        // friends.myFriends.forEach((friend)=>{
-        //   this.http.get(this.domain+'/api/getMutual/'+friend._id, this.api.getHeaders())
-        //     .subscribe((res: any) => {
-        //       this.mutual[friend._id] = res.mutual;
-        //     });
-        // })
+        s.getMutualFriends(idc);
+      });
+  }
+
+  getMutualFriends(userId){
+    let s = this;
+    s.http.get(`${this.domain}/api/getMutualFriends/${userId}`, s.api.getHeaders())
+      .subscribe((res: any) => {
+        if (res) {
+          // s.friends = (res);
+          console.log(res);
+          s.more(res);
+        }
+      }, err => {
       });
   }
 

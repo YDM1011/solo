@@ -24,6 +24,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public domain: string = environment.apiDomain;
   public count = 0;
   public limit = 4;
+  public offerCount;
   public posts = [];
   @Input() word;
   @Output() onClick = new EventEmitter<any>();
@@ -61,6 +62,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         self.userId = val._id;
         self.userPhoto = val.photo;
         self.userName = val.firstName;
+        self.offerCount = val.offer.length;
         self.isShow = !self.isShow;
       }
     });

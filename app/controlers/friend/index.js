@@ -67,7 +67,7 @@ module.exports.delFriend = (req, res, next) => {
                         if(err) {
                             res.send(err)
                         } else {
-                            return res.ok(content)
+                            invite(req,res,next,req.body.userId,req.userId)
                         }
                     });
             }
@@ -150,31 +150,66 @@ module.exports.getFriends = (req, res, next) => {
             }
         });
 };
-module.exports.invite = (req, res, next) => {
+module.exports.getFriendsOffer = (req, res, next) => {
+    // populate:{path:"photo bg", select:"preload _id"}
+    User
+        .findOne({_id: req.userId})
+        .populate({path:'offer', select:"firstName lastName photo bg _id",
+            populate:{path:"photo bg"}})
+        .select("offer")
+        .exec((err, content) =>{
+            if(err) {
+                res.send(err)
+            } else {
+                return res.ok(content)
+            }
+        });
+};
+module.exports.getFriendsInvite = (req, res, next) => {
+    // populate:{path:"photo bg", select:"preload _id"}
+    User
+        .findOne({_id: req.userId})
+        .populate({path:'invite', select:"firstName lastName photo bg _id",
+            populate:{path:"photo bg"}})
+        .select("invite")
+        .exec((err, content) =>{
+            if(err) {
+                res.send(err)
+            } else {
+                return res.ok(content)
+            }
+        });
+};
+
+
+
+const invite = (req, res, next, myid = null, usid = null) => {
     console.log(req.body.postId);
-    if(String(req.userId) != req.body.userId) {
+    let myId = myid || req.userId;
+    let usId = usid || req.body.userId;
+    if(String(myId) != usId) {
         User
-            .findOne({_id: req.userId, myFriends: {$in: req.body.userId}})
+            .findOne({_id: myId, myFriends: {$in: usId}})
             .exec((err, info) => {
                 if (err) return res.badRequest('Something broke!');
                 if (info) {
                     return res.badRequest('Something broke!');
                 } else if (!info) {
                     User
-                        .findOne({_id: req.userId, invite: {$in: req.body.userId}})
+                        .findOne({_id: myId, invite: {$in: usId}})
                         .exec((err, info) => {
                             if (err) return res.badRequest('Something broke!');
                             if (info) {
                                 User
-                                    .findOneAndUpdate({_id: req.userId},
-                                        {$pull: {invite: req.body.userId}}, {new: true})
+                                    .findOneAndUpdate({_id: myId},
+                                        {$pull: {invite: usId}}, {new: true})
                                     .exec((err, content) => {
                                         if (err) {
                                             res.send(err)
                                         } else {
                                             User
-                                                .findOneAndUpdate({_id: req.body.userId},
-                                                    {$pull: {offer: req.userId}}, {new: true})
+                                                .findOneAndUpdate({_id: usId},
+                                                    {$pull: {offer: myId}}, {new: true})
                                                 .select('_id firstName lastName photo')
                                                 .exec((err, info) => {
                                                     if (err) {
@@ -188,21 +223,21 @@ module.exports.invite = (req, res, next) => {
                             }
                             if (!info) {
                                 User
-                                    .findOne({_id: req.userId, offer: {$in: req.body.userId}})
+                                    .findOne({_id: myId, offer: {$in: usId}})
                                     .exec((err, infof) => {
                                         if (err) return res.badRequest('Something broke!');
                                         if (infof) {
                                             User
-                                                .findOneAndUpdate({_id: req.userId},
-                                                    {$push:{myFriends:req.body.userId}, $pull:{offer:req.body.userId}}, {new: true})
+                                                .findOneAndUpdate({_id: myId},
+                                                    {$push:{myFriends:usId}, $pull:{offer:usId}}, {new: true})
                                                 .exec((err, content) =>{
                                                     if(err) {
                                                         res.send(err)
                                                     } else {
                                                         User
-                                                            .findOneAndUpdate({_id: req.body.userId},
-                                                                {$push:{myFriends:req.userId},
-                                                                    $pull:{invite:req.userId}}, {new: true})
+                                                            .findOneAndUpdate({_id: usId},
+                                                                {$push:{myFriends:myId},
+                                                                    $pull:{invite:myId}}, {new: true})
                                                             .select('_id firstName lastName photo')
                                                             .exec((err, content) =>{
                                                                 if(err) {
@@ -216,15 +251,15 @@ module.exports.invite = (req, res, next) => {
                                         }
                                         if (!infof) {
                                             User
-                                                .findOneAndUpdate({_id: req.userId},
-                                                    {$push: {invite: req.body.userId}}, {new: true})
+                                                .findOneAndUpdate({_id: myId},
+                                                    {$push: {invite: usId}}, {new: true})
                                                 .exec((err, content) => {
                                                     if (err) {
                                                         res.send(err)
                                                     } else {
                                                         User
-                                                            .findOneAndUpdate({_id: req.body.userId},
-                                                                {$push: {offer: req.userId}}, {new: true})
+                                                            .findOneAndUpdate({_id: usId},
+                                                                {$push: {offer: myId}}, {new: true})
                                                             .select('_id firstName lastName photo')
                                                             .exec((err, info) => {
                                                                 if (err) {
@@ -246,3 +281,5 @@ module.exports.invite = (req, res, next) => {
         res.send({error:"Something broke!"});
     }
 };
+
+module.exports.invite = invite;

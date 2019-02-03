@@ -79,7 +79,9 @@
             </ng-container>
         </div>
         <span class="h-pf_zv" *ngIf="name">{{name.name}}</span>
-        <button #goZv class="btn-green" (click)="goZv.val=true">Йдемо в Solo</button>
+        <button #goZv class="btn-green" (click)="goZv.val=true">Йдемо
+          <span *ngIf="name">в {{name.name}}</span>
+        </button>
       </div>
       <app-pre-production [status]="goZv.val" (statusResult)="goZv.val = $event"></app-pre-production>
     </div>
@@ -96,7 +98,7 @@
           <div class="lf-br_btn">
             <app-menu></app-menu>
 
-            <button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо в Solo</button>
+            <button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо <span *ngIf="name">в {{name.name}}</span></button>
 
             <app-pre-production [status]="goZv2.val" (statusResult)="goZv2.val = $event"></app-pre-production>
 

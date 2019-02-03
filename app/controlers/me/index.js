@@ -219,6 +219,42 @@ const getFavorit = (req,res,mod)=>{
     });
 
 };
+const getFavoritDish = (req,res,est)=>{
+    getId(req,res,()=>{
+        User
+            .findOne({_id: req.userId})
+            .select('favoritdish')
+            .exec((err, content) =>{
+                if(err) {
+                    return res.badRequest(err);
+                }
+                if(!content) {
+                    return res.notFound("not Found");
+                }
+                if(content) {
+                    // res.ok(content)
+                    getDishByArr(req, res, content.favoritdish, est)
+                }
+            });
+    });
+};
+const getDishByArr = (req,res,arr,est)=>{
+    Est.findOne({subdomain:est}).select('_id').exec((err,info)=>{
+        if(err)  return res.badRequest(err);
+        if(!info) return res.notFound("not Found");
+        if(info){
+            mongoose.model('dish')
+                .find({ownerest: info._id, _id:{$in:arr}})
+                .limit(6).skip(0)
+                .exec((err,infoD)=>{
+                if(err)  return res.badRequest(err);
+                if(!infoD) return res.notFound("not Found");
+                res.ok(infoD);
+            })
+        }
+    })
+};
+
 const getFavoritByUsId = (req,res,mod,usId)=>{
     User
         .findOne({_id: usId})
@@ -303,11 +339,11 @@ module.exports.favorite = (req, res, next) => {
 };
 
 module.exports.getFavorite = (req, res, next) => {
-
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     switch(req.params.key){
         case 'favoritest': getFavorit(req,res,'favoritest'); break;
         case 'est': getFavorit(req,res,'choiceest'); break;
-        case 'dish': getFavorit(req,res,'favoritdish'); break;
+        case 'dish': getFavoritDish(req,res, est); break;
         default: getFavoriteE(req, res, next); break;
     }
 };
@@ -322,3 +358,20 @@ module.exports.getFavoriteByUsId = (req, res, next) => {
     }
 };
 
+module.exports.dishHit = (req,res,next)=>{
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    Est.findOne({subdomain:est}).select('_id').exec((err,info)=>{
+        if(err)  return res.badRequest(err);
+        if(!info) return res.notFound("not Found");
+        if(info){
+            mongoose.model('dish')
+                .find({ownerest: info._id, ishit:true})
+                .limit(6).skip(0)
+                .exec((err,infoD)=>{
+                    if(err)  return res.badRequest(err);
+                    if(!infoD) return res.notFound("not Found");
+                    res.ok(infoD);
+                })
+        }
+    })
+}

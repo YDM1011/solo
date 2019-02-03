@@ -41,14 +41,17 @@
     <article class="cont pst">
       <div class="pst_in">
 
-        <app-img class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>
-
+        <a href="/user/{{post.userId._id}}">
+          <app-img class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>
+        </a>
         <span class="in_us">
-          <strong class="name">{{post.userId.firstName}} {{post.userId.lastName}}</strong>
+          <a class="name"  href="/user/{{post.userId._id}}">{{post.userId.firstName}} {{post.userId.lastName}}</a>
           <span *ngIf="post.img.length > 0"> додав фото</span>
           <span *ngIf="post.img.length == 0"> додав допис</span>
           <ng-container *ngIf="post.withFriend.length > 0"> разом з
-            <span class="us_fr-name" *ngFor="let friend of post.withFriend"> {{friend.name}} </span>
+            <a href="/user/{{friend._id}}" class="us_fr-name" *ngFor="let friend of post.withFriend">
+              {{friend.firstName}}
+            </a>
           </ng-container>
           <span class="us_zv"> у
             <span class="us_zv_link">

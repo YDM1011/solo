@@ -46,8 +46,11 @@ router.post('/api/likeCom', [orign, glob.getId], like.putCom);
 router.post('/api/likeDish', [orign, glob.getId], like.putDish);
 router.post('/api/share', [orign, glob.getId], share);
 router.get('/api/getMutual/:FId', [orign, glob.getId], mutual.getMutual);
+router.get('/api/getMutualFriends/:FId', [orign, glob.getId], mutual.getMutualFriends);
 router.get('/api/getPhoto', [orign, glob.getId], gallery.getPhoto);
 router.get('/api/getFriends', [orign, glob.getId], friend.getFriends);
+router.get('/api/getFriendsOffer', [orign, glob.getId], friend.getFriendsOffer);
+router.get('/api/getFriendsInvite', [orign, glob.getId], friend.getFriendsInvite);
 router.post('/api/addFriend', [orign, glob.getId], friend.invite);
 router.post('/api/isInvite', [orign, glob.getId], friend.isInvite);
 router.post('/api/delFriend', [orign, glob.getId], friend.delFriend);
@@ -76,6 +79,7 @@ router.get('/api/est_name', [orign], establishment.estName);
 router.get('/api/getDish/:id', [orign, glob.getId], establishment.getDish);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
 router.get('/api/favorite/:key', [orign], me.getFavorite);
+router.get('/api/dishHit', [orign], me.dishHit);
 router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId);
 
 // basket API

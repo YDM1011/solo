@@ -11,12 +11,11 @@ import {SignupComponent} from './signup/signup.component';
 import {InitLayoutComponent} from './init-layout/init-layout.component';
 import {ConfirmComponent} from './confirm/confirm.component';
 import {BasketComponent} from './basket/basket.component';
-import {ShowFriendsComponent} from "./lib/friend/show-friends/show-friends.component";
-import {GalleryComponent} from "./lib/gallery/gallery.component";
 import {ProfileComponent} from "./profile/profile.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {FriendPageComponent} from "./friend-page/friend-page.component";
 import {GaleryPageComponent} from "./galery-page/galery-page.component";
+import {FriendOfferPageComponent} from "./friend-offer-page/friend-offer-page.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
@@ -25,6 +24,7 @@ const routes: Routes = [
           {path: '', component: HomePageComponent, canActivate: [IsLoginedGuard], },
           {path: 'basket', component: BasketComponent, canActivate: [IsLoginedGuard], },
           {path: 'friends', component: FriendPageComponent, canActivate: [IsLoginedGuard], },
+          {path: 'friends_offer', component: FriendOfferPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'galery', component: GaleryPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'profile', component: ProfileComponent, canActivate: [IsLoginedGuard], },
         ]}
