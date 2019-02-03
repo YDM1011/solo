@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../api.service";
 import {Router, ActivatedRoute} from "@angular/router";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-dish-create',
@@ -16,6 +17,7 @@ export class DishCreateComponent implements OnInit {
   public complementsM: any = [];
   public complementsOpt: any = [];
   public complementsOptM: any = [];
+  public apiDomain:any = environment.apiDomain;
   public portion:any={
     massa:'',
     name:'',

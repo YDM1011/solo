@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../api.service';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-dish-edit',
@@ -20,6 +21,7 @@ export class DishEditComponent implements OnInit {
   public complementsOpt: any = [];
   public complementsOptM: any = [];
   public isFormAdd = false;
+  public apiDomain:any = environment.apiDomain;
   public portion: any = {
     massa: '',
     name: '',
@@ -187,6 +189,6 @@ export class DishEditComponent implements OnInit {
   }
   getImg(e){
     console.log(e.result._id);
-    this.dish.pic = e.result._id;
+    this.dish.pic = e.result;
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ApiService} from "../../api.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-dish',
@@ -11,6 +12,7 @@ export class DishComponent implements OnInit {
   public id:any;
   public editid:any;
   public dish:any = [];
+  public apiDomain:any = environment.apiDomain;
   private key:string = 'dish';
   constructor(
     private route: ActivatedRoute,

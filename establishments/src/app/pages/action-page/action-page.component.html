@@ -3,8 +3,8 @@
     }" (onRes)="actions = $event"></app-custom-res>
 <div class="el_cont" *ngIf="actions">
   <div class="el_content">
-    <div *ngFor="let act of actions">
-      <div>
+    <div *ngFor="let act of actions" class="action-wrap">
+      <div class="description">
         {{act.about}}
       </div>
       <div class="inherit">

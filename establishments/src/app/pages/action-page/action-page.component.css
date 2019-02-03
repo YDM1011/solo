@@ -2,5 +2,45 @@
   display: flex;
   flex-wrap: wrap;
   margin: 10px;
+}
 
+.description{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.41);
+  color: #fff;
+  opacity: 0;
+  transition: .5s;
+  font-size: 16px;
+}
+.action-wrap img{
+  width: 100%;
+  max-height: 90vh;
+}
+.action-wrap:hover .description{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.41);
+  color: #fff;
+  opacity: 1;
+  font-size: 16px;
+}
+.action-wrap{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }

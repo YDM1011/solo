@@ -76,7 +76,7 @@ const sendPicToModel = (reqBody, res, imgId) => {
     let query = {};
     let protectField = getFieldOfProtect(reqBody.model);
     if (protectField){
-        query[protectField] = reqBody.owner;
+        query[protectField] = toObjectId(reqBody.owner);
         query['_id'] = toObjectId(reqBody.id);
     } else {
         query['_id'] = toObjectId(reqBody.owner);
@@ -125,9 +125,9 @@ const updatePic = (picData, reqBody, res) => {
 const delFile = (reqBody)=>{
     return new Promise((resolve, reject)=>{
         fs.unlink("upload/"+reqBody.picCrop.split(data.auth.apiDomain)[1], fsCallbeack=>{
-        fs.unlink("upload/"+reqBody.picDefault.split(data.auth.apiDomain)[1], fsCallbeack=>{
+        // fs.unlink("upload/"+reqBody.picDefault.split(data.auth.apiDomain)[1], fsCallbeack=>{
             resolve(fsCallbeack)
-        })
+        // })
         })
     })
 };

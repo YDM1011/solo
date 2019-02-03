@@ -76,7 +76,7 @@
                     <div class="img-prod">
                       <ng-container *ngIf="dish.pic; else preDishPic">
                         <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
-                          <img class="img" src="{{dish.pic.picCrop}}" alt="">
+                          <img class="img" src="{{apiDomain}}/{{dish.pic.picCrop}}" alt="">
                         </ng-container>
                       </ng-container>
                       <ng-template #preDishPic>

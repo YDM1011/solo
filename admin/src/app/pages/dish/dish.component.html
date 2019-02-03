@@ -43,7 +43,7 @@
                 <div class="card">
                   <ng-container *ngIf="dsh.pic; else preDishPic">
                     <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
-                      <img class="img40" src="{{dsh.pic.picCrop}}" alt="">
+                      <img class="img40" src="{{apiDomain}}{{dsh.pic.picCrop}}" alt="">
                     </ng-container>
                   </ng-container>
                   <ng-template #preDishPic>
