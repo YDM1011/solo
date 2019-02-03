@@ -61,7 +61,7 @@
            [(ngModel)]="searchText"
            placeholder="Шукайте друзів та місця"
            autocomplete="off"
-           (click)="onFind.emit(searchText);"
+           (keyup)="onFind.emit(searchText);"
            (keyup)="dropdownS.open();"
            (window:resize)="dropdownS.close()">
     <mz-dropdown
@@ -77,7 +77,7 @@
       [stopPropagation]="true"
       #dropdownS
     >
-      <mz-dropdown-item class="dropdown-item" *ngFor="let item of array | search: 'firstName' : searchText" (click)="search.val=false">
+      <mz-dropdown-item class="dropdown-item" *ngFor="let item of array" (click)="search.val=false">
         <ng-container *ngIf="item._id">
           <a [routerLink]="'/user/'+item._id">
             <div class="search-item_img">
@@ -93,7 +93,7 @@
         </ng-container>
       </mz-dropdown-item>
 
-      <mz-dropdown-item class="dropdown-item" *ngFor="let item of arrayEts | search: 'name': searchText" (click)="search.val=false">
+      <ng-container class="dropdown-item" *ngFor="let item of arrayEts" (click)="search.val=false">
         <ng-container *ngIf="item.subdomain">
           <a href="//{{item.subdomain+'.'+host}}">
             <div class="search-item_img">
@@ -107,7 +107,7 @@
             <span class="search-item_title">{{item.name}}</span>
           </a>
         </ng-container>
-      </mz-dropdown-item>
+      </ng-container>
 
     </mz-dropdown>
     <div class="search-close" (click)="search.val=false">

@@ -42,10 +42,34 @@ module.exports = (req, res, next) => {
                         .exec((err, info) => {
                             if(err) return res.badRequest('Something broke!');
                             if(!info) return res.notFound('You are not valid');
-                            return res.ok(info);
+                            addCountShareToOwner(req,()=>{
+                                res.ok(info);
+                            });
+                            // return
                         });
                 }
             })
+        });
+};
+
+const addCountShareToOwner = (req,next)=>{
+    let id = req.body.postId;
+    Post
+        .findOne({_id: id, shareCount:{$in: req.userId}})
+        .exec((err, info) => {
+            console.log(info);
+            if(!info){
+                Post
+                    .findOneAndUpdate({_id: id},
+                        {$push:{shareCount:req.userId}}, {new: true})
+                    .exec((err, content) =>{
+
+                       if(content){
+                           next();
+                       }
+                    });
+            }
+
         });
 };
 /** body need *

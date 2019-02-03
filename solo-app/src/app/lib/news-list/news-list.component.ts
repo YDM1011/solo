@@ -5,6 +5,7 @@ import {UserService} from '../user/user.service';
 import {CoreService} from '../../core.service';
 import {CookieService} from 'ngx-cookie-service';
 import {FormApiService} from '../form-api/form-api.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-news-list',
@@ -48,8 +49,14 @@ export class NewsListComponent implements OnInit, OnDestroy {
     private core:  CoreService,
     private http:  HttpClient,
     private cookieService: CookieService,
-    private api: FormApiService
-  ) { }
+    private api: FormApiService,
+    private titleService: Title
+  ) {
+    this.setTitle('Новини')
+  }
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
   ngOnInit () {
     const self = this;
     this.count = 0;

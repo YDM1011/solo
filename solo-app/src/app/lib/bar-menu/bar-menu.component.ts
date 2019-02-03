@@ -43,7 +43,7 @@ export class BarMenuComponent implements OnInit {
   public popPreProd = false;
 
   constructor(
-    protected cookie: CookieService
+    public cookie: CookieService
   ) { }
 
   ngOnInit() {

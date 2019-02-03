@@ -169,7 +169,7 @@ module.exports.getDish = (req, res, next) => {
     let userId = toObjectId(req.userId);
     console.log(id, id == req.params['id']);
     mongoose.model('dish')
-        .find({owneruser: userId})
+        .find({owneruser: userId, ownerest: id})
         .populate({path:'dishcategory', select:'name _id'})
         .populate({path:'portion'})
         .populate({path:'pic'})

@@ -67,17 +67,14 @@ const model = new Schema({
 },{
     toJSON: {
         transform: function (doc, ret) {},
+        virtuals: true
     },
     toObject: {
         transform: function (doc, ret) {},
-        virtuals: false
+        virtuals: true
     },
     createRestApi: true,
-    strict: true,
-    paths: {
-        "owneruser" : Object,
-        "ownerest" : Object,
-    }
+    strict: true
 });
 
 mongoose.model('dish', model);
@@ -114,7 +111,7 @@ const preRead = (req,res,next)=>{
                 if (info) return res.ok(info);
             })
     }
-
+    // return next();
 };
 const postUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);

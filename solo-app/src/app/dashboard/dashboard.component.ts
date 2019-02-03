@@ -5,6 +5,7 @@ import {CoreService} from '../core.service';
 import {FormApiService} from '../lib/form-api/form-api.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
+import {Title} from "@angular/platform-browser";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -40,15 +41,20 @@ export class DashboardComponent implements OnInit, OnChanges {
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
-    private api: FormApiService
-  ) { }
+    private api: FormApiService,
+    private titleService: Title
+  ) {}
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
+  }
   ngOnChanges() {}
   ngOnInit() {
     const self = this;
     self.auth.onAuth.subscribe(value => {
       if (value) {
-       self.user = value;
-       self.auth.setUserData(value);
+      self.user = value;
+      self.setTitle(this.user.firstName);
+      self.auth.setUserData(value);
       self.apiInitial(value._id);
       }
     });
@@ -112,7 +118,9 @@ export class DashboardComponent implements OnInit, OnChanges {
     const self = this;
     if (res) {
       self.user = res[0];
-      console.log(self.user);
+      if(self.user.firstName && self.user.lastName){
+        self.setTitle(`${self.user.firstName} ${self.user.lastName}`);
+      }
       self.core.setValidProfile(res[1]);
       self.auth.setUserData(res);
     }

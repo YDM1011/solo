@@ -107,11 +107,13 @@ export class NavbarComponent implements OnInit, OnDestroy {
   goSearch(e){
     let s = this;
     console.log(e);
-    this.http.get(this.domain + '/api/search?search="s"', this.api.getHeaders())
-      .subscribe((res: any) => {
-        s.friends = res.users;
-        s.arrEts = res.est;
-      });
+    if(e){
+      this.http.get(this.domain + '/api/search?search="'+e+'"', this.api.getHeaders())
+        .subscribe((res: any) => {
+          s.friends = res.users;
+          s.arrEts = res.est;
+        });
+    }
   }
   public popPreProd = false;
 }

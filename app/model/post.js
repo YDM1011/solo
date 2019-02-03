@@ -38,6 +38,10 @@ const pages = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     }],
+    shareCount: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
     commentId: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "comment"
@@ -228,8 +232,9 @@ const preDelete = (req,res,next)=>{
             if(!info) return res.notFound('You are not valid');
             if(info){
                 let id = mongoose.Types.ObjectId(info.userId).toString();
-                console.log(req.userId, id);
-                if(req.userId == id){ next() } else { res.badRequest(info) }
+                let idS = mongoose.Types.ObjectId(info.share.userIdShare).toString();
+                console.log(req.userId, id, idS);
+                if(req.userId == id || req.userId == idS){ next() } else { res.badRequest(info) }
             }
         })
 };
