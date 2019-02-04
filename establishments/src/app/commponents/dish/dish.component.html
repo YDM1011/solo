@@ -26,10 +26,10 @@
             </ng-container>
           </div>
 
-          <!--<app-pop-prod-add *ngIf="dish.prt"-->
-                            <!--[dish]="dish"-->
-                            <!--[dishId]="dish._id"-->
-                            <!--[selfBtn]="true"></app-pop-prod-add>-->
+          <app-pop-prod-add *ngIf="dish.prt"
+                            [dish]="dish"
+                            [dishId]="dish._id"
+                            [selfBtn]="true"></app-pop-prod-add>
         </div>
 
 
@@ -38,26 +38,42 @@
             <h1 class="mn_i_ht c_t14">{{dish.name}}</h1>
             <p class="mn_i_d c_t o8">{{dish.about}}</p>
             <div class="mn_i_of" *ngIf="dish.prt">
-              <!--<div class="mn_i_of_i">-->
-                <!--<span *ngIf="dish.prt">{{dish.prt.name}}</span>-->
-              <!--</div>-->
+
               <div class="mn_i_of_i">
-                <span *ngIf="dish.prt.massa">{{dish.prt.massa}}</span>
+                <span *ngIf="dish.prt">{{dish.prt.name}}</span>
+                <span style="margin-left: 4px" *ngIf="dish.prt.massa">{{dish.prt.massa}}</span>
               </div>
               <div class="mn_i_of_i1 new" [class.new]="false">
                 <!--<span class="c_t14"></span>-->
                 <span class="c_t14" *ngIf="dish.prt">{{dish.prt.price}}грн</span>
               </div>
             </div>
-            <!--<div class="mn_i_of">-->
-              <!--<div class="mn_i_of_i">-->
-                <!--<div class="select-tr">-->
-                  <!--<ul>-->
-                    <!--<li *ngFor="let prt of dish.portion" (click)="select(prt, dish)">{{prt.name || prt.massa }}</li>-->
-                  <!--</ul>-->
-                <!--</div>-->
-              <!--</div>-->
-            <!--</div>-->
+
+            <div class="mn_i_of" *ngIf="dish.prt && dish.portion.length > 1">
+              <div class="mn_i_of_i">
+
+                <div class="select-tr" #isSelect>
+                  <div class="select-wrapper initialized">
+                    <button class="select-dropdown btn-border"
+                            [ngClass]="{'active': isSelect.val}"
+                            (click)="isSelect.val = true">{{dish.prt.name || dish.prt.massa}}</button>
+                    <ul class="dropdown-content select-dropdown" [ngClass]="{'active': isSelect.val}">
+                      <li *ngFor="let prt of dish.portion" (click)="select(prt, dish);isSelect.val = false">
+                        <span>{{prt.name || prt.massa }}</span>
+                      </li>
+                    </ul>
+                    <svg class="caret" viewBox="0 0 129 129" enable-background="new 0 0 15 15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"><g><path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path></g></svg>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="mn_i_of_i1" [class.new]="false">
+                <!--<span class="c_t14">55грн.</span>-->
+                <span class="c_t14">55грн.</span>
+              </div>
+            </div>
+
           </div>
 
           <div class="mn_i_btn">

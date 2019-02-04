@@ -34,6 +34,7 @@ import { PreProductionComponent } from './pre-production/pre-production.componen
 import { BarMenuComponent } from './bar-menu/bar-menu.component';
 import {ScrollToDirective} from "../scroll-to.directive";
 import {MobileMenuDirective} from "./header/mobile-menu.directive";
+import { CreateEstablishmentComponent } from './create-establishment/create-establishment.component';
 
 @NgModule({
   imports: [
@@ -92,7 +93,8 @@ import {MobileMenuDirective} from "./header/mobile-menu.directive";
     PreProductionComponent,
     BarMenuComponent,
     ScrollToDirective,
-    MobileMenuDirective
+    MobileMenuDirective,
+    CreateEstablishmentComponent
   ]
 })
 export class CommponentsModule { }
