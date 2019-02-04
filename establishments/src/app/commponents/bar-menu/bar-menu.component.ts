@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-bar-menu',
@@ -37,6 +38,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
 })
 export class BarMenuComponent implements OnInit {
   public popPreProd: boolean = false;
+  public host: string = environment.apiDomain;
 
   constructor() { }
 
