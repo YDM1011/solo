@@ -11,3 +11,6 @@
 .mob-nav ul{
   list-style-type: none;
 }
+.mob-nav.active{
+  right: 0;
+}

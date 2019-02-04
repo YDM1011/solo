@@ -130,6 +130,7 @@ img{
     position: fixed;
     top: 91px;
     margin-top: 5px;
+    z-index: 10;
   }
 }
 @media (min-width: 992px) and (min-height: 500px) {
@@ -184,24 +185,27 @@ img{
   align-items: center;
   padding: 0 13px 0;
   height: 40px;
+  color: #000000;
+  transition: color .25s ease-in-out;
+}
+.el_h:not(.notLink){
   cursor: pointer;
   transition: .25s ease-in-out;
-  color: #000000;
 }
-.el_h:hover .el_h_tt {
+.el_h:not(.notLink):hover .el_h_tt {
   color: #00a3ff;
 }
-.el_h:hover .el_h_vl {
+.el_h:not(.notLink):hover .el_h_vl {
   color: #1e1e1e;
 }
 .el_h_tt {
   text-transform: capitalize;
   padding: 0 10px;
-  transition: color.25s ease-in-out;
+  transition: color .25s ease-in-out;
 }
 .el_h_vl {
   color: #a3a3a3;
-  transition: color.25s ease-in-out;
+  transition: color .25s ease-in-out;
 }
 .el_h_btn {
   display: block;
@@ -226,6 +230,10 @@ img{
 .el_us{
   padding: 0 6px 5px 28px;
 }
+.el_us_info{
+  margin: 0 0 10px;
+  line-height: 14px;
+}
 .el_us_svg{
   display: inline-block;
   width: 10px;
@@ -234,10 +242,23 @@ img{
   fill: #7f7f7f;
 }
 
+.el_us_info_title{
+  color: rgba(0, 0, 0, 0.7);
+}
+.el_us_info_link{
+  color: rgba(0, 0, 0, 0.7);
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+  transition: .25s color;}
+.el_us_info_link:hover{
+  color: #000;
+}
+
 .el_i {
   display: block;
-  width: calc((100% / 3) - 5px);
-  height: 90px;
+  width: calc((100vw / 3) - 17px);
+  height: calc((100vw / 3) - 17px);
   margin: 2.5px;
   cursor: pointer;
   transition: opacity .25s ease-in-out;
@@ -255,7 +276,8 @@ img{
     display: none;
   }
   .el_i {
-    width: calc((100% / 4) - 5px);
+    width: calc((100vw / 4) - 14px);
+    height: calc((100vw / 4) - 14px);
   }
 }
 @media (min-width: 500px){
@@ -263,10 +285,8 @@ img{
     display: none;
   }
   .el_i {
-    width: calc((100% / 6) - 6px);
-    min-height: 71px;
-    height: 14vw;
-    max-height: 105px;
+    width: calc((100vw / 6) - 11px);
+    height: calc((100vw / 6) - 11px);
   }
 }
 @media (min-width: 768px) and (min-height: 500px){
@@ -277,20 +297,16 @@ img{
   .el_i {
     margin: 3px;
     width: calc((100% / 6) - 6px);
-    height: 10.6vw;
+    height: calc((100vw / 6) - 46.16px);
   }
 }
 @media (min-width: 992px) and (min-height: 500px){
   .el_h{
     padding: 0 11px 0;
   }
-  .cont_right-bar .el_cntt-big .el_i:nth-child(n) {
-    display: block;
-  }
   .el_i {
-    min-height: auto;
-    width: calc((100% / 3) - 6px);
-    height: 60px;
+    width: 60.33px;
+    height: 60.33px;
   }
 }
 
@@ -771,7 +787,7 @@ textarea:focus{
   justify-content: center;
   height: 100%;
   position: relative;
-  padding: 5px;
+  padding: 5px 6px;
   cursor: pointer;
 }
 .user:hover,
@@ -2552,8 +2568,11 @@ ol li p {
 /*end static pop-up*/
 
 /*bul*/
-.btnActive.active svg *{
+.btnActive.active:not(.like) svg *{
   fill: #00a3ff!important;
+}
+.btnActive.active.like svg *{
+  fill: #D75A4A!important;
 }
 .btn_svg {
   display: block;
