@@ -48,3 +48,15 @@
   </div>
   <div class="md-fixed active" @inOpacity (click)="clear()"></div>
 </ng-container>
+
+<ng-container *ngIf="isShow">
+  <div class="cont md p-cont p-с active" @inPop>
+    <p class="p-с_t clr">Даний формат файлу не підтримується</p>
+    <div class="p-с_btn">
+      <button class="btn-green btn-p" (click)="hidden()">Повернутися</button>
+    </div>
+  </div>
+  <div class="md-fixed active" (click)="hidden()" @inOpacity></div>
+</ng-container>
+
+

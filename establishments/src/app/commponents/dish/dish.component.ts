@@ -45,10 +45,14 @@ export class DishComponent implements OnInit {
       s.onNull.next(s.categoryId);
     }
     s.setPortion(obj);
+    console.log('dishes', this.dishes)
+
   }
   select(obj, dish) {
     const s = this;
     dish.prt = obj;
+    console.log('dishes', this.dishes)
+
   }
   liked(dish) {
     const s = this;
@@ -57,6 +61,8 @@ export class DishComponent implements OnInit {
         dish.dishlike = res;
       }
     });
+    console.log('dishes', this.dishes)
+
   }
   preToBasket(d){
     let s = this;

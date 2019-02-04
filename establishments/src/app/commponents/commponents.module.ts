@@ -33,6 +33,7 @@ import { NumberPhonePipe } from './number-phone.pipe';
 import { PreProductionComponent } from './pre-production/pre-production.component';
 import { BarMenuComponent } from './bar-menu/bar-menu.component';
 import {ScrollToDirective} from "../scroll-to.directive";
+import {MobileMenuDirective} from "./header/mobile-menu.directive";
 
 @NgModule({
   imports: [
@@ -90,7 +91,8 @@ import {ScrollToDirective} from "../scroll-to.directive";
     NumberPhonePipe,
     PreProductionComponent,
     BarMenuComponent,
-    ScrollToDirective
+    ScrollToDirective,
+    MobileMenuDirective
   ]
 })
 export class CommponentsModule { }

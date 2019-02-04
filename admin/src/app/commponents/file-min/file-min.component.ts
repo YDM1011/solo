@@ -72,13 +72,15 @@ export class FileMinComponent implements OnInit {
     if (this.multiple) {
       for (let i = 0; i < event.target.files.length; i++) {
         if (/image[/]/i.test(event.target.files[i].type)) {
-          const format = (/image[/]png/i.test(event.target.files[i].type)) ? 'png' : 'jpeg';
+          const format = (/image[/]png/i.test(event.target.files[i].type)) ? 'png' :
+            (/image[/]svg[+]xml/i.test(event.target.files[i].type)) ? 'png' :'jpeg';
           this.loadReader(format, event.target.files[i]);
         } else console.log('Error type');
       }
     } else {
       if (/image[/]/i.test( event.target.files[0].type)) {
-        this.format = (/image[/]png/i.test( event.target.files[0].type)) ? 'png' : 'jpeg';
+        this.format =  (/image[/]png/i.test(event.target.files[0].type)) ? 'png' :
+          (/image[/]svg[+]xml/i.test(event.target.files[0].type)) ? 'png' :'jpeg';
         this.imageChangedEvent = event;
         this.loadReader(this.format, event.target.files[0]);
       } else console.log('Error type');
