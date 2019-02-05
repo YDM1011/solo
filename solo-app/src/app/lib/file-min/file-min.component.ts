@@ -45,6 +45,7 @@ export class FileMinComponent implements OnInit {
     this._imageCropper = value;
   }
   public file: any = null;
+  public isShow: boolean = false;
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  model: string;
@@ -96,7 +97,8 @@ export class FileMinComponent implements OnInit {
   public uploadImg(event: any) {
     if (/image[/]/i.test( event.target.files[0].type)) {
       this.file = event.target.files[0];
-      this.format = (/image[/]png/i.test( event.target.files[0].type)) ? 'png' : 'jpeg';
+      this.format =  (/image[/]png/i.test(this.file.type)) ? 'png' :
+        (/image[/]svg[+]xml/i.test(this.file.type)) ? 'png' :'jpeg';
       document.querySelector('body').style.overflow = 'hidden';
       // this.loadReader(this.format, event.target.files[0]);
       this.imageChangedEvent = event;
@@ -148,5 +150,9 @@ export class FileMinComponent implements OnInit {
     canvasImg.height = images.naturalHeight;
     this.cx.drawImage(images, 0, 0,  canvasImg.width ,  canvasImg.height);
     this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.8);
+  }
+  hidden() {
+    this.isShow = !this.isShow;
+    document.querySelector('body').style.overflow = (this.isShow) ? 'hidden' : '';
   }
 }

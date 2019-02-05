@@ -1,9 +1,39 @@
 import {Component, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-file-min-post',
   templateUrl: './file-min-post.component.html',
   styleUrls: ['./file-min-post.component.css'],
+  animations: [
+  trigger('inOpacity', [
+    transition(':enter', [
+      style({ opacity: 0 }),
+      animate('140ms', style({ opacity: 1 }))
+    ]),
+    transition(':leave', [
+      animate('120ms', style({ opacity: 0 }))
+    ])
+  ]),
+  trigger('inPop', [
+    transition(':enter', [
+      style({
+        transform: 'scaleX(0.8) scaleY(0.8)',
+        opacity: 0
+      }),
+      animate('220ms', style({
+        transform: 'scaleX(1) scaleY(1)',
+        opacity: 1
+      }))
+    ]),
+    transition(':leave', [
+      animate('120ms', style({
+        transform: 'scaleX(0.8) scaleY(0.8)',
+        opacity: 0
+      }))
+    ])
+  ])
+]
 })
 export class FileMinPostComponent implements OnInit {
 
@@ -23,6 +53,8 @@ export class FileMinPostComponent implements OnInit {
     name: '',
     index: ''
   };
+  public isShow: boolean = false;
+
   ngOnInit() {
   }
 
@@ -35,9 +67,10 @@ export class FileMinPostComponent implements OnInit {
   public uploadImg(event: any) {
     for (let i = 0; i < event.target.files.length; i++) {
       if (/image[/]/i.test(event.target.files[i].type)) {
-        const format = (/image[/]png/i.test(event.target.files[i].type)) ? 'png' : 'jpeg';
+        const format = (/image[/]png/i.test(event.target.files[i].type)) ? 'png' :
+          (/image[/]svg[+]xml/i.test(event.target.files[i].type)) ? 'png' :'jpeg';
         this.loadReader(format, event.target.files[i]);
-      } else console.log('Error type');
+      } else  this.hidden();
     }
   }
 
@@ -101,5 +134,9 @@ export class FileMinPostComponent implements OnInit {
       this.editFileResult.emit(this.editPics);
       this.imageObj = '';
     }
+  }
+  hidden() {
+    this.isShow = !this.isShow;
+    document.querySelector('body').style.overflow = (this.isShow) ? 'hidden' : '';
   }
 }

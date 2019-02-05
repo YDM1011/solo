@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
-import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-bar-menu',
-  templateUrl: './bar-menu.component.html',
-  styleUrls: ['./bar-menu.component.css'],
+  selector: 'app-create-establishment',
+  templateUrl: './create-establishment.component.html',
+  styleUrls: ['./create-establishment.component.css'],
   animations: [
     trigger('inOpacity', [
       transition(':enter', [
@@ -36,19 +35,18 @@ import {environment} from "../../../environments/environment";
     ])
   ]
 })
-export class BarMenuComponent implements OnInit {
-  public popPreProd: boolean = false;
-  public host: string = environment.apiDomain;
+export class CreateEstablishmentComponent implements OnInit {
+  public showPop:boolean = false;
 
   constructor() { }
 
   ngOnInit() {
   }
-  popTerms: boolean = false;
-  popConfid: boolean = false;
-  hidden(status) {
+
+  hidden(){
     window.scroll(0, 0);
-    document.querySelector('body').style.overflow = (status) ? 'hidden' : '';
-    document.querySelector('nav').style.zIndex = (status) ? '1' : '10';
+    this.showPop = !this.showPop;
+    document.querySelector('body').style.overflow = this.showPop ? 'hidden' : '';
+    document.querySelector('nav').style.zIndex = this.showPop ? '1' : '10';
   }
 }

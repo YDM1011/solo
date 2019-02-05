@@ -4,3 +4,37 @@ select{
 app-pop-prod-add{
   width: 100%;
 }
+ul.active {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  display: block;
+  opacity: 1;
+}
+.btn-border{
+  width: 95px;
+  height: 26px;
+  font-size: 12px;
+  color: #000000;
+  padding: 0 8px;
+  border: none;
+  margin: 0;
+  position: relative;
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  line-height: 26px;
+  display: block;
+  user-select: none;
+  z-index: 1;
+  text-align: left;
+}
+.select-wrapper .caret {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  z-index: 0;
+  fill: rgba(0, 0, 0, 0.87);
+}

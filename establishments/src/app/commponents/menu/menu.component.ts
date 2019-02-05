@@ -25,4 +25,8 @@ export class MenuComponent implements OnInit {
       console.log(val)
     })
   }
+  hidden() {
+    this.isShow = !this.isShow;
+    document.querySelector('body').style.overflow = (this.isShow) ?  'hidden' : '';
+  }
 }

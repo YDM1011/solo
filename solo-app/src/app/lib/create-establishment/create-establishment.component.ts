@@ -86,6 +86,7 @@ export class CreateEstablishmentComponent implements OnInit {
   }
   hidden(){
     window.scroll(0, 0);
+    this.showPop = !this.showPop;
     document.querySelector('body').style.overflow = this.showPop ? 'hidden' : '';
     document.querySelector('nav').style.zIndex = this.showPop ? '1' : '10';
   }

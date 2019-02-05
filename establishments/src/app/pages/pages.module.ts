@@ -5,11 +5,14 @@ import { MenuContentComponent } from './menu-content/menu-content.component';
 import {CommponentsModule} from "../commponents/commponents.module";
 import { InfoContentComponent } from './info-content/info-content.component';
 import { ActionPageComponent } from './action-page/action-page.component';
+import {MzCollapsibleModule} from "ngx-materialize";
 
 @NgModule({
   imports: [
     CommonModule,
-    CommponentsModule
+    CommponentsModule,
+    MzCollapsibleModule,
+
   ],
   exports: [MenuContentComponent],
   declarations: [NotFoundComponent, MenuContentComponent, InfoContentComponent, ActionPageComponent]

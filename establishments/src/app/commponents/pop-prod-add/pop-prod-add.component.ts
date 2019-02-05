@@ -1,10 +1,40 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {ApiService} from "../../service/api.service";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-pop-prod-add',
   templateUrl: './pop-prod-add.component.html',
-  styleUrls: ['./pop-prod-add.component.css']
+  styleUrls: ['./pop-prod-add.component.css'],
+  animations: [
+    trigger('inOpacity', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('140ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({ opacity: 0 }))
+      ])
+    ]),
+    trigger('inPop', [
+      transition(':enter', [
+        style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }),
+        animate('220ms', style({
+          transform: 'scaleX(1) scaleY(1)',
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
 export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
@@ -152,7 +182,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
   cancel(){
     let s = this;
-    s.isShow = false;
+    s.hidden();
     s.isShowChange.emit(false);
   }
 
@@ -176,5 +206,9 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     s.api.post('add_product', obj).then((res: any) => {
       console.log(res);
     });
+  }
+  hidden() {
+    this.isShow = !this.isShow;
+    document.querySelector('body').style.overflow = (this.isShow) ? 'hidden' : '';
   }
 }
