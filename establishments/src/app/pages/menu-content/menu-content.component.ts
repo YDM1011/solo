@@ -1,18 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
+import {NgForm} from "@angular/forms";
+import {ApiService} from "../../service/api.service";
 
 @Component({
   selector: 'app-menu-content',
   templateUrl: './menu-content.component.html',
   styleUrls: ['./menu-content.component.css']
 })
-export class MenuContentComponent implements OnInit {
+export class MenuContentComponent implements OnInit, OnChanges {
 
   public id: any;
   public menu: any;
 
   constructor(
     private route: ActivatedRoute,
+    private api: ApiService,
   ) { }
 
   ngOnInit() {
@@ -25,7 +28,20 @@ export class MenuContentComponent implements OnInit {
     });
   }
 
-  initApi(id) {}
+  ngOnChanges(){
+
+  }
+
+  initApi(id) {
+    let s = this;
+    console.log(id);
+    let query = '?populate='+JSON.stringify({path:'categories'});
+    s.api.get('menu', id, query, query).then((val:any)=>{
+      if(val){
+        s.getMenu(val)
+      }
+    })
+  }
 
   getMenu(elem) {
     const s = this;

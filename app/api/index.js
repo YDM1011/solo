@@ -34,7 +34,7 @@ router.get('/api/facebook/return',
 router.post('/api/signin', [orign, verification], login);
 router.post('/api/signup', [orign, verification], signup.create);
 router.post('/api/confirm', [orign, verification], signup.confirm);
-router.post('/api/uploadImage', [orign, glob.getId], uploadFile);
+router.post('/api/uploadImage', [orign, glob.getId], uploadFile.upload);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
 router.get('/api/me', [orign, glob.cookieParser, glob.getId], me.myProfile);
@@ -54,9 +54,11 @@ router.get('/api/getFriendsInvite', [orign, glob.getId], friend.getFriendsInvite
 router.post('/api/addFriend', [orign, glob.getId], friend.invite);
 router.post('/api/isInvite', [orign, glob.getId], friend.isInvite);
 router.post('/api/delFriend', [orign, glob.getId], friend.delFriend);
+router.post('/api/delOffer', [orign, glob.getId], friend.delOffer);
 router.post('/api/meetFriend', [orign, glob.getId], friend.meetFriend);
 router.post('/api/delMeetFriend', [orign, glob.getId], friend.delMeetFriend);
 router.post('/api/offerFriend', [orign, glob.getId], friend.offerFriend);
+router.get('/api/getPotentialFriend', [orign, glob.getId], friend.getPotentialFriend);
 
 router.post('/api/create_establishment', [orign, glob.getId, verify], establishment.create);
 router.get('/api/get_est', [orign, glob.getId], establishment.getMy);

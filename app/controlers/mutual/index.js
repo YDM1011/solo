@@ -89,38 +89,3 @@ module.exports.getMutualFriends = (req, res, next) => {
             }
         });
 };
-// module.exports.getMutualFriends = (req, res, next) => {
-//     // populate:{path:"photo bg", select:"preload _id"}
-//     let myId = myid || req.userId;
-//     let usId = usid || req.body.userId;
-//     if (myId==usId){
-//         return res.ok([]);
-//     }
-//     User
-//         .findOne({_id: myId})
-//         .select("myFriends")
-//         .exec((err, content) =>{
-//             if(err) {
-//                 return res.badRequest(err);
-//             }
-//             if(!content){
-//                 return res.badRequest()
-//             }
-//             if(content){
-//                 User
-//                     .findOne({_id: usId})
-//                     .select("myFriends")
-//                     .exec((err, content) =>{
-//                         if(err) {
-//                             return res.badRequest(err);
-//                         }
-//                         if(!content){
-//                             return res.badRequest()
-//                         }
-//                         if(content){
-//                             return res.ok(content)
-//                         }
-//                     });
-//             }
-//         });
-// };

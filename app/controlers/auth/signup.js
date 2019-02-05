@@ -16,8 +16,6 @@ const generatePassword = () => {
 module.exports.create = (req, res, next) => {
     collectRequestData(req,"signup",(elem)=> {
         req.body = JSON.parse(elem);
-        console.log(req.body);
-
         User
             .findOne({login: req.body.login})
             .exec((err, info) => {
@@ -48,7 +46,6 @@ module.exports.create = (req, res, next) => {
 module.exports.confirm = (req, res, next) => {
     collectRequestData(req,'confirm',(elem)=> {
         req.body = JSON.parse(elem);
-        console.log(req.body);
         User
             .findOne({login: req.body.login})
             .exec((err, info) => {

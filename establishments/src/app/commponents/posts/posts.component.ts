@@ -12,7 +12,7 @@ export class PostsComponent implements OnInit {
   public posts: any;
   public estAvatar: any;
   public estMyAvatar: any;
-  public host: string = environment.apiDomain.split('//')[1];
+  public host: string = environment.apiDomain;
   constructor(
     private api: ApiService
   ) { }

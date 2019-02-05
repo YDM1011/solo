@@ -29,4 +29,10 @@ export class OfferFriendComponent implements OnInit {
       self.friends.checkInvite(this.userId)
     })
   }
+  delOffer(){
+    let self = this;
+    this.friends.delOffer(this.userId).then(res=>{
+      self.friends.checkInvite(this.userId)
+    })
+  }
 }

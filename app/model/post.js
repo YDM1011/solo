@@ -48,7 +48,7 @@ const pages = new Schema({
     }],
     img: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: "avatar"
+        ref: "galery"
     }],
     data: {type: Date, default: new Date()},
     withFriend: [friend],
@@ -225,6 +225,7 @@ const preDelete = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
+    let fileManeger = require("../controlers/uploadFile");
     mongoose.model('post')
         .findOne({_id:req.params.id})
         .exec((err,info)=>{
@@ -234,10 +235,23 @@ const preDelete = (req,res,next)=>{
                 let id = mongoose.Types.ObjectId(info.userId).toString();
                 let idS = mongoose.Types.ObjectId(info.share.userIdShare).toString();
                 console.log(req.userId, id, idS);
-                if(req.userId == id || req.userId == idS){ next() } else { res.badRequest(info) }
+                if(req.userId == id || req.userId == idS){
+                    asyncForEach(info.img, async (img) => {
+                        await new Promise((resolve,reject)=> {
+                            fileManeger.delFileById(img, res, ()=>{resolve()})
+                        });
+                        next()
+                    });
+                } else { res.badRequest(info) }
             }
         })
 };
+
+async function asyncForEach(array, callback) {
+    for (let index = 0; index < array.length; index++) {
+        await callback(array[index], index, array);
+    }
+}
 
 glob.restify.serve(
     glob.route,

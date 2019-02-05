@@ -1,8 +1,8 @@
 <div class="cont frn">
   <div class="frn_h" >
-    <span class="frn_name" (click)="checkTab(1)"> Вас запрошують </span>
-    <span class="frn_name st" (click)="checkTab(2)"> Мої запрошення </span>
-    <span class="frn_name st" (click)="checkTab(3)"> Мої запрошення </span>
+    <span class="frn_name" [class.active]="meOffer" (click)="checkTab(1)"> Запит на дружбу </span>
+    <span class="frn_name st" [class.active]="myOffer" (click)="checkTab(2)"> Надіслані запити </span>
+    <span class="frn_name st" [class.active]="isAll" (click)="checkTab(3)"> Ви їх можете знати </span>
   </div>
 
   <ng-container *ngIf="meOffer">
@@ -86,7 +86,7 @@
       [text]="'More'"
       [class]="'btn waves-effect waves-light'"
       [method]="'get'"
-      [url]="'/api/user?populate='+populate"
+      [url]="'/api/getPotentialFriend'"
       (onRes)="more($event)"
       [click]="true"
     ></app-form>

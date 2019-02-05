@@ -102,4 +102,17 @@ export class FriendsService {
         });
     })
   }
+  delOffer(userId){
+    let self = this;
+    //noinspection TypeScriptUnresolvedFunction
+    return new Promise((resolve, reject) => {
+      self.http.post(`${this.domain}/api/delOffer`, {userId: userId}, self.api.getHeaders())
+        .subscribe((res: any) => {
+          if (res) {
+            resolve(res.isInvite);
+          }
+        }, err => {
+        });
+    })
+  }
 }

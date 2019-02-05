@@ -1,7 +1,83 @@
-<!doctype html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
+<head>
+    <meta charset="UTF-8">
+</head>
 <body>
-<h1 style="color: #9706ff" align="center"><%= message %></h1>
-<a href="<%= link %>">agry</a>
+<table border="0" cellpadding="0" cellspacing="0"
+       style="margin:0;padding:0;border-spacing:0;vertical-align:top;text-align:left;width:100%;background:linear-gradient(165deg,#ffffff,#76d1f7);">
+    <tr>
+        <td style="padding:5px;">
+            <table style="border-spacing:0;border-collapse:collapse;padding:0;vertical-align:top;text-align:left;max-width:700px;width:100%;margin:0 auto">
+                <tr>
+                    <td style="text-align:center;vertical-align:middle;padding-top:30px;padding-bottom:25px">
+                        <a href="https://tasteol.com/" target="_blank">
+                            <img src="https://picua.org/images/2019/01/02/2fe1758a9dc45a11d14c907453d1097a.png" alt="taste of life" style="max-width:100%;width:180px;height:52px;">
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0">
+                        <div style="height:12px;border-radius:15px 15px 0 0;background-color:#fff"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-family:Roboto,Arial,Helvetica,sans-serif;font-size:16px;padding:0">
+                        <table style="background:#ffffff;border-spacing:0;border-collapse:collapse;padding:0;vertical-align:top;text-align:left;width:100%">
+                            <tr>
+                                <td>
+                                    <div style="width:50px;max-width:4vw"></div>
+                                </td>
+                                <td>
+                                    <div style="height:38px"></div>
+                                </td>
+                                <td>
+                                    <div style="width:50px;max-width:4vw"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td style="line-height:24px">
+                                    <p style="margin-bottom:5px;margin-top:0">Вітаємо Вас!</p>
+                                    <p style="margin-bottom:30px;margin-top:0"><span style="display:inline-block;padding-right:4px">Ви зареєструвались у системі</span><span style="display:inline-block;"><b>Taste of Life!</b></span></p>
+
+                                    <p style="margin-bottom:10px;margin-top:0">Ваш логін: <a href="mailto:<%= message.mail %>" target="_blank" style="color:#009de1;text-underline-position:under"><%= message.mail %></a></p>
+                                    <p style="margin-bottom:0;margin-top:0">Ваш пароль: <b><%= message.hash %></b></p>
+                                    <p style="margin-top:0;margin-bottom:0;font-style:italic;color:#7f7f7f;">Використовуйте його для входу в систему</p>
+
+                                    <hr style="margin-top:30px;margin-bottom:30px;border-collapse:collapse;height:1px;border:0;background-color:#d8d8d8;color:#d8d8d8">
+
+                                    <p style="margin-top:45px;margin-bottom:10px">Дякуємо, що приєдналися!</p>
+                                    <p style="font-style:italic;color:#7f7f7f;margin-top:0;margin-bottom:10px">Лист містить дані для доступу в особистий кабінет, не передавайте його третім особам.</p>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <div style="height:38px"></div>
+                                </td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:16px 0 14px 0;background-color:#f2f2f2;border-top:1px solid #d7d7d7;font-family:Roboto,Arial,Helvetica,sans-serif">
+                        <div style="padding:0 20px;text-align:center;margin-top:0;margin-bottom:5px"><span style="display:inline-block;font-size:14px;color:#333;padding-right:4px">З найкращими побажаннями,</span><span style="display:inline-block;font-size:14px;color:#333;">команда Taste of Life!</span></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding:0">
+                        <div style="height:12px;border-radius:0 0 15px 15px;background-color:#f2f2f2"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="height:100px"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
 </body>
 </html>

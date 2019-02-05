@@ -1,29 +1,29 @@
 const ejs = require('ejs');
 const fs = require('fs');
 const path = require('path');
+const data = require('../../config/config').data;
 const nodemailer = require('nodemailer');
 module.exports.sendMail = (obj) => {
 
     const transporter = nodemailer.createTransport(
         {
-            host: "smtp.mail.yahoo.com",
-            port: 465,
-            secure: true,
+            host: data.email.host,
+            port: data.email.port,
+            secure: data.email.secure,
             auth: {
-                user: "ydm101194@yahoo.com",
-                pass: "adn45hrf"
+                user: data.email.user,
+                pass: data.email.pass
             }
         });
 
-
     const contentMail ={
-        message: obj.hash,
+        message: obj,
         link: String("http://localhost:4200")
     };
     transporter.sendMail({
-        from: "ydm101194@yahoo.com",
+        from: data.email.user,
         to: obj.mail,
-        subject: "For Test",
+        subject: data.email.subject,
         html: ejs.render( fs.readFileSync(path.join(__dirname, '../../views/emailTemplate/confirm-signup.ejs'), 'utf-8') , contentMail)
     }, (err, info) => {
         if (err) {

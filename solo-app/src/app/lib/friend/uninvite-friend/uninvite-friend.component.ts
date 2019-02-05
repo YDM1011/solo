@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {FriendsService} from "../friends.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {FriendsService} from "../friends.service";
   templateUrl: './uninvite-friend.component.html',
   styleUrls: ['./uninvite-friend.component.css']
 })
-export class UninviteFriendComponent implements OnInit {
+export class UninviteFriendComponent implements OnInit, OnChanges {
 
   @Input() userId;
   public isInvite;
@@ -23,7 +23,11 @@ export class UninviteFriendComponent implements OnInit {
         }
     })
   }
-
+  ngOnChanges(){
+    let self = this;
+    if(this.userId)
+      self.friends.checkInvite(this.userId)
+  }
   addFriend(){
     let self = this;
     this.friends.addFriend(this.userId).then(res=>{

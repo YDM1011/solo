@@ -73,6 +73,30 @@ module.exports.delFriend = (req, res, next) => {
             }
         });
 };
+module.exports.delOffer = (req, res, next) => {
+    User
+        .findOneAndUpdate({_id: req.userId},
+            {$pull:{offer:req.body.userId}},
+            {new: true})
+        .exec((err, content) =>{
+            if(err) {
+                res.send(err)
+            } else {
+                User
+                    .findOneAndUpdate({_id: req.body.userId},
+                        {$pull:{invite:req.userId}},
+                        {new: true})
+                    .select('_id firstName lastName photo')
+                    .exec((err, content) =>{
+                        if(err) {
+                            res.send(err)
+                        } else {
+                            res.send({isInvite: false})
+                        }
+                    });
+            }
+        });
+};
 module.exports.offerFriend = (req, res, next) => {
     User
         .findOneAndUpdate({_id: req.userId},
@@ -172,6 +196,25 @@ module.exports.getFriendsInvite = (req, res, next) => {
         .populate({path:'invite', select:"firstName lastName photo bg _id",
             populate:{path:"photo bg"}})
         .select("invite")
+        .exec((err, content) =>{
+            if(err) {
+                res.send(err)
+            } else {
+                return res.ok(content)
+            }
+        });
+};
+module.exports.getPotentialFriend = (req, res, next) => {
+    // populate:{path:"photo bg", select:"preload _id"}
+    User
+        .find({$and:[
+                {myFriends:{$ne:req.userId}},
+                {invite:{$ne:req.userId}},
+                {offer:{$ne:req.userId}},
+                {login:{$ne:"admin"}},
+                {_id:{$ne:req.userId}},
+            ]})
+        .populate({path:"photo bg"})
         .exec((err, content) =>{
             if(err) {
                 res.send(err)

@@ -31,13 +31,23 @@ const getPic = (idPic, res) => {
             .findOne({_id: idPic})
             .exec((err, result) =>{
                 if (err) return res.badRequest(err);
-                if (!result) return res.notFound();
+                if (!result) resolve();
                 if (result) {
                     resolve(result);
                 }
             })
     })
 };
+const delPic = (idPic, res) => {
+    return new Promise((resolve, reject)=>{
+        mongoose.model('galery')
+            .findOneAndRemove({_id: idPic}, (err, result) =>{
+                if (err) return res.badRequest(err);
+                resolve()
+            })
+    })
+};
+
 const checkPic = (reqBody, res) => {
     let obj = Object.assign({},reqBody);
     let noResObj = {};
@@ -174,24 +184,12 @@ const sendRes = async (req,res) => {
                 }
             }
         }
-       /* */
     }
-
-    /*if(id && model && field){
-        let checkPic = await checkPic(req,res);
-        if (checkPic){
-            let result = await updatePic(req,res);
-            if(result){
-                let url = {url: reqBody.picCrop};
-                return res.ok({url,result});
-            }
-        }
-    }*/
 
     return res.badRequest();
 };
 
-module.exports = (req,res,next)=>{
+module.exports.upload = (req,res,next)=>{
     console.log(req.body.fileName);
 
     let base64Data;
@@ -210,4 +208,15 @@ module.exports = (req,res,next)=>{
     });
 
 };
+const delFileById = async (picId,res,next)=>{
+    let picData = await getPic(picId, res);
+    await delPic(picId);
+    if (picData){
+        await delFile(picData);
+        next()
+    }else{
+        next()
+    }
+};
 
+module.exports.delFileById = delFileById;

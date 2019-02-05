@@ -100,6 +100,12 @@
               <button #goFr2 class="btn-green req" isMyProfile (click)="goFr2.val=true">Зустрітись з друзями</button>
               <app-pre-production [status]="goFr2.val" (statusResult)="goFr2.val=$event"></app-pre-production>
             </div>
+            <div class="1f-br_btn">
+              <div class="wrap-friends-btn">
+                <app-invite-friend [userId]="id"></app-invite-friend>
+                <app-uninvite-friend [userId]="id"></app-uninvite-friend>
+              </div>
+            </div>
 
         </div>
       </div>

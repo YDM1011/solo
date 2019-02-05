@@ -305,3 +305,12 @@
 }
 /*end gallery*/
 
+.wrap-friends-btn > *{
+  width: 100%;
+  position: absolute;
+}
+.wrap-friends-btn{
+  display: flex;
+  width: 100%;
+  position: relative;
+}
