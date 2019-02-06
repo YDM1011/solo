@@ -99,7 +99,7 @@ module.exports.estPost = (req, res, next) => {
             .populate({path:'inPlace.id', select:'av name'})
             .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
             .limit(4)
-            .skip(parseInt(req.query.skip)*4)
+            .skip(parseInt(req.query.skip))
             .sort({data: -1})
             .exec((err, doc)=>{
                 if (err) return res.badRequest(err);
@@ -108,7 +108,7 @@ module.exports.estPost = (req, res, next) => {
             })
     }else{
         mongoose.model('post')
-            .find({"inPlace.place": est})
+            .find({"inPlace.place": est, "share.userIdShare":null})
             .populate({path:'userId'})
             .populate({path:'inPlace.id', select:'av name'})
             .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})

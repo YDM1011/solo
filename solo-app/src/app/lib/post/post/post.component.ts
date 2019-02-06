@@ -59,7 +59,7 @@ export class PostComponent implements OnInit {
       .subscribe((val:any)=>{
         console.log(val);
         let index = this.posts.indexOf(post);
-        this.posts = this.posts.slice(index,1);
+        this.posts.splice(index,1);
       });
   }
 }

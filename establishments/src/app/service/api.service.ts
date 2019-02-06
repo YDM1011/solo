@@ -63,6 +63,18 @@ export class ApiService {
         );
     });
   }
+  justDel(api, id= null) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.http.delete(`${self.domain}/api/${api}${id ? '/' + id : ''}`)
+        .subscribe(
+          (res: any) => {
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
+  }
   gImg(apiImg, idImg, api, id= null, select= null) {
     const self = this;
     const model = `?select=larg,preload`;

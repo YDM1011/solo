@@ -38,6 +38,7 @@
 
 <ng-container *ngIf="posts">
   <ng-container *ngFor="let post of posts">
+    <ng-container *ngIf="!post.share.userIdShare">
     <article class="cont pst">
       <div class="pst_in">
 
@@ -65,15 +66,17 @@
           <time>{{post.data | date:"dd.MM.yyy HH:mm"}}</time>
         </p>
 
-        <div class="in_us-drop">
+        <div class="in_us-drop" *ngIf="post.id == cookie.get('userid')">
           <span class="in_us_btn-ul" (click)="inSelect.classList.toggle('active')">
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" x="0px" y="0px" viewBox="0 0 490 490"><g><g><path d="M304.5,245c0-32.8-26.7-59.5-59.5-59.5s-59.5,26.7-59.5,59.5s26.7,59.5,59.5,59.5S304.5,277.8,304.5,245z M245,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S264.3,280,245,280z"/><path d="M59.5,185.5C26.7,185.5,0,212.2,0,245s26.7,59.5,59.5,59.5S119,277.8,119,245S92.3,185.5,59.5,185.5z M59.5,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S78.8,280,59.5,280z"/><path d="M430.5,185.5c-32.8,0-59.5,26.7-59.5,59.5s26.7,59.5,59.5,59.5S490,277.8,490,245S463.3,185.5,430.5,185.5z M430.5,280c-19.3,0-35-15.7-35-35s15.7-35,35-35s35,15.7,35,35S449.8,280,430.5,280z"/></g></g></svg>
           </span>
-          <ul #inSelect class="in_us_ul" tabindex="0" (click)="inSelect.classList.remove('active')">
-            <li class="in_us_l">
-              <span>Відкрити у новій вкладці</span>
-            </li>
-            <li class="in_us_l">
+          <ul #inSelect class="in_us_ul" tabindex="0"
+              (click)="inSelect.classList.remove('active')">
+            <!--<li class="in_us_l">-->
+              <!--<span>Відкрити у новій вкладці</span>-->
+            <!--</li>-->
+            <li class="in_us_l" *ngIf="post.id == cookie.get('userid')"
+                (click)="deletePost(post)">
               <span>Видалити</span>
             </li>
           </ul>
@@ -107,10 +110,11 @@
         </div>
 
         <div class="cmp-btn">
-          <button class="button btnActive" [class.active]="true">
+          <button class="button btnActive" [class.active]="true"
+                  (click)="popSpread.val=true">
             <svg class="act" xmlns="http://www.w3.org/2000/svg" width="16" height="16" x="0px" y="0px" viewBox="0 0 487.958 487.958"><g><path d="M483.058,215.613l-215.5-177.6c-4-3.3-9.6-4-14.3-1.8c-4.7,2.2-7.7,7-7.7,12.2v93.6c-104.6,3.8-176.5,40.7-213.9,109.8c-32.2,59.6-31.9,130.2-31.6,176.9c0,3.8,0,7.4,0,10.8c0,6.1,4.1,11.5,10.1,13.1c1.1,0.3,2.3,0.4,3.4,0.4c4.8,0,9.3-2.5,11.7-6.8c73-128.7,133.1-134.9,220.2-135.2v93.3c0,5.2,3,10,7.8,12.2s10.3,1.5,14.4-1.8l215.4-178.2c3.1-2.6,4.9-6.4,4.9-10.4S486.158,218.213,483.058,215.613z M272.558,375.613v-78.1c0-3.6-1.4-7-4-9.5c-2.5-2.5-6-4-9.5-4c-54.4,0-96.1,1.5-136.6,20.4c-35,16.3-65.3,44-95.2,87.5c1.2-39.7,6.4-87.1,28.1-127.2c34.4-63.6,101-95.1,203.7-96c7.4-0.1,13.4-6.1,13.4-13.5v-78.2l180.7,149.1L272.558,375.613z"/></g></svg>
             <span class="btn-tt">Пoширити</span>
-            <span class="btn-vl">0</span>
+            <span class="btn-vl" *ngIf="post.shareCount">{{post.shareCount.length}}</span>
           </button>
         </div>
       </div>
@@ -160,9 +164,26 @@
         </div>
       </div>
     </article>
+    <div #popSpread class="cont md p-cont p-с pst-poh" [class.active]="popSpread.val">
+      <button type="button" class="btn-trans btn-close o5" (click)="popSpread.val=!popSpread.val">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 47.971 47.971" width="20" height="20"><g><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/></g></svg>
+      </button>
+      <div class="pst-poh_cm">
+        <textarea #psPoh name="" class="ord_cm_t pst-poh_cm_t" [style.height.px]="psPohF.clientHeight" placeholder="Коментар до посту..."></textarea>
+        <div #psPohF class="ord_cm_t-f pst-poh_cm_t-f">{{psPoh.value}}</div>
+      </div>
+      <div class="p-с_btn">
+        <button class="btn-green btn-p"
+                (click)="addShare({postId:post._id,des:psPoh.value});popSpread.val=!popSpread.val">
+          Поширити
+        </button>
+      </div>
+    </div>
+    </ng-container>
   </ng-container>
   <button class="btn more" (click)="getMore()" *ngIf="isMore">Показати ще</button>
 </ng-container>
+
 <app-custom-res style="display: none" [model]="{
   url:'me',
   security: true

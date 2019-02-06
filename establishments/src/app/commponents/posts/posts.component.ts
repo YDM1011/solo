@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
 import { ApiService } from '../../service/api.service';
-import {environment} from "../../../../../solo-app/src/environments/environment";
+import {CookieService} from "ngx-cookie-service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-posts',
@@ -16,7 +17,8 @@ export class PostsComponent implements OnInit, OnChanges {
   public estMyAvatar: any;
   public host: string = environment.apiDomain;
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
@@ -41,7 +43,7 @@ export class PostsComponent implements OnInit, OnChanges {
   }
   getMore(){
     let s = this;
-    s.api.get('est_post?skip='+s.posts.length/4).then((val: any) => {
+    s.api.get('est_post?skip='+s.posts.length).then((val: any) => {
       if (val) {
         s.posts = s.posts.concat(val);
         if(s.posts.length >= s.postsCount ){
@@ -85,5 +87,26 @@ export class PostsComponent implements OnInit, OnChanges {
     s.api.create('comment', {des: des, postId: post._id}).then(val => {
       post.commentId.push(val);
     });
+  }
+
+  addShare(obj) {
+    const s = this;
+    this.api.post('share', obj)
+      .then((post: any) => {
+        // if (post.userId._id == s.auth.getUserId()) {
+        //   console.log(post);
+        //   // post.share.userIdShare = self.auth.getUserData().avatar;
+        //   self.posts.unshift(post);
+        // }
+      });
+  }
+
+  deletePost(post){
+    this.api.justDel('post', post._id)
+      .then((val:any)=>{
+        console.log(val);
+        let index = this.posts.indexOf(post);
+        this.posts.splice(index,1);
+      });
   }
 }
