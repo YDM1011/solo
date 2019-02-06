@@ -84,17 +84,44 @@ module.exports.custom = (req, res, next) => {
 
 module.exports.estPost = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    if (req.query.type == "count"){
+        mongoose.model('post')
+            .count({"inPlace.place": est})
+            .exec((err,doc)=>{
+                if (err) return res.badRequest(err);
+                if (!doc) return res.serverError('Somesing broken');
+                if (doc) return res.ok({count:doc});
+            })
+    }else if (req.query.skip){
+        mongoose.model('post')
+            .find({"inPlace.place": est})
+            .populate({path:'userId'})
+            .populate({path:'inPlace.id', select:'av name'})
+            .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
+            .limit(4)
+            .skip(parseInt(req.query.skip)*4)
+            .sort({data: -1})
+            .exec((err, doc)=>{
+                if (err) return res.badRequest(err);
+                if (!doc) return res.serverError('Somesing broken');
+                if (doc) return res.ok(doc);
+            })
+    }else{
+        mongoose.model('post')
+            .find({"inPlace.place": est})
+            .populate({path:'userId'})
+            .populate({path:'inPlace.id', select:'av name'})
+            .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
+            .limit(4)
+            .skip(0)
+            .sort({data: -1})
+            .exec((err, doc)=>{
+                if (err) return res.badRequest(err);
+                if (!doc) return res.serverError('Somesing broken');
+                if (doc) return res.ok(doc);
+            })
+    }
 
-    mongoose.model('post')
-        .find({"inPlace.place": est})
-        .populate({path:'userId'})
-        .populate({path:'inPlace.id', select:'av name'})
-        .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
-        .exec((err, doc)=>{
-            if (err) return res.badRequest(err);
-            if (!doc) return res.serverError('Somesing broken');
-            if (doc) return res.ok(doc);
-        })
 };
 module.exports.estMenu = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';

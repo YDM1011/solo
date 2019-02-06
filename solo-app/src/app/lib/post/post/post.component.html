@@ -54,7 +54,7 @@
               {{item.userId.lastName || user.lastName}}</a>
 
             <span *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-            <span *ngIf="item.img[0] && !item.imression.name"> додав фото</span>
+            <span *ngIf="item.img[0] && !item.imression.name"> додав(ла) фото</span>
             <span *ngIf="false"> поширив страву</span>
             <span *ngIf="false"> поширив допис</span>
             <span *ngIf="item.withFriend.length > 0"> разом з
@@ -200,7 +200,7 @@
                   {{item.userId.firstName || user.firstName}}
                   {{item.userId.lastName || user.lastName}}</a>
                 <span *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
-                <span *ngIf="item.img[0] && !item.imression.name"> додав фото</span>
+                <span *ngIf="item.img[0] && !item.imression.name"> додав(ла) фото</span>
                 <span *ngIf="false"> поширив страву</span>
                 <span *ngIf="item.withFriend.length > 0">  разом з
                    <strong class="us_fr-name" *ngFor="let friend of item.withFriend">

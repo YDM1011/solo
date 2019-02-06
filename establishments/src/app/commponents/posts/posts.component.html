@@ -46,8 +46,8 @@
         </a>
         <span class="in_us">
           <a class="name"  href="{{host}}/user/{{post.userId._id}}">{{post.userId.firstName}} {{post.userId.lastName}}</a>
-          <span *ngIf="post.img.length > 0"> додав фото</span>
-          <span *ngIf="post.img.length == 0"> додав допис</span>
+          <span *ngIf="post.img.length > 0"> додав(ла) фото</span>
+          <span *ngIf="post.img.length == 0"> додав(ла) допис</span>
           <ng-container *ngIf="post.withFriend.length > 0"> разом з
             <a href="{{host}}/user/{{friend._id}}" class="us_fr-name" *ngFor="let friend of post.withFriend">
               {{friend.firstName}}
@@ -161,6 +161,7 @@
       </div>
     </article>
   </ng-container>
+  <button class="btn more" (click)="getMore()" *ngIf="isMore">Показати ще</button>
 </ng-container>
 <app-custom-res style="display: none" [model]="{
   url:'me',

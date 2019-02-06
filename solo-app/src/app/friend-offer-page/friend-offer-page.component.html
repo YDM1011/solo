@@ -97,7 +97,7 @@
             <a class="frn_img pre-bg" [routerLink]="'/user/'+mean._id">
               <!--<app-img *ngIf="mean.photo" [img]="{id:mean.photo}"></app-img>-->
               <ng-container *ngIf="mean.photo">
-                <app-img [img]="{id:mean.photo._id}"></app-img>
+                <img [src]="mean.photo.picCrop" alt="avatar">
               </ng-container>
             </a>
             <div class="frn_in">

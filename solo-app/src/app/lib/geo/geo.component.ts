@@ -43,13 +43,15 @@ export class GeoComponent implements OnInit {
   public distans = [];
   public onLoad=false;
   public isShow = false;
+  public isDefPos= false;
   public cordinates = [];
   public meXY = [];
 
   private id;
   private options = {
     enableHighAccuracy: true,
-    maximumAge: 0
+    maximumAge: 0,
+    timeout: 30000
   };
   private target = {
     latitude : 0,
@@ -69,7 +71,6 @@ export class GeoComponent implements OnInit {
     let s = this;
     s.isShow = true;
     if (navigator.geolocation) {
-      // navigator.geolocation.getCurrentPosition((position) => {
         s.id = navigator.geolocation.watchPosition((pos)=> {
           let crd = pos.coords;
           let x,y;
@@ -91,9 +92,11 @@ export class GeoComponent implements OnInit {
                     {lat: x, lng: y}
                   );
                   s.distans.push(item);
+
                 }
               }
             });
+            s.distans = s.sort(s.distans);
             s.onLoad = true;
             navigator.geolocation.clearWatch(s.id);
             console.log(s.distans);
@@ -103,7 +106,7 @@ export class GeoComponent implements OnInit {
             console.log('Congratulations, you reached the target');
             navigator.geolocation.clearWatch(s.id);
           }
-        }, s.error, s.options);
+        }, (err)=>{s.error(err,s)}, s.options);
       // });
     } else {
       alert("Geolocation is not supported by this browser.");
@@ -114,8 +117,50 @@ export class GeoComponent implements OnInit {
     this.hidden()
   }
 
-  error(err) {
+  error(err,s) {
+    s.alterGeo();
     console.warn('ERROR(' + err.code + '): ' + err.message);
+  }
+
+  sort(arr){
+    // i.distans
+    arr.sort(function (a, b) {
+      return a.distans - b.distans;
+    });
+    return arr;
+  }
+
+  alterGeo(){
+    let s =this;
+    let pos ={coords:{
+        latitude:50.747490,
+        longitude:25.326486,
+      }};
+    let x,y;
+    x = pos.coords.latitude;
+    y = pos.coords.longitude;
+    s.meXY.push(pos.coords.latitude);
+    s.meXY.push(pos.coords.longitude);
+    console.log(pos.coords);
+    s.api.doGet(`geo`).then((val:any)=>{
+      s.distans = [];
+      s.cordinates = [];
+      val.map(item=>{
+        if(item.coordinates && item.ownerEst){
+          if ( item.coordinates[0] && item.coordinates[1]){
+            let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+            s.cordinates.push({x:  item.coordinates[0],y: item.coordinates[1], av:av});
+            item['distans'] = s.geo.calc(
+              {lat: item.coordinates[0], lng: item.coordinates[1]},
+              {lat: x, lng: y}
+            );
+            s.distans.push(item);
+          }
+        }
+      });
+      s.onLoad = true;
+      s.isDefPos = true;
+    });
   }
 
   hidden() {

@@ -14,7 +14,7 @@
     <div class="cr-pst_us">
       <strong class="name">{{firstName}}</strong>
       <span *ngIf="active"> почувається {{active}}</span>
-      <span *ngIf="postObg.img.length > 0 && !active"> додав фото</span>
+      <span *ngIf="postObg.img.length > 0 && !active"> додав(ла) фото</span>
       <span *ngIf="postObg.withFriend[0]"> разом з
         <span *ngFor="let friend of postObg.withFriend; let i = index" class="us_chip" (click)="delet(i)">
           {{friend.firstName}}

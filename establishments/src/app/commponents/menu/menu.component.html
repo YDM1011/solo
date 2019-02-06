@@ -19,6 +19,7 @@
   <ng-container *ngIf="menus">
     <ng-container *ngIf="menus.length > 0">
       <ng-container *ngFor="let menu of menus">
+        <ng-container *ngIf="menu.forest.length > 0">
         <a [routerLink]="'/menu/'+menu._id" class="cont_c p-m_i" (click)="hidden()">
           <div class="p-m_h">
             <span class="p-m_svg">
@@ -30,6 +31,7 @@
             <p class="p-m_t" *ngFor="let est of menu.forest">{{est.name}}</p>
           </div>
         </a>
+        </ng-container>
       </ng-container>
     </ng-container>
     <ng-container *ngIf="menus.length == 0">

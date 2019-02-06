@@ -18,7 +18,7 @@ export class ProfileInfoComponent implements OnInit, OnChanges {
 
   @Output() onShow = new EventEmitter<any>();
 
-  @Input() userId = location.href.split("user/")[1].split("/")[0];
+  @Input() userId = location.href.split("user/")[1]?location.href.split("user/")[1].split("/")[0]:'';
   public me = new userData();
 
   constructor(
