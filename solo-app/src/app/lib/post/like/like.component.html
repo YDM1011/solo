@@ -1,55 +1,55 @@
 <button class="button btnActive" [class.active]="likeActive" type="submit" (click)="liked()">
   <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 485.027 485.027" width="20" height="20" fill="#00a3ff"><path fill="transparent" d="M109.4,459.991H13c-2.1,0-3.9-1.8-3.9-3.9v-248.4c0-2.1,1.8-3.9,3.9-3.9h96.4c2.1,0,3.9,1.8,3.9,3.9v248.4C113.3,458.191,111.6,459.991,109.4,459.991z"/><path d="M284.6,20.391c-28.2-20.7-67.2-8.8-68.8-8.3c-3.8,1.2-6.3,4.7-6.3,8.6v85.8c0,29.1-13.8,53.7-41.1,73.2c-21.1,15.1-42.7,21.3-42.9,21.4c-0.2,0-0.3,0.1-0.5,0.2l-5.1,1.7c-3-4.9-8.3-8.2-14.5-8.2H16.9c-9.3,0-16.9,7.6-16.9,16.9v240.5c0,9.3,7.6,16.9,16.9,16.9h88.6c8,0,14.7-5.6,16.4-13c11.9,12.7,28.8,20.7,47.6,20.7h209.8c44.6,0,73.1-23.3,78.1-64l26.8-170.2c3.9-24.7-6.2-49.7-25.8-63.7c-11.1-8-24.2-12.2-37.9-12.2H311.4v-79.6C311.4,55.891,302.4,33.491,284.6,20.391z M104.2,450.891H18.1v-238h86.1V450.891z M420.5,184.791c9.9,0,19.3,3,27.3,8.8c14,10.1,21.3,28.2,18.4,46.2l-26.7,170.3c0,0.1,0,0.2,0,0.3c-4.9,39.8-35.4,48.2-60.2,48.2H169.5c-26,0-47.1-21.1-47.1-47.1v-190.2l8.3-2.8c2.9-0.8,25.2-7.6,47.8-23.7c32.1-22.8,49.1-53.3,49.1-88.2v-78.6c10.4-2,31.3-4,46.4,7.1c12.8,9.4,19.3,26.9,19.3,52v88.7c0,5,4.1,9.1,9.1,9.1h118.1V184.791z"/></svg>
   <span class="btn-tt">Вподобати</span>
-  <span class="btn-vl" (click)="popLike.val=true;$event.stopPropagation()">{{likes.length || 0}}</span>
+  <span class="btn-vl">{{likes.length || ''}}</span>
 </button>
 
-<div #popLike class="cont md p-cont z-p"  [class.active]="popLike.val">
-  <button type="button" class="btn-trans btn-close o5" (click)="popLike.val=!popLike.val">
-    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 47.971 47.971" width="20" height="20"><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/></svg>
-  </button>
-  <div class="cont_h">
-    <span class="c_t16">Вподобали пост</span>
-  </div>
-  <div class="cont_c zp">
+<!--<div #popLike class="cont md p-cont z-p"  [class.active]="popLike.val">-->
+  <!--<button type="button" class="btn-trans btn-close o5" (click)="popLike.val=!popLike.val">-->
+    <!--<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 47.971 47.971" width="20" height="20"><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"/></svg>-->
+  <!--</button>-->
+  <!--<div class="cont_h">-->
+    <!--<span class="c_t16">Вподобали пост</span>-->
+  <!--</div>-->
+  <!--<div class="cont_c zp">-->
 
-    <div class="zp_i">
-      <span class="img60 zp_img">
-          <img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">
-      </span>
-      <div class="zp_id">
-        <div class="zp_id_t">
-          <span class="zp_t c_t14">Ім'я Прізвище</span>
-          <span class="o5 zp_td non">Спільне: 5 друзів та 1 страва</span>
-        </div>
-        <button type="button" class="btn-green btn_zp">Запросити на зустріч</button>
-      </div>
-    </div>
+    <!--<div class="zp_i">-->
+      <!--<span class="img60 zp_img">-->
+          <!--<img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">-->
+      <!--</span>-->
+      <!--<div class="zp_id">-->
+        <!--<div class="zp_id_t">-->
+          <!--<span class="zp_t c_t14">Ім'я Прізвище</span>-->
+          <!--<span class="o5 zp_td non">Спільне: 5 друзів та 1 страва</span>-->
+        <!--</div>-->
+        <!--<button type="button" class="btn-green btn_zp">Запросити на зустріч</button>-->
+      <!--</div>-->
+    <!--</div>-->
 
-    <div class="zp_i">
-      <span class="img60 zp_img">
-          <img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">
-      </span>
-      <div class="zp_id">
-        <div class="zp_id_t">
-          <span class="zp_t c_t14">Ім'я Прізвище</span>
-          <span class="o5 zp_td non">Спільне: 5 друзів та 1 страва</span>
-        </div>
-        <button type="button" class="btn-green btn_zp">Запросити на зустріч</button>
-      </div>
-    </div>
-    <div class="zp_i">
-      <span class="img60 zp_img">
-          <img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">
-      </span>
-      <div class="zp_id">
-        <div class="zp_id_t">
-          <span class="zp_t c_t14">Ім'я Прізвище</span>
-          <span class="o5 zp_td">Спільне: 5 друзів та 1 страва</span>
-        </div>
-        <button type="button" class="btn-green btn_zp non" style="display: none">Запросити на зустріч</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="md-fixed" [class.active]="popLike.val" (click)="popLike.val=!popLike.val"></div>
+    <!--<div class="zp_i">-->
+      <!--<span class="img60 zp_img">-->
+          <!--<img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">-->
+      <!--</span>-->
+      <!--<div class="zp_id">-->
+        <!--<div class="zp_id_t">-->
+          <!--<span class="zp_t c_t14">Ім'я Прізвище</span>-->
+          <!--<span class="o5 zp_td non">Спільне: 5 друзів та 1 страва</span>-->
+        <!--</div>-->
+        <!--<button type="button" class="btn-green btn_zp">Запросити на зустріч</button>-->
+      <!--</div>-->
+    <!--</div>-->
+    <!--<div class="zp_i">-->
+      <!--<span class="img60 zp_img">-->
+          <!--<img class="img" src="http://all-auto.org/uploads/posts/2016-02/1454932404_tesla-model-x.jpg" alt="">-->
+      <!--</span>-->
+      <!--<div class="zp_id">-->
+        <!--<div class="zp_id_t">-->
+          <!--<span class="zp_t c_t14">Ім'я Прізвище</span>-->
+          <!--<span class="o5 zp_td">Спільне: 5 друзів та 1 страва</span>-->
+        <!--</div>-->
+        <!--<button type="button" class="btn-green btn_zp non" style="display: none">Запросити на зустріч</button>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+<!--<div class="md-fixed" [class.active]="popLike.val" (click)="popLike.val=!popLike.val"></div>-->

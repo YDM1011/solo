@@ -37,40 +37,33 @@
           <div>
             <h1 class="mn_i_ht c_t14">{{dish.name}}</h1>
             <p class="mn_i_d c_t o8">{{dish.about}}</p>
-            <div class="mn_i_of" *ngIf="dish.prt">
+            <div class="mn_i_of">
 
               <div class="mn_i_of_i">
-                <span *ngIf="dish.prt">{{dish.prt.name}}</span>
-                <span style="margin-left: 4px" *ngIf="dish.prt.massa">{{dish.prt.massa}}</span>
+                <ng-container *ngIf="dish.prt">
+                  <ng-container *ngIf="dish.portion.length >= 1">
+                    {{dish.prt.name || ''}}<span style="margin-left: 4px" *ngIf="dish.prt.massa">{{dish.prt.massa}}</span>
+                  </ng-container>
+                  <ng-container *ngIf="dish.portion.length < 1">
+                    <div class="select-tr" #isSelect>
+                      <div class="select-wrapper initialized" [ngClass]="{'active': isSelect.val}">
+                        <button class="select-dropdown btn-border"
+                                [ngClass]="{'active': isSelect.val}"
+                                (click)="isSelect.val = true">{{dish.prt.name || dish.prt.massa}}</button>
+                        <ul class="dropdown-content select-dropdown" [ngClass]="{'active': isSelect.val}">
+                          <li *ngFor="let prt of dish.portion" (click)="select(prt, dish);isSelect.val = false">
+                            <span>{{prt.name}} {{prt.massa}}</span>
+                          </li>
+                        </ul>
+                        <svg class="caret" viewBox="0 0 129 129" enable-background="new 0 0 15 15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"><g><path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path></g></svg>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
               </div>
-              <div class="mn_i_of_i1 new" [class.new]="false">
+              <div class="mn_i_of_i1" [class.new]="false">
                 <!--<span class="c_t14"></span>-->
                 <span class="c_t14" *ngIf="dish.prt">{{dish.prt.price}}грн</span>
-              </div>
-            </div>
-
-            <div class="mn_i_of" *ngIf="dish.prt && dish.portion.length > 1">
-              <div class="mn_i_of_i">
-
-                <div class="select-tr" #isSelect>
-                  <div class="select-wrapper initialized">
-                    <button class="select-dropdown btn-border"
-                            [ngClass]="{'active': isSelect.val}"
-                            (click)="isSelect.val = true">{{dish.prt.name || dish.prt.massa}}</button>
-                    <ul class="dropdown-content select-dropdown" [ngClass]="{'active': isSelect.val}">
-                      <li *ngFor="let prt of dish.portion" (click)="select(prt, dish);isSelect.val = false">
-                        <span>{{prt.name || prt.massa }}</span>
-                      </li>
-                    </ul>
-                    <svg class="caret" viewBox="0 0 129 129" enable-background="new 0 0 15 15" xmlns="http://www.w3.org/2000/svg" width="15px" height="15px"><g><path d="m121.3,34.6c-1.6-1.6-4.2-1.6-5.8,0l-51,51.1-51.1-51.1c-1.6-1.6-4.2-1.6-5.8,0-1.6,1.6-1.6,4.2 0,5.8l53.9,53.9c0.8,0.8 1.8,1.2 2.9,1.2 1,0 2.1-0.4 2.9-1.2l53.9-53.9c1.7-1.6 1.7-4.2 0.1-5.8z"></path></g></svg>
-                  </div>
-                </div>
-
-              </div>
-
-              <div class="mn_i_of_i1" [class.new]="false">
-                <!--<span class="c_t14">55грн.</span>-->
-                <span class="c_t14">55грн.</span>
               </div>
             </div>
 
@@ -93,14 +86,14 @@
                 <span class="btn_val"> </span>
               </button>
             </div>
-            <div class="cmp-btn">
-              <button class="btn0">
-                <span class="btn_svg">
-                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 487.958 487.958" width="16" height="16"><path d="M483.058,215.613l-215.5-177.6c-4-3.3-9.6-4-14.3-1.8c-4.7,2.2-7.7,7-7.7,12.2v93.6c-104.6,3.8-176.5,40.7-213.9,109.8c-32.2,59.6-31.9,130.2-31.6,176.9c0,3.8,0,7.4,0,10.8c0,6.1,4.1,11.5,10.1,13.1c1.1,0.3,2.3,0.4,3.4,0.4c4.8,0,9.3-2.5,11.7-6.8c73-128.7,133.1-134.9,220.2-135.2v93.3c0,5.2,3,10,7.8,12.2s10.3,1.5,14.4-1.8l215.4-178.2c3.1-2.6,4.9-6.4,4.9-10.4S486.158,218.213,483.058,215.613z M272.558,375.613v-78.1c0-3.6-1.4-7-4-9.5c-2.5-2.5-6-4-9.5-4c-54.4,0-96.1,1.5-136.6,20.4c-35,16.3-65.3,44-95.2,87.5c1.2-39.7,6.4-87.1,28.1-127.2c34.4-63.6,101-95.1,203.7-96c7.4-0.1,13.4-6.1,13.4-13.5v-78.2l180.7,149.1L272.558,375.613z"></path></svg>
-                </span>
-                <span class="btn_val"> </span>
-              </button>
-            </div>
+            <!--<div class="cmp-btn">-->
+              <!--<button class="btn0">-->
+                <!--<span class="btn_svg">-->
+                 <!--<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 487.958 487.958" width="16" height="16"><path d="M483.058,215.613l-215.5-177.6c-4-3.3-9.6-4-14.3-1.8c-4.7,2.2-7.7,7-7.7,12.2v93.6c-104.6,3.8-176.5,40.7-213.9,109.8c-32.2,59.6-31.9,130.2-31.6,176.9c0,3.8,0,7.4,0,10.8c0,6.1,4.1,11.5,10.1,13.1c1.1,0.3,2.3,0.4,3.4,0.4c4.8,0,9.3-2.5,11.7-6.8c73-128.7,133.1-134.9,220.2-135.2v93.3c0,5.2,3,10,7.8,12.2s10.3,1.5,14.4-1.8l215.4-178.2c3.1-2.6,4.9-6.4,4.9-10.4S486.158,218.213,483.058,215.613z M272.558,375.613v-78.1c0-3.6-1.4-7-4-9.5c-2.5-2.5-6-4-9.5-4c-54.4,0-96.1,1.5-136.6,20.4c-35,16.3-65.3,44-95.2,87.5c1.2-39.7,6.4-87.1,28.1-127.2c34.4-63.6,101-95.1,203.7-96c7.4-0.1,13.4-6.1,13.4-13.5v-78.2l180.7,149.1L272.558,375.613z"></path></svg>-->
+                <!--</span>-->
+                <!--<span class="btn_val"> </span>-->
+              <!--</button>-->
+            <!--</div>-->
           </div>
         </div>
       </section>

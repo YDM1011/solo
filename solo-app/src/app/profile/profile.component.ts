@@ -33,6 +33,7 @@ export class ProfileComponent implements OnInit {
   public link = {};
   public links = new profileLinks();
   public dateOfBirth;
+  private myProf: boolean = true;
 
   public options: Pickadate.DateOptions = {
     clear: 'Очистити',
@@ -48,7 +49,7 @@ export class ProfileComponent implements OnInit {
       console.log(this.data)
     },
     selectMonths: true,
-    selectYears: 10,
+    selectYears: 80,
     firstDay: true,
     min: new Date(1950,1,1),
     max: new Date(),
@@ -145,7 +146,6 @@ export class ProfileComponent implements OnInit {
     s.me = (e);
     s.data = s.dataToObject(s.me.bornedData || new Date().toISOString());
     s.dateOfBirth = s.me.bornedData;
-    console.log(s.dateOfBirth);
     s.maxDate = s.dataToObject(moment().toISOString());
     s.statusCheck = Object.assign({}, s.me.familyStatus);
     if(this.statusCheck.person){this.isStsWith = true}else{this.isStsWith = false}

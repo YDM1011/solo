@@ -12,11 +12,12 @@ ul.active {
   opacity: 1;
 }
 .btn-border{
-  width: 95px;
+  min-width: 80px;
+  max-width: 125px;
   height: 26px;
   font-size: 12px;
   color: #000000;
-  padding: 0 8px;
+  padding: 0 5px 0 0;
   border: none;
   margin: 0;
   position: relative;
@@ -37,4 +38,16 @@ ul.active {
   margin: auto 0;
   z-index: 0;
   fill: rgba(0, 0, 0, 0.87);
+  transition: transform .2s ease-in-out;
+}
+.select-wrapper.active .caret{
+  transform: rotateZ(180deg);
+}
+.select-tr .select-wrapper:before{
+  left: 0;
+  width: calc(100% - 18px);
+}
+.select-tr .dropdown-content{
+  min-width: 80px;
+  right: 0;
 }

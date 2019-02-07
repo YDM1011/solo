@@ -6,6 +6,7 @@ import {CoreService} from "../../core.service";
   selector: '[isMyProfile]'
 })
 export class IsMyProfileDirective {
+  @Output() myProf: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     el: ElementRef,
@@ -17,9 +18,11 @@ export class IsMyProfileDirective {
       if(!val){
         //noinspection TypeScriptUnresolvedVariable
         el.nativeElement.style.display = "none";
+        this.myProf.emit(false);
       }else{
         //noinspection TypeScriptUnresolvedVariable
         el.nativeElement.style.display = "";
+        this.myProf.emit(true);
       }
     })
   }
