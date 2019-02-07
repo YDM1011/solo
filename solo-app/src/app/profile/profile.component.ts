@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   public link = {};
   public links = new profileLinks();
   public dateOfBirth;
-  private myProf: boolean = true;
+  public myProf: boolean = true;
 
   public options: Pickadate.DateOptions = {
     clear: 'Очистити',

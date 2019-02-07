@@ -6,9 +6,11 @@
   <span class="el_h_vl" *ngIf="photos.length > 0">{{photos.length}}</span>
 </a>
 <div class="el_cntt" *ngIf="photos.length > 0">
-  <div class="el_i" *ngFor="let photo of photos | slice:0:6">
+  <ng-container *ngFor="let photo of photos | slice:0:6">
     <ng-container *ngIf="photo">
-      <img class="img" src="{{photo.picCrop}}">
+      <div class="el_i" *ngIf="photo.picCrop">
+        <img class="img" src="{{photo.picCrop}}">
+      </div>
     </ng-container>
-  </div>
+  </ng-container>
 </div>

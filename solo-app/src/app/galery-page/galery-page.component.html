@@ -7,11 +7,14 @@
   </div>
   <ng-container *ngIf="photos">
   <div class="gl_c" *ngIf="photos.length > 0">
-    <div class="gl_i pre-bg" *ngFor="let photo of photos; let i = index">
-      <img class="img"
-           [src]="photo.picCrop"
-           (click)="show(i)">
-    </div>
+    <ng-container *ngFor="let photo of photos; let i = index">
+      <div class="gl_i pre-bg" *ngIf="photo.picCrop">
+        <img class="img"
+             [src]="photo.picCrop"
+             (click)="show(i)">
+      </div>
+    </ng-container>
+
   </div>
   </ng-container>
 </div>
