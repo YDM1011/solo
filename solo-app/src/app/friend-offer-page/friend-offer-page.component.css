@@ -343,3 +343,8 @@ app-last-name{
   width: 100%;
   justify-content: flex-start;
 }
+.prevInv{
+  font-size: 18px;
+  text-align: center;
+  color: #c3c3c3;
+}

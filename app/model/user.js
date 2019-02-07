@@ -114,6 +114,7 @@ const preUpdate = (req,res,next)=>{
 };
 const oth = (req,res)=>{
     User.count({}, function(err, c) {
+        console.log("ok count", c)
         if(err) return res.badRequest(err);
         if(!c) return res.notFound("");
         res.ok({count: c})
@@ -124,18 +125,7 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.query.populate || req.params || req.query.select){
-
-        if(req.params){
-
-            if(req.params['id'] == 'countDocuments'){
-                oth(req,res);
-            }else{
-                return next();
-            }
-        }else{
-            return next();
-        }
-
+        return next();
     }else
     if (!req.query.query){
         mongoose.model('user')

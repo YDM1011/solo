@@ -237,11 +237,11 @@ const preDelete = (req,res,next)=>{
                 console.log(req.userId, id, idS);
                 if(req.userId == id || req.userId == idS){
                     asyncForEach(info.img, async (img) => {
-                        await new Promise((resolve,reject)=> {
-                            fileManeger.delFileById(img, res, ()=>{resolve()})
+                        await new Promise(async (resolve,reject)=> {
+                            await fileManeger.delFileById(img, res,  ()=>{resolve()})
                         });
-                        next()
                     });
+                    next()
                 } else { res.badRequest(info) }
             }
         })

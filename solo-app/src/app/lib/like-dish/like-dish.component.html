@@ -18,7 +18,9 @@
     <div class="el_cntt" *ngIf="dishes.length > 0">
       <a class="el_i" href="//{{est.ownerest.subdomain+'.'+host}}" *ngFor="let est of dishes | slice:0:6">
         <ng-container *ngIf="est.pic; else picEst">
-          <app-img [img]="{id:est.pic}"></app-img>
+        <ng-container *ngIf="est.pic.picCrop; else picEst">
+          <img class="full" [src]="est.pic.picCrop">
+        </ng-container>
         </ng-container>
         <ng-template #picEst>
           <app-prev-dish></app-prev-dish>

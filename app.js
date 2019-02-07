@@ -16,7 +16,7 @@ const app = express();
 
 
 glob.app = app;
-glob.jsonParser = bodyParser.json({limit: '5mb', extended: true});
+glob.jsonParser = bodyParser.json({limit: '15mb', extended: true});
 glob.cookieParser = cookieParser();
 glob.secret = "seecret";
 
@@ -90,8 +90,8 @@ app.set('views', path.join(__dirname, 'app/views'));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
-app.use(bodyParser.json({limit: '5mb', "strict": false,}));
-app.use(bodyParser.urlencoded({ extended: true, limit: '5mb'}));
+app.use(bodyParser.json({limit: '15mb', "strict": false,}));
+app.use(bodyParser.urlencoded({ extended: true, limit: '15mb'}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));

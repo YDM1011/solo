@@ -7,7 +7,7 @@
 
   <ng-container *ngIf="meOffer">
     <ng-container *ngIf="friends">
-      <ng-container *ngIf="friends.length > 0">
+      <ng-container *ngIf="friends.length > 0; else prevInv">
         <div class="frn_i" *ngFor="let friend of friends">
           <app-form *ngIf="friend._id != userId"
                     style="display: none"
@@ -44,7 +44,7 @@
   </ng-container>
   <ng-container *ngIf="myOffer">
     <ng-container *ngIf="invite">
-      <ng-container *ngIf="invite.length > 0">
+      <ng-container *ngIf="invite.length > 0; else prevInv">
         <div class="frn_i" *ngFor="let friend of invite">
           <app-form *ngIf="friend._id != userId"
                     style="display: none"
@@ -128,3 +128,8 @@
   </ng-container>
 
 </div>
+
+
+<ng-template #prevInv>
+  <p class="prevInv">запитів на дружбу немає</p>
+</ng-template>

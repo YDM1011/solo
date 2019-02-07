@@ -36,7 +36,8 @@ module.exports.getMy = (req, res, next) => {
 module.exports.getLikeEsts = (req, res, next) => {
     User.find({_id: req.params.id})
         .select('choiceest')
-        .populate({path:'choiceest'})
+        .populate({path:'choiceest', populate:{path:"av"}})
+        .limit(6).skip(0)
         .exec((err,result)=>{
             if(err) return res.badRequest(err);
             if (!result[0]) return res.serverError('Somesing broken');
@@ -46,7 +47,8 @@ module.exports.getLikeEsts = (req, res, next) => {
 module.exports.getLikeDish = (req, res, next) => {
     User.find({_id: req.params.id})
         .select('favoritdish')
-        .populate({path:'favoritdish', populate:{path: 'ownerest'}})
+        .populate({path:'favoritdish', populate:{path: 'ownerest pic'}})
+        .limit(6).skip(0)
         .exec((err,result)=>{
 
             if(err) return res.badRequest(err);

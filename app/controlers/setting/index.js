@@ -3,7 +3,7 @@ module.exports = (req, res, next) => {
     mongoose.model('user')
         .findOne({_id: req.params.id})
         .where({verify: true})
-        .select('-pass -token -_id')
+        .select('-pass -token')
         .populate({path: 'myFriends', select:"firstName lastName _id"})
         .populate({path: 'bg photo'})
         .exec((err, info) => {

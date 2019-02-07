@@ -38,11 +38,24 @@ const getPic = (idPic, res) => {
             })
     })
 };
+const checkPicInPost = (idPic, res) => {
+    return new Promise((resolve, reject)=>{
+        mongoose.model('post')
+            .count({img:{$in: idPic}})
+            .exec((err, result) =>{
+                if (err) return res.badRequest(err);
+                if (!result) return resolve(false);
+                if (result) {
+                    resolve(result);
+                }
+            })
+    })
+};
 const delPic = (idPic, res) => {
     return new Promise((resolve, reject)=>{
         mongoose.model('galery')
             .findOneAndRemove({_id: idPic}, (err, result) =>{
-                if (err) return res.badRequest(err);
+                if (err) reject(err);
                 resolve()
             })
     })
@@ -210,9 +223,12 @@ module.exports.upload = (req,res,next)=>{
 };
 const delFileById = async (picId,res,next)=>{
     let picData = await getPic(picId, res);
-    await delPic(picId);
-    if (picData){
+    let isPic = await checkPicInPost(picId, res);
+    console.log("pic", !isPic);
+    if (picData && !isPic){
+        await delPic(picId);
         await delFile(picData);
+        console.log("pic", isPic);
         next()
     }else{
         next()
