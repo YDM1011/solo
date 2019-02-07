@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
 import {environment} from "../../../environments/environment";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-bar-menu',
@@ -38,17 +39,38 @@ import {environment} from "../../../environments/environment";
 })
 export class BarMenuComponent implements OnInit {
   public popPreProd: boolean = false;
-  public host: string = environment.apiDomain;
+  public domain: string = environment.apiDomain;
+  public host: string = environment.apiDomain.split('//')[1];
+  public isAuth:boolean=false;
+  public showPop:boolean=false;
+  public popTerms: boolean = false;
+  public popConfid: boolean = false;
+  public userId;
 
-  constructor() { }
+  constructor(private coockie:CookieService) { }
 
   ngOnInit() {
+    this.userId = this.coockie.get('userid');
+    if (this.userId){
+      this.isAuth = true;
+    }else{
+      this.isAuth = false;
+    }
   }
-  popTerms: boolean = false;
-  popConfid: boolean = false;
+
   hidden(status) {
     window.scroll(0, 0);
     document.querySelector('body').style.overflow = (status) ? 'hidden' : '';
     document.querySelector('nav').style.zIndex = (status) ? '1' : '10';
+  }
+
+  checkAuth(e){
+    if (!this.isAuth){
+      e.preventDefault();
+      this.showPop = true
+    }
+  }
+  hide(){
+    this.showPop = false;
   }
 }

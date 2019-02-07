@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
+import {CookieService} from "ngx-cookie-service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-create-establishment',
@@ -37,10 +39,17 @@ import {animate, style, transition, trigger} from "@angular/animations";
 })
 export class CreateEstablishmentComponent implements OnInit {
   public showPop:boolean = false;
+  public isAuth:boolean = false;
+  public domain = environment.apiDomain;
 
-  constructor() { }
+  constructor(private coockie:CookieService) { }
 
   ngOnInit() {
+    if (this.coockie.get('userid')){
+      this.isAuth = true;
+    }else{
+      this.isAuth = false;
+    }
   }
 
   hidden(){

@@ -5,7 +5,7 @@ module.exports = (req,res,next)=>{
     let text = '';
     if(req.body.subdomain){
         if(req.body.subdomain.length >= 1
-            && req.body.subdomain.length  <= 10){
+            && req.body.subdomain.length  <= 50){
             let est = req.body.subdomain;
             if((est.toLowerCase() == 'admin') ||
                 (est.toLowerCase() == 'api') ||
@@ -26,9 +26,9 @@ module.exports = (req,res,next)=>{
             }
         }else{
             errVal++;
-            text = 'Сабдомен мусить бути не менше 1 символів і не більше 10!';
+            text = 'Сабдомен мусить бути не менше 1 символів і не більше 50!';
         }
-    }else {errVal++; text = 'Сабдомен мусить бути не менше 1 символів і не більше 10!';}
+    }else {errVal++; text = 'Сабдомен мусить бути не менше 1 символів і не більше 50!';}
     if(req.body.mobile){
         if(req.body.mobile.length == 10){
         }else{

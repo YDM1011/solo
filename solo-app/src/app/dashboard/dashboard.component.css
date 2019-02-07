@@ -307,10 +307,14 @@
 
 .wrap-friends-btn > *{
   width: 100%;
-  position: absolute;
+  position: relative;
 }
 .wrap-friends-btn{
   display: flex;
   width: 100%;
   position: relative;
+  flex-direction: column;
+}
+.lf-br_btn.wrap-colum{
+  flex-direction: column;
 }
