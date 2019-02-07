@@ -38,9 +38,7 @@ img{
   max-width: 100%;
 }
 
-#contTape{
-  height: 100vh;
-}
+
 .disabled{
   opacity: .5;
   pointer-events: none;
@@ -83,7 +81,7 @@ img{
 .cont_left-bar {
   display: flex;
   position: relative;
-  flex: 1 0;
+  /*flex: 1 0;*/
   margin: 5px 10px;
 }
 .lf-br{
@@ -123,8 +121,10 @@ img{
     flex-direction: column;
     max-width: 215px;
     min-width: 195px;
-    flex-grow: 1;
+    /*flex-grow: 1;*/
     margin: 0 0 0 10px;
+    width: 100%;
+
   }
   .lf-br.fx{
     position: fixed;
@@ -154,6 +154,9 @@ img{
     right: 10px;
     margin-top: 5px;
     transition: 30ms cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+  #contTape{
+    height: 100vh;
   }
 }
 @media (min-width: 1220px) {
@@ -3878,7 +3881,7 @@ input::-webkit-inner-spin-button {
   display: block;
   position: relative;
   width: inherit;
-  height: 185px;
+  height: 230px;
   max-width: inherit; }
 .mn_i_btn-pr {
   display: flex;
@@ -3974,7 +3977,7 @@ input::-webkit-inner-spin-button {
   .mn_i_pr {
     width: 150px; }
   .mn_i_img {
-    height: 120px; }
+    height: 150px; }
   .mn_i_btn-pr {
     height: 30px; }
   .mn_i_in {
@@ -6966,7 +6969,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar,
   .p-l_c-box::-webkit-scrollbar,
   .zf_comm_t::-webkit-scrollbar,
-  .zf_comm_t-f::-webkit-scrollbar {
+  .zf_comm_t-f::-webkit-scrollbar,
+  .picker__select--year.browser-default::-webkit-scrollbar{
     -webkit-appearance: none;
   }
 
@@ -6976,7 +6980,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar:vertical,
   .p-l_c-box::-webkit-scrollbar:vertical,
   .zf_comm_t::-webkit-scrollbar:vertical,
-  .zf_comm_t-f::-webkit-scrollbar:vertical{
+  .zf_comm_t-f::-webkit-scrollbar:vertical,
+  .picker__select--year.browser-default::-webkit-scrollbar:vertical{
     width: 4px;
   }
 
@@ -6986,7 +6991,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar-thumb,
   .p-l_c-box::-webkit-scrollbar-thumb,
   .zf_comm_t::-webkit-scrollbar-thumb,
-  .zf_comm_t-f::-webkit-scrollbar-thumb{
+  .zf_comm_t-f::-webkit-scrollbar-thumb,
+  .picker__select--year.browser-default::-webkit-scrollbar-thumb{
     background-color: #00a3ff
   }
 
@@ -6996,7 +7002,8 @@ textarea.us_area::-webkit-scrollbar-track {
   .p-l_ic2::-webkit-scrollbar-track,
   .p-l_c-box::-webkit-scrollbar-track,
   .zf_comm_t::-webkit-scrollbar-track,
-  .zf_comm_t-f::-webkit-scrollbar-track {
+  .zf_comm_t-f::-webkit-scrollbar-track,
+  .picker__select--year.browser-default::-webkit-scrollbar-track {
     background-color: transparent;
   }
 }
