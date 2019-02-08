@@ -86,6 +86,9 @@ export class GaleryPageComponent implements OnInit {
       s.apiInitial(s.id);
     });
   }
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
   apiInitial(idc) {
     const self = this;
     this.http.get(this.domain + '/api/getPhoto?userId=' + idc, this.api.getHeaders())

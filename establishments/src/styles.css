@@ -6598,16 +6598,17 @@ input.p-d_i_num_inp[type=number] {
 }
 
 .c-m {
-  display: block;
-  flex-grow: 1;
+  display: none;
+  /*flex-grow: 1;*/
   width: 100%;
-  height: 0;
-  transition: .25s height ease-in-out, .3s opacity ease-in-out;
-  overflow: hidden;
-  opacity: 0; }
+  height: 290px;;
+  /*transition: .25s height ease-in-out, .3s opacity ease-in-out;*/
+  /*overflow: hidden;*/
+  /*opacity: 0; */
+}
 .c-m.active {
-  opacity: 1;
-  height: 290px; }
+  display: block;
+  /*opacity: 1;*/ }
 
 .btn-cz_m {
   text-decoration: underline;

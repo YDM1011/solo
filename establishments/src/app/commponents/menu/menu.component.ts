@@ -18,7 +18,9 @@ export class MenuComponent implements OnInit {
     let s = this;
     // s.initApi();
   }
-
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
   initApi(){
     let s = this;
     s.api.get('est_menu').then((val:any)=>{

@@ -47,7 +47,10 @@ export class BarMenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.host)
+
+  }
+  ngOnDestroy() {
+    document.body.style.overflow = '';
   }
   popTerms: boolean = false;
   popConfid: boolean = false;

@@ -46,6 +46,9 @@ export class PreProductionComponent implements OnInit {
   ngOnChanges(){
     if (this.status) this.hidden();
   }
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
   close() {
     this.status = !this.status;
     this.statusResult.emit(this.status);
