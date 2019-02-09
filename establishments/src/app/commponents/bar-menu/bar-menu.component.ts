@@ -57,7 +57,9 @@ export class BarMenuComponent implements OnInit {
       this.isAuth = false;
     }
   }
-
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
   hidden(status) {
     window.scroll(0, 0);
     document.querySelector('body').style.overflow = (status) ? 'hidden' : '';

@@ -65,6 +65,9 @@ export class GeoComponent implements OnInit {
 
   ngOnInit() {
   }
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
 
   findMe() {
 

@@ -5,18 +5,18 @@ import {Directive, HostListener} from '@angular/core';
 })
 export class ScrollToDirective {
 
-  padding: number = 0;
+  padding: number;
   targetId: string = 'contTape';
 
   constructor() {}
   ngOnInit() {
-    this.check();
-    window.addEventListener('resize', () => this.check(), false);
+    this.padding = this.check();
+    window.addEventListener('resize', () => this.padding = this.check(), false);
   }
-  check() {
-    this.padding = (window.innerWidth < 500 || window.innerHeight < 500 ) ?
-      5 : document.querySelector('nav').clientHeight + 10;
-  }
+
+  check = (): number => {
+    return (window.innerWidth < 500 || window.innerHeight < 500 ) ? 5 : document.querySelector('nav').clientHeight + 10;
+  };
   @HostListener('click', ['$event']) onClick(): void {
     let speed = .8,
       y = window.pageYOffset,

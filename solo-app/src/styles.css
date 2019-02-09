@@ -1920,8 +1920,8 @@ ol li p {
 }
 .cr-cont.active{
   z-index: 10;
-  max-height: calc(100% - 60px);
-  overflow-y: auto;
+  max-height: 100vh;
+  /*overflow-y: auto;*/
 }
 .cr-cont.active .cr-open{
   z-index: -1;
@@ -2181,7 +2181,7 @@ ol li p {
 .cr-pst_sl .collapsible-body{
   position: absolute;
   min-width: 115px;
-  bottom: 31px;
+  top: 31px;
   padding: 0;
   background: #ffffff;
   border: 1px solid #e8e8e8;
@@ -3664,11 +3664,10 @@ input::-webkit-inner-spin-button {
   transform: rotateZ(-90deg); }
 
 .carousel {
-  display: flex;
-  align-items: center;
   color: #fff;
   height:auto!important;
   max-height: 80vh;
+  z-index: 5;
 }
 .carousel img{
   max-height: 100%;
@@ -7217,6 +7216,7 @@ input.p-d_i_num_inp[type=number] {
   opacity: 0;
   transition: opacity .2s ease-in-out;
   cursor: pointer;
+  user-select: none;
 }
 .md-fixed.active {
   opacity: 1;

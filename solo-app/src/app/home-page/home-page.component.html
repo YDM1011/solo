@@ -69,5 +69,5 @@
 <ng-container *ngIf="user && id && posts">
   <app-create *ngIf="user" [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create>
   <app-post [id]="id" [posts]="posts"></app-post>
-  <button class="btn waves-effect waves-light" (click)="morePost()" *ngIf="isShow">next</button>
+  <span style="display: none;" *ngIf="isShow" appScrollRequest (request)="morePost()"></span>
 </ng-container>

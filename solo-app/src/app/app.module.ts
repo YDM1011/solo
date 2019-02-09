@@ -48,6 +48,7 @@ import { PrevDishComponent } from './lib/prev-dish/prev-dish.component';
 import 'hammerjs';
 import {NgxHmCarouselModule} from "ngx-hm-carousel";
 import { FriendOfferPageComponent } from './friend-offer-page/friend-offer-page.component';
+import { ScrollRequestDirective } from './scroll-request.directive';
 
 export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
   constructor(private momentFormat: string) {
@@ -103,6 +104,7 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     MapComponent,
     PrevDishComponent,
     FriendOfferPageComponent,
+    ScrollRequestDirective,
   ],
   exports:[
     PrevAvatarComponent,
