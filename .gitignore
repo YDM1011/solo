@@ -3,7 +3,7 @@
 npm-debug.log
 node_modules
 upload
-/app/config
+app/config/config.json
 
 # Local development
 *.env
