@@ -59,4 +59,14 @@ export class MobileMenuDirective {
       }
     }
   }
+  @HostListener('click', ['$event']) onClick(event): void {
+    let tg = event.target;
+    while(tg != this.el.nativeElement) {
+      if (tg.classList.contains('closeMob')){
+        this.el.nativeElement.open = false;
+        return
+      }
+      tg = tg.parentElement;
+    }
+  }
 }

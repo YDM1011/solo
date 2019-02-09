@@ -32,9 +32,10 @@
           [resizeToWidth]="ratios.width"
           [cropperMinWidth]="200"
           [onlyScaleDown]="true"
+          [outputType]="'base64'"
+          [imageQuality]="85"
           format="{{format}}"
-          outputType="base64"
-          (imageCropped)="imageCropped($event)"
+          (imageCroppedBase64)="imageCropped($event)"
           style="padding:0"
         ></image-cropper>
       </div>
