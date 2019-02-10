@@ -1,4 +1,6 @@
-<button class="btn-green" type="button" (click)="meetFriend()"
+<button class="btn-green" type="button" (click)="requestFriend=true"
         *ngIf="(isInvite === 'friend' || isFriend === 'friend')
          && isMeet != 'meetFriend'">Запросити на зустріч</button>
+<app-pre-production [status]="requestFriend" (statusResult)="requestFriend=$event"></app-pre-production>
+
 <button class="btn-green" type="button" (click)="delMeetFriend()" *ngIf="isMeet === 'meetFriend'">Запрошення відправлено</button>

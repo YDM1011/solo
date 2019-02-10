@@ -1,0 +1,11 @@
+<ng-container *ngIf="status">
+  <div class="cont md p-cont p-с active" @inPop>
+    <p class="p-с_t clr">Ми працюємо над цим</p>
+    <div class="p-с_btn">
+      <button class="btn-green btn-p" (click)="close()">Повернутися</button>
+    </div>
+  </div>
+  <div class="md-fixed active" (click)="close()" @inOpacity></div>
+</ng-container>
+
+
