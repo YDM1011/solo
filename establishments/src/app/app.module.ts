@@ -14,6 +14,7 @@ import {ApiService} from "./service/api.service";
 import {LeftBarScrollDirective} from "./init-layout/left-bar-scroll.directive";
 import {RightBarScrollDirective} from "./init-layout/right-bar-scroll.directive";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {SearchModule} from "./search/search.module";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     RoutingModule,
     PagesModule,
     CommponentsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    SearchModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

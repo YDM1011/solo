@@ -89,7 +89,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
   morePosts() {
     const self = this;
     self.count++;
-    this.http.get(this.domain + '/api/post?skip=' + self.count * self.limit, this.api.getHeaders())
+    this.http.get(this.domain + '/api/post?skip=' + self.posts.length, this.api.getHeaders())
       .subscribe((post: any) => {
         self.posts = self.posts.concat(post);
         self.check();

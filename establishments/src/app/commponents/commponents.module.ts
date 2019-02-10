@@ -36,6 +36,8 @@ import {ScrollToDirective} from "../scroll-to.directive";
 import {MobileMenuDirective} from "./header/mobile-menu.directive";
 import { CreateEstablishmentComponent } from './create-establishment/create-establishment.component';
 import {ScrollRequestDirective} from "./scroll-request.directive";
+import { CreatePostComponent } from './create-post/create-post.component';
+import {SearchModule} from "../search/search.module";
 
 @NgModule({
   imports: [
@@ -46,7 +48,8 @@ import {ScrollRequestDirective} from "./scroll-request.directive";
     MzDatepickerModule,
     MzTimepickerModule,
     MzCollapsibleModule,
-    MzDropdownModule
+    MzDropdownModule,
+    SearchModule
   ],
   exports: [
     ImgComponent,
@@ -67,7 +70,8 @@ import {ScrollRequestDirective} from "./scroll-request.directive";
     ActionComponent,
     NumberPhonePipe,
     PreProductionComponent,
-    BarMenuComponent
+    BarMenuComponent,
+    CreatePostComponent
   ],
   declarations: [
     ImgComponent,
@@ -96,7 +100,8 @@ import {ScrollRequestDirective} from "./scroll-request.directive";
     ScrollToDirective,
     MobileMenuDirective,
     CreateEstablishmentComponent,
-    ScrollRequestDirective
+    ScrollRequestDirective,
+    CreatePostComponent
   ]
 })
 export class CommponentsModule { }

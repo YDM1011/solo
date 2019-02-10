@@ -17,6 +17,7 @@ export class InitLayoutComponent implements OnInit {
   public favorite: any;
   public pics: any;
   public name: any;
+  public user: any;
   public host: string = environment.host;
   public isChangeEstPop:boolean=false;
   constructor(
