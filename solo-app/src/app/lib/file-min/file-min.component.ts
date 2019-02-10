@@ -152,4 +152,8 @@ export class FileMinComponent implements OnInit {
     this.isShow = !this.isShow;
     document.querySelector('body').style.overflow = (this.isShow) ? 'hidden' : '';
   }
+
+  getEvent(e){
+    e.preventDefault();
+  }
 }

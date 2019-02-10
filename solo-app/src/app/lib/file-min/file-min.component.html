@@ -1,8 +1,9 @@
+
 <label>
   <input type="file" style="display: none" class="profile-avatar" (change)="uploadImg($event);">
   <div [innerHTML]="btn || 'upload'"></div>
 </label>
-
+  <div (click)="getEvent($event)">
 <ng-container *ngIf="file">
   <div class="md md-full cont z-cont active" @inPop>
     <button type="button" class="btn-trans btn-close o5" (click)="clear()">
@@ -61,3 +62,4 @@
 </ng-container>
 
 
+</div>
