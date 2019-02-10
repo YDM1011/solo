@@ -210,16 +210,17 @@
                 <ng-container *ngIf="item.inPlace">
                   <ng-container *ngIf="item.inPlace.id">
                     <span class="us_zv" *ngIf="item.inPlace.id.name"> у
-                    <span class="us_zv_link">
+                    <a class="us_zv_link" href="//{{item.inPlace.id.subdomain+'.'+host}}">
                         <span class="us_zv_img">
                           <ng-container *ngIf="item.inPlace.id.av; else preEst">
                             <ng-container *ngIf="item.inPlace.id.av.picCrop; else preEst">
-                              <img class="img20"  src="{{item.inPlace.id.av.picCrop}}">
+                              <app-img class="img20" [img]="{id:item.inPlace.id.av._id}"></app-img>
+                              <!--<img class="img20"  src="{{item.inPlace.id.av.picCrop}}">-->
                             </ng-container>
                           </ng-container>
                         </span>
                         <strong class="name">{{item.inPlace.id.name}}</strong>
-                    </span>
+                    </a>
                   </span>
                   </ng-container>
                 </ng-container>
