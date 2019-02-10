@@ -1509,6 +1509,11 @@ app-file-min-post{
 }
 .lf-br_btn {
   display: flex;
+  align-items: center;
+  width: 100%;
+}
+.lf-br_btn .btn-red{
+  font-size: 12px;
   width: 100%;
 }
 .lf-br .btn-green {
@@ -1520,7 +1525,7 @@ app-file-min-post{
 .lf-br .btn-green .svg20{
   display: none;
 }
-.lf-br .btn-green.req {
+.lf-br .req {
   margin: 5px 0 5px 5px;
 }
 
@@ -1633,7 +1638,7 @@ app-file-min-post{
     margin-right: 6px;
     display: block;
   }
-  .lf-br .btn-green.req{
+  .lf-br .req{
     display: none;
   }
 }

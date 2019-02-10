@@ -23,6 +23,10 @@
 .cont_h-pf .btn-green{
   display: none;
 }
+.cont_h-pf .btn-friend{
+  display: none;
+}
+
 .h-pf_bg {
   display: block;
   position: absolute;
@@ -73,6 +77,12 @@
     font-weight: bold;
     z-index: 0;
   }
+  .cont_h-pf .btn-friend{
+    display: block;
+    width: 200px;
+    margin-left: auto;
+    font-weight: bold;
+    z-index: 0;  }
 }
 @media (min-width: 950px) {
   .h-pf_tt {
