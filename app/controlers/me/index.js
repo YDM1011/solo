@@ -328,7 +328,7 @@ module.exports.getFriend = (req, res, next) => {
     User
         .findOne({_id: req.userId})
         .select("-token -pass -login")
-        .populate({path: "myFriends", populate:{path:'photo',select:"imgMin"}})
+        .populate({path: "myFriends", populate:{path:'photo'}})
         .exec((err, info) => {
             if(err) return res.badRequest('Something broke!');
             if(info){
