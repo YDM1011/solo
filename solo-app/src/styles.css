@@ -5418,7 +5418,7 @@ textarea.us_area::placeholder {
 .l_i_h-t {
   margin: 0; }
 .p-l_ic2{
-  height: calc(100vh - 160px);
+  height: calc(100vh - 170px);
   overflow-y: auto;
 }
 
