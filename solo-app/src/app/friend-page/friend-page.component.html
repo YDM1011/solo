@@ -6,11 +6,11 @@
 
   <ng-container *ngIf="!friends">
     <div class="frn_i frn_pre">
-      <p>Ви іще не додали ні одного друга</p>
+      <p>Іще недоданно ні одного друга</p>
     </div>
   </ng-container>
   <ng-container *ngIf="isFriends">
-    <ng-container *ngIf="friends.myFriends.length > 0">
+    <ng-container *ngIf="friends.myFriends.length > 0 else notFr">
       <div class="frn_i" *ngFor="let friend of friends.myFriends">
         <app-form *ngIf="friend._id != userId"
                   style="display: none"
@@ -47,7 +47,7 @@
 
   <ng-container *ngIf="!isFriends">
     
-    <ng-container *ngIf="people.length > 0">
+    <ng-container *ngIf="people.length > 0 else prevSpFr">
       <div *ngFor="let mean of people">
         <div class="frn_i" *ngIf="mean._id != userId">
           <div class="frn_us">
@@ -85,3 +85,14 @@
   </ng-container>
 
 </div>
+<ng-template #notFr>
+  <div class="frn_i frn_pre">
+    <p class="o5">Іще недоданно ні одного друга</p>
+  </div>
+</ng-template>
+
+<ng-template #prevSpFr>
+  <div class="frn_i frn_pre">
+    <p class="o5">Немає спільних друзів</p>
+  </div>
+</ng-template>

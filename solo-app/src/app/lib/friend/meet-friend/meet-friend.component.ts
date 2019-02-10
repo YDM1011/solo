@@ -12,6 +12,8 @@ export class MeetFriendComponent implements OnInit {
   public isFriend;
   public isMeet;
   public isInvite;
+  requestFriend: boolean = false;
+
   constructor(
     private friends: FriendsService
   ) { }

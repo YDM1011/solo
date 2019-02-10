@@ -1027,7 +1027,8 @@ app-file-min-post{
   }
 }
 
-.frn_btn .btn-green {
+.frn_btn .btn-green,
+.frn_btn .btn-red{
   font-size: 12px;
   text-align: center;
   padding: 0 5px;
@@ -1035,6 +1036,7 @@ app-file-min-post{
   line-height: 14px;
   width: 150px;
 }
+
 .frn_btn .btn-trans {
   text-align: left;
   line-height: 16px;
@@ -1050,12 +1052,14 @@ app-file-min-post{
   color: #0a0a0a;
 }
 @media (min-width: 370px){
-  .frn_btn .btn-green {
+  .frn_btn .btn-green,
+  .frn_btn .btn-red{
     width: 200px;
   }
 }
 @media (min-width: 700px) {
-  .frn_btn .btn-green {
+  .frn_btn .btn-green,
+  .frn_btn .btn-red{
     margin: 0;
   }
   .frn_btn .btn-trans {
@@ -1068,7 +1072,8 @@ app-file-min-post{
   .frn_btn .btn-trans {
     font-size: 14px;
   }
-  .frn_btn .btn-green {
+  .frn_btn .btn-green,
+  .frn_btn .btn-red{
     font-size: 14px;
     width: 200px;
   }

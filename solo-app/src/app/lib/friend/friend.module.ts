@@ -11,6 +11,7 @@ import { ShowFriendsComponent } from './show-friends/show-friends.component';
 import {AppRoutingModule} from "../../app-routing.module";
 import {UserModule} from "../user/user.module";
 import {ScrollToDirective} from "../../scroll-to.directive";
+import {PreProductionComponent} from "./pre-production/pre-production.component";
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import {ScrollToDirective} from "../../scroll-to.directive";
   exports: [ MeetFriendComponent, InviteFriendComponent, ShowFriendsComponent,
     UninviteFriendComponent, DelFriendComponent, OfferFriendComponent, InitInviteComponent, ScrollToDirective],
   declarations: [ MeetFriendComponent, InviteFriendComponent,
-    UninviteFriendComponent, DelFriendComponent, OfferFriendComponent, InitInviteComponent, ShowFriendsComponent, ScrollToDirective],
+    UninviteFriendComponent, DelFriendComponent, OfferFriendComponent, InitInviteComponent, ShowFriendsComponent, ScrollToDirective, PreProductionComponent],
   providers: [ FriendsService ],
 })
 export class FriendModule { }
