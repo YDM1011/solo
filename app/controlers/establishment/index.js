@@ -186,7 +186,8 @@ module.exports.estName = (req, res, next) => {
     // return res.ok(est);
     Establishment
         .findOne({subdomain: est})
-        .select('name')
+        .populate({path:'av'})
+        .select('name subdomain _id av')
         .exec((err, doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) return res.serverError('Somesing broken');

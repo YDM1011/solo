@@ -13,6 +13,7 @@ const getUsers =  search => {
             .find({$or: [{firstName: new RegExp( s, 'gi' )},
                     {lastName: new RegExp( s, 'gi' )}]})
             .where('login').ne('admin')
+            .select("_id photo firstName lastName")
             .exec((err,result)=>{
                 if (result) {
                     console.log(result);
@@ -28,6 +29,8 @@ const getEst =  search => {
             .find({$or: [{name: new RegExp( s, 'gi' )},
                     {subdomain: new RegExp( s, 'gi' )}]})
             .where('login').ne('admin')
+            .populate({path:"av"})
+            .select("_id name subdomain")
             .exec((err,result)=>{
                 if (result) {
                     console.log(result);

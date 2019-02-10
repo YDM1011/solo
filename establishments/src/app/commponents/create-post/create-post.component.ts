@@ -13,6 +13,7 @@ export class CreatePostComponent implements OnInit {
   @Input() firstName: string = '';
   @Input() avatar: any;
   @Input() id: string;
+  @Input() place: any;
   public btn = '<span class="post-up_button"><span class="post-up_svg"></span><span class="post-up_title">Додати фото</span></span>';
   public postObg = new Post();
   public inPlace = {place: '', id: '', value: ''};
@@ -55,6 +56,10 @@ export class CreatePostComponent implements OnInit {
         s.friends = val;
       }
     });
+    if(s.place){
+      console.log(s.place);
+      s.takePlace(s.place)
+    }
   }
 
   addPost(post) {
