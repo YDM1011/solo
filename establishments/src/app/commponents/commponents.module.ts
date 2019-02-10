@@ -38,6 +38,9 @@ import { CreateEstablishmentComponent } from './create-establishment/create-esta
 import {ScrollRequestDirective} from "./scroll-request.directive";
 import { CreatePostComponent } from './create-post/create-post.component';
 import {SearchModule} from "../search/search.module";
+import {CreatePostDirective} from "./create-post/create-post.directive";
+import {UploadPostComponent} from "./upload-post/upload-post.component";
+import {FileMinPostComponent} from "./file-min-post/file-min-post.component";
 
 @NgModule({
   imports: [
@@ -101,7 +104,10 @@ import {SearchModule} from "../search/search.module";
     MobileMenuDirective,
     CreateEstablishmentComponent,
     ScrollRequestDirective,
-    CreatePostComponent
+    CreatePostComponent,
+    CreatePostDirective,
+    UploadPostComponent,
+    FileMinPostComponent
   ]
 })
 export class CommponentsModule { }

@@ -1,0 +1,16 @@
+<label>
+  <input type="file" class="profile-avatar" (change)="uploadImg($event)"  multiple="multiple">
+  <div [innerHTML]="btn || 'upload'"></div>
+</label>
+
+<ng-container *ngIf="isShow">
+  <div class="cont md p-cont p-с active" @inPop>
+    <p class="p-с_t clr">Даний формат файлу не підтримується</p>
+    <div class="p-с_btn">
+      <button class="btn-green btn-p" (click)="hidden()">Повернутися</button>
+    </div>
+  </div>
+  <div class="md-fixed active" (click)="hidden()" @inOpacity></div>
+</ng-container>
+
+
