@@ -18,6 +18,7 @@ export class InitLayoutComponent implements OnInit {
   public pics: any;
   public name: any;
   public host: string = environment.host;
+  public isChangeEstPop:boolean=false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -49,8 +50,6 @@ export class InitLayoutComponent implements OnInit {
     });
     self.getPics();
     self.getName();
-    console.log(this.favorite)
-
   }
 
   getPics(){
@@ -75,11 +74,29 @@ export class InitLayoutComponent implements OnInit {
     const s = this;
     s.api.post('favorite', {key: arg}).then((val: any) => {
       switch (arg) {
-        case'oneest': s.thebest = val; break;
+        case'oneest': s.verifyLike(val); break;
         case'est': s.favorite = val; break;
       }
 
     });
   }
 
+  resetEst() {
+    const s = this;
+    s.isChangeEstPop = false;
+    s.api.post('resetEst', {}).then((val: any) => {
+      s.verifyLike(val)
+    });
+  }
+
+  verifyLike(val){
+    let s = this;
+    console.log(val);
+    if (val.mes == 'checked'){
+      s.isChangeEstPop = true;
+    }else if(val.length > 0){
+      s.thebest = val;
+    }
+
+  }
 }

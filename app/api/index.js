@@ -80,6 +80,7 @@ router.get('/api/est_pics', [orign], establishment.estPics);
 router.get('/api/est_name', [orign], establishment.estName);
 router.get('/api/getDish/:id', [orign, glob.getId], establishment.getDish);
 router.post('/api/favorite', [orign, glob.getId], me.favorite);
+router.post('/api/resetEst', [orign, glob.getId], me.resetEst);
 router.get('/api/favorite/:key', [orign], me.getFavorite);
 router.get('/api/dishHit', [orign], me.dishHit);
 router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId);

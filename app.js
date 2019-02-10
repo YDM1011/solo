@@ -14,7 +14,6 @@ const subdomain = require('express-subdomain');
 const app = express();
 
 
-
 glob.app = app;
 glob.jsonParser = bodyParser.json({limit: '15mb', extended: true});
 glob.cookieParser = cookieParser();
@@ -105,6 +104,7 @@ app.use((req,res,next)=>{
 });
 app.use('/', api);
 app.get("/", function(req, res, next) {
+    const Est = require('./app/controlers/establishment');
     if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin"))) {
         if(req.cookies['sid']){
             if(req.subdomains[0] == "adm"){
@@ -112,18 +112,25 @@ app.get("/", function(req, res, next) {
             }else{
                 next()
             }
-
         }else{
-            switch(req.subdomains[0]){
-                case undefined:res.render('index1');
-                    break;
-                case 'solo':res.render('index2');
-                    break;
-                case 'adm':res.render('index5');
-                    break;
-                default: res.render('index2');
-                    break;
-            }
+            Est.checkEst(req.subdomains[0]).then(val=>{
+                switch(req.subdomains[0]) {
+                    case undefined:
+                        res.render('index1');
+                        break;
+                    case 'solo':
+                        res.render('index2');
+                        break;
+                    case 'adm':
+                        res.render('index5');
+                        break;
+                    default:
+                        res.render('index2');
+                        break;
+                }
+            }).catch(err=>{
+                res.render('index6')
+            });
         }
     }else{
         res.render('index4', {title: 'Express'});

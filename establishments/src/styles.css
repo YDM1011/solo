@@ -792,6 +792,7 @@ textarea:focus{
   position: relative;
   padding: 5px 6px;
   cursor: pointer;
+  color: #484848;
 }
 .user:hover,
 .user:focus{

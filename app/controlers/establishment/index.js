@@ -209,6 +209,16 @@ module.exports.getDish = (req, res, next) => {
             if (info) return res.ok(info);
         })
 };
+module.exports.checkEst = est => {
+    return new Promise((resolve,reject)=>{
+        mongoose.model('establishment').findOne({subdomain:est}).exec((err,info)=>{
+            if (err) return reject(err);
+            if (!info) return reject({notFound:'Not found'});
+            if (info) return resolve(info);
+        })
+    })
+};
+
 function toObjectId(ids) {
 
     if (ids.constructor === Array) {
