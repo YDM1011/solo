@@ -191,6 +191,7 @@ const preRead = (req,res,next)=>{
 
     let optionFind = req.query.query ? JSON.parse(req.query.query) : {};
 
+
     if (req.query.limit || (req.query.skip && optionFind)){
         require("../responces/ok")(req, res);
         require("../responces/badRequest")(req, res);
@@ -198,7 +199,7 @@ const preRead = (req,res,next)=>{
         req.body.userId = req.userId;
         mongoose.model('post')
             .find(optionFind)
-            .limit(4)
+            .limit(16)
             .sort({data: -1})
             .skip(parseInt(req.query.skip))
             .populate({path:'inPlace.id', select: 'name _id av subdomain',

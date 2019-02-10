@@ -193,6 +193,11 @@
         </div>
         <div id="contTape">
           <ng-container *ngIf="isHome">
+            <app-custom-res style="display: none" [model]="{
+              url:'me',
+              security: true
+            }" (onRes)="user = ($event)" (onErr)="($event)"></app-custom-res>
+            <app-create-post *ngIf="user" [avatar]="user.photo" [id]="id" [firstName]="user.firstName"></app-create-post>
             <app-posts></app-posts>
           </ng-container>
           <router-outlet *ngIf="!isHome"></router-outlet>
