@@ -5995,6 +5995,14 @@ input.p-d_i_num_inp[type=number] {
   align-items: flex-start;
   justify-content: space-between;
   height: 25px; }
+.p-l_h2_cn{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 170px;
+  margin-left: auto;
+  width: 100%;
+}
 
 .p-l_btn {
   width: 200px; }
@@ -6062,13 +6070,29 @@ input.p-d_i_num_inp[type=number] {
 .btn-p-l_l {
   display: flex;
   align-content: center;
-  justify-content: center; }
+  justify-content: center;
+}
+.btn-p-l_l.active:hover{
+  text-shadow: none;
+}
+.btn-p-l_l.active .c_t{
+  color: #00a3ff;
+}
+.btn-p-l_l.active .btn-p-l_l_svg{
+  fill: #00a3ff;
+}
+.btn-p-l_l .c_t{
+  text-decoration: underline;
+  text-underline-position: under;
+
+}
 
 .btn-p-l_l_svg {
   display: inline-block;
   width: 15px;
   height: 15px;
-  margin-left: 4px; }
+  margin-left: 4px;
+}
 
 .pr_num-ord-m {
   margin: 0; }
