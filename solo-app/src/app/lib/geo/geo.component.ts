@@ -89,7 +89,17 @@ export class GeoComponent implements OnInit {
               if(item.coordinates && item.ownerEst){
                 if ( item.coordinates[0] && item.coordinates[1]){
                   let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
-                  s.cordinates.push({x:  item.coordinates[0],y: item.coordinates[1], av:av});
+                  s.cordinates.push(
+                    {
+                      x: item.coordinates[0],
+                      y: item.coordinates[1],
+                      av: av,
+                      logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                      bg: item.ownerEst.bg ? item.ownerEst.bg.picCrop : '../../../assets/img/like_house.svg',
+                      address: item.address,
+                      name: item.name,
+                      link: '//'+item.ownerEst.subdomain+'.'+s.host
+                    });
                   item['distans'] = s.geo.calc(
                     {lat: item.coordinates[0], lng: item.coordinates[1]},
                     {lat: x, lng: y}

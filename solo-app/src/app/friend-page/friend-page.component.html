@@ -1,7 +1,7 @@
 <div class="cont frn">
   <div class="frn_h" >
     <span class="frn_name" (click)="isFriends = true">Всі друзі</span>
-    <span class="frn_name" IsNotMe (click)="isFriends = false">Спільні друзі</span>
+    <span class="frn_name" IsNotMe (click)="getMutualFriends(id)">Спільні друзі</span>
   </div>
 
   <ng-container *ngIf="!friends">
@@ -54,7 +54,7 @@
             <a class="frn_img pre-bg" [routerLink]="'/user/'+mean._id">
               <!--<app-img *ngIf="mean.photo" [img]="{id:mean.photo}"></app-img>-->
               <ng-container *ngIf="mean.photo">
-                <app-img [img]="{id:mean.photo._id}"></app-img>
+                <img [src]="mean.photo.picCrop">
               </ng-container>
             </a>
             <div class="frn_in">

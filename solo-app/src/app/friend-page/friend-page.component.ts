@@ -56,12 +56,13 @@ export class FriendPageComponent implements OnInit, OnChanges {
 
   getMutualFriends(userId){
     let s = this;
+    s.isFriends = false;
     s.http.get(`${this.domain}/api/getMutualFriends/${userId}`, s.api.getHeaders())
       .subscribe((res: any) => {
         if (res) {
           // s.friends = (res);
           console.log(res);
-          s.more(res);
+          s.people = res;
         }
       }, err => {
       });
@@ -69,8 +70,5 @@ export class FriendPageComponent implements OnInit, OnChanges {
 
   setMutual(res) {
     this.mutual[res.id] = res.mutual;
-  }
-  more(res) {
-    this.people = res;
   }
 }
