@@ -21,8 +21,9 @@
   height: 200px;
 }
 .distanse{
-  margin-top: 30px;
   color: #000;
+  top: auto;
+  bottom: 0;
 }
 .l_i:hover .l_i_h-t {
   font-size: 14px;
@@ -47,6 +48,8 @@
 }
 .cart{
   display: block;
+  margin-bottom: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 .l_i_bg.pre-bg img{
   margin-top: 60px;

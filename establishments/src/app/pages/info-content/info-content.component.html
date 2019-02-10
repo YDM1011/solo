@@ -42,10 +42,13 @@
         <p class="c_t">{{est.about}}</p>
       </div>
       <div class="cz_m">
-        <div class="map c-m pre-bg">
+        <div #mapIt class="map c-m pre-bg" [attr.val]="false" [ngClass]="{'active':mapIt.val}">
           <app-map [XY]="est.coordinates" [index]="'map'+i"></app-map>
         </div>
-        <button type="button" class="btn-trans c_t btn-cz_m" onclick="this.textContent='Сховати карту';this.previousElementSibling.classList.toggle('active')">На карті</button>
+        <button type="button" class="btn-trans c_t btn-cz_m" (click)="mapIt.val=!mapIt.val">
+          <ng-container *ngIf="mapIt.val">Сховати карту</ng-container>
+          <ng-container *ngIf="!mapIt.val">На карті</ng-container>
+        </button>
       </div>
     </div>
 

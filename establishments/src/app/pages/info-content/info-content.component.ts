@@ -6,11 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./info-content.component.css']
 })
 export class InfoContentComponent implements OnInit {
-
+  initS: boolean = false;
   public myests:any;
   constructor() { }
 
   ngOnInit() {
-  }
+    console.log(false);
 
+  }
+  // ngAfterViewInit() {
+  //   console.log(true);
+  //   setTimeout( this.initS = true, 0);
+  //   // this.initS = true;
+  // }
 }
