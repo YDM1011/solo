@@ -7181,6 +7181,18 @@ input.p-d_i_num_inp[type=number] {
   top: 10%;
   max-height: 80%;
   overflow: hidden; }
+.md.md2{
+  top:0;
+  max-height: none;
+  max-width: none;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+.md2_close{
+  position: fixed;
+  z-index: 100000;
+}
 .md.md-full {
   top: 0;
   height: 100vh; }
@@ -7242,7 +7254,19 @@ input.p-d_i_num_inp[type=number] {
   .md.md-full.z-cont {
     top: 3%;
     height: 100%;
-    max-height: 94%; } }
+    max-height: 94%; }
+  .md.md2{
+    top:10%;
+    max-height: 80%;
+    width: 100%;
+    height: auto;
+    overflow-y: auto;
+    max-width: 555px;
+  }
+  .md2_close{
+    display: none;
+  }
+}
 
 @media (min-width: 768px) and (min-height: 600px) {
   .md.md-full.md-slid {
@@ -7609,3 +7633,15 @@ textarea.us_area::-webkit-scrollbar-track {
   }
 }
 /*end color scrollbar*/
+.cropper:before{
+  content: '';
+  display: block;
+  width: 26px;
+  height: 26px;
+  position: absolute;
+  left: calc(50% - 13px);
+  top: calc(50% - 13px);
+  background: url("assets/img/tap.svg") no-repeat center;
+  background-size: contain;
+}
+

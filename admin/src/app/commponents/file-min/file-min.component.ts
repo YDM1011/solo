@@ -1,11 +1,42 @@
 import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
 import {Ratios} from "./ratios";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-file-min',
   templateUrl: './file-min.component.html',
-  styleUrls: ['./file-min.component.css']
+  styleUrls: ['./file-min.component.css'],
+  animations: [
+    trigger('inOpacity', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('140ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('140ms', style({ opacity: 0 }))
+      ])
+    ]),
+    trigger('inPop', [
+      transition(':enter', [
+        style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }),
+        animate('220ms', style({
+          transform: 'scaleX(1) scaleY(1)',
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }))
+      ])
+    ])
+  ],
+
 })
 export class FileMinComponent implements OnInit {
   get imageCropper(): ImageCropperComponent {
@@ -15,8 +46,12 @@ export class FileMinComponent implements OnInit {
   set imageCropper(value: ImageCropperComponent) {
     this._imageCropper = value;
   }
+
   public file: any;
+  public isShow: boolean = false;
+
   private fileResize: any;
+
   @Input() btn;
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  multiple: boolean = false;
@@ -75,34 +110,23 @@ export class FileMinComponent implements OnInit {
           const format = (/image[/]png/i.test(event.target.files[i].type)) ? 'png' :
             (/image[/]svg[+]xml/i.test(event.target.files[i].type)) ? 'png' :'jpeg';
           this.loadReader(format, event.target.files[i]);
-        } else console.log('Error type');
+        } else this.hidden();
       }
     } else {
       if (/image[/]/i.test( event.target.files[0].type)) {
         this.format =  (/image[/]png/i.test(event.target.files[0].type)) ? 'png' :
           (/image[/]svg[+]xml/i.test(event.target.files[0].type)) ? 'png' :'jpeg';
+        document.querySelector('body').style.overflow = 'hidden';
         this.imageChangedEvent = event;
         this.loadReader(this.format, event.target.files[0]);
-      } else console.log('Error type');
+      } else this.hidden();
     }
   }
 
   imageCropped(event) {
-    this.croppedImage = event.base64;
-    this.loadImg(this.format, event.base64);
-    console.log(event);
+    this.croppedImage = event;
+    this.loadImg(this.format, event);
   }
-  imageLoaded() {
-    // this.showCropper = true;
-    console.log('Image loaded')
-  }
-  cropperReady() {
-    console.log('Cropper ready')
-  }
-  loadImageFailed () {
-    console.log('Load failed');
-  }
-
 
   resultSize(size: any, resize: number, pushSelector): void {
     console.log('size', size);
@@ -120,9 +144,7 @@ export class FileMinComponent implements OnInit {
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
-
-      if(file)
-        this.loadImg(format, ev.target.result)
+       this.loadImg(format, ev.target.result)
     };
   }
 
@@ -164,7 +186,7 @@ export class FileMinComponent implements OnInit {
       size: this.size
     };
     this.fileResult.emit(this.Pics);
-    this.imageObj = [];
+    this.clear();
   }
   createImg(images: any, originSize: object, format: string) {
 
@@ -175,16 +197,7 @@ export class FileMinComponent implements OnInit {
       this.fileResize.forEach(item => {
         this.resultSize(originSize, item, canvasImg);
         this.cx.drawImage(images, 0, 0,  canvasImg.width ,  canvasImg.height);
-
-        let temp = canvasImg.toDataURL(`image/${format}`, 0.8);
-
-        console.log(temp.length);
-        // let img0: HTMLImageElement = new Image();
-        // img0.src = temp;
-
-        // this.renderer.appendChild(this.el.nativeElement, img0);
-
-        this.imageObj.push(temp);
+        this.imageObj.push(canvasImg.toDataURL(`image/${format}`, 0.8));
       });
 
     } else {
@@ -193,5 +206,16 @@ export class FileMinComponent implements OnInit {
       this.imageObj.push(canvasImg.toDataURL(`image/${format}`, 0.8))
     }
 
+  }
+
+  clear() {
+    this.file = null;
+    this.imageObj = [];
+    document.querySelector('body').style.overflow = '';
+  }
+
+  hidden() {
+    this.isShow = !this.isShow;
+    document.querySelector('body').style.overflow = (this.isShow) ? 'hidden' : '';
   }
 }

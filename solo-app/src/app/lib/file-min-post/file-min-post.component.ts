@@ -57,6 +57,18 @@ export class FileMinPostComponent implements OnInit {
 
   ngOnInit() {
   }
+  ngOnDestroy() {
+    this.Pics = {
+      def: '',
+      name: '',
+      size: ''
+    };
+    this.editPics = {
+      def: '',
+      name: '',
+      index: ''
+    };
+  }
 
   constructor() { }
   ngOnChanges() {
@@ -78,7 +90,6 @@ export class FileMinPostComponent implements OnInit {
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
-      console.log(ev);
       if(file) this.loadImg(format, ev.target.result, file.name, file.size)
     };
   }

@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input, ViewChild} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
 import {Ratios} from "./ratios";
 import {animate, style, transition, trigger} from "@angular/animations";
@@ -44,6 +44,7 @@ export class FileMinComponent implements OnInit {
   set imageCropper(value: ImageCropperComponent) {
     this._imageCropper = value;
   }
+
   public file: any = null;
   public isShow: boolean = false;
   @Input() btn;
@@ -51,8 +52,6 @@ export class FileMinComponent implements OnInit {
   @Input()  model: string;
   @Input()  field: string;
   public imageObj: any = '';
-  public name;
-  public size;
   public Pics: any = {
     // def: '',
     crop: '',
@@ -69,7 +68,7 @@ export class FileMinComponent implements OnInit {
     width: ''
   };
 
-  constructor() { }
+  constructor( private el: ElementRef) { }
   ngOnInit() {
     this.ratios = new Ratios().getRatios(this.model,this.field);
   }
@@ -102,16 +101,15 @@ export class FileMinComponent implements OnInit {
       document.querySelector('body').style.overflow = 'hidden';
       // this.loadReader(this.format, event.target.files[0]);
       this.imageChangedEvent = event;
-    } else console.log('Error type');
+    } else this.hidden();
   }
 
   imageCropped(event) {
-    this.croppedImage = event.base64;
-    this.loadImg(this.format, event.base64);
+    this.croppedImage = event;
+    this.loadImg(this.format, event);
   }
 
   loadReader(format: string, file: any) {
-    this.file = file;
     const fileReader: FileReader = new FileReader();
     fileReader.readAsDataURL(file);
     fileReader.onload = (ev: any) => {
@@ -120,8 +118,6 @@ export class FileMinComponent implements OnInit {
   }
 
   loadImg (format: string, base64: string) {
-    this.name = this.file.name;
-    this.size = this.file.size;
     const img: HTMLImageElement = new Image();
     img.src = base64;
     img.onload = () => {
@@ -132,8 +128,8 @@ export class FileMinComponent implements OnInit {
     this.Pics = {
       // def: this.imageObj[0],
       crop: this.imageObj,
-      name: this.name,
-      size: this.size
+      name: this.file.name,
+      size: this.file.size
     };
     this.fileResult.emit(this.Pics);
     this.clear()
@@ -151,6 +147,7 @@ export class FileMinComponent implements OnInit {
     this.cx.drawImage(images, 0, 0,  canvasImg.width ,  canvasImg.height);
     this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.8);
   }
+
   hidden() {
     this.isShow = !this.isShow;
     document.querySelector('body').style.overflow = (this.isShow) ? 'hidden' : '';
