@@ -7,3 +7,7 @@
     margin-right: 0;
   }
 }
+.p-m_i.none{
+ align-items: center;
+  justify-content: center;
+}

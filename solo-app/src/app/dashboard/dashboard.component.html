@@ -7,7 +7,7 @@
         <div class="h-pf_img">
           <app-prev-avatar></app-prev-avatar>
         </div>
-        <div class="btn-green">Зустрітись з друзями</div>
+        <!--<div class="btn-green">Зустрітись з друзями</div>-->
       </ng-container>
 
       <ng-container *ngIf="user">
@@ -41,6 +41,10 @@
         <div class="h-pf_tt">{{user.firstName}} {{user.lastName}}</div>
 
         <button #goFr class="btn-green" isMyProfile (click)="goFr.val=true">Зустрітись з друзями</button>
+        <div IsNotMe class="btn-friend">
+          <app-uninvite-friend [userId]="id" style="width: 100%"></app-uninvite-friend>
+          <app-invite-friend [userId]="id" style="width: 100%"></app-invite-friend>
+        </div>
         <app-pre-production [status]="goFr.val" (statusResult)="goFr.val=$event"></app-pre-production>
 
       </ng-container>
@@ -88,20 +92,20 @@
             <div class="lf-br_btn" *ngIf="user">
               <ng-container *ngIf="user.photo; else geaalt">
                 <ng-container *ngIf="user.photo.picCrop; else geaalt">
-                  <app-geo isMyProfile class="btn-green" [avatar]="user.photo.picCrop"></app-geo>
+                  <app-geo class="btn-green" [avatar]="user.photo.picCrop"></app-geo>
                 </ng-container>
               </ng-container>
               <ng-template #geaalt>
-                <app-geo  isMyProfile class="btn-green" [avatar]="'../../../assets/img/avatar.svg'"></app-geo>
+                <app-geo  class="btn-green" [avatar]="'../../../assets/img/avatar.svg'"></app-geo>
               </ng-template>
 
               <button #goFr2 class="btn-green req" isMyProfile (click)="goFr2.val=true">Зустрітись з друзями</button>
               <app-pre-production [status]="goFr2.val" (statusResult)="goFr2.val=$event"></app-pre-production>
-            </div>
 
-            <div class="lf-br_btn wrap-colum">
-              <app-uninvite-friend [userId]="id"></app-uninvite-friend>
-              <app-invite-friend [userId]="id" style="width: 100%"></app-invite-friend>
+              <div IsNotMe class="req" style="width: 100%">
+                <app-uninvite-friend [userId]="id" style="width: 100%"></app-uninvite-friend>
+                <app-invite-friend [userId]="id" style="width: 100%"></app-invite-friend>
+              </div>
             </div>
 
         </div>
