@@ -80,7 +80,7 @@
         </div>
         <span class="h-pf_zv" *ngIf="name">{{name.name}}</span>
         <button #goZv class="btn-green" (click)="goZv.val=true">Йдемо
-          <span *ngIf="name">{{' в '+name.name}}</span>
+          <ng-container *ngIf="name">{{' в '+name.name}}</ng-container>
         </button>
       </div>
       <app-pre-production [status]="goZv.val" (statusResult)="goZv.val = $event"></app-pre-production>
@@ -99,7 +99,7 @@
             <app-menu></app-menu>
 
             <button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо
-              <span *ngIf="name"> &nbsp;в {{name.name}}</span>
+              <ng-container *ngIf="name"> &nbsp;в {{name.name}}</ng-container>
             </button>
 
             <app-pre-production [status]="goZv2.val" (statusResult)="goZv2.val = $event"></app-pre-production>
