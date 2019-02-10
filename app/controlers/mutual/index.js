@@ -66,26 +66,39 @@ module.exports.getMutualFriends = (req, res, next) => {
                 let Arr = [];
                 if (content.myFriends.length < 1) return res.ok({id:req.params.FId, mutual:Arr});
 
-                asyncForEach(content.myFriends, async userId=>{
+                // asyncForEach(content.myFriends, async userId=>{
 
-                    await new Promise((resolve,reject)=>{
-                        User
-                            .findOne({_id: userId, myFriends:{$in: req.params.FId}})
-                            .exec((err, mutual)=>{
-                                // if(err) return res.badRequest('Something broke!');
-                                if(mutual){
-                                    Arr.push(mutual);
-                                }
-                                resolve(userId)
-                            })
-                    }).then(val=>{
-                        console.log('mutual',val);
-                        if (val == content.myFriends[content.myFriends.length-1]){
-                            return res.ok(Arr)
+                    // await new Promise((resolve,reject)=>{
+                    //     User
+                    //         .findOne({_id: userId, myFriends:{$in: req.params.FId}})
+                    //         .exec((err, mutual)=>{
+                    //             // if(err) return res.badRequest('Something broke!');
+                    //             if(mutual){
+                    //                 Arr.push(mutual);
+                    //             }
+                    //             resolve(userId)
+                    //         })
+                    // }).then(val=>{
+                    //     console.log('mutual',val);
+                    //     if (val == content.myFriends[content.myFriends.length-1]){
+                    //         return res.ok(Arr)
+                    //     }
+                    // })
+
+                // });
+                User
+                    .find({$and:[
+                        {myFriends:{$in: req.params.FId}},
+                        {myFriends:{$in: req.userId}}
+                    ]})
+                    .exec((err, mutual)=>{
+                        if(err) return res.badRequest('Something broke!');
+                        if(mutual){
+                            return res.ok(mutual)
                         }
                     })
-
-                });
             }
         });
 };
+
+// {$and:[{myFriends:{$in: req.params.FId},{myFriends:{$in:req.userId}}}]}
