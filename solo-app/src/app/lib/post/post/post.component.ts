@@ -1,21 +1,23 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, OnChanges} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CoreService} from '../../../core.service';
 import {PostService} from '../post.service';
 import {AuthService} from '../../../auth.service';
 import {FormApiService} from '../../form-api/form-api.service';
 import {environment} from "../../../../environments/environment";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit {
+export class PostComponent implements OnInit, OnChanges {
   public count = 0;
   public maxcount = 0;
   public limit = 4;
   public user;
+  public userId;
   public obj;
   public next = false;
   public isShow = true;
@@ -26,6 +28,7 @@ export class PostComponent implements OnInit {
   @Input() posts;
   constructor(
     private core: CoreService,
+    private cookie: CookieService,
     private auth: AuthService,
     private http:  HttpClient,
     private post: PostService,
@@ -40,6 +43,9 @@ export class PostComponent implements OnInit {
         this.user = value[0];
       }
     });
+    self.userId = self.cookie.get('userid')
+  }
+  ngOnChanges(){
 
   }
   addShare(obj) {
