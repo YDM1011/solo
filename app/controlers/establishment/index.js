@@ -56,6 +56,22 @@ module.exports.getLikeDish = (req, res, next) => {
             if (result[0]) return res.ok(result[0].favoritdish);
         })
 };
+module.exports.isEst = (req, res, next) => {
+    User.findOne({_id: req.userId})
+        .select('myEstablishment')
+        .exec((err,result)=>{
+            if(err) return res.badRequest(err);
+            if (!result) return res.serverError('Somesing broken');
+            if (result){
+                if(!result.myEstablishment) return res.ok({isEst:false});
+                if (result.myEstablishment.length>0){
+                    return res.ok({isEst:true});
+                }else{
+                    return res.ok({isEst:false});
+                }
+            }
+        })
+};
 
 module.exports.customParams = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
