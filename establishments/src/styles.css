@@ -82,7 +82,9 @@ app-file-min-post{
     color: #000000;
   }
 }
-
+.button:focus {
+  background: transparent;
+}
 .disabled{
   opacity: .5;
   pointer-events: none;

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CoreService} from "../../core.service";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
@@ -37,7 +37,7 @@ class Distance {
   templateUrl: './geo.component.html',
   styleUrls: ['./geo.component.css']
 })
-export class GeoComponent implements OnInit {
+export class GeoComponent implements OnInit, OnDestroy {
   public domain: string = environment.apiDomain;
   public host: string = environment.apiDomain.split('//')[1];
   private geo = new Distance();

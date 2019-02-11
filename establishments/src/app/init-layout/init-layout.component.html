@@ -152,8 +152,13 @@
 </ng-template>
 
 <ng-container *ngIf="isChangeEstPop">
-  <div class="popap">
-    <button (click)="resetEst()">yes</button>
-    <button (click)="isChangeEstPop=false">no</button>
+  <div class="cont md p-cont p-с active" @inPop>
+    <p class="p-с_t">Ви дійсно бажаєте позначити <ng-container *ngIf="name">{{name.name}}</ng-container> як улюблений заклад?</p>
+
+    <div class="p-с_btn">
+      <button class="btn-green btn-p" (click)="resetEst()">Так, позначити</button>
+      <button class="btn-red btn-p" (click)="isChangeEstPop=false;hidden();">Ні, скасувати</button>
+    </div>
   </div>
+  <div class="md-fixed active" @inOpacity (click)="isChangeEstPop=false;hidden();"></div>
 </ng-container>

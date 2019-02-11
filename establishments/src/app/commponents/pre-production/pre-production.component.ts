@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -36,7 +36,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
   ]
 })
 
-export class PreProductionComponent implements OnInit {
+export class PreProductionComponent implements OnInit, OnDestroy {
   @Input() status: boolean = false;
   @Input() scroll: boolean = false;
   @Output() statusResult: EventEmitter<any> = new EventEmitter<any>();

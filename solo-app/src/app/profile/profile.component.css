@@ -8,3 +8,15 @@ ul.active{
 .select-dropdown{
   width: 100%;
 }
+.load-img{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border: 2px dotted #AAAAAA;
+}
+.load-img svg{
+  display: block;
+  width: 25px;
+  height: 25px;
+}

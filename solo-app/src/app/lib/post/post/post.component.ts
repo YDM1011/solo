@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, OnChanges} from '@angular/core';
+import {Component, OnInit, Input, OnChanges, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {CoreService} from '../../../core.service';
 import {PostService} from '../post.service';
@@ -12,7 +12,7 @@ import {CookieService} from "ngx-cookie-service";
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
-export class PostComponent implements OnInit, OnChanges {
+export class PostComponent implements OnInit, OnChanges, OnDestroy {
   public count = 0;
   public maxcount = 0;
   public limit = 4;
@@ -48,6 +48,11 @@ export class PostComponent implements OnInit, OnChanges {
   ngOnChanges(){
 
   }
+
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
+
   addShare(obj) {
     // /api/share
     const self = this;
@@ -67,5 +72,8 @@ export class PostComponent implements OnInit, OnChanges {
         let index = this.posts.indexOf(post);
         this.posts.splice(index,1);
       });
+  }
+  hidden(status) {
+    document.body.style.overflow = (status) ? 'hidden' : '';
   }
 }

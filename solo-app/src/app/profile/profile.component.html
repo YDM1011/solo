@@ -20,7 +20,7 @@
     <!--</div>-->
   </div>
 
-  <div class="cont_c us_c" *ngIf="isReady && !myProf">
+  <div class="cont_c us_c" *ngIf="isReady" IsNotMe>
     <div class="us_c_c">
       <div class="us_c_ci">
 
@@ -38,9 +38,9 @@
 
         <div class="us_c_i">
           <div class="us_c_img">
-            <div class="img60 pre-bg">
+            <div class="img60">
               <ng-container *ngIf="me.photo">
-                <app-img [img]="{id:me.photo}"></app-img>
+                <img class="img" [src]="me.photo.picCrop">
               </ng-container>
             </div>
             <span class="us_c_img_t c_t">Фото аватару</span>
@@ -50,9 +50,9 @@
 
         <div class="us_c_i">
           <div class="us_c_img">
-            <div class="img60 pre-bg">
+            <div class="img60">
               <ng-container *ngIf="me.bg">
-                <app-img [img]="{id:me.bg}"></app-img>
+                <img class="img" [src]="me.bg.picCrop">
               </ng-container>
             </div>
             <span class="us_c_img_t c_t">Фото обкладинки</span>
@@ -134,7 +134,7 @@
   </div>
 
   <ng-container *ngIf="isReady">
-    <form (submit)="updateUserData()" class="cont_c us_c"  isMyProfile (myProf)="myProf = $event">
+    <form (submit)="updateUserData()" class="cont_c us_c"  isMyProfile>
       <div class="us_c_c">
         <div class="us_c_ci">
 
@@ -152,10 +152,20 @@
 
           <div class="us_c_i">
             <div class="us_c_img">
-              <div class="img60 pre-bg">
+              <div class="img60">
                 <ng-container *ngIf="me.photo">
-                  <app-img [img]="{id:me.photo}"></app-img>
+                  <img class="img" [src]="me.photo.picCrop">
                 </ng-container>
+                <ng-container *ngIf="!me.photo">
+                  <div class="load-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" width="25" height="25" fill="#AAAAAA"><path d="M50,40c-8.285,0-15,6.718-15,15c0,8.285,6.715,15,15,15c8.283,0,15-6.715,15-15C65,46.718,58.283,40,50,40z M90,25H78c-1.65,0-3.428-1.28-3.949-2.846l-3.102-9.309C70.426,11.28,68.65,10,67,10H33c-1.65,0-3.428,1.28-3.949,2.846l-3.102,9.309C25.426,23.72,23.65,25,22,25H10C4.5,25,0,29.5,0,35v45c0,5.5,4.5,10,10,10h80c5.5,0,10-4.5,10-10V35C100,29.5,95.5,25,90,25z M50,80c-13.807,0-25-11.193-25-25c0-13.806,11.193-25,25-25c13.805,0,25,11.194,25,25C75,68.807,63.805,80,50,80z M86.5,41.993c-1.932,0-3.5-1.566-3.5-3.5c0-1.932,1.568-3.5,3.5-3.5c1.934,0,3.5,1.568,3.5,3.5C90,40.427,88.433,41.993,86.5,41.993z"/></svg>
+                  </div>
+                </ng-container>
+                <app-upload [btnName]="btn"
+                            [model]="'user'"
+                            [field]="'photo'"
+                            [multiple]="false"
+                ></app-upload>
               </div>
               <span class="us_c_img_t c_t">Фото аватару</span>
             </div>
@@ -164,10 +174,19 @@
 
           <div class="us_c_i">
             <div class="us_c_img">
-              <div class="img60 pre-bg">
+              <div class="img60">
                 <ng-container *ngIf="me.bg">
-                  <app-img [img]="{id:me.bg}"></app-img>
+                  <img class="img" [src]="me.bg.picCrop">
                 </ng-container>
+                <ng-container *ngIf="!me.bg">
+                  <div class="load-img">
+                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 100 100" width="25" height="25" fill="#AAAAAA"><path d="M50,40c-8.285,0-15,6.718-15,15c0,8.285,6.715,15,15,15c8.283,0,15-6.715,15-15C65,46.718,58.283,40,50,40z M90,25H78c-1.65,0-3.428-1.28-3.949-2.846l-3.102-9.309C70.426,11.28,68.65,10,67,10H33c-1.65,0-3.428,1.28-3.949,2.846l-3.102,9.309C25.426,23.72,23.65,25,22,25H10C4.5,25,0,29.5,0,35v45c0,5.5,4.5,10,10,10h80c5.5,0,10-4.5,10-10V35C100,29.5,95.5,25,90,25z M50,80c-13.807,0-25-11.193-25-25c0-13.806,11.193-25,25-25c13.805,0,25,11.194,25,25C75,68.807,63.805,80,50,80z M86.5,41.993c-1.932,0-3.5-1.566-3.5-3.5c0-1.932,1.568-3.5,3.5-3.5c1.934,0,3.5,1.568,3.5,3.5C90,40.427,88.433,41.993,86.5,41.993z"/></svg>
+                  </div>
+                </ng-container>
+                <app-upload [btnName]="btn"
+                            [model]="'user'"
+                            [field]="'bg'"
+                            [multiple]="false"></app-upload>
               </div>
               <span class="us_c_img_t c_t">Фото обкладинки</span>
             </div>
