@@ -17,7 +17,6 @@ const getUsers =  search => {
             .select("_id photo firstName lastName")
             .exec((err,result)=>{
                 if (result) {
-                    console.log(result);
                     return resolv(result)
                 }
             })
@@ -34,7 +33,6 @@ const getEst =  search => {
             .select("_id name subdomain")
             .exec((err,result)=>{
                 if (result) {
-                    console.log(result);
                     return resolv(result)
                 }
             })

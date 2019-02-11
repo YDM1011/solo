@@ -2,6 +2,9 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {CookieService} from "ngx-cookie-service";
+import {HttpClient} from "@angular/common/http";
+import {Router} from "@angular/router";
+import {FormApiService} from "../form-api/form-api.service";
 
 @Component({
   selector: 'app-bar-menu',
@@ -41,13 +44,20 @@ export class BarMenuComponent implements OnInit, OnDestroy {
   public domain: string = environment.apiDomain;
   public host: string = environment.apiDomain.split('//')[1];
   public popPreProd = false;
-
+  public isEst:boolean = false;
   constructor(
-    public cookie: CookieService
+    public cookie: CookieService,
+    private http:  HttpClient,
+    private router: Router,
+    private api: FormApiService,
   ) { }
 
   ngOnInit() {
-
+    let s = this;
+    this.http.get(this.domain + '/api/isEst', this.api.getHeaders())
+      .subscribe((is: any) => {
+        s.isEst = (is.isEst);
+      });
   }
   ngOnDestroy() {
     document.body.style.overflow = '';

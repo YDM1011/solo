@@ -2,6 +2,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
+import {ApiService} from "../../service/api.service";
 
 @Component({
   selector: 'app-bar-menu',
@@ -45,17 +46,25 @@ export class BarMenuComponent implements OnInit, OnDestroy {
   public showPop:boolean=false;
   public popTerms: boolean = false;
   public popConfid: boolean = false;
+  public isEst: boolean = false;
   public userId;
 
-  constructor(private coockie:CookieService) { }
+  constructor(
+    private coockie:CookieService,
+    private api:ApiService
+  ) { }
 
   ngOnInit() {
+    let s = this;
     this.userId = this.coockie.get('userid');
     if (this.userId){
       this.isAuth = true;
     }else{
       this.isAuth = false;
     }
+    s.api.justGet('isEst').then((v:any)=>{
+      s.isEst = v.isEst;
+    })
   }
   ngOnDestroy() {
     document.body.style.overflow = '';
