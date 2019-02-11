@@ -76,7 +76,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 
   apiInitial(idc) {
     const self = this;
-    console.log(idc);
     const id = JSON.stringify({id: idc}),
         getFriends = JSON.stringify({path: 'myFriends'}),
       count = 0,

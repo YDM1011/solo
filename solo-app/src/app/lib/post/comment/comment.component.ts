@@ -35,7 +35,6 @@ export class CommentComponent implements OnInit {
   commented(){
     let self = this;
     this.comment.postId = this.postId;
-    console.log(this.comment);
     this.http.post(`${this.domain}/api/comment`, this.comment, this.api.getHeaders())
       .subscribe((val: any) => {
         if(val.userIdCom){
@@ -53,7 +52,6 @@ export class CommentComponent implements OnInit {
     this.http.post(`${this.domain}/api/likeCom`, {_id: id}, this.api.getHeaders())
       .subscribe((like: any) => {
         if(like){
-          console.log(self.comments.find(x => x._id === id));
           self.comments.find(x => x._id === id).likeCom = like;
         }
       },err=>{});

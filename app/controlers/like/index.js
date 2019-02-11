@@ -4,7 +4,6 @@ const Comment = mongoose.model('comment');
 const Dish = mongoose.model('dish');
 const User = mongoose.model('user');
 module.exports.put = (req, res, next) => {
-    console.log(req.body.postId);
     Post
         .findOne({_id: req.body.postId, like:{$in: req.userId}})
         .exec((err, info) => {
@@ -40,7 +39,6 @@ module.exports.put = (req, res, next) => {
         });
 };
 module.exports.putCom = (req, res, next) => {
-    console.log(req.body._id);
     Comment
         .findOne({_id: req.body._id, likeCom:{$in: req.userId}})
         .exec((err, info) => {
@@ -77,7 +75,6 @@ module.exports.putCom = (req, res, next) => {
         });
 };
 module.exports.putDish = (req, res, next) => {
-    console.log(req.body._id);
     Dish
         .findOne({_id: req.body._id, dishlike:{$in: req.userId}})
         .exec((err, info) => {
@@ -122,7 +119,6 @@ module.exports.putDish = (req, res, next) => {
                                     if(err) {
                                         res.send(err)
                                     } else {
-                                        console.log(info.favoritdish);
                                         return res.ok(content.dishlike)
                                     }
                                 });

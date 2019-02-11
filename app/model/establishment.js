@@ -117,7 +117,6 @@ const min = (req,res,id,model)=>{
             if (info) {
                 if(!info.minPrice || info.minPrice < 50) {
                     req.body.minPrice = 50;
-                    console.log('test0', req.body);
                     othu(req, res, id, model)
                 }else{
                     return res.ok(info);
@@ -303,7 +302,6 @@ const preUpdate = (req,res,next)=>{
     delete req.body['own'];
     delete req.body['owner'];
     if (req.params){
-        console.log(req.params);
         switch (req.query.select){
             case 'bg': bgu(req,res,req.params.id,req.query.select); break;
             case 'av': bgu(req,res,req.params.id,req.query.select); break;

@@ -43,11 +43,9 @@ const preCreate = (req,res,next)=>{
         userIdCom: req.userId,
         data: new Date()
     };
-    console.log(req.body);
     mongoose.model('comment')
         .create(comment, (err, info)=>{
             if (err) {
-                console.log(info);
                 return res.send(err)
             }else{
                 mongoose.model('post')

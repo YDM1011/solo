@@ -20,13 +20,11 @@ export class AvatarComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.auth.onUserData.subscribe((val: any)=>{
       this.user = val;
-      console.log(val);
     })
   }
   ngOnChanges(){
     this.auth.onUserData.subscribe((val: any)=>{
       this.user = val;
-      console.log(val);
     })
   }
   getLoader(elem){

@@ -89,7 +89,6 @@ const min = (req,res,id,model)=>{
             if (info) {
                 if(!info.minPrice || info.minPrice < 50) {
                     req.body.minPrice = 50;
-                    console.log('test0', req.body);
                     othu(req, res, id, model)
                 }else{
                     return res.ok(info);

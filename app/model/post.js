@@ -131,7 +131,6 @@ const preCreate = (req,res,next)=>{
 
             }
         });*/
-    console.log(req.body);
     req.body.inPlace.id = req.body.inPlace.id || null;
     new Promise((resolve, reject)=>{
         let imgArr = [];
@@ -235,7 +234,6 @@ const preDelete = (req,res,next)=>{
             if(info){
                 let id = mongoose.Types.ObjectId(info.userId).toString();
                 let idS = mongoose.Types.ObjectId(info.share.userIdShare).toString();
-                console.log(req.userId, id, idS);
                 if(req.userId == id || req.userId == idS){
                     asyncForEach(info.img, async (img) => {
                         await new Promise(async (resolve,reject)=> {

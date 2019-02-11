@@ -43,12 +43,10 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
     s.id=null;
   }
   savePics() {
-    console.log(this.avatar);
     this.uploadFile();
 
   }
   res(er){
-    console.log(er);
     let obj = Object.assign({},er);
     this.avatar.push(obj);
     this.savePics();
@@ -62,7 +60,6 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
 
   nextLoad(i){
     let self = this;
-    console.log(self.avatar[i]);
     let fileCount: number = self.avatar[i].size;
     if (fileCount && self.avatar[i].name) {
     let formObj = Object.assign({},{
@@ -85,7 +82,6 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
       }
     }).catch(
       error => {
-        console.log(error);
       });
     }
   }

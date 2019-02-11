@@ -30,7 +30,6 @@ export class InviteFriendComponent implements OnInit, OnChanges {
   }
   addFriend(){
     let self = this;
-    console.log(self.userId);
     self.friends.addFriend(self.userId).then(res=>{
       self.friends.checkInvite(self.userId)
     })

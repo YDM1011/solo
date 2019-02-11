@@ -160,7 +160,6 @@ app.use(function(err, req, res, next) {
     // res.status(err.status || 500);
     // res.render('error');
     if(err.status == 404){
-        console.log(req.subdomains, req.cookies);
         if (req.cookies['sid']){
             switch(req.subdomains[0]){
                 case undefined:res.render('index1', { title: req.params.path });

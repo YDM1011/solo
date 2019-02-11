@@ -59,7 +59,6 @@ export class PostComponent implements OnInit, OnChanges, OnDestroy {
     this.http.post(this.domain + '/api/share', obj, this.api.getHeaders())
       .subscribe((post: any) => {
       if (post.userId._id == self.auth.getUserId()) {
-        console.log(post);
         // post.share.userIdShare = self.auth.getUserData().avatar;
         self.posts.unshift(post);
       }
@@ -68,7 +67,6 @@ export class PostComponent implements OnInit, OnChanges, OnDestroy {
   deletePost(post){
     this.http.delete(this.domain + '/api/post/'+post._id, this.api.getHeaders())
       .subscribe((val:any)=>{
-        console.log(val);
         let index = this.posts.indexOf(post);
         this.posts.splice(index,1);
       });

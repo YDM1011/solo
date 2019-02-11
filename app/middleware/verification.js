@@ -21,7 +21,6 @@ module.exports = (req,res,next)=>{
     if (errVal > 0){
        return res.badRequest("Login or passwor is wrong" + errVal);
     }else{
-        console.log("ok");
         next();
     }
 };

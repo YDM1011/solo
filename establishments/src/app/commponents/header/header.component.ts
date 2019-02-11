@@ -37,7 +37,6 @@ export class HeaderComponent implements OnInit {
   }
   goSearch(e){
     let s = this;
-    console.log(e);
     if(e){
       this.api.get('search?search="'+e+'"')
         .then((res: any) => {

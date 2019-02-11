@@ -59,7 +59,6 @@ export class UserService {
     this.userdata.next(data);
     this.user = data;
     this.avatar.next(self.user.photo);
-    console.log(this.user);
 
       if (!self.img[self.user.photo._id]){
         self.http.get<any>(this._avatar+this.user.photo._id,

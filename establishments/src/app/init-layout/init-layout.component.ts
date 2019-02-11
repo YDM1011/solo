@@ -138,7 +138,6 @@ export class InitLayoutComponent implements OnInit, OnDestroy {
 
   verifyLike(val){
     let s = this;
-    console.log(val);
     if (val.mes == 'checked'){
       s.isChangeEstPop = true;
       s.hidden();

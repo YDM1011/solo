@@ -1,5 +1,4 @@
 module.exports = ()=>{
-    console.log("ok");
 const app = express();
 /***************************/
 const methodOverride = require('method-override');
@@ -29,7 +28,6 @@ db.on('error', function () {
 });
 models.forEach(function (model) {
     require(model);
-    console.log(model.split("./app/model/")[1].split(".js")[0]);
     let nameModel = model.split("./app/model/")[1].split(".js")[0]
     const modelApi = mongoose.model(nameModel);
     restify.serve(route, modelApi, {preMiddleware: midl});

@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const User = mongoose.model('user');
 module.exports.isInvite = (req, res, next) => {
-    console.log(String(req.userId) == req.body.userId, req.body.userId);
     if(String(req.userId) == req.body.userId){
         return res.send({error:"Something broke!"});
     }
@@ -227,7 +226,6 @@ module.exports.getPotentialFriend = (req, res, next) => {
 
 
 const invite = (req, res, next, myid = null, usid = null) => {
-    console.log(req.body.postId);
     let myId = myid || req.userId;
     let usId = usid || req.body.userId;
     if(String(myId) != usId) {

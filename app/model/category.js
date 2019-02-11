@@ -79,7 +79,6 @@ const preUpdate = (req,res,next)=>{
                 if (err) return res.badRequest(err);
                 if (!result) return res.notFound();
                 if (result) {
-                    console.log(result);
                     next();
                 }
             })
@@ -111,7 +110,6 @@ const preCreate = (req,res,next)=>{
                 if (err) return res.badRequest(err);
                 if (!result) return res.notFound();
                 if (result) {
-                    console.log(result);
                     next();
                 }
             })

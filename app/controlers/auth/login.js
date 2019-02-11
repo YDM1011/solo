@@ -9,7 +9,6 @@ const time = 365 * 24 * 3600000;
 module.exports = (req, res, next) => {
     collectRequestData(req,(elem)=>{
         req.body = JSON.parse(elem);
-        console.log(req.body);
     User
         .findOne({login: req.body.login})
         .exec((err, info)=>{

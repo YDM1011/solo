@@ -114,7 +114,6 @@ const preUpdate = (req,res,next)=>{
 };
 const oth = (req,res)=>{
     User.count({}, function(err, c) {
-        console.log("ok count", c)
         if(err) return res.badRequest(err);
         if(!c) return res.notFound("");
         res.ok({count: c})
@@ -173,10 +172,8 @@ glob.restify.serve(
                         result.push(item)
                     }
                 });
-                console.log(req.erm.result);
                 return await res.status(statusCode).json(result)
             }else{
-                console.log(req.erm.result);
                 return await res.status(statusCode).json(req.erm.result)
             }
 

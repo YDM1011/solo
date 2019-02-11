@@ -20,7 +20,6 @@ export class EstsComponent implements OnInit {
   initApi(){
     let s = this;
     s.api.get('est_menu').then((val:any)=>{
-      console.log(val)
     })
   }
 }
