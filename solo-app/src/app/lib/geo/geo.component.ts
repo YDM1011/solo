@@ -51,7 +51,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   private id;
   private options = {
     enableHighAccuracy: true,
-    maximumAge: 0,
+    maximumAge: 10000,
     timeout: 30000
   };
   private target = {
@@ -77,7 +77,7 @@ export class GeoComponent implements OnInit, OnDestroy {
     let s = this;
     s.isShow = true;
     if (navigator.geolocation) {
-        s.id = navigator.geolocation.watchPosition((pos)=> {
+      navigator.geolocation.getCurrentPosition((pos)=> {
           let crd = pos.coords;
           let x,y;
           x = pos.coords.latitude;
@@ -114,14 +114,9 @@ export class GeoComponent implements OnInit, OnDestroy {
             });
             s.distans = s.sort(s.distans);
             s.onLoad = true;
-            navigator.geolocation.clearWatch(s.id);
-            console.log(s.distans);
+            // navigator.geolocation.clearWatch(s.id);
           });
 
-          if (s.target.latitude === x && s.target.longitude === y) {
-            console.log('Congratulations, you reached the target');
-            navigator.geolocation.clearWatch(s.id);
-          }
         }, (err)=>{s.error(err,s)}, s.options);
       // });
     } else {
