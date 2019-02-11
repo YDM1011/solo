@@ -7700,7 +7700,7 @@ textarea.us_area::-webkit-scrollbar-track {
   margin: 0;
 }
 .img-of-map .bg{
-  width: 180px;
+  width: 100%;
   z-index: 1;
   position: absolute;
   display: block;
