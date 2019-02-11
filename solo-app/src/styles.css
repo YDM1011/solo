@@ -1534,7 +1534,11 @@ app-file-min-post{
 .lf-br .req {
   margin: 5px 0 5px 5px;
 }
-
+@media (min-width: 350px) {
+  .br-lv .svg20{
+    position: static;
+  }
+}
 @media (min-width: 370px){
   .br-lv_t {
     padding: 0 10px;
@@ -1599,9 +1603,9 @@ app-file-min-post{
     max-width: 215px;
     margin: 5px 0;
   }
-  .br-lv .svg20 {
-    position: static;
-  }
+  /*.br-lv .svg20 {*/
+    /*position: static;*/
+  /*}*/
   .br-lv_h {
     padding: 0 11px 0;
     height: 40px;
@@ -5954,7 +5958,6 @@ input.p-d_i_num_inp[type=number] {
     background: #fff;
     box-shadow: 3px -3px 20px -1px rgba(0, 0, 0, 0.1);
     border: 1px solid #e8e8e8;
-    padding: 10px;
   }
 }
 
@@ -5991,6 +5994,9 @@ input.p-d_i_num_inp[type=number] {
   flex-direction: column;
   border: 1px solid #e8e8e8;
   padding: 13px 5px 10px; }
+.map_cn{
+  padding: 13px 5px 10px;
+}
 .p-l_i .p-d_h {
   max-width: 320px;
   margin: 0 auto 20px 0; }
@@ -6157,8 +6163,11 @@ input.p-d_i_num_inp[type=number] {
 @media (min-width: 350px) {
   .p-l-cont {
     min-width: 320px; }
-  .p-l_i {
-    padding: 13px 10px 10px; } }
+  .p-l_i,
+  .map_cn{
+    padding: 13px 10px 10px;
+  }
+}
 
 @media (min-width: 500px) {
   .p-l_ih {
