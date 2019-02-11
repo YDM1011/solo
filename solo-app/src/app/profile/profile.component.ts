@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
   public link = {};
   public links = new profileLinks();
   public dateOfBirth;
-  public myProf: boolean = true;
+  public btn: any = '<div class="inh-absolute"></div>';
 
   public options: Pickadate.DateOptions = {
     clear: 'Очистити',
@@ -114,7 +114,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.statuse = this.status.getStatuse();
-
   }
 
   stsCheck(key){
@@ -132,10 +131,8 @@ export class ProfileComponent implements OnInit {
     let s = this;
     s.me.bornedData = s.dataToString(s.data);
     s.me.familyStatus = Object.assign({}, s.statusCheck);
-    console.log(s.me.bornedData);
     this.http.post(`${this.domain}/api/user/${s.me._id}`, s.me, this.api.getHeaders())
       .subscribe((user: any) => {
-        console.log(s.me.bornedData);
         alert("success")
       });
   }

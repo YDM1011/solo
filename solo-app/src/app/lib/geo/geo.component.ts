@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CoreService} from "../../core.service";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
@@ -37,7 +37,7 @@ class Distance {
   templateUrl: './geo.component.html',
   styleUrls: ['./geo.component.css']
 })
-export class GeoComponent implements OnInit {
+export class GeoComponent implements OnInit, OnDestroy {
   public domain: string = environment.apiDomain;
   public host: string = environment.apiDomain.split('//')[1];
   private geo = new Distance();
@@ -51,7 +51,7 @@ export class GeoComponent implements OnInit {
   private id;
   private options = {
     enableHighAccuracy: true,
-    maximumAge: 0,
+    maximumAge: 10000,
     timeout: 30000
   };
   private target = {
@@ -68,6 +68,7 @@ export class GeoComponent implements OnInit {
   ngOnInit() {
   }
   ngOnDestroy() {
+    document.querySelector('nav').style.zIndex = '';
     document.body.style.overflow = '';
   }
 
@@ -76,7 +77,7 @@ export class GeoComponent implements OnInit {
     let s = this;
     s.isShow = true;
     if (navigator.geolocation) {
-        s.id = navigator.geolocation.watchPosition((pos)=> {
+      navigator.geolocation.getCurrentPosition((pos)=> {
           let crd = pos.coords;
           let x,y;
           x = pos.coords.latitude;
@@ -113,14 +114,9 @@ export class GeoComponent implements OnInit {
             });
             s.distans = s.sort(s.distans);
             s.onLoad = true;
-            navigator.geolocation.clearWatch(s.id);
-            console.log(s.distans);
+            // navigator.geolocation.clearWatch(s.id);
           });
 
-          if (s.target.latitude === x && s.target.longitude === y) {
-            console.log('Congratulations, you reached the target');
-            navigator.geolocation.clearWatch(s.id);
-          }
         }, (err)=>{s.error(err,s)}, s.options);
       // });
     } else {
@@ -179,6 +175,7 @@ export class GeoComponent implements OnInit {
   }
 
   hidden() {
+    document.querySelector('nav').style.zIndex = this.isShow ? '9' : '';
     document.querySelector('body').style.overflow = this.isShow ? 'hidden' : '';
   }
   checkIconActive(arr){

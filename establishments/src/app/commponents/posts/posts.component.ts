@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit} from '@angular/core';
 import { ApiService } from '../../service/api.service';
 import {CookieService} from "ngx-cookie-service";
 import {environment} from "../../../environments/environment";
@@ -8,7 +8,7 @@ import {environment} from "../../../environments/environment";
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
-export class PostsComponent implements OnInit, OnChanges {
+export class PostsComponent implements OnInit, OnChanges, OnDestroy {
 
   public posts: any;
   public postsCount: any;
@@ -26,6 +26,9 @@ export class PostsComponent implements OnInit, OnChanges {
     s.initApi();
   }
   ngOnChanges(){}
+  ngOnDestroy(): void {
+    document.body.style.overflow = '';
+  }
 
   initApi() {
     const s = this;
@@ -119,5 +122,8 @@ export class PostsComponent implements OnInit, OnChanges {
     });
     if (is) return true;
     else return false;
+  }
+  hidden(status) {
+    document.body.style.overflow = (status) ? 'hidden' : '';
   }
 }

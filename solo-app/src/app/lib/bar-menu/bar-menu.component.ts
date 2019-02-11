@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {CookieService} from "ngx-cookie-service";
@@ -40,7 +40,7 @@ import {FormApiService} from "../form-api/form-api.service";
     ])
   ]
 })
-export class BarMenuComponent implements OnInit {
+export class BarMenuComponent implements OnInit, OnDestroy {
   public domain: string = environment.apiDomain;
   public host: string = environment.apiDomain.split('//')[1];
   public popPreProd = false;

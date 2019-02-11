@@ -1,16 +1,46 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
 import {NavigationEnd, Router, ActivatedRoute} from '@angular/router';
 import {ApiService} from '../service/api.service';
 import {environment} from "../../environments/environment";
 import {Title} from "@angular/platform-browser";
 import {CookieService} from "ngx-cookie-service";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-init-layout',
   templateUrl: './init-layout.component.html',
-  styleUrls: ['./init-layout.component.css']
+  styleUrls: ['./init-layout.component.css'],
+  animations: [
+    trigger('inOpacity', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('140ms', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({ opacity: 0 }))
+      ])
+    ]),
+    trigger('inPop', [
+      transition(':enter', [
+        style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }),
+        animate('220ms', style({
+          transform: 'scaleX(1) scaleY(1)',
+          opacity: 1
+        }))
+      ]),
+      transition(':leave', [
+        animate('120ms', style({
+          transform: 'scaleX(0.8) scaleY(0.8)',
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
-export class InitLayoutComponent implements OnInit {
+export class InitLayoutComponent implements OnInit, OnDestroy {
 
   public isHome = true;
   public thebest: any;
@@ -57,6 +87,10 @@ export class InitLayoutComponent implements OnInit {
     self.getName();
   }
 
+  ngOnDestroy() {
+    document.body.style.overflow = '';
+  }
+
   getPics(){
     const s = this;
     s.api.justGet('est_pics').then((val: any) => {
@@ -96,6 +130,7 @@ export class InitLayoutComponent implements OnInit {
   resetEst() {
     const s = this;
     s.isChangeEstPop = false;
+    s.hidden();
     s.api.post('resetEst', {}).then((val: any) => {
       s.verifyLike(val)
     });
@@ -106,6 +141,7 @@ export class InitLayoutComponent implements OnInit {
     console.log(val);
     if (val.mes == 'checked'){
       s.isChangeEstPop = true;
+      s.hidden();
     }else if(val.length > 0){
       s.thebest = val;
       s.isBest = s.checkIconActive(s.thebest);
@@ -123,5 +159,8 @@ export class InitLayoutComponent implements OnInit {
     });
     if (is) return true;
     else return false;
+  }
+  hidden() {
+    document.body.style.overflow = (this.isChangeEstPop) ? 'hidden' : '';
   }
 }

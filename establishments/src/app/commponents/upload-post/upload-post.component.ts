@@ -1,11 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-upload-post',
   templateUrl: './upload-post.component.html',
   styleUrls: ['./upload-post.component.css']
 })
-export class UploadPostComponent implements OnInit {
+export class UploadPostComponent implements OnInit, OnDestroy {
   public avatar=[];
   @Output() getImg = new EventEmitter<any>();
   @Output() editImg = new EventEmitter<any>();

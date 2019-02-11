@@ -1,4 +1,4 @@
-import {Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef} from '@angular/core';
+import {Component, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef, OnDestroy} from '@angular/core';
 import {ImageCropperComponent} from "ngx-image-cropper";
 import {Ratios} from "./ratios";
 import {animate, style, transition, trigger} from "@angular/animations";
@@ -36,7 +36,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
   ],
 })
 
-export class FileMinComponent implements OnInit {
+export class FileMinComponent implements OnInit, OnDestroy {
   get imageCropper(): ImageCropperComponent {
     return this._imageCropper;
   }
@@ -74,6 +74,12 @@ export class FileMinComponent implements OnInit {
   }
   ngOnChanges(){
     this.ratios = new Ratios().getRatios(this.model,this.field);
+  }
+  ngOnDestroy(): void {
+    this.imageChangedEvent = '';
+    this.croppedImage = '';
+    this.imageObj = '';
+    this.file = null;
   }
 
   @ViewChild(ImageCropperComponent) private _imageCropper: ImageCropperComponent;

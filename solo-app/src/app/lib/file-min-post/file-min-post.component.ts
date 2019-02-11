@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output,} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output,} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
@@ -35,7 +35,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
   ])
 ]
 })
-export class FileMinPostComponent implements OnInit {
+export class FileMinPostComponent implements OnInit, OnDestroy {
 
   @Input() btn;
   @Input() push: any;
