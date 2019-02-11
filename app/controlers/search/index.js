@@ -13,6 +13,7 @@ const getUsers =  search => {
             .find({$or: [{firstName: new RegExp( s, 'gi' )},
                     {lastName: new RegExp( s, 'gi' )}]})
             .where('login').ne('admin')
+            .populate({path:"photo"})
             .select("_id photo firstName lastName")
             .exec((err,result)=>{
                 if (result) {

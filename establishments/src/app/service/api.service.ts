@@ -244,11 +244,12 @@ export class ApiService {
         resolve(self.global[api + id + select]);
         this.updat.next([self.global[api + id + select], select]);
       }
-      if (res && !select) {
+      if (res && !select && self.global[api + (id || '') + (select || '')]) {
         self.global[api + (id || '') + (select || '')].push(res);
         resolve(self.global[api + (id || '') + (select || '')]);
         this.updat.next([self.global[api + (id || '') + (select || '')], api]);
       }
+      if (!self.global[api + (id || '') + (select || '')]) self.global[api + (id || '') + (select || '')] = [];
     });
   }
 }

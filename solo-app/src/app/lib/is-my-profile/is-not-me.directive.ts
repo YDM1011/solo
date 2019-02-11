@@ -13,7 +13,7 @@ export class IsNotMeDirective {
   ) {
     //noinspection TypeScriptUnresolvedVariable
     core.onGetValid.subscribe(val=>{
-      console.log("directive",el,val);
+      console.log("isNotMe",el,val);
       if(val){
         //noinspection TypeScriptUnresolvedVariable
         el.nativeElement.style.display = "none";

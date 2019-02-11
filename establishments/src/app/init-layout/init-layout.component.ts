@@ -3,6 +3,7 @@ import {NavigationEnd, Router, ActivatedRoute} from '@angular/router';
 import {ApiService} from '../service/api.service';
 import {environment} from "../../environments/environment";
 import {Title} from "@angular/platform-browser";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-init-layout',
@@ -18,12 +19,15 @@ export class InitLayoutComponent implements OnInit {
   public pics: any;
   public name: any;
   public user: any;
+  public isFav:boolean=false;
+  public isBest:boolean=false;
   public host: string = environment.host;
   public isChangeEstPop:boolean=false;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private api: ApiService,
+    private cookie: CookieService,
     private titleService: Title
   ) {
     this.setTitle('Заклад')
@@ -75,8 +79,15 @@ export class InitLayoutComponent implements OnInit {
     const s = this;
     s.api.post('favorite', {key: arg}).then((val: any) => {
       switch (arg) {
-        case'oneest': s.verifyLike(val); break;
-        case'est': s.favorite = val; break;
+        case'oneest':{
+          s.verifyLike(val);
+          break;
+        }
+        case'est':{
+          s.favorite = val;
+          s.isFav = s.checkIconActive(s.favorite);
+          break;
+        }
       }
 
     });
@@ -97,7 +108,20 @@ export class InitLayoutComponent implements OnInit {
       s.isChangeEstPop = true;
     }else if(val.length > 0){
       s.thebest = val;
+      s.isBest = s.checkIconActive(s.thebest);
     }
-
+  }
+  checkIconActive(arr){
+    let s = this;
+    let is = false;
+    if (!arr) return;
+    if (arr.length==0) return;
+    arr.map(it=>{
+      if(it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
   }
 }

@@ -34,7 +34,7 @@ export class PostsComponent implements OnInit, OnChanges {
         s.estAvatar = val;
       }
     });
-    s.api.get('est_post').then((val: any) => {
+    s.api.get('est_post?skip=0').then((val: any) => {
       if (val) {
         s.posts = val;
         s.getCount(s.posts.length)
@@ -108,5 +108,16 @@ export class PostsComponent implements OnInit, OnChanges {
         let index = this.posts.indexOf(post);
         this.posts.splice(index,1);
       });
+  }
+  checkShareActive(users){
+    let s = this;
+    let is = false;
+    users.map(it=>{
+      if(it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
   }
 }

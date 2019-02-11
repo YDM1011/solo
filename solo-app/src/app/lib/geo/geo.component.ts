@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CoreService} from "../../core.service";
 import {environment} from "../../../environments/environment";
+import {CookieService} from "ngx-cookie-service";
 
 class Distance {
   toRadians(degrees) {
@@ -60,6 +61,7 @@ export class GeoComponent implements OnInit {
 
   @Input() avatar;
   constructor(
+    private cookie:CookieService,
     protected api: CoreService
   ) { }
 
@@ -178,6 +180,19 @@ export class GeoComponent implements OnInit {
 
   hidden() {
     document.querySelector('body').style.overflow = this.isShow ? 'hidden' : '';
+  }
+  checkIconActive(arr){
+    let s = this;
+    let is = false;
+    if (!arr) return;
+    if (arr.length==0) return;
+    arr.map(it=>{
+      if(it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
   }
   tab: boolean = true;
 }
