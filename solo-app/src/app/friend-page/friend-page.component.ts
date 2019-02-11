@@ -49,8 +49,8 @@ export class FriendPageComponent implements OnInit, OnChanges {
     this.http.get(this.domain + '/api/getFriends?userId=' + idc, s.api.getHeaders())
       .subscribe((friends: any) => {
         s.friends = (friends);
-        s.isFriends = true;
         s.getMutualFriends(idc);
+        s.isFriends = true;
       });
   }
 

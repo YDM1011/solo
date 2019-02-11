@@ -85,8 +85,8 @@
       <div class="pst_cnt">
         <p class="pst_d">{{post.des}}</p>
         <div class="pst_img">
-          <div class="cont-img" [class.array]="post.img.length >= 2" *ngFor="let img of post.img">
-            <app-img class="img_i" [img]="{id:img}"></app-img>
+          <div class="cont-img" [class.array]="post.img.length >= 2">
+            <app-img class="img_i" *ngFor="let img of post.img" [img]="{id:img}"></app-img>
           </div>
         </div>
       </div>
