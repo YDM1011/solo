@@ -20,6 +20,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     document.body.style.overflow = '';
+    document.querySelector('nav').style.zIndex = '';
   }
   initApi(){
     let s = this;
@@ -29,6 +30,7 @@ export class MenuComponent implements OnInit, OnDestroy {
   }
   hidden() {
     this.isShow = !this.isShow;
+    document.querySelector("nav").style.zIndex = (this.isShow) ? '9': '';
     document.querySelector('body').style.overflow = (this.isShow) ?  'hidden' : '';
   }
 }

@@ -176,7 +176,7 @@ app-file-min-post{
     position: fixed;
     top: 91px;
     margin-top: 5px;
-    z-index: 10;
+    z-index: 9;
   }
 }
 @media (min-width: 992px) and (min-height: 500px) {

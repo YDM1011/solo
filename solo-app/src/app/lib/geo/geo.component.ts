@@ -68,6 +68,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
   ngOnDestroy() {
+    document.querySelector('nav').style.zIndex = '';
     document.body.style.overflow = '';
   }
 
@@ -179,6 +180,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   }
 
   hidden() {
+    document.querySelector('nav').style.zIndex = this.isShow ? '9' : '';
     document.querySelector('body').style.overflow = this.isShow ? 'hidden' : '';
   }
   checkIconActive(arr){
