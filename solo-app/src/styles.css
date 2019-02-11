@@ -38,7 +38,14 @@ textarea{
 img{
   max-width: 100%;
 }
-
+.inh-absolute{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  left: 0;
+  cursor: pointer;
+}
 /*grid*/
 .cont-page {
   display: flex;
@@ -128,7 +135,7 @@ img{
     position: fixed;
     top: 91px;
     margin-top: 5px;
-    z-index: 10;
+    z-index: 9;
   }
 }
 @media (min-width: 992px) and (min-height: 500px) {

@@ -59,7 +59,7 @@
             </a>
             <div class="frn_in">
               <a class="frn_name" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
-              <p *ngIf="mutual[mean._id]">Спільне: <span>{{mutual[mean._id].length || 0}} друзів</span> <span>та 0 страв</span></p>
+              <p *ngIf="mutual[mean._id]">Спільне: {{mutual[mean._id].length || 0}} друзів та 0 страв</p>
             </div>
           </div>
 

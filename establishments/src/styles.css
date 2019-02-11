@@ -82,7 +82,9 @@ app-file-min-post{
     color: #000000;
   }
 }
-
+.button:focus {
+  background: transparent;
+}
 .disabled{
   opacity: .5;
   pointer-events: none;
@@ -174,7 +176,7 @@ app-file-min-post{
     position: fixed;
     top: 91px;
     margin-top: 5px;
-    z-index: 10;
+    z-index: 9;
   }
 }
 @media (min-width: 992px) and (min-height: 500px) {

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../auth.service";
 import {CoreService} from "../core.service";
@@ -41,7 +41,7 @@ import {animate, style, transition, trigger} from "@angular/animations";
     ])
   ]
 })
-export class GaleryPageComponent implements OnInit {
+export class GaleryPageComponent implements OnInit, OnDestroy {
 
   public domain: string = environment.apiDomain;
 

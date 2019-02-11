@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {UploadService} from "./upload.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {UploadService} from "./upload.service";
   templateUrl: './upload-post.component.html',
   styleUrls: ['./upload-post.component.css']
 })
-export class UploadPostComponent implements OnInit {
+export class UploadPostComponent implements OnInit, OnDestroy {
   public avatar=[];
   @Output() getImg = new EventEmitter<any>();
   @Output() editImg = new EventEmitter<any>();
