@@ -43,7 +43,7 @@ export class PostComponent implements OnInit, OnChanges, OnDestroy {
         this.user = value[0];
       }
     });
-    self.userId = self.cookie.get('userid')
+    self.userId = self.cookie.get('userid');
   }
   ngOnChanges(){
 
@@ -74,6 +74,8 @@ export class PostComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
   hidden(status) {
+    console.log('posts', this.posts);
+
     document.body.style.overflow = (status) ? 'hidden' : '';
   }
 }
