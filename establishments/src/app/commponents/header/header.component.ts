@@ -2,11 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from '../../../environments/environment';
 import {ApiService} from "../../service/api.service";
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        right: '0'
+      })),
+      state('closed', style({
+        right: '-100%'
+      })),
+      transition('closed => open', [
+        animate('300ms ease-out')
+      ]),
+      transition('open => closed', [
+        animate('200ms ease-out')
+      ])
+
+    ])
+  ]
 })
 export class HeaderComponent implements OnInit {
 

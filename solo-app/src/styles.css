@@ -656,18 +656,20 @@ input[type=text].nav_search {
   position: fixed;
   top: 0;
   width: 100%;
-  right: -100%;
+  /*right: -100%;*/
   height: 100vh;
   background: #ffffff;
-  transition: right .2s ease-in-out;
   z-index: 999;
 }
 .mob-nav ul{
+  height: 100%;
+  overflow-y: auto;
+  padding-bottom: 60px;
   list-style-type: none;
 }
-.mob-nav.active{
-  right: 0;
-}
+/*.mob-nav.active{*/
+  /*right: 0;*/
+/*}*/
 .us-s.mob-m{
   display: block;
   margin-bottom: 25px;

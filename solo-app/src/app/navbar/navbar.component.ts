@@ -7,11 +7,29 @@ import {UserService} from '../lib/user/user.service';
 import {CoreService} from '../core.service';
 import {environment} from '../../environments/environment';
 import {FormApiService} from '../lib/form-api/form-api.service';
+import {animate, state, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css']
+  styleUrls: ['./navbar.component.css'],
+  animations: [
+    trigger('openClose', [
+      state('open', style({
+        right: '0'
+      })),
+      state('closed', style({
+        right: '-100%'
+      })),
+      transition('closed => open', [
+        animate('300ms ease-out')
+      ]),
+      transition('open => closed', [
+        animate('200ms ease-out')
+      ])
+
+    ])
+  ]
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   public friends = [];
