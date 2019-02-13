@@ -129,7 +129,17 @@ app.get("/", function(req, res, next) {
                         break;
                 }
             }).catch(err=>{
-                res.render('index6')
+                switch(req.subdomains[0]) {
+                    case 'admin':
+                        res.render('index3');
+                        break;
+                    case 'adm':
+                        res.render('index5');
+                        break;
+                    default:
+                        res.render('index6');
+                        break;
+                }
             });
         }
     }else{
@@ -182,7 +192,18 @@ app.use(function(err, req, res, next) {
                             break;
                     }
                 }).catch(err=>{
-                    res.render('index6')
+                    console.log(req.subdomains[0]);
+                    switch(req.subdomains[0]) {
+                        case 'admin':
+                            res.render('index3');
+                            break;
+                        case 'adm':
+                            res.render('index5');
+                            break;
+                        default:
+                            res.render('index6');
+                            break;
+                    }
                 });
             }else {
                 res.render('index1');
