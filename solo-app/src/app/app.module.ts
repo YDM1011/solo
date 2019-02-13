@@ -45,7 +45,6 @@ import { LikeDishComponent } from './lib/like-dish/like-dish.component';
 import { GeoComponent } from './lib/geo/geo.component';
 import { MapComponent } from './lib/map/map.component';
 import { PrevDishComponent } from './lib/prev-dish/prev-dish.component';
-import 'hammerjs';
 import {NgxHmCarouselModule} from "ngx-hm-carousel";
 import { FriendOfferPageComponent } from './friend-offer-page/friend-offer-page.component';
 import { ScrollRequestDirective } from './scroll-request.directive';
