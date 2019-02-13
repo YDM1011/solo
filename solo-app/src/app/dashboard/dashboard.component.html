@@ -90,9 +90,9 @@
           </div>
 
             <div class="lf-br_btn" *ngIf="user">
-              <ng-container *ngIf="user.photo; else geaalt">
-                <ng-container *ngIf="user.photo.picCrop; else geaalt">
-                  <app-geo class="btn-green" [avatar]="user.photo.picCrop"></app-geo>
+              <ng-container *ngIf="userPhoto; else geaalt">
+                <ng-container *ngIf="userPhoto.picCrop; else geaalt">
+                  <app-geo class="btn-green" [avatar]="userPhoto.picCrop"></app-geo>
                 </ng-container>
               </ng-container>
               <ng-template #geaalt>

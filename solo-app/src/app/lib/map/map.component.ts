@@ -47,20 +47,22 @@ export class MapComponent implements OnInit {
         oxy[0] = xyc.x;
         oxy[1] = xyc.y;
         if (xyc.x && xyc.y){
-          L.marker(oxy, {clickable: true,
-            icon: new L.Icon({ iconUrl: './favicon.ico',
-              iconSize: [30, 30],
-              iconAnchor: [30, 30],
-              popupAnchor:  [-15, -15]})
-          }).addTo(map).bindPopup(`<div class="map-pop">
-            <div class="img-of-map">
-            <img src="${xyc.bg}" class="bg">
-            <img src="${xyc.logo}" class="logo">
-            </div>
-            <strong>${xyc.name}</strong>
-            <br/><span>${xyc.address?xyc.address:''}</span> 
-            <br/><a href="${xyc.link}">Сайт закладу</a>
-            </div>`);
+          if(xyc.active ){
+            L.marker(oxy, {clickable: true,
+              icon: new L.Icon({ iconUrl: './favicon.ico',
+                iconSize: [30, 30],
+                iconAnchor: [30, 30],
+                popupAnchor:  [-15, -15]})
+            }).addTo(map).bindPopup(`<div class="map-pop"><div class="img-of-map"><img src="${xyc.bg}" class="bg"><img src="${xyc.logo}" class="logo"></div><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span><br/><a href="${xyc.link}">Сайт закладу</a></div>`);
+          }else{
+            L.marker(oxy, {clickable: true,
+              icon: new L.Icon({ iconUrl: '../../../assets/img/tl.svg',
+                iconSize: [30, 30],
+                iconAnchor: [30, 30],
+                popupAnchor:  [-15, -15]})
+            }).addTo(map).bindPopup(`<div class="map-pop"><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span></div>`);
+          }
+
         }
       });
 

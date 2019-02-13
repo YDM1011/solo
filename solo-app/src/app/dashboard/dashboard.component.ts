@@ -6,6 +6,7 @@ import {FormApiService} from '../lib/form-api/form-api.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {Title} from "@angular/platform-browser";
+import {UserService} from "../lib/user/user.service";
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -32,6 +33,7 @@ export class DashboardComponent implements OnInit, OnChanges {
   public friends;
   public photos;
   public isHome;
+  public userPhoto;
   public mutual = [];
   public obj: any;
   public populate: any = JSON.stringify({path:'photo', select:'preload _id'});
@@ -41,6 +43,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
+    private userME: UserService,
     private api: FormApiService,
     private titleService: Title
   ) {}
@@ -56,6 +59,11 @@ export class DashboardComponent implements OnInit, OnChanges {
       self.setTitle(this.user.firstName);
       self.auth.setUserData(value);
       self.apiInitial(value._id);
+      }
+    });
+    self.userME.getMe().then((val: any) => {
+      if (val) {
+        self.userPhoto = val.photo;
       }
     });
     self.userId = self.auth.getUserId();

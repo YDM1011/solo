@@ -101,7 +101,8 @@ export class GeoComponent implements OnInit, OnDestroy {
                       bg: item.ownerEst.bg ? item.ownerEst.bg.picCrop : '../../../assets/img/like_house.svg',
                       address: item.address,
                       name: item.name,
-                      link: '//'+item.ownerEst.subdomain+'.'+s.host
+                      link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                      active: item.ownerEst.verify
                     });
                   item['distans'] = s.geo.calc(
                     {lat: item.coordinates[0], lng: item.coordinates[1]},

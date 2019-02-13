@@ -1,0 +1,12 @@
+<table>
+  <tr>
+    <td>subdomain</td>
+    <td>name</td>
+    <td>verify</td>
+  </tr>
+  <tr *ngFor="let est of ests">
+    <td>{{est.subdomain}}</td>
+    <td>{{est.name}}</td>
+    <td><input type="checkbox" [ngModel]="est.verify" (change)="updateStatus(est)"></td>
+  </tr>
+</table>
