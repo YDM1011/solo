@@ -25,9 +25,7 @@ export class ConfirmComponent implements OnInit {
             .then((res: any) => {
               if (res){
                 this.router.navigate([`user/${res._id}`]);
-                console.log('res',res)
               }else{
-                console.log('err',res)
               }
             }, (err:any)=>{
               console.log('err',err)

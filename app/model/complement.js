@@ -56,7 +56,6 @@ const preUpdate = (req,res,next)=>{
         mongoose.model('category')
             .findOne({complementbox:{$in:req.params.id}})
             .exec((err,doc)=>{
-                console.log("DOC", doc);
                 if(err) return res.badRequest('Something broke!');
 
                 mongoose.model('category')

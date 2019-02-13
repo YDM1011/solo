@@ -11,7 +11,6 @@ export class InfoContentComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log(false);
 
   }
   // ngAfterViewInit() {

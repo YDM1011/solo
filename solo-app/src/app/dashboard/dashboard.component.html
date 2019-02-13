@@ -103,6 +103,7 @@
               <app-pre-production [status]="goFr2.val" (statusResult)="goFr2.val=$event"></app-pre-production>
 
               <div IsNotMe class="req" style="width: 100%">
+                <app-meet-friend [userId]="id"></app-meet-friend>
                 <app-uninvite-friend [userId]="id" style="width: 100%"></app-uninvite-friend>
                 <app-invite-friend [userId]="id" style="width: 100%"></app-invite-friend>
               </div>

@@ -12,7 +12,6 @@ export class IsMyProfileDirective {
   ) {
     //noinspection TypeScriptUnresolvedVariable
     core.onGetValid.subscribe(val=>{
-      console.log("directive",el,val);
       if(!val){
         //noinspection TypeScriptUnresolvedVariable
         el.nativeElement.style.display = "none";

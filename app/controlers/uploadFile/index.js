@@ -73,7 +73,6 @@ const checkPic = (reqBody, res) => {
     } else {
         query['_id'] = reqBody.owner;
     }
-    console.log(query);
     return new Promise((resolve, reject)=>{
         mongoose.model(reqBody.model)
             .findOne(query)
@@ -104,7 +103,6 @@ const sendPicToModel = (reqBody, res, imgId) => {
     } else {
         query['_id'] = toObjectId(reqBody.owner);
     }
-    console.log(query, obj);
 
     return new Promise((resolve, reject)=>{
         mongoose.model(reqBody.model)
@@ -180,7 +178,6 @@ const sendRes = async (req,res) => {
     if (model && field){
 
         let pic = await checkPic(reqBody,res);
-        console.log("asd", pic[reqBody.field]);
         if (pic[reqBody.field]){
             let picData = await getPic(pic[reqBody.field], res);
             await delFile(picData);
@@ -203,7 +200,6 @@ const sendRes = async (req,res) => {
 };
 
 module.exports.upload = (req,res,next)=>{
-    console.log(req.body.fileName);
 
     let base64Data;
 
@@ -224,11 +220,9 @@ module.exports.upload = (req,res,next)=>{
 const delFileById = async (picId,res,next)=>{
     let picData = await getPic(picId, res);
     let isPic = await checkPicInPost(picId, res);
-    console.log("pic", !isPic);
     if (picData && !isPic){
         await delPic(picId);
         await delFile(picData);
-        console.log("pic", isPic);
         next()
     }else{
         next()

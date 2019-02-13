@@ -24,13 +24,9 @@ export class SigninComponent implements OnInit {
         .then((res: any) => {
           if (res){
             s.location.go(res._id);
-            // this.router.navigate([`user/${res._id}`]);
-            console.log('res',res);
           }else{
-            console.log('err',res);
           }
         }, (err:any)=>{
-          console.log('err',err);
         });
   }
 }

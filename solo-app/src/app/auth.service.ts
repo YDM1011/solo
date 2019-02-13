@@ -56,7 +56,6 @@ export class AuthService {
               resolve(res);
           },
         (err: any) => {
-            console.log(err);
             swal('Error', err.error.error, 'error');
             reject(err);
           }
@@ -116,14 +115,12 @@ export class AuthService {
       const domain = '.' + this.domainCoock.split('.')[1];
       const sdomain = '.' + this.domainCoock.split('.')[0].split('//')[1];
       document.cookie = 'userid=' + res._id + '; path=/; domain=' + sdomain + domain;
-      console.log(domain);
     } else {
       const host = location.host;
       const domainParts = host.split('.');
       domainParts.shift();
       const domain = '.' + domainParts.join('.') == '.' ? host.split(':')[0] : '.' + domainParts.join('.');
       document.cookie = 'userid=' + res._id + '; path=/; domain=' + domain;
-      console.log(domain);
     }
     // this.cookieService.set( 'token', res.token );
     // this.cookieService.set( 'userid', res._id );

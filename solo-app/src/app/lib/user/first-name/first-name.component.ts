@@ -19,7 +19,6 @@ export class FirstNameComponent implements OnInit {
   ngOnInit() {
     this.auth.onUserData.subscribe((val: any)=>{
       this.user = val;
-      console.log(val);
     })
   }
 }

@@ -35,7 +35,6 @@ export class BasketComponent implements OnInit {
         s.totalPrice += parseInt(product.portionCheck.price) * parseInt(product.count);
         product.totalPrice = parseInt(product.portionCheck.price) * parseInt(product.count);
         product.dishId.dishcategory.complementbox.map(compl=>{
-          console.log(compl.check);
           if (compl.check){
             s.totalPrice += parseInt(compl.price) * parseInt(product.count);
             product.totalPrice += parseInt(compl.price) * parseInt(product.count);
@@ -44,8 +43,6 @@ export class BasketComponent implements OnInit {
       }
 
     });
-
-    console.log(s.basket);
   }
 
   checkPP(product){

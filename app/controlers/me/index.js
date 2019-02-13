@@ -73,7 +73,6 @@ const checkFavoriteEst = (req,favEst)=>{
                 if(err) reject('Something broke!');
                 if(!info) reject(new Error('not found'));
                 if(info) {
-                    console.log(info.favoritest,favEst, info.favoritest==toObjectId(favEst._id));
                     if (!info.favoritest) resolv(info);
                     else if (info.favoritest == toObjectId(favEst._id)) resolv("ok");
                     else resolv("checked");

@@ -117,7 +117,6 @@ const min = (req,res,id,model)=>{
             if (info) {
                 if(!info.minPrice || info.minPrice < 50) {
                     req.body.minPrice = 50;
-                    console.log('test0', req.body);
                     othu(req, res, id, model)
                 }else{
                     return res.ok(info);
@@ -303,7 +302,6 @@ const preUpdate = (req,res,next)=>{
     delete req.body['own'];
     delete req.body['owner'];
     if (req.params){
-        console.log(req.params);
         switch (req.query.select){
             case 'bg': bgu(req,res,req.params.id,req.query.select); break;
             case 'av': bgu(req,res,req.params.id,req.query.select); break;
@@ -330,7 +328,7 @@ glob.restify.serve(
     mongoose.model('establishment'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getAdmin, glob.getOwner, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
         preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preDelete],
     });

@@ -22,8 +22,6 @@ export class LikeComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    console.log('id', this.id);
-    console.log('likes', this.likes);
     if(this.likes){
       this.checkactive(this.likes)
     }
@@ -38,7 +36,6 @@ export class LikeComponent implements OnInit, OnChanges {
     this.http.post(`${this.domain}/api/like`, {postId: this.id}, this.api.getHeaders())
       .subscribe((like: any) => {
         if(like){
-          console.log(like);
           self.likes = like;
           self.checkactive(self.likes)
         }

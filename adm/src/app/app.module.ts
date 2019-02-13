@@ -21,6 +21,7 @@ import { CategoryComponent } from './pages/category/category.component';
 import { CategoryAllComponent } from './commponents/category-all/category-all.component';
 import { CategoryCreateComponent } from './commponents/category-create/category-create.component';
 import { CategoryEditComponent } from './commponents/category-edit/category-edit.component';
+import { ModerationComponent } from './pages/moderation/moderation.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { CategoryEditComponent } from './commponents/category-edit/category-edit
     CategoryComponent,
     CategoryAllComponent,
     CategoryCreateComponent,
-    CategoryEditComponent
+    CategoryEditComponent,
+    ModerationComponent
   ],
   imports: [
     BrowserModule,

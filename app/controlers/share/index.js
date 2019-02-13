@@ -57,7 +57,6 @@ const addCountShareToOwner = (req,next)=>{
     Post
         .findOne({_id: id, shareCount:{$in: req.userId}})
         .exec((err, info) => {
-            console.log(info);
             if(!info){
                 Post
                     .findOneAndUpdate({_id: id},

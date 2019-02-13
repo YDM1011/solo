@@ -126,7 +126,6 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   goSearch(e){
     let s = this;
-    console.log(e);
     if(e){
       this.http.get(this.domain + '/api/search?search="'+e+'"', this.api.getHeaders())
         .subscribe((res: any) => {
