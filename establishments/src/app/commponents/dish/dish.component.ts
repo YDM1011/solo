@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ApiService} from '../../service/api.service';
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-dish',
@@ -18,7 +19,8 @@ export class DishComponent implements OnInit {
   public isAddPop = false;
   public dishObject = {};
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private cookie: CookieService
   ) { }
 
   ngOnInit() {
@@ -32,11 +34,13 @@ export class DishComponent implements OnInit {
           d.push(dish);
         }
       });
+
     });
     s.dishes = d;
     let count = 0;
     if (s.dishes.length > 0) {
       s.dishes.map(item => {
+        item[item._id] = s.checkIconActive(item.dishlike);
         s.portion[count] = item.portion[0];
         count++;
       });
@@ -55,6 +59,7 @@ export class DishComponent implements OnInit {
     s.api.post('likeDish', {_id: dish._id}).then((res: any) => {
       if (res) {
         dish.dishlike = res;
+        dish[dish._id] = s.checkIconActive(dish.dishlike);
       }
     });
   }
@@ -69,5 +74,18 @@ export class DishComponent implements OnInit {
       dish.prt = dish.portion[0];
     })
 
+  }
+  checkIconActive(arr){
+    let s = this;
+    let is = false;
+    if (!arr) return;
+    if (arr.length==0) return;
+    arr.map(it=>{
+      if(it._id == s.cookie.get('userid') || it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
   }
 }

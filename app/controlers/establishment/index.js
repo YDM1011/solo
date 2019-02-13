@@ -228,7 +228,9 @@ module.exports.getDish = (req, res, next) => {
 };
 module.exports.checkEst = est => {
     return new Promise((resolve,reject)=>{
-        mongoose.model('establishment').findOne({subdomain:est}).exec((err,info)=>{
+        mongoose.model('establishment')
+            .findOne({subdomain:est, verify:true})
+            .exec((err,info)=>{
             if (err) return reject(err);
             if (!info) return reject({notFound:'Not found'});
             if (info) return resolve(info);

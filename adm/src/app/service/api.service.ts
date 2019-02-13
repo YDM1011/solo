@@ -28,6 +28,7 @@ export class ApiService {
 
   apiPost(api, obj, id='', model=''){
     let s = this;
+    id = obj._id ? obj._id : '';
     return new Promise((resolve, reject) => {
       s.http.post(`${s.domain}/api/${api}${id ? '/' + id : ''}${model ? model : ''}`, obj)
         .subscribe(

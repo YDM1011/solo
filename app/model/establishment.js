@@ -328,7 +328,7 @@ glob.restify.serve(
     mongoose.model('establishment'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getAdmin, glob.getOwner, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
         preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preDelete],
     });

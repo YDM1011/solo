@@ -13,13 +13,13 @@ const models = glob.sync('./app/model/*.js');
 const subdomain = require('express-subdomain');
 const app = express();
 
-
 glob.app = app;
 glob.jsonParser = bodyParser.json({limit: '15mb', extended: true});
 glob.cookieParser = cookieParser();
 glob.secret = "seecret";
 
 require('./app/middleware/isAdmin');
+require('./app/middleware/getAdmin');
 require('./app/middleware/getId');
 require('./app/middleware/getOwner');
 require('./app/middleware/isAuth');
@@ -161,17 +161,31 @@ app.use(function(err, req, res, next) {
     // res.render('error');
     if(err.status == 404){
         if (req.cookies['sid']){
-            switch(req.subdomains[0]){
-                case undefined:res.render('index1', { title: req.params.path });
-                    break;
-                case 'solo':res.render('index2', { title: req.params.path });
-                    break;
-                case 'admin':res.render('index3', { title: req.params.path });
-                    break;
-                case 'adm':res.render('index5', { title: req.params.path });
-                    break;
-                default: res.render('index2', { title: req.params.path });
-                    break;
+            if(req.subdomains[0]){
+                const Est = require('./app/controlers/establishment');
+                Est.checkEst(req.subdomains[0]).then(val=>{
+                    switch(req.subdomains[0]) {
+                        case undefined:
+                            res.render('index1');
+                            break;
+                        case 'solo':
+                            res.render('index2');
+                            break;
+                        case 'admin':
+                            res.render('index3');
+                            break;
+                        case 'adm':
+                            res.render('index5');
+                            break;
+                        default:
+                            res.render('index2');
+                            break;
+                    }
+                }).catch(err=>{
+                    res.render('index6')
+                });
+            }else {
+                res.render('index1');
             }
         } else {
             res.redirect("/");

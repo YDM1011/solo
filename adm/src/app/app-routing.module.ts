@@ -8,6 +8,7 @@ import {IsLoginedGuard} from "./is-logined.guard";
 import {CheckBoxComponent} from "./pages/check-box/check-box.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {CategoryComponent} from "./pages/category/category.component";
+import {ModerationComponent} from "./pages/moderation/moderation.component";
 
 const routes: Routes = [
   { path: '',
@@ -15,6 +16,7 @@ const routes: Routes = [
     canActivate: [IsLoginedGuard],
     children: [{path:'', component: HomeComponent},
       {path:'checkbox', component: CheckBoxComponent},
+      {path:'moderation', component: ModerationComponent},
       {path:'category', component: CategoryComponent}
       ]
   },
