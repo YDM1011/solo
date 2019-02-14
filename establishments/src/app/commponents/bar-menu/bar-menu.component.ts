@@ -64,7 +64,7 @@ export class BarMenuComponent implements OnInit, OnDestroy {
     }
     s.api.justGet('isEst').then((v:any)=>{
       s.isEst = v.isEst;
-    })
+    }).catch(err=>{})
   }
   ngOnDestroy() {
     document.body.style.overflow = '';

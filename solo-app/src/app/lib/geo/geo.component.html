@@ -36,7 +36,7 @@
         <!--<app-map [me]="meXY"></app-map>-->
       </div>
       <div class="p-l_c" [class.mobTab]="tab">
-        <p class="p-l_h-t h_t16">Найближчі місця <span class="c_t14 o5">({{distans.length}})</span> <ng-container *ngIf="isDefPos">вiд ЦУМ-а</ng-container> </p>
+        <p class="p-l_h-t h_t16">Найближчі місця <span class="c_t14 o5">({{countEst}})</span> <ng-container *ngIf="isDefPos">вiд ЦУМ-а</ng-container> </p>
 
         <article class="cont_c p-l_i p-l_i2">
           <div class="p-l_h2">
@@ -59,6 +59,7 @@
           <div class="p-l_ic2" *ngIf="onLoad">
             <ng-container *ngFor="let est of distans">
               <ng-container *ngIf="est.ownerEst">
+              <ng-container *ngIf="est.ownerEst.verify">
                 <a href="//{{est.ownerEst.subdomain}}.{{host}}"  *ngIf="est.ownerEst.subdomain">
                   <div class="l_i cart" *ngIf="est.ownerEst">
                     <div class="l_i_h">
@@ -96,6 +97,7 @@
                     <div class="l_i_h distanse" *ngIf="est.distans >= 1">~ {{est.distans | number : '1.2-2'}} км</div>
                   </div>
                 </a>
+              </ng-container>
               </ng-container>
             </ng-container>
           </div>

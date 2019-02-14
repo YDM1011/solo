@@ -43,14 +43,6 @@
       </span>
       <span class="el_h_tt">Улюбленні страви</span>
     </div>
-    <div class="el_cntt" *ngIf="!res">
-      <app-prev-dish class="el_i"></app-prev-dish>
-      <app-prev-dish class="el_i"></app-prev-dish>
-      <app-prev-dish class="el_i"></app-prev-dish>
-      <app-prev-dish class="el_i"></app-prev-dish>
-      <app-prev-dish class="el_i"></app-prev-dish>
-      <app-prev-dish class="el_i"></app-prev-dish>
-    </div>
 
     <div class="el_cntt">
       <a href="" class="el_i" *ngFor = "let img of res | slice:0:6">
@@ -61,7 +53,7 @@
     </div>
   </div>
 </ng-container>
-<ng-container *ngIf="type == 'dish'">
+<ng-container *ngIf="type == 'hit'">
   <div class="cont el_cont br-lk2">
     <div class="el_h">
       <span class="svg20">
@@ -78,8 +70,9 @@
       <app-prev-dish class="el_i"></app-prev-dish>
     </div>
     <div class="el_cntt" *ngIf="hits">
-      <a href="" class="el_i" *ngFor = "let img of hits | slice:0:6">
+      <a href="" class="el_i" *ngFor = "let img of hits">
         <ng-container *ngIf="img">
+
           <app-img [img]="{id:img.pic}"></app-img>
         </ng-container>
       </a>

@@ -66,6 +66,7 @@ const glob = require('glob');
 glob.restify.serve(
     glob.route,
     mongoose.model('galery'),{
+        preRead: [glob.jsonParser],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
         postCreate: [glob.jsonParser, glob.cookieParser, glob.getId, postCreate]

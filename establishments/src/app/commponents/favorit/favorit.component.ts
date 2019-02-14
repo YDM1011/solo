@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 import {ApiService} from '../../service/api.service';
 import { CookieService } from 'ngx-cookie-service';
 import {environment} from '../../../environments/environment';
@@ -8,7 +8,7 @@ import {environment} from '../../../environments/environment';
   templateUrl: './favorit.component.html',
   styleUrls: ['./favorit.component.css']
 })
-export class FavoritComponent implements OnInit {
+export class FavoritComponent implements OnInit, OnChanges {
 
   @Input() type: string;
   @Input() security = false;
@@ -33,10 +33,8 @@ export class FavoritComponent implements OnInit {
       }
     }
     s.api.get('favorite', s.type, '').then((val: any) => {
-      console.log(val);
       if (val) {
         s.res = val;
-        console.log(val);
         s.onRes.emit(val);
       }
     });
@@ -47,4 +45,5 @@ export class FavoritComponent implements OnInit {
     });
   }
 
+  ngOnChanges(){}
 }

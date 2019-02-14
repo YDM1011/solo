@@ -23,7 +23,6 @@ import {UploadModule} from './lib/upload/upload.module';
 import { InitLayoutComponent } from './init-layout/init-layout.component';
 import { GalleryComponent } from './lib/gallery/gallery.component';
 import { ConfirmComponent } from './confirm/confirm.component';
-import { CreateEstablishmentComponent } from './lib/create-establishment/create-establishment.component';
 import {IsMyProfileModule} from './lib/is-my-profile/is-my-profile.module';
 import { LeftBarScrollDirective } from './dashboard/left-bar-scroll.directive';
 import { RightBarScrollDirective } from './dashboard/right-bar-scroll.directive';
@@ -36,8 +35,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { FriendPageComponent } from './friend-page/friend-page.component';
 import { GaleryPageComponent } from './galery-page/galery-page.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {NgbDateParserFormatter, NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
-import * as moment from 'moment';
 import { PrevAvatarComponent } from './lib/prev-avatar/prev-avatar.component';
 import { PrevBgComponent } from './lib/prev-bg/prev-bg.component';
 import { LikeEstComponent } from './lib/like-est/like-est.component';
@@ -49,30 +46,6 @@ import {NgxHmCarouselModule} from "ngx-hm-carousel";
 import { FriendOfferPageComponent } from './friend-offer-page/friend-offer-page.component';
 import { ScrollRequestDirective } from './scroll-request.directive';
 
-export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
-  constructor(private momentFormat: string) {
-    super();
-  };
-  format(date: NgbDateStruct): string {
-    if (date === null) {
-      return '';
-    }
-    let d = moment({ year: date.year,
-      month: date.month - 1,
-      date: date.day });
-    return d.isValid() ? d.format(this.momentFormat) : '';
-  }
-
-  parse(value: string): NgbDateStruct {
-    if (!value) {
-      return null;
-    }
-    let d = moment(value, this.momentFormat);
-    return d.isValid() ? { year: d.year(),
-      month: d.month() + 1,
-      day: d.date() } : null;
-  }
-}
 
 @NgModule({
   declarations: [
@@ -127,11 +100,7 @@ export class NgbDateMomentParserFormatter extends NgbDateParserFormatter {
     NgxHmCarouselModule,
     SweetAlert2Module.forRoot()
   ],
-    providers: [ AuthService, CookieService, CoreService,
-    {
-      provide: NgbDateParserFormatter,
-      useFactory: () => { return new NgbDateMomentParserFormatter("DD.MM.YYYY") }
-    } ],
+    providers: [ AuthService, CookieService, CoreService],
   bootstrap: [
     AppComponent
   ]

@@ -43,6 +43,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   private geo = new Distance();
   public distans = [];
   public onLoad=false;
+  public countEst:number;
   public isShow = false;
   public isDefPos= false;
   public cordinates = [];
@@ -73,7 +74,6 @@ export class GeoComponent implements OnInit, OnDestroy {
   }
 
   findMe() {
-
     let s = this;
     s.isShow = true;
     if (navigator.geolocation) {
@@ -84,7 +84,6 @@ export class GeoComponent implements OnInit, OnDestroy {
           y = pos.coords.longitude;
           s.meXY.push(pos.coords.latitude);
           s.meXY.push(pos.coords.longitude);
-          console.log(pos.coords);
           s.api.doGet(`geo`).then((val:any)=>{
             s.distans = [];
             s.cordinates = [];
@@ -114,6 +113,7 @@ export class GeoComponent implements OnInit, OnDestroy {
               }
             });
             s.distans = s.sort(s.distans);
+            s.countEst = s.calc(s.distans,'verify');
             s.onLoad = true;
             // navigator.geolocation.clearWatch(s.id);
           });
@@ -141,7 +141,13 @@ export class GeoComponent implements OnInit, OnDestroy {
     });
     return arr;
   }
-
+  calc(arr,m){
+    let c = 0;
+    arr.map(i=>{
+      if (i.ownerEst[m]) c++
+    });
+    return c
+  }
   alterGeo(){
     let s =this;
     let pos ={coords:{
