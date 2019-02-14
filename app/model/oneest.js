@@ -231,6 +231,7 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.params['id']){
+        console.log(req.query.select);
         switch (req.query.select){
             case 'bg': bg(req,res,req.params.id,req.query.select); break;
             case 'av': bg(req,res,req.params.id,req.query.select); break;
@@ -286,6 +287,39 @@ const preCreate = (req,res,next)=>{
     });
 };
 
+const preDelete = (req,res,next)=> {
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    next()
+};
+
+const werify = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    mongoose.model('oneest')
+        .findOne({_id: req.params.id})
+        .select('ownerEst')
+        .exec((err, result) => {
+            if (err) return res.badRequest(err);
+            if (!result) return res.notFound();
+            if (result) {
+                mongoose.model('user')
+                    .findOne({_id:req.userId, ownerEst:{$in:req.userId}})
+                    .exec((err,doc)=>{
+                    if (err) return res.badRequest(err);
+                    if (!doc) return res.notFound();
+                    if (doc) {
+                        delete req.body['ownerEst'];
+                        next()
+                    }
+                });
+            }
+        });
+
+};
+
 glob.restify.serve(
     glob.route,
     mongoose.model('oneest'),
@@ -293,4 +327,5 @@ glob.restify.serve(
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete],
     });

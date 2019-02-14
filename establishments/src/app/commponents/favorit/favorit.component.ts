@@ -32,12 +32,13 @@ export class FavoritComponent implements OnInit, OnChanges {
         return;
       }
     }
+    if (s.type != 'hit')
     s.api.get('favorite', s.type, '').then((val: any) => {
       if (val) {
         s.res = val;
         s.onRes.emit(val);
       }
-    });
+    }).catch(e=>{});
     s.api.get('dishHit').then((val: any) => {
       if (val) {
         s.hits = val;

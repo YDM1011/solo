@@ -18,6 +18,7 @@ const mutual = require('../controlers/mutual');
 const me = require('../controlers/me');
 const establishment = require('../controlers/establishment');
 const basket = require('../controlers/basket');
+const landing = require('../controlers/landing');
 const search = require('../controlers/search');
 const geo = require('../controlers/geo');
 
@@ -95,5 +96,8 @@ router.get('/api/checkboxCom/:id', [orign, glob.getId], basket.checkbox);
 // ADM
 router.post('/api/adm/signin', [orign, verification], admLogin);
 
+//landing
+router.get('/api/getAll', [orign], landing.getAll);
+router.get('/api/getVerify', [orign], landing.getVerify);
 
 module.exports = router;
