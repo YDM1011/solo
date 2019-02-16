@@ -99,5 +99,6 @@ router.post('/api/adm/signin', [orign, verification], admLogin);
 //landing
 router.get('/api/getAll', [orign], landing.getAll);
 router.get('/api/getVerify', [orign], landing.getVerify);
+router.get('/api/getVerifyAll', [orign], landing.getVerifyAll);
 
 module.exports = router;
