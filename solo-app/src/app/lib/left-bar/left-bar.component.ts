@@ -26,6 +26,7 @@ export class LeftBarComponent implements OnInit {
   public isGaleryPage = false;
   public isBascketPage = false;
   public isProfilePage = false;
+  public onLoadPhoto = false;
   public favoriteEst;
   public userPhoto;
   public obj: any;
@@ -57,6 +58,7 @@ export class LeftBarComponent implements OnInit {
     self.userME.getMe().then((val: any) => {
       if (val) {
         self.userPhoto = val.photo;
+        self.onLoadPhoto = true;
       }
     });
     self.userId = self.auth.getUserId();
@@ -77,6 +79,19 @@ export class LeftBarComponent implements OnInit {
 
   apiInitial(idc) {
     const self = this;
+
+    this.http.get(this.domain + '/api/favorite/favoritest/' + idc, this.api.getHeaders())
+      .subscribe((est: any) => {
+        self.favoriteEst = est.favoritest;
+        if(self.favoriteEst){
+          this.http.get(this.domain + '/api/galery/' + self.favoriteEst.av, this.api.getHeaders())
+            .subscribe((estAv: any) => {
+              self.favoriteEst.av = estAv;
+            });
+        }
+
+      });
+
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {
         if (user.mes === 'You are not valid') {

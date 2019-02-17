@@ -28,7 +28,7 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
     'Open Street Map': this.LAYER_OSM.layer
   };
   options = {
-    zoom: 17
+    zoom: 15
   };
   // map.setMaxBounds([ [53.005339, 20.267085], [43.433007, 42.616687] ]);
   // Marker cluster stuff
@@ -62,12 +62,18 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
 
   generateData() {
 
+    if(!this.meAvatar) return;
     let s = this;
     const data: any[] = [];
     const LeafIcon = L.Icon.extend({options:{
         iconSize: [30, 30],
         iconAnchor: [30, 30],
         popupAnchor:  [-15, -15],
+        iconUrl: ''
+      }});
+    const LeafIconUs = L.Icon.extend({options:{
+        iconSize: [45, 45],
+        iconAnchor: [45, 45],
         iconUrl: ''
       }});
     let i = 0;
@@ -92,10 +98,11 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
       }
     }
 
-    let userIcon = new LeafIcon();
-    userIcon.options.iconUrl = s.meAvatar;
-    // @ts-ignore
-    data.push(L.marker([s.me[0],s.me[1]], {clickable: true, userIcon }));
+    let icon = new LeafIconUs();
+    icon.options.iconUrl = s.meAvatar;
+    let lat = s.me[0];
+    let lng = s.me[1];
+    data.push(L.marker([lat, lng], { icon } ));
 
     this.markerClusterData = data;
 

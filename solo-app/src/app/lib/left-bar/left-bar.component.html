@@ -32,20 +32,20 @@
           </div>
         </div>
       </a>
-
       <app-like-est [id]="id"></app-like-est>
     </div>
 
     <div class="lf-br_btn" *ngIf="user">
+      <ng-container *ngIf="onLoadPhoto">
       <ng-container *ngIf="userPhoto; else geaalt">
         <ng-container *ngIf="userPhoto.picCrop; else geaalt">
           <app-geo class="btn-green" [avatar]="userPhoto.picCrop"></app-geo>
         </ng-container>
       </ng-container>
       <ng-template #geaalt>
-        <app-geo  class="btn-green" [avatar]="'../../../assets/img/avatar.svg'"></app-geo>
+        <app-geo  class="btn-green" [avatar]="'../../../assets/img/logo_mini_grey.png'"></app-geo>
       </ng-template>
-
+      </ng-container>
       <button #goFr2 class="btn-green req" isMyProfile (click)="goFr2.val=true">Зустрітись з друзями</button>
       <app-pre-production [status]="goFr2.val" (statusResult)="goFr2.val=$event"></app-pre-production>
 
