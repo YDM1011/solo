@@ -7667,25 +7667,29 @@ textarea.us_area::-webkit-scrollbar-track {
   body::-webkit-scrollbar,
   .p-up-c::-webkit-scrollbar,
   .p-up-big::-webkit-scrollbar,
-  .pst-up_cn::-webkit-scrollbar{
+  .pst-up_cn::-webkit-scrollbar,
+  .search-items.create-post_sl::-webkit-scrollbar{
     -webkit-appearance: none
   }
   body::-webkit-scrollbar:vertical,
   .p-up-c::-webkit-scrollbar:vertical,
   .p-up-big::-webkit-scrollbar:vertical,
-  .pst-up_cn::-webkit-scrollbar:vertical{
+  .pst-up_cn::-webkit-scrollbar:vertical,
+  .search-items.create-post_sl::-webkit-scrollbar:vertical{
     width: 5px
   }
   body::-webkit-scrollbar-track,
   .p-up-c::-webkit-scrollbar-track,
   .p-up-big::-webkit-scrollbar-track,
-  .pst-up_cn::-webkit-scrollbar-track {
+  .pst-up_cn::-webkit-scrollbar-track,
+  .search-items.create-post_sl::-webkit-scrollbar-track {
     background-color: transparent;
   }
   body::-webkit-scrollbar-thumb,
   .p-up-c::-webkit-scrollbar-thumb,
   .p-up-big::-webkit-scrollbar-thumb,
-  .pst-up_cn::-webkit-scrollbar-thumb{
+  .pst-up_cn::-webkit-scrollbar-thumb,
+  .search-items.create-post_sl::-webkit-scrollbar-thumb{
     background-color: #00a3ff
   }
 }

@@ -27,6 +27,10 @@ input[type=text].search {
   text-transform: capitalize;
   padding: 0 6px;
 }
+.search-items.create-post_sl{
+  max-height: 50vh;
+  overflow-y: auto;
+}
 @media (min-width: 768px) {
   input[type=text].search.create-post_sl{
     order: 2;
@@ -36,5 +40,10 @@ input[type=text].search {
   .search-items.create-post_sl{
     margin-top: 2px;
     order: 1;
+  }
+}
+@media (min-width: 992px) and (min-height: 500px) {
+  .search-items.create-post_sl{
+    max-height: 38vh;
   }
 }

@@ -16,13 +16,14 @@
   font-weight: bold;
   padding: 5px 15px;
 }
-
+.gl_c.prev{
+  min-height: 80vh;
+}
 .gl_c {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   margin: -2.5px;
-  min-height: 80vh;
 }
 
 .gl_i {
@@ -80,6 +81,9 @@
 
 .md-fixed.gal{
   padding-bottom: 70px;
+}
+.carousel .item.visible{
+  background: #000000;
 }
 /*end gallery*/
 
