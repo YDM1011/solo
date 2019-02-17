@@ -56,6 +56,28 @@ module.exports.getLikeDish = (req, res, next) => {
             if (result[0]) return res.ok(result[0].favoritdish);
         })
 };
+
+module.exports.getLikeEstsAll = (req, res, next) => {
+    User.find({_id: req.params.id})
+        .select('choiceest')
+        .populate({path:'choiceest', populate:{path:"av"}})
+        .exec((err,result)=>{
+            if(err) return res.badRequest(err);
+            if (!result[0]) return res.serverError('Somesing broken');
+            if (result[0]) return res.ok(result[0].choiceest);
+        })
+};
+module.exports.getLikeDishAll = (req, res, next) => {
+    User.find({_id: req.params.id || req.userId})
+        .select('favoritdish')
+        .populate({path:'favoritdish', populate:{path: 'ownerest pic'}})
+        .exec((err,result)=>{
+
+            if(err) return res.badRequest(err);
+            if (!result[0]) return res.serverError('Somesing broken');
+            if (result[0]) return res.ok(result[0].favoritdish);
+        })
+};
 module.exports.isEst = (req, res, next) => {
     User.findOne({_id: req.userId})
         .select('myEstablishment')

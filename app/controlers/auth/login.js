@@ -9,17 +9,18 @@ const time = 365 * 24 * 3600000;
 module.exports = (req, res, next) => {
     collectRequestData(req,(elem)=>{
         req.body = JSON.parse(elem);
+        let login = req.body.login.toLowerCase();
     User
-        .findOne({login: req.body.login})
+        .findOne({login: login})
         .exec((err, info)=>{
             if (err) return res.status(500).send({error:'Something broke!'});
             if (!info) return res.notFound({error:'login or password invalid'});
             if (info.pass === md5(req.body.pass)){
                 if(!info.verify){
-                    User.findOneAndUpdate({login: req.body.login}, {verify: true})
+                    User.findOneAndUpdate({login: login}, {verify: true})
                         .exec()
                 }
-                const token = jwt.sign({ id: req.body.login }, glob.secret);
+                const token = jwt.sign({ id: login }, glob.secret);
                 info.pass = req.body.pass;
                 res.cookie('sid',info.token,
                     {

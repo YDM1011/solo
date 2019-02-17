@@ -1,0 +1,23 @@
+<div class="cont gl-cont">
+  <div class="gl_h">
+    <span class="gl_ct">Улюблені страви</span>
+  </div>
+  <div class="gl_c" *ngIf="ests.length == 0">
+    <p class="c_t16">Улюбленої страви не обрано</p>
+  </div>
+  <ng-container *ngIf="ests">
+    <div class="gl_c" *ngIf="ests.length > 0">
+      <ng-container *ngFor="let est of ests; let i = index">
+        <ng-container *ngIf="est.av">
+          <a [href]="'//'+est.subdomain+'.'+host" class="gl_i pre-bg" >
+            <img class="img" *ngIf="est.av.picCrop"
+                 [src]="est.av.picCrop"
+                 (click)="show(i)">
+            <p>{{est.name}}</p>
+          </a>
+        </ng-container>
+      </ng-container>
+
+    </div>
+  </ng-container>
+</div>

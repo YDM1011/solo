@@ -16,23 +16,24 @@ const generatePassword = () => {
 module.exports.create = (req, res, next) => {
     collectRequestData(req,"signup",(elem)=> {
         req.body = JSON.parse(elem);
+        let login = req.body.login.toLowerCase();
         User
-            .findOne({login: req.body.login})
+            .findOne({login: login})
             .exec((err, info) => {
                 if (err) return res.status(500).send({err: 'Something broke!'});
                 if (info) return res.status(200).send({err: 'login in use'});
                 const hash = generatePassword();
                 info = req.body;
-                info['email'] = req.body.login;
+                info['email'] = login;
                 info.hash = hash;
                 info.pass = md5(hash);
-                info.token = jwt.sign({id: req.body.login}, glob.secret);
+                info.token = jwt.sign({id: login}, glob.secret);
                 User.create(info, (err, content) => {
                     if (err) {
                         res.send(err)
                     } else {
                         email.sendMail({
-                            mail: req.body.login,
+                            mail: login,
                             hash: hash
                         });
                         delete content.hash;
@@ -41,18 +42,19 @@ module.exports.create = (req, res, next) => {
                 })
             });
     });
-    // res.send(JSON.stringify({res:req.body.login}) );
+    // res.send(JSON.stringify({res:login}) );
 };
 module.exports.confirm = (req, res, next) => {
     collectRequestData(req,'confirm',(elem)=> {
         req.body = JSON.parse(elem);
+        let login = req.body.login.toLowerCase();
         User
-            .findOne({login: req.body.login})
+            .findOne({login: login})
             .exec((err, info) => {
                 if (err) return res.status(500).send({err: 'Something broke!'});
                 if (!info) return res.status(200).send({err: 'Bad request'});
                 if (info.hash == req.body.hash) {
-                    User.findOneAndUpdate({login: req.body.login},
+                    User.findOneAndUpdate({login: login},
                         {verify: true})
                         .exec((err, doc) => {
                             if (err) return res.status(500).send({err: 'Something broke!'});
@@ -65,7 +67,7 @@ module.exports.confirm = (req, res, next) => {
 
             });
     });
-    // res.send(JSON.stringify({res:req.body.login}) );
+    // res.send(JSON.stringify({res:login}) );
 };
 
 

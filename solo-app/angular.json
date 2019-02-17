@@ -25,13 +25,16 @@
             "styles": [
               "node_modules/materialize-css/dist/css/materialize.min.css",
               "src/assets/leaflet/leaflet.css",
+              "src/assets/leaflet/MarkerCluster.css",
+              "src/assets/leaflet/MarkerCluster.Default.css",
               "./node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css",
               "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/materialize-css/dist/js/materialize.min.js",
-              "src/assets/leaflet/leaflet.js"
+              "src/assets/leaflet/leaflet.js",
+              "src/assets/leaflet/leaflet.markercluster-src.js"
             ]
           },
           "configurations": {

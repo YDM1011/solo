@@ -7,7 +7,8 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 })
 export class ShowFriendsComponent implements OnInit {
 
-  @Input() friends;
+  @Input() friends = [];
+  @Input() id;
   @Output() onShow = new EventEmitter<any>();
   constructor() { }
 

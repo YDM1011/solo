@@ -45,6 +45,13 @@ import { PrevDishComponent } from './lib/prev-dish/prev-dish.component';
 import {NgxHmCarouselModule} from "ngx-hm-carousel";
 import { FriendOfferPageComponent } from './friend-offer-page/friend-offer-page.component';
 import { ScrollRequestDirective } from './scroll-request.directive';
+import { MarkerClusterDemoComponent } from './lib/marker-cluster-demo/marker-cluster-demo.component';
+import {LeafletModule} from "@asymmetrik/ngx-leaflet";
+import {LeafletMarkerClusterModule} from "../leaflet-markercluster/leaflet-markercluster.module";
+import { RightBarComponent } from './lib/right-bar/right-bar.component';
+import { LeftBarComponent } from './lib/left-bar/left-bar.component';
+import { LikeDishPageComponent } from './like-dish-page/like-dish-page.component';
+import { LikeEstPageComponent } from './like-est-page/like-est-page.component';
 
 
 @NgModule({
@@ -77,6 +84,11 @@ import { ScrollRequestDirective } from './scroll-request.directive';
     PrevDishComponent,
     FriendOfferPageComponent,
     ScrollRequestDirective,
+    MarkerClusterDemoComponent,
+    RightBarComponent,
+    LeftBarComponent,
+    LikeDishPageComponent,
+    LikeEstPageComponent,
   ],
   exports:[
     PrevAvatarComponent,
@@ -98,7 +110,9 @@ import { ScrollRequestDirective } from './scroll-request.directive';
     NgbModule,
     NavbarModule,
     NgxHmCarouselModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    LeafletModule,
+    LeafletMarkerClusterModule
   ],
     providers: [ AuthService, CookieService, CoreService],
   bootstrap: [

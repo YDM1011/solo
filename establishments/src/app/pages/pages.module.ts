@@ -6,6 +6,7 @@ import {CommponentsModule} from "../commponents/commponents.module";
 import { InfoContentComponent } from './info-content/info-content.component';
 import { ActionPageComponent } from './action-page/action-page.component';
 import {MzCollapsibleModule} from "ngx-materialize";
+import { LikeDishPageComponent } from './like-dish-page/like-dish-page.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,6 @@ import {MzCollapsibleModule} from "ngx-materialize";
 
   ],
   exports: [MenuContentComponent],
-  declarations: [NotFoundComponent, MenuContentComponent, InfoContentComponent, ActionPageComponent]
+  declarations: [NotFoundComponent, MenuContentComponent, InfoContentComponent, ActionPageComponent, LikeDishPageComponent]
 })
 export class PagesModule { }

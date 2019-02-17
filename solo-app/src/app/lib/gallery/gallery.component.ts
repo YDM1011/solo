@@ -8,6 +8,7 @@ import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 export class GalleryComponent implements OnInit {
 
   @Input() photos;
+  @Input() id;
   @Output() onShow = new EventEmitter<any>();
   constructor() { }
 

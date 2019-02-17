@@ -1,0 +1,64 @@
+
+  <div class="cont gl-cont">
+    <div class="gl_h">
+      <span class="gl_ct">Улюблені страви</span>
+    </div>
+    <div class="gl_c" *ngIf="photos.length == 0">
+      <p class="c_t16">Улюбленої страви не обрано</p>
+    </div>
+    <ng-container *ngIf="photos">
+      <div class="gl_c" *ngIf="photos.length > 0">
+        <ng-container *ngFor="let photo of photos; let i = index">
+          <ng-container *ngIf="photo.pic">
+          <div class="gl_i pre-bg" *ngIf="photo.pic.picCrop">
+            <img class="img"
+                 [src]="photo.pic.picCrop"
+                 (click)="show(i)">
+            <p>{{photo.name}}</p>
+          </div>
+         </ng-container>
+        </ng-container>
+
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf="fullPic">
+    <div class="cont md pop-gl" @inPop>
+    </div>
+    <div class="md-fixed gal active" (click)="hide($event)" @inOpacity>
+      <ngx-hm-carousel @inPop
+                       [(ngModel)]="currentIndex"
+                       [autoplay-speed]="speed"
+                       [infinite]="false"
+                       [drag-many]="true"
+                       [aniTime]="200"
+                       [data]="photos"
+                       class="carousel c-accent">
+
+        <section ngx-hm-carousel-container class="content">
+          <article ngx-hm-carousel-item class="item cursor-pointer"
+                   *ngFor="let photo of photos; let i = index"
+                   [ngClass]="{'visible': currentIndex===i}">
+            <ng-container *ngIf="photo.pic">
+            <img class="img" [src]="'//localhost:3000'+photo.pic.picCrop" alt="{{photo.name}}">
+            </ng-container>
+          </article>
+          <ng-template #infiniteContainer></ng-template>
+        </section>
+
+        <ng-template #carouselPrev>
+          <div class="click-area">
+            <i class="material-icons">keyboard_arrow_left</i>
+          </div>
+        </ng-template>
+        <ng-template #carouselNext>
+          <div class="click-area">
+            <i class="material-icons">keyboard_arrow_right</i>
+          </div>
+        </ng-template>
+      </ngx-hm-carousel>
+    </div>
+  </ng-container>
+
+

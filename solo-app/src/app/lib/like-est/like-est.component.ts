@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormApiService} from "../form-api/form-api.service";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
@@ -12,7 +12,7 @@ import {ActivatedRoute} from "@angular/router";
 export class LikeEstComponent implements OnInit {
   public host: string = environment.apiDomain.split('//')[1];
   public domain: string = environment.apiDomain;
-  public id;
+  @Input() id;
   public ests;
   constructor(
     private route: ActivatedRoute,
@@ -22,15 +22,14 @@ export class LikeEstComponent implements OnInit {
 
   ngOnInit() {
     let s = this;
-    s.id = s.route.snapshot.paramMap.get('id');
+    if(s.id)
     s.initApi();
-    this.route.params.subscribe((params: any) => {
-      this.id = this.route.snapshot.paramMap.get('id');
-      s.initApi();
-    });
-
   }
-
+  ngOnChanges(){
+    let s = this;
+    if(s.id)
+    s.initApi()
+  }
   initApi(){
     let s = this;
     s.http.get(s.domain + '/api/getLikeEsts/' + s.id, s.api.getHeaders())

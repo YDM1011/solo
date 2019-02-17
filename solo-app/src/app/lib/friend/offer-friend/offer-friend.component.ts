@@ -9,6 +9,7 @@ import {FriendsService} from "../friends.service";
 export class OfferFriendComponent implements OnInit {
 
   @Input() userId;
+  @Input() noSBtn;
   public isInvite;
   constructor(
     private friends: FriendsService

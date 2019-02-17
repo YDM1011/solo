@@ -3013,6 +3013,12 @@ ol li p {
   height: 60px;
   flex-shrink: 0;
   position: relative; }
+.img150 {
+  display: block;
+  width: 150px;
+  height: 60px;
+  flex-shrink: 0;
+  position: relative; }
 
 .img40 {
   display: block;

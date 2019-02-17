@@ -1,0 +1,10 @@
+<!-- Map -->
+<div id="mapUser" leaflet
+     [leafletOptions]="options"
+     [leafletBaseLayers]="baseLayers"
+     [leafletLayersControlOptions]="layersControlOptions"
+
+     [leafletMarkerCluster]="markerClusterData"
+     [leafletMarkerClusterOptions]="markerClusterOptions"
+     (leafletMarkerClusterReady)="markerClusterReady($event)">
+</div>

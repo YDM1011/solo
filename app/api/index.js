@@ -64,7 +64,9 @@ router.get('/api/getPotentialFriend', [orign, glob.getId], friend.getPotentialFr
 router.post('/api/create_establishment', [orign, glob.getId, verify], establishment.create);
 router.get('/api/get_est', [orign, glob.getId], establishment.getMy);
 router.get('/api/getLikeEsts/:id', [orign, glob.getId], establishment.getLikeEsts);
+router.get('/api/getLikeEsts/all/:id', [orign, glob.getId], establishment.getLikeEstsAll);
 router.get('/api/getLikeDish/:id', [orign, glob.getId], establishment.getLikeDish);
+router.get('/api/getLikeDish/all/:id', [orign, glob.getId], establishment.getLikeDishAll);
 router.get('/api/isEst', [orign, glob.getId], establishment.isEst);
 
 router.get('/api/search', [orign, glob.getId], search.get);

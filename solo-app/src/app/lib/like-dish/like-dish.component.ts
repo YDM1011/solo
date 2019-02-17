@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
@@ -9,10 +9,10 @@ import {FormApiService} from "../form-api/form-api.service";
   templateUrl: './like-dish.component.html',
   styleUrls: ['./like-dish.component.css']
 })
-export class LikeDishComponent implements OnInit {
+export class LikeDishComponent implements OnInit, OnChanges {
   public host: string = environment.apiDomain.split('//')[1];
   public domain: string = environment.apiDomain;
-  public id;
+  @Input() id;
   public dishes;
   constructor(
     private route: ActivatedRoute,
@@ -22,12 +22,13 @@ export class LikeDishComponent implements OnInit {
 
   ngOnInit() {
     let s = this;
-    s.id = s.route.snapshot.paramMap.get('id');
-    this.route.params.subscribe((params: any) => {
-      this.id = this.route.snapshot.paramMap.get('id');
-      s.initApi()
-    });
-
+    if(s.id)
+    s.initApi()
+  }
+  ngOnChanges(){
+    let s = this;
+    if(s.id)
+    s.initApi()
   }
   initApi(){
     let s = this;

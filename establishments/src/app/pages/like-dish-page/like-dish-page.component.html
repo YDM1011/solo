@@ -1,0 +1,27 @@
+<app-custom-res *ngIf="id" [model]="{
+    url:'getLikeDish/all/'+id
+    }" (onRes)="photos = $event"></app-custom-res>
+
+
+<div class="cont gl-cont" *ngIf="photos">
+  <div class="gl_h">
+    <span class="gl_ct">Улюблені страви</span>
+  </div>
+  <div class="gl_c" *ngIf="photos.length == 0">
+    <p class="c_t16">Улюбленої страви не обрано</p>
+  </div>
+  <ng-container *ngIf="photos">
+    <div class="gl_c" *ngIf="photos.length > 0">
+      <ng-container *ngFor="let photo of photos">
+        <ng-container *ngIf="photo.pic">
+          <div class="gl_i pre-bg" *ngIf="photo.pic.picCrop">
+            <img class="img"
+                 [src]="photo.pic.picCrop">
+            <p>{{photo.name}}</p>
+          </div>
+        </ng-container>
+      </ng-container>
+
+    </div>
+  </ng-container>
+</div>

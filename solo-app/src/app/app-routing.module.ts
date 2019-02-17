@@ -16,6 +16,8 @@ import {HomePageComponent} from "./home-page/home-page.component";
 import {FriendPageComponent} from "./friend-page/friend-page.component";
 import {GaleryPageComponent} from "./galery-page/galery-page.component";
 import {FriendOfferPageComponent} from "./friend-offer-page/friend-offer-page.component";
+import {LikeDishPageComponent} from "./like-dish-page/like-dish-page.component";
+import {LikeEstPageComponent} from "./like-est-page/like-est-page.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
@@ -26,6 +28,8 @@ const routes: Routes = [
           {path: 'friends', component: FriendPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'friends_offer', component: FriendOfferPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'galery', component: GaleryPageComponent, canActivate: [IsLoginedGuard], },
+          {path: 'like_dish', component: LikeDishPageComponent, canActivate: [IsLoginedGuard], },
+          {path: 'like_ests', component: LikeEstPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'profile', component: ProfileComponent, canActivate: [IsLoginedGuard], },
         ]}
     ]
