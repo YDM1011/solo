@@ -38,8 +38,8 @@ export class MobileMenuDirective implements OnDestroy{
     if (window.innerWidth - 25 <= this.start && this.start - this.end >= 25) this.el.nativeElement.openClose();
   };
   resize = (): void => {
+    if (this.el.nativeElement.open) document.querySelector('body').style.overflow = '';
     this.el.nativeElement.open = false;
-    document.querySelector('body').style.overflow = '';
 
     // if (window.innerWidth > 992) {
     //   this.el.nativeElement.style.transition = 'right 0s';
