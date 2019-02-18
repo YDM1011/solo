@@ -68,6 +68,7 @@ export class FileMinPostComponent implements OnInit, OnDestroy {
       name: '',
       index: ''
     };
+    document.body.style.overflow = '';
   }
 
   constructor() { }
@@ -108,14 +109,23 @@ export class FileMinPostComponent implements OnInit, OnDestroy {
       this.imageObj = '';
     };
   }
+  resultSize(images: any, resize: number, pushSelector): void {
+    let minSide = (images.naturalWidth >= images.naturalHeight) ? images.naturalHeight : images.naturalWidth;
+    if ( images.width <= minSide) {
+      pushSelector.width = images.naturalWidth;
+      pushSelector.height = images.naturalHeight;
+    } else {
+      pushSelector.width = Math.floor( images.naturalWidth / (minSide / resize));
+      pushSelector.height = Math.floor( images.naturalHeight / (minSide / resize));
+    }
+  }
 
   createImg(images: any, format: string) {
     const canvasImg = <HTMLCanvasElement> document.createElement('canvas');
     this.cx = canvasImg.getContext('2d');
-    canvasImg.width = images.naturalWidth;
-    canvasImg.height = images.naturalHeight;
+    this.resultSize(images, 1080, canvasImg);
     this.cx.drawImage(images, 0, 0,  canvasImg.width ,  canvasImg.height);
-    this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.8);
+    this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.75);
   }
 
   editImg(images: any, format: string, deg: number) {
@@ -126,7 +136,7 @@ export class FileMinPostComponent implements OnInit, OnDestroy {
     (deg > 0) ? this.cx.translate(canvasImg.width,0) : this.cx.translate(0, canvasImg.height);
     this.cx.rotate(deg * Math.PI / 180);
     this.cx.drawImage(images, 0, 0,  canvasImg.height ,  canvasImg.width);
-    this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.8);
+    this.imageObj = canvasImg.toDataURL(`image/${format}`, 0.75);
   }
 
   edit(editObj){

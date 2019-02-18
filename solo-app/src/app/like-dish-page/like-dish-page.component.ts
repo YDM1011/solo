@@ -84,9 +84,6 @@ export class LikeDishPageComponent implements OnInit {
       s.apiInitial(s.id);
     });
   }
-  ngOnDestroy() {
-    document.body.style.overflow = '';
-  }
   apiInitial(idc) {
     const self = this;
     this.http.get(this.domain + '/api/getLikeDish/all/' + idc, this.api.getHeaders())
@@ -104,6 +101,9 @@ export class LikeDishPageComponent implements OnInit {
       this.fullPic = false;
       this.hidden()
     }
+  }
+  select(obj, dish) {
+    dish.prt = obj;
   }
   hidden(){
     document.querySelector('body').style.overflow = this.fullPic ? 'hidden' : '';
