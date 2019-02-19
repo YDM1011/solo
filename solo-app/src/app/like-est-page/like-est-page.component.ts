@@ -5,6 +5,8 @@ import {AuthService} from "../auth.service";
 import {CoreService} from "../core.service";
 import {HttpClient} from "@angular/common/http";
 import {FormApiService} from "../lib/form-api/form-api.service";
+import {ApiService} from "../service/api.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-like-est-page',
@@ -19,11 +21,22 @@ export class LikeEstPageComponent implements OnInit {
   public ests:any = [];
   public id:any;
   public obj:any;
-
+  public isHome = true;
+  public thebest: any;
+  public workTime;
+  public favorite: any;
+  public pics: any;
+  public name: any;
+  public user: any;
+  public isFav:boolean=false;
+  public isBest:boolean=false;
+  public isChangeEstPop:boolean=false;
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
+    private cookie: CookieService,
     private core: CoreService,
+    private apiService: ApiService,
     private http:  HttpClient,
     private router: Router,
     private api: FormApiService
@@ -48,4 +61,45 @@ export class LikeEstPageComponent implements OnInit {
         s.ests = ests
       });
   }
+  verifyLike(val){
+    let s = this;
+    if (val.mes == 'checked'){
+      s.isChangeEstPop = true;
+      s.hidden();
+    }else if(val.length > 0){
+      s.thebest = val;
+      s.isBest = s.checkIconActive(s.thebest);
+    }
+  }
+  checkIconActive(arr){
+    let s = this;
+    let is = false;
+    if (!arr) return;
+    if (arr.length==0) return;
+    arr.map(it=>{
+      if(it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
+  }
+  setFavorite(arg) {
+    const s = this;
+    this.apiService.post('favorite', {key: arg}).then((val: any) => {
+      switch (arg) {
+        case'oneest':{
+          s.verifyLike(val);
+          break;
+        }
+        case'est':{
+          s.favorite = val;
+          s.isFav = this.checkIconActive(s.favorite);
+          break;
+        }
+      }
+
+    });
+  }
+
 }
