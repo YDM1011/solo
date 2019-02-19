@@ -7771,3 +7771,12 @@ textarea.us_area::-webkit-scrollbar-track {
     font-size: 14px;
   }
 }
+
+/*Only for Viktor Front styles*/
+@media (max-width: 767px){
+  .hidden--sm{
+    display: none;
+  }
+}
+
+/**/

@@ -17,6 +17,7 @@ import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
 import {CreatePostDirective} from "./create/create-post.directive";
 import {UploadPostComponent} from "../upload-post/upload-post.component";
 import {FileMinPostComponent} from "../file-min-post/file-min-post.component";
+import {CreatePostComponent} from "../post/create-post/create-post.component";
 
 @NgModule({
   imports: [
@@ -39,6 +40,7 @@ import {FileMinPostComponent} from "../file-min-post/file-min-post.component";
     CreateComponent,
     LikeComponent,
     CommentComponent,
+    CreatePostComponent,
     CreatePostDirective,
     UploadPostComponent,
     FileMinPostComponent,
