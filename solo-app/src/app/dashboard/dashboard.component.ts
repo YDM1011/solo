@@ -77,7 +77,7 @@ export class DashboardComponent implements OnInit, OnChanges {
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {
       if (user.mes === 'You are not valid') {
-        return self.router.navigate([`user/${self.auth.getUserId()}`]);
+        // return self.router.navigate([`user/${self.auth.getUserId()}`]);
       }
         self.getSetting(user);
       });

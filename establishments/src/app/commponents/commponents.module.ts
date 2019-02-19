@@ -41,6 +41,7 @@ import {SearchModule} from "../search/search.module";
 import {CreatePostDirective} from "./create-post/create-post.directive";
 import {UploadPostComponent} from "./upload-post/upload-post.component";
 import {FileMinPostComponent} from "./file-min-post/file-min-post.component";
+import { WorkTimeComponent } from './work-time/work-time.component';
 
 @NgModule({
   imports: [
@@ -74,7 +75,8 @@ import {FileMinPostComponent} from "./file-min-post/file-min-post.component";
     NumberPhonePipe,
     PreProductionComponent,
     BarMenuComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    WorkTimeComponent 
   ],
   declarations: [
     ImgComponent,
@@ -107,7 +109,8 @@ import {FileMinPostComponent} from "./file-min-post/file-min-post.component";
     CreatePostComponent,
     CreatePostDirective,
     UploadPostComponent,
-    FileMinPostComponent
+    FileMinPostComponent,
+    WorkTimeComponent
   ]
 })
 export class CommponentsModule { }

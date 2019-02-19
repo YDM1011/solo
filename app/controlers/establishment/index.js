@@ -181,15 +181,15 @@ module.exports.estMenu = (req, res, next) => {
 };
 module.exports.estWorkTime = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
-
+    let dayNumber = `timeRange${new Date().getDay()}`;
     Establishment
         .findOne({subdomain: est})
-        .populate({path:'worksTime',select:'label'})
+        .populate({path:'worksTime',select:dayNumber})
         .select('worksTime')
         .exec((err, doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) return res.serverError('Somesing broken');
-            if (doc) return res.ok(doc);
+            if (doc) return res.ok({worksTime:doc.worksTime[dayNumber]});
         })
 };
 module.exports.estEst = (req, res, next) => {

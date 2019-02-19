@@ -44,7 +44,6 @@ export class InitLayoutComponent implements OnInit, OnDestroy {
 
   public isHome = true;
   public thebest: any;
-  public workTime;
   public favorite: any;
   public pics: any;
   public name: any;

@@ -1,6 +1,7 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ApiService} from '../../service/api.service';
 import {CookieService} from "ngx-cookie-service";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-dish',
@@ -20,10 +21,15 @@ export class DishComponent implements OnInit {
   public dishObject = {};
   constructor(
     private api: ApiService,
+    private route: ActivatedRoute,
     private cookie: CookieService
   ) { }
 
   ngOnInit() {
+    this.menuId = this.route.snapshot.paramMap.get('id');
+    this.route.params.subscribe((params: any) => {
+      this.menuId = this.route.snapshot.paramMap.get('id');
+    });
   }
   onapi(obj) {
     const s = this;

@@ -212,6 +212,7 @@ module.exports.getPotentialFriend = (req, res, next) => {
                 {offer:{$ne:req.userId}},
                 {login:{$ne:"admin"}},
                 {_id:{$ne:req.userId}},
+                {verify: true}
             ]})
         .populate({path:"photo bg"})
         .exec((err, content) =>{
