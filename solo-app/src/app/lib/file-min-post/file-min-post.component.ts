@@ -110,7 +110,7 @@ export class FileMinPostComponent implements OnInit, OnDestroy {
   }
   resultSize(images: any, resize: number, pushSelector): void {
     let minSide = (images.naturalWidth >= images.naturalHeight) ? images.naturalHeight : images.naturalWidth;
-    if ( images.width <= minSide) {
+    if ( images.naturalWidth <= minSide) {
       pushSelector.width = images.naturalWidth;
       pushSelector.height = images.naturalHeight;
     } else {
