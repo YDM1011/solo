@@ -52,6 +52,7 @@ import { RightBarComponent } from './lib/right-bar/right-bar.component';
 import { LeftBarComponent } from './lib/left-bar/left-bar.component';
 import { LikeDishPageComponent } from './like-dish-page/like-dish-page.component';
 import { LikeEstPageComponent } from './like-est-page/like-est-page.component';
+import { LikedEstListComponent } from './liked-est-list/liked-est-list.component';
 
 
 @NgModule({
@@ -89,6 +90,7 @@ import { LikeEstPageComponent } from './like-est-page/like-est-page.component';
     LeftBarComponent,
     LikeDishPageComponent,
     LikeEstPageComponent,
+    LikedEstListComponent,
   ],
   exports:[
     PrevAvatarComponent,
