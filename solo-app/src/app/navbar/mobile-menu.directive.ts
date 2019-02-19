@@ -15,7 +15,6 @@ export class MobileMenuDirective implements OnDestroy{
     this.el.nativeElement.openClose = this.open;
 
     window.addEventListener('orientationchange', this.resize, true);
-    console.log(navigator.userAgent);
     if (( window.innerWidth < 992 &&  window.innerHeight < 550) || ( window.innerWidth < 500 &&  window.innerHeight < 992)){
       if ( !/iPhone/.test(navigator.userAgent) && ! /iPad/.test(navigator.userAgent)) {
         window.addEventListener('touchstart', this.touchS, false);

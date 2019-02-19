@@ -2487,7 +2487,7 @@ ol li p {
   height: 20px;
 }
 .in_us_btn-ul:hover svg{
-  fill: #6f3498;
+  fill: #00a3ff;
 }
 .in_us_btn-ul svg{
   width: 100%;
@@ -4278,7 +4278,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 3px -3px 20px -1px rgba(0, 0, 0, 0.1);
   background: #ffffff; }
 .mn_i {
-  margin-bottom: 25px; }
+  margin-bottom: 60px; }
 .mn_li_h1 {
   display: flex;
   align-items: center;
@@ -4387,7 +4387,7 @@ input::-webkit-inner-spin-button {
   background: rgba(0, 0, 0, 0.05); }
 
 .btn0:hover svg {
-  fill: #6f3498; }
+  fill: #00a3ff; }
 
 .btn_t {
   display: none; }
@@ -4397,7 +4397,7 @@ input::-webkit-inner-spin-button {
   margin: 0 5px;
   transition: .25s ease-in-out; }
 .btn_val:hover {
-  color: #6f3498;
+  color: #00a3ff;
   text-decoration: underline;
   text-underline-position: under; }
 
@@ -4429,7 +4429,7 @@ input::-webkit-inner-spin-button {
   .mn_li_c {
     padding: 0 20px; }
   .mn_i {
-    margin-bottom: 30px; }
+    margin-bottom: 50px; }
   .mn_li_btn-c {
     position: absolute;
     right: 0;
