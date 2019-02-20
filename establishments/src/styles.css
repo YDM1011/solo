@@ -485,12 +485,15 @@ app-file-min-post{
 .br-lk {
   margin: 5px 0 5px 5px;
 }
-.br-lk2:first-of-type{
-  margin: 5px 5px 5px 0;
+.br-lk2{
+  margin-bottom: 5px;
 }
-.br-lk2:last-of-type{
-  margin: 5px 0 5px 5px;
-}
+/*.br-lk2:first-of-type{*/
+  /*margin: 5px 5px 5px 0;*/
+/*}*/
+/*.br-lk2:last-of-type{*/
+  /*margin: 5px 0 5px 5px;*/
+/*}*/
 .br-lk .el_h{
   padding: 0 5px;
   justify-content: center;
@@ -534,13 +537,12 @@ app-file-min-post{
   width: 100%;
   font-size: 12px;
   padding: 0 5px;
-  margin: 5px 0 5px 5px;
+  margin: 5px 0;
 }
 .lf-br .btn-green .svg20{
   display: none;
 }
 .lf-br .btn-green.req {
-  margin: 5px 5px 5px 0;
 }
 
 @media (min-width: 370px){
@@ -662,6 +664,9 @@ app-file-min-post{
   .lf-br .btn-green .svg20{
     margin-right: 6px;
     display: block;
+  }
+  .lf-cont-btn:nth-child(2){
+    display: none;
   }
   .lf-br .btn-green{
     display: none;

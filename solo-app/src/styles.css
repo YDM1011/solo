@@ -124,11 +124,11 @@ img{
   }
   .cont_left-bar {
     flex-direction: column;
-    max-width: 215px;
+    /*max-width: 215px;*/
     min-width: 195px;
     /*flex-grow: 1;*/
     margin: 0 0 0 10px;
-    width: 100%;
+    /*width: 100%;*/
 
   }
   .lf-br.fx{

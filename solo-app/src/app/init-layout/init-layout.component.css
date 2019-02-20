@@ -1,0 +1,21 @@
+@media (max-width: 922px) and (orientation: landscape) and (max-height: 500px){
+  :host app-left-bar{
+    display: none;
+  }
+  :host app-right-bar{
+    display: none;
+  }
+}
+@media (max-height: 922px) and (orientation: portrait) and (max-width: 500px){
+  :host app-left-bar{
+    display: none;
+  }
+  :host app-right-bar{
+    display: none;
+  }
+}
+@media (max-width: 992px)  {
+  :host app-right-bar{
+    display: none;
+  }
+}

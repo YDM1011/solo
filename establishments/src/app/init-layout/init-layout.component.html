@@ -83,20 +83,20 @@
     <div class="cont-content">
 
       <div class="cont_left-bar" #leftBar>
-        <div #lfbr class="lf-br" [appLeftBarScroll]="leftBar.getBoundingClientRect()"
-             (resize)="lfbr.style.width = leftBar.clientWidth+'px'"
+        <div class="lf-br" appLeftBarScroll
              [style.width.px]="leftBar.clientWidth">
-
-          <app-favorit class="lf-br_cntt" [type]="'dish'" [security]="true"></app-favorit>
-          <app-favorit class="lf-br_cntt" [type]="'hit'" [security]="false"></app-favorit>
-
+          <div class="lf-br_cntt">
+            <app-favorit [type]="'dish'" [security]="true"></app-favorit>
+            <app-favorit [type]="'hit'" [security]="false"></app-favorit>
+          </div>
           <div class="lf-br_btn">
-            <app-menu></app-menu>
+            <app-menu class="lf-cont-btn"></app-menu>
 
-            <button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо
-              <ng-container *ngIf="name"> &nbsp;в {{name.name}}</ng-container>
-            </button>
-
+            <div class="lf-cont-btn">
+              <button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо
+                <ng-container *ngIf="name"> &nbsp;в {{name.name}}</ng-container>
+              </button>
+            </div>
             <app-pre-production [status]="goZv2.val" (statusResult)="goZv2.val = $event"></app-pre-production>
 
           </div>
