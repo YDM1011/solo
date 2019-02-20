@@ -19,6 +19,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
   public userName: string;
   public activSearch = false;
   public isShow = false;
+  public userObj: any;
   public domain: string = environment.apiDomain;
   public count = 0;
   public limit = 4;
@@ -63,6 +64,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
     // this.userPhoto['_id'] = '';
     self.user.getMe().then((val: any) => {
       if (val) {
+        self.userObj = val;
         self.userId = val._id;
         self.userPhoto = val.photo;
         self.userName = val.firstName;

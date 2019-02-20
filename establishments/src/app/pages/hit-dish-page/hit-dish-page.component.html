@@ -1,13 +1,13 @@
 <app-custom-res *ngIf="id" [model]="{
-    url:'getLikeDish/all/'+id
+    url:'dishHit'
     }" (onRes)="photos = $event"></app-custom-res>
 
 <div class="cont gl-cont">
   <div class="gl_h">
-    <span class="gl_ct">Улюблені страви</span>
+    <span class="gl_ct">Найпопулярніші Страви</span>
   </div>
   <div class="gl_c" *ngIf="!photos || photos.length == 0">
-    <p class="c_t16">Улюбленої страви не обрано</p>
+    <p class="c_t16">Жодної популярної страви</p>
   </div>
   <div class="mn_i-c" *ngIf="photos">
     <ng-container *ngFor="let dish of photos; let i = index">
@@ -60,7 +60,6 @@
                 </ng-container>
               </div>
               <div class="mn_i_of_i1" [class.new]="false">
-                <!--<span class="c_t14"></span>-->
                 <span class="c_t14" *ngIf="dish.prt">{{dish.prt.price}}грн</span>
               </div>
             </div>
@@ -76,7 +75,6 @@
                 <span class="btn_val">{{dish.dishlike ? dish.dishlike.length : ' '}}</span>
               </button>
             </div>
-
           </div>
         </div>
       </section>

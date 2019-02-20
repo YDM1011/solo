@@ -3,11 +3,11 @@ import {CookieService} from "ngx-cookie-service";
 import {ApiService} from "../../service/api.service";
 
 @Component({
-  selector: 'app-like-dish-page',
-  templateUrl: './like-dish-page.component.html',
-  styleUrls: ['./like-dish-page.component.css']
+  selector: 'app-hit-dish-page',
+  templateUrl: './hit-dish-page.component.html',
+  styleUrls: ['./hit-dish-page.component.css']
 })
-export class LikeDishPageComponent implements OnInit {
+export class HitDishPageComponent implements OnInit {
 
   public photos;
   public id;
@@ -41,5 +41,4 @@ export class LikeDishPageComponent implements OnInit {
     if (is) return true;
     else return false;
   }
-
 }

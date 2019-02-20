@@ -152,11 +152,6 @@ app-last-name{
   text-decoration: underline;
   text-underline-position: under;
 }
-.btn-trans.red.active {
-  color: #D75A4A;
-  text-decoration: underline;
-  text-underline-position: under;
-}
 .frn_i {
   width: 100%;
   display: flex;
@@ -336,12 +331,4 @@ app-last-name{
 /*end gallery*/
 .btn{
   cursor: pointer;
-}
-.l_i.ng-star-inserted{
-  overflow: hidden;
-}
-.l_i,
-.l_i_bg{
-  max-height: inherit;
-  height: inherit;
 }
