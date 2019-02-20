@@ -2,7 +2,6 @@ import {Component, OnInit, Input, EventEmitter, Output, AfterViewInit, OnDestroy
 import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import {AuthService} from '../auth.service';
 import {UserService} from '../lib/user/user.service';
 import {CoreService} from '../core.service';
 import {environment} from '../../environments/environment';

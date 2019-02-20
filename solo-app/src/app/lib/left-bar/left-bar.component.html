@@ -2,7 +2,7 @@
   <div #lfbr class="lf-br" [appLeftBarScroll]="leftBar.getBoundingClientRect()"
        (resize)="lfbr.style.width = leftBar.clientWidth+'px'"
        [style.width.px]="leftBar.clientWidth">
-    <div class="lf-br_cntt">
+    <div class="hidden--sm lf-br_cntt">
       <div *ngIf="!favoriteEst" class="cont br-lv">
         <div class="br-lv_h">
           <div class="svg20">
