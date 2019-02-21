@@ -28,6 +28,11 @@ export class CreatePostDirective {
   }
   private getCoords () {
     const num = (window.innerHeight > 500) ? 10 : 0;
-    return this.el.nativeElement.getBoundingClientRect().top + pageYOffset - num;
+    if (this.el.nativeElement){
+      return this.el.nativeElement.getBoundingClientRect().top + pageYOffset - num;
+    }else{
+      return 0
+    }
+
   }
 }

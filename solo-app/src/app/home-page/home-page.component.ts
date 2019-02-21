@@ -40,7 +40,6 @@ export class HomePageComponent implements OnInit, OnChanges {
     this.obj = JSON.stringify({id: this.id});
     s.auth.onAuth.subscribe(value => {
       if (value) {
-
         s.user = value;
         s.auth.setUserData(value);
         s.apiInitial(value._id);

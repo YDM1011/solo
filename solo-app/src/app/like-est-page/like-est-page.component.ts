@@ -5,6 +5,7 @@ import {AuthService} from "../auth.service";
 import {CoreService} from "../core.service";
 import {HttpClient} from "@angular/common/http";
 import {FormApiService} from "../lib/form-api/form-api.service";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-like-est-page',
@@ -26,6 +27,7 @@ export class LikeEstPageComponent implements OnInit {
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
+    private cookie: CookieService,
     private api: FormApiService
   ) { }
   ngOnChanges() {}
@@ -47,5 +49,19 @@ export class LikeEstPageComponent implements OnInit {
       .subscribe((ests: any) => {
         s.ests = ests
       });
+  }
+
+  checkIconActive(arr){
+    let s = this;
+    let is = false;
+    if (!arr) return;
+    if (arr.length==0) return;
+    arr.map(it=>{
+      if(it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
   }
 }

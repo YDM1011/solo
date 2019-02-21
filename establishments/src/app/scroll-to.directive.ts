@@ -11,7 +11,7 @@ export class ScrollToDirective {
   constructor() {}
   ngOnInit() {
     this.padding = this.check();
-    window.addEventListener('resize', () => this.padding = this.check(), false);
+    window.addEventListener('orientationchange', () => this.padding = this.check(), false);
   }
 
   check = (): number => {

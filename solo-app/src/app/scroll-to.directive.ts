@@ -11,7 +11,7 @@ export class ScrollToDirective {
   constructor() {}
   ngOnInit() {
     this.padding = this.check();
-    window.addEventListener('resize', () => this.padding = this.check(), false);
+    window.addEventListener('orientationchange', () => this.padding = this.check(), false);
   }
 
   check = (): number => {
@@ -20,7 +20,7 @@ export class ScrollToDirective {
   @HostListener('click', ['$event']) onClick(): void {
     let speed = .8,
       y = window.pageYOffset,
-      t = document.getElementById(this.targetId).getBoundingClientRect().top - this.padding,
+      t = document.getElementById(this.targetId) ? document.getElementById(this.targetId).getBoundingClientRect().top - this.padding : 0,
       start = null;
 
     requestAnimationFrame(step);

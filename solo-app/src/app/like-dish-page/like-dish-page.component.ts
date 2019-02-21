@@ -6,6 +6,7 @@ import {CoreService} from "../core.service";
 import {HttpClient} from "@angular/common/http";
 import {FormApiService} from "../lib/form-api/form-api.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-like-dish-page',
@@ -69,6 +70,7 @@ export class LikeDishPageComponent implements OnInit {
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
+    private cookie: CookieService,
     private api: FormApiService,
     private el:ElementRef
   ) { }
@@ -107,5 +109,18 @@ export class LikeDishPageComponent implements OnInit {
   }
   hidden(){
     document.querySelector('body').style.overflow = this.fullPic ? 'hidden' : '';
+  }
+  checkIconActive(arr){
+    let s = this;
+    let is = false;
+    if (!arr) return;
+    if (arr.length==0) return;
+    arr.map(it=>{
+      if(it == s.cookie.get('userid')){
+        is = true;
+      }
+    });
+    if (is) return true;
+    else return false;
   }
 }
