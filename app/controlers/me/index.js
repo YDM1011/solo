@@ -397,6 +397,23 @@ module.exports.dishHit = (req,res,next)=>{
         }
     })
 };
+module.exports.dishHitAll = (req,res,next)=>{
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    Est.findOne({subdomain:est}).select('_id').exec((err,info)=>{
+        if(err)  return res.badRequest(err);
+        if(!info) return res.notFound("not Found");
+        if(info){
+            mongoose.model('dish')
+                .find({ownerest: info._id, ishit:true})
+                .populate({path:"pic"})
+                .exec((err,infoD)=>{
+                    if(err)  return res.badRequest(err);
+                    if(!infoD) return res.notFound("not Found");
+                    res.ok(infoD);
+                })
+        }
+    })
+};
 
 function toObjectId(ids) {
 

@@ -87,6 +87,7 @@ router.post('/api/favorite', [orign, glob.getId], me.favorite);
 router.post('/api/resetEst', [orign, glob.getId], me.resetEst);
 router.get('/api/favorite/:key', [orign], me.getFavorite);
 router.get('/api/dishHit', [orign], me.dishHit);
+router.get('/api/dishHitAll', [orign], me.dishHitAll);
 router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId);
 
 // basket API

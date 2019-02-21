@@ -1,5 +1,5 @@
 <app-custom-res *ngIf="id" [model]="{
-    url:'dishHit'
+    url:'dishHitAll'
     }" (onRes)="photos = $event"></app-custom-res>
 
 <div class="cont gl-cont">
@@ -21,6 +21,7 @@
               <!--<span class="pr_ev-s ev-s_int"></span>-->
             </div>
             <ng-container *ngIf="dish.pic">
+
               <img class="img"
                    [src]="dish.pic.picCrop">
             </ng-container>
