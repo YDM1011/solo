@@ -68,7 +68,6 @@ export class NewsListComponent implements OnInit, OnDestroy {
         self.userId = val._id;
         self.userPhoto = val.photo;
         self.userName = val.firstName;
-        self.isShow = !self.isShow;
       }
     });
 
@@ -108,7 +107,7 @@ export class NewsListComponent implements OnInit, OnDestroy {
   }
 
   check() {
-    if (this.maxcount - this.limit <= this.limit * this.count) {
+    if (this.maxcount <= this.posts.length) {
       this.isShow = false;
     } else {
       this.isShow = true;
