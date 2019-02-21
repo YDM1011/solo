@@ -1,6 +1,5 @@
 <div class="cont_left-bar" #leftBar>
-  <div #lfbr class="lf-br" [appLeftBarScroll]="leftBar.getBoundingClientRect()"
-       (resize)="lfbr.style.width = leftBar.clientWidth+'px'"
+  <div class="lf-br" appLeftBarScroll
        [style.width.px]="leftBar.clientWidth">
     <div class="lf-br_cntt">
       <div *ngIf="!favoriteEst" class="cont br-lv">
@@ -32,19 +31,19 @@
           </div>
         </div>
       </a>
-      <app-like-est [id]="id"></app-like-est>
+        <app-like-est [id]="id"></app-like-est>
     </div>
 
     <div class="lf-br_btn" *ngIf="user">
       <ng-container *ngIf="onLoadPhoto">
-      <ng-container *ngIf="userPhoto; else geaalt">
-        <ng-container *ngIf="userPhoto.picCrop; else geaalt">
-          <app-geo class="btn-green" [avatar]="userPhoto.picCrop"></app-geo>
+        <ng-container *ngIf="userPhoto; else geaalt">
+          <ng-container *ngIf="userPhoto.picCrop; else geaalt">
+            <app-geo class="btn-green" [avatar]="userPhoto.picCrop"></app-geo>
+          </ng-container>
         </ng-container>
-      </ng-container>
-      <ng-template #geaalt>
-        <app-geo  class="btn-green" [avatar]="'../../../assets/img/logo_mini_grey.png'"></app-geo>
-      </ng-template>
+        <ng-template #geaalt>
+          <app-geo  class="btn-green" [avatar]="'../../../assets/img/logo_mini_grey.png'"></app-geo>
+        </ng-template>
       </ng-container>
       <button #goFr2 class="btn-green req" isMyProfile (click)="goFr2.val=true">Зустрітись з друзями</button>
       <app-pre-production [status]="goFr2.val" (statusResult)="goFr2.val=$event"></app-pre-production>
@@ -58,4 +57,5 @@
     </div>
 
   </div>
+
 </div>

@@ -17,10 +17,10 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         right: '-100%'
       })),
       transition('closed => open', [
-        animate('300ms ease-out')
+        animate('250ms ease-out')
       ]),
       transition('open => closed', [
-        animate('200ms ease-out')
+        animate('180ms ease-out')
       ])
 
     ])

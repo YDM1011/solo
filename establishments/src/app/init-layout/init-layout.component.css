@@ -11,6 +11,38 @@
   background: #dedede;
   padding: 10px;
 }
+/*fixed left-bar*/
+.lf-br_cntt app-favorit{
+  display: block;
+  width: 100%;
+}
+.lf-cont-btn{
+  width: 100%;
+}
+.lf-cont-btn:nth-child(1){
+  margin-right: 5px;
+}
+.lf-cont-btn:nth-child(2){
+  margin-left: 5px;
+}
+.lf-br_cntt app-favorit:first-of-type{
+  margin: 5px 5px 5px 0;
+}
+.lf-br_cntt app-favorit:last-of-type{
+  margin: 5px 0 5px 5px;
+}
+@media (min-width: 768px) and (min-height: 500px){
+  .lf-br_cntt app-favorit:first-of-type{
+    margin: 0;
+  }
+  .lf-br_cntt app-favorit:last-of-type{
+    margin: 0;
+  }
+  .lf-cont-btn:nth-child(1){
+    margin-right: 0;
+  }
+}
+/*end fixed left-bar*/
 
 /*header prof*/
 .h-pf_nav {

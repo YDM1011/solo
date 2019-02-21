@@ -124,11 +124,11 @@ img{
   }
   .cont_left-bar {
     flex-direction: column;
-    max-width: 215px;
+    /*max-width: 215px;*/
     min-width: 195px;
     /*flex-grow: 1;*/
     margin: 0 0 0 10px;
-    width: 100%;
+    /*width: 100%;*/
 
   }
   .lf-br.fx{
@@ -2487,7 +2487,7 @@ ol li p {
   height: 20px;
 }
 .in_us_btn-ul:hover svg{
-  fill: #6f3498;
+  fill: #00a3ff;
 }
 .in_us_btn-ul svg{
   width: 100%;
@@ -4278,7 +4278,7 @@ input::-webkit-inner-spin-button {
   box-shadow: 3px -3px 20px -1px rgba(0, 0, 0, 0.1);
   background: #ffffff; }
 .mn_i {
-  margin-bottom: 25px; }
+  margin-bottom: 60px; }
 .mn_li_h1 {
   display: flex;
   align-items: center;
@@ -4387,7 +4387,7 @@ input::-webkit-inner-spin-button {
   background: rgba(0, 0, 0, 0.05); }
 
 .btn0:hover svg {
-  fill: #6f3498; }
+  fill: #00a3ff; }
 
 .btn_t {
   display: none; }
@@ -4397,7 +4397,7 @@ input::-webkit-inner-spin-button {
   margin: 0 5px;
   transition: .25s ease-in-out; }
 .btn_val:hover {
-  color: #6f3498;
+  color: #00a3ff;
   text-decoration: underline;
   text-underline-position: under; }
 
@@ -4429,7 +4429,7 @@ input::-webkit-inner-spin-button {
   .mn_li_c {
     padding: 0 20px; }
   .mn_i {
-    margin-bottom: 30px; }
+    margin-bottom: 50px; }
   .mn_li_btn-c {
     position: absolute;
     right: 0;
@@ -7771,3 +7771,11 @@ textarea.us_area::-webkit-scrollbar-track {
     font-size: 14px;
   }
 }
+/*Only for Viktor Front styles*/
+@media (max-width: 767px){
+  .hidden--sm{
+    display: none;
+  }
+}
+
+/**/

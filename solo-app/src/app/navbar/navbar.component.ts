@@ -2,7 +2,6 @@ import {Component, OnInit, Input, EventEmitter, Output, AfterViewInit, OnDestroy
 import {HttpClient} from '@angular/common/http';
 import {HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import {AuthService} from '../auth.service';
 import {UserService} from '../lib/user/user.service';
 import {CoreService} from '../core.service';
 import {environment} from '../../environments/environment';
@@ -22,10 +21,10 @@ import {animate, state, style, transition, trigger} from "@angular/animations";
         right: '-100%'
       })),
       transition('closed => open', [
-        animate('300ms ease-out')
+        animate('250ms ease-out')
       ]),
       transition('open => closed', [
-        animate('200ms ease-out')
+        animate('180ms ease-out')
       ])
 
     ])

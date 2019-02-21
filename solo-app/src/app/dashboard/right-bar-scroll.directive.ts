@@ -9,7 +9,7 @@ export class RightBarScrollDirective {
 
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, false);
-    window.addEventListener('resize', this.resize, false);
+    window.addEventListener('orientationchange', this.resize, true);
     this.paramPush();
   }
   ngOnChanges() {
@@ -17,7 +17,8 @@ export class RightBarScrollDirective {
 
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, false);
-    window.removeEventListener('resize', this.resize, false);
+    window.removeEventListener('orientationchange', this.resize, true);
+
   }
   public scrollPosition: number = 0;
 

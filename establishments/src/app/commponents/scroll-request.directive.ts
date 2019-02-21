@@ -14,7 +14,6 @@ export class ScrollRequestDirective {
     window.addEventListener('resize', this.resize, false);
     this.innerH = Math.floor(window.innerHeight*1.1);
   }
-
   ngOnDestroy() {
     window.removeEventListener('scroll', this.scroll, false);
     window.removeEventListener('resize', this.resize, false);
