@@ -28,6 +28,16 @@ export class HitDishPageComponent implements OnInit {
       }
     });
   }
+  onLoad(obj){
+    this.photos = obj;
+    const s = this;
+
+    if (s.photos.length > 0) {
+      s.photos.map(item => {
+        item[item._id] = s.checkIconActive(item.dishlike);
+      });
+    }
+  }
   checkIconActive(arr){
     let s = this;
     let is = false;

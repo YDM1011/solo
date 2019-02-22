@@ -152,7 +152,7 @@ const favoritEsts = (req,res,favEst)=>{
                     });
                 Est
                     .findOneAndUpdate({_id: favEst._id},
-                        {$pull:{favorite: req.userId}}, {new: true})
+                        {$pull:{favorite: req.userId}, $inc:{favoriteCount:-1}}, {new: true})
                     .exec((err, content) =>{
                         if(err) {
                             return res.send(err)
@@ -175,7 +175,7 @@ const favoritEsts = (req,res,favEst)=>{
                     });
                 Est
                     .findOneAndUpdate({_id: favEst._id},
-                        {$push:{favorite: req.userId}}, {new: true})
+                        {$push:{favorite: req.userId}, $inc:{favoriteCount:1}}, {new: true})
                     .exec((err, content) =>{
                         if(err) {
                             return res.send(err)

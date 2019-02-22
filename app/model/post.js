@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const data = require('../config/config').data;
 const fs = require('fs');
+const sharp = require('sharp');
 const Schema = mongoose.Schema;
 
 const friend = new Schema({
@@ -116,21 +117,6 @@ const preCreate = (req,res,next)=>{
     if(req.body.img.length < 1 && !req.body.des){
         return res.badRequest("Завантажте фото чи напишіть опис публікації")
     }
-    /*mongoose.model("establishment")
-        .findOne({_id: req.body.inPlace})
-        .select('subdomain')
-        .exec((err,info)=>{
-            console.log("OK");
-            if (err){return res.badRequest(err);}
-            if (!info){return res.badRequest(err);}
-            if (info){
-                req.body.inPlace = {
-                    _id: req.body.inPlace,
-                    place: info.subdomain,
-                };
-
-            }
-        });*/
     req.body.inPlace.id = req.body.inPlace.id || null;
     new Promise((resolve, reject)=>{
         let imgArr = [];
@@ -138,11 +124,13 @@ const preCreate = (req,res,next)=>{
         for(let i = 0; i<req.body.img.length; i++){
             let img = req.body.img[i];
             upload(img, (prefics)=>{
-                img.picCrop = `${data.auth.apiDomain}${prefics}Crop${img.fileName}`;
+                img.picCrop = `/${prefics}${img.fileName}`;
+                img.picMedia = `${prefics}${img.fileName}`;
                 img['forGallery'] = true;
                 img['owner'] = req.userId;
                 mongoose.model('galery').create(img, (err, docImg)=>{
                     if(err) return res.badRequest('Something broke!');
+                    console.log(docImg._id);
                     imgArr.push(docImg._id);
                     if (img == req.body.img[req.body.img.length-1]){
                         resolve(imgArr)
@@ -172,20 +160,40 @@ const preCreate = (req,res,next)=>{
     // next()
 };
 const upload = (img,next)=>{
-    let base64Data, base64DataCrop;
+    let base64Data;
     if (img.base64crop.search("image/jpeg") >= 0){
-        base64DataCrop = img.base64crop.replace(/^data:image\/jpeg;base64,/, "");
+        base64Data = img.base64crop.replace(/^data:image\/jpeg;base64,/, "");
     } else
     if (img.base64crop.search("image/png") >= 0){
-        base64DataCrop = img.base64crop.replace(/^data:image\/png;base64,/, "");
+        base64Data = img.base64crop.replace(/^data:image\/png;base64,/, "");
     }
     let prefics = new Date().getTime();
-    fs.writeFile(`upload/${prefics}Crop${img.fileName}`, base64DataCrop, 'base64', function(err) {
-        fs.writeFile(`upload/${prefics}${img.fileName}`, base64Data, 'base64', function(err) {
-            next(prefics)
-        });
+    base64Data = convertation(base64Data);
+    let fileName = `${prefics}${img.fileName}`;
+    fs.writeFile(`upload/${prefics}${img.fileName}`, base64Data, 'binary', function(err) {
+        minification(fileName,base64Data);
+        next(prefics)
     });
 };
+const minification = async (fileName,data)=>{
+    sharp(data)
+        .resize(768)
+        .toFile('upload/-px768-'+fileName, (err, info) => {} );
+    sharp(data)
+        .resize(400)
+        .toFile('upload/-px400-'+fileName, (err, info) => {} );
+    sharp(data)
+        .resize(300)
+        .toFile('upload/-px300-'+fileName, (err, info) => {} );
+};
+const convertation = b64string =>{
+    if (typeof Buffer.from === "function") {
+        return Buffer.from(b64string, 'base64'); // Ta-da
+    } else {
+        return new Buffer(b64string, 'base64'); // Ta-da
+    }
+};
+
 const preRead = (req,res,next)=>{
 
     let optionFind = req.query.query ? JSON.parse(req.query.query) : {};

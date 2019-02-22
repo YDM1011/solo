@@ -47,7 +47,12 @@ export class LikeEstPageComponent implements OnInit {
     const s = this;
     this.http.get(this.domain + '/api/getLikeEsts/all/' + idc, s.api.getHeaders())
       .subscribe((ests: any) => {
-        s.ests = ests
+        s.ests = ests;
+        if (s.ests.length > 0) {
+          s.ests.map(item => {
+            item[item._id] = s.checkIconActive(item.thebest);
+          });
+        }
       });
   }
 

@@ -52,7 +52,7 @@ export class FileMinComponent implements OnInit {
 
   private fileResize: any;
 
-  @Input() btn;
+  @Input() btn = "<button>Завантажити</button>>";
   @Output() fileResult: EventEmitter<any> = new EventEmitter<any>();
   @Input()  multiple: boolean = false;
   @Input()  model: string;

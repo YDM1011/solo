@@ -1,7 +1,7 @@
 
 <label>
   <input type="file" style="display: none" class="profile-avatar" (change)="uploadImg($event);">
-  <div [innerHTML]="btn || ''"></div>
+  <div [innerHTML]="btn"></div>
 </label>
   <div (click)="getEvent($event)">
 <ng-container *ngIf="file">

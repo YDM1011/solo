@@ -1,9 +1,12 @@
-const mime = require('mime-types');
+// const mime = require('mime-types');
 const fs = require('fs');
+const mime = require('mime');
+const sharp = require('sharp');
+const util = require('util');
 const mongoose = require('mongoose');
 // const Post = mongoose.model('post');
 const data = require('../../config/config').data;
-
+const im = require('imagemagick');
 /**
  * *
  * @param req
@@ -143,15 +146,25 @@ const updatePic = (picData, reqBody, res) => {
     })
 };
 
-const delFile = (reqBody)=>{
+const delFile = (reqBody, mod=null)=>{
+    mod = mod ? mod : `${reqBody.model}_${reqBody.field}`;
     return new Promise((resolve, reject)=>{
-        fs.unlink("upload/"+reqBody.picCrop.split(data.auth.apiDomain)[1], fsCallbeack=>{
-        // fs.unlink("upload/"+reqBody.picDefault.split(data.auth.apiDomain)[1], fsCallbeack=>{
+        let mainName = reqBody.picCrop.split(data.auth.apiDomain)[1] ? '/'+reqBody.picCrop.split(data.auth.apiDomain)[1] : reqBody.picCrop
+        fs.unlink("upload"+mainName, fsCallbeack=>{
+            delFileWithPrefics(mod,reqBody.picMedia);
             resolve(fsCallbeack)
-        // })
-        })
+        });
     })
 };
+
+const delFileWithPrefics = async (mod,name)=>{
+    if(mod){
+        getPreficsSize(mod).forEach(it=>{
+            console.log('upload/-px'+it+'-'+name);
+            fs.unlink('upload/-px'+it+'-'+name, fsCallbeack=>{});
+        })
+    }
+}
 
 const getFieldOfProtect = (model) => {
     const obj = {
@@ -172,7 +185,8 @@ const sendRes = async (req,res) => {
         model : model,
         field : field,
         fileName: fileName,
-        picCrop : req.body.picCrop
+        picCrop : req.body.picCrop,
+        picMedia : req.body.picMedia
     };
 
     if (model && field){
@@ -180,7 +194,7 @@ const sendRes = async (req,res) => {
         let pic = await checkPic(reqBody,res);
         if (pic[reqBody.field]){
             let picData = await getPic(pic[reqBody.field], res);
-            await delFile(picData);
+            await delFile(picData,`${model}_${field}`);
             let result = await updatePic(picData, reqBody, res);
             let url = {url: result.picCrop};
             return res.ok({url,result});
@@ -202,21 +216,65 @@ const sendRes = async (req,res) => {
 module.exports.upload = (req,res,next)=>{
 
     let base64Data;
-
+    let format;
     if (req.body.base64crop.search("image/jpeg") >= 0){
+        format = "image/jpeg";
         base64Data = req.body.base64crop.replace(/^data:image\/jpeg;base64,/, "");
     } else
     if (req.body.base64crop.search("image/png") >= 0){
+        format = "image/png";
         base64Data = req.body.base64crop.replace(/^data:image\/png;base64,/, "");
     }
+    base64Data = convertation(base64Data);
     let prefics = new Date().getTime();
-    fs.writeFile(`upload/${prefics}${req.body.fileName}`, base64Data, 'base64', function(err) {
-
-        req.body.picCrop = `/${prefics}${req.body.fileName}`;
+    let filePath = `upload/${prefics}${req.body.fileName}`;
+    let fileName = `${prefics}${req.body.fileName}`;
+    fs.writeFile(filePath, base64Data, 'binary', function(err) {
+        if (err) { throw err; }
+        req.body.picCrop = `/${fileName}`;
+        req.body.picMedia = `${fileName}`;
         sendRes(req,res);
+        minification(fileName,base64Data,`${req.body.model}_${req.body.field}`);
     });
 
 };
+
+const minification = async (fileName,data,mod)=>{
+    console.log(mod);
+    switch(mod){
+        case 'user_photo':{minAv(data, fileName, 'user_photo'); break}
+        case 'user_bg':{minBg(data, fileName, 'user_bg'); break}
+    }
+};
+const getPreficsSize = key => {
+  let obj = {
+      'user_photo':[20,60,100,150],
+      'user_bg':[768,400],
+      'post_img':[768,400,300],
+      'dish_pic':[230,150,100,50],
+      'establishment_bg':[768,400,150],
+      'establishment_av':[20,60,100,150],
+  };
+  return obj[key]
+};
+const minAv = (data, fileName, mod)=>{
+    getPreficsSize(mod).forEach(it=>{
+        sharp(data)
+            .resize(it)
+            .toFile('upload/-px'+it+'-'+fileName, (err, info) => {} );
+    })
+};
+
+const convertation = b64string =>{
+    let buf;
+    if (typeof Buffer.from === "function") {
+        buf = Buffer.from(b64string, 'base64'); // Ta-da
+    } else {
+        buf = new Buffer(b64string, 'base64'); // Ta-da
+    }
+    return buf;
+};
+
 const delFileById = async (picId,res,next)=>{
     let picData = await getPic(picId, res);
     let isPic = await checkPicInPost(picId, res);

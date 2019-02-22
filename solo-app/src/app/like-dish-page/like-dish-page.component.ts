@@ -91,6 +91,11 @@ export class LikeDishPageComponent implements OnInit {
     this.http.get(this.domain + '/api/getLikeDish/all/' + idc, this.api.getHeaders())
       .subscribe((photo: any) => {
         self.photos = (photo);
+        if (self.photos.length > 0) {
+          self.photos.map(item => {
+            item[item._id] = self.checkIconActive(item.dishlike);
+          });
+        }
       });
   }
   show(i){

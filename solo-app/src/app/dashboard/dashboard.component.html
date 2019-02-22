@@ -6,6 +6,10 @@
         <div class="h-pf_bg pre-bg"></div>
         <div class="h-pf_img">
           <app-prev-avatar></app-prev-avatar>
+          <app-upload [btnName]="btnBg"
+                      [model]="'user'"
+                      [field]="'photo'"
+                      [multiple]="false"></app-upload>
         </div>
         <!--<div class="btn-green">Зустрітись з друзями</div>-->
       </ng-container>

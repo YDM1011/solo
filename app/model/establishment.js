@@ -41,10 +41,12 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     }],
+    favoriteCount: {type: Number, default: 0},
     thebest: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     }],
+    thebestCount: {type: Number, default: 0},
     av: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "galery"
@@ -58,6 +60,7 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "oneest"
     }],
+    myestCount: {type: Number, default: 0},
     data: {type: Date, default: new Date()},
 },{
     toJSON: {
@@ -245,7 +248,6 @@ const getPic = (req,res, est)=>{
 
         resolve(ra)
     });
-
 };
 async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {

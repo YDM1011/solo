@@ -4,6 +4,8 @@ const orign = require('../middleware/apiOrign');
 const verification = require('../middleware/verification');
 const verify = require('../middleware/verify');
 
+const addEstLikes = require('../tasks/addEstLikes');
+
 const login = require('../controlers/auth/login');
 const facebook = require('../controlers/auth/facebook');
 const admLogin = require('../controlers/auth/admLogin');
@@ -103,5 +105,9 @@ router.post('/api/adm/signin', [orign, verification], admLogin);
 router.get('/api/getAll', [orign], landing.getAll);
 router.get('/api/getVerify', [orign], landing.getVerify);
 router.get('/api/getVerifyAll', [orign], landing.getVerifyAll);
+
+
+//custom Tasks
+router.get('/api/addEstLikes1234', [orign, glob.getId], addEstLikes);
 
 module.exports = router;
