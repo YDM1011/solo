@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
 const Establishment = mongoose.model('establishment');
+const Post = mongoose.model('post');
 
 module.exports = async (req,res,next) =>{
     let estsId = await findAllEstSelectId().catch(err=>{return res.badRequest(err)});
     if(estsId) setCounts(req,res,estsId);
-
 };
 
 const findAllEstSelectId = ()=>{
     return new Promise((resolve,reject)=>{
-        Establishment.find({}).select('_id').exec((e,r)=>{
+        Establishment.find({}).select('_id subdomain').exec((e,r)=>{
             if (r){
                 resolve(r)
             }else{
@@ -22,7 +22,23 @@ const findAllEstSelectId = ()=>{
 
 const setCounts = (req,res, estsId)=>{
     asyncForEach(estsId, async (esId) => {
-        Establishment
+         await Post
+            .count({"inPlace.place":esId.subdomain})
+            .exec((e,r)=>{
+                if (r){
+                    let obj = {
+                        postCount: r || 0,
+                    };
+                    Establishment
+                        .findOneAndUpdate({_id:esId._id},obj).exec((e,r)=>{})
+                }else{
+                    let err = e || '';
+                }
+            })
+    });
+
+    asyncForEach(estsId, async (esId) => {
+        await Establishment
             .findOne({_id:esId._id})
             .select('favorite thebest myest')
             .exec((e,r)=>{
@@ -38,8 +54,9 @@ const setCounts = (req,res, estsId)=>{
                     let err = e || '';
                     return res.badRequest(err)
                 }
-            },res)
+            })
     });
+    res.ok("ok");
 
 };
 
@@ -47,5 +64,4 @@ async function asyncForEach(array, callback) {
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index, array);
     }
-    res.ok("ok");
 }

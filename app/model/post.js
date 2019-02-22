@@ -114,10 +114,15 @@ const preCreate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     req.body.id = req.body.userId;
     req.body.data = new Date();
+
     if(req.body.img.length < 1 && !req.body.des){
         return res.badRequest("Завантажте фото чи напишіть опис публікації")
     }
     req.body.inPlace.id = req.body.inPlace.id || null;
+    if (req.body.inPlace.id){
+        mongoose.model('establishment')
+            .findOneAndUpdate({_id:req.body.inPlace.id},{$inc:{postCount:1}}, ()=>{});
+    }
     new Promise((resolve, reject)=>{
         let imgArr = [];
         if (req.body.img.length < 1) resolve(imgArr);
@@ -234,6 +239,7 @@ const preDelete = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     require("../responces/notFound")(req, res);
     let fileManeger = require("../controlers/uploadFile");
+
     mongoose.model('post')
         .findOne({_id:req.params.id})
         .exec((err,info)=>{
@@ -242,6 +248,10 @@ const preDelete = (req,res,next)=>{
             if(info){
                 let id = mongoose.Types.ObjectId(info.userId).toString();
                 let idS = mongoose.Types.ObjectId(info.share.userIdShare).toString();
+                if (info.inPlace.id){
+                    mongoose.model('establishment')
+                        .findOneAndUpdate({_id:info.inPlace.id},{$inc:{postCount:-1}}, ()=>{});
+                }
                 if(req.userId == id || req.userId == idS){
                     asyncForEach(info.img, async (img) => {
                         await new Promise(async (resolve,reject)=> {
@@ -252,6 +262,10 @@ const preDelete = (req,res,next)=>{
                 } else { res.badRequest(info) }
             }
         })
+};
+
+const checkOwner = (req,res,next)=>{
+
 };
 
 async function asyncForEach(array, callback) {
