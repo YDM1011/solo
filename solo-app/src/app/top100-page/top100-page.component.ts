@@ -86,7 +86,25 @@ export class Top100PageComponent implements OnInit {
         }
       });
   }
-  sortPost(){}
+  sortPost(){
+    const s = this;
+    s.favorite=false;
+    s.thebest=false;
+    s.post=true;
+    s.sf = 1;
+    s.sb = 1;
+    s.sp *= -1;
+    this.http.get(this.domain + '/api/establishment?sort={"postCount":'+s.sp+'}&limit=100&skip=0', s.api.getHeaders())
+      .subscribe((ests: any) => {
+        s.ests = ests;
+        if (s.ests.length > 0) {
+          s.ests.map(item => {
+            item[item._id+'favorite'] = s.checkIconActive(item.favorite);
+            item[item._id+'thebest'] = s.checkIconActive(item.thebest);
+          });
+        }
+      });
+  }
 
   checkIconActive(arr){
     let s = this;

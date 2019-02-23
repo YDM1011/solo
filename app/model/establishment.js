@@ -61,6 +61,7 @@ const model = new Schema({
         ref: "oneest"
     }],
     myestCount: {type: Number, default: 0},
+    postCount: {type: Number, default: 0},
     data: {type: Date, default: new Date()},
 },{
     toJSON: {
