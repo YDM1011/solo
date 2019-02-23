@@ -198,5 +198,5 @@ export class GeoComponent implements OnInit, OnDestroy {
     if (is) return true;
     else return false;
   }
-  tab: boolean = true;
+  tab: number = 0;
 }

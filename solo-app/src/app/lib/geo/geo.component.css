@@ -58,3 +58,17 @@
 .p-l.active{
   display: flex;
 }
+
+.geo_clock{
+  display: flex;
+  align-items: center;
+  padding: 5px 10px 0;
+}
+.geo_clock .svg{
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+.geo_clock_i{
+  margin-left: 20px;
+}
