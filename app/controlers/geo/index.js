@@ -3,7 +3,8 @@ module.exports.get = async (req,res,next)=>{
     // let chain = await getChain();
     // let est = await getEst(chain);
     let est = await getEsts();
-    res.ok(est);
+    let ests = await parseEsts(req,est);
+    res.ok(ests);
 };
 module.exports.get1 = async (req,res,next)=>{
     let chain = await r1();
@@ -75,6 +76,11 @@ const getEsts = () =>{
         mongoose.model('oneest')
             .find({})
             .populate({path:'ownerEst', populate:{path: "bg av"}})
+            .populate({path:'worksTimeId'})
+            .populate({path:'menus', select: "categories",
+                populate:{path: "categories", select: "name maincategory",
+                    populate:{path: "maincategory", select: "name status"}}
+            })
             .exec((err,result)=>{
                 if (result) {
                     resolv(result)
@@ -82,6 +88,54 @@ const getEsts = () =>{
                     resolv(null)
                 }
             })
+    });
+};
+
+const parseEsts = (req,ests) =>{
+    return new Promise(async (resolv,reject)=>{
+        let arr = [];
+        let filter = req.query.filter ? req.query.filter.split(',') : null;
+        console.log(req.filter);
+        await asyncForEach(ests, async (est) => {
+            let obj = {est, filter:[], filterString:''};
+            await asyncForEach(est.menus, async (menu) => {
+                await asyncForEach(menu.categories, async (cat) => {
+                    if(cat.maincategory){
+                        if(cat.maincategory.status === 'is'){
+                            obj.filterString += '@'+cat.maincategory.name;
+                            obj.filter.push({
+                                value: cat.maincategory.name,
+                                name: cat.name,
+                            });
+                        }
+                    }
+                });
+            });
+            let add = false;
+            let err = false;
+            console.log(filter);
+            if (filter){
+                for (let i = 0; i<filter.length-1; i++){
+                    add = false;
+                    await asyncForEach(obj.filter, async (no) => {
+                        if (filter[i] == no.value){
+                            add = true
+                        }
+                    });
+                    if (!add){
+                        err = true;
+                    }
+                }
+
+            }else {
+                add = true;
+            }
+
+            if (add && !err){
+                arr.push(obj);
+            }
+        });
+        resolv(arr)
     });
 };
 

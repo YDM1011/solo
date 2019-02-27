@@ -11,6 +11,7 @@ import {ApiService} from "../../api.service";
 export class WorkTimeCreateComponent implements OnInit {
   public id: string;
   public calendar = new Calendar();
+  @Output() onClose = new EventEmitter();
   public keyArr = [
     "timeRange1",
     "timeRange2",

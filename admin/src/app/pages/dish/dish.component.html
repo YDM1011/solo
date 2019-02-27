@@ -31,16 +31,16 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="ibox float-e-margins">
-          <div class="ibox-title">
+          <div class="ibox-title acardion-t">
             <h5>Всі страви <strong></strong></h5>
             <div class="ibox-tools">
               <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn btn-primary btn-sm"><strong>Створити страву</strong></a>
             </div>
           </div>
-          <div class="ibox-content">
-            <div class="row" *ngIf="dish.length > 0">
-              <div class="col s12 m4" *ngFor="let dsh of dish">
-                <div class="card">
+          <div class="ibox-content acardion-c">
+            <div class="card-wrap" *ngIf="dish.length > 0">
+              <div class="card" *ngFor="let dsh of dish">
+                <div class="card-content">
                   <ng-container *ngIf="dsh.pic; else preDishPic">
                     <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
                       <img class="img40" src="{{apiDomain}}{{dsh.pic.picCrop}}" alt="">
@@ -49,16 +49,19 @@
                   <ng-template #preDishPic>
                     <app-prev-dish></app-prev-dish>
                   </ng-template>
-                  <span>{{dsh.name}}</span>
-                  <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn">Редагувати</a>
-                  <span (click)="delet(dsh._id)" class="btn">del</span>
+                  <span class="card-name">{{dsh.name}}</span>
+                </div>
+                <div class="card-btn">
+                  <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn btn-white btn-sm pull-right">
+                    <i class="fa fa-pencil"></i>
+                    Редагувати
+                  </a>
+                  <span (click)="delet(dsh._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>
                 </div>
               </div>
-              <div class="col s12 m4">
-                <div class="card">
-                  <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">create</a>
-                </div>
-              </div>
+            </div>
+            <div class="link-create">
+              <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">Створити</a>
             </div>
           </div>
         </div>

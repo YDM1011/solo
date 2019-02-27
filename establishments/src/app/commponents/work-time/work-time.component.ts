@@ -22,17 +22,20 @@ export class WorkTimeComponent implements OnInit {
   getWorckTime(e){
     let s = this;
     s.workTime = e;
-    let HNow = moment().hours();
+    let HNow = moment().hours() * 24 + moment().minutes();
     if(s.workTime.worksTime){
       let Hs = parseInt(s.workTime.worksTime.timeStart.split(":")[0]);
+      let Ms = parseInt(s.workTime.worksTime.timeStart.split(":")[1]);
       let He = parseInt(s.workTime.worksTime.timeEnd.split(":")[0]);
-
+      let Me = parseInt(s.workTime.worksTime.timeEnd.split(":")[1]);
+      let timS = Hs*60+Ms;
+      let timE = He*60+Me;
       if(s.workTime.worksTime.isWeekend) return s.weekend = true;
       if(s.workTime.worksTime.isAllTime) return s.allTime = true;
 
-      if(HNow+1>=He && HNow < He && HNow > Hs){ s.closeInH = true}
-      if(HNow>He || HNow < Hs){ s.closed = true}
-      if(HNow>Hs && HNow+1 < He){ s.open = true}
+      if(HNow+1>=timE && HNow < timE && HNow > timS){ s.closeInH = true}
+      if(HNow>timE || HNow < timS){ s.closed = true}
+      if(HNow>timS && HNow+1 < timE){ s.open = true}
     }
 
   }

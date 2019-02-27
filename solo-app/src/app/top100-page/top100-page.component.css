@@ -18,3 +18,25 @@
 .l_i_bg{
   max-height: 293px;
 }
+.l_i_btn-cont .btn-trans{
+  padding: 0 10px;
+  margin-right: 20px;
+}
+.l_i_val {
+  position: absolute;
+  bottom: 2px;
+  left: calc(50% + 12px)!important;
+}
+.index{
+  margin-right: 7px;
+  display: inline-flex;
+  border: 1px solid #00a3ff;
+  width: 25px;
+  height: 25px;
+  color: #fff;
+  font-size: 12px!important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #00a3ff;
+}

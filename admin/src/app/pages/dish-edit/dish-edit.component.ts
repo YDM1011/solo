@@ -49,6 +49,13 @@ export class DishEditComponent implements OnInit {
     });
 
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/dish/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id) {
     const self = this;
     const req = ['dish'];

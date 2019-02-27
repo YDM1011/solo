@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     let s = this;
     setTimeout(()=>{
-      const map = L.map(s.index).setView(s.XY, 10);
+      const map = L.map(s.index).setView(s.XY, 15);
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19, minZoom: 5,
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

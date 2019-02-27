@@ -24,7 +24,6 @@ const pages = new menuList({
         type: mongoose.Schema.Types.ObjectId,
         ref: "oneest"
     }],
-
 },{
     toJSON: {
         transform: function (doc, ret) {

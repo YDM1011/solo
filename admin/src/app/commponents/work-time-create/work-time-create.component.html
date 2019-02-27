@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content animated fadeInRight">
+<div class="wrapper wrapper-content animated fadeInRight" appPopap (onClose)="onClose.emit($event)">
   <div class="row">
     <div class="col-lg-12">
       <div class="ibox float-e-margins">
@@ -11,15 +11,15 @@
         <div class="ibox-content">
           <div class="form-horizontal">
           <div class="form-group">
-            <label class="col-md-2 control-label">Назва каледаря*</label>
-            <div class="col-md-10">
+            <label class="col-md-3 control-label">Назва каледаря*</label>
+            <div class="col-md-9">
               <input type="text" name="name-calendar" class="form-control"
                      [(ngModel)]="calendar.name">
             </div>
           </div>
           <div class="form-group">
-            <label class="col-md-4 control-label">Підпис каледаря*</label>
-            <div class="col-md-8">
+            <label class="col-md-3 control-label">Підпис каледаря*</label>
+            <div class="col-md-9">
               <input type="text" name="name-calendar" class="form-control"
                      [(ngModel)]="calendar.label">
             </div>

@@ -24,6 +24,9 @@ import { TimepickerModule } from 'ngx-bootstrap/timepicker';
 import { LoadActionComponent } from './load-action/load-action.component';
 import { ActionCreateComponent } from './action-create/action-create.component';
 import { ActionEditComponent } from './action-edit/action-edit.component';
+import {AcardionDirective} from "../directive/acardion.directive";
+import {PopapDirective} from "../directive/popap.directive";
+import {BtnBurgerDirective} from "../directive/btn-burger.directive";
 
 @NgModule({
   imports: [
@@ -52,7 +55,10 @@ import { ActionEditComponent } from './action-edit/action-edit.component';
     CalendarComponent,
     LoadActionComponent,
     ActionCreateComponent,
-    ActionEditComponent
+    ActionEditComponent,
+    AcardionDirective,
+    PopapDirective,
+    BtnBurgerDirective
   ],
   declarations: [
     HeaderComponent,
@@ -74,7 +80,10 @@ import { ActionEditComponent } from './action-edit/action-edit.component';
     CalendarComponent,
     LoadActionComponent,
     ActionCreateComponent,
-    ActionEditComponent
+    ActionEditComponent,
+    AcardionDirective,
+    PopapDirective,
+    BtnBurgerDirective
   ],
   providers: []
 })

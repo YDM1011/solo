@@ -23,9 +23,20 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/leaflet/leaflet.css",
+              "src/assets/style/bootstrap.min.css",
+              "src/assets/font-awesome/css/font-awesome.min.css",
+              "src/assets/style/plugins/chosen/bootstrap-chosen.css",
+              "src/assets/style/plugins/toastr/toastr.min.css",
+              "src/assets/style/animate.css",
+              "src/assets/style/style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "src/assets/leaflet/leaflet.js",
+              "src/assets/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

@@ -32,6 +32,13 @@ export class ComplementEditComponent implements OnInit {
     });
 
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/complement/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id){
     let self = this;
     let req=[self.key];

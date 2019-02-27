@@ -78,6 +78,18 @@ module.exports.getLikeDishAll = (req, res, next) => {
             if (result[0]) return res.ok(result[0].favoritdish);
         })
 };
+module.exports.getLikeDishAllE = (req, res, next) => {
+    User.find({_id: req.params.id || req.userId})
+        .select('favoritdish')
+        .populate({path:'favoritdish', populate:{path: 'ownerest pic', match:{"subdomain": 'solo'}},
+        })
+        .exec((err,result)=>{
+
+            if(err) return res.badRequest(err);
+            if (!result[0]) return res.serverError('Somesing broken');
+            if (result[0]) return res.ok(result[0].favoritdish);
+        })
+};
 module.exports.isEst = (req, res, next) => {
     User.findOne({_id: req.userId})
         .select('myEstablishment')

@@ -1,0 +1,33 @@
+.bottom-wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.content-wrap textarea:focus{
+  outline: none!important;
+  border-color: #1ab394;
+  min-height: 120px;
+  max-height: inherit;
+}
+.content-wrap textarea{
+  outline: none!important;
+}
+.content-wrap textarea{
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 15px;
+}
+.content-wrap img{
+  max-width: 150px;
+}
+.content-wrap > div{
+  margin: 10px;
+}
+.content-wrap{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.textArea{
+  width: 100%;
+}

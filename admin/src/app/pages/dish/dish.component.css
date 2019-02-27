@@ -1,7 +1,61 @@
 .card{
-  display: flex;
+  display: inline-flex;
   justify-content: space-between;
   line-height: 2em;
-  padding: 0 15px;
-  width: calc(100% - 30px);
+  max-height: 80px;
+  width: auto;
+  border: 1px solid #e7eaec;
+  margin: 10px;
+  align-items: center;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  min-width: 265px;
+  overflow: hidden;
+  transition: .5s;
+
+}
+.link-create{
+  text-align: right;
+  margin-top: 15px;
+}
+.card-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+}
+.card:hover{
+  transition-delay: .5s;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+.card:hover  .card-btn{
+  transform: translateX(0);
+}
+.card-btn{
+  transform: translateX(100%);
+  transition: .5s;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: -1px;
+  padding: 15px;
+}
+.card-name{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+  margin-right: auto;
+  max-width: 200px;
+}
+.card-content{
+  display: flex;
+  align-items: center;
 }

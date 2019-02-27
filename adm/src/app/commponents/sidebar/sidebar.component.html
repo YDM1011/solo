@@ -1,6 +1,26 @@
-<ul>
-  <li><a [routerLink]="'/'" >Home</a></li>
-  <li><a [routerLink]="'/checkbox'" >CheckBox</a></li>
-  <li><a [routerLink]="'/category'" >Category</a></li>
-  <li><a [routerLink]="'/moderation'" >Moderation</a></li>
-</ul>
+
+<nav class="navbar-default navbar-static-side" role="navigation">
+  <div class="sidebar-collapse">
+    <ul class="nav metismenu" id="side-menu">
+      <li class="nav-header">
+        <div class="dropdown profile-element">
+        </div>
+        <div class="logo-element">
+        </div>
+      </li>
+      <li class="active">
+        <a [routerLink]="'/'"><i class="fa fa-home"></i> <span class="nav-label">Головна</span></a>
+      </li>
+      <li class="">
+        <a [routerLink]="'/checkbox'"><i class="fa fa-list-alt"></i> <span class="nav-label">Чекбокси</span></a>
+      </li>
+      <li class="">
+        <a [routerLink]="'/category'"><i class="fa fa-folder"></i> <span class="nav-label">Категорії</span></a>
+      </li>
+      <li class="">
+        <a [routerLink]="'/moderation'"><i class="fa fa-th-large"></i> <span class="nav-label">Мережі</span></a>
+      </li>
+
+    </ul>
+  </div>
+</nav>

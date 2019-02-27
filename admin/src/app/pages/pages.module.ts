@@ -40,6 +40,7 @@ import { ActionComponent } from './action/action.component';
     CommponentsModule,
     FormsModule,
     RoutingModule,
+
   ],
   exports: [NotFoundComponent, MenuComponent, HomeComponent, SettingComponent],
   declarations: [

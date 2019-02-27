@@ -239,25 +239,18 @@ module.exports.upload = (req,res,next)=>{
 
 };
 
-const minification = async (fileName,data,mod)=>{
-    console.log(mod);
-    switch(mod){
-        case 'user_photo':{minAv(data, fileName, 'user_photo'); break}
-        case 'user_bg':{minBg(data, fileName, 'user_bg'); break}
-    }
-};
 const getPreficsSize = key => {
   let obj = {
       'user_photo':[20,60,100,150],
-      'user_bg':[768,400],
-      'post_img':[768,400,300],
+      'user_bg':[768,400,150],
+      'post_img':[768,400,200,100],
       'dish_pic':[230,150,100,50],
       'establishment_bg':[768,400,150],
       'establishment_av':[20,60,100,150],
   };
   return obj[key]
 };
-const minAv = (data, fileName, mod)=>{
+const minification = (fileName, data, mod)=>{
     getPreficsSize(mod).forEach(it=>{
         sharp(data)
             .resize(it)

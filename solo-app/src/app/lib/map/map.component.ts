@@ -35,7 +35,7 @@ export class MapComponent implements OnInit {
       setTimeout(()=>{
         // var markers = new L.MarkerClusterGroup();
 
-        let map = L.map('mapUser').setView(s.me, 10);
+        let map = L.map('mapUser').setView(s.me, 16);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
           maxZoom: 19, minZoom: 5,
           attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

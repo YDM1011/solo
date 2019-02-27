@@ -32,6 +32,13 @@ export class CategoryEditComponent implements OnInit {
     });
 
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/category/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id){
     let self = this;
 

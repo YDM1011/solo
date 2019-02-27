@@ -35,7 +35,13 @@ export class EstEditComponent implements OnInit {
       self.initApi(params.id);
     });
   }
-
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/establishments/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id){
     let self = this;
     let req=['myest'];

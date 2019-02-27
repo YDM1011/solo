@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../api.service";
 
@@ -7,7 +7,7 @@ import {ApiService} from "../../api.service";
   templateUrl: './box-edit.component.html',
   styleUrls: ['./box-edit.component.css']
 })
-export class BoxEditComponent implements OnInit {
+export class BoxEditComponent implements OnInit, OnDestroy {
   public id:any;
   public editid:any;
   public box:any;
@@ -32,6 +32,14 @@ export class BoxEditComponent implements OnInit {
     });
 
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/box/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
+  ngOnDestroy(){}
   initApi(id){
     let self = this;
     let req=[self.key];

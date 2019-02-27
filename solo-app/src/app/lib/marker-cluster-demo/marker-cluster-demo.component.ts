@@ -42,7 +42,7 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
 
 
   ngOnInit() {
-    if(this.XY.length>0 && this.me){
+    if(this.XY && this.me){
       this.options['center'] =  L.latLng([this.me[0], this.me[1]]);
       this.generateData();
     }
@@ -50,7 +50,7 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(){
-    if(this.XY.length>0)
+    if(this.XY)
       this.generateData();
   }
 
@@ -64,7 +64,7 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
 
     if(!this.meAvatar) return;
     let s = this;
-    const data: any[] = [];
+    let data: any[] = [];
     const LeafIcon = L.Icon.extend({options:{
         iconSize: [30, 30],
         iconAnchor: [30, 30],
@@ -77,26 +77,31 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
         iconUrl: ''
       }});
     let i = 0;
-    for (i; i < this.XY.length; i++) {
-      let xyc = s.XY[i];
+    if (this.XY.length > 0){
+      for (i; i < this.XY.length; i++) {
+        let xyc = s.XY[i];
 
-      if(xyc.x && xyc.y){
-        if(xyc.active ){
-          let icon = new LeafIcon();
-          icon.options.iconUrl ='./favicon.ico';
+        if(xyc.x && xyc.y){
+          if(xyc.active ){
+            let icon = new LeafIcon();
+            icon.options.iconUrl ='./favicon.ico';
 
-          data.push(L.marker([ this.generateLon(i), this.generateLat(i) ], { icon }).bindPopup(`
-            <div class="map-pop"><div class="img-of-map"><img src="${xyc.bg}" class="bg"><img src="${xyc.logo}" class="logo"></div><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span><br/><a href="${xyc.link}">Сайт закладу</a></div>
+            data.push(L.marker([ this.generateLon(i), this.generateLat(i) ], { icon }).bindPopup(`
+            <div class="map-pop"><div class="img-of-map"><img src="${xyc.logo}" class="logo"></div><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span><br/><a href="${xyc.link}">Сайт закладу</a></div>
           `));
-        }else{
-          let icon = new LeafIcon();
-          icon.options.iconUrl ='../../../assets/img/logo_mini_grey.png';
+          }else{
+            let icon = new LeafIcon();
+            icon.options.iconUrl ='../../../assets/img/logo_mini_grey.png';
 
-          data.push(L.marker([ this.generateLon(i), this.generateLat(i) ], { icon }).bindPopup(`
+            data.push(L.marker([ this.generateLon(i), this.generateLat(i) ], { icon }).bindPopup(`
             <div class="map-pop"><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span></div>`));
+          }
         }
       }
+    }else{
+      data = [];
     }
+    console.log("test",data);
 
     let icon = new LeafIconUs();
     icon.options.iconUrl = s.meAvatar;

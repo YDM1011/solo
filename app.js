@@ -13,6 +13,14 @@ const models = glob.sync('./app/model/*.js');
 const subdomain = require('express-subdomain');
 const app = express();
 
+const version = "-v1";
+const index1 = "index1";
+const index2 = "index2";
+const index3 = "index3";
+const index4 = "index4";
+const index5 = "index5";
+const index6 = "index6";
+
 glob.app = app;
 glob.jsonParser = bodyParser.json({limit: '15mb', extended: true});
 glob.cookieParser = cookieParser();
@@ -85,16 +93,16 @@ const static2 = require('./app/route/apiindex');
 const api = require('./app/api/index');
 
 // view engine setup
-app.set('views', path.join(__dirname, 'app/views'));
+app.set('views', path.join(__dirname, 'app/views'+version));
 app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(bodyParser.json({limit: '15mb', "strict": false,}));
 app.use(bodyParser.urlencoded({ extended: true, limit: '15mb'}));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.use(express.static(path.join(__dirname, 'admin/dist/admin')));
 app.use(express.static(path.join(__dirname, 'establishments/dist/establishments')));
-app.use(express.static(path.join(__dirname, 'solo-app/dist/solo-app')));
 app.use(express.static(path.join(__dirname, 'adm/dist/adm')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'upload')));
@@ -108,7 +116,7 @@ app.get("/", function(req, res, next) {
     if (req.cookies['sid'] || (req.subdomains[0] && (req.subdomains[0] != "admin"))) {
         if(req.cookies['sid']){
             if(req.subdomains[0] == "adm"){
-                res.render('index5');
+                res.render(index5);
             }else{
                 next()
             }
@@ -116,43 +124,46 @@ app.get("/", function(req, res, next) {
             Est.checkEst(req.subdomains[0]).then(val=>{
                 switch(req.subdomains[0]) {
                     case undefined:
-                        res.render('index1');
+                        res.render(index1);
+                        break;
+                    case 'www':
+                        res.render(index4);
                         break;
                     case 'solo':
-                        res.render('index2');
+                        res.render(index2);
                         break;
                     case 'adm':
-                        res.render('index5');
+                        res.render(index5);
                         break;
                     default:
-                        res.render('index2');
+                        res.render(index2);
                         break;
                 }
             }).catch(err=>{
                 switch(req.subdomains[0]) {
+                    case 'www':
+                        res.render(index4);
+                        break;
                     case 'admin':
-                        res.render('index3');
+                        res.render(index3);
                         break;
                     case 'adm':
-                        res.render('index5');
+                        res.render(index5);
                         break;
                     default:
-                        res.render('index6');
+                        res.render(index6);
                         break;
                 }
             });
         }
     }else{
-        res.render('index4', {title: 'Express'});
+        res.render(index4, {title: 'Express'});
     }
 });
 
 app.get("/about", function(req, res){
-    res.render('index4', { title: "Landing" });
+    res.render(index4, { title: "Landing" });
 });
-// app.get("/test", function(req, res){
-//     res.render('test');
-// });
 
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
@@ -176,37 +187,43 @@ app.use(function(err, req, res, next) {
                 Est.checkEst(req.subdomains[0]).then(val=>{
                     switch(req.subdomains[0]) {
                         case undefined:
-                            res.render('index1');
+                            res.render(index1);
+                            break;
+                        case 'www':
+                            res.render(index1);
                             break;
                         case 'solo':
-                            res.render('index2');
+                            res.render(index2);
                             break;
                         case 'admin':
-                            res.render('index3');
+                            res.render(index3);
                             break;
                         case 'adm':
-                            res.render('index5');
+                            res.render(index5);
                             break;
                         default:
-                            res.render('index2');
+                            res.render(index2);
                             break;
                     }
                 }).catch(err=>{
                     console.log(req.subdomains[0]);
                     switch(req.subdomains[0]) {
+                        case 'www':
+                            res.render(index1);
+                            break;
                         case 'admin':
-                            res.render('index3');
+                            res.render(index3);
                             break;
                         case 'adm':
-                            res.render('index5');
+                            res.render(index5);
                             break;
                         default:
-                            res.render('index6');
+                            res.render(index6);
                             break;
                     }
                 });
             }else {
-                res.render('index1');
+                res.render(index1);
             }
         } else {
             res.redirect("/");

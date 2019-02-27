@@ -69,6 +69,7 @@ router.get('/api/getLikeEsts/:id', [orign, glob.getId], establishment.getLikeEst
 router.get('/api/getLikeEsts/all/:id', [orign, glob.getId], establishment.getLikeEstsAll);
 router.get('/api/getLikeDish/:id', [orign, glob.getId], establishment.getLikeDish);
 router.get('/api/getLikeDish/all/:id', [orign, glob.getId], establishment.getLikeDishAll);
+router.get('/api/getLikeDishEst/all/:id', [orign, glob.getId], establishment.getLikeDishAllE);
 router.get('/api/isEst', [orign, glob.getId], establishment.isEst);
 
 router.get('/api/search', [orign, glob.getId], search.get);

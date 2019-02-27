@@ -1,9 +1,9 @@
-<div class="wrapper wrapper-content animated fadeInUp" *ngIf="box">
+<div class="wrapper wrapper-content animated fadeInUp" *ngIf="box" appPopap (onClose)="goBack($event)">
   <div class="ibox">
     <div class="ibox-title">
       <h5>Редагувати упаковку "{{box.name}}"</h5>
       <div class="ibox-tools">
-        <button (click)="update(box)" class="btn btn-primary">Редагувати</button>
+        <button (click)="update(box); goBack('')" class="btn btn-primary">Редагувати</button>
       </div>
     </div>
     <div class="ibox-content">

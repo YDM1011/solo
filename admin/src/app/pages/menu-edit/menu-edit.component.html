@@ -1,9 +1,9 @@
-<div class="wrapper wrapper-content animated fadeInUp" *ngIf="menu">
+<div class="wrapper wrapper-content animated fadeInUp" *ngIf="menu" appPopap (onClose)="goBack($event)">
   <div class="ibox">
     <div class="ibox-title">
       <h5>Редагувати меню "{{menu.name}}"</h5>
       <div class="ibox-tools">
-        <button (click)="update(menu)" class="btn btn-primary">Зберегти</button>
+        <button (click)="update(menu); goBack('')" class="btn btn-primary">Зберегти</button>
       </div>
     </div>
     <div class="ibox-content">
@@ -94,6 +94,12 @@
           </div>
 
         </div>
+      </div>
+    </div>
+    <div class="ibox-title">
+      <div></div>
+      <div class="ibox-tools">
+        <button (click)="update(menu); goBack('')" class="btn btn-primary">Зберегти</button>
       </div>
     </div>
   </div>

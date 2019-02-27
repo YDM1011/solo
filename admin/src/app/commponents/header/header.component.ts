@@ -9,6 +9,9 @@ import {ApiService} from '../../api.service';
 })
 export class HeaderComponent implements OnInit {
 
+  public routeActive = [];
+  public triger;
+
   public ests: any = [];
   constructor(
     private api: ApiService
@@ -23,6 +26,20 @@ export class HeaderComponent implements OnInit {
     this.api.get('get_est').then((res: any) => {
       self.ests = res;
     });
+
+  }
+
+  checkRouter(key){
+    let s = this;
+    if (!s.routeActive[key]){
+      s.triger ? s.routeActive[s.triger] = false : '';
+      s.routeActive[key] = !s.routeActive[key];
+      s.triger = key;
+    }else{
+      s.triger = null;
+      s.routeActive[key] = false;
+    }
+
 
   }
 }

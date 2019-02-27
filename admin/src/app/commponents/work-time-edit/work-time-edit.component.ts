@@ -11,6 +11,7 @@ export class WorkTimeEditComponent implements OnInit {
   public id: string;
   @Input() obj:any;
   @Output() onEdit = new EventEmitter();
+  @Output() onClose = new EventEmitter();
   public keyArr = [
     "timeRange1",
     "timeRange2",

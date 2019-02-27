@@ -33,6 +33,13 @@ export class MenuEditComponent implements OnInit {
     });
 
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/menu/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id) {
     const self = this;
     const req = [self.key];

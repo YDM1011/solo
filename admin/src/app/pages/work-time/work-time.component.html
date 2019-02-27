@@ -20,16 +20,17 @@
 
     <app-work-time-create
       *ngIf="isCreate"
+      (onClose)="isCreate = false"
       (onCreate)="calendarsAdd($event); isCreate = false"></app-work-time-create>
 
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="row">
         <div class="col-lg-12">
-          <div class="ibox float-e-margins">
+          <div class="ibox float-e-margins" appAcardion>
             <div class="ibox-title">
-              <h5>Календар <strong></strong></h5>
+              <h5>Графік Роботи <strong></strong></h5>
               <div class="ibox-tools">
-                <button (click)="isCreate = true" *ngIf="!isCreate" class="btn btn-primary btn-sm">Створити календар</button>
+                <button (click)="isCreate = true" class="btn btn-primary btn-sm">Створити графік роботи</button>
               </div>
             </div>
             <div class="ibox-content">
@@ -57,6 +58,7 @@
                   <app-work-time-edit
                     [obj]="calendar"
                     (onEdit)="calendarsEdit($event,calendar)"
+                    (onClose)="isShow[calendar._id] = false"
                     *ngIf="isShow[calendar._id]"
                   ></app-work-time-edit>
                 </ng-container>

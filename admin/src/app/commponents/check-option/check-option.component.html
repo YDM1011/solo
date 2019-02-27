@@ -14,11 +14,13 @@
 
 <div class="option" *ngIf="option">
   <ng-container  *ngFor="let item of option; let i = index">
-    <div class="i-checks"><label> <input type="checkbox"
-                                         [(ngModel)]="item.check"> <i></i> {{item.label}} </label></div>
-    <ng-container *ngIf="item.obj">
-      <app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>
-    </ng-container>
+    <div class="wrap-dish_portion">
+      <div class="i-checks"><label> <input type="checkbox"
+                                           [(ngModel)]="item.check"> <i></i> {{item.label}} </label></div>
+      <ng-container *ngIf="item.obj">
+        <app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>
+      </ng-container>
+    </div>
   </ng-container>
   <button (click)="selectOption(option)" class="btn btn-primary btn-sm">Обрати</button>
 </div>

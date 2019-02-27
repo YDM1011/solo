@@ -37,7 +37,13 @@ export class MenuCreateComponent implements OnInit {
       self.initApi(self.id);
     });
   }
-
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/menu/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   create(obj){
     let self = this;
     obj['estId'] = self.id;

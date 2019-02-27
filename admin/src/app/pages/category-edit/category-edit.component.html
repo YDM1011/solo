@@ -1,9 +1,9 @@
-<div class="wrapper wrapper-content animated fadeInUp" *ngIf="category">
+<div class="wrapper wrapper-content animated fadeInUp" *ngIf="category" appPopap (onClose)="goBack($event)">
   <div class="ibox">
     <div class="ibox-title">
       <h5>Редагувати категорію "{{category.name}}"</h5>
       <div class="ibox-tools">
-        <button (click)="update(category)" class="btn btn-primary">Зберегти</button>
+        <button (click)="update(category); goBack('')" class="btn btn-primary">Зберегти</button>
       </div>
     </div>
     <div class="ibox-content">

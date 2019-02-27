@@ -1,4 +1,4 @@
-<div class="edit-calender" *ngIf="obj">
+<div class="edit-calender" *ngIf="obj" appPopap (onClose)="onClose.emit($event)">
   <div class="ibox-title">
     <div>Редагувати календар: <h5>{{obj.name}}</h5></div>
     <div class="ibox-tools">

@@ -1,13 +1,15 @@
 .wrap{
   display: flex;
+  justify-content: space-between;
 }
 .content{
-  flex-grow: 1;
-  padding: 15px 10px;
+  width: 100%;
+  margin-left: 15px;
 }
-
-.sidebar{
-  background-color: #f8f4ff;
-  padding: 15px 10px;
-  min-height: calc(100vh - 30px);
+.inherit-right {
+  display: flex;
+  align-items: center;
+  height: inherit;
+  min-height: inherit;
+  justify-content: flex-end;
 }

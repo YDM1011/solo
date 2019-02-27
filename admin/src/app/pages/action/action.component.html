@@ -1,5 +1,5 @@
 <div class="row wrapper border-bottom white-bg page-heading">
-  <div class="col-lg-10">
+  <div class="col-lg-12">
     <h2>Акції</h2>
     <ol class="breadcrumb">
       <li>
@@ -13,7 +13,6 @@
       </li>
     </ol>
   </div>
-  <div class="col-lg-2"></div>
 </div>
 <div class="row">
   <div class="col-lg-12">
@@ -22,8 +21,8 @@
 
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="row">
-        <div class="col-lg-8">
-          <div class="ibox float-e-margins">
+        <div class="col-lg-12">
+          <div class="ibox float-e-margins" appAcardion>
             <div class="ibox-title">
               <h5>Акції</h5>
               <div class="ibox-tools">
@@ -35,32 +34,36 @@
             <div class="ibox-content">
 
 
-              <div class="wrap-calendar" *ngFor="let item of actions">
-                <div *ngIf="!isShow[item._id]">
-                  <div>
-                    <textarea name="name-calendar" class="form-control"
-                              [(ngModel)]="item.about"></textarea>
-                  </div>
-                  <div>
-                    <img [src]="item.picC" alt="">
-                  </div>
-                  <span class="btn" (click)="isShow[item._id] = true">edit</span>
-                  <span (click)="del(item._id)" class="btn">del</span>
+              <div class="card" *ngFor="let item of actions">
+                <div class="card-content">
+                  <ng-container *ngIf="item.picC">
+                    <img class="img40" src="{{item.picC}}" alt="">
+                  </ng-container>
+                  <ng-template #preDishPic>
+                    <app-prev-dish></app-prev-dish>
+                  </ng-template>
+                  <span class="card-name">{{item.about}}</span>
                 </div>
-                <app-action-edit
-                  [obj]="item"
-                  (onEdit)="calendarsEdit($event,item)"
-                  *ngIf="isShow[item._id]"
+                <div class="card-btn">
+                  <span class="btn btn-white btn-sm pull-right" (click)="isShow[item._id] = true">
+                    <i class="fa fa-pencil"></i>
+                    Редагувати
+                  </span>
+                  <span (click)="del(item._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>
+                </div>
+                <app-action-edit appPopap
+                                 [obj]="item"
+                                 (onEdit)="calendarsEdit($event,item)"
+                                 *ngIf="isShow[item._id]"
                 ></app-action-edit>
               </div>
-              <div>
-                <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Create</button>
-                <app-action-create
+
+              <div class="link-create">
+                <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Створити</button>
+                <app-action-create appPopap
                   *ngIf="isCreate"
                   (onCreate)="calendarsAdd($event); isCreate = false"></app-action-create>
               </div>
-
-
             </div>
           </div>
         </div>
@@ -68,4 +71,3 @@
     </div>
   </div>
 </div>
-

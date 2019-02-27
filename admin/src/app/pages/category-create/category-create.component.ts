@@ -32,6 +32,13 @@ export class CategoryCreateComponent implements OnInit {
       self.initApi(self.id);
     });
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/category/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id) {
     const self = this;
     const req1 = ['option'];

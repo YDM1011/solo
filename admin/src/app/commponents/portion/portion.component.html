@@ -1,8 +1,11 @@
 <div class="row" *ngIf="obj">
-  <div class="col-xs-2">
-    <h5><strong>Порція</strong></h5>
+  <div class="btn-wrap">
+    <span class="btn btn-primary btn-sm" #port (click)="port.v=true">Порція</span>
   </div>
-  <div class="col-xs-12">
+  <div appPopap (onClose)="port.v=false" *ngIf="port.v" class="col-xs-12">
+    <div class="port_i">
+      <h2 *ngIf="obj.name">Порція для {{obj.name}}</h2>
+    </div>
     <ng-container *ngFor="let prtn of portions">
       <div class="port_i">
         <label class="col-xs-2 control-label">Вага</label>

@@ -1,6 +1,9 @@
 a{
   white-space: nowrap;
 }
-ul{
-  padding-left: 10px;
+.metismenu ul{
+  padding-left: 0px;
 }
+.nav  li.active {
+  border-left: 4px solid #19aa8d;
+  background: #293846;}

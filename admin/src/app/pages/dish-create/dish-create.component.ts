@@ -58,6 +58,13 @@ export class DishCreateComponent implements OnInit {
       self. initApi(self.id);
     });
   }
+  goBack(e){
+    if(this.id){
+      this.router.navigate(['/dish/'+this.id])
+    }else{
+      this.router.navigate(['/'])
+    }
+  }
   initApi(id){
     let self = this;
     let req1=['option'];

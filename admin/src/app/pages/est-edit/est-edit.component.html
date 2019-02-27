@@ -1,4 +1,4 @@
-<div class="wrapper wrapper-content animated fadeInUp" *ngIf="myest">
+<div class="wrapper wrapper-content animated fadeInUp" *ngIf="myest" appPopap (onClose)="goBack($event)">
   <div class="ibox">
     <div class="ibox-title">
       <h5>Редагувати <strong>"{{myest.name}}"</strong></h5>
@@ -16,7 +16,7 @@
         delivery:myest.delivery,
         coordinates:myest.coordinates,
         address:myest.address
-        },'myest')">Зберегти</button>
+        },'myest'); goBack('')">Зберегти</button>
       </div>
     </div>
     <div class="ibox-content">
@@ -126,6 +126,25 @@
           </div>
         </div>
       </div>
+      </div>
+    </div>
+    <div class="ibox-title">
+      <div></div>
+      <div class="ibox-tools">
+        <button class="btn btn-primary" (click)="update({
+        name:myest.name,
+        menus:myest.menus,
+        mobile:myest.mobile,
+        about:myest.about,
+        worksTime:myest.worksTime,
+        worksTimeId:myest.worksTimeId,
+        status:myest.status,
+        reservation:myest.reservation,
+        getself:myest.getself,
+        delivery:myest.delivery,
+        coordinates:myest.coordinates,
+        address:myest.address
+        },'myest'); goBack('')">Зберегти</button>
       </div>
     </div>
   </div>

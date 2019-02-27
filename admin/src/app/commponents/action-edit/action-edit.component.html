@@ -1,16 +1,22 @@
 <ng-container *ngIf="obj">
-  <div>
-    <textarea name="name-calendar"
-           placeholder="Назва каледаря*"
-              [(ngModel)]="obj.about"></textarea>
+  <div class="content-wrap">
+    <div>
+      <img [src]="obj.picC">
+    </div>
+    <div class="textArea">
+      <textarea name="name-calendar"
+                placeholder="Назва каледаря*"
+                [(ngModel)]="obj.about"></textarea>
+    </div>
   </div>
-  <div>
-    <img [src]="obj.picC">
-  </div>
-  <app-load-action
-    [model]="'action'"
-    (getImg)="getPic($event)"
-    [field]="'pic'"></app-load-action>
 
-  <button (click)="save()" class="btn">Save</button>
+  <div class="bottom-wrap">
+    <app-load-action
+      [model]="'action'"
+      (getImg)="getPic($event)"
+      [field]="'pic'"></app-load-action>
+
+    <button (click)="save()" class="btn">Зберегти</button>
+  </div>
+
 </ng-container>

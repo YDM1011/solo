@@ -2,6 +2,8 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CoreService} from "../../core.service";
 import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
+import {Filters} from "./filters";
+import * as moment from 'moment'
 
 class Distance {
   toRadians(degrees) {
@@ -46,9 +48,13 @@ export class GeoComponent implements OnInit, OnDestroy {
   public countEst:number;
   public isShow = false;
   public isDefPos= false;
+  public isOpen= false;
   public cordinates = [];
   public meXY = [];
-
+  public ests = [];
+  public pos;
+  public dataNow;
+  tab: number = 2;
   private id;
   private options = {
     enableHighAccuracy: true,
@@ -59,7 +65,7 @@ export class GeoComponent implements OnInit, OnDestroy {
     latitude : 0,
     longitude: 0
   };
-
+  public filter:any = new Filters();
   @Input() avatar;
   constructor(
     private cookie:CookieService,
@@ -78,48 +84,9 @@ export class GeoComponent implements OnInit, OnDestroy {
     s.isShow = true;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((pos)=> {
-          let crd = pos.coords;
-          let x,y;
-          x = pos.coords.latitude;
-          y = pos.coords.longitude;
-          s.meXY.push(pos.coords.latitude);
-          s.meXY.push(pos.coords.longitude);
-          s.api.doGet(`geo`).then((val:any)=>{
-            s.distans = [];
-            s.cordinates = [];
-            val.map(item=>{
-              if(item.coordinates && item.ownerEst){
-                if ( item.coordinates[0] && item.coordinates[1]){
-                  let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
-                  s.cordinates.push(
-                    {
-                      x: item.coordinates[0],
-                      y: item.coordinates[1],
-                      av: av,
-                      logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
-                      bg: item.ownerEst.bg ? item.ownerEst.bg.picCrop : '../../../assets/img/like_house.svg',
-                      address: item.address,
-                      name: item.name,
-                      link: '//'+item.ownerEst.subdomain+'.'+s.host,
-                      active: item.ownerEst.verify
-                    });
-                  item['distans'] = s.geo.calc(
-                    {lat: item.coordinates[0], lng: item.coordinates[1]},
-                    {lat: x, lng: y}
-                  );
-                  s.distans.push(item);
-
-                }
-              }
-            });
-            s.distans = s.sort(s.distans);
-            s.countEst = s.calc(s.distans,'verify');
-            s.onLoad = true;
-            // navigator.geolocation.clearWatch(s.id);
-          });
-
-        }, (err)=>{s.error(err,s)}, s.options);
-      // });
+        this.pos = pos;
+        s.alterGeo();
+      }, (err)=>{s.error(err,s)}, s.options);
     } else {
       alert("Geolocation is not supported by this browser.");
     }
@@ -130,6 +97,10 @@ export class GeoComponent implements OnInit, OnDestroy {
   }
 
   error(err,s) {
+    s.pos = {coords:{
+        latitude:50.747490,
+        longitude:25.326486,
+      }};
     s.alterGeo();
     console.warn('ERROR(' + err.code + '): ' + err.message);
   }
@@ -150,37 +121,79 @@ export class GeoComponent implements OnInit, OnDestroy {
   }
   alterGeo(){
     let s =this;
-    let pos ={coords:{
-        latitude:50.747490,
-        longitude:25.326486,
-      }};
+    s.meXY.push(s.pos.coords.latitude);
+    s.meXY.push(s.pos.coords.longitude);
+    s.dataApi()
+  }
+  dataApi(q=''){
+    let s =this;
     let x,y;
-    x = pos.coords.latitude;
-    y = pos.coords.longitude;
-    s.meXY.push(pos.coords.latitude);
-    s.meXY.push(pos.coords.longitude);
-    console.log(pos.coords);
-    s.api.doGet(`geo`).then((val:any)=>{
-      s.distans = [];
-      s.cordinates = [];
-      val.map(item=>{
-        if(item.coordinates && item.ownerEst){
-          if ( item.coordinates[0] && item.coordinates[1]){
-            let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
-            s.cordinates.push({x:  item.coordinates[0],y: item.coordinates[1], av:av});
-            item['distans'] = s.geo.calc(
-              {lat: item.coordinates[0], lng: item.coordinates[1]},
-              {lat: x, lng: y}
-            );
-            s.distans.push(item);
+    x = s.pos.coords.latitude;
+    y = s.pos.coords.longitude;
+    s.api.doGet(`geo${q}`).then((val:any)=>{
+        s.distans = [];
+        s.cordinates = [];
+        s.ests = val;
+        val.map(item=>{
+          item = item.est;
+          if(item.coordinates && item.ownerEst){
+            if ( item.coordinates[0] && item.coordinates[1]){
+              if (s.isOpen){
+                if (item.worksTimeId[s.dataNow.label]){
+                  let H = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
+                  let M = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
+                  let time = H*60+M;
+                  if(parseInt(s.dataNow.min) < time){
+                    let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                    s.cordinates.push(
+                      {
+                        x: item.coordinates[0],
+                        y: item.coordinates[1],
+                        logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                        address: item.address,
+                        name: item.name,
+                        link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                        active: item.ownerEst.verify
+                      });
+                    item['distans'] = s.geo.calc(
+                      {lat: item.coordinates[0], lng: item.coordinates[1]},
+                      {lat: x, lng: y}
+                    );
+                    s.distans.push(item);
+                  }
+                }
+              }else{
+                let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                s.cordinates.push(
+                  {
+                    x: item.coordinates[0],
+                    y: item.coordinates[1],
+                    logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                    address: item.address,
+                    name: item.name,
+                    link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                    active: item.ownerEst.verify
+                  });
+                item['distans'] = s.geo.calc(
+                  {lat: item.coordinates[0], lng: item.coordinates[1]},
+                  {lat: x, lng: y}
+                );
+                s.distans.push(item);
+              }
+
+            }
           }
+        });
+        if (s.distans.length>0){
+          s.distans = s.sort(s.distans);
+          s.countEst = s.calc(s.distans,'verify');
         }
-      });
-      s.onLoad = true;
-      s.isDefPos = true;
+        console.log(s.cordinates);
+        s.onLoad = true;
+
+      // navigator.geolocation.clearWatch(s.id);
     });
   }
-
   hidden() {
     document.querySelector('nav').style.zIndex = this.isShow ? '9' : '';
     document.querySelector('body').style.overflow = this.isShow ? 'hidden' : '';
@@ -198,5 +211,97 @@ export class GeoComponent implements OnInit, OnDestroy {
     if (is) return true;
     else return false;
   }
-  tab: number = 0;
+
+  doFilter(){
+    let s = this;
+    let query = "?filter=";
+    s.filter.map(item=>{
+      if (item.check){
+        query += item.value+','
+      }
+    });
+    s.dataApi(query);
+    console.log(query)
+  }
+
+  checkOpen(st){
+    let s = this;
+    this.isOpen = st;
+    this.dataNow = {
+      min: moment().hours()*60+moment().minutes(),
+      label: 'timeRange'+moment().day()
+    };
+    let x,y;
+    x = s.pos.coords.latitude;
+    y = s.pos.coords.longitude;
+    s.distans = [];
+    s.cordinates = [];
+    s.ests.map(item=>{
+      item = item.est;
+      if(item.coordinates && item.ownerEst){
+        if ( item.coordinates[0] && item.coordinates[1]){
+          if (s.isOpen){
+            if (item.worksTimeId[s.dataNow.label]){
+              let time;
+              if(item.worksTimeId[s.dataNow.label].isAllTime){
+                time = 24*60
+              } else
+              if(item.worksTimeId[s.dataNow.label].isWeekend){
+                time = 0
+              } else {
+                let H = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
+                let M = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
+                time = H*60+M;
+              }
+
+              if(parseInt(s.dataNow.min) < time){
+                let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                s.cordinates.push(
+                  {
+                    x: item.coordinates[0],
+                    y: item.coordinates[1],
+                    logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                    address: item.address,
+                    name: item.name,
+                    link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                    active: item.ownerEst.verify
+                  });
+                item['distans'] = s.geo.calc(
+                  {lat: item.coordinates[0], lng: item.coordinates[1]},
+                  {lat: x, lng: y}
+                );
+                s.distans.push(item);
+              }
+            }
+          }else{
+            let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+            s.cordinates.push(
+              {
+                x: item.coordinates[0],
+                y: item.coordinates[1],
+                logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                address: item.address,
+                name: item.name,
+                link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                active: item.ownerEst.verify
+              });
+            item['distans'] = s.geo.calc(
+              {lat: item.coordinates[0], lng: item.coordinates[1]},
+              {lat: x, lng: y}
+            );
+            s.distans.push(item);
+          }
+
+        }
+      }
+    });
+    if (s.distans.length>0){
+      s.distans = s.sort(s.distans);
+      s.countEst = s.calc(s.distans,'verify');
+    }
+    console.log(s.cordinates);
+    s.onLoad = true;
+    // console.log(this.isOpen)
+  }
+
 }

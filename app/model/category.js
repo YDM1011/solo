@@ -121,7 +121,6 @@ const preDelete = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     next();
-
 };
 
 glob.restify.serve(

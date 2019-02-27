@@ -29,7 +29,15 @@
   height: 13px;
   margin-right: 10px;
   vertical-align: sub; }
-
+.ev{
+  margin-left: 5px;
+}
+.m-c.warning {
+  color: #ffb400; }
+.m-c.error {
+  color: #ff0000; }
+.m-c.true {
+  color: #81b784; }
 .h-pf_nav_in_t {
   display: none; }
 
@@ -89,6 +97,12 @@
   user-select: text;
 }
 @media (min-width: 540px) {
+  .m-c.warning {
+    color: #000; }
+  .m-c.error {
+    color: #000; }
+  .m-c.true {
+    color: #000; }
   .h-pf_nav_btn {
     max-width: 230px; }
   .h-pf_nav_drd {
