@@ -29,6 +29,9 @@ export class Top100PageComponent implements OnInit {
   public sb=1;
   public sp=1;
 
+  private query = '&query='+JSON.stringify({
+    verify:true
+  });
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
@@ -45,7 +48,7 @@ export class Top100PageComponent implements OnInit {
   }
 
   apiInitial() {
-    this.sortFavorite()
+    this.sortTheBest()
   }
 
   sortFavorite(){
@@ -56,7 +59,7 @@ export class Top100PageComponent implements OnInit {
     s.sf *= -1;
     s.sb = 1;
     s.sp = 1;
-    this.http.get(this.domain + '/api/establishment?sort={"favoriteCount":'+s.sf+'}&limit=100&skip=0', s.api.getHeaders())
+    this.http.get(this.domain + '/api/establishment?sort={"favoriteCount":'+s.sf+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = ests;
         if (s.ests.length > 0) {
@@ -75,7 +78,7 @@ export class Top100PageComponent implements OnInit {
     s.sf = 1;
     s.sb *= -1;
     s.sp = 1;
-    this.http.get(this.domain + '/api/establishment?sort={"thebestCount":'+s.sb+'}&limit=100&skip=0', s.api.getHeaders())
+    this.http.get(this.domain + '/api/establishment?sort={"thebestCount":'+s.sb+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = ests;
         if (s.ests.length > 0) {
@@ -94,7 +97,7 @@ export class Top100PageComponent implements OnInit {
     s.sf = 1;
     s.sb = 1;
     s.sp *= -1;
-    this.http.get(this.domain + '/api/establishment?sort={"postCount":'+s.sp+'}&limit=100&skip=0', s.api.getHeaders())
+    this.http.get(this.domain + '/api/establishment?sort={"postCount":'+s.sp+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = ests;
         if (s.ests.length > 0) {

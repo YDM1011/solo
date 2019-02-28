@@ -72,3 +72,22 @@
 .geo_clock_i{
   margin-left: 20px;
 }
+.mapMob{
+  display: none;
+}
+.mapDes{
+  display: block;
+}
+@media (max-width: 768px) {
+  .map_cn{
+    margin-top: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mapMob{
+    display: block;
+  }
+  .mapDes{
+    display: none;
+  }
+}

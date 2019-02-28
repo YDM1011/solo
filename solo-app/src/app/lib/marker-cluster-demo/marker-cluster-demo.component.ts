@@ -110,6 +110,7 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
     data.push(L.marker([lat, lng], { icon } ));
 
     this.markerClusterData = data;
-
+    document.getElementById('mapUser').style.width="100%";
+    document.getElementById('mapUser').style.height="100%";
   }
 }

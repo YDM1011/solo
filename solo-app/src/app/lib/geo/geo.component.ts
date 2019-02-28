@@ -49,12 +49,13 @@ export class GeoComponent implements OnInit, OnDestroy {
   public isShow = false;
   public isDefPos= false;
   public isOpen= false;
+  public isOpenM= false;
   public cordinates = [];
   public meXY = [];
   public ests = [];
   public pos;
   public dataNow;
-  tab: number = 2;
+  tab: number = 0 ;
   private id;
   private options = {
     enableHighAccuracy: true,
@@ -123,7 +124,7 @@ export class GeoComponent implements OnInit, OnDestroy {
     let s =this;
     s.meXY.push(s.pos.coords.latitude);
     s.meXY.push(s.pos.coords.longitude);
-    s.dataApi()
+    s.dataApi();
   }
   dataApi(q=''){
     let s =this;
@@ -135,15 +136,14 @@ export class GeoComponent implements OnInit, OnDestroy {
         s.cordinates = [];
         s.ests = val;
         val.map(item=>{
-          item = item.est;
+          item = item;
           if(item.coordinates && item.ownerEst){
             if ( item.coordinates[0] && item.coordinates[1]){
               if (s.isOpen){
                 if (item.worksTimeId[s.dataNow.label]){
-                  let H = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
-                  let M = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
-                  let time = H*60+M;
-                  if(parseInt(s.dataNow.min) < time){
+
+                  let timeE,timeS;
+                  if(item.worksTimeId[s.dataNow.label].isAllTime){
                     let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
                     s.cordinates.push(
                       {
@@ -160,7 +160,37 @@ export class GeoComponent implements OnInit, OnDestroy {
                       {lat: x, lng: y}
                     );
                     s.distans.push(item);
+                  } else
+                  if(item.worksTimeId[s.dataNow.label].isWeekend){
+                    timeE = 0
+                  } else {
+                    let He = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
+                    let Me = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
+                    let Hs = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[0]);
+                    let Ms = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[1]);
+                    timeE = He*60+Me;
+                    timeS = Hs*60+Ms;
+                    if(parseInt(s.dataNow.min) < timeE && parseInt(s.dataNow.min) >= timeS){
+                      let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                      s.cordinates.push(
+                        {
+                          x: item.coordinates[0],
+                          y: item.coordinates[1],
+                          logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                          address: item.address,
+                          name: item.name,
+                          link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                          active: item.ownerEst.verify
+                        });
+                      item['distans'] = s.geo.calc(
+                        {lat: item.coordinates[0], lng: item.coordinates[1]},
+                        {lat: x, lng: y}
+                      );
+                      s.distans.push(item);
+                    }
                   }
+
+
                 }
               }else{
                 let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
@@ -227,6 +257,7 @@ export class GeoComponent implements OnInit, OnDestroy {
   checkOpen(st){
     let s = this;
     this.isOpen = st;
+    this.isOpenM = st;
     this.dataNow = {
       min: moment().hours()*60+moment().minutes(),
       label: 'timeRange'+moment().day()
@@ -237,40 +268,57 @@ export class GeoComponent implements OnInit, OnDestroy {
     s.distans = [];
     s.cordinates = [];
     s.ests.map(item=>{
-      item = item.est;
-      if(item.coordinates && item.ownerEst){
+      item = item;
+      if(item.coordinates && item.ownerEst && item.worksTimeId){
         if ( item.coordinates[0] && item.coordinates[1]){
           if (s.isOpen){
             if (item.worksTimeId[s.dataNow.label]){
-              let time;
+              let timeE,timeS;
               if(item.worksTimeId[s.dataNow.label].isAllTime){
-                time = 24*60
+                  let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                  s.cordinates.push(
+                    {
+                      x: item.coordinates[0],
+                      y: item.coordinates[1],
+                      logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                      address: item.address,
+                      name: item.name,
+                      link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                      active: item.ownerEst.verify
+                    });
+                  item['distans'] = s.geo.calc(
+                    {lat: item.coordinates[0], lng: item.coordinates[1]},
+                    {lat: x, lng: y}
+                  );
+                  s.distans.push(item);
               } else
               if(item.worksTimeId[s.dataNow.label].isWeekend){
-                time = 0
-              } else {
-                let H = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
-                let M = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
-                time = H*60+M;
-              }
 
-              if(parseInt(s.dataNow.min) < time){
-                let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
-                s.cordinates.push(
-                  {
-                    x: item.coordinates[0],
-                    y: item.coordinates[1],
-                    logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
-                    address: item.address,
-                    name: item.name,
-                    link: '//'+item.ownerEst.subdomain+'.'+s.host,
-                    active: item.ownerEst.verify
-                  });
-                item['distans'] = s.geo.calc(
-                  {lat: item.coordinates[0], lng: item.coordinates[1]},
-                  {lat: x, lng: y}
-                );
-                s.distans.push(item);
+              } else {
+                let He = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
+                let Me = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
+                let Hs = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[0]);
+                let Ms = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[1]);
+                timeE = He*60+Me;
+                timeS = Hs*60+Ms;
+                if(parseInt(s.dataNow.min) < timeE && parseInt(s.dataNow.min) >= timeS){
+                  let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                  s.cordinates.push(
+                    {
+                      x: item.coordinates[0],
+                      y: item.coordinates[1],
+                      logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                      address: item.address,
+                      name: item.name,
+                      link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                      active: item.ownerEst.verify
+                    });
+                  item['distans'] = s.geo.calc(
+                    {lat: item.coordinates[0], lng: item.coordinates[1]},
+                    {lat: x, lng: y}
+                  );
+                  s.distans.push(item);
+                }
               }
             }
           }else{

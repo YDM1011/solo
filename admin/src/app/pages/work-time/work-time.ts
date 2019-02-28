@@ -42,7 +42,7 @@ export class Calendar {
       isTimeRange: true
     };
     this.timeRange4 = {
-      nameDay: 'Четверг',
+      nameDay: 'Четвер',
       timeStart: "9:00",
       timeEnd: "20:00",
       isTimeRange: true

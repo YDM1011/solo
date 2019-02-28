@@ -3,8 +3,8 @@ module.exports.get = async (req,res,next)=>{
     // let chain = await getChain();
     // let est = await getEst(chain);
     let est = await getEsts();
-    let ests = await parseEsts(req,est);
-    res.ok(ests);
+    // let ests = await parseEsts(req,est);
+    res.ok(est);
 };
 module.exports.get1 = async (req,res,next)=>{
     let chain = await r1();
@@ -38,9 +38,11 @@ const getEst = chain => {
     })
 };
 async function asyncForEach(array, callback) {
+
     for (let index = 0; index < array.length; index++) {
         await callback(array[index], index, array);
     }
+
 }
 const getChain =  () => {
     return new Promise((resolv,reject)=>{
@@ -78,23 +80,24 @@ const getEsts = () =>{
             .populate({path:'ownerEst', populate:{path: "bg av"}})
             .populate({path:'worksTimeId'})
             .populate({path:'menus', select: "categories",
-                populate:{path: "categories", select: "name maincategory",
-                    populate:{path: "maincategory", select: "name status"}}
+                populate:{path: "categories", select: "name maincategory"}
             })
             .exec((err,result)=>{
                 if (result) {
+
                     resolv(result)
                 }else{
                     resolv(null)
                 }
-            })
+            });
+
     });
 };
 
 const parseEsts = (req,ests) =>{
     return new Promise(async (resolv,reject)=>{
         let arr = [];
-        let filter = req.query.filter ? req.query.filter.split(',') : null;
+        let filter = req.query.filter ? req.query.filter.split(',') : [];
         console.log(req.filter);
         await asyncForEach(ests, async (est) => {
             let obj = {est, filter:[], filterString:''};
