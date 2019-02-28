@@ -80,16 +80,33 @@ module.exports.getLikeDishAll = (req, res, next) => {
 };
 module.exports.getLikeDishAllE = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
-    User.find({_id: req.params.id || req.userId})
-        .select('favoritdish')
-        .populate({path:'favoritdish', populate:{path: 'ownerest pic', match:{"subdomain": est}},
-        })
-        .exec((err,result)=>{
-
+    Establishment.findOne({subdomain: est})
+        .select("subdomain _id")
+        .exec((err,es)=>{
             if(err) return res.badRequest(err);
-            if (!result[0]) return res.serverError('Somesing broken');
-            if (result[0]) return res.ok(result[0].favoritdish);
+            if (!es) return res.serverError('Somesing broken');
+            if (es) {
+                User.find({_id: req.params.id || req.userId})
+                    .select('favoritdish')
+                    .populate({path:'favoritdish', populate:{path: 'pic'}
+                    })
+                    .exec((err,result)=>{
+
+                        if(err) return res.badRequest(err);
+                        if (!result[0]) return res.serverError('Somesing broken');
+                        if (result[0]) {
+                            let arr = [];
+                            result[0].favoritdish.map(it=>{
+                                if(it.ownerest == es.id){
+                                    arr.push(it)
+                                }
+                            });
+                            return res.ok(arr);
+                        }
+                    })
+            }
         })
+
 };
 module.exports.isEst = (req, res, next) => {
     User.findOne({_id: req.userId})
