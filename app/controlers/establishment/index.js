@@ -79,9 +79,10 @@ module.exports.getLikeDishAll = (req, res, next) => {
         })
 };
 module.exports.getLikeDishAllE = (req, res, next) => {
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     User.find({_id: req.params.id || req.userId})
         .select('favoritdish')
-        .populate({path:'favoritdish', populate:{path: 'ownerest pic', match:{"subdomain": 'solo'}},
+        .populate({path:'favoritdish', populate:{path: 'ownerest pic', match:{"subdomain": est}},
         })
         .exec((err,result)=>{
 
