@@ -30,6 +30,7 @@ export class WorkTimeComponent implements OnInit {
       let Me = parseInt(s.workTime.worksTime.timeEnd.split(":")[1]);
       let timS = Hs*60+Ms;
       let timE = He*60+Me;
+      if(timE<timS){timE += 24*60}
       if(s.workTime.worksTime.isWeekend) return s.weekend = true;
       if(s.workTime.worksTime.isAllTime) return s.allTime = true;
 

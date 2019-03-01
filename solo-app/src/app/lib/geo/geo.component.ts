@@ -170,6 +170,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                     let Ms = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[1]);
                     timeE = He*60+Me;
                     timeS = Hs*60+Ms;
+                    if(timeE<timeS){timeE += 24*60}
                     if(parseInt(s.dataNow.min) < timeE && parseInt(s.dataNow.min) >= timeS){
                       let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
                       s.cordinates.push(
@@ -301,6 +302,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                 let Ms = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[1]);
                 timeE = He*60+Me;
                 timeS = Hs*60+Ms;
+                if(timeE<timeS){timeE += 24*60}
                 if(parseInt(s.dataNow.min) < timeE && parseInt(s.dataNow.min) >= timeS){
                   let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
                   s.cordinates.push(
