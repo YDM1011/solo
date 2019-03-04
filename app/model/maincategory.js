@@ -37,6 +37,11 @@ const preCreate = (req,res,next)=>{
     next()
 };
 
+const preDelete = (req,res,next)=>{
+    delete req.body['owner'];
+    next()
+};
+
 const preUpdate = (req,res,next)=>{
     delete req.body['owner'];
     next()
@@ -48,5 +53,6 @@ glob.restify.serve(
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preCreate],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preUpdate]
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preUpdate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.isAdmin, preDelete]
     });

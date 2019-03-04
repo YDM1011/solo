@@ -9,6 +9,7 @@ import {CheckBoxComponent} from "./pages/check-box/check-box.component";
 import {HomeComponent} from "./pages/home/home.component";
 import {CategoryComponent} from "./pages/category/category.component";
 import {ModerationComponent} from "./pages/moderation/moderation.component";
+import {FiltersComponent} from "./pages/filters/filters.component";
 
 const routes: Routes = [
   { path: '',
@@ -17,7 +18,8 @@ const routes: Routes = [
     children: [{path:'', component: HomeComponent},
       {path:'checkbox', component: CheckBoxComponent},
       {path:'moderation', component: ModerationComponent},
-      {path:'category', component: CategoryComponent}
+      {path:'category', component: CategoryComponent},
+      {path:'filters', component: FiltersComponent},
       ]
   },
   {

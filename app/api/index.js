@@ -5,6 +5,7 @@ const verification = require('../middleware/verification');
 const verify = require('../middleware/verify');
 
 const addEstLikes = require('../tasks/addEstLikes');
+const addCatToOneest = require('../tasks/addCatToOneest');
 
 const login = require('../controlers/auth/login');
 const facebook = require('../controlers/auth/facebook');
@@ -110,5 +111,7 @@ router.get('/api/getVerifyAll', [orign], landing.getVerifyAll);
 
 //custom Tasks
 router.get('/api/addEstLikes1234', [orign, glob.getId], addEstLikes);
+router.get('/api/addCatToOneest1234', [orign, glob.getId], addCatToOneest);
+router.get('/api/pushPull', [orign, glob.getId], addCatToOneest.pushPull);
 
 module.exports = router;

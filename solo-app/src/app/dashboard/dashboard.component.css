@@ -36,6 +36,16 @@
   bottom: 20px;
   width: 100%;
 }
+.pre-bg img{
+  padding-bottom: 20px;
+}
+.pre-bg app-upload{
+  position: absolute;
+  bottom: 18px;
+  left: 0;
+  z-index: 2;
+  display: inline-block;
+}
 @media (min-width: 400px) {
   .h-pf_img {
     width: 115px;
@@ -44,6 +54,7 @@
   .h-pf_tt {
     left: calc(50% + 65px);
   }
+
 }
 @media (min-width: 560px){
   .h-pf_bg {
@@ -64,6 +75,14 @@
     line-height: 22px;
     font-size: 16px;
     bottom: 38px;
+  }
+  .pre-bg app-upload {
+    top: 0;
+    padding: 8px 10px;
+    bottom: initial;
+  }
+  .pre-bg img{
+    padding-bottom: 0px;
   }
 }
 @media (min-width: 768px) and (min-height: 500px) {

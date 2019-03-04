@@ -21,6 +21,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
   public obj:any;
   public populate:any = JSON.stringify({path:'photo', select:'preload _id'});
   public mutual:any = [];
+  public mutualEst:any = [];
   public people:any = [];
 
   constructor(
@@ -70,5 +71,6 @@ export class FriendPageComponent implements OnInit, OnChanges {
 
   setMutual(res) {
     this.mutual[res.id] = res.mutual;
+    this.mutualEst[res.id] = res.mutualEst;
   }
 }

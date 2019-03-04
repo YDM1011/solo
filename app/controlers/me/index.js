@@ -100,7 +100,7 @@ const setFavotiteEst = (req,favEst)=>{
 };
 const pullEstId = (req,estId)=>{
     return new Promise((resolv,reject)=> {
-        Est.findOneAndUpdate({_id: estId}, {$pull: {thebest: req.userId}}, {new:true})
+        Est.findOneAndUpdate({_id: estId}, {$pull: {thebest: req.userId}, $inc:{thebestCount:-1}}, {new:true})
             .select('_id').exec((err, info) => {
             if (err) reject('Something broke!');
             if (!info) reject('Something broke!');
@@ -110,7 +110,7 @@ const pullEstId = (req,estId)=>{
 };
 const pushEstId = (req,fe)=>{
     return new Promise((resolv,reject)=> {
-        Est.findOneAndUpdate({_id: fe._id}, {$push: {thebest: req.userId}}, {new:true})
+        Est.findOneAndUpdate({_id: fe._id}, {$push: {thebest: req.userId}, $inc:{thebestCount:1}}, {new:true})
             .select('thebest').exec((err, info) => {
             if (err) reject('Something broke!');
             if (!info) reject('Something broke!');

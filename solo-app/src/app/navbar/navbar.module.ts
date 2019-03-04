@@ -16,6 +16,7 @@ import {CreateEstablishmentComponent} from "../lib/create-establishment/create-e
 import {FormsModule} from '@angular/forms';
 import {MobileMenuDirective} from "./mobile-menu.directive";
 import {ScrollToDirective} from "./scroll-to.directive";
+import {PictureComponent} from "../lib/picture/picture.component";
 
 @NgModule({
   imports: [
@@ -33,7 +34,8 @@ import {ScrollToDirective} from "./scroll-to.directive";
     NavbarComponent,
     AppRoutingModule,
     PreProductionComponent,
-    BarMenuComponent
+    BarMenuComponent,
+    PictureComponent
   ],
   declarations: [
     NavbarComponent,
@@ -43,7 +45,8 @@ import {ScrollToDirective} from "./scroll-to.directive";
     BarMenuComponent,
     CreateEstablishmentComponent,
     MobileMenuDirective,
-    ScrollToDirective
+    ScrollToDirective,
+    PictureComponent
   ]
 })
 export class NavbarModule { }

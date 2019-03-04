@@ -32,6 +32,10 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "menu"
     }],
+    categoriInUse: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "maincategory"
+    }]
 },{
     toJSON: {
         transform: function (doc, ret) {},

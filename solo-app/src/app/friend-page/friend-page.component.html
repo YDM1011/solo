@@ -10,7 +10,7 @@
     </div>
   </ng-container>
   <ng-container *ngIf="isFriends">
-    <ng-container *ngIf="friends.myFriends.length > 0 else notFr">
+    <ng-container *ngIf="friends.myFriends.length > 0; else notFr">
       <div class="frn_i" *ngFor="let friend of friends.myFriends">
         <app-form *ngIf="friend._id != userId"
                   style="display: none"
@@ -23,12 +23,12 @@
         <div class="frn_us">
           <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
             <ng-container *ngIf="friend.photo">
-              <img [src]="friend.photo.picCrop" alt="">
+              <app-picture [pic]="friend.photo" [size]="60"></app-picture>
             </ng-container>
           </a>
           <div class="frn_in">
             <a class="frn_name" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
-            <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та 0 вподобань</p>
+            <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та {{mutualEst[friend._id].length || 0}} вподобань</p>
           </div>
         </div>
         <div class="frn_btn">
@@ -47,19 +47,18 @@
 
   <ng-container *ngIf="!isFriends">
     
-    <ng-container *ngIf="people.length > 0 else prevSpFr">
+    <ng-container *ngIf="people.length > 0; else prevSpFr">
       <div *ngFor="let mean of people">
         <div class="frn_i" *ngIf="mean._id != userId">
           <div class="frn_us">
             <a class="frn_img pre-bg" [routerLink]="'/user/'+mean._id">
-              <!--<app-img *ngIf="mean.photo" [img]="{id:mean.photo}"></app-img>-->
               <ng-container *ngIf="mean.photo">
-                <img [src]="mean.photo.picCrop">
+                <app-picture [pic]="mean.photo" [size]="60"></app-picture>
               </ng-container>
             </a>
             <div class="frn_in">
               <a class="frn_name" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
-              <p *ngIf="mutual[mean._id]">Спільне: {{mutual[mean._id].length || 0}} друзів та 0 вподобань</p>
+              <p *ngIf="mutual[mean._id]">Спільне: {{mutual[mean._id].length || 0}} друзів та {{mutualEst[mean._id].length || 0}} вподобань</p>
             </div>
           </div>
 

@@ -54,11 +54,18 @@
 .l_i_bg.pre-bg img{
   margin-top: 60px;
 }
-.md-fixed.active,
-.p-l.active{
+.md-fixed,
+.p-l{
   display: flex;
 }
-
+.popDes{
+  position: fixed;
+  max-width: 1200px;
+  z-index: 10;
+  top: 10vh;
+  left: 50%;
+  transform: translateX(-50%);
+}
 .geo_clock{
   display: flex;
   align-items: center;
@@ -72,22 +79,53 @@
 .geo_clock_i{
   margin-left: 20px;
 }
-.mapMob{
-  display: none;
-}
-.mapDes{
-  display: block;
-}
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .map_cn{
-    margin-top: 30px;
+    padding: 0;
     position: relative;
     overflow: hidden;
+    max-height: calc(100vh - 95px);
   }
-  .mapMob{
-    display: block;
+  .popDes{
+    top: 0;
+    height: 100vh;
+    max-height: 100vh;
   }
-  .mapDes{
-    display: none;
+  .p-l_c {
+    padding: 0 10px;
+    flex-shrink: 0;
+    order: 1;
+    height: 100vh;
   }
+  .cont_c{
+    margin: 0;
+    padding: 0;
+  }
+  .p-l_h2_cn .btn-trans {
+    padding: 10px;
+    margin: 0;
+  }
+  .p-l_h2{
+    height: inherit;
+  }
+  .p-l_map.map.pre-bg{
+    height: inherit;
+    max-height: inherit;
+  }
+  .scroll{
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}
+.p-w{
+  padding: 10px 15px;
+}
+.p-l_c-box .p-d_ch {
+  min-width: 10px;
+  margin-right: 20px;
+  margin-bottom: 5px;
+  background: rgba(82, 172, 98, 0.05);
+  padding: 3px 10px;
+  display: flex;
+  border-radius: 5px;
 }

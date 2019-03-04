@@ -116,9 +116,21 @@ const postUpdate = (req,res,next)=>{
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.notFound('Not found');
-            if (info) return res.ok(info);
+            if (info){
+                require("../tasks/addCatToOneest").pushPull(req,res,info);
+                return res.ok(info);
+            }
         })
 };
+/**
+ * 1 шукати заклад в який входить меню
+ * 2 перевірити кожне меню чи є там
+ * @param id
+ * @param info
+ */
+
+
+
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);

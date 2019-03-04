@@ -9,8 +9,9 @@ const onebuild = new Schema({
 });
 const oneLinks = new Schema({
     url: String,
-    label: String
-});
+    placeholder: String,
+    icon: String
+},{strict: false});
 
 const model = new Schema({
     subdomain: {type: String, unique: true},
@@ -24,7 +25,7 @@ const model = new Schema({
     },
     about: String,
     mail: String,
-    links: [oneLinks],
+    links: Object,
     own: String,
     delivery:{type: Boolean, default: true},
     getself:{type: Boolean, default: true},

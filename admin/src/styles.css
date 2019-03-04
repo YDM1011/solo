@@ -72,7 +72,6 @@ img{
   display: none;
 }
 .wrapper-content{
-  padding-bottom: 0!important;
 }
 .wrapper.wrapper-content.animated.fadeInRight{
   animation-fill-mode: none!important;

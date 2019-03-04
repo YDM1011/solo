@@ -53,6 +53,7 @@ import { LeftBarComponent } from './lib/left-bar/left-bar.component';
 import { LikeDishPageComponent } from './like-dish-page/like-dish-page.component';
 import { LikeEstPageComponent } from './like-est-page/like-est-page.component';
 import { Top100PageComponent } from './top100-page/top100-page.component';
+import {DeviceDetectorModule} from "ngx-device-detector";
 
 
 @NgModule({
@@ -114,11 +115,13 @@ import { Top100PageComponent } from './top100-page/top100-page.component';
     NgxHmCarouselModule,
     SweetAlert2Module.forRoot(),
     LeafletModule,
-    LeafletMarkerClusterModule
+    LeafletMarkerClusterModule,
+    DeviceDetectorModule.forRoot()
   ],
-    providers: [ AuthService, CookieService, CoreService],
+  providers: [ AuthService, CookieService, CoreService],
   bootstrap: [
     AppComponent
   ]
 })
+
 export class AppModule { }

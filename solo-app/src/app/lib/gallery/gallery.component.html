@@ -9,7 +9,7 @@
   <ng-container *ngFor="let photo of photos | slice:0:6">
     <ng-container *ngIf="photo">
       <div class="el_i" *ngIf="photo.picCrop">
-        <img class="img" src="{{photo.picCrop}}">
+        <app-picture [pic]="photo" [size]="60"></app-picture>
       </div>
     </ng-container>
   </ng-container>

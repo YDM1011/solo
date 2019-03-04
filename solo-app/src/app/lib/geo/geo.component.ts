@@ -4,6 +4,7 @@ import {environment} from "../../../environments/environment";
 import {CookieService} from "ngx-cookie-service";
 import {Filters} from "./filters";
 import * as moment from 'moment'
+import {DeviceDetectorService} from "ngx-device-detector";
 
 class Distance {
   toRadians(degrees) {
@@ -50,12 +51,14 @@ export class GeoComponent implements OnInit, OnDestroy {
   public isDefPos= false;
   public isOpen= false;
   public isOpenM= false;
+  public isAll= true;
   public cordinates = [];
   public meXY = [];
   public ests = [];
   public pos;
   public dataNow;
-  tab: number = 0 ;
+  public tab: number = 0 ;
+  public isMobile;
   private id;
   private options = {
     enableHighAccuracy: true,
@@ -69,11 +72,18 @@ export class GeoComponent implements OnInit, OnDestroy {
   public filter:any = new Filters();
   @Input() avatar;
   constructor(
+    private deviceService: DeviceDetectorService,
     private cookie:CookieService,
     protected api: CoreService
   ) { }
 
   ngOnInit() {
+    this.isMobile = this.deviceService.isMobile();
+    this.api.doGet('geoFilter').then(v=>{
+      if(v){
+        this.filter = v;
+      }
+    })
   }
   ngOnDestroy() {
     document.querySelector('nav').style.zIndex = '';
@@ -135,8 +145,10 @@ export class GeoComponent implements OnInit, OnDestroy {
         s.distans = [];
         s.cordinates = [];
         s.ests = val;
+
         val.map(item=>{
           item = item;
+          s.setIcons(item);
           if(item.coordinates && item.ownerEst){
             if ( item.coordinates[0] && item.coordinates[1]){
               if (s.isOpen){
@@ -149,7 +161,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                       {
                         x: item.coordinates[0],
                         y: item.coordinates[1],
-                        logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                        logo: s.getLogo(item.ownerEst.av),
                         address: item.address,
                         name: item.name,
                         link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -177,7 +189,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                         {
                           x: item.coordinates[0],
                           y: item.coordinates[1],
-                          logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                          logo: s.getLogo(item.ownerEst.av),
                           address: item.address,
                           name: item.name,
                           link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -199,7 +211,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                   {
                     x: item.coordinates[0],
                     y: item.coordinates[1],
-                    logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                    logo: s.getLogo(item.ownerEst.av),
                     address: item.address,
                     name: item.name,
                     link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -229,6 +241,11 @@ export class GeoComponent implements OnInit, OnDestroy {
     document.querySelector('nav').style.zIndex = this.isShow ? '9' : '';
     document.querySelector('body').style.overflow = this.isShow ? 'hidden' : '';
   }
+  setIcons(item){
+    let s = this;
+      item[item.ownerEst._id+'favorite'] = s.checkIconActive(item.ownerEst.favorite);
+      item[item.ownerEst._id+'thebest'] = s.checkIconActive(item.ownerEst.thebest);
+  }
   checkIconActive(arr){
     let s = this;
     let is = false;
@@ -243,25 +260,59 @@ export class GeoComponent implements OnInit, OnDestroy {
     else return false;
   }
 
+  doAllFilters(){
+    let s = this;
+    s.isAll = !s.isAll;
+    if(s.isAll){
+      s.filter.map(item=>{
+        if (item.check){
+          item.check = false
+        }
+      });
+    }
+  }
+
   doFilter(){
     let s = this;
     let query = "?filter=";
+    let filterArr = [];
     s.filter.map(item=>{
       if (item.check){
-        query += item.value+','
+        filterArr.push({categoriInUse:{$in:item.value}});
       }
     });
+    if(filterArr.length > 0){
+      s.isAll = false;
+    }else{
+      s.isAll = true;
+    }
+    query += JSON.stringify(filterArr);
     s.dataApi(query);
     console.log(query)
+  }
+
+  getLogo(pic){
+    let img;
+    if (pic){
+      if (pic.picMedia){
+        img = '/-px60-'+pic.picMedia
+      }else{
+        img = pic.picCrop
+      }
+    }else {
+      img = '../../../assets/img/like_house.svg';
+    }
+    return img;
   }
 
   checkOpen(st){
     let s = this;
     this.isOpen = st;
     this.isOpenM = st;
+    let numberDay = moment().day() == 0 ? 7 : moment().day();
     this.dataNow = {
       min: moment().hours()*60+moment().minutes(),
-      label: 'timeRange'+moment().day()
+      label: 'timeRange'+numberDay
     };
     let x,y;
     x = s.pos.coords.latitude;
@@ -270,18 +321,19 @@ export class GeoComponent implements OnInit, OnDestroy {
     s.cordinates = [];
     s.ests.map(item=>{
       item = item;
+      s.setIcons(item);
       if(item.coordinates && item.ownerEst && item.worksTimeId){
         if ( item.coordinates[0] && item.coordinates[1]){
           if (s.isOpen){
             if (item.worksTimeId[s.dataNow.label]){
               let timeE,timeS;
               if(item.worksTimeId[s.dataNow.label].isAllTime){
-                  let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                  let av =  s.getLogo(item.av);
                   s.cordinates.push(
                     {
                       x: item.coordinates[0],
                       y: item.coordinates[1],
-                      logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                      logo: s.getLogo(item.ownerEst.av),
                       address: item.address,
                       name: item.name,
                       link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -309,7 +361,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                     {
                       x: item.coordinates[0],
                       y: item.coordinates[1],
-                      logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                      logo: s.getLogo(item.ownerEst.av),
                       address: item.address,
                       name: item.name,
                       link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -324,12 +376,12 @@ export class GeoComponent implements OnInit, OnDestroy {
               }
             }
           }else{
-            let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+            let av = s.getLogo(item.av);
             s.cordinates.push(
               {
                 x: item.coordinates[0],
                 y: item.coordinates[1],
-                logo: item.ownerEst.av ? item.ownerEst.av.picCrop : '../../../assets/img/like_house.svg',
+                logo: s.getLogo(item.ownerEst.av),
                 address: item.address,
                 name: item.name,
                 link: '//'+item.ownerEst.subdomain+'.'+s.host,

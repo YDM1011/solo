@@ -22,6 +22,14 @@ import { CategoryAllComponent } from './commponents/category-all/category-all.co
 import { CategoryCreateComponent } from './commponents/category-create/category-create.component';
 import { CategoryEditComponent } from './commponents/category-edit/category-edit.component';
 import { ModerationComponent } from './pages/moderation/moderation.component';
+import { FiltersComponent } from './pages/filters/filters.component';
+import { FiltersAllComponent } from './commponents/filters-all/filters-all.component';
+import { FiltersCreateComponent } from './commponents/filters-create/filters-create.component';
+import { FiltersEditComponent } from './commponents/filters-edit/filters-edit.component';
+import { AcardionDirective } from './directive/acardion.directive';
+import { BtnBurgerDirective } from './directive/btn-burger.directive';
+import { PopapDirective } from './directive/popap.directive';
+import { ChecklistComponent } from './commponents/checklist/checklist.component';
 
 @NgModule({
   declarations: [
@@ -39,13 +47,20 @@ import { ModerationComponent } from './pages/moderation/moderation.component';
     CategoryAllComponent,
     CategoryCreateComponent,
     CategoryEditComponent,
-    ModerationComponent
+    ModerationComponent,
+    FiltersComponent,
+    FiltersAllComponent,
+    FiltersCreateComponent,
+    FiltersEditComponent,
+    AcardionDirective,
+    BtnBurgerDirective,
+    PopapDirective,
+    ChecklistComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-
     HttpClientModule,
   ],
   providers: [{

@@ -1,6 +1,7 @@
 import {Component, OnInit, OnChanges} from '@angular/core';
 import {ApiService} from "../../api.service";
 import {ActivatedRoute} from "@angular/router";
+import {Links} from "./links";
 
 @Component({
   selector: 'app-chain',
@@ -27,7 +28,8 @@ export class ChainComponent implements OnInit, OnChanges {
   public worksTimeView:any;
   public worksTimeAll:any;
   public minPrice:number;
-  public links:any=[];
+  public links:any=new Links();
+  public linksFormat:any=[0,1,2,3,4];
   constructor(
     private route: ActivatedRoute,
     private api:ApiService
@@ -41,6 +43,7 @@ export class ChainComponent implements OnInit, OnChanges {
     this.route.params.subscribe((params:any) => {
       self.id = params.id;
       self.initApi(params.id);
+      console.log("reinit");
     });
     self.getAllCalendars()
     // this.initApi();
@@ -51,7 +54,7 @@ export class ChainComponent implements OnInit, OnChanges {
   initApi(id){
     let self = this;
     let req=['name','subdomain',
-      'mobile','about','links', 'minPrice','mail',
+      'mobile','about', 'minPrice','mail',
       'delivery','getself','reservation'];
     req.forEach((select)=>{
       this.api.get('establishment',id,select).then((res:any)=>{
@@ -71,7 +74,22 @@ export class ChainComponent implements OnInit, OnChanges {
         self.getCalendarActive()
       }).catch((err:any)=>{});
     });
+
+    self.getLinks(id)
   }
+
+  getLinks(id){
+    let self = this;
+    self.links=new Links();
+    this.api.get('establishment',id,'links').then((res:any)=>{
+      self.linksFormat.map(it=>{
+        if(res.links[it])
+          self.links[it].url=res['links'][it].url || self.links[it].url
+      })
+      console.log(self.links)
+    }).catch((err:any)=>{});
+  }
+
   getCalendarActive(){
     const s = this;
     if(s.worksTime){
@@ -93,11 +111,10 @@ export class ChainComponent implements OnInit, OnChanges {
       });
     })
   }
-  update(obj,model){
+  update(obj){
     let self = this;
-    try{if (self[model]['_id']){obj['params']=self[model]['_id']}}catch(err){}
-    this.api.set('establishment',obj,self.id,model).then((res:any)=>{
-      self[model] = res[model];
+    this.api.doPost('establishment/'+self.id,obj).then((res:any)=>{
+      self['links'] = res.links;
     }).catch((err:any)=>{});
   }
   getCalendar(e){

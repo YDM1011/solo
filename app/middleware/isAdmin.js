@@ -10,7 +10,7 @@ glob.isAdmin = (req,res,next)=>{
     const protect = req.cookies['adminsid'];
 
     if(!protect){
-        return res.forbidden("forbidden1");
+        return res.forbidden("forbidden");
     }
     const connect = protect.split(" ");
 
@@ -20,8 +20,8 @@ glob.isAdmin = (req,res,next)=>{
         }else{
             User.findOne({login: data.id })
                 .exec((err, info)=>{
-                    if (err) return next(err);
-                    if (!info) return res.forbidden("forbidden2");
+                    if (err) return res.forbidden("forbidden");
+                    if (!info) return res.forbidden("forbidden");
                     req.userId = info._id;
                     req.ownerId = info._id;
                     // req.avatar = info.avatar;

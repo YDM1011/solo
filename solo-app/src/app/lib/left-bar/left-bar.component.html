@@ -25,8 +25,8 @@
         </div>
         <div class="br-lv_cntt">
           <div class="br-lv_i" >
-            <ng-container *ngIf="favoriteEst.av.picCrop; else favEst">
-              <img class="img" [src]="favoriteEst.av.picCrop">
+            <ng-container *ngIf="favoriteEst.av; else favEst">
+              <app-picture [pic]="favoriteEst.av"></app-picture>
             </ng-container>
           </div>
         </div>

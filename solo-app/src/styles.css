@@ -14,6 +14,7 @@
   outline: none;
   box-sizing: border-box !important;
 }
+[hidden] { display: none !important;}
 body {
   display: block;
   margin: 0;
@@ -37,6 +38,13 @@ textarea{
 }
 img{
   max-width: 100%;
+
+}
+.full-size__img img,
+.full-size__img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .inh-absolute{
   position: absolute;
@@ -3239,13 +3247,12 @@ input[type="file"] {
 
 .btn-close {
   display: block;
-  width: 20px;
-  height: 20px;
-  padding: 0;
+  width: 50px;
+  padding: 15px;
   margin: 0;
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 0px;
+  right: 0;
   z-index: 1; }
 
 .ev {
@@ -5930,8 +5937,7 @@ input.p-d_i_num_inp[type=number] {
   }
   .p-l_map{
     display: block;
-    height: 100vh;
-    padding: 10px 10px 22px;
+    padding: 0;
   }
   .p-l_map .p-l_h2{
     display: flex;
@@ -7309,7 +7315,7 @@ input.p-d_i_num_inp[type=number] {
   height: calc(100vh + 60px);
   overflow: hidden;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 9999;
+  z-index: 9;
   align-items: center;
   justify-content: center;
   opacity: 0;

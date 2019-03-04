@@ -24,6 +24,7 @@ export class FriendOfferPageComponent implements OnInit {
   public isAll:boolean=false;
   public obj:any;
   public mutual:any = [];
+  public mutualEst:any = [];
   public people:any = [];
 
   constructor(
@@ -62,6 +63,8 @@ export class FriendOfferPageComponent implements OnInit {
 
   setMutual(res) {
     this.mutual[res.id] = res.mutual;
+    this.mutualEst[res.id] = res.mutualEst ? res.mutualEst : [];
+    console.log(res)
   }
   more(res) {
     this.people = res;

@@ -1,0 +1,13 @@
+<div class="component-checkbox-all" *ngIf="boxes.length > 0"  appPopap (onClose)="cancel()">
+  <ng-container *ngIf="!isMultiplay">
+    <div class="ch-wrap">
+      <div *ngFor="let b of boxes" class="checkBox">
+        <ng-container *ngIf="b">
+          <div class="ibox-tools" (click)="getObj(b)">
+            <span class="chName btn">{{b.name}}</span>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+</div>

@@ -31,7 +31,7 @@
               <h4>Фон мережі</h4>
               <ng-container *ngIf="bg">
                 <div class="img-wrap">
-                <img class="img" src="{{bg.picCrop}}" alt="">
+                  <img class="img" src="{{bg.picCrop}}" alt="">
                 </div>
               </ng-container>
 
@@ -65,34 +65,18 @@
         <div class="ibox-content">
           <div class="row">
             <div class="col-sm-12 b-r">
-              <div class="flx mrg-b">
-                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="isFormAdd = true"><strong>Додати url-адресу</strong></button>
-              </div>
 
-              <div *ngFor="let link of links">
-                <div class="form-group"><label>Name</label>
-                  <input type="text" [(ngModel)]="link.label" name="label" class="form-control">
-                </div>
-                <div class="form-group"><label>URL</label>
-                  <input type="text" [(ngModel)]="link.url" name="url" class="form-control">
+              <div *ngFor="let num of linksFormat">
+                <div class="form-group icon-form" *ngIf="links[num]">
+                  <img src="//localhost:3000{{links[num].icon}}" alt="{{links[num].placeholder}}">
+                  <input type="text" [(ngModel)]="links[num].url" name="{{links[num].placeholder}}"
+                         placeholder="{{links[num].placeholder}}" class="form-control">
                 </div>
                 <hr>
               </div>
 
-              <div *ngIf="isFormAdd">
-                <div class="form-group"><label>Name</label>
-                  <input type="text" [(ngModel)]="link['label']" name="label" class="form-control">
-                </div>
-                <div class="form-group"><label>URL</label>
-                  <input type="text" [(ngModel)]="link['url']" name="url" class="form-control">
-                </div>
-                <div>
-                  <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="links[links.length] = link"><strong>Додати</strong></button>
-                </div>
-              </div>
-
               <div class="flx">
-                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="update({links:links},'links'); isFormAdd = false"><strong>Зберегти</strong></button>
+                <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="button" (click)="update({links:links})"><strong>Зберегти</strong></button>
               </div>
 
             </div>

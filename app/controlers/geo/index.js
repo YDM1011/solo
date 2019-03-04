@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 module.exports.get = async (req,res,next)=>{
     // let chain = await getChain();
     // let est = await getEst(chain);
-    let est = await getEsts();
+    let est = await getEsts(req);
     // let ests = await parseEsts(req,est);
     res.ok(est);
 };
@@ -73,21 +73,35 @@ const getEstById = id =>{
     });
 };
 
-const getEsts = () =>{
+const getEsts = (req) =>{
+    let query = {};
+    if(req.query) {
+        if (req.query.filter) {
+            if (JSON.parse(req.query.filter).length > 0) {
+                query = {$and: JSON.parse(req.query.filter)}
+            } else {
+                query = {}
+            }
+        } else {
+            query = {}
+        }
+    } else {
+        query = {}
+    }
     return new Promise((resolv,reject)=>{
         mongoose.model('oneest')
-            .find({})
-            .populate({path:'ownerEst', populate:{path: "bg av"}})
+            .find(query)
+            .populate({path:'ownerEst', select:"bg av subdomain verify thebest favorite", populate:{path: "bg av"}})
             .populate({path:'worksTimeId'})
-            .populate({path:'menus', select: "categories",
-                populate:{path: "categories", select: "name maincategory"}
-            })
+            .select("ownerEst worksTimeId coordinates address name")
             .exec((err,result)=>{
                 if (result) {
-
+                    // result.menus.map(menu=>{
+                    //     menu.map(cat=>{cat.categories})
+                    // })
                     resolv(result)
                 }else{
-                    resolv(null)
+                    resolv(err||[])
                 }
             });
 

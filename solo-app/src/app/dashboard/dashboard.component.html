@@ -15,9 +15,9 @@
       </ng-container>
 
       <ng-container *ngIf="user">
-        <div class="h-pf_bg pre-bg">
+        <div class="h-pf_bg pre-bg full-size__img">
           <ng-container *ngIf="user.bg">
-            <img class="img" src="{{user.bg.picCrop}}">
+            <app-picture [pic]="user.bg"></app-picture>
           </ng-container>
           <ng-container *ngIf="!user.bg">
             <app-prev-bg></app-prev-bg>
@@ -28,9 +28,9 @@
                       [multiple]="false"></app-upload>
         </div>
 
-        <a href="/user/{{user._id}}" class="h-pf_img">
+        <a href="/user/{{user._id}}" class="h-pf_img full-size__img">
           <ng-container *ngIf="user.photo">
-            <img class="img" src="{{user.photo.picCrop}}">
+            <app-picture [pic]="user.photo"></app-picture>
           </ng-container>
           <ng-container *ngIf="!user.photo">
             <app-prev-avatar></app-prev-avatar>

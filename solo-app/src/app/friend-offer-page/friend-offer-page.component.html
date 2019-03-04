@@ -20,12 +20,12 @@
           <div class="frn_us">
             <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
               <ng-container *ngIf="friend.photo">
-                <img [src]="friend.photo.picCrop" alt="">
+                <app-picture [pic]="friend.photo" [size]="60"></app-picture>
               </ng-container>
             </a>
             <div class="frn_in">
               <a class="frn_name" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
-              <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та 0 вподобань</p>
+              <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та {{mutualEst[friend._id].length || 0}} вподобань</p>
             </div>
           </div>
           <div class="frn_btn">
@@ -57,12 +57,12 @@
           <div class="frn_us">
             <a class="frn_img pre-bg" [routerLink]="'/user/'+friend._id">
               <ng-container *ngIf="friend.photo">
-                <img [src]="friend.photo.picCrop" alt="">
+                <app-picture [pic]="friend.photo" [size]="60"></app-picture>
               </ng-container>
             </a>
             <div class="frn_in">
               <a class="frn_name" [routerLink]="'/user/'+friend._id">{{friend.firstName}} {{friend.lastName}}</a>
-              <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та 0 вподобань</p>
+              <p *ngIf="mutual[friend._id]">Спільне: {{mutual[friend._id].length || 0}} друзів та {{mutualEst[friend._id].length || 0}} вподобань</p>
             </div>
           </div>
           <div class="frn_btn">
@@ -97,17 +97,17 @@
             <a class="frn_img pre-bg" [routerLink]="'/user/'+mean._id">
               <!--<app-img *ngIf="mean.photo" [img]="{id:mean.photo}"></app-img>-->
               <ng-container *ngIf="mean.photo">
-                <img [src]="mean.photo.picCrop" alt="avatar">
+                <app-picture [pic]="mean.photo" [size]="60"></app-picture>
               </ng-container>
             </a>
             <div class="frn_in">
               <a class="frn_name" [routerLink]="'/user/'+mean._id">{{mean.firstName}} {{mean.lastName}}</a>
-              <p *ngIf="mutual[mean._id]">Спільне: {{mutual[mean._id].length || 0}} друзів та 0 вподобань</p>
+              <p *ngIf="mutual[mean._id]">Спільне: {{mutual[mean._id].length || 0}} друзів та {{mutualEst[mean._id].length || 0}} вподобань</p>
             </div>
           </div>
 
           <div class="frn_btn">
-            <div>
+            <div class="frn-green w-btn">
               <app-init-invite [userId]="mean._id" class="fr-btn-gr"></app-init-invite>
               <app-invite-friend [userId]="mean._id" class="fr-btn-gr"></app-invite-friend>
               <app-uninvite-friend [userId]="mean._id" class="fr-btn-gr"></app-uninvite-friend>

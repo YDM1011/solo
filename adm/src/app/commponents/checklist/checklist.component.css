@@ -1,0 +1,9 @@
+.ch-wrap {
+  display: flex;
+  min-height: 300px;
+}
+.ch-wrap .chName{
+  color: #fff;
+  margin: 7px;
+  cursor: pointer;
+}

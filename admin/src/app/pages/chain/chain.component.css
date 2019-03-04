@@ -9,3 +9,11 @@ app-img{
 .wrapper.wrapper-content.animated.fadeInRight{
    animation-fill-mode: none;
 }
+.icon-form img{
+  width: 60px;
+  margin-right: 10px;
+}
+.icon-form{
+  display: flex;
+  align-items: center;
+}

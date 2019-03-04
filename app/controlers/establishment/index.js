@@ -211,7 +211,8 @@ module.exports.estMenu = (req, res, next) => {
 };
 module.exports.estWorkTime = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
-    let dayNumber = `timeRange${new Date().getDay()}`;
+    let numberDay = new Date().getDay() == 0 ? 7 : new Date().getDay();
+    let dayNumber = `timeRange${numberDay}`;
     Establishment
         .findOne({subdomain: est})
         .populate({path:'worksTime',select:dayNumber})

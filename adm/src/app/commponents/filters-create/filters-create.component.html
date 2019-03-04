@@ -1,0 +1,21 @@
+<div class="wrapper wrapper-content animated fadeInRight" appPopap (onClose)="cancel()">
+
+<form (submit)="save()" >
+  <label>
+    <span>Назва фільтру*</span>
+    <input type="text" name="name-checkBox" [(ngModel)] = "box.name">
+  </label>
+  <label>
+    <span>Для категорії*</span>
+    <span>{{box.valueName}}</span>
+    <button type="button" (click)="isCheckCat=true">Обрати</button>
+    <app-checklist (onChecked)="setCat($event);isCheckCat=false"
+                   *ngIf="isCheckCat"
+                   [apiLink]="'maincategory'"></app-checklist>
+  </label>
+  <div class="btn-wrap">
+    <button type="button" class="ibox-tools">cancel</button>
+    <button type="submit">create</button>
+  </div>
+</form>
+</div>

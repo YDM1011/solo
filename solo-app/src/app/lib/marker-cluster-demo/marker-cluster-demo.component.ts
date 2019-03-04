@@ -46,7 +46,6 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
       this.options['center'] =  L.latLng([this.me[0], this.me[1]]);
       this.generateData();
     }
-
   }
 
   ngOnChanges(){
