@@ -68,7 +68,7 @@
 
               <div *ngFor="let num of linksFormat">
                 <div class="form-group icon-form" *ngIf="links[num]">
-                  <img src="//localhost:3000{{links[num].icon}}" alt="{{links[num].placeholder}}">
+                  <img src="{{links[num].icon}}" alt="{{links[num].placeholder}}">
                   <input type="text" [(ngModel)]="links[num].url" name="{{links[num].placeholder}}"
                          placeholder="{{links[num].placeholder}}" class="form-control">
                 </div>
