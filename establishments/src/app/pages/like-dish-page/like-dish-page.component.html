@@ -21,8 +21,9 @@
               <!--<span class="pr_ev-s ev-s_int"></span>-->
             </div>
             <ng-container *ngIf="dish.pic">
-              <img class="img"
-                   [src]="dish.pic.picCrop">
+              <app-picture [pic]="dish.pic"></app-picture>
+              <!--<img class="img"-->
+                   <!--[src]="dish.pic.picCrop">-->
             </ng-container>
             <ng-container *ngIf="!dish.pic">
               <app-prev-dish></app-prev-dish>

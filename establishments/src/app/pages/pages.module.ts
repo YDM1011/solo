@@ -8,13 +8,14 @@ import { ActionPageComponent } from './action-page/action-page.component';
 import {MzCollapsibleModule} from "ngx-materialize";
 import { LikeDishPageComponent } from './like-dish-page/like-dish-page.component';
 import { HitDishPageComponent } from './hit-dish-page/hit-dish-page.component';
+import {SearchModule} from "../search/search.module";
 
 @NgModule({
   imports: [
     CommonModule,
     CommponentsModule,
     MzCollapsibleModule,
-
+    SearchModule
   ],
   exports: [MenuContentComponent],
   declarations: [NotFoundComponent, MenuContentComponent, InfoContentComponent, ActionPageComponent, LikeDishPageComponent, HitDishPageComponent]

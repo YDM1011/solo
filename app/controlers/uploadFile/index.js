@@ -281,3 +281,4 @@ const delFileById = async (picId,res,next)=>{
 };
 
 module.exports.delFileById = delFileById;
+module.exports.minification = minification;

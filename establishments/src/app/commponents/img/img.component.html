@@ -1,2 +1,8 @@
-<img class="img" *ngIf="pic" [src]="pic" alt="">
-<img class="img" *ngIf="!pic" src="../../../assets/img/errImg.png" alt="nit found">
+
+<ng-container *ngIf="pic">
+  <app-picture [pic]="pic"></app-picture>
+</ng-container>
+<ng-container *ngIf="!pic">
+  <img class="img" src="../../../assets/img/errImg.png" alt="not found">
+</ng-container>
+

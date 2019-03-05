@@ -38,7 +38,7 @@ export class ImgComponent implements OnInit, OnChanges {
     if (mod.id && !mod.url && !mod.name) {
       s.get('galery', mod.id, '').then((res: any) => {
         if (res) {
-          s.pic = res.picCrop
+          s.pic = res
         }
       }).catch(err=>{});
     }

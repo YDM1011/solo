@@ -8,9 +8,10 @@
       <div class="h-pf_bg pre-bg">
         <ng-container *ngIf="pics">
           <ng-container *ngIf="pics.bg; else bgE">
-            <ng-container *ngIf="pics.bg.picCrop; else bgE">
-              <img class="img" [src]="host+pics.bg.picCrop" alt="">
-            </ng-container>
+            <app-picture [pic]="pics.bg"></app-picture>
+            <!--<ng-container *ngIf="pics.bg.picCrop; else bgE">-->
+              <!--<img class="img" [src]="host+pics.bg.picCrop" alt="">-->
+            <!--</ng-container>-->
           </ng-container>
         </ng-container>
       </div>
@@ -46,9 +47,10 @@
         <div class="h-pf_img">
             <ng-container *ngIf="pics">
               <ng-container *ngIf="pics.av; else avE">
-                <ng-container *ngIf="pics.av.picCrop; else avE">
-                  <img class="img" [src]="host+pics.av.picCrop" alt="">
-                </ng-container>
+                <app-picture [pic]="pics.av"></app-picture>
+                <!--<ng-container *ngIf="pics.av.picCrop; else avE">-->
+                  <!--<img class="img" [src]="host+pics.av.picCrop" alt="">-->
+                <!--</ng-container>-->
               </ng-container>
             </ng-container>
         </div>

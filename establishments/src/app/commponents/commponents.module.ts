@@ -76,7 +76,8 @@ import { WorkTimeComponent } from './work-time/work-time.component';
     PreProductionComponent,
     BarMenuComponent,
     CreatePostComponent,
-    WorkTimeComponent 
+    WorkTimeComponent,
+
   ],
   declarations: [
     ImgComponent,
@@ -110,7 +111,8 @@ import { WorkTimeComponent } from './work-time/work-time.component';
     CreatePostDirective,
     UploadPostComponent,
     FileMinPostComponent,
-    WorkTimeComponent
+    WorkTimeComponent,
+
   ]
 })
 export class CommponentsModule { }

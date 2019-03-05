@@ -140,9 +140,10 @@
           </ng-container>
 
           <div class="cm_nw" *ngIf="estMyAvatar">
-            <ng-container *ngIf="estMyAvatar.picCrop">
-              <img class="img40 pre-bg" [src]="estMyAvatar.picCrop">
-            </ng-container>
+            <app-picture [pic]="estMyAvatar"></app-picture>
+            <!--<ng-container *ngIf=".picCrop">-->
+              <!--<img class="img40 pre-bg" [src]="estMyAvatar.picCrop">-->
+            <!--</ng-container>-->
             <ng-container *ngIf="!estMyAvatar.picCrop">
               <app-prev-av></app-prev-av>
             </ng-container>

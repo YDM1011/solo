@@ -30,7 +30,8 @@
     </ng-container>
     <ng-container *ngIf="!size">
       <picture>
-        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(min-width: 0)">
+        <source srcset="{{host}}/-px100-{{pic.picMedia}}" media="(max-width: 560px)">
+        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(max-width: 992px)">
         <img class="img" srcset="{{host}}/{{pic.picMedia}}">
       </picture>
     </ng-container>
@@ -44,7 +45,9 @@
     </ng-container>
     <ng-container *ngIf="!size">
       <picture>
-        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(min-width: 0)">
+        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(max-width: 360px)">
+        <source srcset="{{host}}/-px400-{{pic.picMedia}}" media="(max-width: 560px)">
+        <source srcset="{{host}}/-px768-{{pic.picMedia}}" media="(max-width: 992px)">
         <img class="img" srcset="{{host}}/{{pic.picMedia}}">
       </picture>
     </ng-container>

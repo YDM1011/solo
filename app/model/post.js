@@ -176,21 +176,11 @@ const upload = (img,next)=>{
     base64Data = convertation(base64Data);
     let fileName = `${prefics}${img.fileName}`;
     fs.writeFile(`upload/${prefics}${img.fileName}`, base64Data, 'binary', function(err) {
-        minification(fileName,base64Data);
+        require("../controlers/uploadFile").minification(fileName,base64Data,"post_img");
         next(prefics)
     });
 };
-const minification = async (fileName,data)=>{
-    sharp(data)
-        .resize(768)
-        .toFile('upload/-px768-'+fileName, (err, info) => {} );
-    sharp(data)
-        .resize(400)
-        .toFile('upload/-px400-'+fileName, (err, info) => {} );
-    sharp(data)
-        .resize(300)
-        .toFile('upload/-px300-'+fileName, (err, info) => {} );
-};
+
 const convertation = b64string =>{
     if (typeof Buffer.from === "function") {
         return Buffer.from(b64string, 'base64'); // Ta-da

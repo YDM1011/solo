@@ -12,6 +12,7 @@ import { FirstNameComponent } from './first-name/first-name.component';
 import { LastNameComponent } from './last-name/last-name.component';
 import {FormsModule} from "@angular/forms";
 import {ImgComponent} from "../img/img.component";
+import {PictureComponent} from "../picture/picture.component";
 
 @NgModule({
   imports: [
@@ -23,10 +24,10 @@ import {ImgComponent} from "../img/img.component";
   ],
   exports: [AvatarComponent, BgComponent,
     UpdateUserComponent, UserInitComponent,
-    FirstNameComponent, LastNameComponent, ImgComponent ],
+    FirstNameComponent, LastNameComponent, ImgComponent, PictureComponent ],
   providers: [UserService],
   declarations: [AvatarComponent, BgComponent,
     UpdateUserComponent, UserInitComponent,
-    FirstNameComponent, LastNameComponent, ImgComponent]
+    FirstNameComponent, LastNameComponent, ImgComponent, PictureComponent]
 })
 export class UserModule { }

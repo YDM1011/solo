@@ -108,9 +108,10 @@
               <a href="{{host}}/user/{{id}}" class="user" target="_blank" *ngIf="user">
                 <span class="user_img">
                   <ng-container *ngIf="user.photo; else prevAvatar">
-                    <ng-container *ngIf="user.photo.picCrop; else prevAvatar">
-                      <img class="img" [src]="user.photo.picCrop" alt="">
-                    </ng-container>
+                    <app-picture [pic]="user.photo"></app-picture>
+                    <!--<ng-container *ngIf="user.photo.picCrop; else prevAvatar">-->
+                      <!--<img class="img" [src]="user.photo.picCrop" alt="">-->
+                    <!--</ng-container>-->
                   </ng-container>
                 </span>
                 <ng-template #prevAvatar>

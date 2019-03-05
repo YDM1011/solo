@@ -111,10 +111,10 @@ export class ChainComponent implements OnInit, OnChanges {
       });
     })
   }
-  update(obj){
+  update(obj,mod){
     let self = this;
     this.api.doPost('establishment/'+self.id,obj).then((res:any)=>{
-      self['links'] = res.links;
+      self[mod] = res[mod];
     }).catch((err:any)=>{});
   }
   getCalendar(e){

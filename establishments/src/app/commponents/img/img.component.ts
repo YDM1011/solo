@@ -25,7 +25,7 @@ export class ImgComponent implements OnInit {
     if (mod.id && !mod.model && !mod.field) {
       s.api.get('galery', mod.id, '').then((res: any) => {
         if (res) {
-          s.pic = res.picCrop;
+          s.pic = res;
         }
       }, err=>{});
     } else if (!mod.id && mod.model && mod.field) {

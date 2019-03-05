@@ -6,6 +6,7 @@ import {MzDropdownModule} from "ngx-materialize";
 import {RoutingModule} from "../routing/routing.module";
 import {SearchComponent} from "./search.component";
 import {ImgComponent} from "./img/img.component";
+import {PictureComponent} from "../commponents/picture/picture.component";
 
 @NgModule({
   imports: [
@@ -14,7 +15,7 @@ import {ImgComponent} from "./img/img.component";
     MzDropdownModule,
     RoutingModule
   ],
-  exports: [SearchComponent],
-  declarations: [ SearchComponent, ImgComponent, SearchPipe]
+  exports: [SearchComponent,PictureComponent],
+  declarations: [ SearchComponent, ImgComponent, SearchPipe,PictureComponent]
 })
 export class SearchModule { }

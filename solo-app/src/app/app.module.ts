@@ -95,6 +95,7 @@ import {DeviceDetectorModule} from "ngx-device-detector";
   ],
   exports:[
     PrevAvatarComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -111,7 +112,6 @@ import {DeviceDetectorModule} from "ngx-device-detector";
     MzDatepickerModule,
     MzTimepickerModule,
     NgbModule,
-    NavbarModule,
     NgxHmCarouselModule,
     SweetAlert2Module.forRoot(),
     LeafletModule,
