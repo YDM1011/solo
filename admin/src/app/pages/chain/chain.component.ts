@@ -113,6 +113,26 @@ export class ChainComponent implements OnInit, OnChanges {
   }
   update(obj,mod){
     let self = this;
+    if(mod == "links"){
+      console.log(obj);
+      self.linksFormat.map(l=>{
+        if(obj.links[l].url){
+          if(l != 0){
+            if(obj.links[l].url.search("//")>-1){
+              obj.links[l].url = "https://"+obj.links[l].url.split("//")[1];
+            }else{
+              obj.links[l].url = "https://"+obj.links[l].url
+            }
+          }else{
+            if(obj.links[0].url.search("//")>-1){
+
+            }else{
+              obj.links[0].url = "https://"+obj.links[0].url
+            }
+          }
+        }
+      })
+    }
     this.api.doPost('establishment/'+self.id,obj).then((res:any)=>{
       self[mod] = res[mod];
     }).catch((err:any)=>{});

@@ -1,31 +1,31 @@
 {
   "data": {
-    "db": "mongodb://localhost:27017/solo",
+    "db": "mongodb://ydm1011:adn45hrf@ds249249.mlab.com:49249/talents",
     "port": "5000",
     "email": {
-      "host": "smtp.gmail.com",
+      "host": "smtp.mail.yahoo.com",
       "port": 465,
       "secure": true,
-      "user": "tasteol.com@gmail.com",
-      "pass": "kw5c7qYZ19m",
+      "user": "ydm101194@yahoo.com",
+      "pass": "adn45hrf",
       "message": "Hello from Tasteol",
       "link1": "http://188.163.37.94:5000",
       "link2": "/confirmMail/",
       "link3": "/forgotMail/",
       "link4": "/emailChangeConfirm/",
-      "subject": "Taste Of Life реєстрація"
+      "subject": "Test"
     },
     "auth": {
       "successRedirect": "/",
       "failureRedirect": "/login",
-      "sidDomain": "tasteol1.com",
-      "apiDomain": "https://tasteol1.com/",
-      "afterAuthDomain": ""
+      "sidDomain": "localhost",
+      "apiDomain": "http://localhost:3000/",
+      "afterAuthDomain": "http://localhost:4200"
     },
     "facebook": {
       "clientID": "184817025491397",
       "clientSecret": "2df9691f43afef29b27e7361f5e0256c",
-      "callbackURL": "https://tasteol1.com/api/facebook/return",
+      "callbackURL": "http://localhost:5000/api/facebook/return",
       "profileFields": ["id", "displayName", "picture", "email", "first_name", "last_name"]
     },
     "confirmTime": 600000

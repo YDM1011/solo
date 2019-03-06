@@ -4,7 +4,7 @@ export class Links {
     return {
       0:{
         url:'',
-        placeholder:'Власний сайт',
+        placeholder:'https://exaple.com',
         icon:'/images/mysite.png'
       },
       1:{

@@ -20,6 +20,10 @@
     <ng-container *ngTemplateOutlet="postImg"></ng-container>
   </ng-container>
 
+  <ng-container *ngIf="pic.model=='dish' && pic.field=='pic'">
+    <ng-container *ngTemplateOutlet="dishImg"></ng-container>
+  </ng-container>
+
 </ng-container>
 
 
@@ -85,6 +89,22 @@
 </ng-template>
 
 <ng-template #postImg>
+  <ng-container *ngIf="pic.picMedia; else picCrop">
+    <ng-container *ngIf="size">
+      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
+    </ng-container>
+    <ng-container *ngIf="!size">
+      <picture>
+        <source srcset="{{host}}/-px768-{{pic.picMedia}}" media="(min-width: 1200px)">
+        <source srcset="{{host}}/-px400-{{pic.picMedia}}" media="(min-width: 992px)">
+        <source srcset="{{host}}/-px200-{{pic.picMedia}}" media="(max-width: 560px)">
+        <img class="img" srcset="{{host}}/{{pic.picMedia}}">
+      </picture>
+    </ng-container>
+  </ng-container>
+</ng-template>
+
+<ng-template #dishImg>
   <ng-container *ngIf="pic.picMedia; else picCrop">
     <ng-container *ngIf="size">
       <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">

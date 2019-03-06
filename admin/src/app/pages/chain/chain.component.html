@@ -67,11 +67,22 @@
             <div class="col-sm-12 b-r">
 
               <div *ngFor="let num of linksFormat">
-                <div class="form-group icon-form" *ngIf="links[num]">
-                  <img src="{{links[num].icon}}" alt="{{links[num].placeholder}}">
-                  <input type="text" [(ngModel)]="links[num].url" name="{{links[num].placeholder}}"
-                         placeholder="{{links[num].placeholder}}" class="form-control">
-                </div>
+                <ng-container *ngIf="num == 0 && links">
+                  <div class="form-group icon-form" *ngIf="links[num]">
+                    <img src="{{links[num].icon}}" alt="Власний сайт">
+                    <label>Власний сайт
+                    <input type="text" [(ngModel)]="links[num].url" name="{{links[num].placeholder}}"
+                           placeholder="{{links[num].placeholder}}" class="form-control">
+                    </label>
+                  </div>
+                </ng-container>
+                <ng-container *ngIf="num != 0 && links">
+                  <div class="form-group icon-form" *ngIf="links[num]">
+                    <img src="{{links[num].icon}}" alt="{{links[num].placeholder}}">
+                    <input type="text" [(ngModel)]="links[num].url" name="{{links[num].placeholder}}"
+                           placeholder="{{links[num].placeholder}}" class="form-control">
+                  </div>
+                </ng-container>
                 <hr>
               </div>
 

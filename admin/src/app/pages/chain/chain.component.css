@@ -17,3 +17,7 @@ app-img{
   display: flex;
   align-items: center;
 }
+label{
+  display: flex;
+  flex-direction: column;
+}
