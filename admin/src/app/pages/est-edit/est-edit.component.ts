@@ -37,7 +37,7 @@ export class EstEditComponent implements OnInit {
   }
   goBack(e){
     if(this.id){
-      this.router.navigate(['/establishments/'+this.id])
+      this.router.navigate(['/establishments/'+this.pid])
     }else{
       this.router.navigate(['/'])
     }

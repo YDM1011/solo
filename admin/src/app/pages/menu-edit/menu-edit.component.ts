@@ -118,7 +118,6 @@ export class MenuEditComponent implements OnInit {
   }
   update(obj) {
     const self = this;
-    console.log(self.key);
     this.api.set(self.key, obj, self.editid).then((res: any) => {
       if (res) {
         self.api.updateDate(self.key, res, self.id, ).then((val: any) => {

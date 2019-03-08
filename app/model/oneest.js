@@ -235,7 +235,6 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if (req.params['id']){
-        console.log(req.query.select);
         switch (req.query.select){
             case 'bg': bg(req,res,req.params.id,req.query.select); break;
             case 'av': bg(req,res,req.params.id,req.query.select); break;
@@ -310,7 +309,7 @@ const werify = (req,res,next)=>{
             if (!result) return res.notFound();
             if (result) {
                 mongoose.model('user')
-                    .findOne({_id:req.userId, ownerEst:{$in:req.userId}})
+                    .findOne({_id:req.userId, myEstablishment:{$in:result.ownerEst}})
                     .exec((err,doc)=>{
                     if (err) return res.badRequest(err);
                     if (!doc) return res.notFound();

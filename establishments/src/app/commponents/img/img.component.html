@@ -1,6 +1,6 @@
 
 <ng-container *ngIf="pic">
-  <app-picture [pic]="pic"></app-picture>
+  <app-picture [size]="size" [pic]="pic"></app-picture>
 </ng-container>
 <ng-container *ngIf="!pic">
   <img class="img" src="../../../assets/img/errImg.png" alt="not found">

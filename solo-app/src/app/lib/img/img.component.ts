@@ -14,6 +14,7 @@ export class ImgComponent implements OnInit, OnChanges {
   @Input() pic: string;
   @Input() model: string;
   @Input() field: string;
+  @Input() size: string;
 
   private domain: string = environment.apiDomain;
   private global: any = [];

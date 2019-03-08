@@ -1,128 +1,90 @@
-<ng-container *ngIf="pic">
+<ng-container *ngIf="pic && !size; else sizeTemp">
+  <ng-container *ngIf="pic.picCrop">
+    <ng-container *ngIf="pic.model=='establishment' && pic.field=='av'">
+      <ng-container *ngTemplateOutlet="establishmentAv"></ng-container>
+    </ng-container>
 
-  <ng-container *ngIf="pic.model=='establishment' && pic.field=='av'">
-    <ng-container *ngTemplateOutlet="establishmentAv"></ng-container>
+    <ng-container *ngIf="pic.model=='establishment' && pic.field=='bg'">
+      <ng-container *ngTemplateOutlet="establishmentBg"></ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="pic.model=='user' && pic.field=='photo'">
+      <ng-container *ngTemplateOutlet="userPhoto"></ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="pic.model=='user' && pic.field=='bg'">
+      <ng-container *ngTemplateOutlet="userBg"></ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="pic.model=='post' && pic.field=='img'">
+      <ng-container *ngTemplateOutlet="postImg"></ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="pic.model=='dish' && pic.field=='pic'">
+      <ng-container *ngTemplateOutlet="dishImg"></ng-container>
+    </ng-container>
   </ng-container>
-
-  <ng-container *ngIf="pic.model=='establishment' && pic.field=='bg'">
-    <ng-container *ngTemplateOutlet="establishmentBg"></ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="pic.model=='user' && pic.field=='photo'">
-    <ng-container *ngTemplateOutlet="userPhoto"></ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="pic.model=='user' && pic.field=='bg'">
-    <ng-container *ngTemplateOutlet="userBg"></ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="pic.model=='post' && pic.field=='img'">
-    <ng-container *ngTemplateOutlet="postImg"></ng-container>
-  </ng-container>
-
-  <ng-container *ngIf="pic.model=='dish' && pic.field=='pic'">
-    <ng-container *ngTemplateOutlet="dishImg"></ng-container>
-  </ng-container>
-
 </ng-container>
 
 
 <ng-template #establishmentAv>
-  <ng-container *ngIf="pic.picMedia; else picCrop">
-    <ng-container *ngIf="size">
-      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
-    </ng-container>
-    <ng-container *ngIf="!size">
-      <picture>
-        <source srcset="{{host}}/-px100-{{pic.picMedia}}" media="(max-width: 560px)">
-        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(max-width: 992px)">
-        <img class="img" srcset="{{host}}/{{pic.picMedia}}">
-      </picture>
-    </ng-container>
-  </ng-container>
+  <picture>
+    <source srcset="{{host}}/-px100-{{pic.picCrop}}" media="(max-width: 400px)">
+    <source srcset="{{host}}/-px150-{{pic.picCrop}}" media="(max-width: 680px)">
+    <img class="img" srcset="{{host}}/{{pic.picCrop}}">
+  </picture>
 </ng-template>
 
+
 <ng-template #establishmentBg>
-  <ng-container *ngIf="pic.picMedia; else picCrop">
-    <ng-container *ngIf="size">
-      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
-    </ng-container>
-    <ng-container *ngIf="!size">
-      <picture>
-        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(max-width: 360px)">
-        <source srcset="{{host}}/-px400-{{pic.picMedia}}" media="(max-width: 560px)">
-        <source srcset="{{host}}/-px768-{{pic.picMedia}}" media="(max-width: 992px)">
-        <img class="img" srcset="{{host}}/{{pic.picMedia}}">
-      </picture>
-    </ng-container>
-  </ng-container>
+  <picture>
+    <source srcset="{{host}}/-px400-{{pic.picCrop}}" media="(max-width: 400px)">
+    <source srcset="{{host}}/-px768-{{pic.picCrop}}" media="(max-width: 768px)">
+    <img class="img" srcset="{{host}}/{{pic.picCrop}}">
+  </picture>
 </ng-template>
 
 <ng-template #userBg>
-  <ng-container *ngIf="pic.picMedia; else picCrop">
-    <ng-container *ngIf="size">
-      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
-    </ng-container>
-    <ng-container *ngIf="!size">
-      <picture>
-        <source srcset="{{host}}/-px400-{{pic.picMedia}}" media="(max-width: 560px)">
-        <source srcset="{{host}}/-px768-{{pic.picMedia}}" media="(max-width: 992px)">
-        <img srcset="{{host}}/{{pic.picMedia}}">
-      </picture>
-    </ng-container>
-  </ng-container>
+  <picture>
+    <source srcset="{{host}}/-px400-{{pic.picCrop}}" media="(max-width: 400px)">
+    <source srcset="{{host}}/-px768-{{pic.picCrop}}" media="(max-width: 768px)">
+    <img srcset="{{host}}/{{pic.picCrop}}">
+  </picture>
 </ng-template>
 
+
 <ng-template #userPhoto>
-  <ng-container *ngIf="pic.picMedia; else picCrop">
-    <ng-container *ngIf="size">
-      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
-    </ng-container>
-    <ng-container *ngIf="!size">
-      <picture>
-        <source srcset="{{host}}/-px100-{{pic.picMedia}}" media="(max-width: 560px)">
-        <source srcset="{{host}}/-px150-{{pic.picMedia}}" media="(max-width: 992px)">
-        <img srcset="{{host}}/{{pic.picMedia}}">
-      </picture>
-    </ng-container>
-  </ng-container>
+  <picture>
+    <source srcset="{{host}}/-px100-{{pic.picCrop}}" media="(max-width: 400px)">
+    <source srcset="{{host}}/-px150-{{pic.picCrop}}" media="(max-width: 680px)">
+    <img srcset="{{host}}/{{pic.picCrop}}">
+  </picture>
 </ng-template>
 
 <ng-template #postImg>
-  <ng-container *ngIf="pic.picMedia; else picCrop">
-    <ng-container *ngIf="size">
-      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
-    </ng-container>
-    <ng-container *ngIf="!size">
-      <picture>
-        <source srcset="{{host}}/-px768-{{pic.picMedia}}" media="(min-width: 1200px)">
-        <source srcset="{{host}}/-px400-{{pic.picMedia}}" media="(min-width: 992px)">
-        <source srcset="{{host}}/-px200-{{pic.picMedia}}" media="(max-width: 560px)">
-        <img class="img" srcset="{{host}}/{{pic.picMedia}}">
-      </picture>
-    </ng-container>
-  </ng-container>
+  <picture>
+    <source srcset="{{host}}/-px400-{{pic.picCrop}}" media="(max-width: 430px)">
+    <img class="img" srcset="{{host}}/-px768-{{pic.picCrop}}">
+  </picture>
 </ng-template>
 
 <ng-template #dishImg>
-  <ng-container *ngIf="pic.picMedia; else picCrop">
-    <ng-container *ngIf="size">
-      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picMedia}}">
-    </ng-container>
-    <ng-container *ngIf="!size">
-      <picture>
-        <source srcset="{{host}}/-px768-{{pic.picMedia}}" media="(min-width: 1200px)">
-        <source srcset="{{host}}/-px400-{{pic.picMedia}}" media="(min-width: 992px)">
-        <source srcset="{{host}}/-px200-{{pic.picMedia}}" media="(max-width: 560px)">
-        <img class="img" srcset="{{host}}/{{pic.picMedia}}">
-      </picture>
-    </ng-container>
-  </ng-container>
+  <picture>
+    <source srcset="{{host}}/-px230-{{pic.picCrop}}" media="(max-width: 550px)">
+    <img class="img" srcset="{{host}}/-px150-{{pic.picCrop}}">
+  </picture>
 </ng-template>
 
 
 <ng-template #picCrop>
-  <ng-container *ngIf="pic.picCrop && !pic.picMedia">
+  <ng-container *ngIf="pic.picCrop && !pic.picCrop">
     <img class="img" src="{{host}}{{pic.picCrop}}">
   </ng-container>
 </ng-template>
+
+<ng-template #sizeTemp>
+  <ng-container *ngIf="size && pic">
+    <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picCrop}}">
+  </ng-container>
+</ng-template>
+

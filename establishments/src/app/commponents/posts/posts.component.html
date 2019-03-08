@@ -42,7 +42,7 @@
     <article class="cont pst">
       <div class="pst_in">
         <a href="{{host}}/user/{{post.userId._id}}">
-          <app-img class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>
+          <app-img size="60" class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>
         </a>
         <span class="in_us">
           <a class="name"  href="{{host}}/user/{{post.userId._id}}">{{post.userId.firstName}} {{post.userId.lastName}}</a>
@@ -55,7 +55,7 @@
           </ng-container>
           <span class="us_zv"> у
             <span class="us_zv_link">
-              <app-img class="us_zv_img" [img]="{id:post.inPlace.id.av}"></app-img>
+              <app-img size="20" class="us_zv_img" [img]="{id:post.inPlace.id.av}"></app-img>
               <strong class="name">{{post.inPlace.id.name}}</strong>
             </span>
           </span>
@@ -125,7 +125,7 @@
             <ng-container *ngFor="let coment of post.commentId">
               <article class="cm">
                 <div class="cm_us">
-                  <app-img class="img40 pre-bg" [img]="{id:coment.userIdCom.photo}"></app-img>
+                  <app-img size="60" class="img40 pre-bg" [img]="{id:coment.userIdCom.photo}"></app-img>
 
                   <div class="cm_us_in">
                     <p>

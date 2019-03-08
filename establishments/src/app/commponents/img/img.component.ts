@@ -10,7 +10,7 @@ export class ImgComponent implements OnInit {
 
   @Input() img: any = {model: '', field: '', id: ''};
   @Input() pic: string;
-
+  @Input() size: string;
   private id: any;
   constructor(
     private api: ApiService

@@ -10,7 +10,7 @@
       <!--<span class="br-lv_i pre-bg"></span>-->
       <div class="br-lv_i">
           <div class="inherit" *ngIf="res.favoritest">
-              <app-img [img]="{id:res.favoritest.av}"></app-img>
+              <app-img size="60" [img]="{id:res.favoritest.av}"></app-img>
           </div>
       </div>
     </div>
@@ -47,7 +47,7 @@
     <div class="el_cntt">
       <a href="" class="el_i" *ngFor = "let img of res | slice:0:6">
         <ng-container *ngIf="img">
-          <app-img [img]="{id:img.pic}"></app-img>
+          <app-img size="60" [img]="{id:img.pic}"></app-img>
         </ng-container>
       </a>
     </div>
@@ -73,7 +73,7 @@
       <a href="" class="el_i" *ngFor = "let img of hits">
         <ng-container *ngIf="img">
 
-          <app-img [img]="{id:img.pic}"></app-img>
+          <app-img size="60" [img]="{id:img.pic}"></app-img>
         </ng-container>
       </a>
     </div>
