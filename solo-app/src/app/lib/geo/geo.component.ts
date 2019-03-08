@@ -78,6 +78,12 @@ export class GeoComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    if(this.avatar){
+      if(this.avatar.search("/")>-1){
+        let picCrop = this.avatar.split("/");
+        this.avatar = picCrop[picCrop.length-1];
+      }
+    }
     this.isMobile = this.deviceService.isMobile();
     this.api.doGet('geoFilter').then(v=>{
       if(v){

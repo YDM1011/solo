@@ -2007,6 +2007,18 @@ ol li p {
   object-fit: cover;
   object-position: center;
 }
+.w-geo .l_i_bg,
+.w-geo .l_i{
+  height: auto!important;
+  max-height: 100%;
+}
+.w-geo .img{
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: center;
+}
 .cr-pst_us{
   display: none;
   position: relative;
@@ -5382,6 +5394,7 @@ textarea.us_area::placeholder {
 .l_i {
   margin-bottom: 10px;
   position: relative;
+  padding: 35px 0;
   min-height: 110px;
   max-height: 210px; }
 
@@ -5418,7 +5431,8 @@ textarea.us_area::placeholder {
   max-width: 140px;
   max-height: 140px;
   left: 8px;
-  top: calc(50% - 15px); }
+  top: calc(50% - 15px);
+}
 
 .l_i_svg {
   display: inline-block;
@@ -5510,10 +5524,10 @@ textarea.us_area::placeholder {
   .p-l_ic2 .btn-l_i {
     height: inherit; }
   .p-l_ic2 .l_i_av {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     left: 0;
-    bottom: 30px; }
+    bottom: 36px; }
   .p-l_ic2 .l_i_bg {
     height: 110px; } }
 
@@ -7798,3 +7812,16 @@ textarea.us_area::-webkit-scrollbar-track {
 }
 
 /**/
+@media (max-width: 767px) {
+  .l_i_av {
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 60px;
+    max-width: 140px;
+    max-height: 140px;
+    left: 8px;
+    top: inherit!important;
+    bottom: 38px;
+  }
+}

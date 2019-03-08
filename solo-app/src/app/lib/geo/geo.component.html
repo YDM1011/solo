@@ -6,7 +6,7 @@
 </button>
 
 <ng-container *ngIf="onLoad">
-  <div class="cont md-full2 p-l-cont popDes" *ngIf="isShow">
+  <div class="cont md-full2 p-l-cont popDes w-geo" *ngIf="isShow">
     <div class="p-l">
       <button type="button" class="btn-trans btn-close o5" (click)="close()">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 47.971 47.971" width="20" height="20"><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z"></path></svg>
@@ -181,16 +181,12 @@
                         </div>
                         <div class="l_i_bg" *ngIf="est.ownerEst">
                           <ng-container *ngIf="est.ownerEst.bg; else estBg">
-                            <ng-container *ngIf="est.ownerEst.bg.picCrop; else estBg">
-                              <img class="img" [src]="est.ownerEst.bg.picCrop">
-                            </ng-container>
+                              <app-picture class="img" size="400" [pic]="est.ownerEst.bg"></app-picture>
                           </ng-container>
                         </div>
                         <div class="l_i_av" *ngIf="est.ownerEst">
                           <ng-container *ngIf="est.ownerEst.av; else estAv">
-                            <ng-container *ngIf="est.ownerEst.av.picCrop; else estAv">
-                              <img [src]="est.ownerEst.av.picCrop">
-                            </ng-container>
+                            <app-picture size="60" [pic]="est.ownerEst.av"></app-picture>
                           </ng-container>
                         </div>
                         <div class="l_i_h distanse" *ngIf="est.distans < 1">~ {{(est.distans*1000) | number : '3.0-0'}} м</div>
@@ -373,16 +369,12 @@
                         </div>
                         <div class="l_i_bg" *ngIf="est.ownerEst">
                           <ng-container *ngIf="est.ownerEst.bg; else estBg">
-                            <ng-container *ngIf="est.ownerEst.bg.picCrop; else estBg">
-                              <img class="img" [src]="est.ownerEst.bg.picCrop">
-                            </ng-container>
+                            <app-picture size="400" [pic]="est.ownerEst.bg"></app-picture>
                           </ng-container>
                         </div>
                         <div class="l_i_av" *ngIf="est.ownerEst">
                           <ng-container *ngIf="est.ownerEst.av; else estAv">
-                            <ng-container *ngIf="est.ownerEst.av.picCrop; else estAv">
-                              <img [src]="est.ownerEst.av.picCrop">
-                            </ng-container>
+                            <app-picture size="60" [pic]="est.ownerEst.av"></app-picture>
                           </ng-container>
                         </div>
                         <div class="l_i_h distanse" *ngIf="est.distans < 1">~ {{(est.distans*1000) | number : '3.0-0'}} м</div>
