@@ -7825,3 +7825,16 @@ textarea.us_area::-webkit-scrollbar-track {
     bottom: 38px;
   }
 }
+.w-top100 .l_i_bg .img{
+  margin-top: -3px;
+}
+.w-top100 .l-i .l_i_bg{
+  max-height: 100%;
+  height: auto;
+  display: block;
+  overflow: auto;
+}
+.w-top100 .l-i{
+  max-height: 100%;
+  padding: 0;
+}
