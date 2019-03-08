@@ -244,57 +244,59 @@ export class GeoComponent implements OnInit, OnDestroy {
         if ( item.coordinates[0] && item.coordinates[1]){
           if (s.isOpen){
             if (item.worksTimeId){
-            if (item.worksTimeId[s.dataNow.label]){
-              let timeE,timeS;
-              if(item.worksTimeId[s.dataNow.label].isAllTime){
-                  let av =  s.getLogo(item.av);
-                  s.cordinates.push(
-                    {
-                      x: item.coordinates[0],
-                      y: item.coordinates[1],
-                      logo: s.getLogo(item.ownerEst.av),
-                      address: item.address,
-                      name: item.name,
-                      link: '//'+item.ownerEst.subdomain+'.'+s.host,
-                      active: item.ownerEst.verify
-                    });
-                  item['distans'] = s.geo.calc(
-                    {lat: item.coordinates[0], lng: item.coordinates[1]},
-                    {lat: x, lng: y}
-                  );
-                  s.distans.push(item);
-              } else
-              if(item.worksTimeId[s.dataNow.label].isWeekend){
+              if (item.worksTimeId[s.dataNow.label]){
+                let timeE,timeS;
+                if(item.worksTimeId[s.dataNow.label].isAllTime){
+                    let av =  s.getLogo(item.av);
+                    s.cordinates.push(
+                      {
+                        x: item.coordinates[0],
+                        y: item.coordinates[1],
+                        logo: s.getLogo(item.ownerEst.av),
+                        address: item.address,
+                        name: item.name,
+                        link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                        active: item.ownerEst.verify
+                      });
+                    item['distans'] = s.geo.calc(
+                      {lat: item.coordinates[0], lng: item.coordinates[1]},
+                      {lat: x, lng: y}
+                    );
+                    s.distans.push(item);
+                } else
+                if(item.worksTimeId[s.dataNow.label].isWeekend){
 
-              } else {
-                let He = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
-                let Me = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
-                let Hs = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[0]);
-                let Ms = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[1]);
-                timeE = He*60+Me;
-                timeS = Hs*60+Ms;
-                if(timeE<timeS){timeE += 24*60}
-                if(parseInt(s.dataNow.min) < timeE && parseInt(s.dataNow.min) >= timeS){
-                  let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
-                  s.cordinates.push(
-                    {
-                      x: item.coordinates[0],
-                      y: item.coordinates[1],
-                      logo: s.getLogo(item.ownerEst.av),
-                      address: item.address,
-                      name: item.name,
-                      link: '//'+item.ownerEst.subdomain+'.'+s.host,
-                      active: item.ownerEst.verify
-                    });
-                  item['distans'] = s.geo.calc(
-                    {lat: item.coordinates[0], lng: item.coordinates[1]},
-                    {lat: x, lng: y}
-                  );
-                  s.distans.push(item);
-                  s.countEst++
+                } else {
+                  let He = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[0]);
+                  let Me = parseInt(item.worksTimeId[s.dataNow.label].timeEnd.split(":")[1]);
+                  let Hs = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[0]);
+                  let Ms = parseInt(item.worksTimeId[s.dataNow.label].timeStart.split(":")[1]);
+                  timeE = He*60+Me;
+                  timeS = Hs*60+Ms;
+                  if(timeE<timeS){timeE += 24*60}
+                  if(parseInt(s.dataNow.min) < timeE && parseInt(s.dataNow.min) >= timeS){
+                    let av = item.av ? item.av.picCrop : "../../../assets/img/like_house.svg";
+                    s.cordinates.push(
+                      {
+                        x: item.coordinates[0],
+                        y: item.coordinates[1],
+                        logo: s.getLogo(item.ownerEst.av),
+                        address: item.address,
+                        name: item.name,
+                        link: '//'+item.ownerEst.subdomain+'.'+s.host,
+                        active: item.ownerEst.verify
+                      });
+                    item['distans'] = s.geo.calc(
+                      {lat: item.coordinates[0], lng: item.coordinates[1]},
+                      {lat: x, lng: y}
+                    );
+                    s.distans.push(item);
+                    if(item.ownerEst.verify){
+                      s.countEst++
+                    }
+                  }
                 }
               }
-            }
             }
           }else{
             let av = s.getLogo(item.av);
@@ -313,7 +315,10 @@ export class GeoComponent implements OnInit, OnDestroy {
               {lat: x, lng: y}
             );
             s.distans.push(item);
-            s.countEst++
+            if(item.ownerEst.verify){
+              s.countEst++
+            }
+
           }
 
         }
