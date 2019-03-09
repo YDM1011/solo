@@ -22,8 +22,7 @@ export class BoxComponent implements OnInit {
     let self = this;
     this.api.onUpDate.subscribe((val:any)=>{
       if(val){
-        console.log(val);
-        self[val[1]] = val[0];
+        self[val[1]] = [val[0], ...self[val[1]]];
       }
     });
 

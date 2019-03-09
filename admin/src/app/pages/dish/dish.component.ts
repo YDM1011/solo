@@ -12,6 +12,8 @@ export class DishComponent implements OnInit {
   public id:any;
   public editid:any;
   public dish:any = [];
+  public catNames:any = [];
+  public categories:any = {};
   public apiDomain:any = environment.apiDomain;
   private key:string = 'dish';
   constructor(
@@ -25,7 +27,7 @@ export class DishComponent implements OnInit {
     this.api.onUpDate.subscribe((val:any)=>{
       if(val){
         console.log(val);
-        self[val[1]] = val[0];
+        self[val[1]] = [val[0], ...self[val[1]]];
       }
     });
 
@@ -46,6 +48,7 @@ export class DishComponent implements OnInit {
         console.log(res);
         if(res){
           self[select] = res;
+          self.parseToCat()
         }
 
       }).catch((err:any)=>{});
@@ -58,6 +61,30 @@ export class DishComponent implements OnInit {
         s[s.key] = res;
       }
     })
+  }
+
+  parseToCat(){
+    let s = this;
+    s.dish.map(d=>{
+      if(d.dishcategory){
+        if (s.categories[d.dishcategory.name]){
+          s.categories[d.dishcategory.name].push(d)
+        }else{
+          s.categories[d.dishcategory.name] = [];
+          s.categories[d.dishcategory.name].push(d)
+        }
+      }else{
+        let keyNoCat = "Без категорії";
+        if (s.categories[keyNoCat]){
+          s.categories[keyNoCat].push(d)
+        }else{
+          s.categories[keyNoCat] = [];
+          s.categories[keyNoCat].push(d)
+        }
+      }
+    });
+    s.catNames = Object.keys(s.categories);
+    console.log(s.categories)
   }
   // dish
 }

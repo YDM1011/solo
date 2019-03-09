@@ -46,6 +46,7 @@ const preRead = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     mongoose.model('category')
         .find({ownerest: req.params['id']})
+        .sort({'data':-1})
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.notFound('Not found');

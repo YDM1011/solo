@@ -40,6 +40,7 @@ const preRead = (req,res,next)=>{
     mongoose.model('complement')
         .find({ownerest: req.params['id']})
         .populate({path:'pic', select:'preload _id'})
+        .sort({'data':-1})
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.notFound('Not found');

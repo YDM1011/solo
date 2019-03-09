@@ -94,7 +94,6 @@ img{
   margin-right: 7px;
 }
 .card img{
-  margin-right: 10px;
 }
 .card{
   align-items: center;
@@ -683,3 +682,8 @@ textarea.form-control{
 
 
 /**/
+.img40 svg{
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 40px;
+}

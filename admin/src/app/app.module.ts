@@ -17,7 +17,7 @@ import {ApiEventService} from "./service/api-event.service";
 @NgModule({
   declarations: [
     AppComponent,
-    InitLayoutComponent
+    InitLayoutComponent,
   ],
   imports: [
     BrowserModule,

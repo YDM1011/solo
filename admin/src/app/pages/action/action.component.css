@@ -54,10 +54,10 @@
   display: inline-block;
   margin-right: auto;
   max-width: 177px;
+  margin-left: 15px;
 }
 .card-content{
   display: flex;
   align-items: center;
 }
 /*****************/
-

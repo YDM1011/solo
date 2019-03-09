@@ -20,6 +20,9 @@
     <router-outlet></router-outlet>
 
     <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="ibox-tools"  style="padding: 15px;">
+        <button (click)="isCreate = true" class="btn btn-primary">Створити</button>
+      </div>
       <div class="row">
         <div class="col-lg-12">
           <div class="ibox float-e-margins" appAcardion>
@@ -59,7 +62,7 @@
               </div>
 
               <div class="link-create">
-                <button (click)="isCreate = true" *ngIf="!isCreate" class="btn">Створити</button>
+
                 <app-action-create appPopap
                   *ngIf="isCreate"
                   (onCreate)="calendarsAdd($event); isCreate = false"></app-action-create>

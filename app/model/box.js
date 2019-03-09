@@ -34,6 +34,7 @@ const preRead = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     mongoose.model('box')
         .find({ownerest: req.params['id']})
+        .sort({'data':-1})
         .populate({path:'pic', select:'preload _id'})
         .exec((err,info)=>{
             if (err) return res.serverError(err);

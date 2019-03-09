@@ -28,41 +28,56 @@
   <div class="col-lg-12">
     <router-outlet></router-outlet>
     <div class="wrapper wrapper-content animated fadeInRight">
+      <div class="ibox-tools" style="padding: 15px;">
+        <a [routerLink]="'/dish/'+id+'/create/'+id"  class="btn btn-primary btn-sm"><strong>Створити</strong></a>
+      </div>
     <div class="row">
       <div class="col-lg-12">
-        <div class="ibox float-e-margins">
+        <div class="ibox float-e-margins" appAcardion>
           <div class="ibox-title acardion-t">
             <h5>Всі страви <strong></strong></h5>
             <div class="ibox-tools">
-              <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn btn-primary btn-sm"><strong>Створити страву</strong></a>
+              <i class="fa fa-chevron-up" style="transform: rotate(0deg); margin-right: 15px"></i>
             </div>
           </div>
           <div class="ibox-content acardion-c">
-            <div class="card-wrap" *ngIf="dish.length > 0">
-              <div class="card" *ngFor="let dsh of dish">
-                <div class="card-content">
-                  <ng-container *ngIf="dsh.pic; else preDishPic">
-                    <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
-                      <img class="img40" src="{{apiDomain}}{{dsh.pic.picCrop}}" alt="">
-                    </ng-container>
-                  </ng-container>
-                  <ng-template #preDishPic>
-                    <app-prev-dish></app-prev-dish>
-                  </ng-template>
-                  <span class="card-name">{{dsh.name}}</span>
+
+            <ng-container *ngIf="categories && catNames.length>0">
+              <div class="card-wrap" *ngFor="let cat of catNames" appAcardion>
+                <div class="ibox-title">
+                  <h5>Категорія: {{cat}}</h5>
+                  <div class="ibox-tools">
+                    <a class="collapse-link">
+                      <i class="fa fa-chevron-up" style="transform: rotate(0deg);"></i>
+                    </a>
+                  </div>
                 </div>
-                <div class="card-btn">
-                  <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn btn-white btn-sm pull-right">
-                    <i class="fa fa-pencil"></i>
-                    Редагувати
-                  </a>
-                  <span (click)="delet(dsh._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>
+                <div class="card-wrap-ibox">
+                  <div class="card" *ngFor="let dsh of categories[cat]">
+                    <div class="card-content">
+                      <ng-container *ngIf="dsh.pic; else preDishPic">
+                        <ng-container *ngIf="dsh.pic.picCrop; else preDishPic">
+                          <img class="img40" src="{{apiDomain}}{{dsh.pic.picCrop}}" alt="">
+                        </ng-container>
+                      </ng-container>
+                      <ng-template #preDishPic>
+                        <app-prev-dish class="img img40"></app-prev-dish>
+                      </ng-template>
+                      <span class="card-name">{{dsh.name}}</span>
+                    </div>
+                    <div class="card-btn">
+                      <a [routerLink]="'/dish/'+id+'/'+id+'/'+dsh._id" class="btn btn-white btn-sm pull-right">
+                        <i class="fa fa-pencil"></i>
+                        Редагувати
+                      </a>
+                      <span (click)="delet(dsh._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>
+                    </div>
+                  </div>
                 </div>
+
               </div>
-            </div>
-            <div class="link-create">
-              <a [routerLink]="'/dish/'+id+'/create/'+id" class="btn">Створити</a>
-            </div>
+            </ng-container>
+
           </div>
         </div>
       </div>

@@ -27,6 +27,7 @@ import { ActionEditComponent } from './action-edit/action-edit.component';
 import {AcardionDirective} from "../directive/acardion.directive";
 import {PopapDirective} from "../directive/popap.directive";
 import {BtnBurgerDirective} from "../directive/btn-burger.directive";
+import {KeysPipe} from "../pipes/keys.pipe";
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import {BtnBurgerDirective} from "../directive/btn-burger.directive";
     ActionEditComponent,
     AcardionDirective,
     PopapDirective,
-    BtnBurgerDirective
+    BtnBurgerDirective,
+    KeysPipe
   ],
   declarations: [
     HeaderComponent,
@@ -83,7 +85,8 @@ import {BtnBurgerDirective} from "../directive/btn-burger.directive";
     ActionEditComponent,
     AcardionDirective,
     PopapDirective,
-    BtnBurgerDirective
+    BtnBurgerDirective,
+    KeysPipe
   ],
   providers: []
 })
