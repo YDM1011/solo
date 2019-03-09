@@ -40,3 +40,6 @@
   border-radius: 50%;
   background: #00a3ff;
 }
+.o3.active{
+  opacity: 1;
+}

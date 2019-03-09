@@ -7764,18 +7764,24 @@ textarea.us_area::-webkit-scrollbar-track {
   border-radius: 4px;
   padding: 0;
   display: block;
+  position: absolute;
   margin: 0;
+  bottom: 0;
+  z-index: 2;
 }
 .img-of-map .bg{
   width: 100%;
   z-index: 1;
-  position: absolute;
+  position: relative;
   display: block;
   padding: 0;
   margin: 0;
+  min-height: 50px;
 }
 .img-of-map{
   position: relative;
+  max-height: 100%;
+  height: auto;
 }
 .img-of-map img{
   max-width: 100%;

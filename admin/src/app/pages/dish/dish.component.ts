@@ -27,7 +27,7 @@ export class DishComponent implements OnInit {
     this.api.onUpDate.subscribe((val:any)=>{
       if(val){
         console.log(val);
-        self[val[1]] = [val[0], ...self[val[1]]];
+        self.reinitApi(self.id);
       }
     });
 
@@ -54,17 +54,31 @@ export class DishComponent implements OnInit {
       }).catch((err:any)=>{});
     });
   }
+
+  reinitApi(id){
+    let self = this;
+    let req=['dish'];
+    req.forEach((select)=>{
+      this.api.justGet('getDish',id).then((res:any)=>{
+        if(res){
+          self[select] = [];
+          self[select] = res;
+          self.parseToCat()
+        }
+
+      }).catch((err:any)=>{});
+    });
+  }
   delet(id){
     let s = this;
-    s.api.delet(s.key,id,s.id).then((res:any)=>{
-      if(res){
-        s[s.key] = res;
-      }
+    s.api.doDel(s.key,id).then((res:any)=>{
+      s.reinitApi(s.id);
     })
   }
 
   parseToCat(){
     let s = this;
+    s.categories = [];
     s.dish.map(d=>{
       if(d.dishcategory){
         if (s.categories[d.dishcategory.name]){

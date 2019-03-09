@@ -79,9 +79,17 @@
                 <div class="hr-line-dashed"></div>
 
                 <div class="form-group">
-                  <label class="col-sm-4 control-label">""</label>
+                  <label class="col-sm-4 control-label">Страви для меню</label>
                   <div class="col-sm-8">
                     <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
+                  </div>
+                </div>
+                <div class="hr-line-dashed"></div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label">Активні категорії для меню</label>
+                  <div class="col-sm-8">
+                    <app-check-option [option]="optionCat" (onCheck)="getCat($event)"></app-check-option>
                   </div>
                 </div>
                 <div class="hr-line-dashed"></div>

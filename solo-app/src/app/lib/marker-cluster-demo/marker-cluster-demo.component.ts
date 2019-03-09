@@ -86,7 +86,7 @@ export class MarkerClusterDemoComponent implements OnInit, OnChanges {
             icon.options.iconUrl ='./favicon.ico';
 
             data.push(L.marker([ this.generateLon(i), this.generateLat(i) ], { icon }).bindPopup(`
-            <div class="map-pop"><div class="img-of-map"><img src="${xyc.logo}" class="logo"></div><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span><br/><a href="${xyc.link}">Сайт закладу</a></div>
+            <div class="map-pop"><div class="img-of-map"><img src="${xyc.bg}" class="bg"><img src="${xyc.logo}" class="logo"></div><strong>${xyc.name}</strong><br/><span>${xyc.address?xyc.address:''}</span><br/><a href="${xyc.link}">Сайт закладу</a></div>
           `));
           }else{
             let icon = new LeafIcon();

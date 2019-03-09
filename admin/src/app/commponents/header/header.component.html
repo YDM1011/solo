@@ -17,32 +17,32 @@
           <span class="nav-label">Мережа {{est.subdomain}}</span> <span class="fa arrow"></span>
         </a>
         <ul class="nav nav-second-level" *ngIf="routeActive[est._id]">
-          <li [class.active]="ests.isActive">
+          <li [class.active]="ests.isActive" appAutoClose>
             <a routerLinkActive #ests="routerLinkActive" [routerLink]="'/establishments/'+est._id"><i class="fa fa-university"></i><span class="nav-label"> Заклади </span></a></li>
-          <li [class.active]="clck.isActive" >
+          <li [class.active]="clck.isActive" appAutoClose>
             <a routerLinkActive #clck="routerLinkActive" [routerLink]="'/work_time/'+est._id"><i class="far fa-clock"></i><span class="nav-label"> Графік роботи </span></a></li>
-          <li [class.active]="menu.isActive" >
+          <li [class.active]="menu.isActive" appAutoClose>
             <a routerLinkActive #menu="routerLinkActive" [routerLink]="'/menu/'+est._id" ><i class="fas fa-utensils"></i><span class="nav-label"> Меню </span></a></li>
-          <li [class.active]="dsh.isActive">
+          <li [class.active]="dsh.isActive" appAutoClose>
             <a routerLinkActive #dsh="routerLinkActive" [routerLink]="'/dish/'+est._id"> Страви </a></li>
-          <li [class.active]="cat.isActive">
+          <li [class.active]="cat.isActive" appAutoClose>
             <a routerLinkActive #cat="routerLinkActive" [routerLink]="'/category/'+est._id"> Категорії </a></li>
-          <li [class.active]="gcat.isActive">
-            <a routerLinkActive #gcat="routerLinkActive" [routerLink]="'/global_category/'+est._id"> Глобальні категорії </a></li>
-          <li [class.active]="comp.isActive">
+          <!--<li [class.active]="gcat.isActive">-->
+            <!--<a routerLinkActive #gcat="routerLinkActive" [routerLink]="'/global_category/'+est._id"> Глобальні категорії </a></li>-->
+          <li [class.active]="comp.isActive" appAutoClose>
             <a routerLinkActive #comp="routerLinkActive" [routerLink]="'/complement/'+est._id"> Додатки </a></li>
-          <li [class.active]="box.isActive">
+          <li [class.active]="box.isActive" appAutoClose>
             <a routerLinkActive #box="routerLinkActive" [routerLink]="'/box/'+est._id"> Упаковка </a></li>
-          <li [class.active]="actn.isActive">
-            <a routerLinkActive #actn="routerLinkActive" [routerLink]="'/action/'+est._id"><span class="nav-label">Акції</span></a></li>
-          <li [class.active]="ordr.isActive">
-            <a routerLinkActive #ordr="routerLinkActive" [routerLink]="'/order/'+est._id"><span class="nav-label">Замовлення</span></a></li>
-          <li [class.active]="dlvr.isActive">
-            <a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/delivery/'+est._id">Доставка</a></li>
-          <li [class.active]="self.isActive">
-            <a routerLinkActive #self="routerLinkActive" [routerLink]="'/get_by_self/'+est._id">На виніс</a></li>
-          <li [class.active]="rsrv.isActive">
-            <a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/reservation/'+est._id">Бронь столу</a></li>
+          <!--<li [class.active]="actn.isActive">-->
+            <!--<a routerLinkActive #actn="routerLinkActive" [routerLink]="'/action/'+est._id"><span class="nav-label">Акції</span></a></li>-->
+          <!--<li [class.active]="ordr.isActive">-->
+            <!--<a routerLinkActive #ordr="routerLinkActive" [routerLink]="'/order/'+est._id"><span class="nav-label">Замовлення</span></a></li>-->
+          <!--<li [class.active]="dlvr.isActive">-->
+            <!--<a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/delivery/'+est._id">Доставка</a></li>-->
+          <!--<li [class.active]="self.isActive">-->
+            <!--<a routerLinkActive #self="routerLinkActive" [routerLink]="'/get_by_self/'+est._id">На виніс</a></li>-->
+          <!--<li [class.active]="rsrv.isActive">-->
+            <!--<a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/reservation/'+est._id">Бронь столу</a></li>-->
         </ul>
       </li>
     </ul>

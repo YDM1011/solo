@@ -20,11 +20,12 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     const self = this;
-    this.api.onUpDate.subscribe((val: any) => {
-      if ( val ) {
-        self.reinitApi(self.id);
-      }
-    });
+    // this.api.onUpDate.subscribe((val: any) => {
+    //   if ( val ) {
+    //     self.id = self.id || this.route.snapshot.paramMap.get('id');
+    //     // self.reinitApi(self.id);
+    //   }
+    // });
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.editid = this.route.snapshot.paramMap.get('editid');
@@ -53,6 +54,7 @@ export class CategoryComponent implements OnInit {
     const self = this;
     const req = [self.key];
     req.forEach((select) => {
+      console.log(self.key, id);
       this.api.justGet(self.key, id).then((res: any) => {
         console.log(res);
         if (res) {

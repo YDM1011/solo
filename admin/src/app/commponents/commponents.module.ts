@@ -27,7 +27,8 @@ import { ActionEditComponent } from './action-edit/action-edit.component';
 import {AcardionDirective} from "../directive/acardion.directive";
 import {PopapDirective} from "../directive/popap.directive";
 import {BtnBurgerDirective} from "../directive/btn-burger.directive";
-import {KeysPipe} from "../pipes/keys.pipe";
+import {AutoCloseDirective} from "../directive/auto-close.directive";
+import {DeviceDetectorModule} from "ngx-device-detector";
 
 @NgModule({
   imports: [
@@ -36,6 +37,7 @@ import {KeysPipe} from "../pipes/keys.pipe";
     FormsModule,
     ImageCropperModule,
     TimepickerModule.forRoot(),
+    DeviceDetectorModule.forRoot()
   ],
   exports: [
     HeaderComponent,
@@ -60,7 +62,7 @@ import {KeysPipe} from "../pipes/keys.pipe";
     AcardionDirective,
     PopapDirective,
     BtnBurgerDirective,
-    KeysPipe
+    AutoCloseDirective
   ],
   declarations: [
     HeaderComponent,
@@ -86,7 +88,7 @@ import {KeysPipe} from "../pipes/keys.pipe";
     AcardionDirective,
     PopapDirective,
     BtnBurgerDirective,
-    KeysPipe
+    AutoCloseDirective
   ],
   providers: []
 })

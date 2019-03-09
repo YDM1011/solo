@@ -24,12 +24,12 @@
 </ng-container>
 <ng-container *ngIf="menus">
   <ng-container *ngIf="menus.length != 1">
-    <button class="btn-green req">Меню v</button>
+    <button class="btn-green req">Меню</button>
   </ng-container>
 </ng-container>
 <ng-container *ngIf="menus">
   <ng-container *ngIf="menus.length == 1">
-    <a [routerLink]="'/menu/'+menus[0]._id" class="btn-green req" appScrollTo>Меню v2</a>
+    <a [routerLink]="'/menu/'+menus[0]._id" class="btn-green req" appScrollTo>Меню</a>
   </ng-container>
 </ng-container>
 

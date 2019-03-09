@@ -211,13 +211,31 @@ export class GeoComponent implements OnInit, OnDestroy {
   getLogo(pic){
     let img;
     if (pic){
-      if (pic.picMedia){
-        img = '/-px60-'+pic.picMedia
+      if (pic.picCrop){
+        let picCrop = pic.picCrop.split("/");
+        pic.picCrop = encodeURI(picCrop[picCrop.length-1]);
+        img = '/-px60-'+pic.picCrop
       }else{
         img = pic.picCrop
       }
     }else {
       img = '../../../assets/img/like_house.svg';
+    }
+    return img;
+  }
+
+  getBg(pic){
+    let img;
+    if (pic){
+      if (pic.picCrop){
+        let picCrop = pic.picCrop.split("/");
+        pic.picCrop = encodeURI(picCrop[picCrop.length-1]);
+        img = '/-px150-'+pic.picCrop
+      }else{
+        img = pic.picCrop
+      }
+    }else {
+      img = '';
     }
     return img;
   }
@@ -253,6 +271,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                         x: item.coordinates[0],
                         y: item.coordinates[1],
                         logo: s.getLogo(item.ownerEst.av),
+                        bg: s.getBg(item.ownerEst.bg),
                         address: item.address,
                         name: item.name,
                         link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -281,6 +300,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                         x: item.coordinates[0],
                         y: item.coordinates[1],
                         logo: s.getLogo(item.ownerEst.av),
+                        bg: s.getBg(item.ownerEst.bg),
                         address: item.address,
                         name: item.name,
                         link: '//'+item.ownerEst.subdomain+'.'+s.host,
@@ -305,6 +325,7 @@ export class GeoComponent implements OnInit, OnDestroy {
                 x: item.coordinates[0],
                 y: item.coordinates[1],
                 logo: s.getLogo(item.ownerEst.av),
+                bg: s.getBg(item.ownerEst.bg),
                 address: item.address,
                 name: item.name,
                 link: '//'+item.ownerEst.subdomain+'.'+s.host,

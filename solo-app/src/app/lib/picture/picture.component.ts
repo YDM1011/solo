@@ -1,6 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {init} from "protractor/built/launcher";
 
 @Component({
   selector: 'app-picture',
@@ -27,9 +26,10 @@ export class PictureComponent implements OnInit, OnChanges {
     if(this.pic.picCrop){
       if(this.pic.picCrop.search("/")>-1){
         let picCrop = this.pic.picCrop.split("/");
-        this.pic.picCrop = picCrop[picCrop.length-1];
+        this.pic.picCrop = encodeURI(picCrop[picCrop.length-1]);
         this.loaded = true
       }else{
+        this.pic.picCrop = encodeURI(this.pic.picCrop);
         this.loaded = true
       }
     }

@@ -23,9 +23,9 @@ export class EstablishmentsComponent implements OnInit, OnChanges {
   ngOnInit() {
     let self = this;
     this.api.onUpDate.subscribe((val:any)=>{
-      if(typeof val == "object"){
-        self[val[1]] = [val[0][val[1]], ...self[val[1]]];
-      }
+      // if(typeof val == "object"){
+      //   self[val[1]] = [val[0][val[1]], ...self[val[1]]];
+      // }
     });
     this.id = this.route.snapshot.paramMap.get('id');
     // self.initApi(self.id);

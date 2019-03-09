@@ -21,7 +21,6 @@ export class MenuEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     const self = this;
     this.id = this.route.snapshot.paramMap.get('id');
     this.editid = this.route.snapshot.paramMap.get('editid');
@@ -31,7 +30,6 @@ export class MenuEditComponent implements OnInit {
       self.editid = params.editid;
       self.initApi(self.id);
     });
-
   }
   goBack(e){
     if(this.id){

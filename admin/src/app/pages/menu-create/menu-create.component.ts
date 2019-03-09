@@ -17,9 +17,11 @@ export class MenuCreateComponent implements OnInit {
     deliverymintime:'',
     maxtime:'',
     steptime:'',
-    dishes:[]
+    dishes:[],
+    categories:[]
   };
   public option:any = [];
+  public optionCat: any = [];
   private key:string='menu';
   public id:any;
   constructor(
@@ -36,6 +38,7 @@ export class MenuCreateComponent implements OnInit {
       self.id = params.id;
       self.initApi(self.id);
     });
+    self.initApi(self.id);
   }
   goBack(e){
     if(this.id){
@@ -77,12 +80,31 @@ export class MenuCreateComponent implements OnInit {
         }
       }).catch((err:any)=>{});
     });
+    this.api.get('category', id).then((cat: any) => {
+      if (cat) {
+        self.optionCat = [];
+        cat.map((categ: any) => {
+          self.optionCat.push({
+            name: categ.maincategory,
+            label: categ.name,
+            id: categ._id
+          });
+        });
+      }
+    }).catch((err: any) => {});
   }
   getDish(dishes){
     let s = this;
     dishes.map(item=>{
       s.menu.dishes.push(item.id);
     })
+  }
+  getCat(cat) {
+    const s = this;
+    s.menu.categories = [];
+    cat.map(item => {
+      s.menu.categories.push(item.id);
+    });
   }
 }
 // name: String,

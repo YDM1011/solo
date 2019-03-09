@@ -23,7 +23,7 @@ export class MenuComponent implements OnInit {
     this.api.onUpDate.subscribe((val:any)=>{
       if(val){
         console.log(val);
-        self[val[1]] = [val[0], ...self[val[1]]];
+        self[val[1]] = val[0];
       }
     });
 
@@ -35,7 +35,7 @@ export class MenuComponent implements OnInit {
       self.editid = params.editid;
       self.initApi(params.id);
     });
-
+    this.initApi(this.id)
   }
 
   initApi(id){

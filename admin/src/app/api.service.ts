@@ -230,11 +230,24 @@ export class ApiService {
       if (res && select) {
         self.global[api + id + select][select].push(res);
         resolve(self.global[api + id + select]);
+        console.log(self.global)
         this.updat.next([self.global[api + id + select], select]);
       }
       if (res && !select) {
-        self.global[api + (id || '') + (select || '')] = (res);
+        if (self.global[api + (id || '') + (select || '')]){
+          if (self.global[api + (id || '') + (select || '')].length>0){
+            self.global[api + (id || '') + (select || '')].push(res);
+          }else{
+            self.global[api + (id || '') + (select || '')] = [];
+            self.global[api + (id || '') + (select || '')].push(res);
+          }
+        }else{
+          self.global[api + (id || '') + (select || '')] = [];
+          self.global[api + (id || '') + (select || '')].push(res);
+        }
+
         resolve(self.global[api + (id || '') + (select || '')]);
+        console.log(self.global);
         this.updat.next([self.global[api + (id || '') + (select || '')], api]);
       }
     });
