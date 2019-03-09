@@ -26,12 +26,15 @@ export class PictureComponent implements OnInit, OnChanges {
     if(this.pic.picCrop){
       if(this.pic.picCrop.search("/")>-1){
         let picCrop = this.pic.picCrop.split("/");
-        this.pic.picCrop = encodeURI(picCrop[picCrop.length-1]);
+        this.pic.picCrop = this.encode(picCrop[picCrop.length-1]);
         this.loaded = true
       }else{
-        this.pic.picCrop = encodeURI(this.pic.picCrop);
+        this.pic.picCrop = this.encode(this.pic.picCrop);
         this.loaded = true
       }
     }
+  }
+  encode(str){
+    return str.replace(/ /g, '%20');
   }
 }

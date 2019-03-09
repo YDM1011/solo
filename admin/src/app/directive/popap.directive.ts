@@ -19,10 +19,14 @@ export class PopapDirective {
     let node2 = document.createElement("DIV");
     this.node.classList.add('popup-directive');
     node2.classList.add('popup-directive-bg');
+    let node3 = this.el.nativeElement.getElementsByClassName('cansel-popup-btn')[0];
     this.node.appendChild(node2);
     this.node.appendChild(this.defBlock);
     document.getElementById('wrapper').appendChild(this.node);
     node2.onclick = ()=>{
+      this.close();
+    };
+    node3.onclick = ()=>{
       this.close();
     };
     let element = this.el.nativeElement.getElementsByClassName('ibox-tools');
