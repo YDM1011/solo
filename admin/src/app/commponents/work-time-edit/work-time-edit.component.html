@@ -1,9 +1,15 @@
-<div class="edit-calender" *ngIf="obj" appPopap (onClose)="onClose.emit($event)">
-  <div class="ibox-title">
-    <div>Редагувати календар: <h5>{{obj.name}}</h5></div>
+<div class="wrapper wrapper-content animated fadeInRight" *ngIf="obj" appPopap (onClose)="onClose.emit($event)">
+  <div class="cansel-popup-btn">
     <div class="ibox-tools">
-      <button (click)="save()" class="btn btn-primary btn-sm">Зберегти</button>
+      <button class="btn btn-cancel">Скасувати</button>
     </div>
+    <div class="ibox-tools">
+      <button (click)="save()" class="btn btn-primary">Зберегти</button>
+    </div>
+  </div>
+  <div class="form-group">
+    <span class="control-label">Редагувати календар: </span>
+    <span class="control-label">{{obj.name}}</span>
   </div>
   <div class="form-horizontal">
     <div class="form-group">
@@ -13,20 +19,20 @@
                [(ngModel)]="obj.name">
       </div>
     </div>
-    <div class="form-group">
-      <label class="col-md-4 control-label">Підпис каледаря*</label>
-      <div class="col-md-8">
-        <input type="text" name="name-calendar" class="form-control"
-               [(ngModel)]="obj.label">
-      </div>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label class="col-md-4 control-label">Підпис каледаря*</label>-->
+      <!--<div class="col-md-8">-->
+        <!--<input type="text" name="name-calendar" class="form-control"-->
+               <!--[(ngModel)]="obj.label">-->
+      <!--</div>-->
+    <!--</div>-->
 
     <div class="cr-calendar_cn">
       <div class="cr-calendar_i" *ngFor="let key of keyArr; let i = index">
         <div class="form-group">
-          <label class="col-sm-4 control-label">День</label>
-          <div class="col-sm-8">
-            <input class="form-control" type="text" name="name-day" [(ngModel)]="obj[key].nameDay">
+          <div class="col-sm-4 control-label">День:</div>
+          <div class="col-sm-8 control-label">
+            <b>{{obj[key].nameDay}}</b>
           </div>
         </div>
 

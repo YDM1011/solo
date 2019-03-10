@@ -21,6 +21,9 @@ export class EstCreateComponent implements OnInit {
   public address:any;
   public coordinates:any = [50.7464, 25.3262];
   public worksTime:any;
+  public worksTimeId:any;
+  public worksTimeView:any;
+  public worksTimeAll:any;
   public status:boolean=true;
   public delivery:boolean=false;
   public getself:boolean=false;
@@ -52,8 +55,7 @@ export class EstCreateComponent implements OnInit {
   initApi(id){
     let self = this;
     let req=['mobile','about','mail',
-      'delivery','getself','reservation',
-      'worksTime'];
+      'delivery','getself','reservation','worksTimeId'];
     req.forEach((select)=>{
       this.api.get('establishment',id,select).then((res:any)=>{
         self[select] = res[select];
@@ -76,6 +78,7 @@ export class EstCreateComponent implements OnInit {
         }
       }).catch((err:any)=>{});
     });
+    self.getAllCalendars();
   }
   update(obj,model){
     let self = this;
@@ -100,6 +103,25 @@ export class EstCreateComponent implements OnInit {
     dishes.map(item=>{
       s.menus.push(item.name);
       s.MCI.push(item.id);
+    })
+  }
+  getCalendar(e){
+    let s = this;
+    console.log(e.obj);
+    s.worksTime = e.obj.label || e.obj.name || "";
+    s.worksTimeId = e.obj._id;
+    s.worksTimeView = e.obj;
+  }
+  getAllCalendars(){
+    const s = this;
+    s.api.justGet(`timeWork?query={"ownerEst":"${s.id}"}`).then((val:any)=>{
+      s.worksTimeAll = [];
+      val.map(it=>{
+        s.worksTimeAll.push({
+          label: it.name,
+          obj: it
+        })
+      });
     })
   }
 }

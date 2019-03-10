@@ -26,9 +26,12 @@ export class PopapDirective {
     node2.onclick = ()=>{
       this.close();
     };
-    node3.onclick = ()=>{
-      this.close();
-    };
+    try {
+      node3.onclick = ()=>{
+        this.close();
+      };
+    }catch (e) {}
+
     let element = this.el.nativeElement.getElementsByClassName('ibox-tools');
     console.log(element);
     for(let i=0; i<element.length; i++){

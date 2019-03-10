@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Calendar} from "../../pages/work-time/work-time";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../api.service";
@@ -12,6 +12,7 @@ export class WorkTimeCreateComponent implements OnInit {
   public id: string;
   public calendar = new Calendar();
   @Output() onClose = new EventEmitter();
+  @Input() Calendar = [];
   public keyArr = [
     "timeRange1",
     "timeRange2",
@@ -110,9 +111,11 @@ export class WorkTimeCreateComponent implements OnInit {
     let s = this;
     s.calendar.ownerEst = s.id;
     s.dateToString(s.timeArray, s.calendar);
-    console.log(s.calendar);
+
     s.api.doPost('timeWork', s.calendar).then((val:any)=>{
       if(val){
+        console.log(val);
+        s.Calendar.push(val);
         s.onCreate.emit(val)
       }
     })

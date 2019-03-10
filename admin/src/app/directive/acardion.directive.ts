@@ -5,6 +5,7 @@ import {Directive, ElementRef, Input} from '@angular/core';
 })
 export class AcardionDirective {
   el: ElementRef;
+  private btA;
   private bt;
   private bc;
   private triger;
@@ -15,6 +16,7 @@ export class AcardionDirective {
 
   ngAfterViewInit() {
     const hostElem = this.el.nativeElement;
+    this.btA = this.el.nativeElement.getElementsByClassName('close-acardion');
     this.bt = hostElem.children[0];
     this.bc = hostElem.children[1];
     this.init();
@@ -24,6 +26,17 @@ export class AcardionDirective {
       }else{
         this.unInit()
       }
+    };
+    try {
+      this.btA[0].onclick = ()=>{
+        if(this.triger){
+          this.init()
+        }else{
+          this.unInit()
+        }
+      }
+    }catch (err) {
+      
     }
   }
   init(){

@@ -21,9 +21,11 @@
     <app-work-time-create
       *ngIf="isCreate"
       (onClose)="isCreate = false"
-      (onCreate)="calendarsAdd($event); isCreate = false"></app-work-time-create>
+      [Calendar]="calendars"
+      (onCreate)="calendarsAdd($event)"></app-work-time-create>
 
     <div class="wrapper wrapper-content animated fadeInRight">
+
       <div class="ibox-tools"  style="padding: 15px;">
         <button (click)="isCreate = true" class="btn btn-primary btn-sm">Створити графік роботи</button>
       </div>

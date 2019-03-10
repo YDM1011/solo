@@ -58,6 +58,16 @@ export class PortionComponent implements OnInit {
     });
   }
 
+  resave(prtn){
+    const s = this;
+    console.log(prtn);
+    s.api.post('portItem/'+prtn._id, prtn).then(res => {
+      if (res) {
+        s.apiInit();
+      }
+    });
+  }
+
   delete(elem){
     const s = this;
     s.api.delet('portItem', elem._id, '').then(res => {

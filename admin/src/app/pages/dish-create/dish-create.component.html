@@ -1,7 +1,10 @@
 <div class="wrapper wrapper-content animated fadeInRight" appPopap (onClose)="goBack($event)">
   <div class="cansel-popup-btn">
     <div class="ibox-tools">
-      <button class="btn btn-primary">Скасувати</button>
+      <button class="btn btn-cancel">Скасувати</button>
+    </div>
+    <div class="ibox-tools">
+      <button (click)="create(dish)" class="btn btn-primary">Зберегти</button>
     </div>
   </div>
   <div class="row">
@@ -9,9 +12,6 @@
       <div class="ibox float-e-margins" *ngIf="dish">
         <div class="ibox-title">
           <h5>Створити страву</h5>
-          <div class="ibox-tools">
-            <button class="btn btn-primary" (click)="create(dish)">Створити</button>
-          </div>
         </div>
         <div class="ibox-content">
           <div class="form-horizontal">

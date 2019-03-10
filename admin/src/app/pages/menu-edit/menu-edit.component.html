@@ -1,10 +1,15 @@
 <div class="wrapper wrapper-content animated fadeInUp" *ngIf="menu" appPopap (onClose)="goBack($event)">
+  <div class="cansel-popup-btn">
+    <div class="ibox-tools">
+      <button class="btn btn-cancel">Скасувати</button>
+    </div>
+    <div class="ibox-tools">
+      <button (click)="update(menu); goBack('')" class="btn btn-primary">Зберегти</button>
+    </div>
+  </div>
   <div class="ibox">
     <div class="ibox-title">
       <h5>Редагувати меню "{{menu.name}}"</h5>
-      <div class="ibox-tools">
-        <button (click)="update(menu); goBack('')" class="btn btn-primary">Зберегти</button>
-      </div>
     </div>
     <div class="ibox-content">
       <div class="form-horizontal">
@@ -77,20 +82,29 @@
             <div class="hr-line-dashed"></div>
 
             <div class="form-group">
-              <label class="col-sm-4 control-label">Страви для меню</label>
-              <div class="col-sm-8">
-                <app-check-option [menuId]="menu._id" [option]="option" (onCheck)="getDish($event)"></app-check-option>
+              <div class="ibox" appAcardion>
+                <div class="ibox-title">
+                  <h5>Страви для меню</h5>
+                  <div class="">
+                    <i class="fa fa-chevron-up" style="transform: rotate(0deg); margin-left: 15px"></i>
+                  </div>
+                </div>
+                <div class="ibox-content">
+                  <app-check-option [menuId]="menu._id" [option]="option" (onCheck)="getDish($event)"></app-check-option>
+                </div>
+              </div>
+              <div class="ibox" appAcardion>
+                <div class="ibox-title">
+                  <h5>Активні категорії для меню</h5>
+                  <div class="">
+                    <i class="fa fa-chevron-up" style="transform: rotate(0deg); margin-left: 15px"></i>
+                  </div>
+                </div>
+                <div class="ibox-content">
+                  <app-check-option [option]="optionCat" (onCheck)="getCat($event)"></app-check-option>
+                </div>
               </div>
             </div>
-            <div class="hr-line-dashed"></div>
-
-            <div class="form-group">
-              <label class="col-sm-4 control-label">Активні категорії для меню</label>
-              <div class="col-sm-8">
-                <app-check-option [option]="optionCat" (onCheck)="getCat($event)"></app-check-option>
-              </div>
-            </div>
-            <div class="hr-line-dashed"></div>
           </div>
 
         </div>

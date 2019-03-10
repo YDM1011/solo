@@ -1,102 +1,116 @@
 <div class="wrapper wrapper-content animated fadeInUp" appPopap (onClose)="goBack($event)">
-    <div class="ibox">
-        <div class="ibox-title">
-          <h5>Нове меню</h5>
-          <div class="ibox-tools">
-            <button (click)="create(menu)" class="btn btn-primary">Створити</button>
-          </div>
-        </div>
-        <div class="ibox-content">
-          <div class="form-horizontal">
-            <div class="row">
-              <div class="col-lg-12">
+  <div class="cansel-popup-btn">
+    <div class="ibox-tools">
+      <button class="btn btn-cancel">Скасувати</button>
+    </div>
+    <div class="ibox-tools">
+      <button (click)="create(menu)" class="btn btn-primary">Зберегти</button>
+    </div>
+  </div>
+  <div class="ibox">
+      <div class="ibox-title">
+        <h5>Нове меню</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="form-horizontal">
+          <div class="row">
+            <div class="col-lg-12">
 
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Назва</label>
-                  <div class="col-sm-8">
-                    <div>
-                      <input type="text" [(ngModel)]="menu.name" name="name" class="form-control">
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Назва</label>
+                <div class="col-sm-8">
+                  <div>
+                    <input type="text" [(ngModel)]="menu.name" name="name" class="form-control">
+                  </div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Вартість доставки</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.delivery" name="delivery" class="form-control">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Мінімальна сума</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.deliveryfree" name="deliveryfree" class="form-control">
+                  <span class="help-block m-b-none">(для безкоштовної доставки)</span>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Графік доставки</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.deliverytime" name="deliverytime" class="form-control">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Графік онлайн-замовлень</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.deliveryonline" name="deliveryonline" class="form-control">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Мінімальний час доставки</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.deliverymintime" name="deliverymintime" class="form-control">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Кількість днів, за скільки наперед приймаються замовлення</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.maxtime" name="maxtime" class="form-control">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Крок вибору бажаного часу</label>
+                <div class="col-sm-8">
+                  <input type="text" [(ngModel)]="menu.steptime" name="steptime" class="form-control">
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+
+              <div class="form-group menu-group">
+                <div class="ibox" appAcardion>
+                  <div class="ibox-title">
+                    <h5>Страви для меню</h5>
+                    <div class="">
+                      <i class="fa fa-chevron-up" style="transform: rotate(0deg); margin-left: 15px"></i>
                     </div>
                   </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Вартість доставки</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.delivery" name="delivery" class="form-control">
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Мінімальна сума</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.deliveryfree" name="deliveryfree" class="form-control">
-                    <span class="help-block m-b-none">(для безкоштовної доставки)</span>
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Графік доставки</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.deliverytime" name="deliverytime" class="form-control">
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Графік онлайн-замовлень</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.deliveryonline" name="deliveryonline" class="form-control">
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Мінімальний час доставки</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.deliverymintime" name="deliverymintime" class="form-control">
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Кількість днів, за скільки наперед приймаються замовлення</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.maxtime" name="maxtime" class="form-control">
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Крок вибору бажаного часу</label>
-                  <div class="col-sm-8">
-                    <input type="text" [(ngModel)]="menu.steptime" name="steptime" class="form-control">
-                  </div>
-                </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Страви для меню</label>
-                  <div class="col-sm-8">
+                  <div class="ibox-content">
                     <app-check-option [option]="option" (onCheck)="getDish($event)"></app-check-option>
                   </div>
                 </div>
-                <div class="hr-line-dashed"></div>
-
-                <div class="form-group">
-                  <label class="col-sm-4 control-label">Активні категорії для меню</label>
-                  <div class="col-sm-8">
+                <div class="ibox" appAcardion>
+                  <div class="ibox-title">
+                    <h5>Активні категорії для меню</h5>
+                    <div class="">
+                      <i class="fa fa-chevron-up" style="transform: rotate(0deg); margin-left: 15px"></i>
+                    </div>
+                  </div>
+                  <div class="ibox-content">
                     <app-check-option [option]="optionCat" (onCheck)="getCat($event)"></app-check-option>
                   </div>
                 </div>
-                <div class="hr-line-dashed"></div>
               </div>
-
             </div>
+
           </div>
         </div>
       </div>
+    </div>
 </div>

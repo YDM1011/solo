@@ -21,6 +21,7 @@ export class DishEditComponent implements OnInit {
   public complementsOpt: any = [];
   public complementsOptM: any = [];
   public isFormAdd = false;
+  public defdishcategory = 'Обрати категорію';
   public apiDomain:any = environment.apiDomain;
   public portion: any = {
     massa: '',
@@ -66,40 +67,48 @@ export class DishEditComponent implements OnInit {
             self[select] = item;
             self.api.onImg.subscribe((pic: any) => {
               if (pic) {
-              if (pic._id == self.dish.pic._id) {
-                self.dish.pic = pic;
-              }
+                if (pic._id == self.dish.pic._id) {
+                  self.dish.pic = pic;
+                }
               }
             });
             self.getComp()
           }
         });
+        this.api.get('category', id).then((res: any) => {
+          if (res) {
+            self.option = [];
+            res.map((item: any) => {
+              console.log(self.dish.dishcategory);
+              if (item._id == self.dish.dishcategory._id){
+                self.defdishcategory = item.name
+              }
+              self.option.push({
+                name: item.maincategory,
+                label: item.name,
+                id: item._id,
+                isActive: false
+              });
+
+
+            });
+          }
+        }).catch((err: any) => {});
       }).catch((err: any) => {});
     });
-      this.api.get('category', id).then((res: any) => {
-        if (res) {
-          self.option = [];
-          res.map((item: any) => {
-            self.option.push({
-              name: item.maincategory,
-              label: item.name,
-              id: item._id
-            });
+
+    this.api.get('complement', id).then((res: any) => {
+      if (res) {
+        self.DCoption = [];
+        res.map((item: any) => {
+          self.DCoption.push({
+            name: item.maincategory,
+            label: item.name,
+            id: item._id
           });
-        }
-      }).catch((err: any) => {});
-      this.api.get('complement', id).then((res: any) => {
-        if (res) {
-          self.DCoption = [];
-          res.map((item: any) => {
-            self.DCoption.push({
-              name: item.maincategory,
-              label: item.name,
-              id: item._id
-            });
-          });
-        }
-      }).catch((err: any) => {});
+        });
+      }
+    }).catch((err: any) => {});
   }
 
   getComp(){

@@ -8565,6 +8565,16 @@ nav .btn-primary{
     position: fixed;
     right: 15px;
     top: -5px;
+    z-index: 1002;
+  }
+  #side-menu{
+    position: fixed;
+    top: 0;
+    z-index: 1001;
+    width: 100%;
+    background: #293846;
+    height: 100vh;
+    overflow: auto;
   }
 }
 @media print {
@@ -8602,6 +8612,7 @@ nav .btn-primary{
   z-index: 2;
   position: relative;
   max-width: 80%;
+  min-height: 80vh;
   width: 100%;
   background: #fff;
   max-height: 80vh;
@@ -8625,5 +8636,8 @@ nav .btn-primary{
   .popup-directive > *:nth-child(2){
     max-width: 100%;
     max-height: 100vh;
+    min-height: 100vh;
+    margin: 0;
+    padding-top: 65px;
   }
 }

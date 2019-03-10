@@ -69,6 +69,7 @@ export class MenuCreateComponent implements OnInit {
     req.forEach((select)=>{
       this.api.get('dish',id, 'all').then((res:any)=>{
         if(res){
+          self[select] = [];
           res.map((item:any)=>{
             self.option.push({
               label:item.name,

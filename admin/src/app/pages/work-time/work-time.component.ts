@@ -79,6 +79,7 @@ export class WorkTimeComponent implements OnInit, OnChanges, OnDestroy {
 
   calendarsAdd(e){
     let s = this;
-    s.calendars.push(e);
+    // console.log("ok!!!",s.calendars, e);
+    // s.calendars.push(e);
   }
 }
