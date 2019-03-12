@@ -49,8 +49,9 @@
               <div class="compo_i-b">Бронювання: <span class="label label-primary" *ngIf="est.reservation">Active</span> <span class="label label-default" *ngIf="!est.reservation">Unactive</span></div>
               <div class="compo_i-b">З собою: <span class="label label-primary" *ngIf="est.getself">Active</span> <span class="label label-default" *ngIf="!est.getself">Unactive</span></div>
               <div class="btn-wrap">
+                <app-confirm-delete (onDelete)="delet(est._id)"></app-confirm-delete>
                 <a [routerLink]="'/establishments/'+id+'/edit/'+id+'/'+est._id" class="btn btn-white btn-sm pull-right"><i class="fa fa-pencil"></i> Редагувати</a>
-                <button (click)="delet(est._id)"  class="btn btn-danger btn-sm pull-right">Видалити</button>
+                <!--<button (click)="delet(est._id)"  class="btn btn-danger btn-sm pull-right">Видалити</button>-->
               </div>
             </div>
           </div>

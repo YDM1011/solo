@@ -12,6 +12,7 @@ export class PictureComponent implements OnInit, OnChanges {
   @Input() size;
   public host= environment.host;
   public loaded = false;
+  public isString = false;
   constructor() { }
 
   ngOnInit() {
@@ -23,6 +24,7 @@ export class PictureComponent implements OnInit, OnChanges {
   }
 
   init(){
+    if (typeof this.size == 'string'){this.isString=true}else{this.isString=false}
     if(this.pic.picCrop){
       if(this.pic.picCrop.search("/")>-1){
         let picCrop = this.pic.picCrop.split("/");

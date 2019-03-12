@@ -48,11 +48,12 @@
                   <span class="card-name">{{item.about}}</span>
                 </div>
                 <div class="card-btn">
+                  <app-confirm-delete (onDelete)="del(item._id)"></app-confirm-delete>
                   <span class="btn btn-white btn-sm pull-right" (click)="isShow[item._id] = true">
                     <i class="fa fa-pencil"></i>
                     Редагувати
                   </span>
-                  <span (click)="del(item._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>
+                  <!--<span (click)="del(item._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>-->
                 </div>
                 <app-action-edit appPopap
                                  [obj]="item"

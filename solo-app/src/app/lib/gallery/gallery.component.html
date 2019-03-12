@@ -8,8 +8,8 @@
 <div class="el_cntt" *ngIf="photos.length > 0">
   <ng-container *ngFor="let photo of photos | slice:0:6">
     <ng-container *ngIf="photo">
-      <div class="el_i" >
-        <app-picture [pic]="photo" [size]="60"></app-picture>
+      <div class="el_i">
+        <app-picture [pic]="photo" [size]="'right-bar-g'"></app-picture>
       </div>
     </ng-container>
   </ng-container>

@@ -29,6 +29,7 @@ import {PopapDirective} from "../directive/popap.directive";
 import {BtnBurgerDirective} from "../directive/btn-burger.directive";
 import {AutoCloseDirective} from "../directive/auto-close.directive";
 import {DeviceDetectorModule} from "ngx-device-detector";
+import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import {DeviceDetectorModule} from "ngx-device-detector";
     AcardionDirective,
     PopapDirective,
     BtnBurgerDirective,
-    AutoCloseDirective
+    AutoCloseDirective,
+    ConfirmDeleteComponent
   ],
   declarations: [
     HeaderComponent,
@@ -88,7 +90,8 @@ import {DeviceDetectorModule} from "ngx-device-detector";
     AcardionDirective,
     PopapDirective,
     BtnBurgerDirective,
-    AutoCloseDirective
+    AutoCloseDirective,
+    ConfirmDeleteComponent
   ],
   providers: []
 })

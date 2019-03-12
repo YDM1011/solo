@@ -1,11 +1,12 @@
-import {Directive, ElementRef, EventEmitter, Output} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 
 @Directive({
   selector: '[appPopap]'
 })
 export class PopapDirective {
   el: ElementRef;
-  @Output() onClose = new EventEmitter()
+  @Output() onClose = new EventEmitter();
+  @Input('appPopap') custom;
   private defBlock;
   private node;
   constructor(el: ElementRef){

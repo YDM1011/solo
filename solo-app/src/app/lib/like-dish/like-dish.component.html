@@ -18,7 +18,7 @@
     <div class="el_cntt" *ngIf="dishes.length > 0">
       <a class="el_i" href="//{{est.ownerest.subdomain+'.'+host}}" *ngFor="let est of dishes | slice:0:6">
         <ng-container *ngIf="est.pic; else picEst">
-          <app-picture [pic]="est.pic" [size]="60"></app-picture>
+          <app-picture [pic]="est.pic" [size]="'right-bar-d'"></app-picture>
         </ng-container>
         <ng-template #picEst>
           <app-prev-dish></app-prev-dish>

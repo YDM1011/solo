@@ -1,0 +1,12 @@
+<div class="wrap alert" *ngIf="isDel" appPopap="alert">
+  <div class="isDel">
+    <div class="title">Ви дісно бажаєте видалити це?</div>
+    <div class="btn-wrap">
+      <button class="btn btn-primary ibox-tools" (click)="close()">Скасувати</button>
+      <button class="btn btn-danger ibox-tools" (click)="delete()">Видалити</button>
+    </div>
+  </div>
+</div>
+
+
+<button class="btn btn-danger btn-sm pull-right" (click)="isDel = !isDel">Видалити</button>

@@ -45,10 +45,11 @@
               <!--<app-pic [pic]="item.pic"></app-pic>-->
               <!--</div>-->
               <div class="btn-wrap">
+                <app-confirm-delete (onDelete)="delet(item._id)"></app-confirm-delete>
                 <a [routerLink]="'/box/'+id+'/'+id+'/'+item._id" class="btn btn-white btn-sm pull-right"><i class="fa fa-pencil"></i> Редагувати</a>
-                <button (click)="delet(item._id)" class="btn btn-danger btn-sm pull-right">Видалити</button>
               </div>
             </div>
+
           </div>
         </div>
       </div>

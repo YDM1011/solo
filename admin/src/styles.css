@@ -721,6 +721,13 @@ textarea.form-control{
     animation-name: opacity1;
     animation-duration: 1s;
   }
+  .cansel-popup-btnalert{
+    width: inherit;
+    left: 50%;
+    /*transform: translate(-50%, -100%);*/
+    top: inherit;
+    opacity: 1;
+  }
   @-webkit-keyframes opacity1 {
     0% {opacity: 0;}
     99% {opacity: 0;}

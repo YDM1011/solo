@@ -84,8 +84,36 @@
 </ng-template>
 
 <ng-template #sizeTemp>
-  <ng-container *ngIf="size && pic">
-    <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picCrop}}">
+  <ng-container *ngIf="isString">
+    <ng-container *ngIf="size == 'right-bar-g'">
+      <picture>
+        <source srcset="{{host}}/-px60-{{pic.picCrop}}" media="(min-width: 992px)">
+        <img class="img img-content" srcset="{{host}}/-px200-{{pic.picCrop}}">
+      </picture>
+    </ng-container>
+    <ng-container *ngIf="size == 'right-bar-d'">
+      <picture>
+        <source media="(max-width: 767px)" srcset="{{host}}/-px150-{{pic.picCrop}}">
+        <source media="(max-width: 690px)" srcset="{{host}}/-px100-{{pic.picCrop}}">
+        <source media="(max-width: 420px)" srcset="{{host}}/-px60-{{pic.picCrop}}">
+        <img class="img" srcset="{{host}}/-px60-{{pic.picCrop}}">
+      </picture>
+    </ng-container>
+    <ng-container *ngIf="size == 'right-bar-f'">
+      <picture>
+        <source media="(min-width: 992px)" srcset="{{host}}/-px60-{{pic.picCrop}}">
+        <source media="(min-width: 900px)" srcset="{{host}}/-px150-{{pic.picCrop}}">
+        <source media="(min-width: 768px)" srcset="{{host}}/-px100-{{pic.picCrop}}">
+        <source media="(min-width: 350px)" srcset="{{host}}/-px150-{{pic.picCrop}}">
+        <source media="(max-width: 349px)" srcset="{{host}}/-px100-{{pic.picCrop}}">
+        <img class="img" srcset="{{host}}/{{pic.picCrop}}">
+      </picture>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!isString">
+    <ng-container *ngIf="size && pic">
+      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picCrop}}">
+    </ng-container>
   </ng-container>
 </ng-template>
 

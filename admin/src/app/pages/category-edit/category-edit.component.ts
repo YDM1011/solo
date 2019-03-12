@@ -90,7 +90,8 @@ export class CategoryEditComponent implements OnInit {
   }
   selected(obj){
     let s = this;
-    s[s.key].maincategory = obj.id;
+    console.log(s[s.key],s.key);
+    s.category.maincategory = obj.id;
   }
 
   getById(id){

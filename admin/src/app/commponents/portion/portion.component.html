@@ -1,14 +1,12 @@
 <div class="row" *ngIf="obj">
   <div class="btn-wrap">
-    <span class="btn btn-primary btn-sm" #port (click)="port.v=true">Порція</span>
+    <span class="btn btn-primary btn-sm" #port (click)="port.v=true">Порцій({{portions.length}})</span>
+    <span class="btn btn-primary btn-sm" (click)="isFormAdd = true">Порція+</span>
   </div>
   <div appPopap (onClose)="port.v=false" *ngIf="port.v" class="wrapper wrapper-content animated fadeInUp">
     <div class="cansel-popup-btn">
       <div class="ibox-tools">
         <button class="btn btn-cancel">Скасувати</button>
-      </div>
-      <div class="">
-        <button class="btn btn-primary pull-right" (click)="isFormAdd = true">Додати порцію</button>
       </div>
     </div>
     <div class="ibox">
@@ -42,13 +40,25 @@
         </div>
         <div class="port_i">
           <div class="col-xs-12">
+            <app-confirm-delete (onDelete)="delete(prtn)"></app-confirm-delete>
             <button class="btn btn-primary btn-sm pull-right" (click)="resave(prtn)" style="margin-left: 15px">Зберегти</button>
-            <button class="btn btn-danger btn-sm pull-right" (click)="delete(prtn)">Видалити</button>
+            <!--<button class="btn btn-danger btn-sm pull-right" (click)="delete(prtn)">Видалити</button>-->
           </div>
         </div>
       </ng-container>
-      <br>
-      <div *ngIf="isFormAdd" class="col-xs-12 port">
+    </div>
+  </div>
+  <div appPopap (onClose)="isFormAdd=false" *ngIf="isFormAdd" class="wrapper wrapper-content animated fadeInUp">
+    <div class="cansel-popup-btn">
+      <div class="ibox-tools">
+        <button class="btn btn-cancel">Скасувати</button>
+      </div>
+    </div>
+    <div class="ibox">
+      <div class="port_i">
+        <h2 *ngIf="obj.name">Порція для {{obj.name}}</h2>
+      </div>
+      <div class="col-xs-12 port">
         <div class="port_i">
           <label class="col-xs-2 control-label">Вага</label>
           <div class="col-xs-10">

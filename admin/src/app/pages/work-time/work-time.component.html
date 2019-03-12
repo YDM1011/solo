@@ -55,8 +55,8 @@
                         </div>
                       </div>
                       <div class="btn-wrap">
-                        <button (click)="del(calendar._id)" class="btn btn-danger btn-sm">Видалити</button>
-
+                        <!--<button (click)="del(calendar._id)" class="btn btn-danger btn-sm">Видалити</button>-->
+                        <app-confirm-delete (onDelete)="del(calendar._id)"></app-confirm-delete>
                         <button (click)="isShow[calendar._id] = true" class="btn btn-white btn-sm"><i class="fa fa-pencil"></i> Редагувати</button>
                       </div>
                   </div>

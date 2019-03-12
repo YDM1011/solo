@@ -70,7 +70,8 @@
                         <i class="fa fa-pencil"></i>
                         Редагувати
                       </a>
-                      <span (click)="delet(dsh._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>
+                      <!--<span (click)="delet(dsh._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>-->
+                      <app-confirm-delete (onDelete)="delet(dsh._id)"></app-confirm-delete>
                     </div>
                   </div>
                 </div>

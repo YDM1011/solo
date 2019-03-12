@@ -1,18 +1,37 @@
-<!--<div class="check-option-wrap" *ngIf="option">-->
-  <!--<div class="check-option cart" *ngFor="let item of option; let i = index">-->
-    <!--<div class="i-checks">-->
-      <!--<label><input type="checkbox"-->
-                    <!--[(ngModel)]="item.check" name="check"> <i></i> {{item.label}} </label>-->
-    <!--</div>-->
-    <!--<ng-container *ngIf="item.obj">-->
-      <!--<app-portion [obj]="item.obj" [menuId]="menuId"></app-portion>-->
-    <!--</ng-container>-->
+<ng-container *ngIf="option && type=='forMenu'">
+  <!--<div class="ibox-content acardion-c">-->
+
+    <ng-container *ngIf="categories && catNames.length>0">
+      <div class="card-wrap" *ngFor="let cat of catNames" appAcardion>
+        <div class="ibox-title">
+          <h5>Категорія: {{cat}}</h5>
+          <div class="">
+            <a class="collapse-link">
+              <i class="fa fa-chevron-up" style="transform: rotate(0deg);"></i>
+            </a>
+          </div>
+        </div>
+        <div class="card-wrap-ibox">
+          <div class="card-content" *ngFor="let dsh of categories[cat]">
+            <div class="wrap-dish_portion">
+              <div class="i-checks">
+                <label>
+                <input type="checkbox"
+                  [(ngModel)]="dsh.check"> <i></i> {{dsh.label}} </label></div>
+              <ng-container *ngIf="dsh.obj">
+                <app-portion [obj]="dsh.obj" [menuId]="menuId"></app-portion>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <button (click)="selectOption(option)" class="btn btn-primary btn-sm close-acardion">Обрати</button>
   <!--</div>-->
-  <!--<button (click)="selectOption(option)" class="btn btn-primary">ok</button>-->
-<!--</div>-->
+</ng-container>
 
 
-<div class="option" *ngIf="option">
+<div class="option" *ngIf="option && !type">
   <ng-container  *ngFor="let item of option; let i = index">
     <div class="wrap-dish_portion">
       <div class="i-checks"><label> <input type="checkbox"

@@ -4,3 +4,14 @@
 .option .btn{
   margin-top: 10px;
 }
+.ibox-title{
+  cursor: pointer;
+}
+.ibox-title h5{
+  margin-right: 15px;
+}
+.card-wrap-ibox{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}

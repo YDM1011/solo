@@ -90,7 +90,7 @@
                   </div>
                 </div>
                 <div class="ibox-content">
-                  <app-check-option [menuId]="menu._id" [option]="option" (onCheck)="getDish($event)"></app-check-option>
+                  <app-check-option [type]="'forMenu'" [menuId]="menu._id" [option]="option" (onCheck)="getDish($event)"></app-check-option>
                 </div>
               </div>
               <div class="ibox" appAcardion>
