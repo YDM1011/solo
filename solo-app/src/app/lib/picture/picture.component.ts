@@ -24,7 +24,7 @@ export class PictureComponent implements OnInit, OnChanges {
   }
 
   init(){
-    if (typeof this.size == 'string'){this.isString=true}else{this.isString=false}
+    if (parseInt(this.size) > 0){this.isString=false}else{this.isString=true}
     if(this.pic.picCrop){
       if(this.pic.picCrop.search("/")>-1){
         let picCrop = this.pic.picCrop.split("/");

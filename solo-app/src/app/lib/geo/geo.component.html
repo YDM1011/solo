@@ -181,12 +181,12 @@
                         </div>
                         <div class="l_i_bg" *ngIf="est.ownerEst">
                           <ng-container *ngIf="est.ownerEst.bg; else estBg">
-                              <app-picture class="img" size="400" [pic]="est.ownerEst.bg"></app-picture>
+                              <app-picture class="img" [size]="400" [pic]="est.ownerEst.bg"></app-picture>
                           </ng-container>
                         </div>
                         <div class="l_i_av" *ngIf="est.ownerEst">
                           <ng-container *ngIf="est.ownerEst.av; else estAv">
-                            <app-picture size="60" [pic]="est.ownerEst.av"></app-picture>
+                            <app-picture [size]="60" [pic]="est.ownerEst.av"></app-picture>
                           </ng-container>
                         </div>
                         <div class="l_i_h distanse" *ngIf="est.distans < 1">~ {{(est.distans*1000) | number : '3.0-0'}} м</div>
