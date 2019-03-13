@@ -3,3 +3,8 @@
   flex-direction: column;
 }
 
+.pst_in a.name{
+  display: inline-block;
+  float: left;
+  cursor: pointer;
+}
