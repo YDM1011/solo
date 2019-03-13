@@ -2,7 +2,8 @@
   <div class="frn_h" >
     <span class="frn_name" (click)="isFriends = true">
       Всі друзі
-      <ng-container *ngIf="friends.myFriends">({{friends.myFriends.length}})</ng-container>
+      <ng-container *ngIf="friends"><ng-container *ngIf="friends.myFriends">({{friends.myFriends.length}})</ng-container></ng-container>
+
     </span>
     <span class="frn_name" IsNotMe (click)="getMutualFriends(id)">
       Спільні друзі
@@ -70,10 +71,12 @@
           <div class="frn_btn">
             <div>
               <app-init-invite [userId]="mean._id" class="fr-btn-gr"></app-init-invite>
+              <app-meet-friend [userId]="mean._id" class="fr-btn-gr"></app-meet-friend>
               <app-invite-friend [userId]="mean._id" class="fr-btn-gr"></app-invite-friend>
               <app-uninvite-friend [userId]="mean._id" class="fr-btn-gr"></app-uninvite-friend>
               <app-offer-friend [userId]="mean._id" class="fr-btn-gr"></app-offer-friend>
             </div>
+            <app-del-friend [userId]="mean._id"></app-del-friend>
             <app-form
               style="display: none"
               [hidden]="true"
