@@ -21,7 +21,7 @@ export class HomePageComponent implements OnInit, OnChanges {
   public obj: any;
   public posts: any = [];
   public count: number = 0;
-  public limit: number = 4;
+  public limit: number = 16;
   public isShow: boolean = false;
 
   constructor(
@@ -55,11 +55,7 @@ export class HomePageComponent implements OnInit, OnChanges {
 
   apiInitial(idc) {
     const s = this;
-    const id = JSON.stringify({id: idc}),
-      count = 0,
-      limit = 4;
-    s.count = 0;
-    s.limit = 4;
+    const id = JSON.stringify({id: idc});
 
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {
@@ -69,7 +65,7 @@ export class HomePageComponent implements OnInit, OnChanges {
         s.getSetting(user);
       });
 
-    this.http.get(this.domain + '/api/post?query=' + id + '&limit=' + limit + '&skip=' + count * limit, this.api.getHeaders())
+    this.http.get(this.domain + '/api/post?query=' + id + '&skip=0', this.api.getHeaders())
       .subscribe((user: any) => {
         this.http.get(this.domain + '/api/post/count?query=' + id, this.api.getHeaders())
           .subscribe((res: any) => {
@@ -84,8 +80,7 @@ export class HomePageComponent implements OnInit, OnChanges {
     const self = this;
     this.id = location.href.split("user/")[1];
     this.obj = JSON.stringify({id: this.id});
-    self.count++;
-    this.http.get(this.domain + '/api/post?query=' + this.obj + '&limit=' + this.limit + '&skip=' + this.count * this.limit, this.api.getHeaders())
+    this.http.get(this.domain + '/api/post?query=' + this.obj + '&skip=' + this.posts.length, this.api.getHeaders())
       .subscribe((user: any) => {
         self.posts = self.posts.concat(user);
         self.check();
@@ -93,7 +88,7 @@ export class HomePageComponent implements OnInit, OnChanges {
   }
 
   check() {
-    if (this.maxcount - this.limit <= this.limit * this.count) {
+    if (this.maxcount <= this.posts.length) {
       this.isShow = false;
     } else {
       this.isShow = true;
