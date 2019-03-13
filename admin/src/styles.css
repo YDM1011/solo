@@ -15,16 +15,6 @@
 .btn:hover{
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
-.btn{
-  background-color: rgb(35, 157, 255);
-  color: #fff;
-  border-radius: 10px;
-  padding: 14px 32px;
-  display: inline-block;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
-  transition: 0.3s;
-  cursor: pointer;
-}
 .img-prod{
   margin: 10px 0 5px;
   width: 100%;

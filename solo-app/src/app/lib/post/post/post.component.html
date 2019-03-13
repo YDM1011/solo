@@ -40,6 +40,7 @@
       <article class="cont pst" *ngIf="!item.share.data">
 
         <div class="pst_in" *ngIf="item.userId">
+          <a [routerLink]="'/user/'+item.userId._id" class="name">
           <div class="img40">
             <ng-container *ngIf="item.userId.photo; else preAv">
               <ng-container *ngIf="item.userId.photo.picCrop; else preAv">
@@ -47,7 +48,7 @@
               </ng-container>
             </ng-container>
           </div>
-
+          </a>
           <span class="in_us">
             <a [routerLink]="'/user/'+item.userId._id" class="name">
               {{item.userId.firstName || user.firstName}}
@@ -190,12 +191,13 @@
 
           <article class="pst pst_share">
             <div class="pst_in">
+              <a [routerLink]="'/user/'+item.userId._id" class="name">
               <ng-container *ngIf="item.userId.photo; else preAv">
                 <ng-container *ngIf="item.userId.photo.picCrop; else preAv">
                   <img class="img40"  src="{{item.userId.photo.picCrop}}">
                 </ng-container>
               </ng-container>
-
+              </a>
               <span class="in_us">
                 <a [routerLink]="'/user/'+item.userId._id" class="name">
                   {{item.userId.firstName || user.firstName}}

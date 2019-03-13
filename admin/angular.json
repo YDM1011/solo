@@ -23,13 +23,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css",
               "src/assets/leaflet/leaflet.css",
               "src/assets/font-awesome/css/font-awesome.min.css",
               "src/assets/style/plugins/chosen/bootstrap-chosen.css",
               "src/assets/style/plugins/toastr/toastr.min.css",
               "src/assets/style/animate.css",
-              "src/assets/style/style.css"
+              "src/assets/style/style.css",
+              "src/styles.css"
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
