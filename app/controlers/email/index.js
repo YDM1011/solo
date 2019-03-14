@@ -24,7 +24,7 @@ module.exports.sendMail = (obj) => {
         from: data.email.user,
         to: obj.mail,
         subject: data.email.subject,
-        html: ejs.render( fs.readFileSync(path.join(__dirname, '../../views/emailTemplate/confirm-signup.ejs'), 'utf-8') , contentMail)
+        html: ejs.render( fs.readFileSync(path.join(__dirname, '../../views-v1/emailTemplate/confirm-signup.ejs'), 'utf-8') , contentMail)
     }, (err, info) => {
         if (err) {
             return console.log(err);
