@@ -24,6 +24,7 @@ const pages = new menuList({
         type: mongoose.Schema.Types.ObjectId,
         ref: "oneest"
     }],
+    data: {type: Date, default: new Date()}
 },{
     toJSON: {
         transform: function (doc, ret) {
@@ -129,7 +130,11 @@ const postUpdate = (req,res,next)=>{
  * @param info
  */
 
-
+const preDelete = (req,res,next)=>{
+    delete req.body['owneruser'];
+    delete req.body['ownerest'];
+    next();
+};
 
 const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
@@ -139,13 +144,37 @@ const preCreate = (req,res,next)=>{
     req.body['ownerest'] = req.body.estId;
     next();
 };
-
+const werify = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    mongoose.model('menu')
+        .findOne({_id: req.params.id})
+        .select('ownerest')
+        .exec((err, result) => {
+            if (err) return res.badRequest(err);
+            if (!result) return res.notFound();
+            if (result) {
+                mongoose.model('user')
+                    .findOne({_id:req.userId, myEstablishment:{$in:result.ownerest}})
+                    .exec((err,doc)=>{
+                        if (err) return res.badRequest(err);
+                        if (!doc) return res.notFound();
+                        if (doc) {
+                            delete req.body['ownerEst'];
+                            next()
+                        }
+                    });
+            }
+        });
+};
 glob.restify.serve(
     glob.route,
     mongoose.model('menu'),{
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
         postUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, postUpdate],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate]
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete]
     });
 

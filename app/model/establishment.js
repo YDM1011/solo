@@ -63,6 +63,10 @@ const model = new Schema({
     }],
     myestCount: {type: Number, default: 0},
     postCount: {type: Number, default: 0},
+    permisions: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user"
+    }],
     data: {type: Date, default: new Date()},
 },{
     toJSON: {
@@ -334,5 +338,5 @@ glob.restify.serve(
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getAdmin, glob.getOwner, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
-        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preDelete],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getAdmin, glob.getOwner, preDelete],
     });

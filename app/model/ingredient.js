@@ -6,6 +6,7 @@ const model = new Schema({
     about: String,
     price: Number,
     owneruser: String,
+    data: {type: Date, default: new Date()}
 },{
     toJSON: {
         transform: function (doc, ret) {},
@@ -27,6 +28,6 @@ glob.restify.serve(
     mongoose.model('ingredient'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, glob.getId],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner],
     });

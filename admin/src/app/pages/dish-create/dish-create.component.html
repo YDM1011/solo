@@ -79,10 +79,8 @@
                   <div class="col-sm-4"></div>
                   <div class="col-sm-8">
                     <div class="img-prod">
-                      <ng-container *ngIf="dish.pic; else preDishPic">
-                        <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
-                          <img class="img" src="{{apiDomain}}/{{dish.pic.picCrop}}" alt="">
-                        </ng-container>
+                      <ng-container *ngIf="pic; else preDishPic">
+                        <img class="img" src="{{apiDomain}}{{pic}}" alt="">
                       </ng-container>
                       <ng-template #preDishPic>
                         <app-prev-dish class="inherit"></app-prev-dish>

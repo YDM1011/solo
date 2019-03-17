@@ -24,12 +24,13 @@ module.exports.create = (req, res, next) => {
 };
 
 module.exports.getMy = (req, res, next) => {
-    Establishment.find({owner: req.ownerId})
-        .select("subdomain _id")
+    User.findOne({_id: req.ownerId})
+        .populate({path:'myEstablishment', select:"subdomain _id"})
+        .select('myEstablishment')
         .exec((err,result)=>{
             if(err) return res.badRequest(err);
             if (!result) return res.serverError('Somesing broken');
-            if (result) return res.ok(result);
+            if (result) return res.ok(result.myEstablishment);
         })
 };
 
@@ -220,7 +221,25 @@ module.exports.estWorkTime = (req, res, next) => {
         .exec((err, doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) return res.serverError('Somesing broken');
-            if (doc) return res.ok({worksTime:doc.worksTime[dayNumber]});
+            if (doc){
+                mongoose.model('oneest')
+                    .find({ownerEst: doc._id})
+                    .populate({path:"worksTimeId",select:dayNumber})
+                    .select("worksTimeId").exec((e,r)=>{
+                        if (e) return res.badRequest(e);
+                        if (!r) return res.serverError('Somesing broken');
+                        if (r){
+                            let worning = false;
+                            r.map(item=>{
+                                if  (item.worksTimeId[dayNumber].timeStart != doc.worksTime[dayNumber].timeStart ||
+                                    item.worksTimeId[dayNumber].timeEnd != doc.worksTime[dayNumber].timeEnd){
+                                    worning = true;
+                                }
+                            });
+                            return res.ok({worksTime:doc.worksTime[dayNumber], worning:worning});
+                        }
+                })
+            }
         })
 };
 module.exports.estEst = (req, res, next) => {

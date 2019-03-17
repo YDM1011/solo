@@ -32,6 +32,7 @@
 .ev{
   margin-left: 5px;
 }
+
 .m-c.warning {
   color: #ffb400; }
 .m-c.error {
@@ -253,4 +254,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.alt-wrap{
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  display: none;
+  background: #fff;
+  padding: 10px;
+  transform: translate(-50%, 100%);
+  box-shadow: 0 5px 15px 1px #333;
+  border-radius: 5px;
+  min-width: 250px;
+}
+.icon:hover .alt-wrap{
+  display: block;
+}
+.icon{
+  max-height: 20px;
+  max-width: 20px;
+  display: inline-block;
+  margin-left: 8px;
+  vertical-align: sub;
+  cursor: pointer;
+  position: relative;
+}
+.pf_nav_in {
+  display: flex;
+  align-items: center;
 }

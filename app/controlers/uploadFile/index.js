@@ -100,6 +100,9 @@ const sendPicToModel = (reqBody, res, imgId) => {
         obj[reqBody.field] = imgId;
     let query = {};
     let protectField = getFieldOfProtect(reqBody.model);
+
+    console.log(reqBody.isId);
+
     if (protectField){
         query[protectField] = toObjectId(reqBody.owner);
         query['_id'] = toObjectId(reqBody.id);
@@ -112,8 +115,12 @@ const sendPicToModel = (reqBody, res, imgId) => {
             .findOneAndUpdate(query, obj, {new: true}, async (err, result) =>{
                 if (err) return res.badRequest(err);
                 if (!result){
-                    await delFile(reqBody);
-                    return res.notFound();
+                    if(reqBody.isId){
+                        await delFile(reqBody);
+                        return res.notFound('we');
+                    }else{
+                        resolve(imgId);
+                    }
                 }
                 if (result) {
                     resolve(result);
@@ -186,7 +193,8 @@ const sendRes = async (req,res) => {
         field : field,
         fileName: fileName,
         picCrop : req.body.picCrop,
-        picMedia : req.body.picMedia
+        picMedia : req.body.picMedia,
+        isId: id
     };
 
     if (model && field){
@@ -210,7 +218,7 @@ const sendRes = async (req,res) => {
         }
     }
 
-    return res.badRequest();
+    return res.badRequest("sss");
 };
 
 module.exports.upload = (req,res,next)=>{

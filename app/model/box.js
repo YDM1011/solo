@@ -59,12 +59,36 @@ const preCreate = (req,res,next)=>{
     next();
 
 };
+const werify = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    mongoose.model('box')
+        .findOne({_id: req.params.id})
+        .select('ownerest')
+        .exec((err, result) => {
+            if (err) return res.badRequest(err);
+            if (!result) return res.notFound();
+            if (result) {
+                mongoose.model('user')
+                    .findOne({_id:req.userId, myEstablishment:{$in:result.ownerest}})
+                    .exec((err,doc)=>{
+                        if (err) return res.badRequest(err);
+                        if (!doc) return res.notFound();
+                        if (doc) {
+                            delete req.body['ownerEst'];
+                            next()
+                        }
+                    });
+            }
+        });
+};
 
 glob.restify.serve(
     glob.route,
     mongoose.model('box'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate]
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preCreate]
     });

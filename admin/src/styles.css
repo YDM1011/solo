@@ -668,6 +668,19 @@ textarea.form-control{
   textarea.form-control::-webkit-scrollbar-track {
     border: 4px solid #ffffff;
   }
+
+  *::-webkit-scrollbar {
+    -webkit-appearance: none;
+  }
+  *::-webkit-scrollbar:vertical {
+    width: 4px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #1ab394;
+  }
+  *::-webkit-scrollbar-track {
+    border: 4px solid #ffffff;
+  }
 }
 
 

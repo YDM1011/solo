@@ -79,9 +79,10 @@ export class DishEditComponent implements OnInit {
           if (res) {
             self.option = [];
             res.map((item: any) => {
-              console.log(self.dish.dishcategory);
-              if (item._id == self.dish.dishcategory._id){
-                self.defdishcategory = item.name
+              if (item._id == self.dish.dishcategory){
+                if (item._id == self.dish.dishcategory._id){
+                  self.defdishcategory = item.name
+                }
               }
               self.option.push({
                 name: item.maincategory,
@@ -90,8 +91,8 @@ export class DishEditComponent implements OnInit {
                 isActive: false
               });
 
-
             });
+
           }
         }).catch((err: any) => {});
       }).catch((err: any) => {});

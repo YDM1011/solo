@@ -140,7 +140,6 @@ export class ApiService {
       self.http.delete(`${self.domain}/api/${api}/${_id}`)
         .subscribe(
           res => {
-            console.log(self.global[api + (id || '')]);
             if (self.global[api + (id || '')]) {
               self.global[api + (id || '')].forEach((item, i) => {
                 if (item._id === _id) {

@@ -31,7 +31,7 @@ export class PopapDirective {
         this.close();
       };
     }
-    let elf = this.el.nativeElement.getElementsByTagName ('form');
+    let elf = this.el.nativeElement.getElementsByClassName ('form');
     for(let i=0; i<elf.length; i++){
       elf[i].onsubmit = ()=>{
         this.close();

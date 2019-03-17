@@ -4002,7 +4002,7 @@ table.table-mail tr td {
   float: none;
   margin-top: 0;
   position: relative;
-  padding: 0;
+  /*padding: 0;*/
   text-align: right;
 }
 .ibox-tools a {
@@ -8436,7 +8436,7 @@ body.md-skin {
   }
   .navbar-static-side {
     z-index: 2001;
-    position: absolute;
+    position: fixed;
     width: 220px;
   }
   .navbar-top-links .dropdown-messages,

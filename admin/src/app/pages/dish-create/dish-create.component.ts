@@ -39,7 +39,7 @@ export class DishCreateComponent implements OnInit {
     pic:null,
     estId:''
   };
-
+  public pic;
   public id:any;
   public dishes:any = [];
   constructor(
@@ -151,7 +151,8 @@ export class DishCreateComponent implements OnInit {
     });
   }
   getImg(e){
-    console.log(e.result._id);
+    console.log(e.result);
     this.dish.pic = e.result._id;
+    this.pic = e.result.picCrop;
   }
 }

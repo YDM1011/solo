@@ -159,3 +159,9 @@
 .w-btn{
   width: 100%;
 }
+.frn_name{
+  display: flex;
+}
+.btn-trans.up{
+  transform: rotate(180deg);
+}

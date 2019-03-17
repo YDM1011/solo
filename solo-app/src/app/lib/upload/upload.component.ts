@@ -21,6 +21,7 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
   public avatar=[];
   private fileInputElement: any;
   @Output() getImg = new EventEmitter<any>();
+  @Output() onPreSave = new EventEmitter<any>();
   @Input()  btnName: any = "Upload image";
   @Input()  multiple: boolean = false;
   @Input()  model = null;
@@ -62,27 +63,26 @@ export class UploadComponent implements OnInit, OnChanges, OnDestroy {
     let self = this;
     let fileCount: number = self.avatar[i].size;
     if (fileCount && self.avatar[i].name) {
-    let formObj = Object.assign({},{
-      // base64default: self.avatar[i].def,
-      base64crop: self.avatar[i].crop,
-      fileName: self.avatar[i].name,
-      model: self.model,
-      field: self.field,
-      id: self.id,
-    });
-    self.core.uploadAvatar(formObj, i).then((res: any) => {
-      let index = res.i+1;
-      this.avatar[res.i].def = res.res.url;
-      if(self.avatar[index]){
-        self.nextLoad(index)
-      }else{
-        this.getImg.emit(this.avatar);
-        self.avatar = [];
-        return
-      }
-    }).catch(
-      error => {
+      let formObj = Object.assign({},{
+        // base64default: self.avatar[i].def,
+        base64crop: self.avatar[i].crop,
+        fileName: self.avatar[i].name,
+        model: self.model,
+        field: self.field,
+        id: self.id,
       });
+      // if(!self.id) return self.onPreSave.emit(formObj);
+      self.core.uploadAvatar(formObj, i).then((res: any) => {
+        let index = res.i+1;
+        this.avatar[res.i].def = res.res.url;
+        if(self.avatar[index]){
+          self.nextLoad(index)
+        }else{
+          this.getImg.emit(this.avatar);
+          self.avatar = [];
+          return
+        }
+      }).catch(error => {});
     }
   }
 }

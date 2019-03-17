@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {ApiService} from '../../api.service';
 
 @Component({
@@ -6,7 +6,7 @@ import {ApiService} from '../../api.service';
   templateUrl: './portion.component.html',
   styleUrls: ['./portion.component.css']
 })
-export class PortionComponent implements OnInit {
+export class PortionComponent implements OnInit, OnChanges {
 
   public portion: any = {
     massa: '',
@@ -17,6 +17,7 @@ export class PortionComponent implements OnInit {
     menuId: ''
   };
 
+  public portV = false;
   public portions: any = [];
 
   @Input() obj: any = {};
@@ -32,6 +33,7 @@ export class PortionComponent implements OnInit {
     this.apiInit();
   }
 
+  ngOnChanges(){}
   apiInit() {
     const s = this;
     console.log(s.obj._id, s.menuId);
@@ -70,10 +72,11 @@ export class PortionComponent implements OnInit {
 
   delete(elem){
     const s = this;
-    s.api.delet('portItem', elem._id, '').then(res => {
-      if (res) {
+    console.log(elem);
+    s.api.doDel('portItem', elem._id).then(res => {
+      console.log(res,"OK");
         s.apiInit();
-      }
+        console.log(res);
     });
   }
 

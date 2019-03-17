@@ -1,0 +1,43 @@
+<div class="container-fluid" *ngIf="estId" appPopap (onClose)="close()">
+  <div class="row title">
+    <div class="col-md-6">Лист користувачів</div>
+    <div class="col-md-6">
+      <app-search [mod]="'searchUser'" (onRes)="getUss($event)"></app-search>
+    </div>
+  </div>
+  <div class="content row">
+    <form (submit)="generateList()" class="form">
+      <table class="table table-striped table-bordered table-hover dataTables-example dataTable" *ngIf="uss">
+        <thead>
+          <tr>
+            <th class="center sorting">Заклади</th>
+            <th class="center sorting"></th>
+            <th class="center">Аватар</th>
+            <th class="center">Ім'я</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr class="gradeA even" role="row" *ngFor="let us of uss">
+            <td class="center">
+              <ng-container *ngIf="us.myEstablishment">
+                <ng-container *ngIf="us.myEstablishment.length>0">
+                  <span class="label label-info" *ngFor="let est of us.myEstablishment">{{est.subdomain}}</span>
+                </ng-container>
+              </ng-container>
+            </td>
+            <td class="center">
+              <input type="checkbox" [(ngModel)]="us.check" name="us{{us._id}}">
+            </td>
+            <td class="center">
+              <span class="pic"><img *ngIf="us.photo" src="{{host}}/-px60-{{us.photo.picMedia}}" alt=""></span>
+            </td>
+            <td class="center">
+              <span class="name">{{us.firstName}} {{us.lastName}}</span>
+            </td>
+        </tr>
+        </tbody>
+      </table>
+      <button type="submit" class="btn-sm btn-primary">Зберегти</button>
+    </form>
+  </div>
+</div>

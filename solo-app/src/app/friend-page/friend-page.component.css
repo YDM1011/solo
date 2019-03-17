@@ -332,3 +332,11 @@ app-last-name{
 .btn{
   cursor: pointer;
 }
+
+
+.frn_name{
+  display: flex;
+}
+.btn-trans.up{
+  transform: rotate(180deg);
+}

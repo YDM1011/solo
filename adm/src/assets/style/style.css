@@ -4007,7 +4007,7 @@ table.table-mail tr td {
   float: none;
   margin-top: 0;
   position: relative;
-  padding: 0;
+  /*padding: 0;*/
   text-align: right;
 }
 .ibox-tools a {

@@ -22,7 +22,7 @@ const model = new Schema({
     owneruser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
-    },
+    }
 },{
     toJSON: {
         transform: function (doc, ret) {},

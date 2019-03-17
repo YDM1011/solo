@@ -26,13 +26,16 @@ export class FriendOfferPageComponent implements OnInit {
   public mutual:any = [];
   public mutualEst:any = [];
   public people:any = [];
-
+  public sortV = false;
+  public sortEV = false;
+  public sortPV = false;
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
+    private cookie: CookieService,
     private api: FormApiService
   ) { }
   ngOnChanges() {}
@@ -59,12 +62,23 @@ export class FriendOfferPageComponent implements OnInit {
           s.invite = (friends.invite);
         }
       });
+    this.http.get(this.domain + '/api/getPotentialFriend', s.api.getHeaders())
+      .subscribe((friends: any) => {
+        if(friends){
+          s.people = (friends);
+        }
+      });
   }
 
-  setMutual(res) {
+  setMutual(res,us) {
     this.mutual[res.id] = res.mutual;
     this.mutualEst[res.id] = res.mutualEst ? res.mutualEst : [];
-    console.log(res)
+    let m = res.mutual || [];
+    let me = res.mutualEst || [];
+    if (us){
+      us["mutualCount"] = m.length + me.length;
+      if (us._id == this.cookie.get('userid')){us.mutualCount = -1}
+    }
   }
   more(res) {
     this.people = res;
@@ -91,6 +105,24 @@ export class FriendOfferPageComponent implements OnInit {
         s.isAll   = true;
         break
       }
+    }
+  }
+
+  sortArr(arr, mod = ''){
+    this[mod] = !this[mod];
+    let s = this;
+    console.log(this[mod]);
+    if (arr){
+      arr.sort(function (a, b) {
+        if (s[mod]){
+          return a.mutualCount - b.mutualCount;
+        }else{
+          return b.mutualCount - a.mutualCount;
+        }
+      });
+      return arr;
+    }else{
+      return arr
     }
   }
 }

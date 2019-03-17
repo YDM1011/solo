@@ -314,6 +314,7 @@ const werify = (req,res,next)=>{
                     if (err) return res.badRequest(err);
                     if (!doc) return res.notFound();
                     if (doc) {
+                        delModelForEst(result.ownerEst,req.params.id);
                         delete req.body['ownerEst'];
                         next()
                     }
@@ -323,12 +324,17 @@ const werify = (req,res,next)=>{
 
 };
 
+const delModelForEst = (chainId, estId)=>{
+    mongoose.model('establishment')
+        .findOneAndUpdate({_id:chainId}, {$pull:{myest:estId}}).exec()
+};
+
 glob.restify.serve(
     glob.route,
     mongoose.model('oneest'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
         preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete],
     });

@@ -219,14 +219,43 @@ const postCreate = (req,res,next)=>{
         });
     // next();
 };
-
+const preDelete = (req,res,next)=>{
+    delete req.body['owneruser'];
+    delete req.body['ownerest'];
+    next();
+};
+const werify = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    mongoose.model('dish')
+        .findOne({_id: req.params.id})
+        .select('ownerest')
+        .exec((err, result) => {
+            if (err) return res.badRequest(err);
+            if (!result) return res.notFound();
+            if (result) {
+                mongoose.model('user')
+                    .findOne({_id:req.userId, myEstablishment:{$in:result.ownerest}})
+                    .exec((err,doc)=>{
+                        if (err) return res.badRequest(err);
+                        if (!doc) return res.notFound();
+                        if (doc) {
+                            delete req.body['ownerEst'];
+                            next()
+                        }
+                    });
+            }
+        });
+};
 glob.restify.serve(
     glob.route,
     mongoose.model('dish'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preUpdate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
         postUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, postUpdate],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
         postCreate: [glob.jsonParser, glob.cookieParser, glob.getId, postCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete]
     });

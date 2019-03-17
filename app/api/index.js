@@ -6,6 +6,7 @@ const verify = require('../middleware/verify');
 
 const addEstLikes = require('../tasks/addEstLikes');
 const addCatToOneest = require('../tasks/addCatToOneest');
+const addUserData = require('../tasks/addUserData');
 
 const login = require('../controlers/auth/login');
 const facebook = require('../controlers/auth/facebook');
@@ -24,6 +25,7 @@ const basket = require('../controlers/basket');
 const landing = require('../controlers/landing');
 const search = require('../controlers/search');
 const geo = require('../controlers/geo');
+const permisionUser = require('../controlers/permisionUser');
 
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
@@ -74,6 +76,8 @@ router.get('/api/getLikeDishEst/all/:id', [orign, glob.getId], establishment.get
 router.get('/api/isEst', [orign, glob.getId], establishment.isEst);
 
 router.get('/api/search', [orign, glob.getId], search.get);
+router.get('/api/searchEst', [orign, glob.getId], search.getEst);
+router.get('/api/searchUser', [orign, glob.getId], search.getUser);
 router.get('/api/geo', [orign, glob.getId], geo.get);
 router.get('/api/resetEst', [orign, glob.getId], geo.get1);
 
@@ -102,6 +106,7 @@ router.get('/api/checkboxCom/:id', [orign, glob.getId], basket.checkbox);
 
 // ADM
 router.post('/api/adm/signin', [orign, verification], admLogin);
+router.post('/api/permisionUser/:id', [orign, glob.isAdmin], permisionUser);
 
 //landing
 router.get('/api/getAll', [orign], landing.getAll);
@@ -113,5 +118,6 @@ router.get('/api/getVerifyAll', [orign], landing.getVerifyAll);
 router.get('/api/addEstLikes1234', [orign, glob.getId], addEstLikes);
 router.get('/api/addCatToOneest1234', [orign, glob.getId], addCatToOneest);
 router.get('/api/pushPull', [orign, glob.getId], addCatToOneest.pushPull);
+router.get('/api/addUserData1234/:data', [orign, glob.getId], addUserData);
 
 module.exports = router;

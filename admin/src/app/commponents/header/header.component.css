@@ -7,3 +7,8 @@ a{
 .nav  li.active {
   border-left: 4px solid #19aa8d;
   background: #293846;}
+.sidebar-collapse{
+  max-height: 100vh;
+  overflow: auto;
+  padding-bottom: 30px;
+}

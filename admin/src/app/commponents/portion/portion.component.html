@@ -1,9 +1,11 @@
 <div class="row" *ngIf="obj">
   <div class="btn-wrap">
-    <span class="btn btn-primary btn-sm" #port (click)="port.v=true">Порцій({{portions.length}})</span>
+    <ng-container *ngIf="portions.length != 0">
+      <span class="btn btn-primary btn-sm" (click)="portV=true">Порцій({{portions.length}})</span>
+    </ng-container>
     <span class="btn btn-primary btn-sm" (click)="isFormAdd = true">Порція+</span>
   </div>
-  <div appPopap (onClose)="port.v=false" *ngIf="port.v" class="wrapper wrapper-content animated fadeInUp">
+  <div appPopap (onClose)="portV=false" *ngIf="portV" class="wrapper wrapper-content animated fadeInUp">
     <div class="cansel-popup-btn">
       <div class="ibox-tools">
         <button class="btn btn-cancel">Скасувати</button>
@@ -85,7 +87,7 @@
         </div>
         <div class="port_i">
           <div class="col-xs-12">
-            <button class="btn btn-primary btn-sm pull-right" (click)="addPortion()">Додати</button>
+            <button class="btn btn-primary btn-sm pull-right ibox-tools" (click)="addPortion()">Додати</button>
           </div>
         </div>
       </div>

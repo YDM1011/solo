@@ -230,7 +230,7 @@ export class GeoComponent implements OnInit, OnDestroy {
       if (pic.picCrop){
         let picCrop = pic.picCrop.split("/");
         pic.picCrop = encodeURI(picCrop[picCrop.length-1]);
-        img = '/-px150-'+pic.picCrop
+        img = '/-px400-'+pic.picCrop
       }else{
         img = pic.picCrop
       }

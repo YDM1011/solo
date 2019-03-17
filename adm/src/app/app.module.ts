@@ -30,6 +30,8 @@ import { AcardionDirective } from './directive/acardion.directive';
 import { BtnBurgerDirective } from './directive/btn-burger.directive';
 import { PopapDirective } from './directive/popap.directive';
 import { ChecklistComponent } from './commponents/checklist/checklist.component';
+import { SearchComponent } from './commponents/search/search.component';
+import { UserListComponent } from './commponents/user-list/user-list.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { ChecklistComponent } from './commponents/checklist/checklist.component'
     AcardionDirective,
     BtnBurgerDirective,
     PopapDirective,
-    ChecklistComponent
+    ChecklistComponent,
+    SearchComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,

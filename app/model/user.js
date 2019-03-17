@@ -72,7 +72,8 @@ const user = new Schema({
         ref: "galery"
     },
     token: String,
-    owner: String
+    owner: String,
+    data: {type: Date, default: new Date()}
 },{
     toJSON: {
         transform: function (doc, ret) {
@@ -98,6 +99,7 @@ const user = new Schema({
 const User = mongoose.model('user', user);
 
 module.exports = User;
+
 const glob = require('glob');
 const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);

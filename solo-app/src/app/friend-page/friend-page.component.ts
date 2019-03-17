@@ -5,6 +5,7 @@ import {CoreService} from "../core.service";
 import {HttpClient} from "@angular/common/http";
 import {FormApiService} from "../lib/form-api/form-api.service";
 import {environment} from "../../environments/environment";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-friend-page',
@@ -23,6 +24,8 @@ export class FriendPageComponent implements OnInit, OnChanges {
   public mutual:any = [];
   public mutualEst:any = [];
   public people:any = [];
+  public sortV = false;
+  public sortEV = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +33,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
     private core: CoreService,
     private http:  HttpClient,
     private router: Router,
+    private cookie: CookieService,
     private api: FormApiService
   ) { }
   ngOnChanges() {}
@@ -50,6 +54,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
     this.http.get(this.domain + '/api/getFriends?userId=' + idc, s.api.getHeaders())
       .subscribe((friends: any) => {
         s.friends = (friends);
+        // this.friends.myFriends = s.sortArr(this.friends.myFriends);
         s.getMutualFriends(idc);
         s.isFriends = true;
       });
@@ -69,8 +74,32 @@ export class FriendPageComponent implements OnInit, OnChanges {
       });
   }
 
-  setMutual(res) {
+  setMutual(res, us) {
     this.mutual[res.id] = res.mutual;
     this.mutualEst[res.id] = res.mutualEst;
+    let m = res.mutual || [];
+    let me = res.mutualEst || [];
+    if (us){
+      us["mutualCount"] = m.length + me.length;
+      if (us._id == this.cookie.get('userid')){us.mutualCount = -1}
+    }
+  }
+
+  sortArr(arr, mod = ''){
+    this[mod] = !this[mod];
+    let s = this;
+    console.log(this[mod]);
+    if (arr){
+      arr.sort(function (a, b) {
+        if (s[mod]){
+          return a.mutualCount - b.mutualCount;
+        }else{
+          return b.mutualCount - a.mutualCount;
+        }
+      });
+      return arr;
+    }else{
+      return arr
+    }
   }
 }
