@@ -79,11 +79,16 @@ export class DishEditComponent implements OnInit {
           if (res) {
             self.option = [];
             res.map((item: any) => {
+
               if (item._id == self.dish.dishcategory){
-                if (item._id == self.dish.dishcategory._id){
+                self.defdishcategory = item.name
+              }
+              if (self.dish.dishcategory) {
+                if (item._id == self.dish.dishcategory._id) {
                   self.defdishcategory = item.name
                 }
               }
+
               self.option.push({
                 name: item.maincategory,
                 label: item.name,

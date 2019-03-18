@@ -57,7 +57,29 @@ const preCreate = (req,res,next)=>{
     req.body['owneruser'] = req.userId;
     req.body['ownerest'] = req.body.estId;
     next();
-
+};
+// const postCreate = (req,res,next)=>{
+//     require("../responces/ok")(req, res);
+//     require("../responces/notFound")(req, res);
+//     require("../responces/badRequest")(req, res);
+//     if (req.body.maincategory.id){
+//         mongoose.model('category')
+//             .findOneAndUpdate({_id: req.body.maincategory.id},
+//                 {$push:{complementbox:req.erm.result._id}}, {new: true})
+//             .exec((err, content) =>{
+//                 if(err) {
+//                     return res.badRequest(err)
+//                 } else {
+//                     return next();
+//                 }
+//             });
+//     }
+// };
+const preDelete = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    next();
 };
 const werify = (req,res,next)=>{
     require("../responces/ok")(req, res);
@@ -68,7 +90,7 @@ const werify = (req,res,next)=>{
         .select('ownerest')
         .exec((err, result) => {
             if (err) return res.badRequest(err);
-            if (!result) return res.notFound();
+            if (!result) return res.notFound("upss");
             if (result) {
                 mongoose.model('user')
                     .findOne({_id:req.userId, myEstablishment:{$in:result.ownerest}})
@@ -90,5 +112,6 @@ glob.restify.serve(
     {
         preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
-        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preCreate]
+        preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preCreate],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete]
     });

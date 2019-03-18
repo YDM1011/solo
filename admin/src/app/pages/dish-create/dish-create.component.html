@@ -28,6 +28,7 @@
                 <div class="form-group">
                   <label class="col-sm-4 control-label">Категорія</label>
                   <div class="col-sm-8">
+                    <!--{{option |json}}-->
                     <app-select *ngIf="option.length>0"
                                 [option]="option"
                                 [defoult]="'Обрати категорію'"

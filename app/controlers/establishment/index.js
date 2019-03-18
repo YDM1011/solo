@@ -6,6 +6,9 @@ module.exports.create = (req, res, next) => {
     req.body['owner'] = req.userId;
     req.body['data'] = new Date();
     req.body['name'] = req.body['subdomain'];
+    let per = [];
+    per.push(req.userId);
+    req.body['permisions'] = per;
     Establishment.create(req.body, (err, doc)=>{
         if (err) return res.badRequest(err);
         if (!doc) return res.serverError('Somesing broken');
@@ -229,14 +232,21 @@ module.exports.estWorkTime = (req, res, next) => {
                         if (e) return res.badRequest(e);
                         if (!r) return res.serverError('Somesing broken');
                         if (r){
-                            let worning = false;
-                            r.map(item=>{
-                                if  (item.worksTimeId[dayNumber].timeStart != doc.worksTime[dayNumber].timeStart ||
-                                    item.worksTimeId[dayNumber].timeEnd != doc.worksTime[dayNumber].timeEnd){
-                                    worning = true;
-                                }
-                            });
-                            return res.ok({worksTime:doc.worksTime[dayNumber], worning:worning});
+                            if (doc.worksTime){
+                                let worning = false;
+                                r.map(item=>{
+                                    if(item.worksTimeId){
+                                        if(item.worksTimeId){
+                                            if  (item.worksTimeId[dayNumber].timeStart != doc.worksTime[dayNumber].timeStart ||
+                                                item.worksTimeId[dayNumber].timeEnd != doc.worksTime[dayNumber].timeEnd){
+                                                worning = true;
+                                            }
+                                        }
+                                    }
+                                });
+                                return res.ok({worksTime:doc.worksTime[dayNumber], worning:worning});
+                            }
+
                         }
                 })
             }
