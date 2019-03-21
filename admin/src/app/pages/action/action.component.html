@@ -16,16 +16,14 @@
 </div>
 <div class="row">
   <div class="col-lg-12">
-
     <router-outlet></router-outlet>
-
     <div class="wrapper wrapper-content animated fadeInRight">
       <div class="ibox-tools"  style="padding: 15px;">
         <button (click)="isCreate = true" class="btn btn-primary">Створити</button>
       </div>
       <div class="row">
         <div class="col-lg-12">
-          <div class="ibox float-e-margins" appAcardion>
+          <div class="ibox float-e-margins">
             <div class="ibox-title">
               <h5>Акції</h5>
               <div class="ibox-tools">
@@ -35,36 +33,36 @@
               </div>
             </div>
             <div class="ibox-content">
-
-
               <div class="card" *ngFor="let item of actions">
                 <div class="card-content">
-                  <ng-container *ngIf="item.picC">
-                    <img class="img40" src="{{item.picC}}" alt="">
+                  <ng-container *ngIf="item.img">
+                  <ng-container *ngIf="item.img.length > 0">
+                  <ng-container *ngFor="let pic of item.img">
+                    <img class="img40" src="{{pic.picCrop}}">
+                  </ng-container>
+                  </ng-container>
                   </ng-container>
                   <ng-template #preDishPic>
                     <app-prev-dish></app-prev-dish>
                   </ng-template>
-                  <span class="card-name">{{item.about}}</span>
+                  <span class="card-name">{{item.des}}</span>
                 </div>
                 <div class="card-btn">
                   <app-confirm-delete (onDelete)="del(item._id)"></app-confirm-delete>
-                  <span class="btn btn-white btn-sm pull-right" (click)="isShow[item._id] = true">
-                    <i class="fa fa-pencil"></i>
-                    Редагувати
-                  </span>
+                  <!--<span class="btn btn-white btn-sm pull-right" (click)="isShow[item._id] = true">-->
+                    <!--<i class="fa fa-pencil"></i>-->
+                    <!--Редагувати-->
+                  <!--</span>-->
                   <!--<span (click)="del(item._id)" class="btn btn-danger btn-sm pull-right">Видалити</span>-->
                 </div>
-                <app-action-edit appPopap
-                                 [obj]="item"
-                                 (onEdit)="calendarsEdit($event,item)"
-                                 *ngIf="isShow[item._id]"
-                ></app-action-edit>
+                <!--<app-action-edit appPopap-->
+                                 <!--[obj]="item"-->
+                                 <!--(onEdit)="calendarsEdit($event,item)"-->
+                                 <!--*ngIf="isShow[item._id]"-->
+                <!--&gt;</app-action-edit>-->
               </div>
-
               <div class="link-create">
-
-                <app-action-create appPopap
+                <app-action-create
                   *ngIf="isCreate"
                   (onCreate)="calendarsAdd($event); isCreate = false"></app-action-create>
               </div>

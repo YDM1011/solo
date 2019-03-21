@@ -90,7 +90,7 @@ const werify = (req,res,next)=>{
         .select('ownerest')
         .exec((err, result) => {
             if (err) return res.badRequest(err);
-            if (!result) return res.notFound("upss");
+            if (!result) return res.notFound("");
             if (result) {
                 mongoose.model('user')
                     .findOne({_id:req.userId, myEstablishment:{$in:result.ownerest}})

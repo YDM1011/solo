@@ -20,6 +20,9 @@ export class ApiService {
   private av = new BehaviorSubject<any>(null);
   public onAvatar = this.av.asObservable();
 
+  private estId = new BehaviorSubject<any>(null);
+  public onEstId = this.estId.asObservable();
+
   constructor(
     private http: HttpClient,
   ) { }
@@ -33,6 +36,11 @@ export class ApiService {
     } else {
       return self.getAndUpdate(api, id, select, model);
     }
+  }
+
+  setEstId(id) {
+    const s = this;
+    s.estId.next(id);
   }
   getAndUpdate(api, id= null, select= null, model= null) {
     const self = this;

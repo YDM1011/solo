@@ -1,0 +1,13 @@
+<div class="wrapper wrapper-content animated fadeInRight" appPopap (onClose)="cancel()">
+
+  <form (submit)="save()"  >
+    <label>
+      <span>Назва мітки*</span>
+      <input type="text" name="name-checkBox" [(ngModel)] = "box.name">
+    </label>
+    <div class="btn-wrap">
+      <button type="button" class="ibox-tools">cancel</button>
+      <button (click)="save()" type="submit">create</button>
+    </div>
+  </form>
+</div>

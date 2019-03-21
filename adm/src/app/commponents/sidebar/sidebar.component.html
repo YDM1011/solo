@@ -29,6 +29,10 @@
         <a routerLinkActive #chn="routerLinkActive" [routerLink]="'/moderation'">
           <i class="fa fa-th-large"></i> <span class="nav-label">Мережі</span></a>
       </li>
+      <li [class.active]="lb.isActive">
+        <a routerLinkActive #lb="routerLinkActive" [routerLink]="'/labels'">
+          <i class="fa fa-th-large"></i> <span class="nav-label">Мітки</span></a>
+      </li>
 
     </ul>
   </div>

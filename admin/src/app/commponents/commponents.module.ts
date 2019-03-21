@@ -30,6 +30,8 @@ import {BtnBurgerDirective} from "../directive/btn-burger.directive";
 import {AutoCloseDirective} from "../directive/auto-close.directive";
 import {DeviceDetectorModule} from "ngx-device-detector";
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
+import {UploadPostComponent} from "./action-create/upload-post/upload-post.component";
+import {FileMinPostComponent} from "./action-create/file-min-post/file-min-post.component";
 
 @NgModule({
   imports: [
@@ -64,7 +66,9 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
     PopapDirective,
     BtnBurgerDirective,
     AutoCloseDirective,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    UploadPostComponent,
+    FileMinPostComponent
   ],
   declarations: [
     HeaderComponent,
@@ -91,7 +95,9 @@ import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.componen
     PopapDirective,
     BtnBurgerDirective,
     AutoCloseDirective,
-    ConfirmDeleteComponent
+    ConfirmDeleteComponent,
+    UploadPostComponent,
+    FileMinPostComponent
   ],
   providers: []
 })

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from "../../api.service";
 
@@ -7,15 +7,19 @@ import {ApiService} from "../../api.service";
   templateUrl: './est-edit.component.html',
   styleUrls: ['./est-edit.component.css']
 })
-export class EstEditComponent implements OnInit {
+export class EstEditComponent implements OnInit,OnChanges {
 
   public id:any;
   public pid:any;
   public myest:any;
   public option:any = [];
+  public option2:any = [];
   public menus:any = [];
+  public afterSelect:any = [];
+  public labels:any;
   public worksTimeAll:any;
   public worksTimeView:any;
+  public labelInUse:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -35,6 +39,8 @@ export class EstEditComponent implements OnInit {
       self.initApi(params.id);
     });
   }
+  ngOnChanges(){}
+
   goBack(e){
     if(this.id){
       this.router.navigate(['/establishments/'+this.pid])
@@ -52,9 +58,7 @@ export class EstEditComponent implements OnInit {
         self[select] = res;
         self[select].coordinates = res.coordinates ? res.coordinates : [50.7464, 25.3262];
         self.menus=[];
-        console.log("test",self[select]);
         self[select].menus.map(item=>{
-          console.log("test",item);
           self.menus.push(item.name);
         });
         self.getCalendarActive();
@@ -73,6 +77,23 @@ export class EstEditComponent implements OnInit {
             })
           });
           self[select] = self.option;
+        }
+      }).catch((err:any)=>{});
+    });
+    let req2=['option2'];
+    req2.forEach((select)=>{
+      this.api.get('label').then((res:any)=>{
+        if(res){
+          self.labels = res;
+          self[select] = [];
+          res.map((item:any)=>{
+            self.option2.push({
+              name:item.name,
+              label:item.name,
+              id:item._id
+            })
+          });
+          self[select] = self.option2;
         }
       }).catch((err:any)=>{});
     });
@@ -112,6 +133,15 @@ export class EstEditComponent implements OnInit {
     dishes.map(item=>{
       s.myest.menus.push(item.id);
       s.menus.push(item.name);
+    })
+  }
+  getLabel(item){
+    let s = this;
+    s.afterSelect = item;
+    s.labelInUse = [];
+    item.map(it=>{
+      it.check = true;
+      s.labelInUse.push(it.id);
     })
   }
   getAllCalendars(){

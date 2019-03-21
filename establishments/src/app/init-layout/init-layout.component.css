@@ -272,3 +272,6 @@
   align-items: center;
   justify-content: center;
 }
+a.btn-green{
+  line-height: 24px;
+}

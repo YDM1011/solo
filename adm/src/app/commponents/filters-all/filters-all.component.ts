@@ -29,7 +29,7 @@ export class FiltersAllComponent implements OnInit {
 
   initApi(){
     const s = this;
-    s.api.apiGet('geoFilter').then((val:any)=>{
+    s.api.apiGet('label').then((val:any)=>{
       s.boxes = val;
     })
   }
@@ -40,7 +40,7 @@ export class FiltersAllComponent implements OnInit {
 
   del(elem){
     const s = this;
-    s.api.apiDel('geoFilter', elem._id).then((val:any)=>{
+    s.api.apiDel('label', elem._id).then((val:any)=>{
       s.initApi()
     })
   }

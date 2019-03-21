@@ -41,7 +41,7 @@ export class ActionComponent implements OnInit, OnChanges, OnDestroy {
   initApi(id){
     const s = this;
     s.actions = [];
-    s.api.justGet(`action?query={"ownerEst":"${id}"}`).then((val:any)=>{
+    s.api.justGet(`post?query={"ownerest":"${id}"}&populate={"path":"img"}`).then((val:any)=>{
       if(val){
         s.actions = val
       }
@@ -56,7 +56,14 @@ export class ActionComponent implements OnInit, OnChanges, OnDestroy {
 
   calendarsAdd(e){
     let s = this;
-    s.actions.push(e);
+    s.initApi(s.id)
+  }
+
+  del(id){
+    let s = this;
+    s.api.doDel(`post`, id).then((val:any)=>{
+      s.initApi(s.id)
+    })
   }
 
 }

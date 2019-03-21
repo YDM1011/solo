@@ -103,6 +103,7 @@ export class InitLayoutComponent implements OnInit, OnDestroy {
     s.api.justGet('est_name').then((val: any) => {
       if(val){
         s.name=val;
+        s.api.setEstId(s.name._id);
         s.setTitle(s.name.name)
       }
     });

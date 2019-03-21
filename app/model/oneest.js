@@ -35,6 +35,10 @@ const model = new Schema({
     categoriInUse: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "maincategory"
+    }],
+    labelInUse: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "label"
     }]
 },{
     toJSON: {
@@ -77,6 +81,7 @@ const est = (req,res,id)=>{
     mongoose.model('oneest')
         .findOne({_id:id})
         .populate({path:'menus'})
+        .populate({path:"labelInUse"})
         .exec((err,info)=>{
             if (err) return res.serverError(err);
             if (!info) return res.ok('Not found bg');

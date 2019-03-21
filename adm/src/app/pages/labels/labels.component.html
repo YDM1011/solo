@@ -1,0 +1,12 @@
+<div class="wrap-all-checkBox">
+  <app-labels-all [update]="chBoxv" (onEdit)="chAllv = $event;isedit=true"></app-labels-all>
+</div>
+
+<div class="wrap-create-checkBox"  >
+  <button type="button" (click)="iscreate=true"> Create </button>
+  <app-labels-create (onCreate)="chBoxv = $event;iscreate=false" *ngIf="iscreate" ></app-labels-create>
+</div>
+
+<div class="wrap-edit-checkBox">
+  <app-labels-edit *ngIf="isedit" (onEdit)="chAllv = $event;isedit=false" [chBox]="chAllv"></app-labels-edit>
+</div>

@@ -32,6 +32,10 @@ import { PopapDirective } from './directive/popap.directive';
 import { ChecklistComponent } from './commponents/checklist/checklist.component';
 import { SearchComponent } from './commponents/search/search.component';
 import { UserListComponent } from './commponents/user-list/user-list.component';
+import { LabelsComponent } from './pages/labels/labels.component';
+import { LabelsAllComponent } from './commponents/labels-all/labels-all.component';
+import { LabelsCreateComponent } from './commponents/labels-create/labels-create.component';
+import { LabelsEditComponent } from './commponents/labels-edit/labels-edit.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { UserListComponent } from './commponents/user-list/user-list.component';
     PopapDirective,
     ChecklistComponent,
     SearchComponent,
-    UserListComponent
+    UserListComponent,
+    LabelsComponent,
+    LabelsAllComponent,
+    LabelsCreateComponent,
+    LabelsEditComponent
   ],
   imports: [
     BrowserModule,

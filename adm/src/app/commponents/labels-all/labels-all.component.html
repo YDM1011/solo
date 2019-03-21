@@ -1,0 +1,9 @@
+<div class="component-checkbox-all" *ngIf="boxes.length > 0">
+  <div *ngFor="let b of boxes" class="checkBox">
+    <ng-container *ngIf="b">
+      <span class="chName">{{b.name}}</span>
+      <button class="chBtn info" (click)="edit(b)">edit</button>
+      <button class="chBtn err" (click)="del(b)">del</button>
+    </ng-container>
+  </div>
+</div>

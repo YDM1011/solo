@@ -1,0 +1,38 @@
+.pic-crop-wrap{
+  max-width: 500px;
+  width: 100%;
+  position: relative;
+}
+.wrap-action div{
+  margin: 10px;
+}
+.wrap-action{
+  display: flex;
+}
+.cr-pst_img_btn-cn{
+  display: flex;
+  background: #ffffff8f;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 7px 5px;
+}
+.btn-trans{
+  margin: 0 5px;
+}
+.cr-pst_btn{
+  text-align: right;
+  padding: 10px;
+}
+.textarea{
+  width: 100%;
+  flex-grow: 1;
+  padding: 10px;
+  border-radius: 5px;
+  height: 7em;
+  border: 1px solid #e2e2cc;
+}
+.cr-pst_cm{
+  width: 100%;
+}

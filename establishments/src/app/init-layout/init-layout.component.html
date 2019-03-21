@@ -55,11 +55,14 @@
             </ng-container>
         </div>
         <span class="h-pf_zv" *ngIf="name">{{name.name}}</span>
-        <button #goZv class="btn-green" (click)="goZv.val=true">Йдемо
-          <ng-container *ngIf="name">{{' в '+name.name}}</ng-container>
-        </button>
+        <!--<button #goZv class="btn-green" (click)="goZv.val=true">Йдемо-->
+          <!--<ng-container *ngIf="name">{{' в '+name.name}}</ng-container>-->
+        <!--</button>-->
+        <a class="btn-green" *ngIf="name" href="tel:+380{{name.mobile}}">
+          Зателефонувати
+        </a>
       </div>
-      <app-pre-production [status]="goZv.val" (statusResult)="goZv.val = $event"></app-pre-production>
+      <!--<app-pre-production [status]="goZv.val" (statusResult)="goZv.val = $event"></app-pre-production>-->
     </div>
 
     <div class="cont-content">
@@ -75,12 +78,14 @@
             <app-menu class="lf-cont-btn"></app-menu>
 
             <div class="lf-cont-btn">
-              <button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо
-                <ng-container *ngIf="name"> &nbsp;в {{name.name}}</ng-container>
-              </button>
-            </div>
-            <app-pre-production [status]="goZv2.val" (statusResult)="goZv2.val = $event"></app-pre-production>
+              <!--<button #goZv2 (click)="goZv2.val=true" class="btn-green">Йдемо-->
+                <!--<ng-container *ngIf="name"> &nbsp;в {{name.name}}</ng-container>-->
+              <!--</button>-->
 
+              <a class="btn-green" *ngIf="name" href="tel:+380{{name.mobile}}">
+                Зателефонувати</a>
+            </div>
+            <!--<app-pre-production [status]="goZv2.val" (statusResult)="goZv2.val = $event"></app-pre-production>-->
           </div>
         </div>
       </div>
@@ -89,7 +94,7 @@
         <div class="cont_right-bar" appRightBarScroll>
 
           <app-info></app-info>
-          <!--<app-action></app-action>-->
+          <app-action></app-action>
 
           <div class="us-s">
             <div class="us-s_t-cont">

@@ -26,9 +26,9 @@ export class FriendOfferPageComponent implements OnInit {
   public mutual:any = [];
   public mutualEst:any = [];
   public people:any = [];
-  public sortV = false;
-  public sortEV = false;
-  public sortPV = false;
+  public sortV;
+  public sortEV;
+  public sortPV;
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,

@@ -83,8 +83,24 @@
 </ng-template>
 
 <ng-template #sizeTemp>
-  <ng-container *ngIf="size && pic">
-    <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picCrop}}">
+  <ng-container *ngIf="isString">
+    <ng-container *ngIf="size == 'right-bar-g'">
+      <picture>
+        <source srcset="{{host}}/-px60-{{pic.picCrop}}" media="(min-width: 992px)">
+        <img class="img img-content " srcset="{{host}}/-px200-{{pic.picCrop}}">
+      </picture>
+    </ng-container>
+    <ng-container *ngIf="size == 'right-bar-pg'">
+      <picture>
+        <source srcset="{{host}}/-px200-{{pic.picCrop}}" media="(min-width: 992px)">
+        <img class="img img-content " srcset="{{host}}/-px200-{{pic.picCrop}}">
+      </picture>
+    </ng-container>
+  </ng-container>
+  <ng-container *ngIf="!isString">
+    <ng-container *ngIf="size && pic">
+      <img class="img" srcset="{{host}}/-px{{size}}-{{pic.picCrop}}">
+    </ng-container>
   </ng-container>
 </ng-template>
 

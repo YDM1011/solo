@@ -35,6 +35,11 @@ const pages = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
     },
+    estId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "establishment"
+    },
+    ownerest: String,
     like: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
@@ -47,6 +52,10 @@ const pages = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "comment"
     }],
+    isActia:{
+        type: Boolean,
+        default: false
+    },
     img: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "galery"
@@ -114,12 +123,12 @@ const preCreate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     req.body.id = req.body.userId;
     req.body.data = new Date();
-
+    req.body.estId = req.body.estId || null;
     if(req.body.img.length < 1 && !req.body.des){
         return res.badRequest("Завантажте фото чи напишіть опис публікації")
     }
-    req.body.inPlace.id = req.body.inPlace.id || null;
-    if (req.body.inPlace.id){
+    req.body.inPlace.id = req.body.inPlace.id || req.body.estId || null;
+    if (req.body.inPlace.id && !req.body.estId){
         mongoose.model('establishment')
             .findOneAndUpdate({_id:req.body.inPlace.id},{$inc:{postCount:1}}, ()=>{});
     }
@@ -131,7 +140,7 @@ const preCreate = (req,res,next)=>{
             upload(img, (prefics)=>{
                 img.picCrop = `/${prefics}${img.fileName}`;
                 img.picMedia = `${prefics}${img.fileName}`;
-                img['forGallery'] = true;
+                img['forGallery'] = req.body.estId ? false : true;
                 img['owner'] = req.userId;
                 mongoose.model('galery').create(img, (err, docImg)=>{
                     if(err) return res.badRequest('Something broke!');
@@ -145,14 +154,38 @@ const preCreate = (req,res,next)=>{
         }
     }).then(arr=>{
         req.body.img = arr;
-        mongoose.model('post')
-            .create(req.body, (err, content) =>{
-                if(err) {
-                    res.send(err)
-                } else {
-                    return res.ok(content)
-                }
-            });
+        if (req.body.estId){
+
+            mongoose.model('establishment')
+                .findOne({_id: req.body.estId})
+                .select('subdomain')
+                .exec((e,r)=>{
+                    if (r){
+                        req.body.isActia = true;
+                        req.body.ownerest = req.body.estId;
+                        req.body.inPlace.place = r.subdomain;
+                        mongoose.model('post')
+                            .create(req.body, (err, content) =>{
+                                if(err) {
+                                    res.send(err)
+                                } else {
+                                    return res.ok(content)
+                                }
+                            });
+                    }else{
+                        res.send("Error");
+                    }
+            })
+        }else{
+            mongoose.model('post')
+                .create(req.body, (err, content) =>{
+                    if(err) {
+                        res.send(err)
+                    } else {
+                        return res.ok(content)
+                    }
+                });
+        }
         mongoose.model('user')
             .findOneAndUpdate({_id: req.userId},
                 {$push:{gallery:req.body.img}})
@@ -201,7 +234,7 @@ const preRead = (req,res,next)=>{
         req.body.userId = req.userId;
         mongoose.model('post')
             .find(optionFind)
-            .limit(16)
+            .limit(4)
             .sort({data: -1})
             .skip(parseInt(req.query.skip))
             .populate({path:'inPlace.id', select: 'name _id av subdomain',
@@ -238,7 +271,7 @@ const preDelete = (req,res,next)=>{
             if(info){
                 let id = mongoose.Types.ObjectId(info.userId).toString();
                 let idS = mongoose.Types.ObjectId(info.share.userIdShare).toString();
-                if (info.inPlace.id){
+                if (info.inPlace.id && !info.estId){
                     mongoose.model('establishment')
                         .findOneAndUpdate({_id:info.inPlace.id},{$inc:{postCount:-1}}, ()=>{});
                 }

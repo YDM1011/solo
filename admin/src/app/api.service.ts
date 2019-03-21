@@ -151,7 +151,6 @@ export class ApiService {
                 }
               });
             }
-
           },
           err => reject(err)
         );

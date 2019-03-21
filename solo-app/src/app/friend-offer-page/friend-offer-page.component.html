@@ -12,7 +12,7 @@
     <span class="frn_name st" [class.active]="myOffer" (click)="checkTab(2); sortArr(invite, 'sortEV')">
       Надіслані запити
     <ng-container *ngIf="invite"><ng-container *ngIf="invite">({{invite.length}})</ng-container></ng-container>
-    <span class="btn-trans o8 btnActive" [class.up]="sortEV==1">
+    <span class="btn-trans o8 btnActive" [class.up]="sortEV==2">
       <span class="svg20">
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 48.338 48.338" width="16" height="18"><path style="fill:transparent;" d="M26.436,2.3c-1.253-3.067-3.285-3.067-4.539,0l-7.654,18.739c-1.254,3.067-0.212,4.359,2.327,2.884l2.867-1.666c0.955-0.555,1.428-0.158,1.221,0.927c-0.355,1.866-0.727,5.212-0.491,10.592c-0.099,4.477,0.316,8.115,0.642,10.216c0.169,1.091,0.317,2.956,1.001,3.823c0.549,0.697,4.166,0.697,4.715,0c0.684-0.867,0.766-2.742,0.896-3.838c0.285-2.396,0.713-6.558,0.747-10.201c0.052-5.459-0.273-8.746-0.567-10.574c-0.175-1.09,0.342-1.5,1.297-0.945c0.786,0.457,1.784,1.036,2.869,1.666c2.539,1.475,3.582,0.184,2.328-2.884L26.436,2.3z" stroke="#00a3ff" stroke-width="2" stroke-linejoin="round"/></svg>
       </span>
@@ -21,7 +21,7 @@
     <span class="frn_name st" [class.active]="isAll" (click)="checkTab(3); sortArr(people, 'sortPV')">
       Ви їх можете знати
       <ng-container *ngIf="people"><ng-container *ngIf="people">({{people.length}})</ng-container></ng-container>
-      <span class="btn-trans o8 btnActive" [class.up]="sortPV==1">
+      <span class="btn-trans o8 btnActive" [class.up]="sortPV==3">
         <span class="svg20">
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 48.338 48.338" width="16" height="18"><path style="fill:transparent;" d="M26.436,2.3c-1.253-3.067-3.285-3.067-4.539,0l-7.654,18.739c-1.254,3.067-0.212,4.359,2.327,2.884l2.867-1.666c0.955-0.555,1.428-0.158,1.221,0.927c-0.355,1.866-0.727,5.212-0.491,10.592c-0.099,4.477,0.316,8.115,0.642,10.216c0.169,1.091,0.317,2.956,1.001,3.823c0.549,0.697,4.166,0.697,4.715,0c0.684-0.867,0.766-2.742,0.896-3.838c0.285-2.396,0.713-6.558,0.747-10.201c0.052-5.459-0.273-8.746-0.567-10.574c-0.175-1.09,0.342-1.5,1.297-0.945c0.786,0.457,1.784,1.036,2.869,1.666c2.539,1.475,3.582,0.184,2.328-2.884L26.436,2.3z" stroke="#00a3ff" stroke-width="2" stroke-linejoin="round"/></svg>
         </span>

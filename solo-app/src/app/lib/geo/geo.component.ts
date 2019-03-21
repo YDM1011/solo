@@ -70,6 +70,7 @@ export class GeoComponent implements OnInit, OnDestroy {
     longitude: 0
   };
   public filter:any = new Filters();
+  public labels:any = [];
   @Input() avatar;
   constructor(
     private deviceService: DeviceDetectorService,
@@ -88,6 +89,11 @@ export class GeoComponent implements OnInit, OnDestroy {
     this.api.doGet('geoFilter').then(v=>{
       if(v){
         this.filter = v;
+      }
+    });
+    this.api.doGet('label').then(v=>{
+      if(v){
+        this.labels = v;
       }
     })
   }
@@ -176,7 +182,6 @@ export class GeoComponent implements OnInit, OnDestroy {
     if (is) return true;
     else return false;
   }
-
   doAllFilters(){
     let s = this;
     s.isAll = !s.isAll;
@@ -186,16 +191,27 @@ export class GeoComponent implements OnInit, OnDestroy {
           item.check = false
         }
       });
+      s.labels.map(item=>{
+        if (item.check){
+          item.check = false
+        }
+      });
     }
   }
-
   doFilter(){
     let s = this;
     let query = "?filter=";
+    let ql="&label=";
     let filterArr = [];
+    let labelArr = [];
     s.filter.map(item=>{
       if (item.check){
         filterArr.push({categoriInUse:{$in:item.value}});
+      }
+    });
+    s.labels.map(item=>{
+      if (item.check){
+        filterArr.push({labelInUse:{$in:item._id}});
       }
     });
     if(filterArr.length > 0){
@@ -207,7 +223,6 @@ export class GeoComponent implements OnInit, OnDestroy {
     s.dataApi(query);
     console.log(query)
   }
-
   getLogo(pic){
     let img;
     if (pic){
@@ -223,7 +238,6 @@ export class GeoComponent implements OnInit, OnDestroy {
     }
     return img;
   }
-
   getBg(pic){
     let img;
     if (pic){
@@ -239,7 +253,6 @@ export class GeoComponent implements OnInit, OnDestroy {
     }
     return img;
   }
-
   checkOpen(st){
     let s = this;
     this.isOpen = st;

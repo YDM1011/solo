@@ -12,7 +12,7 @@ export class ScrollRequestDirective {
   ngOnInit() {
     window.addEventListener('scroll', this.scroll, false);
     window.addEventListener('orientationchange', this.resize, false);
-    this.innerH = Math.floor(window.innerHeight*1.1);
+    this.innerH = Math.floor(window.innerHeight*1.8);
   }
 
   ngOnDestroy() {
@@ -31,7 +31,7 @@ export class ScrollRequestDirective {
   };
 
   resize = ():void => {
-    this.innerH = Math.floor(window.innerHeight*1.1);
+    this.innerH = Math.floor(window.innerHeight*1.8);
   };
 
   height = (): number => {

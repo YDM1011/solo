@@ -1,16 +1,19 @@
-<app-custom-res [model]="{
-    url:'action'
+<app-custom-res *ngIf="estId" [model]="{
+    url:'post',
+    query:{ownerest:estId},
+    populate: {path:'img'}
     }" (onRes)="actions = $event"></app-custom-res>
+<div class="cont gl-cont">
 <div class="el_cont" *ngIf="actions">
   <div class="el_content">
     <div *ngFor="let act of actions" class="action-wrap">
       <div class="description">
-        {{act.about}}
+        {{act.des}}
       </div>
       <div class="inherit">
-        <img [src]="act.picC" alt="">
+        <app-picture class="img" [size]="'right-bar-pg'" [pic]="act.img[0]"></app-picture>
       </div>
     </div>
   </div>
-
+</div>
 </div>
