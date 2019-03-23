@@ -56,4 +56,5 @@ export class PopapDirective {
     this.node.remove();
     this.onClose.emit(true);
   }
+
 }

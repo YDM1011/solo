@@ -295,45 +295,45 @@
     </ng-container>
     <ng-container  *ngIf="item.share && item.isActia">
       <article class="cont pst" *ngIf="!item.share.data">
-
-        <div class="pst_in" *ngIf="item.userId">
-          <a [routerLink]="'/user/'+item.userId._id" class="name">
-            <div class="img40">
-              <ng-container *ngIf="item.inPlace; else preEst">
-                <ng-container *ngIf="item.inPlace.id; else preEst">
-                  <ng-container *ngIf="item.inPlace.id.av; else preEst">
-                    <ng-container *ngIf="item.inPlace.id.av._id; else preEst">
-                      <app-img class="img" [img]="{id:item.inPlace.id.av._id}"></app-img>
+        <ng-container *ngIf="item.inPlace">
+          <ng-container *ngIf="item.inPlace.id">
+            <div class="pst_in" *ngIf="item.userId">
+              <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="name">
+                <div class="img40">
+                  <ng-container *ngIf="item.inPlace; else preEst">
+                    <ng-container *ngIf="item.inPlace.id; else preEst">
+                      <ng-container *ngIf="item.inPlace.id.av; else preEst">
+                        <ng-container *ngIf="item.inPlace.id.av._id; else preEst">
+                          <app-img class="img" [img]="{id:item.inPlace.id.av._id}"></app-img>
+                        </ng-container>
+                      </ng-container>
                     </ng-container>
                   </ng-container>
-                </ng-container>
-              </ng-container>
+                </div>
+              </a>
+              <span class="in_us">
+
+                    <span class="us_zv" *ngIf="item.inPlace.id.name">Акція&nbsp;{{item.des}}&nbsp;у
+                      <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="us_zv_link">
+                          <span class="us_zv_img">
+                            <ng-container *ngIf="item.inPlace.id.av; else preEst">
+                              <ng-container *ngIf="item.inPlace.id.av._id; else preEst">
+                              <app-img class="img20" [img]="{id:item.inPlace.id.av._id}"></app-img>
+                              </ng-container>
+                            </ng-container>
+                          </span>
+                          <strong class="name">{{item.inPlace.id.name}}</strong>
+                      </a>
+                    </span>
+
+              </span>
+              <p class="in_dt">
+                <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y HH:mm"}}</time>
+              </p>
+
             </div>
-          </a>
-          <span class="in_us">
-            <ng-container *ngIf="item.inPlace">
-              <ng-container *ngIf="item.inPlace.id">
-                <span class="us_zv" *ngIf="item.inPlace.id.name">Акція&nbsp;{{item.des}}&nbsp;у
-                  <a href="//{{item.inPlace.id.subdomain+'.'+host}}" class="us_zv_link">
-                      <span class="us_zv_img">
-                        <ng-container *ngIf="item.inPlace.id.av; else preEst">
-                          <ng-container *ngIf="item.inPlace.id.av._id; else preEst">
-                          <app-img class="img20" [img]="{id:item.inPlace.id.av._id}"></app-img>
-                          </ng-container>
-                        </ng-container>
-                      </span>
-                      <strong class="name">{{item.inPlace.id.name}}</strong>
-                  </a>
-                </span>
-              </ng-container>
-            </ng-container>
-          </span>
-          <p class="in_dt">
-            <time [attr.dateTime]="item.data">{{item.data | date:"dd.MM.y HH:mm"}}</time>
-          </p>
-
-        </div>
-
+          </ng-container>
+        </ng-container>
         <div class="pst_cnt">
           <div class="pst_img" *ngIf="item.img">
             <div class="cont-img" [class.array]="item.img.length >= 2">

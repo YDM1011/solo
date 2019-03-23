@@ -1,4 +1,4 @@
-import {Directive, ElementRef, EventEmitter, Output} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 
 @Directive({
   selector: '[appPopap]'
@@ -6,16 +6,24 @@ import {Directive, ElementRef, EventEmitter, Output} from '@angular/core';
 export class PopapDirective {
   el: ElementRef;
   @Output() onClose = new EventEmitter();
+  @Output() onCustomClose = new EventEmitter();
+  @Input() closeComp;
   private defBlock;
   private node;
   constructor(el: ElementRef){
     this.el = el;
   }
-
+  ngOnChanges(){
+    if(this.closeComp){
+      this.closeComp = null;
+      this.CustomClose();
+    }
+  }
   ngAfterViewInit() {
     const hostElem = this.el.nativeElement;
     this.defBlock = hostElem;
     this.node = document.createElement("DIV");
+    this.CustomClose();
     let node2 = document.createElement("DIV");
     this.node.classList.add('popup-directive');
     node2.classList.add('popup-directive-bg');
@@ -41,5 +49,8 @@ export class PopapDirective {
   close(){
     this.node.remove();
     this.onClose.emit(true);
+  }
+  CustomClose(){
+    this.onCustomClose.emit(this.node);
   }
 }

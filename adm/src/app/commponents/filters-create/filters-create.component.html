@@ -1,4 +1,6 @@
-<div class="wrapper wrapper-content animated fadeInRight" appPopap (onClose)="cancel()">
+<div class="wrapper wrapper-content animated fadeInRight" appPopap [closeComp]="isClose"
+     (onCustomClose)="remove($event)"
+     (onClose)="cancel()">
 
 <form (submit)="save()">
   <label>

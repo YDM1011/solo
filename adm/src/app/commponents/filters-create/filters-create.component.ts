@@ -9,9 +9,11 @@ import {Filter} from "./filter";
 })
 export class FiltersCreateComponent implements OnInit {
   public box = new Filter();
+  public isClose = false;
   public isCheckCat = false;
   @Output() onCreate: EventEmitter<any> = new EventEmitter<any>();
   @Output() onClose: EventEmitter<any> = new EventEmitter<any>();
+  @Output() onRemove: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(
     private api: ApiService
@@ -25,13 +27,19 @@ export class FiltersCreateComponent implements OnInit {
     s.api.apiPost('geoFilter', s.box).then((val:any)=>{
       s.onCreate.next(val);
       s.box = new Filter();
+      s.isClose = true;
     }).catch(e=>{})
   }
 
+  remove(el){
+    this.box = new Filter();
+    this.onRemove.next(el);
+  }
   cancel(){
     this.box = new Filter();
-    this.onClose.next('');
+    this.onClose.next();
   }
+
 
   setCat(e){
     let s = this;
