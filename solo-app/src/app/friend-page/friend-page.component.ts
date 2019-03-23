@@ -53,7 +53,8 @@ export class FriendPageComponent implements OnInit, OnChanges {
     const s = this;
     this.http.get(this.domain + '/api/getFriends?userId=' + idc, s.api.getHeaders())
       .subscribe((friends: any) => {
-        s.friends = (friends);
+        s.friends = friends;
+        s.friends.myFriends = friends.myFriends.reverse();
         // this.friends.myFriends = s.sortArr(this.friends.myFriends);
         s.getMutualFriends(idc);
         s.isFriends = true;
@@ -63,7 +64,8 @@ export class FriendPageComponent implements OnInit, OnChanges {
         if (res) {
           // s.friends = (res);
           console.log(res);
-          s.people = res;
+          // s.people = res;
+          s.people = res.reverse();
         }
       }, err => {
       });

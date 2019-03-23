@@ -55,7 +55,8 @@ export class HomePageComponent implements OnInit, OnChanges {
 
   apiInitial(idc) {
     const s = this;
-    s.obj = JSON.stringify({id: idc,estId:{$exists:null}});
+
+    s.obj = JSON.stringify({id: idc,$or:[{estId:{$exists:false}},{estId:null}]});
 
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {

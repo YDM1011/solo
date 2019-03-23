@@ -52,20 +52,20 @@ export class FriendOfferPageComponent implements OnInit {
     this.http.get(this.domain + '/api/getFriendsOffer', s.api.getHeaders())
       .subscribe((friends: any) => {
         if(friends){
-          s.friends = (friends.offer);
+          s.friends = friends.offer.reverse();
           s.meOffer = true;
         }
       });
     this.http.get(this.domain + '/api/getFriendsInvite', s.api.getHeaders())
       .subscribe((friends: any) => {
         if(friends){
-          s.invite = (friends.invite);
+          s.invite = friends.invite.reverse();
         }
       });
     this.http.get(this.domain + '/api/getPotentialFriend', s.api.getHeaders())
       .subscribe((friends: any) => {
         if(friends){
-          s.people = (friends);
+          s.people = friends.reverse();
         }
       });
   }
