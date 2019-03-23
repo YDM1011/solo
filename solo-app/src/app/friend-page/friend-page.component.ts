@@ -97,6 +97,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
     }
   }
 
+
   sortArr(arr, mod = ''){
     this[mod] = !this[mod];
     let s = this;
