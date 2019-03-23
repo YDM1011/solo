@@ -18,9 +18,11 @@ export class CheckOptionComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.parseToCat()
+    if(this.type)
+    this.parseToCat();
+    console.log(this.option);
   }
-  ngOnChanges(){this.parseToCat()}
+  ngOnChanges(){if(this.type) this.parseToCat();}
 
   selectOption(opt) {
     const s = this;

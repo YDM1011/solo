@@ -16,7 +16,6 @@ module.exports.generateToken = async (req, res, next) => {
         return await setCooki(req,res,userData);
     }else{
        let userNew = await createUser(req,res);
-       console.log("2", userNew);
        if (userNew){
            return await setCooki(req,res,userNew);
        } else{

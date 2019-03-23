@@ -72,6 +72,7 @@ const user = new Schema({
         ref: "galery"
     },
     token: String,
+    hashLink: String,
     owner: String,
     data: {type: Date, default: new Date()}
 },{
@@ -80,6 +81,7 @@ const user = new Schema({
             delete ret.pass;
             delete ret.token;
             delete ret.hash;
+            delete ret.hashLink;
         }
     },
     toObject: {
@@ -87,6 +89,7 @@ const user = new Schema({
             delete ret.pass;
             delete ret.token;
             delete ret.hash;
+            delete ret.hashLink;
         }
     },
     createRestApi: true,
@@ -107,7 +110,7 @@ const preUpdate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     mongoose.model('user')
         .findOneAndUpdate({_id: req.userId}, req.body)
-        .select('-pass -token -_id')
+        .select('-pass -token -_id -hashLink')
         .exec((err, info) => {
             if(err) return res.badRequest(err);
             if(!info) return res.notFound('You are not valid');
@@ -132,7 +135,7 @@ const preRead = (req,res,next)=>{
         mongoose.model('user')
             .find({})
             .where({verify: true})
-            .select('-pass -token -login')
+            .select('-pass -token -login -hashLink')
             .populate({path:'photo'})
             .populate({path:'bg'})
             .exec((err, info) => {
@@ -145,7 +148,7 @@ const preRead = (req,res,next)=>{
         mongoose.model('user')
             .findOne({_id: id})
             .where({verify: true})
-            .select('-pass -token -login')
+            .select('-pass -token -login -hashLink')
             .populate({path:'photo'})
             .populate({path:'bg'})
             .exec((err, info) => {

@@ -19,6 +19,7 @@
       "successRedirect": "/",
       "failureRedirect": "/login",
       "sidDomain": "localhost",
+      "hashLink": "https://tasteol.com/api/hashLink/",
       "apiDomain": "http://localhost:3000/",
       "afterAuthDomain": "http://localhost:4200"
     },

@@ -84,22 +84,9 @@ export class NavbarComponent implements OnInit, OnDestroy {
       }
     });
 
-    self.getPosts();
 
   }
 
-  getPosts() {
-    const self = this;
-    let query = JSON.stringify({});
-    this.http.get(this.domain + '/api/post?skip=' + self.count * self.limit, this.api.getHeaders())
-      .subscribe((post: any) => {
-        this.http.get(this.domain + '/api/post/count', this.api.getHeaders())
-          .subscribe((res: any) => {
-            self.posts = (post);
-            self.setcount(res);
-          });
-      });
-  }
 
   ngOnDestroy () {
     this.count = 0;

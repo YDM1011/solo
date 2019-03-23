@@ -122,7 +122,7 @@
                 </ng-container>
 
               </div>
-              <app-check-option [option]="option2" (onCheck)="getLabel($event)"></app-check-option>
+              <app-check-option *ngIf="option2.length>0" [option]="option2" (onCheck)="getLabel($event)"></app-check-option>
             </div>
           </div>
         </div>

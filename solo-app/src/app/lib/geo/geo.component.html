@@ -58,7 +58,7 @@
                 </label>
                 <label class="geo_clock_i">
                   <input name="open-zv" type="radio" [checked]="isOpen" (click)="checkOpen(true)">
-                  <span class="p-d_ch-i o5">Відчиненні</span>
+                  <span class="p-d_ch-i o5">Відчинені</span>
                 </label>
               </div>
 
@@ -255,7 +255,7 @@
                 </label>
                 <label class="geo_clock_i">
                   <input name="open-zv" type="radio" [checked]="isOpen" (click)="checkOpen(true)">
-                  <span class="p-d_ch-i o5">Відчиненні</span>
+                  <span class="p-d_ch-i o5">Відчинені</span>
                 </label>
               </div>
               <p class="p-l_line"></p>
@@ -335,6 +335,14 @@
                   </label>
                   <label class="p-d_ch" *ngFor="let f of filter">
                     <input type="checkbox" [(ngModel)]="f.check" (change)="isAll=false" value="{{f.value}}">
+                    <span class="p-d_ch-i o5">{{f.name}}</span>
+                  </label>
+                </div>
+                <p class="p-l_line"></p>
+                <p class="p-l_ic_t c_t16">Мітки</p>
+                <div class="p-l_c-box">
+                  <label class="p-d_ch" *ngFor="let f of labels">
+                    <input type="checkbox" [(ngModel)]="f.check" (change)="isAll=false" value="{{f._id}}">
                     <span class="p-d_ch-i o5">{{f.name}}</span>
                   </label>
                 </div>

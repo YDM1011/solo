@@ -47,6 +47,7 @@ export class EstEditComponent implements OnInit,OnChanges {
     }else{
       this.router.navigate(['/'])
     }
+    this.initApi(this.id);
   }
   initApi(id){
     let self = this;
@@ -61,6 +62,7 @@ export class EstEditComponent implements OnInit,OnChanges {
         self[select].menus.map(item=>{
           self.menus.push(item.name);
         });
+        self.checkLabel();
         self.getCalendarActive();
       }).catch((err:any)=>{});
     });
@@ -80,23 +82,7 @@ export class EstEditComponent implements OnInit,OnChanges {
         }
       }).catch((err:any)=>{});
     });
-    let req2=['option2'];
-    req2.forEach((select)=>{
-      this.api.get('label').then((res:any)=>{
-        if(res){
-          self.labels = res;
-          self[select] = [];
-          res.map((item:any)=>{
-            self.option2.push({
-              name:item.name,
-              label:item.name,
-              id:item._id
-            })
-          });
-          self[select] = self.option2;
-        }
-      }).catch((err:any)=>{});
-    });
+
   }
   update(obj,model){
     let self = this;
@@ -155,6 +141,49 @@ export class EstEditComponent implements OnInit,OnChanges {
         })
       });
     })
+  }
+  checkLabel(){
+    let self = this;
+    let req2=['option2'];
+    self.option2=[];
+    req2.forEach((select)=>{
+      this.api.get('label').then((res:any)=>{
+        if(res){
+          self.labels = res;
+          self[select] = [];
+          res.map((item:any)=>{
+            if (self.myest.labelInUse){
+              self.myest.labelInUse.some(actIt=>{
+                console.log(actIt);
+                if (actIt._id == item._id){
+                  return self.option2.push({
+                    name:item.name,
+                    label:item.name,
+                    id:item._id,
+                    check: true
+                  })
+                }else{
+                  if (actIt._id == self.myest.labelInUse[self.myest.labelInUse.length-1]._id)
+                  self.option2.push({
+                    name:item.name,
+                    label:item.name,
+                    id:item._id
+                  })
+                }
+              })
+            }else{
+              self.option2.push({
+                name:item.name,
+                label:item.name,
+                id:item._id
+              })
+            }
+
+          });
+          self[select] = self.option2;
+        }
+      }).catch((err:any)=>{});
+    });
   }
   getCalendar(e){
     let s = this;

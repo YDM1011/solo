@@ -3,6 +3,7 @@ const glob = require('glob');
 const email = require('../email');
 const md5 = require('md5');
 const mongoose = require('mongoose');
+const data = require('../../config/index');
 const User = mongoose.model('user');
 const generatePassword = () => {
     var length = 8,
@@ -27,6 +28,7 @@ module.exports.create = (req, res, next) => {
                 info['email'] = login;
                 info.hash = hash;
                 info.pass = md5(hash);
+                info.hashLink = md5(hash);
                 info.token = jwt.sign({id: login}, glob.secret);
                 User.create(info, (err, content) => {
                     if (err) {
@@ -34,9 +36,11 @@ module.exports.create = (req, res, next) => {
                     } else {
                         email.sendMail({
                             mail: login,
-                            hash: hash
+                            hash: hash,
+                            hashLink: data.auth.hashLink+login+"/"+info.hashLink
                         });
                         delete content.hash;
+                        delete content.hashLink;
                         res.send(content)
                     }
                 })

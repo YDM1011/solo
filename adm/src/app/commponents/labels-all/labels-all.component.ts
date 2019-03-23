@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ApiService} from "../../service/api.service";
 
 @Component({
@@ -6,7 +6,7 @@ import {ApiService} from "../../service/api.service";
   templateUrl: './labels-all.component.html',
   styleUrls: ['./labels-all.component.css']
 })
-export class LabelsAllComponent implements OnInit {
+export class LabelsAllComponent implements OnInit, OnChanges {
 
   public boxes = [];
 
@@ -24,6 +24,7 @@ export class LabelsAllComponent implements OnInit {
 
   ngOnChanges(){
     let s = this;
+    console.log(s.update, s.boxes);
     s.boxes.push(s.update);
   }
 

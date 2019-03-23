@@ -4,7 +4,7 @@
 
 <div class="wrap-create-checkBox"  >
   <button type="button" (click)="iscreate=true"> Create </button>
-  <app-labels-create (onCreate)="chBoxv = $event;iscreate=false" *ngIf="iscreate" ></app-labels-create>
+  <app-labels-create (onCreate)="chBoxv = $event" (onClose)="iscreate=false" *ngIf="iscreate" ></app-labels-create>
 </div>
 
 <div class="wrap-edit-checkBox">

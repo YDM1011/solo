@@ -55,7 +55,7 @@ export class HomePageComponent implements OnInit, OnChanges {
 
   apiInitial(idc) {
     const s = this;
-    const id = JSON.stringify({id: idc});
+    s.obj = JSON.stringify({id: idc,estId:{$exists:null}});
 
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {
@@ -65,9 +65,9 @@ export class HomePageComponent implements OnInit, OnChanges {
         s.getSetting(user);
       });
 
-    this.http.get(this.domain + '/api/post?query=' + id + '&skip=0', this.api.getHeaders())
+    this.http.get(this.domain + '/api/post?query=' + s.obj + '&skip=0', this.api.getHeaders())
       .subscribe((user: any) => {
-        this.http.get(this.domain + '/api/post/count?query=' + id, this.api.getHeaders())
+        this.http.get(this.domain + '/api/post/count?query=' + s.obj, this.api.getHeaders())
           .subscribe((res: any) => {
             s.posts = (user);
               s.maxcount = res.count;
@@ -76,10 +76,10 @@ export class HomePageComponent implements OnInit, OnChanges {
       });
   }
 
+
   morePost() {
     const self = this;
     this.id = location.href.split("user/")[1];
-    this.obj = JSON.stringify({id: this.id});
     this.http.get(this.domain + '/api/post?query=' + this.obj + '&skip=' + this.posts.length, this.api.getHeaders())
       .subscribe((user: any) => {
         self.posts = self.posts.concat(user);

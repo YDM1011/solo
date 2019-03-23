@@ -58,12 +58,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
         s.getMutualFriends(idc);
         s.isFriends = true;
       });
-  }
-
-  getMutualFriends(userId){
-    let s = this;
-    s.isFriends = false;
-    s.http.get(`${this.domain}/api/getMutualFriends/${userId}`, s.api.getHeaders())
+    s.http.get(`${this.domain}/api/getMutualFriends/${idc}`, s.api.getHeaders())
       .subscribe((res: any) => {
         if (res) {
           // s.friends = (res);
@@ -72,6 +67,23 @@ export class FriendPageComponent implements OnInit, OnChanges {
         }
       }, err => {
       });
+  }
+
+  getMutualFriends(userId){
+    let s = this;
+    if(s.isFriends){
+      s.isFriends = false;
+      s.http.get(`${this.domain}/api/getMutualFriends/${userId}`, s.api.getHeaders())
+        .subscribe((res: any) => {
+          if (res) {
+            // s.friends = (res);
+            console.log(res);
+            s.people = res;
+          }
+        }, err => {
+        });
+    }
+
   }
 
   setMutual(res, us) {

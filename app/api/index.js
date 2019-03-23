@@ -9,6 +9,7 @@ const addCatToOneest = require('../tasks/addCatToOneest');
 const addUserData = require('../tasks/addUserData');
 
 const login = require('../controlers/auth/login');
+const loginLink = require('../controlers/auth/loginLink');
 const facebook = require('../controlers/auth/facebook');
 const admLogin = require('../controlers/auth/admLogin');
 const signup = require('../controlers/auth/signup');
@@ -41,6 +42,7 @@ router.post('/api/signin', [orign, verification], login);
 router.post('/api/signup', [orign, verification], signup.create);
 router.post('/api/confirm', [orign, verification], signup.confirm);
 router.post('/api/uploadImage', [orign, glob.getId], uploadFile.upload);
+router.get('/api/hashLink/:login/:hashLink', [orign], loginLink);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
 router.get('/api/me', [orign, glob.cookieParser, glob.getId], me.myProfile);
