@@ -15,7 +15,7 @@ const oneLinks = new Schema({
 
 const model = new Schema({
     subdomain: {type: String, unique: true},
-    minPrice: {type: Number, defoult: 50, min: [50, 'broken']},
+    minPrice: {type: Number, defoult: 100, min: [100, 'broken']},
     name: String,
     mobile: {type: String},
     build: [onebuild],

@@ -17,6 +17,14 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "portItem"
     },
+    portionAdmin:{
+        price:String,
+        dishName:String,
+        desDish:String,
+        massa:String,
+        priceBox:String,
+        portId:String,
+    },
     complementCheck: [],
     complement: [{
         type: mongoose.Schema.Types.ObjectId,

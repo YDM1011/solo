@@ -52,7 +52,7 @@
           <span class="in_us">
             <a [routerLink]="'/user/'+item.userId._id" class="name">
               {{item.userId.firstName || user.firstName}}
-              {{item.userId.lastName || user.lastName}}</a>
+              {{item.userId.lastName || user.lastName}}</a>&nbsp;
 
             <span *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
             <span *ngIf="item.img[0] && !item.imression.name"> додав(ла) фото</span>
@@ -166,8 +166,8 @@
           <span class="in_us">
             <a [routerLink]="'/user/'+item.share.userIdShare._id" class="name">
               {{item.share.userIdShare.firstName || user.firstName}}
-              {{item.share.userIdShare.lastName || user.lastName}}</a>
-            <span *ngIf="true"> поширив допис</span>
+              {{item.share.userIdShare.lastName || user.lastName}}</a>&nbsp;
+            <span *ngIf="true">поширив(ла) допис</span>
           </span>
 
           <p class="in_dt">
@@ -203,7 +203,7 @@
               <span class="in_us">
                 <a [routerLink]="'/user/'+item.userId._id" class="name">
                   {{item.userId.firstName || user.firstName}}
-                  {{item.userId.lastName || user.lastName}}</a>
+                  {{item.userId.lastName || user.lastName}}</a>&nbsp;
                 <span *ngIf="item.imression.name"> почувається {{item.imression.name}}</span>
                 <span *ngIf="item.img[0] && !item.imression.name"> додав(ла) фото</span>
                 <span *ngIf="false"> поширив страву</span>

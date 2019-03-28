@@ -151,26 +151,42 @@ export class EstEditComponent implements OnInit,OnChanges {
         if(res){
           self.labels = res;
           self[select] = [];
+
           res.map((item:any)=>{
             if (self.myest.labelInUse){
-              self.myest.labelInUse.some(actIt=>{
-                console.log(actIt);
-                if (actIt._id == item._id){
-                  return self.option2.push({
-                    name:item.name,
-                    label:item.name,
-                    id:item._id,
-                    check: true
-                  })
-                }else{
-                  if (actIt._id == self.myest.labelInUse[self.myest.labelInUse.length-1]._id)
-                  self.option2.push({
-                    name:item.name,
-                    label:item.name,
-                    id:item._id
-                  })
-                }
-              })
+              if (self.myest.labelInUse.length > 0){
+                self.myest.labelInUse.some(actIt=>{
+
+                  if (actIt._id == item._id){
+                    return self.option2.push({
+                      name:item.name,
+                      label:item.name,
+                      id:item._id,
+                      check: true
+                    })
+                  }else{
+                    if (actIt._id == self.myest.labelInUse[self.myest.labelInUse.length-1]._id)
+                    self.option2.push({
+                      name:item.name,
+                      label:item.name,
+                      id:item._id
+                    })
+                    if (self.myest.labelInUse.length-1 < 0)
+                    self.option2.push({
+                      name:item.name,
+                      label:item.name,
+                      id:item._id
+                    })
+                  }
+                })
+
+              }else{
+                self.option2.push({
+                  name:item.name,
+                  label:item.name,
+                  id:item._id
+                })
+              }
             }else{
               self.option2.push({
                 name:item.name,
@@ -180,6 +196,7 @@ export class EstEditComponent implements OnInit,OnChanges {
             }
 
           });
+          console.log("test", self.option2);
           self[select] = self.option2;
         }
       }).catch((err:any)=>{});

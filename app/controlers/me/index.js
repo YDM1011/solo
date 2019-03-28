@@ -90,7 +90,7 @@ const setFavotiteEst = (req,favEst)=>{
                 if (!content) reject('Something broke!');
                 if (content) Est
                         .findOneAndUpdate({_id: favEst._id},
-                            {$push: {thebest: req.userId}}, {new: true})
+                            {$push: {thebest: req.userId}, $inc:{thebestCount:1}}, {new: true})
                         .exec((err, content) => {
                             if (err) reject('Something broke!');
                             else resolv(content.thebest)

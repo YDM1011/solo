@@ -117,6 +117,36 @@ const othu = (req,res,id,model)=>{
 };
 const estu = (req,res,id)=>{
 
+    mongoose.model('oneest')
+        .findOne({_id:id})
+        .exec((e,r)=>{
+            if (r){
+                let forPullIds = [];
+                r.menus.map(menuId=>{
+                    let noId = true;
+                    req.body.menus.forEach(item=>{
+                        if (item == menuId){
+                            noId = false;
+                        }
+                    });
+                    if (noId){
+                        forPullIds.push(menuId)
+                    }
+                });
+                forPullIds.forEach(item=>{
+                    mongoose.model('menu')
+                        .findOneAndUpdate({_id: item},
+                            {$pull:{forest:id}}, {new: true})
+                        .exec((err, content) =>{
+                            if(err) {
+                                // return
+                            } else {
+                                // return
+                            }
+                        });
+                });
+            }
+        });
     req.body.menus.forEach(item=>{
         mongoose.model('menu')
             .findOne({_id: item, forest:{$in: id}})

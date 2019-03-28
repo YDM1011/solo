@@ -13,5 +13,6 @@ export class ShowFriendsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.friends = this.friends.reverse()
   }
 }

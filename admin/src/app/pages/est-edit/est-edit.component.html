@@ -113,9 +113,9 @@
             <div class="col-sm-8">
               <div class="flx" *ngIf="labels">
                 <ng-container *ngIf="afterSelect.length==0">
-                <ng-container *ngFor="let label of myest.labelInUse">
-                  <span class="dishingredient" *ngIf="label">{{label.name}}</span>
-                </ng-container>
+                  <ng-container *ngFor="let label of myest.labelInUse">
+                    <span class="dishingredient" *ngIf="label">{{label.name}}</span>
+                  </ng-container>
                 </ng-container>
                 <ng-container *ngFor="let label of afterSelect">
                   <span class="dishingredient" *ngIf="label">{{label.name}}</span>
