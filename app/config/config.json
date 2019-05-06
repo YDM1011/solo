@@ -21,7 +21,7 @@
       "sidDomain": "localhost",
       "domain": "tasteol1.com",
       "hashLink": "https://tasteol.com/api/hashLink/",
-      "apiDomain": "http://localhost:3000/",
+      "apiDomain": "http://localhost:5000/",
       "afterAuthDomain": "http://localhost:4200"
     },
     "facebook": {
