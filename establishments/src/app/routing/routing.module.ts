@@ -9,12 +9,14 @@ import {BasketComponent} from "../commponents/basket/basket.component";
 import {ActionPageComponent} from "../pages/action-page/action-page.component";
 import {LikeDishPageComponent} from "../pages/like-dish-page/like-dish-page.component";
 import {HitDishPageComponent} from "../pages/hit-dish-page/hit-dish-page.component";
+import {BasketHistoryComponent} from "../commponents/basket-history/basket-history.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
     children: [
       {path: 'menu/:id', component: MenuContentComponent},
       {path: 'basket', component: BasketComponent},
+      {path: 'history', component: BasketHistoryComponent},
       {path: 'info/:id', component: InfoContentComponent},
       {path: 'action/:id', component: ActionPageComponent},
       {path: 'like_dish', component: LikeDishPageComponent},

@@ -39,7 +39,6 @@ const preRead = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     mongoose.model('complement')
         .find({ownerest: req.params['id']})
-        .populate({path:'pic', select:'preload _id'})
         .sort({'data':-1})
         .exec((err,info)=>{
             if (err) return res.serverError(err);
@@ -54,30 +53,49 @@ const preUpdate = (req,res,next)=>{
     delete req.body['owneruser'];
     delete req.body['ownerest'];
     if (req.body.maincategory){
+        // mongoose.model('category')
+        //     .findOne({complementbox:{$in:req.params.id}})
+        //     .exec((err,doc)=>{
+        //         if(err) return res.badRequest(err);
+        //         if(!doc) return res.badRequest('Something broke!');
+        //         mongoose.model('category')
+        //             .findOneAndUpdate({_id: doc._id},
+        //                 {$pull:{complementbox:req.params.id}}, {new: true})
+        //             .exec((err, content) =>{
+        //                 if(err) {
+        //                     return res.badRequest(err)
+        //                 } else {
+        //                     mongoose.model('category')
+        //                         .findOneAndUpdate({_id: req.body.maincategory.id},
+        //                             {$push:{complementbox:req.params.id}}, {new: true})
+        //                         .exec((err, content) =>{
+        //                             if(err) {
+        //                                 return res.badRequest(err)
+        //                             } else {
+        //                                 return next()
+        //                             }
+        //                         });
+        //                 }
+        //             });
+        //     });
         mongoose.model('category')
-            .findOne({complementbox:{$in:req.params.id}})
-            .exec((err,doc)=>{
-                if(err) return res.badRequest(err);
-                if(!doc) return res.badRequest('Something broke!');
-                mongoose.model('category')
-                    .findOneAndUpdate({_id: doc._id},
-                        {$pull:{complementbox:req.params.id}}, {new: true})
-                    .exec((err, content) =>{
-                        if(err) {
-                            return res.badRequest(err)
-                        } else {
-                            mongoose.model('category')
-                                .findOneAndUpdate({_id: req.body.maincategory.id},
-                                    {$push:{complementbox:req.params.id}}, {new: true})
-                                .exec((err, content) =>{
-                                    if(err) {
-                                        return res.badRequest(err)
-                                    } else {
-                                        return next()
-                                    }
-                                });
-                        }
-                    });
+            .findOneAndUpdate({_id: req.body.maincategory.id},
+                {$pull:{complementbox:req.params.id}}, {new: true})
+            .exec((err, content) =>{
+                if(err) {
+                    return res.badRequest(err)
+                } else {
+                    mongoose.model('category')
+                        .findOneAndUpdate({_id: req.body.maincategory.id},
+                            {$push:{complementbox:req.params.id}}, {new: true})
+                        .exec((err, content) =>{
+                            if(err) {
+                                return res.badRequest(err)
+                            } else {
+                                return next()
+                            }
+                        });
+                }
             });
     }else{
         next()

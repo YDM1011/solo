@@ -23,6 +23,9 @@ export class ApiService {
   private estId = new BehaviorSubject<any>(null);
   public onEstId = this.estId.asObservable();
 
+  private me = new BehaviorSubject<any>(null);
+  public onMe = this.me.asObservable();
+
   constructor(
     private http: HttpClient,
   ) { }
@@ -103,7 +106,7 @@ export class ApiService {
         err => {});
   }
 
-  set(api, obj, id, select= null) {
+  set(api, obj, id, select= null, any='') {
     const self = this;
     if (select) {
       const model = '?select=' + select;
@@ -121,7 +124,7 @@ export class ApiService {
     }
     if (!select) {
       return new Promise((resolve, reject) => {
-        self.http.post(`${self.domain}/api/${api}/${id}`, obj)
+        self.http.post(`${self.domain}/api/${api}/${id}${any}`, obj)
           .subscribe(
             res => {
               // self.global[api+(id || '')] = res;
@@ -164,7 +167,7 @@ export class ApiService {
     });
   }
 
-  delet(api, _id, id) {
+  delet(api, _id, id = '') {
     const self = this;
     return new Promise((resolve, reject) => {
       self.http.delete(`${self.domain}/api/${api}/${_id}`)
@@ -259,5 +262,9 @@ export class ApiService {
       }
       if (!self.global[api + (id || '') + (select || '')]) self.global[api + (id || '') + (select || '')] = [];
     });
+  }
+
+  curentUserData(data){
+    this.me.next(data);
   }
 }

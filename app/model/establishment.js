@@ -25,6 +25,7 @@ const model = new Schema({
     },
     about: String,
     mail: String,
+    mailOfOrder: String,
     links: Object,
     own: String,
     delivery:{type: Boolean, default: true},

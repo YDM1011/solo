@@ -42,6 +42,14 @@ import {CreatePostDirective} from "./create-post/create-post.directive";
 import {UploadPostComponent} from "./upload-post/upload-post.component";
 import {FileMinPostComponent} from "./file-min-post/file-min-post.component";
 import { WorkTimeComponent } from './work-time/work-time.component';
+import { PopProdEditComponent } from './pop-prod-edit/pop-prod-edit.component';
+import {TimepickerModule} from "ngx-bootstrap";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import {SafeHTMLPipe} from "../safe-html.pipe";
+import { PaymentPipe } from './basket/payment.pipe';
+import { StatusPipe } from './basket/status.pipe';
+import { OrderPipe } from './basket/order.pipe';
+import {BasketHistoryComponent} from "./basket-history/basket-history.component";
 
 @NgModule({
   imports: [
@@ -53,7 +61,9 @@ import { WorkTimeComponent } from './work-time/work-time.component';
     MzTimepickerModule,
     MzCollapsibleModule,
     MzDropdownModule,
-    SearchModule
+    SearchModule,
+    NgbModule,
+    TimepickerModule.forRoot(),
   ],
   exports: [
     ImgComponent,
@@ -77,7 +87,8 @@ import { WorkTimeComponent } from './work-time/work-time.component';
     BarMenuComponent,
     CreatePostComponent,
     WorkTimeComponent,
-
+    SafeHTMLPipe,
+    BasketHistoryComponent
   ],
   declarations: [
     ImgComponent,
@@ -112,7 +123,12 @@ import { WorkTimeComponent } from './work-time/work-time.component';
     UploadPostComponent,
     FileMinPostComponent,
     WorkTimeComponent,
-
+    PopProdEditComponent,
+    SafeHTMLPipe,
+    PaymentPipe,
+    StatusPipe,
+    OrderPipe,
+    BasketHistoryComponent
   ]
 })
 export class CommponentsModule { }

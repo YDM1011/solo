@@ -22,9 +22,10 @@ glob.getId = (req,res,next)=>{
                 .exec((err, info)=>{
                     if (err) return next(err);
                     if (!info) return res.forbidden("forbidden2");
+                    req.mobile = info.mobile;
+                    req.userMail = info.email;
                     req.userId = info._id;
                     req.ownerId = info._id;
-                    // req.avatar = info.avatar;
                     next()
                 });
         }

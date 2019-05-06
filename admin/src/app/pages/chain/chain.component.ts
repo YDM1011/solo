@@ -20,6 +20,7 @@ export class ChainComponent implements OnInit, OnChanges {
   public av:any={};
   public name:any;
   public mail:any;
+  public mailOfOrder:any;
   public subdomain:any;
   public mobile:any;
   public about:any;
@@ -54,7 +55,7 @@ export class ChainComponent implements OnInit, OnChanges {
   initApi(id){
     let self = this;
     let req=['name','subdomain',
-      'mobile','about', 'minPrice','mail',
+      'mobile','about', 'minPrice','mail', 'mailOfOrder',
       'delivery','getself','reservation'];
     req.forEach((select)=>{
       this.api.get('establishment',id,select).then((res:any)=>{

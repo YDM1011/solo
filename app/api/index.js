@@ -28,6 +28,8 @@ const search = require('../controlers/search');
 const geo = require('../controlers/geo');
 const permisionUser = require('../controlers/permisionUser');
 
+const sms = require('../controlers/sms');
+
 const multer = require('multer');
 const upload = multer({dest: './upload/'});
 const glob = require('glob');
@@ -102,9 +104,11 @@ router.get('/api/favorite/:key/:usId', [orign, glob.getId], me.getFavoriteByUsId
 
 // basket API
 router.post('/api/add_product', [orign, glob.getId], basket.addProduct);
-router.get('/api/basket_from_est', [orign, glob.getId], basket.getBasketEst);
+router.get('/api/basket_from_est/:id?', [orign, glob.getId], basket.getBasketEst);
 router.get('/api/basket_user', [orign, glob.getId], basket.getBasket);
 router.get('/api/checkboxCom/:id', [orign, glob.getId], basket.checkbox);
+router.get('/api/test', [orign, glob.getId], basket.test);
+router.post('/api/liqpayCallback', [orign], basket.liqpayCallback);
 
 // ADM
 router.post('/api/adm/signin', [orign, verification], admLogin);
@@ -115,11 +119,15 @@ router.get('/api/getAll', [orign], landing.getAll);
 router.get('/api/getVerify', [orign], landing.getVerify);
 router.get('/api/getVerifyAll', [orign], landing.getVerifyAll);
 
-
 //custom Tasks
 router.get('/api/addEstLikes1234', [orign, glob.getId], addEstLikes);
 router.get('/api/addCatToOneest1234', [orign, glob.getId], addCatToOneest);
 router.get('/api/pushPull', [orign, glob.getId], addCatToOneest.pushPull);
 router.get('/api/addUserData1234/:data', [orign, glob.getId], addUserData);
+
+//service API
+router.post('/api/SMSSend', [orign, glob.getId], sms.send);
+router.post('/api/SMSSendCode', [orign, glob.getId], sms.sendCode);
+router.post('/api/SMSConfirmCode', [orign, glob.getId], sms.confirmCode);
 
 module.exports = router;

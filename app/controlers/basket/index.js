@@ -4,6 +4,11 @@ const Complement = mongoose.model('complement');
 const Establishment = mongoose.model('establishment');
 const Product = mongoose.model('product');
 const Basket = mongoose.model('basket');
+const BasketList = mongoose.model('basketsList');
+const LiqPay = require('liqpay-sdk');
+const publikKey = 'i94942794371';
+const privateKey = 'q7b6Yc2wMz0nUVwK30NK1Iaqt9I3nQ23I7LLZPGO';
+const liqpay = new LiqPay(publikKey, privateKey);
 
 const update = (req,res,estId,doc)=>{
     let obj = req.body;
@@ -27,7 +32,6 @@ const update = (req,res,estId,doc)=>{
     })
 };
 const create = (req,res,estId)=>{
-
     let obj = req.body;
     obj['ownerest'] = estId._id;
     obj['owneruser'] = req.userId;
@@ -86,30 +90,71 @@ module.exports.addProduct = (req, res, next) => {
 };
 module.exports.getBasketEst = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    console.log(est);
     Establishment
         .findOne({subdomain: est})
         .select('_id')
         .exec((err, estId)=>{
-            if (err) return res.badRequest(err);
-            if (!estId) return res.serverError('Somesing broken');
+            console.log(err,estId);
+            if (err) return res.serverError(err);
+            if (!estId) return res.notFound('Somesing broken');
             if (estId) {
-                Basket.findOne({ownerest:estId._id,owneruser:req.userId})
-                    .populate({path: 'products',
-                        populate:{path:'portionCheck'}})
-                    .populate({path: 'products',
-                        populate:{path:'dishId',
-                            populate:{path:'dishcategory',
-                                populate:{path:'complementbox'}}},
+                if (req.params.id){
+                    BasketList.findOne({ownerest:estId._id,owneruser:req.userId,_id:req.params.id})
+                        .populate({path: 'productData',
+                            populate:{path:'categoryData',
+                                populate:{path:"complementbox"}}})
+                        .populate({path: 'menuData',
+                            populate:{path:'dishData'}
                         })
-                    .exec((err,doc)=>{
-                        if (err) return res.badRequest(err);
-                        if (!doc) {
-                            return res.serverError('Somesing broken');
-                        }
-                        if (doc){
-                            return res.ok(doc);
-                        }
-                    })
+                        .populate({path: 'productData',
+                            populate:{path:'portItemData boxData complementData.id dishData'}
+                        })
+                        .populate({path: 'ownerest',select:"av name subdomain minPrice",
+                            populate:{path:'av'}
+                        })
+                        .sort({dataUpdate: -1})
+                        .exec((err,doc)=>{
+                            if (err) return res.serverError(err);
+                            if (!doc) {
+                                return res.ok([]);
+                            }
+                            if (doc){
+                                return res.ok(doc);
+                            }
+                        })
+                } else{
+                    let query = {ownerest:estId._id,owneruser:req.userId};
+                    if(req.query.status == 'history'){
+                        query['$or'] = [{status:6},{status:7}]
+                    } else {
+                        query['$and'] = [{status:{$ne:6}},{status:{$ne:7}}]
+                    }
+                    BasketList.find(query)
+                        .populate({path: 'productData',
+                            populate:{path:'categoryData',
+                                populate:{path:"complementbox"}}})
+                        .populate({path: 'menuData',
+                            populate:{path:'dishData'}
+                        })
+                        .populate({path: 'productData',
+                            populate:{path:'portItemData boxData complementData.id dishData'}
+                        })
+                        .populate({path: 'ownerest',select:"av name subdomain",
+                            populate:{path:'av'}
+                        })
+                        .sort({dataUpdate: -1})
+                        .exec((err,doc)=>{
+                            if (err) return res.serverError(err);
+                            if (!doc) {
+                                return res.ok([]);
+                            }
+                            if (doc){
+                                return res.ok(doc);
+                            }
+                        })
+                }
+
             }
         });
 };
@@ -150,4 +195,27 @@ module.exports.checkbox = (req, res, next) => {
                 return res.ok(doc);
             }
         })
+};
+
+module.exports.test = (req,res,next)=>{
+    var html = liqpay.cnb_form({
+        'action'         : 'pay',
+        'amount'         : '1',
+        'currency'       : 'UAH',
+        'description'    : 'Оплата замовлення',
+        'order_id'       : 'order_id_14',
+        'version'        : '3',
+        'sandbox'        : '1',
+        'server_url'     : 'https://c0873719.ngrok.io/api/liqpayCallback'
+    });
+    res.ok({html:html});
+};
+module.exports.liqpayCallback = (req,res,next)=>{
+    let sign = liqpay.str_to_sign(privateKey + req.body.data + privateKey);
+    let data = new Buffer(req.body.data, 'base64').toString();
+    console.log("test1",sign);
+    console.log("test2",data);
+    if(req.body.signature == sign){
+
+    }
 };

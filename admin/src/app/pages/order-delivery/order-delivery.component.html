@@ -1,3 +1,63 @@
-<p>
-  Замовлення на доставку.
-</p>
+<div class="wrapper wrapper-content animated fadeInRight ecommerce">
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox">
+        <div class="ibox-content">
+
+          <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+            <thead>
+            <tr>
+
+              <th class="footable-visible footable-first-column">Ім'я</th>
+              <th class="footable-visible">Страви</th>
+              <th class="footable-visible">Ціна</th>
+              <th class="footable-visible">Дата створення</th>
+              <th class="footable-visible">Дата оновлення</th>
+              <th class="footable-visible">Статус</th>
+              <th class="text-right footable-visible footable-last-column">Дії</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let order of list">
+              <tr class="footable-even sible footable-first-column">
+                <td class="footable-visible"><span class="footable-toggle"></span>
+                  {{order.client.firstName}} {{order.client.lastName}}
+                </td>
+                <td class="footable-visible">
+                  <ng-container *ngFor="let dish of order.products">
+                    <span> {{dish.dishData.name}} </span>
+                  </ng-container>
+                </td>
+                <td class="footable-visible">
+                  {{order.price}}
+                </td>
+                <td class="footable-visible">
+                  {{order.dataCreate | date:'dd.MM HH:mm'}}
+                </td>
+                <td class="footable-visible">
+                  {{order.dataUpdate | date:'dd.MM HH:mm'}}
+                </td>
+                <td class="footable-visible">
+                  <span class="label label-primary">
+                    {{order.status}}
+                  </span>
+                </td>
+                <td class="text-right footable-visible footable-last-column">
+                  <div class="btn-group">
+                    <a [routerLink]="'/order/'+id+'/'+order._id" class="btn-white btn btn-xs">Відкрити</a>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+            <tfoot>
+
+            </tfoot>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

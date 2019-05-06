@@ -31,7 +31,8 @@
             "scripts": [
               "src/assets/leaflet/leaflet.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/materialize-css/dist/js/materialize.min.js"
+              "node_modules/materialize-css/dist/js/materialize.min.js",
+              "src/assets/bootstrap.min.js"
             ]
           },
           "configurations": {

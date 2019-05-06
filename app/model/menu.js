@@ -44,6 +44,7 @@ const preRead = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    console.log("");
     if (req.query.populate || req.query.select || req.query.query){
         let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
         mongoose.model('establishment')
@@ -74,7 +75,17 @@ const preRead = (req,res,next)=>{
                             .exec((err,info)=>{
                                 if (err) return res.serverError(err);
                                 if (!info) return res.notFound('Not found');
-                                if (info) return res.ok(info);
+                                if (info) {
+                                    let result = [];
+                                    info.forEach( (item)=>{
+                                        if (item.forest){
+                                            if (item.forest.length > 0){
+                                                result.push(item);
+                                            }
+                                        }
+                                    });
+                                    return res.ok(result);
+                                }
                             })
                     }
 
@@ -92,8 +103,6 @@ const preRead = (req,res,next)=>{
                 if (info) return res.ok(info);
             })
     }
-
-
 };
 const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);

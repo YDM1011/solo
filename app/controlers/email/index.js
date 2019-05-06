@@ -3,8 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const data = require('../../config/config').data;
 const nodemailer = require('nodemailer');
-module.exports.sendMail = (obj) => {
+module.exports.sendMail = (obj, st = null) => {
 
+    let template = path.join(__dirname, '../../views-v1/emailTemplate/confirm-signup.ejs');
     const transporter = nodemailer.createTransport(
         {
             host: data.email.host,
@@ -15,16 +16,83 @@ module.exports.sendMail = (obj) => {
                 pass: data.email.pass
             }
         });
+    if (st){
+        switch(st){
+            case 1:
+                if(obj.isUser){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/user1.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                if(obj.isEst){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/est1.ejs');
+                    sender(transporter, data, obj, template);
+                    console.log(obj);
+                }
+                break;
+            case 2:
+                if(obj.isUser){
+                    if(obj.orderType == 'delivery'){
+                        template = path.join(__dirname, '../../views-v1/emailTemplate/user2d.ejs');
+                        sender(transporter, data, obj, template);
+                    }else if(obj.orderType != 'delivery'){
+                        template = path.join(__dirname, '../../views-v1/emailTemplate/user2.ejs');
+                        sender(transporter, data, obj, template);
+                    }
+                }
+                if(obj.isEst){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/est2.ejs');
+                    sender(transporter, data, obj, template);
+                    console.log(obj);
+                }
+                break;
+            case 3:
+                if(obj.isUser){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/user3.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                break;
+            case 4:
+                if(obj.isEst){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/est4.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                break;
+            case 5:
+                if(obj.isUser){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/user5.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                break;
+            case 6:
+                if(obj.isUser){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/user6.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                break;
+            case 7:
+                if(obj.isUser){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/user7.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                if(obj.isEst){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/est7.ejs');
+                    sender(transporter, data, obj, template);
+                }
+                break;
+            default: return
+        }
+    }
 
-    const contentMail ={
-        message: obj,
-        link: String("http://localhost:4200")
-    };
-    transporter.sendMail({
+    if (!st) sender(transporter, data, obj, template);
+
+};
+
+const sender = (tr, data, obj, template)=>{
+    tr.sendMail({
         from: data.email.user,
         to: obj.mail,
         subject: data.email.subject,
-        html: ejs.render( fs.readFileSync(path.join(__dirname, '../../views-v1/emailTemplate/confirm-signup.ejs'), 'utf-8') , contentMail)
+        html: ejs.render( fs.readFileSync(template, 'utf-8') , {message: obj})
     }, (err, info) => {
         if (err) {
             return console.log(err);

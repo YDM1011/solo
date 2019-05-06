@@ -1,81 +1,310 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Injectable, OnChanges, OnInit} from '@angular/core';
+import {Basket, BasketData} from "./basket";
+import {ApiService} from "../../service/api.service";
+import {ActivatedRoute} from "@angular/router";
+import {Address, AddressData} from "./address";
+import {NgbDatepickerI18n, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import * as moment from 'moment'
+
+const I18N_VALUES = {
+  en: {
+    weekdays: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+    months: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+  },
+  ua: {
+    weekdays: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Нд', 'Сб'],
+    months: ['Січ', 'Лют', 'Бер', 'Квіт', 'Трав', 'Черв', 'Лип', 'Серп', 'Вер', 'Жовт', 'Лист', 'Груд'],
+  }
+};
+
+// Define a service holding the language. You probably already have one if your app is i18ned.
+@Injectable()
+export class I18n {
+  language = 'ua';
+}
+
+// Define custom service providing the months and weekdays translations
+@Injectable()
+export class CustomDatepickerI18n extends NgbDatepickerI18n {
+
+  constructor(private _i18n: I18n) {
+    super();
+  }
+
+  getWeekdayShortName(weekday: number): string {
+    return I18N_VALUES[this._i18n.language].weekdays[weekday - 1];
+  }
+  getMonthShortName(month: number): string {
+    return I18N_VALUES[this._i18n.language].months[month - 1];
+  }
+  getMonthFullName(month: number): string {
+    return this.getMonthShortName(month);
+  }
+  getDayAriaLabel(date: NgbDateStruct): string {return ''}
+}
 
 @Component({
   selector: 'app-basket',
   templateUrl: './basket.component.html',
-  styleUrls: ['./basket.component.css']
+  styleUrls: ['./basket.component.css'],
+  providers: [I18n, {provide: NgbDatepickerI18n, useClass: CustomDatepickerI18n}]
 })
-export class BasketComponent implements OnInit {
+export class BasketComponent implements OnInit, OnChanges {
 
-  public basket: any;
+  public baskets:Basket[] = [];
+  public activeBaskets:Basket;
+  public address:Address = new AddressData();
+  public addresses:Address[] = [];
   public totalPrice: any = 0;
+  public estAdres = [];
+  public estAddress = {address:'',_id:''};
 
-  constructor() { }
+  public html;
+  public mobile;
+  public button;
+  public isValidS;
+  public dataStart:any = new Date().toISOString();
+  public timeStart = {hour: new Date().getHours(), minute: new Date().getMinutes()};
+  public radioBtnTime:boolean = false;
+
+  public prices = {};
+  public onLoaded:boolean = false;
+  public isDoOrder:boolean = false;
+  public isAddress:boolean = false;
+  public isCanEdit:boolean = false;
+  public orderType;
+  public originBasketData = [];
+  constructor(
+    private route: ActivatedRoute,
+    private api: ApiService,
+  ) { }
 
   ngOnInit() {
-  }
+    const s = this;
+    // this.route.params.subscribe((params: any) => {
+    //   self.initApi();
+    // });
 
-  result(data) {
-    let s = this;
-    s.basket = data;
-
-    s.basket.products.map(product=>{
-      product.dishId.dishcategory.complementbox.map(compl=>{
-        compl.check = false;
-        product.complement.map(compl2=>{
-          if (compl._id == compl2){
-            compl.check = true;
-          }
-        })
-      })
-    });
-
-    s.basket.products.map(product => {
-      if(product.portionCheck){
-        s.totalPrice += parseInt(product.portionCheck.price) * parseInt(product.count);
-        product.totalPrice = parseInt(product.portionCheck.price) * parseInt(product.count);
-        product.dishId.dishcategory.complementbox.map(compl=>{
-          if (compl.check){
-            s.totalPrice += parseInt(compl.price) * parseInt(product.count);
-            product.totalPrice += parseInt(compl.price) * parseInt(product.count);
-          }
-        })
-      }
-
-    });
-  }
-
-  checkPP(product){
-    let s = this;
-    product.totalPrice = parseInt(product.portionCheck.price);
-    product.dishId.dishcategory.complementbox.map(compl=>{
-      if (compl.check){
-        product.totalPrice += parseInt(compl.price) * parseInt(product.count);
+    this.api.onMe.subscribe(me=>{
+      if(me){
+        this.mobile = me.mobile;
       }
     });
-    s.totalPrice += product.totalPrice;
-    // product.totalPrice = product.totalPrice * product.count;
+    this.init()
   }
 
-  checkPrice(compl, product){
-    let s = this;
-    compl.check = !compl.check;
-    s.totalPrice -= product.totalPrice;
-    s.checkPP(product);
-    if(product.count < 1){
-      product.count = 1;
-    }
+  ngOnChanges(){
   }
-  addPP(product){
-    this.totalPrice -= product.totalPrice;
+
+  timeCheck(basket){
+    console.log(basket.deliveryTime)
+  }
+
+  init(){
+    this.api.justGet('basket_from_est','','','?select=-__v&sort={"dataUpdate":-1}').then((data:any)=>{
+      if (data){
+        this.getBasketsList(data)
+      }
+    });
+    this.dataStart = moment()
+      .hour(this.timeStart.hour)
+      .minute(this.timeStart.minute).toISOString();
+  }
+  productUpdate(product, basket, index){
+    basket.products.map(prod=>{
+      if(prod._id==product._id){
+        prod = product;
+        this.prices[prod._id] = prod.totalPrice;
+        this.checkPP(product, basket)
+      }
+      this.baskets[index-1] = basket;
+    })
+  }
+
+  getBasketsList(basketsData){
+    let s = this;
+    this.originBasketData = [];
+    basketsData.map(data=>{
+      let _id = data._id;
+      let name = `${data.ownerest.name}: ${data.menuData.name}`;
+      let time = data.dataUpdate;
+      let totalPrice = data.editByAdmin ?  data.editByAdmin.totalPrice || data.totalPrice : data.totalPrice;
+      let product = data.productData;
+      let estLogo = data.ownerest.av;
+      let status = data.status.id;
+      s.onLoaded = true;
+      let basketData = new BasketData(_id, name, time, totalPrice, product, estLogo, status, data.orderCommentData);
+      basketData.orderType = data.orderType;
+      basketData.anyMobile = data.anyMobile;
+      if (data.deliveryTime)
+        this.dataStart = data.deliveryTime;
+      basketData.deliveryTime = data.deliveryTime || 'false';
+      basketData.paymentType = data.paymentType || "fiat";
+      if(data.paymentDetail)
+        basketData.paymentDetail.fiatVal = data.paymentDetail.fiatVal || 0;
+      basketData.boxesPrice = data.editByAdmin ? data.editByAdmin.boxesPrice || data.boxesPrice : data.boxesPrice;
+      basketData.status = data.status;
+      basketData.isCanEdit = data.status == "0";
+      basketData.isCall = data.isCall;
+      basketData.ownerEst = data.ownerest._id;
+      basketData.html = data.html;
+      basketData.menu = data.menuData;
+
+      if(basketData.orderType == 'delivery'){
+        basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
+        basketData.deliveryPrice =  basketData.deliveryMinPrice > basketData.totalPrice ? (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) : parseInt(data.menuData.delivery)) : 0;
+        if(data.editByAdmin){
+          if(data.editByAdmin.deliveryPrice){
+            basketData.deliveryPrice = data.editByAdmin.deliveryPrice;
+          }
+        }
+      }else{
+        basketData.deliveryPrice = 0;
+      }
+
+      console.log(basketData);
+      s.baskets.push(basketData);
+      basketData.products.map(prod=>{
+        this.prices[prod._id] = prod.totalPrice / prod.count;
+      });
+      this.originBasketData.push(Object.assign({},data))
+    });
+
+  }
+
+
+  checkPP(product, basket){
+    let s = this;
+    product.totalPrice = parseInt(this.prices[product._id]) * product.count;
+    let price = 0;
+    basket.products.map(prod=>{
+      price += prod.totalPrice + parseInt(prod.boxData.price) * prod.count;
+    });
+    basket.totalPrice = price;
+    this.originBasketData.map(basketOrigin=>{
+      if(basketOrigin._id == basket._id){
+        basket.deliveryPrice = basket.deliveryMinPrice > basket.totalPrice ? parseInt(basketOrigin.menuData.delivery) : 0;
+      }
+    })
+  }
+  addPP(product, basket){
     product.count++;
-    this.checkPP(product)
+    this.checkPP(product, basket)
   }
-  decPP(product){
+  decPP(product, basket){
     if (product.count > 1){
-      this.totalPrice -= product.totalPrice;
       product.count--;
-      this.checkPP(product)
+      this.checkPP(product, basket)
     }
+  }
+  setActiveBasket(basket){
+    let s = this;
+    s.isDoOrder=true;
+    s.activeBaskets = null;
+    s.activeBaskets = basket;
+    if(s.activeBaskets.products){
+      s.activeBaskets.boxesPrice = 0;
+      s.activeBaskets.products.map(product=>{
+        s.activeBaskets.boxesPrice += parseInt(product.boxData.price) * product.count;
+      })
+    }
+  }
+  delBasket(basket){
+    this.api.delet('basketsList', basket._id);
+    let index = this.baskets.indexOf(basket);
+    this.baskets.splice(index,1);
+  }
+  setConfirm(basket){
+    this.api.set('basketsList', {status: '2', confirm:true},basket._id).then(v=>{
+      if(v){
+        basket.status = '2';
+      }
+    });
+  }
+  doOrderDelivery(){
+    this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
+    this.activeBaskets.status = "1";
+    this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
+    this.activeBaskets.orderType = this.orderType;
+
+    if (this.address['isSaved']){
+      this.activeBaskets.addressData = this.address._id;
+    }else{
+      this.activeBaskets.customAddress = this.address;
+    }
+    // this.activeBaskets.paymentType = "delivery";
+    console.log(this.activeBaskets,this.address);
+    this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id);
+    this.isDoOrder = false;
+  }
+  doOrderBySelf(){
+    this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
+    this.activeBaskets.status = "1";
+    this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
+    this.activeBaskets.orderType = this.orderType;
+
+    if (this.estAddress['isSaved']){
+      this.activeBaskets.estAddressData = this.estAddress._id;
+    }else{
+      this.activeBaskets.customAddress = this.estAddress;
+    }
+    this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id);
+    this.isDoOrder = false;
+  }
+  doOrderReserve(){
+
+  }
+  dataSelected(e = null){
+    if (!e){
+      e = {};
+      e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();
+      e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth()+1;
+      e['day'] = new Date(this.activeBaskets.deliveryTime).getDate();
+    }
+    this.dataStart = new Date(e.year, (e.month-1), e.day, this.timeStart.hour, this.timeStart.minute)
+      .toISOString();
+    return this.dataStart;
+  }
+  test(){
+    this.api.justGet('test','','','').then((data:any)=>{
+      this.button = data.html;
+      console.log(this.button)
+    })
+  }
+
+  getAddress(){
+    this.isAddress = !this.isAddress;
+    if(this.isAddress){
+      this.api.justGet('address','','','?select=-__v').then((data:any)=>{
+        if (data){
+          this.addresses = (data)
+        }
+      });
+    }
+
+  }
+  checkAddress(adrs){
+    this.isAddress = !this.isAddress;
+    this.address = adrs;
+    this.address['isSaved'] = true;
+  }
+  getEstAddress(){
+    this.isAddress = !this.isAddress;
+    if(this.isAddress){
+      this.api.justGet('oneest?query={"ownerEst":"'+this.activeBaskets.ownerEst+'"}&select=address').then((v:any)=>{
+        if (v){
+          this.estAdres = v;
+        }
+      })
+    }
+  }
+  checkEstAddress(adrs){
+    this.isAddress = !this.isAddress;
+    this.estAddress = adrs;
+    this.estAddress['isSaved'] = true;
+  }
+  checkDelivery(){
+    this.orderType='delivery';
+    this.activeBaskets.deliveryPrice = parseInt(this.activeBaskets.menu.deliveryfree) > this.activeBaskets.totalPrice ? parseInt(this.activeBaskets.menu.delivery) : 0;
   }
 }

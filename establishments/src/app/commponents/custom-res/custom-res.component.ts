@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, OnChanges} from '@angular/core';
 import {ApiService} from "../../service/api.service";
 import { CookieService } from "ngx-cookie-service";
 
@@ -7,7 +7,7 @@ import { CookieService } from "ngx-cookie-service";
   templateUrl: './custom-res.component.html',
   styleUrls: ['./custom-res.component.css']
 })
-export class CustomResComponent implements OnInit {
+export class CustomResComponent implements OnInit, OnChanges {
 
   @Input() model:any = {
     url:'',
@@ -29,6 +29,10 @@ export class CustomResComponent implements OnInit {
     s.initApi(s.model);
   }
 
+  ngOnChanges(){
+    let s = this;
+    // s.initApi(s.model);
+  }
   initApi(mod){
   let s = this;
   if (mod.security){

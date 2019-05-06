@@ -1,7 +1,7 @@
 <app-custom-res [model]="{
     url:'menu',
     populate:{path:'forest'},
-    select: 'forest,name'}" (onRes)="getMenu($event)"></app-custom-res>
+    select: 'forest name'}" (onRes)="getMenu($event)"></app-custom-res>
 
 <ng-container *ngIf="menus">
   <ng-container *ngIf="isSingl == 1">

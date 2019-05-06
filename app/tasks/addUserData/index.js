@@ -25,26 +25,33 @@ const updateUserData = (users, req)=>{
     return new Promise(async (resolve,reject)=>{
         if (users)
             await asyncForEach(users, async (us)=>{
-                User.findOne({_id:us._id}).select('_id data').select('_id data').exec((err,is)=>{
-                    if (is){
-                        if (!is.data && !err){
-                            User.findOneAndUpdate({_id:us._id},
-                                {data:new Date(req.params.data).toISOString()}, {new: true})
-                                .select('_id data').exec((e,r)=>{
-                                if (r){
-                                }else{
-                                    let err = e || '';
-                                    reject(err)
-                                }
-                            })
-                        }
-                    }
-                });
-
+                await updateData(us)
             });
 
         resolve(users)
     })
+};
+
+const updateData = us =>{
+    return new Promise((rs,rj)=>{
+        User.findOne({_id:us._id}).select('_id data').select('_id data').exec((err,is)=>{
+            if (is){
+                if (!is.data && !err){
+                    User.findOneAndUpdate({_id:us._id},
+                        {data:"2019-03-01T10:00:00.000Z"}, {new: true})
+                        .select('_id data').exec((e,r)=>{
+                        if (r){
+                            rs(r)
+                        }else{
+                            let err = e || '';
+                            rj(err)
+                        }
+                    })
+                }
+            }
+        });
+    })
+
 };
 
 async function asyncForEach(array, callback) {

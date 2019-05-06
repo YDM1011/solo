@@ -7577,3 +7577,26 @@ textarea.us_area::-webkit-scrollbar-track {
   }
 }
 /*end color scrollbar*/
+.ngb-dp-today {
+  background: #b7e5ff;
+  border-radius: 50%;
+}
+ngb-datepicker-navigation-select>.custom-select {
+  display: block;
+}
+.ngb-dp-arrow-btn {
+  padding: 0 .25rem;
+  margin: 0 .5rem;
+  border: none;
+  background-color: transparent;
+  z-index: 1;
+  height: auto;
+  color: #2f4b5a;
+  display: flex;
+  box-shadow: none;
+}
+.btn, .btn-large {
+  padding: 0;
+  width: auto;
+  max-width: 100%;
+}

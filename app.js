@@ -29,6 +29,7 @@ glob.secret = "seecret";
 require('./app/middleware/isAdmin');
 require('./app/middleware/getAdmin');
 require('./app/middleware/getId');
+require('./app/middleware/isByAdmin');
 require('./app/middleware/getOwner');
 require('./app/middleware/isAuth');
 require('./app/middleware/isProfile');
@@ -37,6 +38,7 @@ require('./app/middleware/isMyProfile');
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
+    '*',
     'http://localhost:4200',
     'http://*.localhost:4200',
     'http://localhost:4300',

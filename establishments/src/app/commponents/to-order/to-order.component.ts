@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit} from '@angular/core';
+declare var Materialize: any;
+
+class MaterializeAction {
+}
 
 @Component({
   selector: 'app-to-order',
@@ -10,6 +14,7 @@ export class ToOrderComponent implements OnInit {
   public isShow:boolean=false;
   public maxDate = new Date();
   public data;
+  public birthDateActions = new EventEmitter<string|MaterializeAction>();
   public dateOfBirth = new Date();
   public time = `${new Date().getHours()}:${new Date().getMinutes()+30}`;
   public options: Pickadate.DateOptions = {
@@ -17,6 +22,7 @@ export class ToOrderComponent implements OnInit {
     close: 'Обрати',
     today: 'Сьогодні',
     closeOnClear: true,
+    onStart: (event)=>{ console.log(this) },
     closeOnSelect: false,
     format: 'dd.mm.yyyy',
     formatSubmit: 'yyyy-mm-dd',
@@ -103,5 +109,9 @@ export class ToOrderComponent implements OnInit {
       month: data.getMonth()+1,
       day: data.getDate()
     }
+  }
+  openDatePicker() {
+    //actions are open or close
+    this.birthDateActions.emit({action: "pickadate", params: ["open"]});
   }
 }

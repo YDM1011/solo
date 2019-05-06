@@ -1,0 +1,34 @@
+.btn-wrap{
+  text-align: right;
+}
+.flex{
+  display: flex;
+}
+.flex .avatar{
+  width: 75px;
+  margin-right: 8px;
+}
+.client-info{
+  display: flex;
+  flex-direction: column;
+}
+.price .mb-1{
+  min-width: 5em;
+  margin-right: 7px;
+}
+.price input{
+  min-width: 2em;
+  width: auto;
+  display: inline;
+  max-width: inherit;
+  margin-right: 5px;
+}
+.price label{
+  width: auto;
+  display: inline-flex;
+  min-width: 3em;
+  margin-right: 5px;
+}
+.price .btn{
+  margin-left: 8px;
+}

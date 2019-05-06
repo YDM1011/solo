@@ -1,15 +1,70 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from "@angular/router";
+import {ApiService} from "../../api.service";
+import {order, OrderMin} from "../order/order-min";
 
 @Component({
   selector: 'app-order-delivery',
   templateUrl: './order-delivery.component.html',
   styleUrls: ['./order-delivery.component.css']
 })
-export class OrderDeliveryComponent implements OnInit {
+export class OrderDeliveryComponent implements OnInit, OnChanges {
 
-  constructor() { }
+  public orderType = 'delivery';
+  public id;
+
+  public list:OrderMin[] = [];
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private api: ApiService
+  ) { }
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.orderType = this.route.snapshot.paramMap.get('ordType');
+    this.route.params.subscribe((params:any) => {
+
+      if(this.id != params.id || this.orderType != params.ordType){
+        this.id = params.id;
+        this.orderType = params.ordType;
+        this.getStartList(params.id);
+      }
+    });
+    this.getStartList(this.id)
   }
 
+  ngOnChanges() {
+    // this.route.params.subscribe((params:any) => {
+    //   console.log(params);
+    //   if(this.id != params.id && this.orderType != params.ordType){
+    //     this.id = params.id;
+    //     this.orderType = params.ordType;
+    //     this.getStartList(params.id);
+    //   }
+    // });
+  }
+  getStartList(id){
+    this.api.justGet('basketsList', id, '', '?skip=0&orderType='+this.orderType)
+      .then((v:any)=>{
+        if(v){
+          if(v.length>0){
+            this.list = [];
+            v.map(basket=>{
+              let client = basket.owneruser;
+              let prods = basket.productData;
+              let price = basket.totalPrice+basket.boxesPrice;
+              let created = basket.data;
+              let updated = basket.dataUpdate;
+              let status = basket.status;
+              let id = basket._id;
+              this.list.push(
+                new order(client,prods,price, created, updated, status, id)
+              )
+            })
+          }
+        }
+      })
+  }
 }

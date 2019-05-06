@@ -203,7 +203,7 @@ const getId = (req,res,callbeack)=>{
         }else{
             User.findOne({login: data.id })
                 .exec((err, info)=>{
-                    if (err) return next(err);
+                    if (err) return res.serverError(err);
                     if (!info) return res.forbidden("forbidden2");
                     req.userId = info._id;
                     req.ownerId = info._id;

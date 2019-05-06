@@ -1,0 +1,75 @@
+.prevInv{
+  font-size: 18px;
+  text-align: center;
+  color: #c3c3c3;
+  margin: 20px;
+}
+select{
+  display: inline-block!important;
+}
+.md.md-full3{
+  overflow: auto;
+}
+.btn-trans.active{
+  text-decoration: underline;
+}
+.flex{
+  display: flex;
+}
+.btn-xs{
+  font-size: 12px;
+  text-transform: none;
+  padding: 0;
+  display: inline-block;
+  flex-grow: 1;
+  width: 100%;
+  margin: 0;
+  line-height: 24px;
+  height: inherit;
+}
+.flex .p-d_inp{
+  margin-right: 0;
+  width: 100%;
+  display: inline-block;
+}
+.clases-adress{
+  display: block;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.01);
+}
+.wrap-address ul li:hover{
+  cursor: pointer;
+  color: #0996e2;
+}
+.wrap-address ul li{
+  line-height: 1.4em;
+  transition: .3s;
+}
+.wrap-address ul{
+  margin: 0;
+  z-index: 1;
+  position: relative;
+  display: block;
+  background: #fff;
+}
+.wrap-address{
+  position: absolute;
+  top: 22px;
+  left: 17px;
+  padding: 10px 15px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  box-shadow: 0px 3px 11px rgba(51, 51, 51, 0.15);
+  z-index: 1;
+}
+.liqpay-btn{
+  background: none;
+  border: none;
+  padding: 10px 0;
+  margin-top: 10px;
+}

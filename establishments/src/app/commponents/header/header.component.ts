@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
   }
   result(data) {
     const s = this;
+    s.api.curentUserData(data);
     s.user = (data);
     s.access = true;
   }

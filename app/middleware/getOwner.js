@@ -11,6 +11,7 @@ glob.getOwner = async (req,res,next)=>{
     if (req.adminLogin == "admin"){
         return next()
     }else {
+        console.log("!!!",req.params.id);
         if (req.params.id) {
             // Est.findOne({owner: req.ownerId, _id: req.params.id})
             //     .select('_id')
@@ -26,6 +27,7 @@ glob.getOwner = async (req,res,next)=>{
             isForbidden = await checkPerm(req).catch(e=>{console.log(e)});
             if (isForbidden)
             isForbidden = await checkPermByEstId(req).catch(e=>{console.log(e)});
+            console.log(isForbidden);
             if(isForbidden === true){
                 return res.forbidden('forbidden1');
             }else{
@@ -39,7 +41,7 @@ glob.getOwner = async (req,res,next)=>{
                 bid = req.body.id != req.body._id ? req.body.id : null
             }
             let estid = bid || req.body.estId || req.body.ownerest;
-            console.log(estid);
+            console.log("2",estid);
             User.findOne({_id: req.ownerId})
                 .populate({path:'myEstablishment', select:"subdomain _id"})
                 .select('myEstablishment')
@@ -78,13 +80,12 @@ glob.getOwner = async (req,res,next)=>{
 const checkPerm = req => {
     const User = mongoose.model('user');
     return new Promise((r,e)=>{
-        mongoose.model(req.erm.model.modelName)
-            .findOne({_id:req.params.id})
-            .exec( (err,result)=>{
-                if (e) return e(err);
-                if (!result) return e("broken");
-                if(result){
-                    // console.log(r);
+        mongoose.model(String(req.erm.model.modelName))
+            .findOne({_id:String(req.params.id)})
+            .exec( (err,mod)=>{
+                if (err) return e(err);
+                if (!mod) return e("broken");
+                if(mod){
                     User.findOne({_id: req.ownerId})
                         .populate({path:'myEstablishment', select:"subdomain _id"})
                         .select('myEstablishment')
@@ -92,9 +93,8 @@ const checkPerm = req => {
                             if(err) return e(err);
                             if (!result) return e('Somesing broken');
                             if (result){
-
                                 result.myEstablishment.map(est=>{
-                                    if(String(est._id) == String(r.ownerEst) || String(est._id) == String(r.ownerest))
+                                    if(String(est._id) == String(mod.ownerEst) || String(est._id) == String(mod.ownerest))
                                     {return r(false)}
                                 });
                                 return r(true)

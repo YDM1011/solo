@@ -12,6 +12,7 @@ export class DishComponent implements OnInit {
 
   @Input() categoryId: any;
   @Input() dish: any;
+  @Input() boxId: any;
   @Input() menuId: any;
   @Output() onNull: EventEmitter<any> = new EventEmitter<any>();
   public portion: any = [];

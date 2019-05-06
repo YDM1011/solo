@@ -12,7 +12,10 @@ const model = new Schema({
         required: [true, "MainCategory must be checked"]
     },
     globcategory: String,
-    boxcategory: Array,
+    boxcategory: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "complement"
+    },
     owneruser: String,
     ownerest: String,
     data: {type: Date, default: new Date()},

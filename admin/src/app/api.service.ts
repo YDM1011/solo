@@ -21,23 +21,23 @@ export class ApiService {
     private http: HttpClient,
   ) { }
 
-  get(api, id= null, select= null, any= null) {
+  get(api, id= null, select= null, any= null, conc = '') {
     const self = this;
     if (self.global[api + (id || '') + (select || '')]) {
       return new Promise((resolve, reject) => {
         resolve(self.global[api + (id || '') + (select || '') + (any || '')]);
       });
     } else {
-      return self.g(api, id, select, any);
+      return self.g(api, id, select, any, conc);
     }
 
   }
-  g(api, id= null, select= null, any= null) {
+  g(api, id= null, select= null, any= null, conc = '') {
     const self = this;
     let   model = select ? '?select=' + select : '';
           model += any ? '&query=' + JSON.stringify(any) : '';
     return new Promise((resolve, reject) => {
-      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model}`)
+      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model}${conc}`)
         .subscribe(
           (res: any) => {
             self.global[api + (id || '') + (select || '') + (any || '')] = res;
@@ -47,11 +47,11 @@ export class ApiService {
         );
     });
   }
-  justGet(api, id= null, select= null) {
+  justGet(api, id= null, select= null, conc = '') {
     const self = this;
     const model = select ? '?select=' + select : '';
     return new Promise((resolve, reject) => {
-      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model}`)
+      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model}${conc}`)
         .subscribe(
           (res: any) => {
             self.global[api + (id || '') + (select || '')] = res;
@@ -62,7 +62,7 @@ export class ApiService {
     });
   }
 
-  set(api, obj, id, select= null) {
+  set(api, obj, id, select= null, any='') {
     const self = this;
     if (select) {
       const model = '?select=' + select;
@@ -80,11 +80,11 @@ export class ApiService {
     }
     if (!select) {
       return new Promise((resolve, reject) => {
-        self.http.post(`${self.domain}/api/${api}/${id}`, obj)
+        self.http.post(`${self.domain}/api/${api}/${id}${any}`, obj)
           .subscribe(
             res => {
               // self.global[api+(id || '')] = res;
-              self.updateDate(api, res, id, select);
+              self.updateDate(api, res, id, select+any);
               resolve(res);
             },
             err => reject(err)
@@ -193,17 +193,19 @@ export class ApiService {
     const self = this;
     if (select) {
       return new Promise((resolve, reject) => {
-        if (Array.isArray(self.global[api + id + select][select])) {
-          self.global[api + id + select][select].forEach((item, i) => {
-            if (item._id === res._id) {
-              self.global[api + id + select][select][i] = res;
-            }
-          });
-        } else if (!Array.isArray(self.global[api + id + select][select])) {
+        if(Array.isArray(self.global[api + id + select])) {
+          if (Array.isArray(self.global[api + id + select][select])) {
+            self.global[api + id + select][select].forEach((item, i) => {
+              if (item._id === res._id) {
+                self.global[api + id + select][select][i] = res;
+              }
+            });
+          } else if (!Array.isArray(self.global[api + id + select][select])) {
             self.global[api + id + select][select] = res;
+          }
+          resolve(self.global[api + id + select]);
+          this.updat.next([self.global[api + id + select], select]);
         }
-        resolve(self.global[api + id + select]);
-        this.updat.next([self.global[api + id + select], select]);
       });
     } else if (!select) {
       return new Promise((resolve, reject) => {

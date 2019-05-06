@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {ApiService} from "../../service/api.service";
 import {animate, style, transition, trigger} from "@angular/animations";
+import {Product, ProductObj} from "./product";
 
 @Component({
   selector: 'app-pop-prod-add',
@@ -43,13 +44,16 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   @Output() isShowChange=new EventEmitter<any>();
 
   @Input() dish;
-  @Input() dishId;
+  @Input() menuId;
+  @Input() boxId;
+  @Input() categoryId;
+  public product:Product = new ProductObj;
 
   public complement;
   public dishData;
   public totalPrice: number = 0;
   public isComplement = false;
-  public comment = '';
+  public comment;
   public portion = [];
   public complements = [];
   public complementsM = [];
@@ -162,6 +166,8 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
   ComMap(){
     let self = this;
+    self.complementsM = [];
+    self.complementsOptM = [];
     self.dishData.dishingredient.map(ing=>{
       self.complements.map(it=>{
         if(ing == it.id){
@@ -173,7 +179,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     self.dishData.ingredientis.map(ing=>{
       self.complementsOpt.map(it=>{
         if(ing == it.id){
-          it.check = false;
+          it.check = true;
           self.complementsOptM.push(it);
         }
       })
@@ -188,24 +194,25 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
 
   toBasket() {
     const s = this;
+    s.product.dishData = s.dishData._id;
+    s.product.portItemData = s.dishData.prt._id;
+    s.product.menuData = s.menuId;
+    s.product.categoryData = s.categoryId;
+    s.product.boxData = s.boxId;
+    s.product.count = 1;
+    s.product.complementData = [];
+    s.product.orderCommentData.push({text:s.comment});
 
-    const obj = {
-      portionCheck: s.dishData.prt._id,
-      dishId: s.dishData._id,
-      complementCheck: s.complementsOptM,
-      comment: s.comment,
-      complement: [],
-      totalPrice: s.totalPrice
-    };
     s.complement.map(com=>{
       if (com.isCheck){
-        obj.complement.push(com._id);
+        s.product.complementData.push({id:com._id,count:com.count});
       }
     });
 
-    s.api.post('add_product', obj).then((res: any) => {
+    s.api.post('product', s.product).then((res: any) => {
       console.log(res);
     });
+    s.hidden();
   }
   hidden() {
     this.isShow = !this.isShow;

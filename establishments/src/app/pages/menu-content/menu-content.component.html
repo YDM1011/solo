@@ -60,7 +60,10 @@
             <!--</div>-->
           </div>
 
-          <app-dish [categoryId]="category._id" [menuId]="menu._id" [dish]="menu.dishes" (onNull)="categDel($event)"></app-dish> <!--id-->
+          <app-dish [categoryId]="category._id"
+                    [boxId]="category.boxcategory"
+                    [menuId]="menu._id"
+                    [dish]="menu.dishes" (onNull)="categDel($event)"></app-dish> <!--id-->
 
         </mz-collapsible-item-body>
       </mz-collapsible-item>

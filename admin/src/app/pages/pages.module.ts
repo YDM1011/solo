@@ -34,6 +34,8 @@ import { MenuCreateComponent } from './menu-create/menu-create.component';
 import { MenuEditComponent } from './menu-edit/menu-edit.component';
 import { ActionComponent } from './action/action.component';
 import { HelpComponent } from './help/help.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { OrderDetailEditComponent } from './order-detail-edit/order-detail-edit.component';
 
 @NgModule({
   imports: [
@@ -75,6 +77,8 @@ import { HelpComponent } from './help/help.component';
     MenuEditComponent,
     ActionComponent,
     HelpComponent,
+    OrderDetailComponent,
+    OrderDetailEditComponent,
   ],
   providers: [
     ApiService,

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --aot --prod --build-optimizer",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -44,6 +44,7 @@
     "rxjs": "^6.4.0",
     "sweetalert2": "^7.26.28",
     "tslib": "^1.9.0",
+    "yarn": "^1.15.2",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {

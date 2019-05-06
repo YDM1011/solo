@@ -108,6 +108,10 @@ const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    delete req.body.mobile;
+    delete req.body.pass;
+    delete req.body.token;
+    delete req.body.hash;
     mongoose.model('user')
         .findOneAndUpdate({_id: req.userId}, req.body)
         .select('-pass -token -_id -hashLink')

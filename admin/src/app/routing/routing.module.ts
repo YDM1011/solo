@@ -31,6 +31,8 @@ import {MenuCreateComponent} from "../pages/menu-create/menu-create.component";
 import {MenuEditComponent} from "../pages/menu-edit/menu-edit.component";
 import {ActionComponent} from "../pages/action/action.component";
 import {HelpComponent} from "../pages/help/help.component";
+import {OrderDetailComponent} from "../pages/order-detail/order-detail.component";
+import {OrderDetailEditComponent} from "../pages/order-detail-edit/order-detail-edit.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
@@ -64,7 +66,10 @@ const routes: Routes = [
         {path:':id/:editid',component:BoxEditComponent}
       ]},
       {path:'order/:id',component:OrderComponent},
-      {path:'delivery/:id',component:OrderDeliveryComponent},
+      {path:'order/:eid/:id',component:OrderDetailComponent, children:[
+          {path:':eid/:id/:editid',component:OrderDetailEditComponent}
+        ]},
+      {path:'orders/:ordType/:id',component:OrderDeliveryComponent},
       {path:'get_by_self/:id',component:OrderSelfComponent},
       {path:'reservation/:id', component:OrderReservationComponent},
       {path:'setting', component:SettingComponent},

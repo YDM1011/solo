@@ -21,7 +21,7 @@ import {SearchModule} from "./search/search.module";
     AppComponent,
     InitLayoutComponent,
     LeftBarScrollDirective,
-    RightBarScrollDirective,
+    RightBarScrollDirective
   ],
   imports: [
     HttpClientModule,

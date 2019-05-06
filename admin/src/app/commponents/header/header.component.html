@@ -39,14 +39,25 @@
             <a routerLinkActive #box="routerLinkActive" [routerLink]="'/box/'+est._id"> Упаковка </a></li>
           <li [class.active]="actn.isActive">
             <a routerLinkActive #actn="routerLinkActive" [routerLink]="'/action/'+est._id"><span class="nav-label">Акції</span></a></li>
-          <!--<li [class.active]="ordr.isActive">-->
-            <!--<a routerLinkActive #ordr="routerLinkActive" [routerLink]="'/order/'+est._id"><span class="nav-label">Замовлення</span></a></li>-->
-          <!--<li [class.active]="dlvr.isActive">-->
-            <!--<a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/delivery/'+est._id">Доставка</a></li>-->
-          <!--<li [class.active]="self.isActive">-->
-            <!--<a routerLinkActive #self="routerLinkActive" [routerLink]="'/get_by_self/'+est._id">На виніс</a></li>-->
-          <!--<li [class.active]="rsrv.isActive">-->
-            <!--<a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/reservation/'+est._id">Бронь столу</a></li>-->
+          <!--<li [class.active]="ord.isActive">-->
+            <!--<a routerLinkActive #ord="routerLinkActive" [routerLink]="'/orders/'+est._id"><span class="nav-label">Замовлення</span></a></li>-->
+          <li [class.active]="ordr.isActive">
+            <!--<a routerLinkActive #ordr="routerLinkActive" [routerLink]="'/order/'+est._id">-->
+              <!--<span class="nav-label">Замовлення</span></a>-->
+
+            <a [routerLink]="'/order/'+est._id" routerLinkActive #ordr="routerLinkActive">
+              <i class="fa fa-th-large"></i>
+              <span class="nav-label">Замовлення</span> <span class="fa arrow"></span>
+            </a>
+            <ul class="nav nav-second-level" *ngIf="ordr.isActive">
+              <li [class.active]="dlvr.isActive">
+                <a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/orders/delivery/'+est._id">Доставка</a></li>
+              <li [class.active]="self.isActive">
+                <a routerLinkActive #self="routerLinkActive" [routerLink]="'/orders/bySelf/'+est._id">На виніс</a></li>
+              <li [class.active]="rsrv.isActive">
+                <a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/orders/reserve/'+est._id">Бронь столу</a></li>
+            </ul>
+          </li>
           <li [class.active]="help.isActive" appAutoClose>
             <a routerLinkActive #help="routerLinkActive" [routerLink]="'/help'"> Допомога </a></li>
         </ul>
