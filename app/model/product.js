@@ -297,7 +297,7 @@ const calcPrice = product => {
                       if(typeof price == "number"){
                           boxPrice += price
                       }else {rj("error3")}
-                  }else {rj("error4")}
+                  }
                   rs({
                       totalPriceProduct: complementPrice + portItemPrice,
                       totalPrice: complementPrice + portItemPrice,
