@@ -34,6 +34,7 @@ const model = new Schema({
     totalPrice: Number,
     boxesPrice: Number,
     deliveryPrice: Number,
+    clients: Number,
     currency: String,
     html: String,
     deliveryTime: Date,
@@ -80,28 +81,40 @@ const preRead = (req,res,next)=>{
     }
     let searchType = req.query._id ?  'findOne' : 'find';
     let query = {ownerest: req.params['id']};
+
     req.query.paymentType ? query['paymentType'] = req.query.paymentType : '';
     req.query.orderType ? query['orderType'] = req.query.orderType : '';
     req.query._id ? query['_id'] = req.query._id : '';
     query['status'] = {$ne:0};
-    mongoose.model('basketsList')
-        [searchType](query)
-        .limit(15)
-        .sort({data: -1})
-        .skip(parseInt(req.query.skip))
-        .populate({path:'owneruser', select:'firstName lastName mobile email photo _id data',
-                    populate:{path:'photo'}})
-        .populate({path:'addressData'})
-        .populate({path:'estAddressData', select:"address"})
-        .populate({path:'menuData', select:'-forest -categories -dishes'})
-        .populate({path:'productData', select:'orderCommentData status dishData portItemData _id count complementData boxData totalPrice',
-                    populate:{path:'dishData portItemData boxData complementData.id'}
-        })
-        .exec((err,info)=>{
-            if (err) return res.serverError(err);
-            if (!info) return res.notFound('Not found');
-            if (info) return res.ok(info);
-        });
+    if (req.query.count) {
+        console.log(req.query.count);
+        mongoose.model('basketsList')
+            .count(JSON.parse(req.query.count))
+            .exec((err,info)=>{
+                if (err) return res.serverError(err);
+                if (!info) return res.notFound('Not found');
+                if (info) return res.ok({count:info});
+            });
+    }else{
+        mongoose.model('basketsList')
+            [searchType](query)
+            .limit(15)
+            .sort({data: -1})
+            .skip(parseInt(req.query.skip))
+            .populate({path:'owneruser', select:'firstName lastName mobile email photo _id data',
+                populate:{path:'photo'}})
+            .populate({path:'addressData'})
+            .populate({path:'estAddressData', select:"address"})
+            .populate({path:'menuData', select:'-forest -categories -dishes'})
+            .populate({path:'productData', select:'orderCommentData status dishData portItemData _id count complementData boxData totalPrice',
+                populate:{path:'dishData portItemData boxData complementData.id'}
+            })
+            .exec((err,info)=>{
+                if (err) return res.serverError(err);
+                if (!info) return res.notFound('Not found');
+                if (info) return res.ok(info);
+            });
+    }
     // next()
 };
 const preUpdate = (req,res,next)=>{
@@ -128,6 +141,7 @@ const preUpdate = (req,res,next)=>{
     delete req.body['ownerest'];
     if (req.body.customAddress && !req.body.customAddress.isSaved){
         delete req.body.customAddress._id;
+        req.body.customAddress['owneruser'] = req.userId;
         mongoose.model('address')
             .create(req.body.customAddress, (e,r)=>{
                 if (e) return res.badRequest(e);
@@ -204,7 +218,7 @@ const postUpdate = (req,res,next)=>{
                         'amount'         : amount,
                         'currency'       : 'UAH',
                         'description'    : 'Оплата замовлення №'+bData.orderNumber,
-                        'order_id'       : bData._id+'_'+new Date().getTime(),
+                        'order_id'       : bData._id,
                         'version'        : '3',
                         'sandbox'        : '1',
                         'server_url'     : data.auth.apiDomain+'api/liqpayCallback'
@@ -257,7 +271,11 @@ const preDelete = (req,res,next)=>{
             next()
             // console.log(req.products)
         }else{
-            res.ok("Замовлення скасовано!");
+            mongoose.model('basketsList')
+                .findOneAndUpdate({_id:req.params.id},{status:'7'})
+                .exec((e,r)=>{
+                    res.ok({info:"Замовлення скасовано!"});
+                });
         }
 
     }else{

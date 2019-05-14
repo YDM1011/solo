@@ -31,10 +31,10 @@
                             <tr>
                                 <td></td>
                                 <td style="line-height:24px">
-                                    <p style="margin-bottom:25px;margin-top:0">Ваше замовлення № 325 (тут вказати номер замовлення) <span style="color:green">виконано</span>!</p>
+                                    <p style="margin-bottom:25px;margin-top:0">Ваше замовлення № <%= message.orderId %> <span style="color:green">виконано</span>!</p>
 
                                     <p style="margin-bottom:5px;margin-top:20px"><span style="display:inline-block;padding-right:4px">Статус замовлення Ви завжди можете переглянути на своїй сторінці у розділі </span>
-                                        <a href="https://tasteol.com/user/basket" target="_blank" style="color:#009de1;text-underline-position:under">
+                                        <a href="<%= message.link %>" target="_blank" style="color:#009de1;text-underline-position:under">
                                             <span style="display:inline-block;"><b>Корзина</b></span>
                                         </a>
                                     </p>

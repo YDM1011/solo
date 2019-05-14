@@ -56,6 +56,12 @@ export class GeoComponent implements OnInit, OnDestroy {
   public meXY = [];
   public ests = [];
   public pos;
+  public online = {
+    isOnline:true,
+    delivery:false,
+    getself:false,
+    reservation:false,
+  };
   public dataNow;
   public tab: number = 0 ;
   public isMobile;
@@ -196,12 +202,19 @@ export class GeoComponent implements OnInit, OnDestroy {
           item.check = false
         }
       });
+      s.online = {
+        isOnline:true,
+        delivery:false,
+        getself:false,
+        reservation:false,
+      };
     }
   }
   doFilter(){
     let s = this;
     let query = "?filter=";
     let ql="&label=";
+    let online="&online=";
     let filterArr = [];
     let labelArr = [];
     s.filter.map(item=>{
@@ -219,8 +232,11 @@ export class GeoComponent implements OnInit, OnDestroy {
     }else{
       s.isAll = true;
     }
+    if(s.online.delivery || s.online.getself || s.online.reservation){
+      online += JSON.stringify(s.online)
+    }else { online = null }
     query += JSON.stringify(filterArr);
-    s.dataApi(query);
+    s.dataApi(query + (online ? online:''));
     console.log(query)
   }
   getLogo(pic){

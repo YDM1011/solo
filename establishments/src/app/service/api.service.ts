@@ -26,6 +26,12 @@ export class ApiService {
   private me = new BehaviorSubject<any>(null);
   public onMe = this.me.asObservable();
 
+  private online = new BehaviorSubject<any>(null);
+  public onOnline = this.online.asObservable();
+
+  private BascketCount = new BehaviorSubject<any>(null);
+  public onBascketCount = this.BascketCount.asObservable();
+
   constructor(
     private http: HttpClient,
   ) { }
@@ -173,6 +179,7 @@ export class ApiService {
       self.http.delete(`${self.domain}/api/${api}/${_id}`)
         .subscribe(
           res => {
+            if(api == 'basketsList'){resolve(true)} else
             if (self.global[api + (id || '')]) {
               self.global[api + (id || '')].forEach((item, i) => {
                 if (item._id == _id) {
@@ -266,5 +273,11 @@ export class ApiService {
 
   curentUserData(data){
     this.me.next(data);
+  }
+  checkOnline(data){
+    this.online.next(data);
+  }
+  checkBascketCount(data){
+    this.BascketCount.next(data);
   }
 }

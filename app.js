@@ -38,7 +38,6 @@ require('./app/middleware/isMyProfile');
 /***************************/
 const cors = require('cors');
 const originsWhitelist = [
-    '*',
     'http://localhost:4200',
     'http://*.localhost:4200',
     'http://localhost:4300',

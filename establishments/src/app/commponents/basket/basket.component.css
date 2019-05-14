@@ -73,3 +73,25 @@ select{
   padding: 10px 0;
   margin-top: 10px;
 }
+.ord_pr_in{
+  width: 100%;
+  padding: 0 15px;
+  margin-bottom: 15px;
+}
+.btn-light.active{
+  border-radius: 50%;
+  background: #0a9fe2!important;
+}
+.bg-primary{
+  border-radius: 50%;
+  background: #0a9fe2!important;
+}
+.p-d_ch-c{
+  display: flex;
+  align-items: flex-start
+}
+.error-text{
+  color: red;
+  text-align: center;
+  width: 100%;
+}

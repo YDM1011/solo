@@ -275,3 +275,31 @@
 a.btn-green{
   line-height: 24px;
 }
+.btn-trans.online.r{
+  /*margin-right: 10px;*/
+}
+.btn-trans.online.d{
+  width: 42px;
+}
+.btn-trans.online.f{
+  margin-right: 15px;
+}
+.btn-l_i.online svg{
+  max-height: 25px;
+}
+.btn-l_i.online{
+  width: 35px;
+  display: flex;
+  align-items: center;
+  margin: 0 5px;
+  padding: 0!important;
+}
+.btn-l_i{
+  padding: 1px 9px 4px!important;
+}
+.ng-tns-c2-1.disable {
+  max-height: 25px;
+}
+.ng-tns-c2-1.disable path{
+  fill: grey;
+}

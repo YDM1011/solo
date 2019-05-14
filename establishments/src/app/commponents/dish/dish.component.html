@@ -28,7 +28,7 @@
             </ng-container>
           </div>
 
-          <app-pop-prod-add *ngIf="dish.prt"
+          <app-pop-prod-add *ngIf="dish.prt && isOnline"
                             [dish]="dish"
                             [boxId]="boxId"
                             [categoryId]="categoryId"

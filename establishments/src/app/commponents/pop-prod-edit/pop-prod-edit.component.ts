@@ -186,19 +186,22 @@ export class PopProdEditComponent implements OnInit {
 
   toBasket() {
     const s = this;
-    s.product.dishData = s.dishData._id;
-    s.product.portItemData = s.product.portItemData._id;
-    s.product.complementData = [];
-    s.product.BasketId = this.Basket._id;
+    let obj = Object.assign({}, s.product);
+    obj.dishData = s.dishData._id;
+    obj.portItemData = s.product.portItemData._id;
+    obj.complementData = [];
+    obj.BasketId = this.Basket._id;
+
     // s.product.totalPrice = s.totalPrice;
     s.complement.map(com=>{
       if (com.isCheck){
-        s.product.complementData.push({id:com._id,count:com.count});
+        obj.complementData.push({id:com._id,count:com.count});
       }
     });
-    s.onProductUpdate.emit(s.product);
-    s.api.post('product/'+s.product._id, s.product).then((res: any) => {
-      console.log(res);
+
+    s.api.post('product/'+s.product._id, obj).then((res: any) => {
+      s.product.complementData = res.complementData;
+      s.onProductUpdate.emit(s.product);
       // s.isShowChange.emit(res._id);
     });
     s.hidden();

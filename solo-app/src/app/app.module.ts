@@ -95,7 +95,6 @@ import {DeviceDetectorModule} from "ngx-device-detector";
   ],
   exports:[
     PrevAvatarComponent,
-
   ],
   imports: [
     BrowserModule,

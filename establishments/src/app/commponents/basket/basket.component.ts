@@ -72,6 +72,7 @@ export class BasketComponent implements OnInit, OnChanges {
   public isDoOrder:boolean = false;
   public isAddress:boolean = false;
   public isCanEdit:boolean = false;
+  public isError:string;
   public orderType;
   public originBasketData = [];
   constructor(
@@ -126,7 +127,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.originBasketData = [];
     basketsData.map(data=>{
       let _id = data._id;
-      let name = `${data.ownerest.name}: ${data.menuData.name}`;
+      let name = `${data.ownerest.name}`;
       let time = data.dataUpdate;
       let totalPrice = data.editByAdmin ?  data.editByAdmin.totalPrice || data.totalPrice : data.totalPrice;
       let product = data.productData;
@@ -134,6 +135,7 @@ export class BasketComponent implements OnInit, OnChanges {
       let status = data.status.id;
       s.onLoaded = true;
       let basketData = new BasketData(_id, name, time, totalPrice, product, estLogo, status, data.orderCommentData);
+      basketData.owneruser = data.owneruser;
       basketData.orderType = data.orderType;
       basketData.anyMobile = data.anyMobile;
       if (data.deliveryTime)
@@ -143,12 +145,18 @@ export class BasketComponent implements OnInit, OnChanges {
       if(data.paymentDetail)
         basketData.paymentDetail.fiatVal = data.paymentDetail.fiatVal || 0;
       basketData.boxesPrice = data.editByAdmin ? data.editByAdmin.boxesPrice || data.boxesPrice : data.boxesPrice;
+      if (basketData.orderType != 'reserve' && basketData.orderType)
+        basketData.totalPrice += basketData.boxesPrice;
       basketData.status = data.status;
-      basketData.isCanEdit = data.status == "0";
+      basketData.isCanEdit = data.status == "0" || data.status == 0;
       basketData.isCall = data.isCall;
       basketData.ownerEst = data.ownerest._id;
       basketData.html = data.html;
       basketData.menu = data.menuData;
+
+      basketData.delivery = data.ownerest.delivery;
+      basketData.getself = data.ownerest.getself;
+      basketData.reservation = data.ownerest.reservation;
 
       if(basketData.orderType == 'delivery'){
         basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
@@ -162,7 +170,6 @@ export class BasketComponent implements OnInit, OnChanges {
         basketData.deliveryPrice = 0;
       }
 
-      console.log(basketData);
       s.baskets.push(basketData);
       basketData.products.map(prod=>{
         this.prices[prod._id] = prod.totalPrice / prod.count;
@@ -172,20 +179,33 @@ export class BasketComponent implements OnInit, OnChanges {
 
   }
 
-
+  statusUpdate(product,basket){
+    this.checkPP(product, basket);
+  }
   checkPP(product, basket){
     let s = this;
     product.totalPrice = parseInt(this.prices[product._id]) * product.count;
     let price = 0;
     basket.products.map(prod=>{
-      price += prod.totalPrice + parseInt(prod.boxData.price) * prod.count;
+      if (prod.status){
+        price += prod.totalPrice;
+        if(basket.orderType == 'delivery' || basket.orderType == 'bySelf'){
+          price += parseInt(prod.boxData.price)
+        }
+      }
     });
     basket.totalPrice = price;
     this.originBasketData.map(basketOrigin=>{
       if(basketOrigin._id == basket._id){
         basket.deliveryPrice = basket.deliveryMinPrice > basket.totalPrice ? parseInt(basketOrigin.menuData.delivery) : 0;
       }
-    })
+    });
+    s.api.post('product/'+product._id, {count:product.count,
+      status:product.status,
+      BasketId:basket._id,
+      ownerest: product.ownerest, owneruser:product.owneruser}).then((res: any) => {
+      // s.isShowChange.emit(res._id);
+    });
   }
   addPP(product, basket){
     product.count++;
@@ -210,7 +230,9 @@ export class BasketComponent implements OnInit, OnChanges {
     }
   }
   delBasket(basket){
-    this.api.delet('basketsList', basket._id);
+    this.api.delet('basketsList', basket._id).then(v=>{
+      this.api.checkBascketCount(true);
+    });
     let index = this.baskets.indexOf(basket);
     this.baskets.splice(index,1);
   }
@@ -222,6 +244,18 @@ export class BasketComponent implements OnInit, OnChanges {
     });
   }
   doOrderDelivery(){
+    if(this.activeBaskets.paymentType){
+      if(this.activeBaskets.paymentType == 'fiat'){
+        if(!this.activeBaskets.paymentDetail.fiatVal || this.activeBaskets.paymentDetail.fiatVal<=0){
+          this.showError("поля з зірочкою обов'язкові");
+          return
+        }
+      }
+    }else{this.showError("поля з зірочкою обов'язкові");}
+    if (!(this.address._id || this.address)){
+      this.showError("поля з зірочкою обов'язкові");
+      return
+    }
     this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
     this.activeBaskets.status = "1";
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
@@ -238,6 +272,32 @@ export class BasketComponent implements OnInit, OnChanges {
     this.isDoOrder = false;
   }
   doOrderBySelf(){
+    console.log(this.activeBaskets.orderType);
+    console.log(this.activeBaskets.clients);
+    console.log(this.activeBaskets.clients<=0);
+    if(this.orderType == 'reserve'){
+      if(!this.activeBaskets.clients){
+        this.showError("поля з зірочкою обов'язкові");
+        return
+      }
+      if(this.activeBaskets.clients<=0){
+        this.showError("поля з зірочкою обов'язкові");
+        return
+      }
+    }
+    if(this.activeBaskets.paymentType){
+      if(this.activeBaskets.paymentType == 'fiat'){
+        console.log(!this.activeBaskets.paymentDetail.fiatVal, this.activeBaskets.paymentDetail.fiatVal);
+        if(!this.activeBaskets.paymentDetail.fiatVal || this.activeBaskets.paymentDetail.fiatVal<=0){
+          this.showError("поля з зірочкою обов'язкові");
+          return
+        }
+      }
+    }else{this.showError("поля з зірочкою обов'язкові");}
+    if (!this.dataSelected() || !this.estAddress || !this.estAddress._id){
+      this.showError("поля з зірочкою обов'язкові");
+      return
+    }
     this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
     this.activeBaskets.status = "1";
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
@@ -254,15 +314,24 @@ export class BasketComponent implements OnInit, OnChanges {
   doOrderReserve(){
 
   }
+  showError(err=''){
+    this.isError = err;
+  }
   dataSelected(e = null){
+    if (!this.timeStart) return false;
+    if (!this.timeStart.hour || !this.timeStart.minute) return false;
     if (!e){
       e = {};
       e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();
       e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth()+1;
       e['day'] = new Date(this.activeBaskets.deliveryTime).getDate();
     }
-    this.dataStart = new Date(e.year, (e.month-1), e.day, this.timeStart.hour, this.timeStart.minute)
-      .toISOString();
+    if (!e.year || !(e.month-1) ||  !e.day) {
+      e['year'] = new Date().getFullYear();
+      e['month'] = new Date().getMonth()+1;
+      e['day'] = new Date().getDate();
+    }
+    this.dataStart = new Date(e.year, (e.month-1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
     return this.dataStart;
   }
   test(){
@@ -275,7 +344,7 @@ export class BasketComponent implements OnInit, OnChanges {
   getAddress(){
     this.isAddress = !this.isAddress;
     if(this.isAddress){
-      this.api.justGet('address','','','?select=-__v').then((data:any)=>{
+      this.api.justGet('address','','','?select=-__v&query={"owneruser":"'+this.activeBaskets.owneruser+'"}').then((data:any)=>{
         if (data){
           this.addresses = (data)
         }

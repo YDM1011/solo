@@ -68,6 +68,10 @@ module.exports.sendMail = (obj, st = null) => {
                     template = path.join(__dirname, '../../views-v1/emailTemplate/user6.ejs');
                     sender(transporter, data, obj, template);
                 }
+                if(obj.isEst){
+                    template = path.join(__dirname, '../../views-v1/emailTemplate/est6.ejs');
+                    sender(transporter, data, obj, template);
+                }
                 break;
             case 7:
                 if(obj.isUser){

@@ -44,7 +44,9 @@
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Тип оплати:</dt> </div>
-            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.paymentType}}</dd> </div>
+            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.paymentType | payment}}
+              <ng-container *ngIf="order.paymentType == 'fiat' && order.paymentDetail">{{order.paymentDetail.fiatVal}} грн</ng-container>
+            </dd> </div>
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Адреса:</dt> </div>
@@ -64,26 +66,29 @@
               </ng-container>
             </div>
           </dl>
-          <dl class="row mb-0">
-            <div class="col-sm-4 text-sm-right"><dt>Вартість упаковки:</dt> </div>
-            <div class="col-sm-8 text-sm-left flex price">
-              <dd class="mb-1 "  *ngIf="order; else preload">{{order.boxPrice}} грн</dd>
-              <ng-container *ngIf="isCanEdit">
-                <label><input type="number" [(ngModel)]="boxesPrice" name="boxesPrice"> грн</label>
-                <button class="btn btn-xs btn-primary">Зберегти</button>
-              </ng-container>
-            </div>
-          </dl>
-          <dl class="row mb-0">
-            <div class="col-sm-4 text-sm-right"><dt>Вартість доставки:</dt> </div>
-            <div class="col-sm-8 text-sm-left flex price">
-              <dd class="mb-1 "  *ngIf="order; else preload">{{order.deliveryPrice}} грн</dd>
-              <ng-container *ngIf="isCanEdit">
-                <label><input type="number" [(ngModel)]="deliveryPrice" name="deliveryPrice"> грн</label>
-                <button class="btn btn-xs btn-primary">Зберегти</button>
-              </ng-container>
-            </div>
-          </dl>
+          <ng-container *ngIf="order; else preload">
+            <dl class="row mb-0" *ngIf="order && order.boxPrice">
+              <div class="col-sm-4 text-sm-right"><dt>Вартість упаковки:</dt> </div>
+              <div class="col-sm-8 text-sm-left flex price">
+                <dd class="mb-1 " *ngIf="order; else preload">{{order.boxPrice}} грн</dd>
+                <ng-container *ngIf="isCanEdit">
+                  <label><input type="number" [(ngModel)]="boxesPrice" name="boxesPrice"> грн</label>
+                  <button class="btn btn-xs btn-primary">Зберегти</button>
+                </ng-container>
+              </div>
+            </dl>
+            <dl class="row mb-0" *ngIf="order && order.deliveryPrice">
+              <div class="col-sm-4 text-sm-right"><dt>Вартість доставки:</dt> </div>
+              <div class="col-sm-8 text-sm-left flex price">
+                <dd class="mb-1 "  *ngIf="order; else preload">{{order.deliveryPrice}} грн</dd>
+                <ng-container *ngIf="isCanEdit">
+                  <label><input type="number" [(ngModel)]="deliveryPrice" name="deliveryPrice"> грн</label>
+                  <button class="btn btn-xs btn-primary">Зберегти</button>
+                </ng-container>
+              </div>
+            </dl>
+          </ng-container>
+
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Загальна вартість:</dt> </div>
             <div class="col-sm-8 text-sm-left">

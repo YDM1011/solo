@@ -31,20 +31,17 @@
                             <tr>
                                 <td></td>
                                 <td style="line-height:24px">
-                                    <p style="margin-bottom:25px;margin-top:0">Ваше замовлення №  <%= message.orderId %> підтверджене закладом!</p>
-                                    <p style="margin-bottom:5px;margin-top:0"><span style="display:inline-block;padding-right:4px">Статус Вашого замовлення - "підтверджене".</span>
-                                    </p>
-                                    <p style="margin-bottom:5px;margin-top:0"><span style="display:inline-block;padding-right:4px">Чекаємо на Вас о 20:00 (тут вказати справжній час з замовлення)</span>
-                                    </p>
-                                    <p style="margin-bottom:5px;margin-top:20px"><span style="display:inline-block;padding-right:4px">Статус замовлення Ви завжди можете переглянути на своїй сторінці у розділі </span>
-                                        <a href="<%= message.link %>" target="_blank" style="color:#009de1;text-underline-position:under">
-                                            <span style="display:inline-block;"><b>Корзина</b></span>
+                                    <p style="margin-bottom:25px;margin-top:0">Замовлення №  <%= message.orderId %> <span style="color:green">виконано</span>!</p>
+
+                                    <p style="margin-bottom:5px;margin-top:20px"><span style="display:inline-block;padding-right:4px">Переглянути замовлення Ви можете в адміністративній панелі, перейшовши за посиланням: </span>
+                                        <a href="<%= message.orderLink %>" target="_blank" style="color:#009de1;text-underline-position:under">
+                                            <span style="display:inline-block;"><b>замовлення</b></span>
                                         </a>
                                     </p>
 
-                                    <hr style="margin-top:30px;margin-bottom:20px;border-collapse:collapse;height:1px;border:0;background-color:#d8d8d8;color:#d8d8d8">
+                                    <hr style="margin-top:30px;margin-bottom:30px;border-collapse:collapse;height:1px;border:0;background-color:#d8d8d8;color:#d8d8d8">
 
-                                    <p style="margin-top:30px;margin-bottom:30px">Якщо у Вас виникли будь-які питання, звертайтесь, будемо раді відповісти.</p>
+                                    <p style="margin-top:45px;margin-bottom:30px">Якщо у Вас виникли будь-які питання, звертайтесь, будемо раді відповісти.</p>
 
                                     <a href="mailto:tasteol.com@gmail.com" style="display:block;color:#009de1;text-decoration: none;font-size:1.2rem;margin-bottom:15px">
                                         <img src="https://picua.org/images/2019/03/17/4855cd54878c39e37f0d9eaf41fe200c.png" alt="taste of life" style="max-width:100%;width:20px;height:20px;;padding-right:10px">

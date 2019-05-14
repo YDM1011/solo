@@ -19,6 +19,7 @@ export interface OrderMax {
   orderType?: string,
   paymentType?: string,
   orderCommentData?: any,
+  paymentDetail?: any,
 }
 
 export class FullOrder implements OrderMax{
@@ -41,6 +42,7 @@ export class FullOrder implements OrderMax{
   public paymentType?;
   public orderNumber?;
   public orderCommentData?;
+  public paymentDetail?;
   constructor( public data? ){
     let price = 0;
     data.productData.map(item=>{
@@ -55,6 +57,8 @@ export class FullOrder implements OrderMax{
       this.boxPrice = data.boxesPrice ? parseInt(data.boxesPrice) : 0 ;
       this.deliveryPrice = data.deliveryPrice ? parseInt(data.deliveryPrice) : 0 ;
     }
+    if (data.orderType == 'bySelf') this.deliveryPrice = null;
+    if (data.orderType == 'reserve'){ this.deliveryPrice = null; this.boxPrice = null};
 
     this.id = data._id;
     this.dataCreate = data.data;
@@ -62,6 +66,7 @@ export class FullOrder implements OrderMax{
     this.client = data.owneruser;
     this.mobile = data.owneruser.mobile;
     this.anyMobile = data.anyMobile;
+    this.paymentDetail = data.paymentDetail;
     this.address = data.addressData ? data.addressData.address || (data.estAddressData ? data.estAddressData.address : '') : data.estAddressData ? data.estAddressData.address : '';
     if(data.addressData){
       this.level = data.addressData.level;
@@ -98,7 +103,8 @@ export class FullOrder implements OrderMax{
       orderType: this.orderType,
       paymentType: this.paymentType,
       orderNumber: this.orderNumber,
-      orderCommentData: this.orderCommentData
+      orderCommentData: this.orderCommentData,
+      paymentDetail: this.paymentDetail
     };
     return obj;
   }

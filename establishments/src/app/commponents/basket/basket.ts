@@ -30,7 +30,12 @@ export interface Basket {
   isCanEdit?: boolean
   ownerEst?: string
   html?: string
-  menu?: any
+  menu?: any,
+  owneruser?: string
+  clients?: number
+  delivery?: boolean
+  getself?: boolean
+  reservation?: boolean
 }
 
 export class BasketData implements Basket{
@@ -48,6 +53,11 @@ export class BasketData implements Basket{
   public estAddressData?;
   public html?;
   public menu?;
+  public owneruser?;
+  public clients?;
+  public delivery?;
+  public getself?;
+  public reservation?;
   public paymentDetail? = {fiatVal:0};
   constructor(
     public _id,
@@ -82,6 +92,11 @@ export class BasketData implements Basket{
       estAddressData: this.estAddressData,
       html: this.html,
       menu: this.menu,
+      owneruser: this.owneruser,
+      clients: this.clients,
+      delivery: this.delivery,
+      getself: this.getself,
+      reservation: this.reservation,
     };
     return obj;
   }

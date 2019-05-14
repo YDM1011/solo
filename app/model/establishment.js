@@ -28,6 +28,7 @@ const model = new Schema({
     mailOfOrder: String,
     links: Object,
     own: String,
+    isOnline:{type: Boolean, default: false},
     delivery:{type: Boolean, default: true},
     getself:{type: Boolean, default: true},
     reservation:{type: Boolean, default: true},

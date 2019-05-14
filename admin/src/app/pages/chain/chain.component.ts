@@ -135,6 +135,7 @@ export class ChainComponent implements OnInit, OnChanges {
       })
     }
     this.api.doPost('establishment/'+self.id,obj).then((res:any)=>{
+      if (mod != 'delivery' && mod != 'getself' && mod != 'reservation')
       self[mod] = res[mod];
     }).catch((err:any)=>{});
   }

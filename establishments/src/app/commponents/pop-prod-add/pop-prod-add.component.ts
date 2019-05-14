@@ -210,7 +210,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     });
 
     s.api.post('product', s.product).then((res: any) => {
-      console.log(res);
+      s.api.checkBascketCount(true);
     });
     s.hidden();
   }

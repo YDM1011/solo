@@ -22,7 +22,7 @@ export class ModerationComponent implements OnInit,OnChanges {
 
   initApi(){
     let s = this;
-    let select = `?populate={"path":"permisions","select":"firstName lastName"}&select=subdomain,name,verify,_id,permisions`;
+    let select = `?populate={"path":"permisions","select":"firstName lastName"}&select=subdomain,name,verify,isOnline,_id,permisions`;
     s.api.apiGet('establishment','',select).then((v:any)=>{
       s.ests = v;
     })
@@ -40,6 +40,11 @@ export class ModerationComponent implements OnInit,OnChanges {
   updateStatus(est){
     let s = this;
     est.verify = !est.verify;
+    s.api.apiPost('establishment',est).then((v:any)=>{  })
+  }
+  updateOnline(est){
+    let s = this;
+    est.isOnline = !est.isOnline;
     s.api.apiPost('establishment',est).then((v:any)=>{  })
   }
 

@@ -22,12 +22,16 @@ export class ProfileComponent implements OnInit {
 
   public userId = location.href.split("user/")[1].split("/")[0];
   public me = new userData();
+  public email;
+  public mobile;
+  public code;
   public status = new Status();
   public statuse:any;
   public statusCheck:any;
   public isReady = false;
   public isStsWith = false;
   public isSelectActive = false;
+  public isCodeInput = false;
   public maxDate;
   public data;
   public link = {};
@@ -103,6 +107,7 @@ export class ProfileComponent implements OnInit {
     showWeekdaysFull: true,
   };
 
+  public isMobilePop = false;
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
@@ -129,6 +134,9 @@ export class ProfileComponent implements OnInit {
 
   updateUserData(){
     let s = this;
+    if (this.email){
+      this.me['email'] = this.email;
+    }
     s.me.bornedData = s.dataToString(s.data);
     s.me.familyStatus = Object.assign({}, s.statusCheck);
     this.http.post(`${this.domain}/api/user/${s.me._id}`, s.me, this.api.getHeaders())
@@ -178,5 +186,18 @@ export class ProfileComponent implements OnInit {
     let s = this;
     console.log('e', e);
     console.log(s.dataToString(s.data));
+  }
+  saveMobile(){
+    this.http.post(`${this.domain}/api/SMSSendCode`, {model:'user',mobile:this.mobile}, this.api.getHeaders())
+      .subscribe((user: any) => {
+        this.isCodeInput = true
+      });
+  }
+  sendConfirm(){
+    this.http.post(`${this.domain}/api/SMSConfirmCode`, {model:'user',code:this.code}, this.api.getHeaders())
+      .subscribe((user: any) => {
+        this.isMobilePop = false;
+        this.me.mobile = this.mobile;
+      });
   }
 }

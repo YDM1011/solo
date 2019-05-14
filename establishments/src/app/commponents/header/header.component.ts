@@ -36,13 +36,33 @@ export class HeaderComponent implements OnInit {
   public friends: any = [];
   public arrEts: any = [];
   public searchText = '';
+  public count;
+  public basketId;
   public popPreProd: boolean = false;
+  public isOnline: boolean = false;
   constructor(
     private cookie: CookieService,
     private api: ApiService) { }
 
   ngOnInit() {
     this.id = this.cookie.get('userid');
+    this.api.onOnline.subscribe(v=>{
+      if(v){
+        this.basketId = v._id;
+        this.isOnline = v.isOnline;
+        this.api.justGet('basketsList?count={"ownerest":"'+v._id+'"}').then((count:any)=>{
+          this.count = count.count
+        })
+      }
+    });
+    this.api.onBascketCount.subscribe(v=>{
+      if(v){
+        this.api.justGet('basketsList?count={"ownerest":"'+this.basketId+'"}').then((count:any)=>{
+          this.count = count.count
+        })
+      }
+    })
+
   }
   forbidden(mes) {
     const s = this;

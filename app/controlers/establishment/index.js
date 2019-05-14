@@ -144,8 +144,13 @@ module.exports.customParams = (req, res, next) => {
 };
 module.exports.custom = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
-    let select = req.query.select;//`${req.params['id']} _id`;
-    let populate = JSON.parse(req.query.populate);
+    let select = '';//`${req.params['id']} _id`;
+    try {
+        select = JSON.parse(req.query.select);
+    } catch(err){
+        select = req.query.select
+    }
+    let populate = req.query.populate ? JSON.parse(req.query.populate) : '';
     Establishment
         .findOne({subdomain: est})
         .select(select).populate(populate)

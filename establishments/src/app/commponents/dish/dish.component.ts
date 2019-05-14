@@ -19,6 +19,7 @@ export class DishComponent implements OnInit {
   public dishes: any;
   public portionActive: any;
   public isAddPop = false;
+  public isOnline = false;
   public dishObject = {};
   constructor(
     private api: ApiService,
@@ -31,6 +32,11 @@ export class DishComponent implements OnInit {
     this.route.params.subscribe((params: any) => {
       this.menuId = this.route.snapshot.paramMap.get('id');
     });
+    this.api.onOnline.subscribe(v=>{
+      if(v){
+        this.isOnline = v.isOnline;
+      }
+    })
   }
   onapi(obj) {
     const s = this;

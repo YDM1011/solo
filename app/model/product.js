@@ -89,7 +89,7 @@ const preUpdate = async (req,res,next)=>{
             if (e) return res.badRequest(e);
             if (!r) return res.notFound();
             if (r) {
-                let result = await updateBasket({owneruser:req.userId,ownerest:r.ownerest,menuData:r.menuData,status:0},r,Price,-1).catch(e=>{return res.badRequest(e)});
+                let result = await updateProdBasket({_id:req.body.BasketId},r,Price,-1).catch(e=>{return res.badRequest(e)});
                 if(result) {
                     next();
                 }
@@ -103,6 +103,7 @@ const postUpdate = async (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     let product = req.erm.result;
     let Price = await calcPrice(product).catch(e=>{return res.badRequest(e)});
+    console.log(Price)
     let basket = {
         menuData: product.menuData,
         productData: [product._id],
@@ -122,15 +123,22 @@ const postUpdate = async (req,res,next)=>{
         .exec(async (e,r)=>{
             if (e) return res.badRequest(e);
             if (!r) {
-                mongoose.model('basketsList')
-                    .create(basket, (e,c)=>{
-                        if (e) return res.badRequest(basket);
-                        next()
-                    })
+                return res.badRequest('');
             }
             if (r){
-                let result = await updateBasket({_id:req.body.BasketId},product,Price,1).catch(e=>{return res.badRequest(e)});
-                if(result) next();
+                let result = await updateProdBasket({_id:req.body.BasketId},product,Price,1).catch(e=>{return res.badRequest(e)});
+                if(result){
+                    mongoose.model('product')
+                        .findOne({_id:req.params.id, owneruser: req.userId})
+                        .populate({path:'complementData.id'})
+                        .exec( async (e,r)=>{
+                            if (e) return res.badRequest(e);
+                            if (!r) return res.notFound();
+                            if (r) {
+                                res.ok(r);
+                            }
+                        })
+                }
             }
         });
 };
@@ -199,6 +207,7 @@ const postCreate = async (req,res,next)=>{
                     });
 
             }
+            console.log(r);
             if (r){
                 let result = await updateBasket({_id:r._id},product,Price,1).catch(e=>{return res.badRequest(e)});
                 if(result) next();
@@ -220,6 +229,53 @@ const updateBasket = (basket,product,Price,i)=>{
         }
     }
   return new Promise ((resolve,reject)=>{
+      console.log(basket);
+      mongoose.model('basketsList')
+          .findOneAndUpdate(basket,q,{new:true}).exec((e,r)=>{
+          if(e) return reject(e);
+          if(!r) return reject("error0");
+          if(r) {
+              if (r.productData && (i == -1)){
+                  if(r.productData.length == 0){
+                      mongoose.model('basketsList')
+                          .findOneAndRemove(r._id).exec((e,rd)=> {
+                          if (e) return reject(e);
+                          if (!rd) return reject("error12");
+                          return resolve(r)
+                      })
+                  }else {return resolve(r)}
+              }else {return resolve(r)}
+
+          }
+      })
+  })
+};
+const updateProdBasket = (basket,product,Price,i)=>{
+    let q;
+    if (i == 1) {
+        if (product.status) {
+            q = {
+                $inc: {totalPrice: Price.totalPrice * i, boxesPrice: Price.boxesPrice * i}
+            }
+        }else{
+            q = {
+                $inc: {totalPrice: 0, boxesPrice: 0}
+            }
+        }
+    }
+    if (i == -1){
+        if (product.status) {
+            q = {
+                $inc: {totalPrice: Price.totalPrice * i, boxesPrice: Price.boxesPrice * i}
+            }
+        }else{
+            q = {
+                $inc: {totalPrice: 0, boxesPrice: 0}
+            }
+        }
+    }
+  return new Promise ((resolve,reject)=>{
+      console.log(basket);
       mongoose.model('basketsList')
           .findOneAndUpdate(basket,q,{new:true}).exec((e,r)=>{
           if(e) return reject(e);
@@ -278,26 +334,31 @@ const calcPrice = product => {
                   let complementPrice = 0;
                   let portItemPrice = 0;
                   let boxPrice = 0;
-                  r.complementData.map(complement=>{
-                      if (complement.id.price){
-                          let price = parseInt(complement.id.price.match(/[\d]+/gi)[0]);
-                          if(typeof price == "number" && complement.count){
-                              complementPrice += price * complement.count * r.count;
+
+                      r.complementData.map(complement=>{
+                          if (complement.id){
+                          if (complement.id.price){
+                              let price = parseInt(complement.id.price.match(/[\d]+/gi)[0]);
+                              if(typeof price == "number" && complement.count){
+                                  complementPrice += price * complement.count * r.count;
+                              }
                           }
+                          }
+                      });
+                      if (r.portItemData){
+                          let price = parseInt(r.portItemData.price.match(/[\d]+/gi)[0]);
+                          if(typeof price == "number" && r.count){
+                              portItemPrice += price * r.count
+                          }else {rj("error1")}
+                      }else {rj("error2")}
+                      if (r.boxData){
+                          let price = parseInt(r.boxData.price.match(/[\d]+/gi)[0]);
+                          if(typeof price == "number"){
+                              boxPrice += price
+                          }else {rj("error3")}
                       }
-                  });
-                  if (r.portItemData){
-                      let price = parseInt(r.portItemData.price.match(/[\d]+/gi)[0]);
-                      if(typeof price == "number" && r.count){
-                          portItemPrice += price * r.count
-                      }else {rj("error1")}
-                  }else {rj("error2")}
-                  if (r.boxData){
-                      let price = parseInt(r.boxData.price.match(/[\d]+/gi)[0]);
-                      if(typeof price == "number"){
-                          boxPrice += price
-                      }else {rj("error3")}
-                  }
+
+
                   rs({
                       totalPriceProduct: complementPrice + portItemPrice,
                       totalPrice: complementPrice + portItemPrice,

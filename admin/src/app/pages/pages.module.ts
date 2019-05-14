@@ -36,6 +36,7 @@ import { ActionComponent } from './action/action.component';
 import { HelpComponent } from './help/help.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderDetailEditComponent } from './order-detail-edit/order-detail-edit.component';
+import { PaymentPipe } from './order-detail/payment.pipe';
 
 @NgModule({
   imports: [
@@ -79,6 +80,7 @@ import { OrderDetailEditComponent } from './order-detail-edit/order-detail-edit.
     HelpComponent,
     OrderDetailComponent,
     OrderDetailEditComponent,
+    PaymentPipe,
   ],
   providers: [
     ApiService,

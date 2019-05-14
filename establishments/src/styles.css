@@ -5767,7 +5767,8 @@ input.p-d_inp-t[type=number] {
 }
 .p-d_btn-cont {
   display: flex;
-  flex-direction: column;
+  /*flex-direction: column;*/
+  justify-content: center;
   align-items: center;
   margin-top: 5px; }
 
@@ -7599,4 +7600,12 @@ ngb-datepicker-navigation-select>.custom-select {
   padding: 0;
   width: auto;
   max-width: 100%;
+}
+.bg-primary{
+  border-radius: 50%!important;
+  background: #0a9fe2!important;
+}
+.btn-light.active{
+  border-radius: 50%!important;
+  background: #0a9fe2!important;
 }

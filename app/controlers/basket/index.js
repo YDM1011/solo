@@ -110,11 +110,12 @@ module.exports.getBasketEst = (req, res, next) => {
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
                         })
-                        .populate({path: 'ownerest',select:"av name subdomain minPrice",
+                        .populate({path: 'ownerest',select:"av name subdomain minPrice delivery getself reservation",
                             populate:{path:'av'}
                         })
                         .sort({dataUpdate: -1})
                         .exec((err,doc)=>{
+                            console.log("ok",doc)
                             if (err) return res.serverError(err);
                             if (!doc) {
                                 return res.ok([]);
@@ -123,6 +124,7 @@ module.exports.getBasketEst = (req, res, next) => {
                                 return res.ok(doc);
                             }
                         })
+
                 } else{
                     let query = {ownerest:estId._id,owneruser:req.userId};
                     if(req.query.status == 'history'){
@@ -140,7 +142,7 @@ module.exports.getBasketEst = (req, res, next) => {
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
                         })
-                        .populate({path: 'ownerest',select:"av name subdomain",
+                        .populate({path: 'ownerest',select:"av name subdomain delivery getself reservation",
                             populate:{path:'av'}
                         })
                         .sort({dataUpdate: -1})
@@ -203,19 +205,37 @@ module.exports.test = (req,res,next)=>{
         'amount'         : '1',
         'currency'       : 'UAH',
         'description'    : 'Оплата замовлення',
-        'order_id'       : 'order_id_14',
+        'order_id'       : 'order_id_18',
         'version'        : '3',
-        'sandbox'        : '1',
-        'server_url'     : 'https://c0873719.ngrok.io/api/liqpayCallback'
+        'server_url'     : 'https://faf9f66e.ngrok.io/api/liqpayCallback'
     });
     res.ok({html:html});
 };
 module.exports.liqpayCallback = (req,res,next)=>{
     let sign = liqpay.str_to_sign(privateKey + req.body.data + privateKey);
     let data = new Buffer(req.body.data, 'base64').toString();
+    const conf = require('../../config/index');
+    const mail = require('../email');
     console.log("test1",sign);
     console.log("test2",data);
     if(req.body.signature == sign){
-
+        let Order = JSON.parse(data);
+        mongoose.model('basketsList')
+            .findOneAndUpdate({_id:Order['liqpay_order_id']},{status:'6'})
+            .populate({path:'menuData'})
+            .populate({path:'ownerest', select:'mailOfOrder'})
+            .exec((e,r)=>{
+                if (r){
+                    let estMail = {
+                        mail:r.ownerest.mailOfOrder,
+                        orderId:r.orderNumber,
+                        orderLink:'https://admin.'+conf.auth.domain+'/order/'+r.ownerest._id+'/'+r._id,
+                        orderType: r.orderType,
+                        isEst: true
+                    };
+                    mail.sendMail(estMail, 6);
+                    res.ok()
+                }
+            })
     }
 };

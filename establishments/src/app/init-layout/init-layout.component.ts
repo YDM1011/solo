@@ -48,6 +48,7 @@ export class InitLayoutComponent implements OnInit, OnDestroy {
   public pics: any;
   public name: any;
   public user: any;
+  public online: any;
   public isFav:boolean=false;
   public isBest:boolean=false;
   public host: string = environment.host;
@@ -84,10 +85,19 @@ export class InitLayoutComponent implements OnInit, OnDestroy {
     });
     self.getPics();
     self.getName();
+    self.checkOnline();
   }
 
   ngOnDestroy() {
     document.body.style.overflow = '';
+  }
+
+  checkOnline(){
+    const s = this;
+    s.api.justGet('est?select="isOnline delivery getself reservation"').then((val: any) => {
+      s.api.checkOnline(val);
+      s.online = val;
+    });
   }
 
   getPics(){

@@ -75,6 +75,7 @@ const getEstById = id =>{
 
 const getEsts = (req) =>{
     let query = {};
+    let online = req.query.online;//{isOnline: true};
     if(req.query) {
         if (req.query.filter) {
             if (JSON.parse(req.query.filter).length > 0) {
@@ -89,22 +90,61 @@ const getEsts = (req) =>{
         query = {}
     }
     return new Promise((resolv,reject)=>{
-        mongoose.model('oneest')
-            .find(query)
-            .populate({path:'ownerEst', select:"bg av subdomain verify thebest favorite", populate:{path: "bg av"}})
-            .populate({path:'worksTimeId'})
-            .select("ownerEst worksTimeId coordinates address name")
-            .exec((err,result)=>{
-                if (result) {
-                    // result.menus.map(menu=>{
-                    //     menu.map(cat=>{cat.categories})
-                    // })
-                    resolv(result)
-                }else{
-                    resolv(err||[])
-                }
-            });
-
+        if (online){
+            online = JSON.parse(online);
+            console.log(online);
+            if (!online.delivery) delete online.delivery;
+            if (!online.getself) delete online.getself;
+            if (!online.reservation) delete online.reservation;
+            mongoose.model('establishment')
+                .find(online)
+                .select("_id")
+                .exec((e,r)=>{
+                    console.log(e,r);
+                    if(r){
+                        let onlineArr = [];
+                        r.map((it,i)=>{
+                            onlineArr.push({ownerEst:it._id});
+                        });
+                        query['$and'].push({$or:onlineArr});
+                        // query['$or']=onlineArr;
+                        console.log(query);
+                        mongoose.model('oneest')
+                            .find(query)
+                            .populate({path:'ownerEst', select:"bg av subdomain verify thebest favorite", populate:{path: "bg av"}})
+                            .populate({path:'worksTimeId'})
+                            .select("ownerEst worksTimeId coordinates address name")
+                            .exec((err,result)=>{
+                                if (result) {
+                                    // result.menus.map(menu=>{
+                                    //     menu.map(cat=>{cat.categories})
+                                    // })
+                                    resolv(result)
+                                }else{
+                                    resolv(err||[])
+                                }
+                            });
+                    }else{
+                        resolv(e||[])
+                    }
+                });
+        }else{
+            mongoose.model('oneest')
+                .find(query)
+                .populate({path:'ownerEst', select:"bg av subdomain verify thebest favorite", populate:{path: "bg av"}})
+                .populate({path:'worksTimeId'})
+                .select("ownerEst worksTimeId coordinates address name")
+                .exec((err,result)=>{
+                    if (result) {
+                        // result.menus.map(menu=>{
+                        //     menu.map(cat=>{cat.categories})
+                        // })
+                        resolv(result)
+                    }else{
+                        resolv(err||[])
+                    }
+                });
+        }
     });
 };
 
