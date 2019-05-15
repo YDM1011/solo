@@ -28,8 +28,10 @@
             <div class="col-sm-8 text-sm-left">
               <dd class="mb-1"  *ngIf="order; else preload">
                 <a target="_blank" [href]="apiDomain+'/user/'+order.client._id" class="flex">
-                  <div class="avatar">
-                    <img [src]="apiDomain+order.client.photo.picCrop" alt="avatar">
+                  <div class="avatar" >
+                    <ng-container *ngIf="order.client.photo">
+                      <img [src]="apiDomain+order.client.photo.picCrop" alt="avatar">
+                    </ng-container>
                   </div>
                   <div class="client-info">
                     <div>{{order.client.firstName}} {{order.client.lastName}}</div>

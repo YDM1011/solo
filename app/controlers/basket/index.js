@@ -115,7 +115,7 @@ module.exports.getBasketEst = (req, res, next) => {
                         })
                         .sort({dataUpdate: -1})
                         .exec((err,doc)=>{
-                            console.log("ok",doc)
+                            console.log("ok",doc);
                             if (err) return res.serverError(err);
                             if (!doc) {
                                 return res.ok([]);
@@ -220,23 +220,27 @@ module.exports.liqpayCallback = (req,res,next)=>{
     console.log("test2",data);
     if(req.body.signature == sign){
         let Order = JSON.parse(data);
-        if (Order.status == "sandox" || Order.status == "success")
-        mongoose.model('basketsList')
-            .findOneAndUpdate({_id:Order['order_id']},{status:'6'})
-            .populate({path:'menuData'})
-            .populate({path:'ownerest', select:'mailOfOrder'})
-            .exec((e,r)=>{
-                if (r){
-                    let estMail = {
-                        mail:r.ownerest.mailOfOrder,
-                        orderId:r.orderNumber,
-                        orderLink:'https://admin.'+conf.auth.domain+'/order/'+r.ownerest._id+'/'+r._id,
-                        orderType: r.orderType,
-                        isEst: true
-                    };
-                    mail.sendMail(estMail, 6);
-                    res.ok()
-                }
-            })
+        if (Order.status == "sandox" || Order.status == "success"){
+            mongoose.model('basketsList')
+                .findOneAndUpdate({_id:Order['order_id']},{status:'6'})
+                .populate({path:'menuData'})
+                .populate({path:'ownerest', select:'mailOfOrder'})
+                .exec((e,r)=>{
+                    if (r){
+                        let estMail = {
+                            mail:r.ownerest.mailOfOrder,
+                            orderId:r.orderNumber,
+                            orderLink:'https://admin.'+conf.auth.domain+'/order/'+r.ownerest._id+'/'+r._id,
+                            orderType: r.orderType,
+                            isEst: true
+                        };
+                        mail.sendMail(estMail, 6);
+                        res.ok()
+                    }
+                })
+        }else{
+            res.ok()
+        }
+
     }
 };
