@@ -50,6 +50,7 @@ export class HeaderComponent implements OnInit {
       if(v){
         this.basketId = v._id;
         this.isOnline = v.isOnline;
+        // this.api.justGet('basketsList?count={"$and":[{"ownerest":"'+v._id+'"},{"owneruser":"'+this.cookie.get('userid')+'"}]}').then((count:any)=>{
         this.api.justGet('basketsList?count={"ownerest":"'+v._id+'"}').then((count:any)=>{
           this.count = count.count
         })

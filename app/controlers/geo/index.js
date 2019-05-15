@@ -106,6 +106,7 @@ const getEsts = (req) =>{
                         r.map((it,i)=>{
                             onlineArr.push({ownerEst:it._id});
                         });
+                        query['$and'] = [];
                         query['$and'].push({$or:onlineArr});
                         // query['$or']=onlineArr;
                         console.log(query);
