@@ -54,11 +54,13 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
             v.map(basket=>{
               let client = basket.owneruser;
               let prods = basket.productData;
-              let price = basket.totalPrice+basket.boxesPrice;
+              let price = basket.totalPrice;
               let created = basket.data;
               let updated = basket.dataUpdate;
               let status = basket.status;
               let id = basket._id;
+              if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
+              if (basket.orderType == 'bySelf') price += basket.boxesPrice;
               this.list.push(
                 new order(client,prods,price, created, updated, status, id)
               )

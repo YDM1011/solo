@@ -138,7 +138,7 @@
           <thead>
           <tr>
 
-            <th class="footable-visible footable-first-column">Статус</th>
+            <!--<th class="footable-visible footable-first-column">Статус</th>-->
             <th class="footable-visible">Страва</th>
             <th class="footable-visible">Компоненти</th>
             <th class="footable-visible">Порція</th>
@@ -154,9 +154,9 @@
             <ng-container *ngFor="let prod of order.products">
               <ng-container *ngIf="prod">
                 <tr class="footable-even sible footable-first-column">
-                  <td class="footable-visible"><span class="footable-toggle"></span>
-                    <input type="checkbox" [(ngModel)]="prod.status" name="prod-{{prod._id}}">
-                  </td>
+                  <!--<td class="footable-visible"><span class="footable-toggle"></span>-->
+                    <!--<input type="checkbox" [(ngModel)]="prod.status" name="prod-{{prod._id}}">-->
+                  <!--</td>-->
                   <td class="footable-visible">
                     {{prod.dishData.name}}
                   </td>
@@ -180,7 +180,8 @@
                     {{prod.totalPrice}} грн
                   </td>
                   <td class="footable-visible">
-                    {{prod.boxData.price}} грн
+                    <ng-container *ngIf="prod.boxData">{{prod.boxData.price || 0}} грн</ng-container>
+                    <ng-container *ngIf="!prod.boxData">-</ng-container>
                   </td>
                   <td class="footable-visible">
                     <ng-container *ngFor="let com of prod.orderCommentData">
