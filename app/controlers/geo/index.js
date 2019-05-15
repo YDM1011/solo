@@ -81,7 +81,7 @@ const getEsts = (req) =>{
             if (JSON.parse(req.query.filter).length > 0) {
                 query = {$and:[{$and: JSON.parse(req.query.filter)}]};
             } else {
-                query = {}
+                query = {$and:[{}]};
             }
         } else {
             query = {}
