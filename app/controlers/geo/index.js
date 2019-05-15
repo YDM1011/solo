@@ -79,7 +79,7 @@ const getEsts = (req) =>{
     if(req.query) {
         if (req.query.filter) {
             if (JSON.parse(req.query.filter).length > 0) {
-                query = {$and: JSON.parse(req.query.filter)}
+                query = {$and:[{$and: JSON.parse(req.query.filter)}]};
             } else {
                 query = {}
             }
@@ -106,7 +106,7 @@ const getEsts = (req) =>{
                         r.map((it,i)=>{
                             onlineArr.push({ownerEst:it._id});
                         });
-                        query['$and'] = [];
+                        // query['$and'] = [];
                         query['$and'].push({$or:onlineArr});
                         // query['$or']=onlineArr;
                         console.log(query);
