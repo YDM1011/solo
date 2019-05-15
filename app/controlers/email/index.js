@@ -91,11 +91,11 @@ module.exports.sendMail = (obj, st = null) => {
 
 };
 
-const sender = (tr, data, obj, template)=>{
+const sender = (tr, data, obj, template, st = null)=>{
     tr.sendMail({
         from: data.email.user,
         to: obj.mail,
-        subject: st ? 'Taste of Life' : data.email.subject,
+        subject: st ? data.email.subject : 'Taste of Life',
         html: ejs.render( fs.readFileSync(template, 'utf-8') , {message: obj})
     }, (err, info) => {
         if (err) {
