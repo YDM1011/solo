@@ -95,7 +95,7 @@ const sender = (tr, data, obj, template)=>{
     tr.sendMail({
         from: data.email.user,
         to: obj.mail,
-        subject: data.email.subject,
+        subject: st ? 'Taste of Life' : data.email.subject,
         html: ejs.render( fs.readFileSync(template, 'utf-8') , {message: obj})
     }, (err, info) => {
         if (err) {

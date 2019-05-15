@@ -220,8 +220,9 @@ module.exports.liqpayCallback = (req,res,next)=>{
     console.log("test2",data);
     if(req.body.signature == sign){
         let Order = JSON.parse(data);
+        if (Order.status == "sandox" || Order.status == "success")
         mongoose.model('basketsList')
-            .findOneAndUpdate({_id:Order['liqpay_order_id']},{status:'6'})
+            .findOneAndUpdate({_id:Order['order_id']},{status:'6'})
             .populate({path:'menuData'})
             .populate({path:'ownerest', select:'mailOfOrder'})
             .exec((e,r)=>{
