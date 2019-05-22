@@ -411,7 +411,21 @@ const validateUserFoodcoin = (req,res,next)=>{
                                 } else { return next() }
                             }
                         }else if (r0.paymentType != 'coin'){
-                            return next()
+                            if (req.body.status == '6') {
+                                mongoose.model('establishment')
+                                    .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:-(price*0.05)}})
+                                    .exec((e1,r1)=>{
+                                        if (e1 || !r1) return res.badRequest({mess:"Error"});
+                                        price = price*0.05;
+                                        mongoose.model('user')
+                                            .findOneAndUpdate({_id:req.userId},
+                                                {$inc:{foodcoin:price}})
+                                            .exec((e2,r2)=>{
+                                                if(e2 || !r2) return res.badRequest({mess:"Error"});
+                                                return next()
+                                            })
+                                    })
+                            } else { return next() }
                         }
                         return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"})
                     })
