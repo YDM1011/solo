@@ -296,13 +296,44 @@ async function asyncForEach(array, callback) {
         await callback(array[index], index, array);
     }
 }
-
+const werify = (req,res,next)=>{
+    require("../responces/ok")(req, res);
+    require("../responces/notFound")(req, res);
+    require("../responces/badRequest")(req, res);
+    mongoose.model('post')
+        .findOne({_id: req.params.id})
+        .select('ownerest')
+        .exec((err, result) => {
+            if (err) return res.badRequest(err);
+            if (!result) return res.notFound();
+            if (result) {
+                mongoose.model('user')
+                    .findOne({_id:req.userId, myEstablishment:{$in:result.ownerest}})
+                    .exec((err,doc)=>{
+                        if (err) return res.badRequest(err);
+                        if (!doc) {
+                            delete req.body['ownerEst'];
+                            delete req.body['ownerest'];
+                            next()
+                        }
+                        if (doc) {
+                            mongoose.model('post')
+                                .findOneAndRemove({_id: req.params.id})
+                                .exec((e,r)=>{
+                                    if (e) return res.badRequest(e);
+                                    res.ok(r);
+                                })
+                        }
+                    });
+            }
+        });
+};
 glob.restify.serve(
     glob.route,
     mongoose.model('post'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
-        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, preDelete],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, preSave]
     });

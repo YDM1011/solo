@@ -50,12 +50,15 @@
               <span class="nav-label">Замовлення</span> <span class="fa arrow"></span>
             </a>
             <ul class="nav nav-second-level" *ngIf="ordr.isActive">
-              <li [class.active]="dlvr.isActive">
-                <a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/orders/delivery/'+est._id">Доставка</a></li>
-              <li [class.active]="self.isActive">
-                <a routerLinkActive #self="routerLinkActive" [routerLink]="'/orders/bySelf/'+est._id">На виніс</a></li>
-              <li [class.active]="rsrv.isActive">
-                <a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/orders/reserve/'+est._id">Бронь столу</a></li>
+              <li [class.active]="dlvr.isActive" appAutoClose>
+                <a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/orders/delivery/'+est._id">Доставка
+                  <app-count [id]="est._id" [orderType]="'delivery'"></app-count></a></li>
+              <li [class.active]="self.isActive" appAutoClose>
+                <a routerLinkActive #self="routerLinkActive" [routerLink]="'/orders/bySelf/'+est._id">На виніс
+                  <app-count [id]="est._id" [orderType]="'bySelf'"></app-count></a></li>
+              <li [class.active]="rsrv.isActive" appAutoClose>
+                <a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/orders/reserve/'+est._id">Бронь столу
+                  <app-count [id]="est._id" [orderType]="'reserve'"></app-count></a></li>
             </ul>
           </li>
           <li [class.active]="help.isActive" appAutoClose>

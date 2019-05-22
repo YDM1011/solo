@@ -109,6 +109,7 @@ router.get('/api/basket_user', [orign, glob.getId], basket.getBasket);
 router.get('/api/checkboxCom/:id', [orign, glob.getId], basket.checkbox);
 router.get('/api/test', [orign, glob.getId], basket.test);
 router.post('/api/liqpayCallback', [orign], basket.liqpayCallback);
+router.get('/api/estsOfBasket', [orign, glob.getId], basket.estsOfBasket);
 
 // ADM
 router.post('/api/adm/signin', [orign, verification], admLogin);

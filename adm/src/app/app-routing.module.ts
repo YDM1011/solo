@@ -11,6 +11,7 @@ import {CategoryComponent} from "./pages/category/category.component";
 import {ModerationComponent} from "./pages/moderation/moderation.component";
 import {FiltersComponent} from "./pages/filters/filters.component";
 import {LabelsComponent} from "./pages/labels/labels.component";
+import {FudcoinComponent} from "./pages/fudcoin/fudcoin.component";
 
 const routes: Routes = [
   { path: '',
@@ -22,6 +23,7 @@ const routes: Routes = [
       {path:'category', component: CategoryComponent},
       {path:'filters', component: FiltersComponent},
       {path:'labels', component: LabelsComponent},
+      {path:'foodcoin', component: FudcoinComponent},
       ]
   },
   {

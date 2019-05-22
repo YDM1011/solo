@@ -115,7 +115,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
   preToBasket(){
     let s = this;
     s.dishData = Object.assign({}, s.dish);
-    s.getComp();
+    s.getComp(s.dishData);
     if(s.dishData.prt){
       s.totalPrice = s.dishData.prt.price;
       s.dishData.prt.count = 1;
@@ -129,17 +129,11 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       // });
       // s.portion = s.dishData.portion
     }
-    s.api.get('checkboxCom', s.dishData.dishcategory).then((val:any)=>{
-      val.map(item=>{
-        item.isCheck = false;
-        item.count = 1;
-      });
-      s.complement = val;
-      console.log(s.complement)
-    })
+
   }
 
-  getComp(){
+  getComp(dish){
+    console.log(dish);
     let self = this;
     this.api.get('checkBox').then((res: any) => {
       if (res) {
@@ -191,9 +185,36 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     s.hidden();
     s.isShowChange.emit(false);
   }
+  getComplements() {
+    let s = this;
+    s.dishData = Object.assign({}, s.dish);
+    if(s.dishData.prt){
+      s.totalPrice = s.dishData.prt.price;
+      s.dishData.prt.count = 1;
+    }
+    return new Promise((rs,rj)=>{
+      s.api.get('checkboxCom', s.dishData.dishcategory).then((val:any)=>{
+        val.map(item=>{
+          item.isCheck = false;
+          item.count = 1;
+        });
+        s.complement = val;
 
-  toBasket() {
+        rs(true)
+      })
+    })
+  }
+  async toBasket() {
     const s = this;
+    let isDone = null;
+    if (!s.complement){
+       isDone = await s.getComplements();
+    }
+    if (isDone && s.complement.length > 0) {
+      s.preToBasket();
+      s.hidden();
+      return
+    }
     s.product.dishData = s.dishData._id;
     s.product.portItemData = s.dishData.prt._id;
     s.product.menuData = s.menuId;
@@ -202,17 +223,18 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     s.product.count = 1;
     s.product.complementData = [];
     s.product.orderCommentData.push({text:s.comment});
-
-    s.complement.map(com=>{
-      if (com.isCheck){
-        s.product.complementData.push({id:com._id,count:com.count});
-      }
-    });
-
+    if (s.complement.length > 0) {
+      s.complement.map(com=>{
+        if (com.isCheck){
+          s.product.complementData.push({id:com._id,count:com.count});
+        }
+      });
+      s.hidden();
+    }
     s.api.post('product', s.product).then((res: any) => {
       s.api.checkBascketCount(true);
     });
-    s.hidden();
+
   }
   hidden() {
     this.isShow = !this.isShow;

@@ -1,0 +1,14 @@
+.warning-message{
+  background: #c11010;
+  height: 30px;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  top: 0;
+  font-weight: bold;
+  letter-spacing: 1.0px;
+}

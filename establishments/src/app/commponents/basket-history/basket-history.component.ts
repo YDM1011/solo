@@ -82,14 +82,15 @@ export class BasketHistoryComponent implements OnInit {
     this.originBasketData = [];
     basketsData.map(data=>{
       let _id = data._id;
-      let name = `${data.ownerest.name}: ${data.menuData.name}`;
+      let name = `${data.ownerest.name}`;
       let time = data.dataUpdate;
-      let totalPrice = data.totalPrice;
+      let totalPrice = data.editByAdmin ?  data.editByAdmin.totalPrice || data.totalPrice : data.totalPrice;
       let product = data.productData;
       let estLogo = data.ownerest.av;
       let status = data.status.id;
       s.onLoaded = true;
       let basketData = new BasketData(_id, name, time, totalPrice, product, estLogo, status, data.orderCommentData);
+      basketData.owneruser = data.owneruser;
       basketData.orderType = data.orderType;
       basketData.anyMobile = data.anyMobile;
       if (data.deliveryTime)
@@ -98,14 +99,32 @@ export class BasketHistoryComponent implements OnInit {
       basketData.paymentType = data.paymentType || "fiat";
       if(data.paymentDetail)
         basketData.paymentDetail.fiatVal = data.paymentDetail.fiatVal || 0;
-      basketData.boxesPrice = data.boxesPrice;
+      basketData.boxesPrice = data.editByAdmin ? data.editByAdmin.boxesPrice || data.boxesPrice : data.boxesPrice;
+      if (basketData.orderType != 'reserve' && basketData.orderType)
+        basketData.totalPrice += basketData.boxesPrice;
       basketData.status = data.status;
+      basketData.isCanEdit = data.status == "0" || data.status == 0;
       basketData.isCall = data.isCall;
+      basketData.ownerEst = data.ownerest._id;
+      basketData.html = data.html;
+      basketData.menu = data.menuData;
 
-      basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
-      basketData.deliveryPrice =  basketData.deliveryMinPrice > basketData.totalPrice ? parseInt(data.menuData.delivery) : 0;
+      basketData.delivery = data.ownerest.delivery;
+      basketData.getself = data.ownerest.getself;
+      basketData.reservation = data.ownerest.reservation;
 
-      console.log(basketData);
+      if(basketData.orderType == 'delivery'){
+        basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
+        basketData.deliveryPrice =  basketData.deliveryMinPrice > basketData.totalPrice ? (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) : parseInt(data.menuData.delivery)) : 0;
+        if(data.editByAdmin){
+          if(data.editByAdmin.deliveryPrice){
+            basketData.deliveryPrice = data.editByAdmin.deliveryPrice;
+          }
+        }
+      }else{
+        basketData.deliveryPrice = 0;
+      }
+
       s.baskets.push(basketData);
       basketData.products.map(prod=>{
         this.prices[prod._id] = prod.totalPrice / prod.count;

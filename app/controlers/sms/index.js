@@ -96,15 +96,25 @@ const saveMobile = (req, code)=>{
     return new Promise((rs,rj)=>{
         if(!modData) return rj("model is required");
         if(!modData.newData) return rj("invalid mobile");
-
-        mongoose.model(modData.name)
-            .findOneAndUpdate(modData.query,modData.newData)
+        mongoose.model('foodCoin')
+            .findOne(modData.newData)
             .exec((e,r)=>{
                 if(e) return rj(e);
-                if(!r) return rj("Not found");
-                if(r) return rs(e)
+                let data = modData.newData;
+                data['foodcoin'] = parseInt(r.foodcoin || 0);
+                mongoose.model(modData.name)
+                    .findOneAndUpdate(modData.query,data)
+                    .exec((e,r)=>{
+                        if(e) return rj(e);
+                        if(!r) return rj("Not found");
+                        if(r) {
+                            return rs(e)
+                        }
+                    });
+                delete glob[req.userId+'userMobile'];
             });
-        delete glob[req.userId+'userMobile'];
+
+
     })
 };
 
@@ -116,7 +126,7 @@ const getModel = req =>{
                 mobileField: "mobile",
                 name: "user"
             };
-            glob[req.userId+'userMobile'] ? obj.newData = {mobile: glob[req.userId+'userMobile']} : obj.newData = {mobile: req.body.mobile};
+            glob[req.userId+'userMobile'] ? obj.newData = {mobile: glob[req.userId+'userMobile'].slice(-10)} : obj.newData = {mobile: req.body.mobile.slice(-10)};
 
             return obj;
         }

@@ -54,6 +54,7 @@ import { LikeDishPageComponent } from './like-dish-page/like-dish-page.component
 import { LikeEstPageComponent } from './like-est-page/like-est-page.component';
 import { Top100PageComponent } from './top100-page/top100-page.component';
 import {DeviceDetectorModule} from "ngx-device-detector";
+import { FoodcoinComponent } from './foodcoin/foodcoin.component';
 
 
 @NgModule({
@@ -92,6 +93,7 @@ import {DeviceDetectorModule} from "ngx-device-detector";
     LikeDishPageComponent,
     LikeEstPageComponent,
     Top100PageComponent,
+    FoodcoinComponent,
   ],
   exports:[
     PrevAvatarComponent,

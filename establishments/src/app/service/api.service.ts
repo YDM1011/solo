@@ -272,7 +272,7 @@ export class ApiService {
   }
 
   curentUserData(data){
-    this.me.next(data);
+    this.me.next(data || {});
   }
   checkOnline(data){
     this.online.next(data);

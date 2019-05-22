@@ -33,6 +33,10 @@
         <a routerLinkActive #lb="routerLinkActive" [routerLink]="'/labels'">
           <i class="fa fa-th-large"></i> <span class="nav-label">Мітки</span></a>
       </li>
+      <li [class.active]="fd.isActive">
+        <a routerLinkActive #fd="routerLinkActive" [routerLink]="'/foodcoin'">
+          <i class="fa fa-th-large"></i> <span class="nav-label">FoodCoin</span></a>
+      </li>
 
     </ul>
   </div>

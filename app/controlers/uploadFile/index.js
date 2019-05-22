@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 // const Post = mongoose.model('post');
 const data = require('../../config/config').data;
 const im = require('imagemagick');
+
 /**
  * *
  * @param req
@@ -64,13 +65,14 @@ const delPic = (idPic, res) => {
     })
 };
 
-const checkPic = (reqBody, res) => {
+const checkPic = (reqBody, res, req) => {
     let obj = Object.assign({},reqBody);
     let noResObj = {};
         noResObj[reqBody.field] = false;
     let query = {};
     let protectField = getFieldOfProtect(reqBody.model);
     if (protectField){
+        if (!req.isUseByAdmin)
         query[protectField] = reqBody.owner;
         query['_id'] = reqBody.id;
     } else {
@@ -95,7 +97,7 @@ const checkPic = (reqBody, res) => {
             })
     })
 };
-const sendPicToModel = (reqBody, res, imgId) => {
+const sendPicToModel = (reqBody, res, imgId, req) => {
     let obj = {};
         obj[reqBody.field] = imgId;
     let query = {};
@@ -104,6 +106,7 @@ const sendPicToModel = (reqBody, res, imgId) => {
     console.log(reqBody.isId);
 
     if (protectField){
+        if (!req.isUseByAdmin)
         query[protectField] = toObjectId(reqBody.owner);
         query['_id'] = toObjectId(reqBody.id);
     } else {
@@ -199,7 +202,7 @@ const sendRes = async (req,res) => {
 
     if (model && field){
 
-        let pic = await checkPic(reqBody,res);
+        let pic = await checkPic(reqBody,res,req);
         if (pic[reqBody.field]){
             let picData = await getPic(pic[reqBody.field], res);
             await delFile(picData,`${model}_${field}`);
@@ -209,7 +212,7 @@ const sendRes = async (req,res) => {
         }else{
             let result = await createPic(reqBody,res);
             if(result){
-                let status = await sendPicToModel(reqBody, res, result._id); //id model of image
+                let status = await sendPicToModel(reqBody, res, result._id, req); //id model of image
                 if (status){
                     let url = {url: reqBody.picCrop};
                     return res.ok({url,result});

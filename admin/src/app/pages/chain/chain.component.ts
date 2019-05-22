@@ -29,6 +29,9 @@ export class ChainComponent implements OnInit, OnChanges {
   public worksTimeView:any;
   public worksTimeAll:any;
   public minPrice:number;
+  public foodCoin:number;
+  public publicKey:string;
+  public privatKey:string;
   public links:any=new Links();
   public linksFormat:any=[0,1,2,3,4];
   constructor(
@@ -56,7 +59,7 @@ export class ChainComponent implements OnInit, OnChanges {
     let self = this;
     let req=['name','subdomain',
       'mobile','about', 'minPrice','mail', 'mailOfOrder',
-      'delivery','getself','reservation'];
+      'delivery','getself','reservation', 'publicKey', 'privatKey', 'foodCoin'];
     req.forEach((select)=>{
       this.api.get('establishment',id,select).then((res:any)=>{
         self[select] = res[select];
@@ -86,7 +89,7 @@ export class ChainComponent implements OnInit, OnChanges {
       self.linksFormat.map(it=>{
         if(res.links[it])
           self.links[it].url=res['links'][it].url || self.links[it].url
-      })
+      });
       console.log(self.links)
     }).catch((err:any)=>{});
   }
@@ -134,8 +137,8 @@ export class ChainComponent implements OnInit, OnChanges {
         }
       })
     }
-    this.api.doPost('establishment/'+self.id,obj).then((res:any)=>{
-      if (mod != 'delivery' && mod != 'getself' && mod != 'reservation')
+    this.api.doPost('establishment/'+self.id+'?select='+mod,obj).then((res:any)=>{
+      if (mod != 'delivery' && mod != 'getself' && mod != 'reservation' && mod != 'publicKey' && mod != 'privatKey')
       self[mod] = res[mod];
     }).catch((err:any)=>{});
   }

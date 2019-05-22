@@ -742,3 +742,13 @@ textarea.form-control{
     100% {opacity: 1;}
   }
 }
+.wrap-tabs .label-tab .label{
+  display: block;
+  line-height: 15px;
+  border-radius: 4px 4px 0 0;
+  cursor: pointer;
+}
+.label-primary-light{
+  background-color: #5fa646;
+  color: #fff;
+}

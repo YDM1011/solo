@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
     const glob = require('glob');
 
-glob.getId = (req,res,next)=>{
+    glob.getId = (req,res,next)=>{
     require("express");
     require("../responces/serverError")(req, res);
     require("../responces/forbidden")(req, res);
@@ -24,6 +24,7 @@ glob.getId = (req,res,next)=>{
                     if (!info) return res.forbidden("forbidden2");
                     req.mobile = info.mobile;
                     req.userMail = info.email;
+                    req.foodcoin = info.foodcoin;
                     req.userId = info._id;
                     req.ownerId = info._id;
                     next()

@@ -26,11 +26,13 @@ export class RightBarScrollDirective {
   public max: number;
   public height: number = 0;
   public hdrHeiht: number;
+  public alertHeight: number;
 
   paramPush (): void {
     this.barH = this.el.nativeElement.offsetHeight;
     this.hdrHeiht = document.querySelector('nav').clientHeight;
-    let max = this.barH - (window.innerHeight - this.hdrHeiht);
+    this.alertHeight = document.querySelector('.warning-message')? document.querySelector('.warning-message').clientHeight : 0;
+    let max = this.barH - (window.innerHeight - this.hdrHeiht - this.alertHeight);
     this.max = (max > 0) ? max : 0;
   }
   load = (): void => {
@@ -53,6 +55,6 @@ export class RightBarScrollDirective {
   private top(posScroll: number) {
     this.height = this.height - (this.scrollPosition - posScroll);
     this.height = (this.height > 0 ) ? this.height : 0;
-    this.el.nativeElement.style.top = `${this.hdrHeiht - this.height}px`;
+    this.el.nativeElement.style.top = `${this.hdrHeiht+this.alertHeight - this.height}px`;
   }
 }

@@ -43,6 +43,12 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public limit = 4;
   public offerCount;
   public posts = [];
+  public mobile;
+  public email;
+  public me;
+  public entity;
+  public baskets;
+  public isLoaded = false;
   @Input() word;
   @Output() onClick = new EventEmitter<any>();
   @Output() onNew: EventEmitter<any> = new EventEmitter<any>();
@@ -81,11 +87,27 @@ export class NavbarComponent implements OnInit, OnDestroy {
         self.userName = val.firstName;
         self.offerCount = val.offer.length;
         self.isShow = !self.isShow;
+        self.isLoaded = true;
+        this.mobile = val.mobile;
+        this.email = val.email;
+        this.me = val;
       }
     });
+    self.api.onProfile.subscribe(v=>{
+      if (v){
+        this.mobile = v.mobile;
+        this.email = v.email;
+        this.me = v
+      }
 
+    });
 
+    self.core.doGet('estsOfBasket').then(v=>{
+      console.log(v);
+      this.baskets = v;
+    })
   }
+
 
 
   ngOnDestroy () {

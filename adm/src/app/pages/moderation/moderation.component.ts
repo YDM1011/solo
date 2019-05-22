@@ -47,5 +47,10 @@ export class ModerationComponent implements OnInit,OnChanges {
     est.isOnline = !est.isOnline;
     s.api.apiPost('establishment',est).then((v:any)=>{  })
   }
+  updateCart(est){
+    let s = this;
+    est.isCart = !est.isCart;
+    s.api.apiPost('establishment',est).then((v:any)=>{  })
+  }
 
 }

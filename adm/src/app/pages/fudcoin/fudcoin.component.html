@@ -1,0 +1,80 @@
+<div class="tabs-container">
+  <ul class="nav nav-tabs" role="tablist">
+    <li><a class="nav-link" [class.active]="tab == 1" (click)="tab=1">Баланс мережі</a></li>
+    <li><a class="nav-link" [class.active]="tab == 2" (click)="tab=2">Старі фудкоїни</a></li>
+  </ul>
+  <div class="tab-content">
+    <div class="tab-pane" [class.show]="tab == 1">
+      <div class="panel-body">
+        <div class="flex">
+          <app-search [mod]="'searchEst'" (onRes)="ests = $event"></app-search>
+          <button (click)="searchEst()" class="btn btn-warning">Очистити</button>
+        </div>
+
+        <div class="ibox-content">
+          <table class="table">
+            <thead>
+            <tr>
+              <th>
+                Назва Мережі
+              </th>
+              <th>
+                Баланс
+              </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let fc of ests">
+              <ng-container *ngIf="fc">
+              <ng-container *ngIf="fc.subdomain">
+                <td>{{fc.subdomain}}</td>
+                <td>
+                  <form (submit)="addBalance($event, fc)" class="flex">
+                    <input type="number" placeholder="Кількість" class="form-control" name="coin" [(ngModel)]="fc.foodCoin">
+                    <button type="submit" class="btn btn-primary">Зберегти</button>
+                  </form>
+                </td>
+              </ng-container>
+              </ng-container>
+            </tr>
+            </tbody>
+          </table>
+          <button type="button" class="btn btn-primary" (click)="moreEst()">Більше</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-pane " [class.show]="tab == 2">
+
+      <div class="panel-body">
+        <form (submit)="addCoin($event)" class="flex">
+          <input type="text" placeholder="Mобільний" class="form-control" name="mobile" [(ngModel)]="obj.mobile">
+          <input type="number" placeholder="Кількість" class="form-control" name="coin" [(ngModel)]="obj.foodcoin">
+          <button type="submit" class="btn btn-primary">Зберегти</button>
+        </form>
+      </div>
+      <div class="ibox-content">
+        <table class="table">
+          <thead>
+          <tr>
+            <th>
+              Мобільний
+            </th>
+            <th>
+              FoodCoin
+            </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let fc of fudcoins">
+            <ng-container *ngIf="fc">
+              <td><code>{{fc.mobile}}</code></td>
+              <td><span class="text-muted">{{fc.foodcoin}}</span></td>
+            </ng-container>
+          </tr>
+          </tbody>
+        </table>
+        <button type="button" class="btn btn-primary" (click)="more()">Більше</button>
+      </div>
+    </div>
+  </div>
+</div>

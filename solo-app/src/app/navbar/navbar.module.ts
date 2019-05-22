@@ -16,6 +16,7 @@ import {CreateEstablishmentComponent} from "../lib/create-establishment/create-e
 import {FormsModule} from '@angular/forms';
 import {MobileMenuDirective} from "./mobile-menu.directive";
 import {ScrollToDirective} from "./scroll-to.directive";
+import { MobileAlertDirective } from './mobile-alert.directive';
 
 @NgModule({
   imports: [
@@ -45,6 +46,7 @@ import {ScrollToDirective} from "./scroll-to.directive";
     CreateEstablishmentComponent,
     MobileMenuDirective,
     ScrollToDirective,
+    MobileAlertDirective,
   ]
 })
 export class NavbarModule { }

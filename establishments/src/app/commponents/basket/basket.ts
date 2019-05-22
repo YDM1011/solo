@@ -36,6 +36,8 @@ export interface Basket {
   delivery?: boolean
   getself?: boolean
   reservation?: boolean
+  isnew?: boolean
+  ishit?: boolean
 }
 
 export class BasketData implements Basket{
@@ -58,6 +60,8 @@ export class BasketData implements Basket{
   public delivery?;
   public getself?;
   public reservation?;
+  public isnew?;
+  public ishit?;
   public paymentDetail? = {fiatVal:0};
   constructor(
     public _id,
@@ -97,6 +101,8 @@ export class BasketData implements Basket{
       delivery: this.delivery,
       getself: this.getself,
       reservation: this.reservation,
+      isnew: this.isnew,
+      ishit: this.ishit,
     };
     return obj;
   }

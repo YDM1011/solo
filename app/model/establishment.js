@@ -17,6 +17,8 @@ const model = new Schema({
     subdomain: {type: String, unique: true},
     minPrice: {type: Number, defoult: 100, min: [100, 'broken']},
     name: String,
+    publicKey: String,
+    privatKey: String,
     mobile: {type: String},
     build: [onebuild],
     worksTime: {
@@ -29,6 +31,7 @@ const model = new Schema({
     links: Object,
     own: String,
     isOnline:{type: Boolean, default: false},
+    isCart:{type: Boolean, default: false},
     delivery:{type: Boolean, default: true},
     getself:{type: Boolean, default: true},
     reservation:{type: Boolean, default: true},
@@ -65,6 +68,7 @@ const model = new Schema({
     }],
     myestCount: {type: Number, default: 0},
     postCount: {type: Number, default: 0},
+    foodCoin: {type: Number, default: 0},
     permisions: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
@@ -311,6 +315,7 @@ const preUpdate = (req,res,next)=>{
     require("../responces/serverError")(req, res);
     delete req.body['own'];
     delete req.body['owner'];
+    if(!req.adminLogin) delete req.body['foodCoin'];
     if (req.params){
         switch (req.query.select){
             case 'bg': bgu(req,res,req.params.id,req.query.select); break;

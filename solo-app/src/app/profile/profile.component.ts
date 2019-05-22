@@ -9,6 +9,7 @@ import {environment} from "../../environments/environment";
 import * as moment from 'moment';
 import {Status} from "./profileStatus";
 import {profileLinks} from "./links";
+import swal from 'sweetalert2';
 
 @Component({
   selector: 'app-profile',
@@ -142,6 +143,7 @@ export class ProfileComponent implements OnInit {
     this.http.post(`${this.domain}/api/user/${s.me._id}`, s.me, this.api.getHeaders())
       .subscribe((user: any) => {
         alert("success")
+        s.api.updateProfile(user);
       });
   }
 
@@ -191,6 +193,8 @@ export class ProfileComponent implements OnInit {
     this.http.post(`${this.domain}/api/SMSSendCode`, {model:'user',mobile:this.mobile}, this.api.getHeaders())
       .subscribe((user: any) => {
         this.isCodeInput = true
+      }, err => {
+        swal("Error", err.error.error, "error");
       });
   }
   sendConfirm(){
@@ -198,6 +202,8 @@ export class ProfileComponent implements OnInit {
       .subscribe((user: any) => {
         this.isMobilePop = false;
         this.me.mobile = this.mobile;
+      },err => {
+        swal("Error", err.error.error, "error");
       });
   }
 }

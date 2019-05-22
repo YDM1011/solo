@@ -12,7 +12,7 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
 
   public orderType = 'delivery';
   public id;
-
+  public stActive;
   public list:OrderMin[] = [];
 
   constructor(
@@ -58,14 +58,39 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
               let created = basket.data;
               let updated = basket.dataUpdate;
               let status = basket.status;
+              let orderNumber = basket.orderNumber;
               let id = basket._id;
               if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
               if (basket.orderType == 'bySelf') price += basket.boxesPrice;
               this.list.push(
-                new order(client,prods,price, created, updated, status, id)
+                new order(client,prods,price, created, updated, status, id, orderNumber)
               )
             })
           }
+        }
+      })
+  }
+  getByStatus(st){
+    this.stActive = st;
+    this.list = [];
+    this.api.justGet('basketsList', this.id, '', '?status='+st+'&skip=0&orderType='+this.orderType)
+      .then((v:any)=>{
+        if(v){
+          v.map(basket=>{
+            let client = basket.owneruser;
+            let prods = basket.productData;
+            let price = basket.totalPrice;
+            let created = basket.data;
+            let updated = basket.dataUpdate;
+            let status = basket.status;
+            let orderNumber = basket.orderNumber;
+            let id = basket._id;
+            if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
+            if (basket.orderType == 'bySelf') price += basket.boxesPrice;
+            this.list.push(
+              new order(client,prods,price, created, updated, status, id, orderNumber)
+            )
+          })
         }
       })
   }

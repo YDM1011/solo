@@ -11,6 +11,8 @@ export class FormApiService {
 
   private form = new BehaviorSubject<any>(undefined);
   public onSubmit = this.form.asObservable();
+  private me = new BehaviorSubject<any>(undefined);
+  public onProfile = this.me.asObservable();
 
   constructor(private http: HttpClient,
               private _cookieService: CookieService) { }
@@ -53,5 +55,8 @@ export class FormApiService {
         return swal("Error", mess+'!', "error");
       }
     }catch(err){}
+  }
+  updateProfile(data){
+    this.me.next(data)
   }
 }

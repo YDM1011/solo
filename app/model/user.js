@@ -74,6 +74,7 @@ const user = new Schema({
     token: String,
     hashLink: String,
     owner: String,
+    foodcoin: Number,
     data: {type: Date, default: new Date()}
 },{
     toJSON: {
@@ -113,7 +114,7 @@ const preUpdate = (req,res,next)=>{
     delete req.body.token;
     delete req.body.hash;
     mongoose.model('user')
-        .findOneAndUpdate({_id: req.userId}, req.body)
+        .findOneAndUpdate({_id: req.userId}, req.body, {new:true})
         .select('-pass -token -_id -hashLink')
         .exec((err, info) => {
             if(err) return res.badRequest(err);

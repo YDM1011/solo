@@ -94,7 +94,7 @@ export class InitLayoutComponent implements OnInit, OnDestroy {
 
   checkOnline(){
     const s = this;
-    s.api.justGet('est?select="isOnline delivery getself reservation"').then((val: any) => {
+    s.api.justGet('est?select="isOnline delivery getself reservation isCart foodCoin"').then((val: any) => {
       s.api.checkOnline(val);
       s.online = val;
     });

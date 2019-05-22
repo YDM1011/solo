@@ -1,0 +1,14 @@
+.nav-tabs .nav-link.active {
+  color: #495057;
+  background-color: #fff;
+  border-color: #dee2e6 #dee2e6 #fff;
+}
+.flex > *{
+  width: auto;
+  margin: 10px;
+}
+.flex {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}

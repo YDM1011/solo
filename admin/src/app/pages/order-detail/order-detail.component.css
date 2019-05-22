@@ -32,3 +32,13 @@
 .price .btn{
   margin-left: 8px;
 }
+.ibox-content{
+  overflow: auto;
+}
+.btn-wrap{
+  padding: 0 15px 15px;
+  background-color: #fff;
+}
+.table {
+  margin: 0;
+}

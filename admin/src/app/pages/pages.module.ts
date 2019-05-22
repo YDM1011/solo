@@ -37,6 +37,9 @@ import { HelpComponent } from './help/help.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { OrderDetailEditComponent } from './order-detail-edit/order-detail-edit.component';
 import { PaymentPipe } from './order-detail/payment.pipe';
+import { StatusPipe } from './order/status.pipe';
+import {SafeHTMLPipe} from "../safe-html.pipe";
+import { OrderPipe } from './order-detail/order.pipe';
 
 @NgModule({
   imports: [
@@ -46,8 +49,9 @@ import { PaymentPipe } from './order-detail/payment.pipe';
     RoutingModule,
 
   ],
-  exports: [NotFoundComponent, MenuComponent, HomeComponent, SettingComponent],
+  exports: [NotFoundComponent, MenuComponent, HomeComponent, SettingComponent, SafeHTMLPipe],
   declarations: [
+    SafeHTMLPipe,
     NotFoundComponent,
     MenuComponent,
     HomeComponent,
@@ -81,6 +85,8 @@ import { PaymentPipe } from './order-detail/payment.pipe';
     OrderDetailComponent,
     OrderDetailEditComponent,
     PaymentPipe,
+    StatusPipe,
+    OrderPipe,
   ],
   providers: [
     ApiService,

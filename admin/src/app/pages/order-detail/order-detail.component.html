@@ -1,12 +1,20 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+  <div class="col-lg-12"><h2>Замовлення</h2>
+    <ol class="breadcrumb" *ngIf="order">
+      <li><a [routerLink]="'/'">Home</a></li>
+      <li><a [routerLink]="'/orders/'+order.orderType+'/'+estId">Замовлення</a></li>
+      <li><a class="active">{{order.orderType | order }}</a></li>
+    </ol>
+  </div>
+</div>
 <div class="wrapper wrapper-content animated fadeInUp">
   <div class="ibox">
     <div class="ibox-content">
       <div class="row">
         <div class="col-lg-12">
-          <div class="m-b-md">
-            <h2>Замовлення </h2>
+          <div class="m-b-md" *ngIf="order">
+            <h2>Замовлення на <b [innerHTML]="order.orderType | order | safeHTML"></b></h2>
           </div>
-
         </div>
       </div>
       <div class="row">
@@ -64,28 +72,25 @@
               <dd class="mb-1 "  *ngIf="order; else preload">{{order.productPrice}} грн</dd>
               <ng-container *ngIf="isCanEdit">
                 <label><input type="number" [(ngModel)]="totalPrice" name="totalPrice"> грн</label>
-                <button class="btn btn-xs btn-primary">Зберегти</button>
               </ng-container>
             </div>
           </dl>
           <ng-container *ngIf="order; else preload">
-            <dl class="row mb-0" *ngIf="order && order.boxPrice">
+            <dl class="row mb-0" *ngIf="order && (order.boxPrice !== false)">
               <div class="col-sm-4 text-sm-right"><dt>Вартість упаковки:</dt> </div>
               <div class="col-sm-8 text-sm-left flex price">
-                <dd class="mb-1 " *ngIf="order; else preload">{{order.boxPrice}} грн</dd>
+                <dd class="mb-1 " *ngIf="order; else preload">{{order.boxPrice || 0}} грн</dd>
                 <ng-container *ngIf="isCanEdit">
                   <label><input type="number" [(ngModel)]="boxesPrice" name="boxesPrice"> грн</label>
-                  <button class="btn btn-xs btn-primary">Зберегти</button>
                 </ng-container>
               </div>
             </dl>
-            <dl class="row mb-0" *ngIf="order && order.deliveryPrice">
+            <dl class="row mb-0" *ngIf="order && (order.deliveryPrice !== false)">
               <div class="col-sm-4 text-sm-right"><dt>Вартість доставки:</dt> </div>
               <div class="col-sm-8 text-sm-left flex price">
-                <dd class="mb-1 "  *ngIf="order; else preload">{{order.deliveryPrice}} грн</dd>
+                <dd class="mb-1 "  *ngIf="order; else preload">{{order.deliveryPrice || 0}} грн</dd>
                 <ng-container *ngIf="isCanEdit">
                   <label><input type="number" [(ngModel)]="deliveryPrice" name="deliveryPrice"> грн</label>
-                  <button class="btn btn-xs btn-primary">Зберегти</button>
                 </ng-container>
               </div>
             </dl>
@@ -106,8 +111,7 @@
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Статуст:</dt> </div>
             <div class="col-sm-8 text-sm-left">
-              <dd class="mb-1" *ngIf="order; else preload">
-                <span class="label label-primary">{{order.status}}</span>
+              <dd class="mb-1" *ngIf="order; else preload" [innerHTML]="order.status | status | safeHTML">
               </dd>
             </div>
           </dl>
@@ -120,7 +124,6 @@
                 </div>
                 <ng-container *ngIf="isCanEdit">
                   <div><textarea name="comment" [(ngModel)]="comment"></textarea></div>
-                  <div><button class="btn btn-xs btn-primary">Коментувати</button></div>
                 </ng-container>
 
               </dd>
@@ -134,9 +137,9 @@
 <div class="row">
   <div class="col-lg-12">
     <div class="ibox">
-      <div class="ibox-content">
-
-        <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+      <div class="">
+        <div class="ibox-content">
+          <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
           <thead>
           <tr>
 
@@ -203,12 +206,13 @@
 
           </tfoot>
         </table>
+        </div>
         <div class="btn-wrap" *ngIf="order; else preload">
           <ng-container *ngIf="order.status==1">
-            <ng-container *ngIf="order.paymentType != 'fiat'">
+            <ng-container *ngIf="order.paymentType != 'fiat' && order.paymentType != 'coin'">
               <ng-container *ngTemplateOutlet="whait"></ng-container>
             </ng-container>
-            <ng-container *ngIf="order.paymentType == 'fiat'">
+            <ng-container *ngIf="order.paymentType == 'fiat' || order.paymentType == 'coin'">
               <ng-container *ngTemplateOutlet="confirm"></ng-container>
             </ng-container>
             <ng-container *ngTemplateOutlet="change"></ng-container>

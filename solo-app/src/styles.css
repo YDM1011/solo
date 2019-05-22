@@ -7845,3 +7845,18 @@ textarea.us_area::-webkit-scrollbar-track {
   padding: 0!important;
   min-height: 200px;
 }
+.est-basket img{
+  object-fit: contain;
+  max-height: 100%;
+  max-width: 100%;
+}
+.est-basket{
+  max-height: 70px;
+  display: flex;
+  margin: 10px;
+  cursor: pointer;
+}
+.ests-bskets{
+  display: flex;
+  justify-content: center;
+}

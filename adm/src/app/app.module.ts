@@ -36,6 +36,8 @@ import { LabelsComponent } from './pages/labels/labels.component';
 import { LabelsAllComponent } from './commponents/labels-all/labels-all.component';
 import { LabelsCreateComponent } from './commponents/labels-create/labels-create.component';
 import { LabelsEditComponent } from './commponents/labels-edit/labels-edit.component';
+import { FudcoinComponent } from './pages/fudcoin/fudcoin.component';
+import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
 
 @NgModule({
   declarations: [
@@ -67,13 +69,15 @@ import { LabelsEditComponent } from './commponents/labels-edit/labels-edit.compo
     LabelsComponent,
     LabelsAllComponent,
     LabelsCreateComponent,
-    LabelsEditComponent
+    LabelsEditComponent,
+    FudcoinComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    SweetAlert2Module.forRoot()
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

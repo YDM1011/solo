@@ -31,12 +31,14 @@ export class HeaderComponent implements OnInit {
   public id: any;
   public user: any;
   public access = false;
+  public loaded = false;
   public host: string = environment.apiDomain;
   public arrayEts: any = [];
   public friends: any = [];
   public arrEts: any = [];
   public searchText = '';
   public count;
+  public me;
   public basketId;
   public popPreProd: boolean = false;
   public isOnline: boolean = false;
@@ -50,19 +52,23 @@ export class HeaderComponent implements OnInit {
       if(v){
         this.basketId = v._id;
         this.isOnline = v.isOnline;
-        // this.api.justGet('basketsList?count={"$and":[{"ownerest":"'+v._id+'"},{"owneruser":"'+this.cookie.get('userid')+'"}]}').then((count:any)=>{
-        this.api.justGet('basketsList?count={"ownerest":"'+v._id+'"}').then((count:any)=>{
+        this.api.justGet('basketsList?count={"$and":[{"$or":[{"status":{"$nin":["6","7"]}}]},{"ownerest":"'+v._id+'"},{"owneruser":"'+this.id+'"}]}').then((count:any)=>{
+        // this.api.justGet('basketsList?count={"ownerest":"'+v._id+'"}').then((count:any)=>{
           this.count = count.count
         })
       }
     });
     this.api.onBascketCount.subscribe(v=>{
       if(v){
-        this.api.justGet('basketsList?count={"ownerest":"'+this.basketId+'"}').then((count:any)=>{
+        this.api.justGet('basketsList?count={"$and":[{"$or":[{"status":{"$nin":["6","7"]}}]},{"ownerest":"'+this.basketId+'"},{"owneruser":"'+this.id+'"}]}').then((count:any)=>{
           this.count = count.count
         })
       }
-    })
+    });
+    // this.api.onMe.subscribe(me=>{
+    //   alert(me)
+    //   this.me = me;
+    // })
 
   }
   forbidden(mes) {
@@ -73,6 +79,7 @@ export class HeaderComponent implements OnInit {
     const s = this;
     s.api.curentUserData(data);
     s.user = (data);
+    s.loaded = true;
     s.access = true;
   }
   goSearch(e){

@@ -59,6 +59,7 @@ export class BasketComponent implements OnInit, OnChanges {
   public estAdres = [];
   public estAddress = {address:'',_id:''};
 
+  public pecent = 0.05;
   public html;
   public mobile;
   public button;
@@ -72,8 +73,11 @@ export class BasketComponent implements OnInit, OnChanges {
   public isDoOrder:boolean = false;
   public isAddress:boolean = false;
   public isCanEdit:boolean = false;
+  public isCart:boolean = false;
+  public foodCoin:number;
   public isError:string;
   public orderType;
+  public me;
   public originBasketData = [];
   constructor(
     private route: ActivatedRoute,
@@ -89,6 +93,13 @@ export class BasketComponent implements OnInit, OnChanges {
     this.api.onMe.subscribe(me=>{
       if(me){
         this.mobile = me.mobile;
+        this.me = me;
+      }
+    });
+    this.api.onOnline.subscribe(est=>{
+      if(est){
+        this.isCart = est.isCart;
+        this.foodCoin = parseInt(est.foodCoin);
       }
     });
     this.init()
@@ -107,6 +118,7 @@ export class BasketComponent implements OnInit, OnChanges {
         this.getBasketsList(data)
       }
     });
+
     this.dataStart = moment()
       .hour(this.timeStart.hour)
       .minute(this.timeStart.minute).toISOString();
@@ -157,6 +169,8 @@ export class BasketComponent implements OnInit, OnChanges {
       basketData.delivery = data.ownerest.delivery;
       basketData.getself = data.ownerest.getself;
       basketData.reservation = data.ownerest.reservation;
+      // basketData.isnew = data.dishData.isnew;
+      // basketData.ishit = data.dishData.ishit;
 
       if(basketData.orderType == 'delivery'){
         basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
@@ -225,9 +239,18 @@ export class BasketComponent implements OnInit, OnChanges {
     if(s.activeBaskets.products){
       s.activeBaskets.boxesPrice = 0;
       s.activeBaskets.products.map(product=>{
-        s.activeBaskets.boxesPrice += parseInt(product.boxData.price) * product.count;
+        s.activeBaskets.boxesPrice += parseInt(product.boxData ? product.boxData.price : 0) * product.count;
       })
     }
+    this.api.justGet('oneest?query={"ownerEst":"'+this.activeBaskets.ownerEst+'"}&select=address').then((v:any)=>{
+      if (v){
+        this.estAdres = v;
+        this.isAddress = false;
+        // estAddress.address
+        this.estAddress = v[0];
+        this.estAddress['isSaved'] = true;
+      }
+    });
   }
   delBasket(basket){
     this.api.delet('basketsList', basket._id).then(v=>{
@@ -243,15 +266,14 @@ export class BasketComponent implements OnInit, OnChanges {
       }
     });
   }
-  doOrderDelivery(){
-    if(this.activeBaskets.paymentType){
-      if(this.activeBaskets.paymentType == 'fiat'){
-        if(!this.activeBaskets.paymentDetail.fiatVal || this.activeBaskets.paymentDetail.fiatVal<=0){
-          this.showError("поля з зірочкою обов'язкові");
-          return
-        }
+  setConfirmCoin(basket){
+    this.api.set('basketsList', {status: '6', confirm:true},basket._id).then(v=>{
+      if(v){
+        basket.status = '6';
       }
-    }else{this.showError("поля з зірочкою обов'язкові");}
+    });
+  }
+  doOrderDelivery(){
     if (!(this.address._id || this.address)){
       this.showError("поля з зірочкою обов'язкові");
       return
@@ -268,7 +290,12 @@ export class BasketComponent implements OnInit, OnChanges {
     }
     // this.activeBaskets.paymentType = "delivery";
     console.log(this.activeBaskets,this.address);
-    this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id);
+    this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id)
+      .then()
+      .catch(e=>{
+        alert(e.error.mess);
+        this.activeBaskets.status = "0";
+      });
     this.isDoOrder = false;
   }
   doOrderBySelf(){
@@ -285,15 +312,6 @@ export class BasketComponent implements OnInit, OnChanges {
         return
       }
     }
-    if(this.activeBaskets.paymentType){
-      if(this.activeBaskets.paymentType == 'fiat'){
-        console.log(!this.activeBaskets.paymentDetail.fiatVal, this.activeBaskets.paymentDetail.fiatVal);
-        if(!this.activeBaskets.paymentDetail.fiatVal || this.activeBaskets.paymentDetail.fiatVal<=0){
-          this.showError("поля з зірочкою обов'язкові");
-          return
-        }
-      }
-    }else{this.showError("поля з зірочкою обов'язкові");}
     if (!this.dataSelected() || !this.estAddress || !this.estAddress._id){
       this.showError("поля з зірочкою обов'язкові");
       return
@@ -332,6 +350,7 @@ export class BasketComponent implements OnInit, OnChanges {
       e['day'] = new Date().getDate();
     }
     this.dataStart = new Date(e.year, (e.month-1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
+    console.log(this.dataStart)
     return this.dataStart;
   }
   test(){

@@ -10,6 +10,7 @@
       <th class="center">Ім'я</th>
       <th class="center">Веріфікація</th>
       <th class="center">Oнлайн</th>
+      <th class="center">Картка</th>
       <th class="center">Адміністрування</th>
       <th class="center">Користувачі</th>
     </tr>
@@ -20,6 +21,7 @@
       <td class="center">{{est.name}}</td>
       <td class="center"><input type="checkbox" [ngModel]="est.verify" (change)="updateStatus(est)"></td>
       <td class="center"><input type="checkbox" [ngModel]="est.isOnline" (change)="updateOnline(est)"></td>
+      <td class="center"><input type="checkbox" [ngModel]="est.isCart" (change)="updateCart(est)"></td>
       <td class="center"><button class="btn btn-primary" (click)="estId = est._id">+</button></td>
       <td class="center">
         <span class="label label-success" *ngFor="let us of est.permisions">

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {animate, style, transition, trigger} from "@angular/animations";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-pre-production',
@@ -39,12 +40,22 @@ import {animate, style, transition, trigger} from "@angular/animations";
 export class PreProductionComponent implements OnInit, OnDestroy {
   @Input() status: boolean = false;
   @Input() scroll: boolean = false;
+  @Input() entity;
+  @Input() data;
   @Output() statusResult: EventEmitter<any> = new EventEmitter<any>();
+  public host: string = environment.apiDomain.split('//')[1];
+  ngOnInit() {
 
-  ngOnInit() {}
+  }
 
   ngOnChanges(){
     if (this.status) this.hidden();
+    if (this.data){
+      if(this.data.length==1 && !this.data[0].mess && this.entity=='basket'){
+        // @ts-ignore
+        window.location = `//${this.data[0].subdomain+'.'+this.host}/basket`
+      }
+    }
   }
   ngOnDestroy() {
     document.body.style.overflow = '';

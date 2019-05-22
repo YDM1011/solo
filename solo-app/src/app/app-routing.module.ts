@@ -19,6 +19,7 @@ import {FriendOfferPageComponent} from "./friend-offer-page/friend-offer-page.co
 import {LikeDishPageComponent} from "./like-dish-page/like-dish-page.component";
 import {LikeEstPageComponent} from "./like-est-page/like-est-page.component";
 import {Top100PageComponent} from "./top100-page/top100-page.component";
+import {FoodcoinComponent} from "./foodcoin/foodcoin.component";
 const routes: Routes = [
   { path: '',
     component: InitLayoutComponent,
@@ -32,7 +33,8 @@ const routes: Routes = [
           {path: 'like_dish', component: LikeDishPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'like_ests', component: LikeEstPageComponent, canActivate: [IsLoginedGuard], },
           {path: 'profile', component: ProfileComponent, canActivate: [IsLoginedGuard], },
-          {path: 'top100', component: Top100PageComponent, canActivate: [IsLoginedGuard], }
+          {path: 'top100', component: Top100PageComponent, canActivate: [IsLoginedGuard], },
+          {path: 'foodcoin', component: FoodcoinComponent, canActivate: [IsLoginedGuard], }
         ]}
     ]
   },

@@ -5,7 +5,8 @@ export interface OrderMin {
   dataCreate: string,
   dataUpdate: string,
   status: string,
-  _id: string
+  _id: string,
+  orderNumber: string
 }
 
 export class order implements OrderMin{
@@ -17,7 +18,8 @@ export class order implements OrderMin{
     public dataCreate,
     public dataUpdate,
     public status,
-    public _id
+    public _id,
+    public orderNumber
   ){
     let obj = {
       client: this.client,
@@ -26,6 +28,7 @@ export class order implements OrderMin{
       dataCreate: this.dataCreate,
       dataUpdate: this.dataUpdate,
       status: this.status,
+      orderNumber: this.orderNumber,
       _id: this._id
     };
     return obj;

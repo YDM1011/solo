@@ -1,6 +1,7 @@
-<ng-container *ngIf="status">
+<ng-container *ngIf="status && !entity">
+
   <div class="cont md p-cont p-с active" @inPop>
-    <p class="p-с_t clr">Ми працюємо над цим</p>
+    <p class="p-с_t clr">Ми працюємо над цим {{entity}}</p>
     <div class="p-с_btn">
       <button class="btn-green btn-p" (click)="close()">Повернутися</button>
     </div>
@@ -8,4 +9,31 @@
   <div class="md-fixed active" (click)="close()" @inOpacity></div>
 </ng-container>
 
+<ng-container *ngIf="entity == 'basket'">
+  <div class="cont md p-cont p-с active" @inPop>
 
+    <ng-container *ngIf="data">
+      <div *ngIf="!data[0].mess" class="ests-bskets">
+        <ng-container *ngIf="data.length>1">
+          <a *ngFor="let est of data" class="est-basket" href="//{{est.subdomain+'.'+host}}/basket">
+            <app-picture [size]="60" [pic]="est.av"></app-picture>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="data.length==1">
+          <a *ngFor="let est of data" class="est-basket" href="//{{data[0].subdomain+'.'+host}}/basket">
+            <app-picture [size]="60" [pic]="est.av"></app-picture>
+          </a>
+        </ng-container>
+
+      </div>
+      <ng-container *ngIf="data[0].mess">
+        <p class="p-с_t clr">{{data[0].mess}}</p>
+      </ng-container>
+    </ng-container>
+
+    <div class="p-с_btn">
+      <button class="btn-green btn-p" (click)="close()">Повернутися</button>
+    </div>
+  </div>
+  <div class="md-fixed active" (click)="close()" @inOpacity></div>
+</ng-container>

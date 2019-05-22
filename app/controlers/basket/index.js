@@ -110,7 +110,7 @@ module.exports.getBasketEst = (req, res, next) => {
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
                         })
-                        .populate({path: 'ownerest',select:"av name subdomain minPrice delivery getself reservation",
+                        .populate({path: 'ownerest',select:"av name subdomain minPrice delivery getself reservation isCart isOnline",
                             populate:{path:'av'}
                         })
                         .sort({dataUpdate: -1})
@@ -222,7 +222,7 @@ module.exports.liqpayCallback = (req,res,next)=>{
         let Order = JSON.parse(data);
         if (Order.status == "sandbox" || Order.status == "success"){
             mongoose.model('basketsList')
-                .findOneAndUpdate({_id:Order['order_id']},{status:'6'})
+                .findOneAndUpdate({_id:Order['order_id']},{status:'4'})
                 .populate({path:'menuData'})
                 .populate({path:'ownerest', select:'mailOfOrder'})
                 .exec((e,r)=>{
@@ -234,7 +234,7 @@ module.exports.liqpayCallback = (req,res,next)=>{
                             orderType: r.orderType,
                             isEst: true
                         };
-                        mail.sendMail(estMail, 6);
+                        mail.sendMail(estMail, 4);
                         res.ok()
                     }
                 })
@@ -243,4 +243,35 @@ module.exports.liqpayCallback = (req,res,next)=>{
         }
 
     }
+};
+
+module.exports.estsOfBasket = (req, res, next) => {
+    console.log(req.userId)
+    mongoose.model('basketsList')
+        .find({owneruser: req.userId})
+        .select('ownerest')
+        .exec((e,r)=>{
+            if (e) return res.serverError(e);
+            if (!r) return res.badRequest();
+            if (r){
+                if (r.length==0) return res.ok([{mess:'Замовлень немає!'}]);
+
+                let trigerData = {};
+                let ests = [];
+                r.map(order=>{
+                    if (!trigerData[order._id]){
+                        ests.push({_id:order.ownerest});
+                    }
+                });
+                mongoose.model('establishment')
+                    .find({$or:ests})
+                    .populate({path:'av'})
+                    .select('av _id name subdomain')
+                    .exec((e1,r1)=>{
+                        if (e1) return res.serverError(e1);
+                        if (!r1) return res.badRequest();
+                        if (r1) return res.ok(r1);
+                    })
+            }
+        })
 };

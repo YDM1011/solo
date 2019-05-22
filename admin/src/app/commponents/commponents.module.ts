@@ -32,6 +32,7 @@ import {DeviceDetectorModule} from "ngx-device-detector";
 import { ConfirmDeleteComponent } from './confirm-delete/confirm-delete.component';
 import {UploadPostComponent} from "./action-create/upload-post/upload-post.component";
 import {FileMinPostComponent} from "./action-create/file-min-post/file-min-post.component";
+import { CountComponent } from './count/count.component';
 
 @NgModule({
   imports: [
@@ -97,7 +98,8 @@ import {FileMinPostComponent} from "./action-create/file-min-post/file-min-post.
     AutoCloseDirective,
     ConfirmDeleteComponent,
     UploadPostComponent,
-    FileMinPostComponent
+    FileMinPostComponent,
+    CountComponent
   ],
   providers: []
 })
