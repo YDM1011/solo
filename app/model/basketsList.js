@@ -342,12 +342,12 @@ const validateFoodcoin = (req,res,next)=>{
                     .findOne({_id:r0.ownerest})
                     .exec((e,r)=>{
                         let price = 0;
-                        let boxP = r0['editByAdmin'] ? r0['editByAdmin']['boxesPrice'] || r0.boxesPrice : r0.boxesPrice;
+                        let boxP = r0['editByAdmin'] ? r0['editByAdmin']['boxesPrice'] || r0.boxesPrice : r0.boxesPrice || 0;
                         let totP = r0['editByAdmin'] ? r0['editByAdmin']['totalPrice'] || r0.totalPrice : r0.totalPrice;
-                        let delP = r0['editByAdmin'] ? r0['editByAdmin']['deliveryPrice'] || r0.deliveryPrice : r0.deliveryPrice;
-                        if (req.body.orderType == 'delivery' || r0.orderType == 'delivery') price = totP+delP+boxP;
-                        if (req.body.orderType == 'bySelf' || r0.orderType == 'bySelf') price = totP+boxP;
-                        if (req.body.orderType == 'reserve' || r0.orderType == 'reserve') price = totP;
+                        let delP = r0['editByAdmin'] ? r0['editByAdmin']['deliveryPrice'] || r0.deliveryPrice : r0.deliveryPrice || 0;
+                        if (req.body.orderType == 'delivery' || r0.orderType == 'delivery') price = parseInt(totP) +parseInt(delP)+parseInt(boxP);
+                        if (req.body.orderType == 'bySelf' || r0.orderType == 'bySelf') price = parseInt(totP)+parseInt(boxP);
+                        if (req.body.orderType == 'reserve' || r0.orderType == 'reserve') price = parseInt(totP);
                         console.log(price, r0, r0 == 'reserve')
                         if (r && price>0) {
                             if (r.foodCoin >= price*0.05){
