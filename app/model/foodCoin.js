@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const data = require('../config/index');
-const model = new Schema({data: {type: Date, default: new Date()}},{
+const model = new Schema({
+        foodcoin: Number,
+        mobile: String,
+        data: {type: Date, default: new Date()}
+    },{
     toJSON: {
         transform: function (doc, ret) {},
     },
