@@ -336,9 +336,9 @@ const validator = (req,res,next)=>{
     }
 };
 const validateFoodcoin = (req,res,next)=>{
-
+    let bId = (req.query.id || req.params.id);
     mongoose.model('basketsList')
-        .findOne({_id:req.params.id || req.query.id})
+        .findOne({_id:bId})
         .exec((e0,r0)=>{
             if (r0){
                 mongoose.model('establishment')
@@ -371,8 +371,9 @@ const validateFoodcoin = (req,res,next)=>{
 
 };
 const validateUserFoodcoin = (req,res,next)=>{
+    let bId = (req.query.id || req.params.id);
     mongoose.model('basketsList')
-        .findOne({_id:req.params.id || req.query.id})
+        .findOne({_id:bId})
         .exec((e0,r0)=>{
             if (r0){
 
