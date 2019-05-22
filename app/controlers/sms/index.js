@@ -101,7 +101,7 @@ const saveMobile = (req, code)=>{
             .exec((e,r)=>{
                 if(e) return rj(e);
                 let data = modData.newData;
-                data['foodcoin'] = parseInt(r.foodcoin || 0);
+                data['foodcoin'] = parseInt(r?r.foodcoin || 0:0);
                 mongoose.model(modData.name)
                     .findOneAndUpdate(modData.query,data)
                     .exec((e,r)=>{
