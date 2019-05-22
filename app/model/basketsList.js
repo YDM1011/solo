@@ -151,12 +151,15 @@ const preUpdate = (req,res,next)=>{
                 if (!r) return res.notFound('');
                 if (r) {
                     req.body.addressData = r._id;
+                    req.params.id = req.query.id;
                     next();
                 }
             })
     }else if(req.body.addressData || req.body.estAddressData){
+        req.params.id = req.query.id;
         next()
     }else if(req.body.confirm){
+        req.params.id = req.query.id;
         next()
     }else{
         res.badRequest('error212');
