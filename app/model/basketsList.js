@@ -132,7 +132,7 @@ const preUpdate = (req,res,next)=>{
             if (req.body.boxesPrice) req.body['editByAdmin']['boxesPrice'] = req.body.boxesPrice;
             if (req.body.deliveryPrice) req.body['editByAdmin']['deliveryPrice'] = req.body.deliveryPrice;
         }
-        req.params.id = req.query.id;
+        req.params.id = req.query.id || req.params.id;
         return next();
     }
     delete req.body['totalPrice'];
@@ -151,15 +151,15 @@ const preUpdate = (req,res,next)=>{
                 if (!r) return res.notFound('');
                 if (r) {
                     req.body.addressData = r._id;
-                    req.params.id = req.query.id;
+                    req.params.id = req.query.id || req.params.id;
                     next();
                 }
             })
     }else if(req.body.addressData || req.body.estAddressData){
-        req.params.id = req.query.id;
+        req.params.id = req.query.id || req.params.id;
         next()
     }else if(req.body.confirm){
-        req.params.id = req.query.id;
+        req.params.id = req.query.id || req.params.id;
         next()
     }else{
         res.badRequest('error212');
