@@ -383,7 +383,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                         if (req.body.orderType == 'delivery' || r0.orderType == 'delivery') price = totP+delP+boxP;
                         if (req.body.orderType == 'bySelf' || r0.orderType == 'bySelf') price = totP+boxP;
                         if (req.body.orderType == 'reserve' || r0.orderType == 'reserve') price = totP;
-                        if (r && price>0){
+                        if (r && price>0 && (r0.paymentType == 'coin')){
                             if (r.foodcoin >= price){
                                 console.log(req.body.status);
                                 console.log(req.body);
@@ -406,6 +406,8 @@ const validateUserFoodcoin = (req,res,next)=>{
                                         })
                                 } else { return next() }
                             }
+                        }else if (r0.paymentType != 'coin'){
+                            return next()
                         }
                         return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"})
                     })
