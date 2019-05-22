@@ -38,7 +38,7 @@ const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    req.body = req.body.mobile.slice(-10);
+    req.body.mobile = req.body.mobile.slice(-10);
     mongoose.model('user')
         .findOneAndUpdate({mobile:req.body.mobile.slice(-10)},{foodcoin:req.body.foodcoin})
         .exec((e,r)=>{
