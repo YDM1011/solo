@@ -74,7 +74,7 @@ export class BasketComponent implements OnInit, OnChanges {
   public isAddress:boolean = false;
   public isCanEdit:boolean = false;
   public isCart:boolean = false;
-  public foodCoin:number;
+  public foodCoin:number = 0;
   public isError:string;
   public orderType;
   public me;
