@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ApiService} from "../../service/api.service";
+import { ApiService } from '../../service/api.service';
 import swal from 'sweetalert2';
 
 @Component({
@@ -10,81 +10,87 @@ import swal from 'sweetalert2';
 export class FudcoinComponent implements OnInit {
 
   public tab = 1;
-  public obj = {mobile:'',foodcoin:''};
+  public obj = {mobile: '', foodcoin: ''};
   public fudcoins = [];
   public ests = [];
   constructor(private api: ApiService) { }
 
   ngOnInit() {
     const s = this;
-    s.fudcoins=[];
-    s.ests=[];
-    s.api.apiGet('foodCoin?limit=20&skip=0&sort={"data":-1}').then((val:any)=>{
-      if (val){
-        s.fudcoins = val
+    s.fudcoins = [];
+    s.ests = [];
+    s.api.apiGet('foodCoin?limit=20&skip=0&sort={"data":-1}').then((val: any) => {
+      if (val) {
+        s.fudcoins = val;
       }
-    }).catch(e=>{
-      console.log(e)
+    }).catch(e => {
+      console.log(e);
     });
-   this.reinit()
+   this.reinit();
   }
-  reinit(){
+  reinit() {
     const s = this;
-    s.api.apiGet('establishment?limit=20&skip=0&sort={"data":-1}&select=subdomain,foodCoin').then((val:any)=>{
-      if (val){
-        s.ests = val
+    s.api.apiGet('establishment?limit=20&skip=0&sort={"data":-1}&select=subdomain,foodCoin').then((val: any) => {
+      if (val) {
+        s.ests = val;
       }
-    }).catch(e=>{
-      console.log(e)
-    });
-  }
-
-  more(){
-    const s = this;
-    s.api.apiGet('foodCoin?limit=20&skip='+(s.fudcoins.length)+'&sort={"data":-1}').then((val:any)=>{
-      if (val){
-        s.fudcoins = [s.fudcoins, ...val];
-      }
+    }).catch(e => {
+      console.log(e);
     });
   }
 
-  moreEst(){
+  more() {
     const s = this;
-    s.api.apiGet('establishment?limit=20&skip='+(s.fudcoins.length)+'&sort={"data":-1}&select=subdomain,foodCoin').then((val:any)=>{
-      if (val){
+    s.api.apiGet('foodCoin?limit=20&skip=' + (s.fudcoins.length) + '&sort={"data":-1}').then((val: any) => {
+      if (val) {
+        if (val.length > 0) {
+          s.fudcoins = [s.fudcoins, ...val];
+        }
+      }
+    });
+  }
+
+  moreEst() {
+    const s = this;
+    s.api.apiGet('establishment?limit=20&skip=' + (s.ests.length) + '&sort={"data":-1}&select=subdomain,foodCoin').then((val:any)=>{
+      if (val) {
         s.ests = [s.ests, ...val];
       }
     });
   }
 
-  searchEst(){
-    this.reinit()
+  searchEst() {
+    this.reinit();
   }
 
-  addCoin(e){
+  addCoin(e) {
     e.preventDefault();
     const s = this;
+    if (!s.obj.foodcoin || !s.obj.mobile) {
+      swal.fire("Error", 'Заповніть всі поля', "error");
+      return;
+    }
     s.obj['data'] = new Date().toISOString();
-    s.api.apiPost('foodCoin', s.obj).then((val:any)=>{
-      if (val){
+    s.api.apiPost('foodCoin', s.obj).then((val: any) => {
+      if (val) {
         if (val.mess) {
           swal.fire("Success", val.mess, "success");
-        }else{
+        } else {
           s.fudcoins = [val, ...s.fudcoins];
         }
       }
     });
-    s.obj = {mobile:'',foodcoin:''}
+    s.obj = {mobile: '', foodcoin: ''};
   }
 
-  addBalance(e, est){
+  addBalance(e, est) {
     e.preventDefault();
     const s = this;
-    s.api.apiPost('establishment/'+est._id, {foodCoin:parseInt(est.foodCoin)}).then((val:any)=>{
-      if (val){
+    s.api.apiPost('establishment/' + est._id, {foodCoin: parseInt(est.foodCoin)}).then((val: any) => {
+      if (val) {
         if (val.mess) {
           swal.fire("Success", val.mess, "success");
-        }else{
+        } else {
         }
       }
     });
