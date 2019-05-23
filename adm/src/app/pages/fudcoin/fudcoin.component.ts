@@ -44,7 +44,7 @@ export class FudcoinComponent implements OnInit {
     s.api.apiGet('foodCoin?limit=20&skip=' + (s.fudcoins.length) + '&sort={"data":-1}').then((val: any) => {
       if (val) {
         if (val.length > 0) {
-          s.fudcoins = [s.fudcoins, ...val];
+          s.fudcoins = s.fudcoins.concat(val);
         }
       }
     });
@@ -54,7 +54,7 @@ export class FudcoinComponent implements OnInit {
     const s = this;
     s.api.apiGet('establishment?limit=20&skip=' + (s.ests.length) + '&sort={"data":-1}&select=subdomain,foodCoin').then((val:any)=>{
       if (val) {
-        s.ests = [s.ests, ...val];
+        s.ests = s.ests.concat(val);
       }
     });
   }
@@ -76,7 +76,7 @@ export class FudcoinComponent implements OnInit {
         if (val.mess) {
           swal.fire("Success", val.mess, "success");
         } else {
-          s.fudcoins = [val, ...s.fudcoins];
+          s.fudcoins = val.concat(s.fudcoins);
         }
       }
     });
