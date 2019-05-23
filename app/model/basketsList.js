@@ -252,8 +252,8 @@ const postUpdate = (req,res,next)=>{
                         return res.badRequest()
                     }
                     if (bData.paymentType == 'cart'){
-                        if (basketData.publicKey && basketData.privatKey){
-                            let liqpay = new LiqPay(basketData.publicKey, basketData.privatKey);
+                        if (basketData.ownerest.publicKey && basketData.ownerest.privatKey){
+                            let liqpay = new LiqPay(basketData.ownerest.publicKey, basketData.ownerest.privatKey);
                             let html = liqpay.cnb_form({
                                 'action'         : 'pay',
                                 'amount'         : amount,
