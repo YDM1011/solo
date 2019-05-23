@@ -30,12 +30,12 @@ export class HeaderComponent implements OnInit {
   }
 
   checkRouter(key){
-    let s = this;
+    const s = this;
     if (!s.routeActive[key]){
       s.triger ? s.routeActive[s.triger] = false : '';
       s.routeActive[key] = !s.routeActive[key];
       s.triger = key;
-    }else{
+    } else {
       s.triger = null;
       s.routeActive[key] = false;
     }

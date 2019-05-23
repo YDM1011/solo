@@ -7,7 +7,7 @@
           </span>
   <ng-container *ngIf="workTime.worksTime">
 
-    <span>{{workTime.worksTime.nameDay}} </span>
+    <span class="day">{{workTime.worksTime.nameDay}}</span>
     <b class="m-c " *ngIf="!weekend && !allTime" [class.warning]="closeInH" [class.error]="closed" [class.true]="open">
       {{workTime.worksTime.timeStart}} - {{workTime.worksTime.timeEnd}}
     </b>

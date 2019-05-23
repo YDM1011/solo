@@ -97,7 +97,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
       if (v){
         this.mobile = v.mobile;
         this.email = v.email;
-        this.me = v
+        this.me = v;
       }
 
     });

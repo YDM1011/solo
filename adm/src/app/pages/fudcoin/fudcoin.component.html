@@ -62,6 +62,9 @@
             <th>
               FoodCoin
             </th>
+            <th>
+              Активовано
+            </th>
           </tr>
           </thead>
           <tbody>
@@ -69,6 +72,10 @@
             <ng-container *ngIf="fc">
               <td><code>{{fc.mobile}}</code></td>
               <td><span class="text-muted">{{fc.foodcoin}}</span></td>
+              <td>
+                <span class="text-muted" *ngIf="fs.isActive">Так</span>
+                <span class="text-muted" *ngIf="!fs.isActive">Ні</span>
+              </td>
             </ng-container>
           </tr>
           </tbody>

@@ -283,3 +283,13 @@
   display: flex;
   align-items: center;
 }
+@media (max-width: 360px) {
+  .h-pf_nav_svg{
+    display: none;
+  }
+}
+@media (max-width: 450px) {
+  .day{
+    display: none;
+  }
+}

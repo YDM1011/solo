@@ -14,17 +14,17 @@ export class CountComponent implements OnInit {
   @Input() orderType;
   @Input() id;
 
-  constructor( private api:ApiService) { }
+  constructor( private api: ApiService) { }
 
   ngOnInit() {
-    let count = JSON.stringify({status:1,orderType:this.orderType});
-    this.api.justGet('basketsList', this.id, '', '?count='+count)
-      .then((v:any)=>{
+    const count = JSON.stringify({status: 1, orderType: this.orderType, ownerest: this.id});
+    this.api.justGet('basketsList', this.id, '', '?count=' + count)
+      .then((v: any) => {
         this.iscount = true;
-        if(v){
-          this.count = v.count
+        if (v) {
+          this.count = v.count;
         }
-      })
+      });
   }
 
 }

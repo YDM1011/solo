@@ -5,6 +5,7 @@ const data = require('../config/index');
 const model = new Schema({
         foodcoin: Number,
         mobile: String,
+        isActive: {type: Boolean, default: true},
         data: {type: Date, default: new Date()}
     },{
     toJSON: {

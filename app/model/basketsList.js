@@ -48,6 +48,10 @@ const model = new Schema({
     dataUpdate: {type: Date, default: new Date()},
     isCall: {type: Boolean, default: false},
     editByAdmin: {},
+    foodCoinHistory: {
+        isAdd: Boolean,
+        coin: Number
+    },
     ownerest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"
@@ -87,6 +91,7 @@ const preRead = (req,res,next)=>{
     req.query._id ? query['_id'] = req.query._id : '';
     req.query.ownerest ? query['_id'] = req.query.ownerest : '';
     req.query.status ? query['status'] = req.query.status : query['status'] = {$ne:0};
+    req.query.count ? query['count'] = req.query.count : {};
     if (req.query.count) {
         console.log(req.query.count);
         mongoose.model('basketsList')
@@ -206,6 +211,32 @@ const postUpdate = (req,res,next)=>{
                 };
                 mail.sendMail(userMail, bData.status);
                 mail.sendMail(estMail, bData.status);
+                if (bData.status == '6') {
+                    let amount;
+                    let boxP = bData['editByAdmin'] ? bData['editByAdmin']['boxesPrice'] || bData.boxesPrice : bData.boxesPrice;
+                    let totP = bData['editByAdmin'] ? bData['editByAdmin']['totalPrice'] || bData.totalPrice : bData.totalPrice;
+                    let delP = bData['editByAdmin'] ? bData['editByAdmin']['deliveryPrice'] || bData.deliveryPrice : bData.deliveryPrice;
+                    if (bData.orderType == 'delivery'){
+                        amount = parseInt(boxP) + parseInt(totP) + parseInt(delP);
+                    }else if(bData.orderType == 'bySelf'){
+                        amount = parseInt(boxP) + parseInt(totP);
+                    }else if(bData.orderType == 'reserve'){
+                        amount = parseInt(totP);
+                    }else{
+                        return res.badRequest()
+                    }
+                    if (bData.paymentType == 'coin'){
+                        basketData['foodCoinHistory'] = {
+                            isAdd: false,
+                            coin: amount*0.95
+                        };
+                    }else {
+                        basketData['foodCoinHistory'] = {
+                            isAdd: true,
+                            coin: amount*0.05
+                        };
+                    }
+                }
                 if (bData.status == '3' || bData.status == '5'){
                     let amount;
                     let boxP = bData['editByAdmin'] ? bData['editByAdmin']['boxesPrice'] || bData.boxesPrice : bData.boxesPrice;

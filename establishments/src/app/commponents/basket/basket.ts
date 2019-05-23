@@ -2,14 +2,14 @@ export interface Comment{
   text: string,
   entity: string
 }
-export interface Payment{
-  fiatVal: number
+export interface Payment {
+  fiatVal: number;
 }
 
 export interface Basket {
-  _id: string,
-  name: string,
-  data: string,
+  _id: string;
+  name: string;
+  data: string;
   totalPrice: number,
   products: any[],
   estLogo: string,
@@ -18,26 +18,27 @@ export interface Basket {
   anyMobile?: string,
   deliveryTime?: string,
   orderType?: string,
-  paymentType?: string
-  boxesPrice?: number
-  deliveryPrice?: number
-  deliveryMinPrice?: number
-  isCall?: boolean
-  paymentDetail?: Payment
-  customAddress?: any
-  addressData?: any
-  estAddressData?: any
-  isCanEdit?: boolean
-  ownerEst?: string
-  html?: string
+  paymentType?: string,
+  boxesPrice?: number,
+  deliveryPrice?: number,
+  deliveryMinPrice?: number,
+  isCall?: boolean,
+  paymentDetail?: Payment,
+  customAddress?: any,
+  addressData?: any,
+  estAddressData?: any,
+  isCanEdit?: boolean,
+  ownerEst?: string;
+  ownerEstObj?: string;
+  html?: string,
   menu?: any,
-  owneruser?: string
-  clients?: number
-  delivery?: boolean
-  getself?: boolean
-  reservation?: boolean
-  isnew?: boolean
-  ishit?: boolean
+  owneruser?: string,
+  clients?: number,
+  delivery?: boolean,
+  getself?: boolean,
+  reservation?: boolean,
+  isnew?: boolean,
+  ishit?: boolean,
 }
 
 export class BasketData implements Basket{
@@ -52,6 +53,7 @@ export class BasketData implements Basket{
   public isCall? = false;
   public isCanEdit? = false;
   public ownerEst?;
+  public ownerEstObj?;
   public estAddressData?;
   public html?;
   public menu?;
@@ -103,6 +105,7 @@ export class BasketData implements Basket{
       reservation: this.reservation,
       isnew: this.isnew,
       ishit: this.ishit,
+      ownerEstObj: this.ownerEstObj,
     };
     return obj;
   }

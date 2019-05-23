@@ -250,6 +250,9 @@
                       </mz-collapsible-item>
                     </mz-collapsible>
                     </ng-container>
+                    <ng-container *ngIf="basket.ownerEstObj.minPrice > basket.totalPrice">
+                      <p class="error-text">Мінімальна сума замолення {{basket.ownerEstObj.minPrice}} грн</p>
+                    </ng-container>
                     <div class="ord_btn-cont">
                       <ng-container *ngIf="basket.paymentType == 'fiat'">
                         <button class="btn-green ord_btn" *ngIf="basket.status == 5"
@@ -264,6 +267,7 @@
                         </button>
                       </ng-container>
                       <button class="btn-green ord_btn" *ngIf="basket.status == 0"
+                              [class.disabled]="basket.ownerEstObj.minPrice > basket.totalPrice"
                               (click)="setActiveBasket(basket)">
                         замовити
                       </button>

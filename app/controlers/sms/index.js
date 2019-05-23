@@ -38,7 +38,8 @@ const confirmCode = async (req,res,next)=>{
         await saveMobile(req).catch(e=>{return res.badRequest(e)});
         return res.ok({isSaved:true})
     }else{
-        return res.badRequest("Мобільний телефон вже підключено!")
+        if (isMobile) return res.badRequest("Мобільний телефон вже підключено!");
+        if (!isCode) return res.badRequest("Код не вірний!");
     }
 };
 
@@ -101,7 +102,17 @@ const saveMobile = (req, code)=>{
             .exec((e,r)=>{
                 if(e) return rj(e);
                 let data = modData.newData;
-                data['foodcoin'] = parseInt(r?r.foodcoin || 0:0);
+                if (r){
+                    if (r.isActive){
+                        // data['foodcoin'] = parseInt(r ? r.foodcoin || 0:0);
+                        if(r.foodcoin){
+                            data['$inc'] = {foodcoin:r.foodcoin};
+                        }else { data['$inc'] = {foodcoin:0} }
+                        mongoose.model('foodCoin')
+                            .findOneAndUpdate(modData.newData, {isActive:false})
+                    }
+                }
+
                 mongoose.model(modData.name)
                     .findOneAndUpdate(modData.query,data)
                     .exec((e,r)=>{

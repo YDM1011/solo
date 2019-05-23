@@ -6,11 +6,11 @@
 <div class="cont gl-cont">
 <div class="el_cont" *ngIf="actions">
   <div class="el_content">
-    <div *ngFor="let act of actions" class="action-wrap">
+    <div *ngFor="let act of actions" class="action-wrap" [class.unimg]="!act.img[0]">
       <div class="description">
         {{act.des}}
       </div>
-      <div class="inherit">
+      <div class="inherit" *ngIf="act.img[0]">
         <app-picture class="img" [size]="'right-bar-pg'" [pic]="act.img[0]"></app-picture>
       </div>
     </div>

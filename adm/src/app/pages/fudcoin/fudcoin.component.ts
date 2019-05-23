@@ -41,18 +41,18 @@ export class FudcoinComponent implements OnInit {
 
   more(){
     const s = this;
-    s.api.apiGet('foodCoin?limit=20&skip='+(s.fudcoins.length+20)+'&sort={"data":-1}').then((val:any)=>{
+    s.api.apiGet('foodCoin?limit=20&skip='+(s.fudcoins.length)+'&sort={"data":-1}').then((val:any)=>{
       if (val){
-        s.fudcoins.push(val)
+        s.fudcoins = [s.fudcoins, ...val];
       }
     });
   }
 
   moreEst(){
     const s = this;
-    s.api.apiGet('establishment?limit=20&skip='+(s.fudcoins.length+20)+'&sort={"data":-1}').then((val:any)=>{
+    s.api.apiGet('establishment?limit=20&skip='+(s.fudcoins.length)+'&sort={"data":-1}&select=subdomain,foodCoin').then((val:any)=>{
       if (val){
-        s.ests.push(val)
+        s.ests = [s.ests, ...val];
       }
     });
   }

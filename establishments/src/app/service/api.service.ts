@@ -204,7 +204,7 @@ export class ApiService {
           res => {
             if (self.global[api + (id || '') + (select || '')]) {
               self.global[api + (id || '') + (select || '')].forEach((item, i) => {
-                if (item._id == _id) {
+                if (item._id === _id) {
                   self.global[api + id + (select || '')].splice(i, 1);
                   resolve(self.global[api + id + (select || '')]);
                   self.updat.next([self.global[api + id + (select || '')], select]);
@@ -224,7 +224,7 @@ export class ApiService {
       return new Promise((resolve, reject) => {
         if (self.global[api + id + select]) {
           self.global[api + id + select].forEach((item, i) => {
-            if (item._id == res._id) {
+            if (item._id === res._id) {
               self.global[api + id + select][i] = res;
             }
           });
@@ -239,7 +239,7 @@ export class ApiService {
       return new Promise((resolve, reject) => {
         if (self.global[api + (id || '')]) {
           self.global[api + (id || '')].forEach((item, i) => {
-            if (item._id == res._id) {
+            if (item._id === res._id) {
               self.global[api + id][i] = res;
             }
           });
@@ -271,13 +271,13 @@ export class ApiService {
     });
   }
 
-  curentUserData(data){
+  curentUserData(data) {
     this.me.next(data || {});
   }
-  checkOnline(data){
+  checkOnline(data) {
     this.online.next(data);
   }
-  checkBascketCount(data){
+  checkBascketCount(data) {
     this.BascketCount.next(data);
   }
 }

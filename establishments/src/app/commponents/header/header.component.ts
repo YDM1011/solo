@@ -40,29 +40,29 @@ export class HeaderComponent implements OnInit {
   public count;
   public me;
   public basketId;
-  public popPreProd: boolean = false;
-  public isOnline: boolean = false;
+  public popPreProd:boolean = false;
+  public isOnline:boolean = false;
   constructor(
     private cookie: CookieService,
     private api: ApiService) { }
 
   ngOnInit() {
     this.id = this.cookie.get('userid');
-    this.api.onOnline.subscribe(v=>{
-      if(v){
+    this.api.onOnline.subscribe(v => {
+      if (v) {
         this.basketId = v._id;
         this.isOnline = v.isOnline;
-        this.api.justGet('basketsList?count={"$and":[{"$or":[{"status":{"$nin":["6","7"]}}]},{"ownerest":"'+v._id+'"},{"owneruser":"'+this.id+'"}]}').then((count:any)=>{
+        this.api.justGet ('basketsList?count={"$and":[{"$or":[{"status":{"$nin":["6","7"]}}]},{"ownerest":"'+v._id+'"},{"owneruser":"'+this.id+'"}]}').then((count:any)=>{
         // this.api.justGet('basketsList?count={"ownerest":"'+v._id+'"}').then((count:any)=>{
-          this.count = count.count
-        })
+          this.count = parseInt(count.count);
+        });
       }
     });
-    this.api.onBascketCount.subscribe(v=>{
-      if(v){
+    this.api.onBascketCount.subscribe(v => {
+      if (v) {
         this.api.justGet('basketsList?count={"$and":[{"$or":[{"status":{"$nin":["6","7"]}}]},{"ownerest":"'+this.basketId+'"},{"owneruser":"'+this.id+'"}]}').then((count:any)=>{
-          this.count = count.count
-        })
+          this.count = parseInt(count.count);
+        });
       }
     });
     // this.api.onMe.subscribe(me=>{
@@ -82,10 +82,10 @@ export class HeaderComponent implements OnInit {
     s.loaded = true;
     s.access = true;
   }
-  goSearch(e){
-    let s = this;
-    if(e){
-      this.api.get('search?search="'+e+'"')
+  goSearch(e) {
+    const s = this;
+    if (e) {
+      this.api.get('search?search="' + e + '"')
         .then((res: any) => {
           s.friends = res.users;
           s.arrEts = res.est;

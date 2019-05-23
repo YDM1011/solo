@@ -110,7 +110,7 @@ module.exports.getBasketEst = (req, res, next) => {
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
                         })
-                        .populate({path: 'ownerest',select:"av name subdomain minPrice delivery getself reservation isCart isOnline",
+                        .populate({path: 'ownerest',select:"minPrice av name subdomain delivery getself reservation isCart isOnline",
                             populate:{path:'av'}
                         })
                         .sort({dataUpdate: -1})
@@ -123,6 +123,7 @@ module.exports.getBasketEst = (req, res, next) => {
                             if (doc){
                                 return res.ok(doc);
                             }
+
                         })
 
                 } else{
@@ -142,7 +143,7 @@ module.exports.getBasketEst = (req, res, next) => {
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
                         })
-                        .populate({path: 'ownerest',select:"av name subdomain delivery getself reservation",
+                        .populate({path: 'ownerest',select:"minPrice av name subdomain delivery getself reservation",
                             populate:{path:'av'}
                         })
                         .sort({dataUpdate: -1})

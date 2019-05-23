@@ -38,6 +38,12 @@
   opacity: 1;
   font-size: 16px;
 }
+.action-wrap.unimg .description{
+  position: inherit;
+  color: #000;
+  opacity: 1;
+  background: none;
+}
 .action-wrap{
   width: 100%;
   display: flex;
