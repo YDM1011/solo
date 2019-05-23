@@ -251,7 +251,7 @@ const postUpdate = (req,res,next)=>{
                     }else{
                         return res.badRequest()
                     }
-                    if (bData.paymentType == 'cart'){
+                    if (bData.paymentType == 'card'){
                         if (basketData.ownerest.publicKey && basketData.ownerest.privatKey){
                             let liqpay = new LiqPay(basketData.ownerest.publicKey, basketData.ownerest.privatKey);
                             let html = liqpay.cnb_form({
@@ -264,7 +264,7 @@ const postUpdate = (req,res,next)=>{
                                 'sandbox'        : '1',
                                 'server_url'     : data.auth.apiDomain+'api/liqpayCallback'
                             });
-                            console.log(html);
+                            console.log(html, basketData.ownerest);
                             basketData['html'] = html;
                         } else {
                             return res.badRequest();
