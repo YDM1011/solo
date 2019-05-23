@@ -264,6 +264,7 @@ const postUpdate = (req,res,next)=>{
                                 'sandbox'        : '1',
                                 'server_url'     : data.auth.apiDomain+'api/liqpayCallback'
                             });
+                            console.log(html);
                             basketData['html'] = html;
                         } else {
                             return res.badRequest();
