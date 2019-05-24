@@ -81,10 +81,10 @@
                   <time class="ord_ct_time">{{basket.dataUpdate | date:'yy/MM/dd'}}</time>
                   <ng-container *ngIf="basket.paymentType === 'coin'">
                     <ng-container *ngIf="basket.orderType === 'delivery'">
-                      <span class="ord_ct_val ev error">-{{(basket.totalPrice + basket.boxesPrice || 0 + basket.deliveryPrice || 0)*0.95}}</span>
+                      <span class="ord_ct_val ev error">-{{(basket.totalPrice + (basket.boxesPrice || 0) + (basket.deliveryPrice || 0))*0.95}}</span>
                     </ng-container>
                     <ng-container *ngIf="basket.orderType === 'bySelf'">
-                      <span class="ord_ct_val ev error">-{{(basket.totalPrice + basket.boxesPrice || 0)*0.95}}</span>
+                      <span class="ord_ct_val ev error">-{{(basket.totalPrice + (basket.boxesPrice || 0))*0.95}}</span>
                     </ng-container>
                     <ng-container *ngIf="basket.orderType === 'reserve'">
                       <span class="ord_ct_val ev error">-{{(basket.totalPrice)*0.95}}</span>
@@ -92,10 +92,10 @@
                   </ng-container>
                   <ng-container *ngIf="basket.paymentType !== 'coin'">
                     <ng-container *ngIf="basket.orderType === 'delivery'">
-                      <span class="ord_ct_val ev true">+{{(basket.totalPrice + basket.boxesPrice || 0 + basket.deliveryPrice || 0)*0.05}}</span>
+                      <span class="ord_ct_val ev true">+{{(basket.totalPrice + (basket.boxesPrice || 0) + (basket.deliveryPrice || 0))*0.05}}</span>
                     </ng-container>
                     <ng-container *ngIf="basket.orderType === 'bySelf'">
-                      <span class="ord_ct_val ev true">+{{(basket.totalPrice + basket.boxesPrice || 0)*0.05}}</span>
+                      <span class="ord_ct_val ev true">+{{(basket.totalPrice + (basket.boxesPrice || 0))*0.05}}</span>
                     </ng-container>
                     <ng-container *ngIf="basket.orderType === 'reserve'">
                       <span class="ord_ct_val ev true">+{{(basket.totalPrice)*0.05}}</span>
@@ -138,10 +138,10 @@
 
                       <ng-container *ngIf="basket.paymentType === 'coin'">
                         <ng-container *ngIf="basket.orderType === 'delivery'">
-                          <span class="dt_t">{{(basket.totalPrice + basket.boxesPrice || 0 + basket.deliveryPrice || 0)*0.95}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0) + (basket.deliveryPrice || 0))*0.95}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'bySelf'">
-                          <span class="dt_t">{{(basket.totalPrice + basket.boxesPrice || 0)*0.95}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0))*0.95}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'reserve'">
                           <span class="dt_t">{{(basket.totalPrice)*0.95}}</span>
@@ -149,10 +149,10 @@
                       </ng-container>
                       <ng-container *ngIf="basket.paymentType !== 'coin'">
                         <ng-container *ngIf="basket.orderType === 'delivery'">
-                          <span class="dt_t">{{(basket.totalPrice + basket.boxesPrice || 0 + basket.deliveryPrice || 0)*0.05}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0) + (basket.deliveryPrice || 0))*0.05}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'bySelf'">
-                          <span class="dt_t">{{(basket.totalPrice + basket.boxesPrice || 0)*0.05}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0))*0.05}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'reserve'">
                           <span class="dt_t">{{(basket.totalPrice)*0.05}}</span>
