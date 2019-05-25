@@ -47,7 +47,9 @@
 
             <a [routerLink]="'/order/'+est._id" routerLinkActive #ordr="routerLinkActive">
               <i class="fa fa-th-large"></i>
-              <span class="nav-label">Замовлення</span> <span class="count">{{(est.countOrder)}}</span> <span class="fa arrow"></span>
+              <span class="nav-label">Замовлення</span>
+              <span class="count" *ngIf="est.countOrder">{{est.countOrder || 0}}</span>
+              <span class="fa arrow"></span>
             </a>
             <ul class="nav nav-second-level" *ngIf="ordr.isActive">
               <li [class.active]="dlvr.isActive" appAutoClose>
