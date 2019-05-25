@@ -20,6 +20,7 @@ export interface OrderMax {
   paymentType?: string,
   orderCommentData?: any,
   paymentDetail?: any,
+  deliveryTime?: any,
 }
 
 export class FullOrder implements OrderMax{
@@ -43,6 +44,7 @@ export class FullOrder implements OrderMax{
   public orderNumber?;
   public orderCommentData?;
   public paymentDetail?;
+  public deliveryTime?;
   constructor( public data? ){
     let price = 0;
     data.productData.map(item=>{
@@ -61,6 +63,7 @@ export class FullOrder implements OrderMax{
     if (data.orderType == 'reserve'){ this.deliveryPrice = null; this.boxPrice = null};
 
     this.id = data._id;
+    this.deliveryTime = data.deliveryTime;
     this.dataCreate = data.data;
     this.dataUpdate = data.dataUpdate;
     this.client = data.owneruser;
@@ -68,16 +71,16 @@ export class FullOrder implements OrderMax{
     this.anyMobile = data.anyMobile;
     this.paymentDetail = data.paymentDetail;
     this.address = data.addressData ? data.addressData.address || (data.estAddressData ? data.estAddressData.address : '') : data.estAddressData ? data.estAddressData.address : '';
-    if(data.addressData){
+    if (data.addressData) {
       this.level = data.addressData.level;
       this.codeKey = data.addressData.codeKey;
-    }else {
+    } else {
       this.level = null;
       this.codeKey = null;
     }
 
 
-    this.status = data.status;
+    this.status = String(data.status);
     this.products = data.productData;
     this.orderNumber = data.orderNumber;
     this.orderType = data.orderType;
@@ -104,6 +107,7 @@ export class FullOrder implements OrderMax{
       paymentType: this.paymentType,
       orderNumber: this.orderNumber,
       orderCommentData: this.orderCommentData,
+      deliveryTime: this.deliveryTime,
       paymentDetail: this.paymentDetail
     };
     return obj;

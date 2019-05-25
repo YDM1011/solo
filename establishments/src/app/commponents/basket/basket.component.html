@@ -250,7 +250,7 @@
                       </mz-collapsible-item>
                     </mz-collapsible>
                     </ng-container>
-                    <ng-container *ngIf="basket.ownerEstObj.minPrice > basket.totalPrice">
+                    <ng-container *ngIf="(basket.ownerEstObj.minPrice > basket.totalPrice) && (basket.status == 0)">
                       <p class="error-text">Мінімальна сума замолення {{basket.ownerEstObj.minPrice}} грн</p>
                     </ng-container>
                     <div class="ord_btn-cont">
@@ -461,7 +461,8 @@
             <option name="paymentType" value="fiat" selected>Готівкою кур'єру</option>
             <option name="paymentType" value="card" *ngIf="isCart">Карткою</option>
             <option name="paymentType" value="coin"
-                    *ngIf="me.foodcoin>=(activeBaskets.totalPrice + activeBaskets.deliveryPrice + activeBaskets.boxesPrice)*pecent">
+                    *ngIf="me.foodcoin>=(activeBaskets.totalPrice +
+                    (activeBaskets.boxesPrice || 0) + (activeBaskets.deliveryPrice || 0))">
               Фудкоїнами
             </option>
           </select>
@@ -581,7 +582,6 @@
       <div class="p-d_i-i1">
         <div class="p-d_ch-c">
           <div class="date-wrap">
-            {{dataStart | json}}
             <div class="time-input" *ngIf="dataStart">{{dataStart | date:'dd/MM/yy'}}</div>
             <ngb-datepicker #dp [(ngModel)]="dataStart" (select)="dataSelected($event)"></ngb-datepicker>
           </div>
@@ -603,7 +603,7 @@
             <option name="paymentType" value="fiat" selected>Готівкою</option>
             <option name="paymentType" value="card" *ngIf="isCart">Карткою</option>
             <option name="paymentType" value="coin"
-                    *ngIf="me.foodcoin>=(activeBaskets.totalPrice + activeBaskets.boxesPrice)*pecent">
+                    *ngIf="me.foodcoin>=(activeBaskets.totalPrice + (activeBaskets.boxesPrice || 0))">
               Фудкоїнами
             </option>
           </select>
@@ -730,7 +730,7 @@
         <div class="p-d_ch-c">
           <div class="date-wrap">
             <div class="time-input">{{dataStart | date:'dd/MM/yy'}}</div>
-            <ngb-datepicker #dp [(ngModel)]="dataStart" (select)="dataSelected($event)"></ngb-datepicker>
+            <ngb-datepicker [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
           </div>
           <div class="time-wrap">
             <div class="time-input">{{dataStart | date:'HH:mm'}}</div>
@@ -750,7 +750,7 @@
             <option name="paymentType" value="fiat" selected>Готівкою</option>
             <option name="paymentType" value="card" *ngIf="isCart">Карткою</option>
             <option name="paymentType" value="coin"
-                    *ngIf="me.foodcoin>=activeBaskets.totalPrice*pecent">
+                    *ngIf="me.foodcoin>=(activeBaskets.totalPrice)">
               Фудкоїнами
             </option>
           </select>

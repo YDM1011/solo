@@ -129,6 +129,9 @@ const preUpdate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     console.log('user-admin',req.isUseByAdmin);
     req.body['dataUpdate'] = new Date();
+    if (req.body.status == '1'){
+        req.body.data = req.body['dataUpdate']
+    }
 
     if (req.isUseByAdmin){
         if(req.body.status == '5'){
@@ -177,7 +180,7 @@ const postUpdate = (req,res,next)=>{
     mongoose.model('basketsList')
         .findOne({_id:bData._id})
         .populate({path:'menuData'})
-        .populate({path:'ownerest', select:'mailOfOrder publicKey privatKey'})
+        .populate({path:'ownerest', select:'mailOfOrder publicKey privatKey subdomain'})
         .exec((e,basketData)=>{
             if (e) return res.badRequest(e);
             if (!basketData) return res.notFound('');
@@ -196,7 +199,7 @@ const postUpdate = (req,res,next)=>{
                 let userMail = {
                     mail:req.userMail,
                     orderId:bData.orderNumber,
-                    link: data.auth.apiDomain+'basket',
+                    link: 'https://'+basketData.ownerest.subdomain+'.'+data.auth.domain+'/basket',
                     orderType: bData.orderType,
                     isUser: true
                 };
@@ -369,6 +372,7 @@ const validator = (req,res,next)=>{
 };
 const validateFoodcoin = (req,res,next)=>{
     let bId = (req.query.id || req.params.id);
+    if (req.body.status === '7') return next();
     mongoose.model('basketsList')
         .findOne({_id:bId})
         .exec((e0,r0)=>{
@@ -387,15 +391,17 @@ const validateFoodcoin = (req,res,next)=>{
                         if (r && price>0) {
                             if (r.foodCoin >= price*0.05){
                                 return next();
+                            }else{
+                                return res.badRequest({mess:"Не достатньо коштів на балансі!"});
                             }
                         }
                         if (req.body.status == '1')
-                            return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!1"});
+                            return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"});
                         if (req.body.status == '6' || req.body.status == '5')
                             return res.badRequest({mess:"Не достатньо коштів на балансі!"});
                     })
             }else{
-                console.log(e0, req.params._id)
+                console.log(e0, req.params._id);
                 return res.badRequest(e0?e0:{})
             }
 
@@ -404,6 +410,7 @@ const validateFoodcoin = (req,res,next)=>{
 };
 const validateUserFoodcoin = (req,res,next)=>{
     let bId = (req.query.id || req.params.id);
+    if (req.body.status === '7') return next();
     mongoose.model('basketsList')
         .findOne({_id:bId})
         .exec((e0,r0)=>{
@@ -424,8 +431,11 @@ const validateUserFoodcoin = (req,res,next)=>{
                                 console.log(req.body.status);
                                 console.log(req.body);
                                 if (req.body.status == '6') {
+                                    let estPrice = price;
+                                    if (r0.paymentType != 'coin') estPrice = -estPrice*0.05;
+                                    if (r0.paymentType == 'coin') estPrice = estPrice*0.95;
                                     mongoose.model('establishment')
-                                        .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:-(price*0.05)}})
+                                        .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:estPrice}})
                                         .exec((e1,r1)=>{
                                             console.log("ER!!!",e1,r1);
                                             if (e1 || !r1) return res.badRequest({mess:"Error"});
@@ -458,8 +468,9 @@ const validateUserFoodcoin = (req,res,next)=>{
                                             })
                                     })
                             } else { return next() }
+                        } else {
+                            return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"})
                         }
-                        return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"})
                     })
             }else{
                 return res.badRequest(e0?e0:{})

@@ -54,7 +54,7 @@ module.exports.getMutual = (req, res, next) => {
                                         .populate({path: "choiceest", select:"_id", match:{_id:us.choiceest}})
                                         .select("_id choiceest")
                                         .exec((err, est)=>{
-                                            if(err) return res.badRequest('Something broke!1');
+                                            if(err) return res.badRequest('Something broke!');
                                             if(est){
                                                 return res.ok({mutual:mutual,id:req.params.FId,mutualEst:est.choiceest})
                                             }

@@ -63,6 +63,10 @@
             <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.address}}</dd> </div>
           </dl>
           <dl class="row mb-0">
+            <div class="col-sm-4 text-sm-right"><dt>Дата і час:</dt> </div>
+            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.deliveryTime | date:'HH:mm dd.MM.yy'}}</dd> </div>
+          </dl>
+          <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Додатковий телефон:</dt> </div>
             <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.anyMobile}}</dd> </div>
           </dl>
@@ -224,6 +228,9 @@
           </ng-container>
           <ng-container *ngIf="order.status==3">
             <ng-container *ngTemplateOutlet="delet"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="order.status==4">
+            <ng-container *ngTemplateOutlet="confirm"></ng-container>
           </ng-container>
         </div>
       </div>

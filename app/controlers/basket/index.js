@@ -247,9 +247,9 @@ module.exports.liqpayCallback = (req,res,next)=>{
 };
 
 module.exports.estsOfBasket = (req, res, next) => {
-    console.log(req.userId)
+    console.log(req.userId);
     mongoose.model('basketsList')
-        .find({owneruser: req.userId})
+        .find({owneruser: req.userId, status:{$nin:[6,7]}})
         .select('ownerest')
         .exec((e,r)=>{
             if (e) return res.serverError(e);

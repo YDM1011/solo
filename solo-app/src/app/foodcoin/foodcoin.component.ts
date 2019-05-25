@@ -30,11 +30,12 @@ export class FoodcoinComponent implements OnInit {
       owneruser: this.coockie.get('userid'),
     });
     const populate = JSON.stringify({
-      path: 'ownerest',
+      path: 'ownerest estAddressData addressData',
       populate: {path: 'av'},
-      select: 'name av subdomain'
+      select: 'name av subdomain address'
     });
-    this.http.get(this.domain + `/api/basketsList?query=${query}&populate=${populate}`, this.api.getHeaders())
+    const sort = JSON.stringify({dataUpdate: -1});
+    this.http.get(this.domain + `/api/basketsList?query=${query}&populate=${populate}&sort=${sort}`, this.api.getHeaders())
       .subscribe((baskets: any) => {
         if (baskets) {
           this.baskets = baskets;

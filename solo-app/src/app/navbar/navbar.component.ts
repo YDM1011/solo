@@ -40,6 +40,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   public isShow = false;
   public domain: string = environment.apiDomain;
   public count = 0;
+  public countBaskets = 0;
   public limit = 4;
   public offerCount;
   public posts = [];
@@ -79,7 +80,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit () {
     const self = this;
     this.count = 0;
-    // this.userId = this.cookieService.get('userid');
+    this.userId = this.cookieService.get('userid');
     self.user.getMe().then((val: any) => {
       if (val) {
         self.userId = val._id;
@@ -105,7 +106,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     self.core.doGet('estsOfBasket').then(v=>{
       console.log(v);
       this.baskets = v;
-    })
+    });
+    this.core.doGet('basketsList?count={"$and":[{"$or":[{"status":{"$nin":["6","7"]}}]},{"owneruser":"'+this.userId+'"}]}').then((count:any)=>{
+      // this.api.justGet('basketsList?count={"ownerest":"'+v._id+'"}').then((count:any)=>{
+      this.countBaskets = parseInt(count.count);
+    });
   }
 
 

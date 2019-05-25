@@ -9,7 +9,7 @@
   <div class="md-fixed active" (click)="close()" @inOpacity></div>
 </ng-container>
 
-<ng-container *ngIf="entity == 'basket'">
+<ng-container *ngIf="entity == 'basket' && data.length > 1">
   <div class="cont md p-cont p-с active" @inPop>
 
     <ng-container *ngIf="data">

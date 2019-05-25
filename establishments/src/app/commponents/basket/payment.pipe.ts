@@ -9,7 +9,7 @@ export class PaymentPipe implements PipeTransform {
     let res = `un know value`;
     switch(value){
       case 'fiat': res=`готівкою кур'єру`; break;
-      case 'card': res=`на картку`; break;
+      case 'card': res=`карткою`; break;
       case 'coin': res=`Фудкоїнами`; break;
       default: break;
     }

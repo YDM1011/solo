@@ -18,14 +18,30 @@ export class HeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.getEstablishment();
   }
   getEstablishment() {
     const self = this;
     this.api.get('get_est').then((res: any) => {
       self.ests = res;
+      self.ests.map(est => {
+        const count = JSON.stringify({
+          ownerest: est._id,
+          $and: [{status: {$ne: 6}}, {status: {$ne: 7}}, {status: {$ne: 0}}]
+        });
+        this.api.justGet('basketsList', est._id, '', '?count=' + count)
+          .then((v: any) => {
+            // this.iscount = true;
+            if (v) {
+              est.countOrder =  v.count;
+            }
+          },e => console.log(e));
+      })
     });
+
+  }
+
+  getCount(id) {
 
   }
 

@@ -3,8 +3,9 @@ import {Basket, BasketData} from "./basket";
 import {ApiService} from "../../service/api.service";
 import {ActivatedRoute} from "@angular/router";
 import {Address, AddressData} from "./address";
-import {NgbDatepickerI18n, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
-import * as moment from 'moment'
+import {NgbCalendar, NgbDatepickerI18n, NgbDateStruct} from "@ng-bootstrap/ng-bootstrap";
+import * as moment from 'moment';
+import Swal from 'sweetalert2';
 
 const I18N_VALUES = {
   en: {
@@ -64,7 +65,7 @@ export class BasketComponent implements OnInit, OnChanges {
   public mobile;
   public button;
   public isValidS;
-  public dataStart:any = new Date().toISOString();
+  public dataStart:any;
   public timeStart = {hour: new Date().getHours(), minute: new Date().getMinutes()};
   public radioBtnTime:boolean = false;
 
@@ -79,7 +80,9 @@ export class BasketComponent implements OnInit, OnChanges {
   public orderType;
   public me;
   public originBasketData = [];
+  public model;
   constructor(
+    private calendar: NgbCalendar,
     private route: ActivatedRoute,
     private api: ApiService,
   ) { }
@@ -89,9 +92,10 @@ export class BasketComponent implements OnInit, OnChanges {
     // this.route.params.subscribe((params: any) => {
     //   self.initApi();
     // });
-
-    this.api.onMe.subscribe(me=>{
-      if(me){
+    this.model = this.calendar.getToday();
+    this.dataStart = new Date().toISOString();
+    this.api.onMe.subscribe(me => {
+      if (me) {
         this.mobile = me.mobile;
         this.me = me;
       }
@@ -108,7 +112,7 @@ export class BasketComponent implements OnInit, OnChanges {
   ngOnChanges(){
   }
 
-  timeCheck(basket){
+  timeCheck(basket) {
     console.log(basket.deliveryTime);
   }
 
@@ -150,8 +154,10 @@ export class BasketComponent implements OnInit, OnChanges {
       basketData.owneruser = data.owneruser;
       basketData.orderType = data.orderType;
       basketData.anyMobile = data.anyMobile;
-      if (data.deliveryTime)
-        this.dataStart = data.deliveryTime;
+      // if (data.deliveryTime) {
+      //   alert(data.deliveryTime);
+      //   this.dataStart = data.deliveryTime;
+      // }
       basketData.deliveryTime = data.deliveryTime || 'false';
       basketData.paymentType = data.paymentType || 'fiat';
       if (data.paymentDetail)
@@ -291,7 +297,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
     this.activeBaskets.orderType = this.orderType;
 
-    if (this.address['isSaved']){
+    if (this.address['isSaved']) {
       this.activeBaskets.addressData = this.address._id;
     } else {
       this.activeBaskets.customAddress = this.address;
@@ -301,7 +307,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id)
       .then()
       .catch(e => {
-        alert(e.error.mess);
+        Swal.fire('Error', e.error.error.mess, 'error');
         this.activeBaskets.status = "0";
       });
     this.isDoOrder = false;
@@ -310,21 +316,25 @@ export class BasketComponent implements OnInit, OnChanges {
     console.log(this.activeBaskets.orderType);
     console.log(this.activeBaskets.clients);
     console.log(this.activeBaskets.clients <= 0);
-    if (this.orderType === 'reserve') {
+    if (this.orderType == 'reserve') {
       if (!this.activeBaskets.clients) {
-        this.showError("поля з зірочкою обов'язкові");
+        this.showError("Поля з зірочкою обов'язкові!");
         return
       }
       if (this.activeBaskets.clients <= 0) {
-        this.showError("поля з зірочкою обов'язкові");
+        this.showError("Поля з зірочкою обов'язкові!");
         return
       }
     }
-    if (!this.dataSelected() || !this.estAddress || !this.estAddress._id){
-      this.showError("поля з зірочкою обов'язкові");
+    if (!this.dataSelected() || !this.estAddress || !this.estAddress._id) {
+      this.showError("Поля з зірочкою обов'язкові!");
       return
     }
     this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
+    if (!this.activeBaskets.deliveryTime) {
+      this.showError("Оберіть дату!");
+      return
+    }
     this.activeBaskets.status = "1";
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
     this.activeBaskets.orderType = this.orderType;
@@ -334,19 +344,24 @@ export class BasketComponent implements OnInit, OnChanges {
     }else{
       this.activeBaskets.customAddress = this.estAddress;
     }
-    this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id);
+    this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id)
+      .then()
+      .catch(e => {
+        Swal.fire('Error', e.error.error.mess, 'error');
+        this.activeBaskets.status = "0";
+      });
     this.isDoOrder = false;
   }
   doOrderReserve(){
 
   }
-  showError(err=''){
+  showError(err='') {
     this.isError = err;
   }
   dataSelected(e = null){
     if (!this.timeStart) return false;
     if (!this.timeStart.hour || !this.timeStart.minute) return false;
-    if (!e){
+    if (!e) {
       e = {};
       e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();
       e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth()+1;

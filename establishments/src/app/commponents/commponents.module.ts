@@ -50,6 +50,7 @@ import { PaymentPipe } from './basket/payment.pipe';
 import { StatusPipe } from './basket/status.pipe';
 import { OrderPipe } from './basket/order.pipe';
 import {BasketHistoryComponent} from "./basket-history/basket-history.component";
+import { FormatNumberPipe } from './header/format-number.pipe';
 
 @NgModule({
   imports: [
@@ -128,7 +129,8 @@ import {BasketHistoryComponent} from "./basket-history/basket-history.component"
     PaymentPipe,
     StatusPipe,
     OrderPipe,
-    BasketHistoryComponent
+    BasketHistoryComponent,
+    FormatNumberPipe
   ]
 })
 export class CommponentsModule { }

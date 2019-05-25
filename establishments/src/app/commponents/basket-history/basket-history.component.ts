@@ -3,7 +3,8 @@ import {Basket, BasketData} from "../basket/basket";
 import {Address, AddressData} from "../basket/address";
 import {ActivatedRoute} from "@angular/router";
 import {ApiService} from "../../service/api.service";
-import * as moment from 'moment'
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-basket-history',
@@ -21,9 +22,9 @@ export class BasketHistoryComponent implements OnInit {
   public mobile;
   public button;
   public isValidS;
-  public dataStart:any = new Date().toISOString();
+  public dataStart: any = new Date().toISOString();
   public timeStart = {hour: new Date().getHours(), minute: new Date().getMinutes()};
-  public radioBtnTime:boolean = false;
+  public radioBtnTime: boolean = false;
 
   public prices = {};
   public onLoaded:boolean = false;

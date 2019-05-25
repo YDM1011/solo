@@ -17,7 +17,11 @@ export class CountComponent implements OnInit {
   constructor( private api: ApiService) { }
 
   ngOnInit() {
-    const count = JSON.stringify({status: 1, orderType: this.orderType, ownerest: this.id});
+    const count = JSON.stringify({
+      orderType: this.orderType,
+      ownerest: this.id,
+      $and: [{status: {$ne: 6}}, {status: {$ne: 7}}, {status: {$ne: 0}}]
+    });
     this.api.justGet('basketsList', this.id, '', '?count=' + count)
       .then((v: any) => {
         this.iscount = true;

@@ -35,7 +35,7 @@ import { MobileAlertDirective } from './mobile-alert.directive';
     AppRoutingModule,
     PreProductionComponent,
     BarMenuComponent,
-
+    FormatNumberPipe
   ],
   declarations: [
     NavbarComponent,

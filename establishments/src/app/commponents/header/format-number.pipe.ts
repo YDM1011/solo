@@ -8,7 +8,7 @@ export class FormatNumberPipe implements PipeTransform {
   transform(value: any): string {
     const str = String(parseInt(value));
     // @ts-ignore
-    return str.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 ');
+    return (str.replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1 '));
   }
 
 }

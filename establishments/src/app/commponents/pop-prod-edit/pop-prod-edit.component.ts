@@ -9,7 +9,7 @@ import {ApiService} from "../../service/api.service";
 })
 export class PopProdEditComponent implements OnInit {
 
-  @Input() selfBtn;
+  @Input() selfBtn = false;
   @Input() isShow=false;
   @Output() isShowChange=new EventEmitter<any>();
   @Output() onProductUpdate=new EventEmitter<any>();
@@ -37,18 +37,23 @@ export class PopProdEditComponent implements OnInit {
   ngOnInit() {
     if(this.product.orderCommentData){
       if(!this.product.orderCommentData[0]){
-        this.product.orderCommentData[0] = {text:"",entity:"user"}
+        this.product.orderCommentData[0] = {text:"",entity:"user"};
       }
     }
+    try {
+      this.api.justGet('checkboxCom/' + this.product.categoryData._id).then(v => {
+        if (v) {
+          this.complement = v;
+        }
+      });
+    } catch (e) {}
   }
-  ngOnChanges(){
-  }
+  // ngOnChanges () {}
+  //
+  // ngOnDestroy () {}
 
-  ngOnDestroy(){
-  }
-
-  calcPrice(item){
-    let s = this;
+  calcPrice(item) {
+    const s = this;
     item.isCheck = !item.isCheck;
     // s.totalPrice = parseInt(s.product.portItemData.price);
     s.product.totalPrice = parseInt(s.product.portItemData.price);
