@@ -1,7 +1,7 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {ApiService} from "../../api.service";
-import {order, OrderMin} from "../order/order-min";
+import {ActivatedRoute, Router} from '@angular/router';
+import {ApiService} from '../../api.service';
+import {order, OrderMin} from '../order/order-min';
 
 @Component({
   selector: 'app-order-delivery',
@@ -13,7 +13,7 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
   public orderType = 'delivery';
   public id;
   public stActive;
-  public list:OrderMin[] = [];
+  public list: OrderMin[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -24,15 +24,15 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.orderType = this.route.snapshot.paramMap.get('ordType');
-    this.route.params.subscribe((params:any) => {
+    this.route.params.subscribe((params: any) => {
 
-      if(this.id != params.id || this.orderType != params.ordType){
+      if (this.id != params.id || this.orderType != params.ordType) {
         this.id = params.id;
         this.orderType = params.ordType;
         this.getStartList(params.id);
       }
     });
-    this.getStartList(this.id)
+    this.getStartList(this.id);
   }
 
   ngOnChanges() {
@@ -45,13 +45,13 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
     //   }
     // });
   }
-  getStartList(id){
-    this.api.justGet('basketsList', id, '', '?skip=0&orderType='+this.orderType)
-      .then((v:any)=>{
-        if(v){
-          if(v.length>0){
+  getStartList(id) {
+    this.api.justGet('basketsList', id, '', '?skip=0&orderType=' + this.orderType)
+      .then((v: any) => {
+        if (v) {
+          if (v.length > 0) {
             this.list = [];
-            v.map(basket=>{
+            v.map(basket => {
               let client = basket.owneruser;
               let prods = basket.productData;
               let price = basket.totalPrice;
@@ -63,20 +63,20 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
               if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
               if (basket.orderType == 'bySelf') price += basket.boxesPrice;
               this.list.push(
-                new order(client,prods,price, created, updated, status, id, orderNumber)
-              )
-            })
+                new order(client, prods, price, created, updated, status, id, orderNumber)
+              );
+            });
           }
         }
-      })
+      });
   }
-  getByStatus(st){
+  getByStatus(st) {
     this.stActive = st;
     this.list = [];
-    this.api.justGet('basketsList', this.id, '', '?status='+st+'&skip=0&orderType='+this.orderType)
-      .then((v:any)=>{
-        if(v){
-          v.map(basket=>{
+    this.api.justGet('basketsList', this.id, '', '?status=' + st + '&skip=0&orderType=' + this.orderType)
+      .then((v: any) => {
+        if (v) {
+          v.map(basket => {
             let client = basket.owneruser;
             let prods = basket.productData;
             let price = basket.totalPrice;
@@ -88,10 +88,10 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
             if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
             if (basket.orderType == 'bySelf') price += basket.boxesPrice;
             this.list.push(
-              new order(client,prods,price, created, updated, status, id, orderNumber)
-            )
-          })
+              new order(client, prods, price, created, updated, status, id, orderNumber)
+            );
+          });
         }
-      })
+      });
   }
 }

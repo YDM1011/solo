@@ -52,9 +52,9 @@ export class CustomDatepickerI18n extends NgbDatepickerI18n {
 })
 export class BasketComponent implements OnInit, OnChanges {
 
-  public baskets:Basket[] = [];
-  public activeBaskets:Basket;
-  public address:Address = new AddressData();
+  public baskets: Basket[] = [];
+  public activeBaskets: Basket;
+  public address: Address = new AddressData();
   public addresses:Address[] = [];
   public totalPrice: any = 0;
   public estAdres = [];
@@ -131,16 +131,17 @@ export class BasketComponent implements OnInit, OnChanges {
     basket.products.map(prod => {
       if (prod._id === product._id) {
         prod = product;
-        this.prices[prod._id] = prod.totalPrice;
+        this.prices[prod._id] = prod.totalPrice || 0;
         this.checkPP(product, basket);
       }
       this.baskets[index - 1] = basket;
     });
   }
 
-  getBasketsList(basketsData) {
+  getBasketsList (basketsData) {
     let s = this;
     this.originBasketData = [];
+    s.baskets = [];
     basketsData.map(data => {
       let _id = data._id;
       let name = `${data.ownerest.name}`;
@@ -163,8 +164,8 @@ export class BasketComponent implements OnInit, OnChanges {
       if (data.paymentDetail)
         basketData.paymentDetail.fiatVal = data.paymentDetail.fiatVal || 0;
       basketData.boxesPrice = data.editByAdmin ? data.editByAdmin.boxesPrice || data.boxesPrice : data.boxesPrice;
-      if (basketData.orderType !== 'reserve' && basketData.orderType)
-        basketData.totalPrice += basketData.boxesPrice;
+      // if (basketData.orderType !== 'reserve' && basketData.orderType)
+      //   basketData.totalPrice += basketData.boxesPrice;
       basketData.status = data.status;
       basketData.isCanEdit = data.status === '0' || data.status === 0;
       basketData.isCall = data.isCall;
@@ -192,12 +193,11 @@ export class BasketComponent implements OnInit, OnChanges {
       } else {
         basketData.deliveryPrice = 0;
       }
-
       s.baskets.push(basketData);
-      basketData.products.map(prod=>{
+      basketData.products.map(prod => {
         this.prices[prod._id] = prod.totalPrice / prod.count;
       });
-      this.originBasketData.push(Object.assign({},data))
+      this.originBasketData.push(Object.assign({}, data));
     });
 
   }
@@ -212,14 +212,14 @@ export class BasketComponent implements OnInit, OnChanges {
     basket.products.map(prod => {
       if (prod.status) {
         price += prod.totalPrice;
-        if(basket.orderType === 'delivery' || basket.orderType === 'bySelf'){
+        if (basket.orderType === 'delivery' || basket.orderType === 'bySelf') {
           price += parseInt(prod.boxData.price);
         }
       }
     });
     basket.totalPrice = price;
     this.originBasketData.map(basketOrigin => {
-      if(basketOrigin._id === basket._id){
+      if(basketOrigin._id === basket._id) {
         basket.deliveryPrice = basket.deliveryMinPrice > basket.totalPrice ? parseInt(basketOrigin.menuData.delivery) : 0;
       }
     });
@@ -316,24 +316,35 @@ export class BasketComponent implements OnInit, OnChanges {
     console.log(this.activeBaskets.orderType);
     console.log(this.activeBaskets.clients);
     console.log(this.activeBaskets.clients <= 0);
+    // this.activeBaskets.deliveryTime = this.dataSelected();
     if (this.orderType == 'reserve') {
       if (!this.activeBaskets.clients) {
         this.showError("Поля з зірочкою обов'язкові!");
-        return
+        return;
       }
       if (this.activeBaskets.clients <= 0) {
         this.showError("Поля з зірочкою обов'язкові!");
-        return
+        return;
       }
     }
     if (!this.dataSelected() || !this.estAddress || !this.estAddress._id) {
       this.showError("Поля з зірочкою обов'язкові!");
-      return
+      return;
     }
-    this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
+    console.log(this.estAddress);
+    // this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : this.activeBaskets.deliveryTime || null;
+    this.activeBaskets.deliveryTime =  this.dataSelected()
     if (!this.activeBaskets.deliveryTime) {
       this.showError("Оберіть дату!");
-      return
+      return;
+    }
+    console.log(this.activeBaskets.deliveryTime)
+    console.log(new Date(this.activeBaskets.deliveryTime).getTime())
+    console.log(new Date().getTime() + (1))
+    console.log(new Date(this.activeBaskets.deliveryTime).getTime() > (new Date().getTime() + (1000 * 60 * 5)));
+    if (new Date(this.activeBaskets.deliveryTime).getTime() < (new Date().getTime() + (1000 * 60 * 5))) {
+      this.showError("Оберіть дату не раніше як за 10хв!");
+      return;
     }
     this.activeBaskets.status = "1";
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
@@ -352,70 +363,72 @@ export class BasketComponent implements OnInit, OnChanges {
       });
     this.isDoOrder = false;
   }
-  doOrderReserve(){
+  doOrderReserve() {
 
   }
-  showError(err='') {
+  showError(err = '') {
     this.isError = err;
   }
-  dataSelected(e = null){
+  dataSelected(e = null) {
+    console.log("dataEvent", e);
     if (!this.timeStart) return false;
     if (!this.timeStart.hour || !this.timeStart.minute) return false;
     if (!e) {
       e = {};
       e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();
-      e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth()+1;
+      e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth() + 1;
       e['day'] = new Date(this.activeBaskets.deliveryTime).getDate();
     }
-    if (!e.year || !(e.month-1) ||  !e.day) {
+    if (!e.year || !(e.month - 1) ||  !e.day) {
       e['year'] = new Date().getFullYear();
-      e['month'] = new Date().getMonth()+1;
+      e['month'] = new Date().getMonth() + 1;
       e['day'] = new Date().getDate();
     }
-    this.dataStart = new Date(e.year, (e.month-1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
-    console.log(this.dataStart)
+    this.dataStart = new Date(e.year, (e.month - 1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
+    console.log(this.dataStart);
+    // this.activeBaskets.deliveryTime = this.dataStart;
     return this.dataStart;
   }
-  test(){
-    this.api.justGet('test','','','').then((data:any)=>{
+  test() {
+    this.api.justGet('test', '', '', '').then((data: any) => {
       this.button = data.html;
-      console.log(this.button)
-    })
+      console.log(this.button);
+    });
   }
 
-  getAddress(){
+  getAddress() {
     this.isAddress = !this.isAddress;
-    if(this.isAddress){
-      this.api.justGet('address','','','?select=-__v&query={"owneruser":"'+this.activeBaskets.owneruser+'"}').then((data:any)=>{
-        if (data){
-          this.addresses = (data)
+    if (this.isAddress) {
+      this.api.justGet('address', '', '', '?select=-__v&query={"owneruser":"' + this.activeBaskets.owneruser+'"}').then((data:any)=>{
+        if (data) {
+          this.addresses = (data);
         }
       });
     }
 
   }
-  checkAddress(adrs){
+  checkAddress(adrs) {
     this.isAddress = !this.isAddress;
     this.address = adrs;
     this.address['isSaved'] = true;
   }
-  getEstAddress(){
+  getEstAddress() {
     this.isAddress = !this.isAddress;
-    if(this.isAddress){
-      this.api.justGet('oneest?query={"ownerEst":"'+this.activeBaskets.ownerEst+'"}&select=address').then((v:any)=>{
-        if (v){
+    if (this.isAddress) {
+      this.api.justGet('oneest?query={"ownerEst":"' + this.activeBaskets.ownerEst + '"}&select=address').then((v:any)=>{
+        if (v) {
           this.estAdres = v;
         }
-      })
+      });
     }
   }
-  checkEstAddress(adrs){
+  checkEstAddress(adrs) {
     this.isAddress = !this.isAddress;
     this.estAddress = adrs;
     this.estAddress['isSaved'] = true;
   }
-  checkDelivery(){
-    this.orderType='delivery';
+  checkDelivery() {
+    this.orderType = 'delivery';
     this.activeBaskets.deliveryPrice = parseInt(this.activeBaskets.menu.deliveryfree) > this.activeBaskets.totalPrice ? parseInt(this.activeBaskets.menu.delivery) : 0;
   }
 }

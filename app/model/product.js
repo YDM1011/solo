@@ -103,7 +103,7 @@ const postUpdate = async (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     let product = req.erm.result;
     let Price = await calcPrice(product).catch(e=>{return res.badRequest(e)});
-    console.log(Price)
+    console.log(Price);
     let basket = {
         menuData: product.menuData,
         productData: [product._id],
@@ -354,7 +354,7 @@ const calcPrice = product => {
                       if (r.boxData){
                           let price = parseInt(r.boxData.price.match(/[\d]+/gi)[0]);
                           if(typeof price == "number"){
-                              boxPrice += price
+                              boxPrice += price * r.count
                           }else {rj("error3")}
                       }
 

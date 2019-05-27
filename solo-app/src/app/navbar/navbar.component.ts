@@ -86,7 +86,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         self.userId = val._id;
         self.userPhoto = val.photo;
         self.userName = val.firstName;
-        self.offerCount = val.offer.length;
+        self.offerCount = parseInt(val.offer.length);
         self.isShow = !self.isShow;
         self.isLoaded = true;
         this.mobile = val.mobile;
@@ -94,7 +94,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
         this.me = val;
       }
     });
-    self.api.onProfile.subscribe(v=>{
+    self.api.onProfile.subscribe(v => {
       if (v){
         this.mobile = v.mobile;
         this.email = v.email;
@@ -103,7 +103,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
     });
 
-    self.core.doGet('estsOfBasket').then(v=>{
+    self.core.doGet('estsOfBasket').then(v => {
       console.log(v);
       this.baskets = v;
     });

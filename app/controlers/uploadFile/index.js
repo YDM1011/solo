@@ -107,7 +107,7 @@ const sendPicToModel = (reqBody, res, imgId, req) => {
 
     if (protectField){
         if (!req.isUseByAdmin)
-        query[protectField] = toObjectId(reqBody.owner);
+        // query[protectField] = toObjectId(reqBody.owner);
         query['_id'] = toObjectId(reqBody.id);
     } else {
         query['_id'] = toObjectId(reqBody.owner);

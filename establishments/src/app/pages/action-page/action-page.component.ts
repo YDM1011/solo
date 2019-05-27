@@ -10,13 +10,15 @@ export class ActionPageComponent implements OnInit {
 
   public actions;
   public estId;
+  public sort;
   constructor( private api: ApiService) { }
 
   ngOnInit() {
-    this.api.onEstId.subscribe(v=>{
-      if(v)
+    this.sort = JSON.stringify({data: -1});
+    this.api.onEstId.subscribe(v => {
+      if (v)
       this.estId = v;
       // alert(v)
-    })
+    });
   }
 }

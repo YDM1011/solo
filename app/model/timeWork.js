@@ -99,6 +99,8 @@ const preUpdate = (req,res,next)=> {
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
+    // req.body['owner'] = req.userId;
+    req.body['label'] = req.body['name'];
     next()
 };
 
@@ -106,7 +108,7 @@ const preCreate = (req,res,next)=> {
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    req.body['owner'] = req.userId;
+    // delete req.body['owner'] = req.userId;
     if (!req.body['label']) {
         req.body['label'] = req.body['name'];
     }
@@ -143,7 +145,7 @@ glob.restify.serve(
     mongoose.model('timeWork'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, preRead],
-        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preUpdate],
+        preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
-        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, werify, preDelete],
+        preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preDelete],
     });

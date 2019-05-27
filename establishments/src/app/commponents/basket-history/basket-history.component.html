@@ -61,9 +61,8 @@
 
                           <div class="ord_pr_img pre-bg">
                             <div class="pr_ev">
-                              <span class="pr_ev-s ev-s_new"></span>
-                              <span class="pr_ev-s ev-s_xit"></span>
-                              <span class="pr_ev-s ev-s_int"></span>
+                              <span class="pr_ev-s ev-s_new" *ngIf="product.dishData.isnew"></span>
+                              <span class="pr_ev-s ev-s_xit" *ngIf="product.dishData.ishit"></span>
                             </div>
                             <app-img [img]="{id:product.dishData.pic}"></app-img>
                           </div>

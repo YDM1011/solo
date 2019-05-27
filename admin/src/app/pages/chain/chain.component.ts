@@ -9,34 +9,34 @@ import {Links} from "./links";
   styleUrls: ['./chain.component.css']
 })
 export class ChainComponent implements OnInit, OnChanges {
-  public link = {url:'',label:''};
-  public isFormAdd:boolean = false;
-  public delivery:boolean = false;
-  public getself:boolean = false;
-  public reservation:boolean = false;
+  public link = {url: '', label: ''};
+  public isFormAdd: boolean = false;
+  public delivery: boolean = false;
+  public getself: boolean = false;
+  public reservation: boolean = false;
   public result;
-  public btnBG:string='<span class="btn btn-sm btn-primary pull-left"><strong>Завантажити</strong></span>';
-  public bg:any={};
-  public av:any={};
-  public name:any;
-  public mail:any;
-  public mailOfOrder:any;
-  public subdomain:any;
-  public mobile:any;
-  public about:any;
-  public id:any;
-  public worksTime:any;
-  public worksTimeView:any;
-  public worksTimeAll:any;
-  public minPrice:number;
-  public foodCoin:number;
-  public publicKey:string;
-  public privatKey:string;
-  public links:any=new Links();
-  public linksFormat:any=[0,1,2,3,4];
+  public btnBG: string = '<span class="btn btn-sm btn-primary pull-left"><strong>Завантажити</strong></span>';
+  public bg: any = {};
+  public av: any = {};
+  public name: any;
+  public mail: any;
+  public mailOfOrder: any;
+  public subdomain: any;
+  public mobile: any;
+  public about: any;
+  public id: any;
+  public worksTime: any;
+  public worksTimeView: any;
+  public worksTimeAll: any;
+  public minPrice: number;
+  public foodCoin: any;
+  public publicKey: string;
+  public privatKey: string;
+  public links: any = new Links();
+  public linksFormat: any = [0, 1, 2, 3, 4];
   constructor(
     private route: ActivatedRoute,
-    private api:ApiService
+    private api: ApiService
   ) { }
 
   ngOnInit() {
@@ -55,25 +55,26 @@ export class ChainComponent implements OnInit, OnChanges {
   ngOnChanges() {
 
   }
-  initApi(id){
+  initApi(id) {
     let self = this;
-    let req=['name','subdomain',
-      'mobile','about', 'minPrice','mail', 'mailOfOrder',
-      'delivery','getself','reservation', 'publicKey', 'privatKey', 'foodCoin'];
-    req.forEach((select)=>{
-      this.api.get('establishment',id,select).then((res:any)=>{
+    let req = ['name', 'subdomain',
+      'mobile', 'about', 'minPrice', 'mail', 'mailOfOrder',
+      'delivery', 'getself', 'reservation', 'publicKey', 'privatKey', 'foodCoin'];
+    req.forEach((select) => {
+      this.api.get('establishment', id, select).then((res: any) => {
         self[select] = res[select];
-      }).catch((err:any)=>{});
+        if (res['foodCoin']) this.foodCoin = parseInt(self.foodCoin);
+      }).catch((err: any) => {});
     });
-    let req2=['bg','av'];
-    req2.forEach((select)=>{
-      this.api.get('establishment',id,select).then((res:any)=>{
+    let req2 = ['bg', 'av'];
+    req2.forEach((select) => {
+      this.api.get('establishment', id, select).then((res: any) => {
         self[select] = res[select];
-      }).catch((err:any)=>{});
+      }).catch((err: any) => {});
     });
     let req3=['worksTime'];
-    req3.forEach((select)=>{
-      this.api.get('establishment',id,select).then((res:any)=>{
+    req3.forEach((select) => {
+      this.api.get('establishment', id, select).then((res: any) => {
         self[select] = res[select];
         self.getCalendarActive()
       }).catch((err:any)=>{});
@@ -107,42 +108,42 @@ export class ChainComponent implements OnInit, OnChanges {
     const s = this;
     s.api.justGet(`timeWork?query={"ownerEst":"${s.id}"}`).then((val:any)=>{
       s.worksTimeAll = [];
-      val.map(it=>{
+      val.map(it => {
         s.worksTimeAll.push({
           label: it.name,
           obj: it
-        })
+        });
       });
-    })
+    });
   }
-  update(obj,mod){
+  update(obj, mod) {
     let self = this;
-    if(mod == "links"){
+    if (mod == "links") {
       console.log(obj);
-      self.linksFormat.map(l=>{
-        if(obj.links[l].url){
-          if(l != 0){
-            if(obj.links[l].url.search("//")>-1){
+      self.linksFormat.map(l => {
+        if (obj.links[l].url) {
+          if (l != 0) {
+            if (obj.links[l].url.search("//") > -1) {
               obj.links[l].url = "https://"+obj.links[l].url.split("//")[1];
-            }else{
-              obj.links[l].url = "https://"+obj.links[l].url
+            } else {
+              obj.links[l].url = "https://"+obj.links[l].url;
             }
-          }else{
-            if(obj.links[0].url.search("//")>-1){
+          } else {
+            if (obj.links[0].url.search("//") > -1) {
 
-            }else{
-              obj.links[0].url = "https://"+obj.links[0].url
+            } else {
+              obj.links[0].url = "https://" + obj.links[0].url;
             }
           }
         }
-      })
+      });
     }
     this.api.doPost('establishment/'+self.id+'?select='+mod,obj).then((res:any)=>{
       if (mod != 'delivery' && mod != 'getself' && mod != 'reservation' && mod != 'publicKey' && mod != 'privatKey')
       self[mod] = res[mod];
-    }).catch((err:any)=>{});
+    }).catch((err: any) => {});
   }
-  getCalendar(e){
+  getCalendar(e) {
     let s = this;
     console.log(e.obj);
     s.worksTime = e.obj._id;

@@ -209,11 +209,12 @@
                             <span class="dt_t">Вид оплати:</span>
                             <span class="dt_t">{{basket.paymentType | payment}}</span>
                           </div>
-                          <div class="dt_i" *ngIf="basket.deliveryPrice">
+                          <div class="dt_i" *ngIf="basket.deliveryPrice && (basket.orderType == 'delivery')">
                             <span class="dt_t">Доставка:</span>
                             <span class="dt_t">{{basket.deliveryPrice}} грн</span>
                           </div>
-                          <div class="dt_i" *ngIf="basket.boxesPrice">
+                          <div class="dt_i" *ngIf="basket.boxesPrice &&
+                          (basket.orderType == 'bySelf' || basket.orderType == 'delivery')">
                             <span class="dt_t">Пакування:</span>
                             <span class="dt_t">{{basket.boxesPrice}} грн</span>
                           </div>
@@ -441,7 +442,7 @@
         <div class="p-d_ch-c" *ngIf="activeBaskets.deliveryTime != 'false'">
           <div class="date-wrap">
             <div class="time-input">{{dataStart | date:'dd/MM/yy'}}</div>
-            <ngb-datepicker #dp [(ngModel)]="dataStart" (select)="dataSelected($event)"></ngb-datepicker>
+            <ngb-datepicker #dp [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
           </div>
           <div class="time-wrap">
             <div class="time-input">{{dataStart | date:'HH:mm'}}</div>
@@ -583,7 +584,7 @@
         <div class="p-d_ch-c">
           <div class="date-wrap">
             <div class="time-input" *ngIf="dataStart">{{dataStart | date:'dd/MM/yy'}}</div>
-            <ngb-datepicker #dp [(ngModel)]="dataStart" (select)="dataSelected($event)"></ngb-datepicker>
+            <ngb-datepicker #dp [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
           </div>
           <div class="time-wrap">
             <div class="time-input">{{dataStart | date:'HH:mm'}}</div>

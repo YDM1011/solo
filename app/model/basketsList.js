@@ -199,6 +199,10 @@ const postUpdate = (req,res,next)=>{
                 let userMail = {
                     mail:req.userMail,
                     orderId:bData.orderNumber,
+                    data: {
+                        h: new Date(bData.deliveryTime).getHours(),
+                        m: new Date(bData.deliveryTime).getMinutes()
+                    },
                     link: 'https://'+basketData.ownerest.subdomain+'.'+data.auth.domain+'/basket',
                     orderType: bData.orderType,
                     isUser: true
@@ -231,12 +235,12 @@ const postUpdate = (req,res,next)=>{
                     if (bData.paymentType == 'coin'){
                         basketData['foodCoinHistory'] = {
                             isAdd: false,
-                            coin: amount*0.95
+                            coin: parseInt(amount*0.95)
                         };
                     }else {
                         basketData['foodCoinHistory'] = {
                             isAdd: true,
-                            coin: amount*0.05
+                            coin: parseInt(amount*0.05)
                         };
                     }
                 }
@@ -367,7 +371,7 @@ const validator = (req,res,next)=>{
     if (req.userId && req.userMail && (req.mobile || req.body.anyMobile)) {
         next()
     }else{
-        res.badRequest('Перевірте наявність пошти і мобільного в профілі')
+        res.badRequest({mess:'Перевірте наявність пошти і мобільного в <a href="https://tasteol.com/user/'+req.userId+'/profile">профілі</a>'})
     }
 };
 const validateFoodcoin = (req,res,next)=>{
@@ -389,7 +393,7 @@ const validateFoodcoin = (req,res,next)=>{
                         if (req.body.orderType == 'reserve' || r0.orderType == 'reserve') price = parseInt(totP);
                         console.log(price, r0, r0 == 'reserve')
                         if (r && price>0) {
-                            if (r.foodCoin >= price*0.05){
+                            if (r.foodCoin >= parseInt(price*0.05)){
                                 return next();
                             }else{
                                 return res.badRequest({mess:"Не достатньо коштів на балансі!"});
@@ -434,6 +438,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                     let estPrice = price;
                                     if (r0.paymentType != 'coin') estPrice = -estPrice*0.05;
                                     if (r0.paymentType == 'coin') estPrice = estPrice*0.95;
+                                    estPrice = parseInt(estPrice);
                                     mongoose.model('establishment')
                                         .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:estPrice}})
                                         .exec((e1,r1)=>{
@@ -441,6 +446,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                             if (e1 || !r1) return res.badRequest({mess:"Error"});
                                             if (r0.paymentType != 'coin') price = price*0.05;
                                             if (r0.paymentType == 'coin') price = -price*0.95;
+                                            price = parseInt(price);
                                             mongoose.model('user')
                                                 .findOneAndUpdate({_id:req.userId},
                                                     {$inc:{foodcoin:price}})
@@ -455,10 +461,10 @@ const validateUserFoodcoin = (req,res,next)=>{
                         }else if (r0.paymentType != 'coin'){
                             if (req.body.status == '6') {
                                 mongoose.model('establishment')
-                                    .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:-(price*0.05)}})
+                                    .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin: parseInt(-(price*0.05))}})
                                     .exec((e1,r1)=>{
                                         if (e1 || !r1) return res.badRequest({mess:"Error"});
-                                        price = price*0.05;
+                                        price = parseInt(price*0.05);
                                         mongoose.model('user')
                                             .findOneAndUpdate({_id:req.userId},
                                                 {$inc:{foodcoin:price}})

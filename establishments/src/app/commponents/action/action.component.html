@@ -1,8 +1,9 @@
-<app-custom-res *ngIf="estId" [model]="{
-    url:'post',
+<app-custom-res *ngIf="estId" [model]='{
+    url:"post",
     query:{ownerest:estId},
-    populate: {path:'img'}
-    }" (onRes)="actions = $event"></app-custom-res>
+    concat: "&sort=" + sort,
+    populate: {path:"img"}
+    }' (onRes)="actions = $event"></app-custom-res>
 
 <div class="cont el_cont" *ngIf="!actions">
   <span class="el_h">

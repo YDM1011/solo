@@ -1,6 +1,7 @@
 <app-custom-res *ngIf="estId" [model]="{
     url:'post',
     query:{ownerest:estId},
+    concat: '&sort=' + sort,
     populate: {path:'img'}
     }" (onRes)="actions = $event"></app-custom-res>
 <div class="cont gl-cont">

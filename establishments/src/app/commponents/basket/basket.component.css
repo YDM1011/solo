@@ -95,3 +95,9 @@ select{
   text-align: center;
   width: 100%;
 }
+.p-d{
+  margin-bottom: 50px;
+}
+.cont{
+  margin-bottom: 0;
+}

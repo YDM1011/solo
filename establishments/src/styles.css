@@ -7601,11 +7601,19 @@ ngb-datepicker-navigation-select>.custom-select {
   width: auto;
   max-width: 100%;
 }
-.bg-primary{
+.bg-primary {
   border-radius: 50%!important;
   background: #0a9fe2!important;
 }
-.btn-light.active{
+.btn-light.active {
   border-radius: 50%!important;
   background: #0a9fe2!important;
+}
+.btn-link {
+  font-size: 14px;
+  margin-top: 10px;
+  padding: 5px 16px;
+  height: auto;
+  line-height: 1.7em;
+  background: #3085d6;
 }

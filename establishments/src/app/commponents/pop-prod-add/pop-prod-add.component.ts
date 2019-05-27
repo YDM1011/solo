@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output} fr
 import {ApiService} from "../../service/api.service";
 import {animate, style, transition, trigger} from "@angular/animations";
 import {Product, ProductObj} from "./product";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-pop-prod-add',
@@ -201,14 +202,19 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
         s.complement = val;
 
         rs(true)
-      })
-    })
+      }).catch(e => rj(e));
+    });
   }
   async toBasket() {
     const s = this;
     let isDone = null;
-    if (!s.complement){
-       isDone = await s.getComplements();
+    if (!s.complement) {
+       isDone = await s.getComplements().catch(e => {
+         if (e.status === 403) {
+           const text = `Для замовлення зареєструйтесь, будь-ласка <a href="https://tasteol.com" class="btn btn-link">Реєстрація</a>`
+           Swal.fire('Error', text, 'error');
+         }
+       });
     }
     if (isDone && s.complement.length > 0) {
       s.preToBasket();
@@ -233,7 +239,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     }
     s.api.post('product', s.product).then((res: any) => {
       s.api.checkBascketCount(true);
-    });
+    }).catch(e => {console.log(e); });
 
   }
   hidden() {

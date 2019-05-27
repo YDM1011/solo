@@ -45,22 +45,32 @@ export class FullOrder implements OrderMax{
   public orderCommentData?;
   public paymentDetail?;
   public deliveryTime?;
-  constructor( public data? ){
+  constructor( public data? ) {
     let price = 0;
-    data.productData.map(item=>{
-      price += item.totalPrice
+    data.productData.map((prod, i) => {
+      if (!prod.status) {
+        delete data.productData[i];
+      }
+    });
+    data.productData.map(item => {
+      // if (item.status) {
+        price += item.totalPrice;
+      // }
     });
     if (data.status == '5' || data.status == '1' || data.status == '2'){
       this.productPrice = data.editByAdmin ? data.editByAdmin.totalPrice || price : price;
       this.boxPrice = data.editByAdmin ? data.editByAdmin.boxesPrice || parseInt(data.boxesPrice) : parseInt(data.boxesPrice) || 0 ;
       this.deliveryPrice = data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.deliveryPrice) : parseInt(data.deliveryPrice) || 0 ;
-    }else{
+    } else {
       this.productPrice = price;
       this.boxPrice = data.boxesPrice ? parseInt(data.boxesPrice) : 0 ;
       this.deliveryPrice = data.deliveryPrice ? parseInt(data.deliveryPrice) : 0 ;
     }
     if (data.orderType == 'bySelf') this.deliveryPrice = null;
-    if (data.orderType == 'reserve'){ this.deliveryPrice = null; this.boxPrice = null};
+    if (data.orderType == 'reserve') {
+      this.deliveryPrice = null;
+      this.boxPrice = null;
+    }
 
     this.id = data._id;
     this.deliveryTime = data.deliveryTime;
@@ -78,8 +88,6 @@ export class FullOrder implements OrderMax{
       this.level = null;
       this.codeKey = null;
     }
-
-
     this.status = String(data.status);
     this.products = data.productData;
     this.orderNumber = data.orderNumber;

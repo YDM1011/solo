@@ -41,7 +41,7 @@ export class ActionComponent implements OnInit, OnChanges, OnDestroy {
   initApi(id){
     const s = this;
     s.actions = [];
-    s.api.justGet(`post?query={"ownerest":"${id}"}&populate={"path":"img"}`).then((val:any)=>{
+    s.api.justGet(`post?query={"ownerest":"${id}"}&populate={"path":"img"}&sort={"data":-1}`).then((val:any)=>{
       if(val){
         s.actions = val
       }

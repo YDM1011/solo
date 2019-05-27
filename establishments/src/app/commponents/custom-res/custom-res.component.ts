@@ -15,6 +15,7 @@ export class CustomResComponent implements OnInit, OnChanges {
     query:'',
     populate:'',
     select: '',
+    concat: '',
     security: false
   };
   @Output() onRes: EventEmitter<any> = new EventEmitter<any>();
@@ -54,6 +55,7 @@ export class CustomResComponent implements OnInit, OnChanges {
     let query = as + (mod.select ? 'select='+(mod.select): '');
         query += ap + (mod.populate ? 'populate='+JSON.stringify(mod.populate): '');
         query += aq + (mod.query ? 'query='+JSON.stringify(mod.query): '');
+        query += mod.concat ? mod.concat : '';
     s.api.get(mod.url, mod.params, query, query).then((val:any)=>{
       if(val){
         s.onRes.emit(val)

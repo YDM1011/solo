@@ -10,12 +10,14 @@ export class ActionComponent implements OnInit {
 
   public actions;
   public estId;
+  public sort;
   constructor( private api: ApiService) { }
 
   ngOnInit() {
-    this.api.onEstId.subscribe(v=>{
+    this.sort = JSON.stringify({data: -1});
+    this.api.onEstId.subscribe(v => {
       this.estId = v;
-    })
+    });
   }
 
 }

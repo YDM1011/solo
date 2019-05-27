@@ -10,9 +10,9 @@ import {ApiService} from "../../service/api.service";
 export class PopProdEditComponent implements OnInit {
 
   @Input() selfBtn = false;
-  @Input() isShow=false;
-  @Output() isShowChange=new EventEmitter<any>();
-  @Output() onProductUpdate=new EventEmitter<any>();
+  @Input() isShow = false;
+  @Output() isShowChange = new EventEmitter<any>();
+  @Output() onProductUpdate = new EventEmitter<any>();
 
   @Input() product;
   @Input() menuId;
@@ -35,9 +35,9 @@ export class PopProdEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.product.orderCommentData){
-      if(!this.product.orderCommentData[0]){
-        this.product.orderCommentData[0] = {text:"",entity:"user"};
+    if(this.product.orderCommentData) {
+      if(!this.product.orderCommentData[0]) {
+        this.product.orderCommentData[0] = {text: "", entity: "user"};
       }
     }
     try {
@@ -183,7 +183,7 @@ export class PopProdEditComponent implements OnInit {
     });
   }
 
-  cancel(){
+  cancel() {
     let s = this;
     s.hidden();
     s.isShowChange.emit(false);
