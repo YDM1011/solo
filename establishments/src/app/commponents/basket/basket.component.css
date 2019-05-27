@@ -97,6 +97,7 @@ select{
 }
 .p-d{
   margin-bottom: 50px;
+  height: auto;
 }
 .cont{
   margin-bottom: 0;
