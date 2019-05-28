@@ -37,6 +37,7 @@ glob.getOwner = async (req,res,next)=>{
         }else if(req.body.estId || req.body.id || req.body.ownerest){
             let  bid = null;
 
+
             if(req.body.id ){
                 bid = req.body.id != req.body._id ? req.body.id : null
             }

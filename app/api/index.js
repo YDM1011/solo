@@ -43,7 +43,7 @@ router.get('/api/facebook/return',
 router.post('/api/signin', [orign, verification], login);
 router.post('/api/signup', [orign, verification], signup.create);
 router.post('/api/confirm', [orign, verification], signup.confirm);
-router.post('/api/uploadImage', [orign, glob.getId, glob.getOwner], uploadFile.upload);
+router.post('/api/uploadImage', [orign, glob.getId], uploadFile.upload);
 router.get('/api/hashLink/:login/:hashLink', [orign], loginLink);
 
 router.get('/api/setting/:id', [orign, glob.isMyProfile], setting);
