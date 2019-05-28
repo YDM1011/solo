@@ -34,7 +34,7 @@
                                     <p style="margin-bottom:25px;margin-top:0">Ваше замовлення №  <%= message.orderId %> підтверджене закладом!</p>
                                     <p style="margin-bottom:5px;margin-top:0"><span style="display:inline-block;padding-right:4px">Статус Вашого замовлення - "підтверджене".</span>
                                     </p>
-                                    <p style="margin-bottom:5px;margin-top:0"><span style="display:inline-block;padding-right:4px">Чекаємо на Вас о <%= message.data.h%>:<%= message.data.m%></span>
+                                    <p style="margin-bottom:5px;margin-top:0"><span style="display:inline-block;padding-right:4px">Чекаємо на Вас о <%= message.data.h%>:<%= message.data.m%> <%= message.data.d%>.<%= message.data.mn%>.<%= message.data.y%></span>
                                     </p>
                                     <p style="margin-bottom:5px;margin-top:20px"><span style="display:inline-block;padding-right:4px">Статус замовлення Ви завжди можете переглянути на своїй сторінці у розділі </span>
                                         <a href="<%= message.link %>" target="_blank" style="color:#009de1;text-underline-position:under">

@@ -7617,3 +7617,6 @@ ngb-datepicker-navigation-select>.custom-select {
   line-height: 1.7em;
   background: #3085d6;
 }
+.sr-only{
+  display: none!important;
+}

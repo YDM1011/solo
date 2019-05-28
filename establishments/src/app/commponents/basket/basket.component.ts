@@ -313,10 +313,6 @@ export class BasketComponent implements OnInit, OnChanges {
     this.isDoOrder = false;
   }
   doOrderBySelf() {
-    console.log(this.activeBaskets.orderType);
-    console.log(this.activeBaskets.clients);
-    console.log(this.activeBaskets.clients <= 0);
-    // this.activeBaskets.deliveryTime = this.dataSelected();
     if (this.orderType == 'reserve') {
       if (!this.activeBaskets.clients) {
         this.showError("Поля з зірочкою обов'язкові!");
@@ -331,17 +327,11 @@ export class BasketComponent implements OnInit, OnChanges {
       this.showError("Поля з зірочкою обов'язкові!");
       return;
     }
-    console.log(this.estAddress);
-    // this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : this.activeBaskets.deliveryTime || null;
     this.activeBaskets.deliveryTime =  this.dataSelected()
     if (!this.activeBaskets.deliveryTime) {
       this.showError("Оберіть дату!");
       return;
     }
-    console.log(this.activeBaskets.deliveryTime)
-    console.log(new Date(this.activeBaskets.deliveryTime).getTime())
-    console.log(new Date().getTime() + (1))
-    console.log(new Date(this.activeBaskets.deliveryTime).getTime() > (new Date().getTime() + (1000 * 60 * 5)));
     if (new Date(this.activeBaskets.deliveryTime).getTime() < (new Date().getTime() + (1000 * 60 * 5))) {
       this.showError("Оберіть дату не раніше як за 10хв!");
       return;
@@ -363,9 +353,6 @@ export class BasketComponent implements OnInit, OnChanges {
       });
     this.isDoOrder = false;
   }
-  doOrderReserve() {
-
-  }
   showError(err = '') {
     this.isError = err;
   }
@@ -373,18 +360,24 @@ export class BasketComponent implements OnInit, OnChanges {
     console.log("dataEvent", e);
     if (!this.timeStart) return false;
     if (!this.timeStart.hour || !this.timeStart.minute) return false;
-    if (!e) {
-      e = {};
-      e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();
-      e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth() + 1;
-      e['day'] = new Date(this.activeBaskets.deliveryTime).getDate();
+    // if (!e) {
+    //   e = {};
+    //   e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();
+    //   e['month'] = new Date(this.activeBaskets.deliveryTime).getMonth() + 1;
+    //   e['day'] = new Date(this.activeBaskets.deliveryTime).getDate();
+    // }
+    // if (!e.year || !(e.month - 1) ||  !e.day) {
+    //   e['year'] = new Date().getFullYear();
+    //   e['month'] = new Date().getMonth() + 1;
+    //   e['day'] = new Date().getDate();
+    // }
+    if (this.dataStart && !e){
+      this.dataStart = moment(this.dataStart)
+        .hour(this.timeStart.hour)
+        .minute(this.timeStart.minute).toISOString();
+    }else{
+      this.dataStart = new Date(e.year, (e.month - 1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
     }
-    if (!e.year || !(e.month - 1) ||  !e.day) {
-      e['year'] = new Date().getFullYear();
-      e['month'] = new Date().getMonth() + 1;
-      e['day'] = new Date().getDate();
-    }
-    this.dataStart = new Date(e.year, (e.month - 1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
     console.log(this.dataStart);
     // this.activeBaskets.deliveryTime = this.dataStart;
     return this.dataStart;

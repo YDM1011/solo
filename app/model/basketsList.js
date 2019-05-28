@@ -173,10 +173,11 @@ const preUpdate = (req,res,next)=>{
         res.badRequest('error212');
     }
 };
-const postUpdate = (req,res,next)=>{
+const postUpdate = async (req,res,next)=>{
     const mail = require('../controlers/email');
     let bData = req.erm.result;
-    console.log("req",req.isUseByAdmin);
+    let reqCurent = await getUser({_id:bData.owneruser});
+
     mongoose.model('basketsList')
         .findOne({_id:bData._id})
         .populate({path:'menuData'})
@@ -197,9 +198,12 @@ const postUpdate = (req,res,next)=>{
                 }
                 const data = require('../config/index');
                 let userMail = {
-                    mail:req.userMail,
+                    mail:reqCurent.userMail,
                     orderId:bData.orderNumber,
                     data: {
+                        y: new Date(bData.deliveryTime).getFullYear(),
+                        mn: new Date(bData.deliveryTime).getMonth()+1,
+                        d: new Date(bData.deliveryTime).getDate(),
                         h: new Date(bData.deliveryTime).getHours(),
                         m: new Date(bData.deliveryTime).getMinutes()
                     },
@@ -271,7 +275,6 @@ const postUpdate = (req,res,next)=>{
                                 'sandbox'        : '1',
                                 'server_url'     : data.auth.apiDomain+'api/liqpayCallback'
                             });
-                            console.log(html, basketData.ownerest);
                             basketData['html'] = html;
                         } else {
                             return res.badRequest();
@@ -362,7 +365,17 @@ const checkOwner = (req,res,next)=>{
             }
         })
 };
-
+const getUser = obj => {
+    return new Promise((rs,rj)=>{
+        mongoose.model('user')
+            .findOne(obj)
+            .exec((e,r)=>{
+                if (e) return rj(e);
+                if (!r) return rj('');
+                if (r) return rs(r);
+            })
+    });
+};
 const validator = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     if (req.isUseByAdmin){
