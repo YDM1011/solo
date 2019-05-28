@@ -12,7 +12,7 @@ const user = new Schema({
     bornedData: String,
     bornedPlace: String,
     education: String,
-    mobile: {type: String},
+    mobile: {type: String, unique: true},
     address: String,
     aboutme: String,
     worksPlace: String,

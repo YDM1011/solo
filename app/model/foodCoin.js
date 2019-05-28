@@ -41,7 +41,7 @@ const preCreate = (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     req.body.mobile = req.body.mobile.slice(-10);
     mongoose.model('user')
-        .findOneAndUpdate({mobile:req.body.mobile.slice(-10)},{foodcoin:req.body.foodcoin})
+        .findOneAndUpdate({mobile:req.body.mobile.slice(-10)},{$inc:{foodcoin:req.body.foodcoin}})
         .exec((e,r)=>{
             if (e) return res.badRequest(e);
             if (!r) next();
