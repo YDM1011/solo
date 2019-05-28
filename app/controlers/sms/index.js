@@ -108,8 +108,12 @@ const saveMobile = (req, code)=>{
                         if(r.foodcoin){
                             data['$inc'] = {foodcoin:r.foodcoin};
                         }else { data['$inc'] = {foodcoin:0} }
+
                         mongoose.model('foodCoin')
                             .findOneAndUpdate(modData.newData, {isActive:false})
+                            .exec((e0,r0)=>{
+                                console.log(e0,r0)
+                            })
                     }
                 }
 
