@@ -102,15 +102,16 @@ const saveMobile = (req, code)=>{
             .exec((e,r)=>{
                 if(e) return rj(e);
                 let data = modData.newData;
+                let coinData = Object.assign({},modData.newData) ;
                 if (r){
                     if (r.isActive){
                         // data['foodcoin'] = parseInt(r ? r.foodcoin || 0:0);
                         if(r.foodcoin){
                             data['$inc'] = {foodcoin:r.foodcoin};
                         }else { data['$inc'] = {foodcoin:0} }
-
+                        console.log("coinData", coinData)
                         mongoose.model('foodCoin')
-                            .findOneAndUpdate(modData.newData, {isActive:false})
+                            .findOneAndUpdate(coinData, {isActive:false})
                             .exec((e0,r0)=>{
                                 console.log(e0,r0)
                             })
