@@ -288,7 +288,7 @@ export class BasketComponent implements OnInit, OnChanges {
     });
   }
   doOrderDelivery() {
-    if (!(this.address._id || this.address)){
+    if (!(this.address._id || (this.address && (typeof this.address != 'object')))){
       this.showError("поля з зірочкою обов'язкові");
       return
     }

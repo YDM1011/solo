@@ -23,7 +23,7 @@
       <td class="center"><input type="checkbox" [ngModel]="est.isOnline" (change)="updateOnline(est)"></td>
       <td class="center"><input type="checkbox" [ngModel]="est.isCart" (change)="updateCart(est)"></td>
       <td class="center"><button class="btn btn-primary" (click)="estId = est._id">+</button></td>
-      <td class="center">
+      <td class="center flex-wrap">
         <span class="label label-success" *ngFor="let us of est.permisions">
           {{us.firstName}} &nbsp; {{us.lastName}}
         </span>
