@@ -323,11 +323,13 @@ export class BasketComponent implements OnInit, OnChanges {
         return;
       }
     }
-    if (!this.dataSelected() || !this.estAddress || !this.estAddress._id) {
+    console.log(this.dataSelected());
+    if (!this.estAddress || !this.estAddress._id) {
       this.showError("Поля з зірочкою обов'язкові!");
       return;
     }
-    this.activeBaskets.deliveryTime =  this.dataSelected()
+    if (!this.dataSelected()) return;
+    this.activeBaskets.deliveryTime =  this.dataSelected() || '';
     if (!this.activeBaskets.deliveryTime) {
       this.showError("Оберіть дату!");
       return;
@@ -358,8 +360,19 @@ export class BasketComponent implements OnInit, OnChanges {
   }
   dataSelected(e = null) {
     console.log("dataEvent", e);
-    if (!this.timeStart) return false;
-    if (!this.timeStart.hour || !this.timeStart.minute) return false;
+    if (!this.timeStart){
+      this.showError("Поля з зірочкою обов'язкові!");
+      return false;
+    }
+    if (this.timeStart.hour == null || this.timeStart.minute == null){
+      this.showError("Поля з зірочкою обов'язкові!");
+      return false;
+    }
+    if (this.timeStart.hour < new Date().getHours() &&
+      ( new Date(this.dataStart+1).getDate() ==  new Date().getDate())){
+      this.showError("Оберіть дату в календарі!");
+      return false;
+    }
     // if (!e) {
     //   e = {};
     //   e['year'] = new Date(this.activeBaskets.deliveryTime).getFullYear();

@@ -56,7 +56,7 @@
 
                   <form class="ord_form" *ngIf="basket.products.length>0">
                     <ng-container *ngFor="let product of basket.products; let index = index">
-                      <ng-container *ngIf="product.dishData">
+                      <ng-container *ngIf="product.dishData && product.status">
                         <section class="ord_pr">
 
                           <div class="ord_pr_img pre-bg">

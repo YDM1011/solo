@@ -176,12 +176,13 @@ const preUpdate = (req,res,next)=>{
 const postUpdate = async (req,res,next)=>{
     const mail = require('../controlers/email');
     let bData = req.erm.result;
-    let reqCurent = await getUser({_id:bData.owneruser});
+    // let reqCurent = await getUser({_id:bData.owneruser});
 
     mongoose.model('basketsList')
         .findOne({_id:bData._id})
         .populate({path:'menuData'})
         .populate({path:'ownerest', select:'mailOfOrder publicKey privatKey subdomain'})
+        .populate({path:'owneruser', select:'email'})
         .exec((e,basketData)=>{
             if (e) return res.badRequest(e);
             if (!basketData) return res.notFound('');
@@ -198,7 +199,7 @@ const postUpdate = async (req,res,next)=>{
                 }
                 const data = require('../config/index');
                 let userMail = {
-                    mail:reqCurent.userMail,
+                    mail:basketData.owneruser.email,
                     orderId:bData.orderNumber,
                     data: {
                         y: new Date(bData.deliveryTime).getFullYear(),
