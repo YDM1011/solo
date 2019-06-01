@@ -39,6 +39,7 @@ export class FoodcoinComponent implements OnInit {
       .subscribe((baskets: any) => {
         if (baskets) {
           this.baskets = baskets;
+          this.parsePrice();
         }
         this.loaded = true;
       });
@@ -47,6 +48,13 @@ export class FoodcoinComponent implements OnInit {
         this.me = v;
       }
     });
+  }
+  parsePrice(){
+    this.baskets.map(basket=>{
+      basket.boxesPrice = basket['editByAdmin'] ? basket['editByAdmin']['boxesPrice'] || basket.boxesPrice : basket.boxesPrice || 0;
+      basket.totalPrice = basket['editByAdmin'] ? basket['editByAdmin']['totalPrice'] || basket.totalPrice : basket.totalPrice;
+      basket.deliveryPrice = basket['editByAdmin'] ? basket['editByAdmin']['deliveryPrice'] || basket.deliveryPrice : basket.deliveryPrice || 0;
+    })
   }
 
 }
