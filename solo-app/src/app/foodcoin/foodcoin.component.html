@@ -73,7 +73,6 @@
               <div class="collapsible-header c_c2_h" >
                 <div class="ord_ct_link">
                 <span class="ord_ct_img pre-bg">
-                  <!--<img class="img" src="{{domain}}/-px20-{{basket.ownerest.av.picMedia}}">-->
                   <app-picture [size]="20" [pic]="basket.ownerest.av" class="img"></app-picture>
                 </span>
                   <strong class="ord_ct_t">{{basket.ownerest.name}}</strong>
@@ -149,10 +148,10 @@
 
                       <ng-container *ngIf="basket.paymentType === 'coin'">
                         <ng-container *ngIf="basket.orderType === 'delivery'">
-                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0) + (basket.deliveryPrice || 0)) | formatNumber}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + basket.boxesPrice + basket.deliveryPrice) | formatNumber}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'bySelf'">
-                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0)) | formatNumber}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + basket.boxesPrice) | formatNumber}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'reserve'">
                           <span class="dt_t">{{(basket.totalPrice) | formatNumber}}</span>
@@ -160,10 +159,10 @@
                       </ng-container>
                       <ng-container *ngIf="basket.paymentType !== 'coin'">
                         <ng-container *ngIf="basket.orderType === 'delivery'">
-                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0) + (basket.deliveryPrice || 0)) | formatNumber}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice) + (basket.deliveryPrice)) | formatNumber}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'bySelf'">
-                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice || 0)) | formatNumber}}</span>
+                          <span class="dt_t">{{(basket.totalPrice + (basket.boxesPrice)) | formatNumber}}</span>
                         </ng-container>
                         <ng-container *ngIf="basket.orderType === 'reserve'">
                           <span class="dt_t">{{(basket.totalPrice) | formatNumber}}</span>

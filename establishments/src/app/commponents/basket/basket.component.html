@@ -56,7 +56,7 @@
 
                   <div class="ord_form" *ngIf="basket.products.length>0">
                     <ng-container *ngFor="let product of basket.products; let index = index">
-                      <ng-container *ngIf="product.dishData">
+                      <ng-container *ngIf="product.dishData && (product.status || basket.status == '0')">
                         <section class="ord_pr">
                           <label class="ord_pr_check" *ngIf="basket.isCanEdit">
                             <input type="checkbox" [(ngModel)]="product.status" name="{{product._id}}" (change)="statusUpdate(product,basket)">

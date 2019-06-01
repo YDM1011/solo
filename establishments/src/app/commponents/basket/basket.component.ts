@@ -288,9 +288,17 @@ export class BasketComponent implements OnInit, OnChanges {
     });
   }
   doOrderDelivery() {
-    if (!(this.address._id || (this.address && (typeof this.address != 'object')))){
-      this.showError("поля з зірочкою обов'язкові");
-      return
+    console.log(this.address);
+    if (this.address['isSaved']) {
+      if (!this.address._id){
+        this.showError("поля з зірочкою обов'язкові");
+        return
+      }
+    } else {
+      if (!this.address.address){
+        this.showError("поля з зірочкою обов'язкові");
+        return
+      }
     }
     this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
     this.activeBaskets.status = "1";
