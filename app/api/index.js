@@ -119,6 +119,7 @@ router.post('/api/permisionUser/:id', [orign, glob.isAdmin], permisionUser);
 router.get('/api/getAll', [orign], landing.getAll);
 router.get('/api/getVerify', [orign], landing.getVerify);
 router.get('/api/getVerifyAll', [orign], landing.getVerifyAll);
+router.get('/api/getBestVerify', [orign], landing.getBestVerify);
 
 //custom Tasks
 router.get('/api/addEstLikes1234', [orign, glob.getId], addEstLikes);
