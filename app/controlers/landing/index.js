@@ -26,6 +26,21 @@ module.exports.getVerify = (req, res, next) => {
             }
         })
 };
+
+module.exports.getBestVerify = (req, res, next) => {
+    Establishment.find({verify:true}).sort({thebestCount: -1}).limit(5)
+        .populate({path:'av'})
+        .exec((err,doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) {
+                return res.serverError('Somesing broken');
+            }
+            if (doc){
+                return res.status(200).json(doc);
+            }
+        })
+};
+
 module.exports.getVerifyAll = (req, res, next) => {
     Establishment.find({verify:true})
         .exec((err,doc)=>{
