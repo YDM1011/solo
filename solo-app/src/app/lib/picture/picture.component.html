@@ -62,10 +62,7 @@
 </ng-template>
 
 <ng-template #postImg>
-  <picture>
-    <source srcset="{{host}}/-px400-{{pic.picCrop}}" media="(max-width: 430px)">
-    <img class="img" srcset="{{host}}/-px768-{{pic.picCrop}}">
-  </picture>
+  <img class="img" srcset="{{host}}/-px768-{{pic.picCrop}} 768w, {{host}}/-px400-{{pic.picCrop}} 400w" src="{{host}}/-px768-{{pic.picCrop}}">  
 </ng-template>
 
 <ng-template #dishImg>
