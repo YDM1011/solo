@@ -152,26 +152,53 @@ httpGet('/api/getBestVerify')
     .then(
            
         response => {            
-            document.getElementById('p_1').innerHTML = response[0].about
-            document.getElementById('p_2').innerHTML = response[1].about
-            document.getElementById('p_3').innerHTML = response[2].about
-            document.getElementById('p_4').innerHTML = response[3].about
-            document.getElementById('p_5').innerHTML = response[4].about
+            document.getElementById('p_1').innerHTML = response[0].about ? response[0].about : ''
+            document.getElementById('p_2').innerHTML = response[1].about ? response[1].about : ''
+            document.getElementById('p_3').innerHTML = response[2].about ? response[2].about : ''
+            document.getElementById('p_4').innerHTML = response[3].about ? response[3].about : ''
+            document.getElementById('p_5').innerHTML = response[4].about ? response[4].about : ''
             document.getElementById('a_1').href = `https://${response[0].subdomain}.tasteol.com`
             document.getElementById('a_2').href = `https://${response[1].subdomain}.tasteol.com`
             document.getElementById('a_3').href = `https://${response[2].subdomain}.tasteol.com`
             document.getElementById('a_4').href = `https://${response[3].subdomain}.tasteol.com`
             document.getElementById('a_5').href = `https://${response[4].subdomain}.tasteol.com`
-            document.getElementById('av_1').src = response[0].av.fileName
-            document.getElementById('av_2').src = response[1].av.fileName
-            document.getElementById('av_3').src = response[2].av.fileName
-            document.getElementById('av_4').src = response[3].av.fileName
-            document.getElementById('av_5').src = response[4].av.fileName
-            document.getElementById('img_1').src = response[0].av.avatar
-            document.getElementById('img_2').src = response[1].av.avatar
-            document.getElementById('img_3').src = response[2].av.avatar
-            document.getElementById('img_4').src = response[3].av.avatar
-            document.getElementById('img_5').src = response[4].av.avatar
+            document.getElementById('av_1').setAttribute("src", (response[0].av ? response[0].av.picCrop : ''));
+            document.getElementById('av_2').setAttribute("src", (response[1].av ? response[1].av.picCrop : ''));
+            document.getElementById('av_3').setAttribute("src", (response[2].av ? response[2].av.picCrop : ''));
+            document.getElementById('av_4').setAttribute("src", (response[3].av ? response[3].av.picCrop : ''));
+            document.getElementById('av_5').setAttribute("src", (response[4].av ? response[4].av.picCrop : ''));
+
+            document.getElementById('av_1').setAttribute("alt", response[0].name);
+            document.getElementById('av_2').setAttribute("alt", response[1].name);
+            document.getElementById('av_3').setAttribute("alt", response[2].name);
+            document.getElementById('av_4').setAttribute("alt", response[3].name);
+            document.getElementById('av_5').setAttribute("alt", response[4].name);
+
+            document.getElementById('av_1').srcset = `/-px20-${response[0].av ? response[0].av.picMedia : ''} 20w, /-px60-${response[0].av ? response[0].av.picMedia : ''} 60w, /-px100-${response[0].av ? response[0].av.picMedia : ''} 100w, /-px150-${response[0].av ? response[0].av.picMedia : ''} 150w`
+
+            document.getElementById('av_2').srcset = `/-px20-${response[1].av ? response[1].av.picMedia : ''} 20w, /-px60-${response[1].av ? response[1].av.picMedia : ''} 60w, /-px100-${response[1].av ? response[1].av.picMedia : ''} 100w, /-px150-${response[1].av ? response[1].av.picMedia : ''} 150w`
+            document.getElementById('av_3').srcset = `/-px20-${response[2].av ? response[2].av.picMedia : ''} 20w, /-px60-${response[2].av ? response[2].av.picMedia : ''} 60w, /-px100-${response[2].av ? response[2].av.picMedia : ''} 100w, /-px150-${response[2].av ? response[2].av.picMedia : ''} 150w`
+            document.getElementById('av_4').srcset = `/-px20-${response[3].av ? response[3].av.picMedia : ''} 20w, /-px60-${response[3].av ? response[3].av.picMedia : ''} 60w, /-px100-${response[3].av ? response[3].av.picMedia : ''} 100w, /-px150-${response[3].av ? response[3].av.picMedia : ''} 150w`
+            document.getElementById('av_5').srcset = `/-px20-${response[4].av ? response[4].av.picMedia : ''} 20w, /-px60-${response[4].av ? response[4].av.picMedia : ''} 60w, /-px100-${response[4].av ? response[4].av.picMedia : ''} 100w, /-px150-${response[4].av ? response[4].av.picMedia : ''} 150w`
+            
+            document.getElementById('img_1').src = response[0].bg ? response[0].bg.picCrop : '';
+            document.getElementById('img_2').src = response[1].bg ? response[1].bg.picCrop : '';
+            document.getElementById('img_3').src = response[2].bg ? response[2].bg.picCrop : '';
+            document.getElementById('img_4').src = response[3].bg ? response[3].bg.picCrop : '';
+            document.getElementById('img_5').src = response[4].bg ? response[4].bg.picCrop : '';
+
+            document.getElementById('img_1').srcset = `/-px150-${response[0].bg ? response[0].bg.picCrop : ''} 150w, /-px400-${response[0].bg ? response[0].bg.picCrop : ''} 400w, /-px768-${response[0].bg ? response[0].bg.picCrop : ''} 768w`
+            document.getElementById('img_2').srcset = `/-px150-${response[1].bg ? response[1].bg.picCrop : ''} 150w, /-px400-${response[1].bg ? response[1].bg.picCrop : ''} 400w, /-px768-${response[1].bg ? response[1].bg.picCrop : ''} 768w`
+            document.getElementById('img_3').srcset = `/-px150-${response[2].bg ? response[2].bg.picCrop : ''} 150w, /-px400-${response[2].bg ? response[2].bg.picCrop : ''} 400w, /-px768-${response[2].bg ? response[2].bg.picCrop : ''} 768w`
+            document.getElementById('img_4').srcset = `/-px150-${response[3].bg ? response[3].bg.picCrop : ''} 150w, /-px400-${response[3].bg ? response[3].bg.picCrop : ''} 400w, /-px768-${response[3].bg ? response[3].bg.picCrop : ''} 768w`
+            document.getElementById('img_5').srcset = `/-px150-${response[4].bg ? response[4].bg.picCrop : ''} 150w, /-px400-${response[4].bg ? response[4].bg.picCrop : ''} 400w, /-px768-${response[4].bg ? response[4].bg.picCrop : ''} 768w`
+
+            document.getElementById('img_1').setAttribute("alt", response[0].name);
+            document.getElementById('img_2').setAttribute("alt", response[1].name);
+            document.getElementById('img_3').setAttribute("alt", response[2].name);
+            document.getElementById('img_4').setAttribute("alt", response[3].name);
+            document.getElementById('img_5').setAttribute("alt", response[4].name);
+
             $('.owl-carousel').owlCarousel({
                 loop:true,
                 margin:0,

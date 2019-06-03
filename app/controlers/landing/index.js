@@ -30,6 +30,7 @@ module.exports.getVerify = (req, res, next) => {
 module.exports.getBestVerify = (req, res, next) => {
     Establishment.find({verify:true}).sort({thebestCount: -1}).limit(5)
         .populate({path:'av'})
+        .populate({path:'bg'})
         .exec((err,doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) {
