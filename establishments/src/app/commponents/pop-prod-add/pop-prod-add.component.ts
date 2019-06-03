@@ -220,15 +220,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       s.preToBasket();
       s.hidden();
       return
-    }
-    if (s.complement.length == 0) {
-      Swal.fire({
-        position: 'center',
-        title: '...',
-        showConfirmButton: false,
-        timer: 500
-      });
-    }  
+    }    
     s.product.dishData = s.dishData._id;
     s.product.portItemData = s.dishData.prt._id;
     s.product.menuData = s.menuId;

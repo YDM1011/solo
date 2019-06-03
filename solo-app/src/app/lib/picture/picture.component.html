@@ -30,35 +30,23 @@
 
 
 <ng-template #establishmentAv>
-  <picture>
-    <source srcset="{{host}}/-px100-{{pic.picCrop}}" media="(max-width: 400px)">
-    <source srcset="{{host}}/-px150-{{pic.picCrop}}" media="(max-width: 680px)">
-    <img class="img" srcset="{{host}}/{{pic.picCrop}}">
-  </picture>
+  <img class="img" srcset="{{host}}/-px200-{{pic.picCrop}} 200w, {{host}}/-px150-{{pic.picCrop}} 150w, {{host}}/-px100-{{pic.picCrop}} 100w, {{host}}/-px60-{{pic.picCrop}} 60w, {{host}}/-px20-{{pic.picCrop}} 20w" src="{{host}}/{{pic.picCrop}}">
+  
 </ng-template>
 
 <ng-template #establishmentBg>
-  <picture>
-    <source srcset="{{host}}/-px400-{{pic.picCrop}}" media="(max-width: 400px)">
-    <source srcset="{{host}}/-px768-{{pic.picCrop}}" media="(max-width: 768px)">
-    <img class="img" srcset="{{host}}/{{pic.picCrop}}">
-  </picture>
+  <img class="img" srcset="{{host}}/-px768-{{pic.picCrop}} 768w, {{host}}/-px400-{{pic.picCrop}} 400w, {{host}}/-px150-{{pic.picCrop}} 150w" src="{{host}}/{{pic.picCrop}}">
+  
 </ng-template>
 
 <ng-template #userBg>
-  <picture>
-    <source srcset="{{host}}/-px400-{{pic.picCrop}}" media="(max-width: 400px)">
-    <source srcset="{{host}}/-px768-{{pic.picCrop}}" media="(max-width: 768px)">
-    <img srcset="{{host}}/{{pic.picCrop}}">
-  </picture>
+  <img class="img" srcset="{{host}}/-px768-{{pic.picCrop}} 768w, {{host}}/-px400-{{pic.picCrop}} 400w, {{host}}/-px150-{{pic.picCrop}} 150w" src="{{host}}/{{pic.picCrop}}">
+  
 </ng-template>
 
 <ng-template #userPhoto>
-  <picture>
-    <source srcset="{{host}}/-px100-{{pic.picCrop}}" media="(max-width: 400px)">
-    <source srcset="{{host}}/-px150-{{pic.picCrop}}" media="(max-width: 680px)">
-    <img srcset="{{host}}/{{pic.picCrop}}">
-  </picture>
+  <img class="img" srcset="{{host}}/-px200-{{pic.picCrop}} 200w, {{host}}/-px150-{{pic.picCrop}} 150w, {{host}}/-px100-{{pic.picCrop}} 100w, {{host}}/-px60-{{pic.picCrop}} 60w, {{host}}/-px20-{{pic.picCrop}} 20w" src="{{host}}/{{pic.picCrop}}">
+  
 </ng-template>
 
 <ng-template #postImg>
@@ -66,10 +54,8 @@
 </ng-template>
 
 <ng-template #dishImg>
-  <picture>
-    <source srcset="{{host}}/-px230-{{pic.picCrop}}" media="(max-width: 550px)">
-    <img class="img" srcset="{{host}}/-px150-{{pic.picCrop}}">
-  </picture>
+  <img class="img" srcset="{{host}}/-px230-{{pic.picCrop}} 230w, {{host}}/-px150-{{pic.picCrop}} 150w" src="{{host}}/-px150-{{pic.picCrop}}">
+  
 </ng-template>
 
 <ng-template #picCrop>
@@ -81,28 +67,16 @@
 <ng-template #sizeTemp>
   <ng-container *ngIf="isString">
     <ng-container *ngIf="size == 'right-bar-g'">
-      <picture>
-        <source srcset="{{host}}/-px60-{{pic.picCrop}}" media="(min-width: 992px)">
-        <img class="img img-content " srcset="{{host}}/-px200-{{pic.picCrop}}">
-      </picture>
+      <img class="img img-content" srcset="{{host}}/-px200-{{pic.picCrop}} 200w, {{host}}/-px60-{{pic.picCrop}} 60w" src="{{host}}/-px200-{{pic.picCrop}}">
+      
     </ng-container>
     <ng-container *ngIf="size == 'right-bar-d'">
-      <picture>
-        <source media="(max-width: 767px)" srcset="{{host}}/-px150-{{pic.picCrop}}">
-        <source media="(max-width: 690px)" srcset="{{host}}/-px100-{{pic.picCrop}}">
-        <source media="(max-width: 420px)" srcset="{{host}}/-px60-{{pic.picCrop}}">
-        <img class="img" srcset="{{host}}/-px60-{{pic.picCrop}}">
-      </picture>
+      <img class="img" srcset="{{host}}/-px150-{{pic.picCrop}} 150w, {{host}}/-px100-{{pic.picCrop}} 100w, {{host}}/-px60-{{pic.picCrop}} 60w" src="{{host}}/-px60-{{pic.picCrop}}">
+      
     </ng-container>
     <ng-container *ngIf="size == 'right-bar-f'">
-      <picture>
-        <source media="(min-width: 992px)" srcset="{{host}}/-px60-{{pic.picCrop}}">
-        <source media="(min-width: 900px)" srcset="{{host}}/-px150-{{pic.picCrop}}">
-        <source media="(min-width: 768px)" srcset="{{host}}/-px100-{{pic.picCrop}}">
-        <source media="(min-width: 350px)" srcset="{{host}}/-px150-{{pic.picCrop}}">
-        <source media="(max-width: 349px)" srcset="{{host}}/-px100-{{pic.picCrop}}">
-        <img class="img" srcset="{{host}}/{{pic.picCrop}}">
-      </picture>
+      <img class="img" srcset="{{host}}/-px150-{{pic.picCrop}} 150w, {{host}}/-px100-{{pic.picCrop}} 100w, {{host}}/-px60-{{pic.picCrop}} 60w" src="{{host}}/{{pic.picCrop}}">
+      
     </ng-container>
   </ng-container>
   <ng-container *ngIf="!isString">
