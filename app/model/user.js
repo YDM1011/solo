@@ -74,7 +74,7 @@ const user = new Schema({
     token: String,
     hashLink: String,
     owner: String,
-    foodcoin: Number,
+    foodcoin: {type: Number, default: 0},
     data: {type: Date, default: new Date()}
 },{
     toJSON: {
