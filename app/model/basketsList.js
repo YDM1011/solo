@@ -430,12 +430,12 @@ const validateUserFoodcoin = (req,res,next)=>{
     let bId = (req.query.id || req.params.id);
     if (req.body.status === '7') return next();
     mongoose.model('basketsList')
-        .findOne({_id:bId})
+        .findOne({_id:bId})        
         .exec((e0,r0)=>{
             if (r0){
 
                 mongoose.model('user')
-                    .findOne({_id:req.userId})
+                    .findOne({_id:r0.owneruser})
                     .exec((e,r)=>{
                         let price = 0;
                         let boxP = r0['editByAdmin'] ? r0['editByAdmin']['boxesPrice'] || r0.boxesPrice : r0.boxesPrice;
@@ -462,7 +462,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                             if (r0.paymentType == 'coin') price = -price*0.95;
                                             price = parseInt(price);
                                             mongoose.model('user')
-                                                .findOneAndUpdate({_id:req.userId},
+                                                .findOneAndUpdate({_id:r0.owneruser},
                                                     {$inc:{foodcoin:price}})
                                                 .exec((e2,r2)=>{
                                                     console.log("ER2222",e2,r2);
@@ -480,7 +480,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                         if (e1 || !r1) return res.badRequest({mess:"Error"});
                                         price = parseInt(price*0.05);
                                         mongoose.model('user')
-                                            .findOneAndUpdate({_id:req.userId},
+                                            .findOneAndUpdate({_id:r0.owneruser},
                                                 {$inc:{foodcoin:price}})
                                             .exec((e2,r2)=>{
                                                 if(e2 || !r2) return res.badRequest({mess:"Error"});
