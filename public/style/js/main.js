@@ -174,12 +174,12 @@ httpGet('/api/getBestVerify')
             document.getElementById('av_4').setAttribute("alt", response[3].name);
             document.getElementById('av_5').setAttribute("alt", response[4].name);
 
-            document.getElementById('av_1').srcset = `/-px20-${response[0].av ? response[0].av.picMedia : ''} 20w, /-px60-${response[0].av ? response[0].av.picMedia : ''} 60w, /-px100-${response[0].av ? response[0].av.picMedia : ''} 100w, /-px150-${response[0].av ? response[0].av.picMedia : ''} 150w`
+            document.getElementById('av_1').srcset = `/-px20-${response[0].av ? response[0].av.picCrop.slice(1) : ''} 20w, /-px60-${response[0].av ? response[0].av.picCrop.slice(1) : ''} 60w, /-px100-${response[0].av ? response[0].av.picCrop.slice(1) : ''} 100w, /-px150-${response[0].av ? response[0].av.picCrop.slice(1) : ''} 150w`
 
-            document.getElementById('av_2').srcset = `/-px20-${response[1].av ? response[1].av.picMedia : ''} 20w, /-px60-${response[1].av ? response[1].av.picMedia : ''} 60w, /-px100-${response[1].av ? response[1].av.picMedia : ''} 100w, /-px150-${response[1].av ? response[1].av.picMedia : ''} 150w`
-            document.getElementById('av_3').srcset = `/-px20-${response[2].av ? response[2].av.picMedia : ''} 20w, /-px60-${response[2].av ? response[2].av.picMedia : ''} 60w, /-px100-${response[2].av ? response[2].av.picMedia : ''} 100w, /-px150-${response[2].av ? response[2].av.picMedia : ''} 150w`
-            document.getElementById('av_4').srcset = `/-px20-${response[3].av ? response[3].av.picMedia : ''} 20w, /-px60-${response[3].av ? response[3].av.picMedia : ''} 60w, /-px100-${response[3].av ? response[3].av.picMedia : ''} 100w, /-px150-${response[3].av ? response[3].av.picMedia : ''} 150w`
-            document.getElementById('av_5').srcset = `/-px20-${response[4].av ? response[4].av.picMedia : ''} 20w, /-px60-${response[4].av ? response[4].av.picMedia : ''} 60w, /-px100-${response[4].av ? response[4].av.picMedia : ''} 100w, /-px150-${response[4].av ? response[4].av.picMedia : ''} 150w`
+            document.getElementById('av_2').srcset = `/-px20-${response[1].av ? response[1].av.picCrop.slice(1) : ''} 20w, /-px60-${response[1].av ? response[1].av.picCrop.slice(1) : ''} 60w, /-px100-${response[1].av ? response[1].av.picCrop.slice(1) : ''} 100w, /-px150-${response[1].av ? response[1].av.picCrop.slice(1) : ''} 150w`
+            document.getElementById('av_3').srcset = `/-px20-${response[2].av ? response[2].av.picCrop.slice(1) : ''} 20w, /-px60-${response[2].av ? response[2].av.picCrop.slice(1) : ''} 60w, /-px100-${response[2].av ? response[2].av.picCrop.slice(1) : ''} 100w, /-px150-${response[2].av ? response[2].av.picCrop.slice(1) : ''} 150w`
+            document.getElementById('av_4').srcset = `/-px20-${response[3].av ? response[3].av.picCrop.slice(1) : ''} 20w, /-px60-${response[3].av ? response[3].av.picCrop.slice(1) : ''} 60w, /-px100-${response[3].av ? response[3].av.picCrop.slice(1) : ''} 100w, /-px150-${response[3].av ? response[3].av.picCrop.slice(1) : ''} 150w`
+            document.getElementById('av_5').srcset = `/-px20-${response[4].av ? response[4].av.picCrop.slice(1) : ''} 20w, /-px60-${response[4].av ? response[4].av.picCrop.slice(1) : ''} 60w, /-px100-${response[4].av ? response[4].av.picCrop.slice(1) : ''} 100w, /-px150-${response[4].av ? response[4].av.picCrop.slice(1) : ''} 150w`
             
             document.getElementById('img_1').src = response[0].bg ? response[0].bg.picCrop : '';
             document.getElementById('img_2').src = response[1].bg ? response[1].bg.picCrop : '';
@@ -187,11 +187,11 @@ httpGet('/api/getBestVerify')
             document.getElementById('img_4').src = response[3].bg ? response[3].bg.picCrop : '';
             document.getElementById('img_5').src = response[4].bg ? response[4].bg.picCrop : '';
 
-            document.getElementById('img_1').srcset = `/-px150-${response[0].bg ? response[0].bg.picCrop : ''} 150w, /-px400-${response[0].bg ? response[0].bg.picCrop : ''} 400w, /-px768-${response[0].bg ? response[0].bg.picCrop : ''} 768w`
-            document.getElementById('img_2').srcset = `/-px150-${response[1].bg ? response[1].bg.picCrop : ''} 150w, /-px400-${response[1].bg ? response[1].bg.picCrop : ''} 400w, /-px768-${response[1].bg ? response[1].bg.picCrop : ''} 768w`
-            document.getElementById('img_3').srcset = `/-px150-${response[2].bg ? response[2].bg.picCrop : ''} 150w, /-px400-${response[2].bg ? response[2].bg.picCrop : ''} 400w, /-px768-${response[2].bg ? response[2].bg.picCrop : ''} 768w`
-            document.getElementById('img_4').srcset = `/-px150-${response[3].bg ? response[3].bg.picCrop : ''} 150w, /-px400-${response[3].bg ? response[3].bg.picCrop : ''} 400w, /-px768-${response[3].bg ? response[3].bg.picCrop : ''} 768w`
-            document.getElementById('img_5').srcset = `/-px150-${response[4].bg ? response[4].bg.picCrop : ''} 150w, /-px400-${response[4].bg ? response[4].bg.picCrop : ''} 400w, /-px768-${response[4].bg ? response[4].bg.picCrop : ''} 768w`
+            document.getElementById('img_1').srcset = `/-px150-${response[0].bg ? response[0].bg.picCrop.slice(1) : ''} 150w, /-px400-${response[0].bg ? response[0].bg.picCrop.slice(1) : ''} 400w, /-px768-${response[0].bg ? response[0].bg.picCrop.slice(1) : ''} 768w`
+            document.getElementById('img_2').srcset = `/-px150-${response[1].bg ? response[1].bg.picCrop.slice(1) : ''} 150w, /-px400-${response[1].bg ? response[1].bg.picCrop.slice(1) : ''} 400w, /-px768-${response[1].bg ? response[1].bg.picCrop.slice(1) : ''} 768w`
+            document.getElementById('img_3').srcset = `/-px150-${response[2].bg ? response[2].bg.picCrop.slice(1) : ''} 150w, /-px400-${response[2].bg ? response[2].bg.picCrop.slice(1) : ''} 400w, /-px768-${response[2].bg ? response[2].bg.picCrop.slice(1) : ''} 768w`
+            document.getElementById('img_4').srcset = `/-px150-${response[3].bg ? response[3].bg.picCrop.slice(1) : ''} 150w, /-px400-${response[3].bg ? response[3].bg.picCrop.slice(1) : ''} 400w, /-px768-${response[3].bg ? response[3].bg.picCrop.slice(1) : ''} 768w`
+            document.getElementById('img_5').srcset = `/-px150-${response[4].bg ? response[4].bg.picCrop.slice(1) : ''} 150w, /-px400-${response[4].bg ? response[4].bg.picCrop.slice(1) : ''} 400w, /-px768-${response[4].bg ? response[4].bg.picCrop.slice(1) : ''} 768w`
 
             document.getElementById('img_1').setAttribute("alt", response[0].name);
             document.getElementById('img_2').setAttribute("alt", response[1].name);
