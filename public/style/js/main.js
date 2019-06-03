@@ -1,6 +1,7 @@
 
 document.getElementById('sidebar').addEventListener('click', clickMenu);
 document.getElementById('header').addEventListener('click', clickMenu);
+document.getElementById('but_pop').addEventListener('click', clickMenu);
 
 document.querySelectorAll('.closePop').forEach((close) => {
     close.addEventListener('click', closePop);
