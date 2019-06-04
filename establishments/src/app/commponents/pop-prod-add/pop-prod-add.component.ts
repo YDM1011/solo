@@ -113,7 +113,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       }
     })
   }
-  preToBasket(){
+  preToBasket(){    
     let s = this;
     s.dishData = Object.assign({}, s.dish);
     s.getComp(s.dishData);
@@ -206,7 +206,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
     });
   }
   async toBasket() {
-    const s = this;
+    const s = this;      
     let isDone = null;
     if (!s.complement) {
        isDone = await s.getComplements().catch(e => {
@@ -220,7 +220,7 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       s.preToBasket();
       s.hidden();
       return
-    }
+    }    
     s.product.dishData = s.dishData._id;
     s.product.portItemData = s.dishData.prt._id;
     s.product.menuData = s.menuId;
@@ -238,7 +238,16 @@ export class PopProdAddComponent implements OnInit,OnChanges,OnDestroy {
       s.hidden();
     }
     s.api.post('product', s.product).then((res: any) => {
-      s.api.checkBascketCount(true);
+      s.api.checkBascketCount(true);      
+      if (s.complement.length == 0) {
+        Swal.fire({
+          position: 'center',
+          type: 'success',
+          title: 'Додано до кошика',
+          showConfirmButton: false,
+          timer: 1000
+        }); 
+      }     
     }).catch(e => {console.log(e); });
 
   }
