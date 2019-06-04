@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const LiqPay = require('liqpay-sdk');
-const publikKey = 'i94942794371';
-const privateKey = 'q7b6Yc2wMz0nUVwK30NK1Iaqt9I3nQ23I7LLZPGO';
+//const publikKey = 'i94942794371';
+//const privateKey = 'q7b6Yc2wMz0nUVwK30NK1Iaqt9I3nQ23I7LLZPGO';
 
 const data = require('../config/index');
 const model = new Schema({
