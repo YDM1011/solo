@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('user');
 
 module.exports.getFoodcoin = (req, res, next) => {
-    User.find({foodcoin: 10})        
+    User.find({foodcoin: 100})        
         .exec((err,doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) {
@@ -15,7 +15,7 @@ module.exports.getFoodcoin = (req, res, next) => {
 };
 
 module.exports.getFoodcoin1 = (req, res, next) => {
-    User.update({}, {$set: {foodcoin: 10}}, { multi: true })        
+    User.update({foodcoin: 10}, {$set: {foodcoin: 10}}, { multi: true })        
         .exec((err,doc)=>{
             if (err) return res.badRequest(err);
             if (!doc) {
