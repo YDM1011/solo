@@ -26,6 +26,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
   public people:any = [];
   public sortV = false;
   public sortEV = false;
+  public load = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,7 +42,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
     const s = this;
     s.id = location.href.split("user/")[1].split("/")[0];
     s.obj = JSON.stringify({id: s.id});
-
+    this.load = false;
     s.route.params.subscribe((params: any) => {
       s.id = location.href.split("user/")[1].split("/")[0];
       s.obj = JSON.stringify({id: s.id});
@@ -58,6 +59,7 @@ export class FriendPageComponent implements OnInit, OnChanges {
         // this.friends.myFriends = s.sortArr(this.friends.myFriends);
         s.getMutualFriends(idc);
         s.isFriends = true;
+        this.load = true;
       });
     s.http.get(`${this.domain}/api/getMutualFriends/${idc}`, s.api.getHeaders())
       .subscribe((res: any) => {

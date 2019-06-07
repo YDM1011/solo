@@ -6,7 +6,15 @@ export interface OrderMin {
   dataUpdate: string,
   status: string,
   _id: string,
-  orderNumber: string
+  orderNumber: string,
+  time: any,
+  adress: any,
+  paymentType: string,
+  mobile: string,
+  box: number,
+  delivery: number,
+  productPrice: number,
+  orderType: string
 }
 
 export interface OrderBalans {
@@ -32,7 +40,15 @@ export class order implements OrderMin{
     public dataUpdate,
     public status,
     public _id,
-    public orderNumber
+    public orderNumber,
+    public time,
+    public adress,
+    public paymentType,
+    public mobile,
+    public box,
+    public delivery,
+    public productPrice,
+    public orderType
   ){
     let obj = {
       client: this.client,
@@ -42,7 +58,15 @@ export class order implements OrderMin{
       dataUpdate: this.dataUpdate,
       status: this.status,
       orderNumber: this.orderNumber,
-      _id: this._id
+      _id: this._id,
+      time: this.time,
+      adress: this.adress,
+      paymentType: this.paymentType,
+      mobile: this.mobile,
+      box: this.box,
+      delivery: this.delivery,
+      productPrice: this.productPrice,
+      orderType: this.orderType
     };
     return obj;
   }

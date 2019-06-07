@@ -20,6 +20,7 @@ export class LikeEstPageComponent implements OnInit {
   public ests:any = [];
   public id:any;
   public obj:any;
+  public load = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -35,11 +36,12 @@ export class LikeEstPageComponent implements OnInit {
     const s = this;
     s.id = location.href.split("user/")[1].split("/")[0];
     s.obj = JSON.stringify({id: s.id});
-
+    this.load = false;
     s.route.params.subscribe((params: any) => {
       s.id = location.href.split("user/")[1].split("/")[0];
       s.obj = JSON.stringify({id: s.id});
       s.apiInitial(s.id);
+      
     });
   }
 
@@ -53,6 +55,7 @@ export class LikeEstPageComponent implements OnInit {
             item[item._id] = s.checkIconActive(item.thebest);
           });
         }
+        this.load = true;
       });
   }
 
