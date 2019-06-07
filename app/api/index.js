@@ -28,6 +28,7 @@ const search = require('../controlers/search');
 const geo = require('../controlers/geo');
 const permisionUser = require('../controlers/permisionUser');
 const user = require('../controlers/user');
+const balans = require('../controlers/balans');
 
 const sms = require('../controlers/sms');
 
@@ -133,5 +134,9 @@ router.post('/api/userFoodcoin', [orign], user.getFoodcoin);
 router.post('/api/SMSSend', [orign, glob.getId], sms.send);
 router.post('/api/SMSSendCode', [orign, glob.getId], sms.sendCode);
 router.post('/api/SMSConfirmCode', [orign, glob.getId], sms.confirmCode);
+
+//balans API
+router.get('/api/balans/:id', [orign], balans.getBalansById);
+
 
 module.exports = router;

@@ -1,0 +1,84 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12"><h2>Баланс: {{foodCoin || 0}} foodCoin</h2><h3 *ngIf="foodCoin < 500" class="text-danger">(рекомендований баланс: 500 foodCoin)</h3> 
+      <ol class="breadcrumb">
+        <li><a [routerLink]="'/'">Home</a></li>
+        <li><a [routerLink]="'/balans/'+id">Баланс</a></li>
+      </ol>
+    </div>
+  </div>
+  
+  <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox">
+          <div class="ibox-content">
+            <!--<div class="wrap-tabs">
+              <div class="label-tab" *ngFor="let tab of [1,2,3,4,5,6,7]"
+                   (click)="getByStatus(tab)"
+                   [innerHTML]="tab | status | safeHTML">
+              </div>
+            </div>-->
+            <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+              <thead>
+              <tr>
+  
+                <th class="footable-visible footable-first-column text-center">№</th>
+                <th class="footable-visible text-center">Ім'я</th>
+                <th class="footable-visible text-center">Тип</th>
+                <th class="footable-visible text-center">Сума замовлення</th>
+                <th class="footable-visible text-center">Дата</th>
+                <th class="footable-visible text-center">Бонуси</th>
+                <th class="footable-visible text-center">Тип оплати</th>
+                <th class="text-right footable-visible footable-last-column">Статус</th>
+  
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let order of list">
+                <tr class="footable-even sible footable-first-column"
+                  
+                >
+                  <td class="footable-visible text-center">
+                    {{order.orderNumber}}
+                  </td>
+                  <td class="footable-visible text-center"><span class="footable-toggle"></span>
+                    {{order.client.firstName}} {{order.client.lastName}}
+                  </td>
+                  <td class="footable-visible text-center">                    
+                    <span> {{order.type}} </span>                    
+                  </td>
+                  <td class="footable-visible text-center">
+                    {{order.price}}
+                  </td>
+                  <td class="footable-visible text-center">
+                    Дата закриття: {{order.dataUpdate | date:'dd.MM.yy HH:mm'}}<br>
+                    Дата створення: {{order.dataCreate | date:'dd.MM.yy HH:mm'}}
+                    
+                  </td>
+                  <td class="footable-visible text-center"
+                  [ngClass]= "{
+                    'bg-primary': order.paymentType == 'coin',
+                    'bg-danger': order.paymentType !== 'coin'
+                  }"
+                  >
+                    {{order.paymentType == 'coin' ? '+' : '-'}} {{order.history ? order.history.coin : '-'}}
+                  </td>
+                  <td class="footable-visible text-center">                    
+                      <span> {{order.paymentType == 'fiat' ? 'готівка' : (order.paymentType == 'coin' ? 'foodCoin' : 'карта')}} </span>                    
+                    </td>
+                  <td class="text-right footable-visible" [innerHTML]="order.status | status | safeHTML">
+                  </td>                  
+                </tr>
+              </ng-container>
+              </tbody>
+              <tfoot>
+  
+              </tfoot>
+            </table>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

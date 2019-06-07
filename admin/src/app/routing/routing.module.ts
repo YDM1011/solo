@@ -31,6 +31,7 @@ import {MenuCreateComponent} from "../pages/menu-create/menu-create.component";
 import {MenuEditComponent} from "../pages/menu-edit/menu-edit.component";
 import {ActionComponent} from "../pages/action/action.component";
 import {HelpComponent} from "../pages/help/help.component";
+import {BalansComponent} from "../pages/balans/balans.component";
 import {OrderDetailComponent} from "../pages/order-detail/order-detail.component";
 import {OrderDetailEditComponent} from "../pages/order-detail-edit/order-detail-edit.component";
 const routes: Routes = [
@@ -74,7 +75,8 @@ const routes: Routes = [
       {path:'reservation/:id', component:OrderReservationComponent},
       {path:'setting', component:SettingComponent},
       {path:'action/:id', component:ActionComponent},
-      {path:'help', component:HelpComponent}
+      {path:'help', component:HelpComponent},      
+      {path:'balans/:id', component:BalansComponent}
     ]
   },
   { path: '**', component: NotFoundComponent }

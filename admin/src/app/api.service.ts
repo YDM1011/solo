@@ -62,6 +62,21 @@ export class ApiService {
     });
   }
 
+  justGetOrder(api, id= null, select= null, conc = '') {
+    const self = this;
+    const model = select ? '?select=' + select : '';
+    return new Promise((resolve, reject) => {
+      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model}${conc}`)
+        .subscribe(
+          (res: any) => {
+            self.global[api + (id || '') + (select || '')] = res;
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
+  }
+
   set(api, obj, id, select= null, any='') {
     const self = this;
     if (select) {
