@@ -49,6 +49,7 @@ export class LikeDishPageComponent implements OnInit {
   public obj:any;
   public fullPic: boolean;
   public photos:any = [];
+  public load = true;
 
   currentIndex = 0;
   speed = 5000;
@@ -79,7 +80,7 @@ export class LikeDishPageComponent implements OnInit {
     const s = this;
     s.id = location.href.split("user/")[1].split("/")[0];
     s.obj = JSON.stringify({id: s.id});
-
+    this.load = false;
     s.route.params.subscribe((params: any) => {
       s.id = location.href.split("user/")[1].split("/")[0];
       s.obj = JSON.stringify({id: s.id});
@@ -96,6 +97,7 @@ export class LikeDishPageComponent implements OnInit {
             item[item._id] = self.checkIconActive(item.dishlike);
           });
         }
+        this.load = true;
       });
   }
   show(i){

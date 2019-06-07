@@ -20,7 +20,7 @@
       <div class="row">
         <div class="col-lg-12">
           <dl class="row mb-0">
-            <div class="col-sm-4 text-sm-right"><dt>Кад замовлення:</dt></div>
+            <div class="col-sm-4 text-sm-right"><dt>Код замовлення:</dt></div>
             <div class="col-sm-8 text-sm-left">
               <dd class="mb-1" *ngIf="order; else preload">{{order.id}}</dd>
             </div>
@@ -45,7 +45,7 @@
                     <div>{{order.client.firstName}} {{order.client.lastName}}</div>
                     <div>{{order.mobile}}</div>
                     <div>{{order.client.data | date: "dd.MM.yyyy HH:mm"}}</div>
-                    <div>Всього замолень {{allInAny}} (у цьому закладі {{allInThis}})</div>
+                    <div>Всього замовлень: {{allInAny}} (у Вас: {{allInThis}})</div>
                   </div>
                 </a>
 
@@ -61,6 +61,14 @@
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Адреса:</dt> </div>
             <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.address}}</dd> </div>
+          </dl>
+          <dl class="row mb-0" *ngIf="order.orderType == 'delivery'">
+            <div class="col-sm-4 text-sm-right"><dt>Поверх:</dt> </div>
+            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.level ? order.level : ''}}</dd> </div>
+          </dl>
+          <dl class="row mb-0" *ngIf="order.orderType == 'delivery'">
+            <div class="col-sm-4 text-sm-right"><dt>Код в під'їзд:</dt> </div>
+            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.codeKey ? order.codeKey : ''}}</dd> </div>
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Дата і час:</dt> </div>
@@ -80,7 +88,7 @@
             </div>
           </dl>
           <ng-container *ngIf="order; else preload">
-            <dl class="row mb-0" *ngIf="order && (order.boxPrice !== false)">
+            <dl class="row mb-0" *ngIf="order && (order.boxPrice !== false) && (order.orderType == 'bySelf' || order.orderType == 'delivery')">
               <div class="col-sm-4 text-sm-right"><dt>Вартість упаковки:</dt> </div>
               <div class="col-sm-8 text-sm-left flex price">
                 <dd class="mb-1 " *ngIf="order; else preload">{{order.boxPrice || 0}} грн</dd>
@@ -89,7 +97,7 @@
                 </ng-container>
               </div>
             </dl>
-            <dl class="row mb-0" *ngIf="order && (order.deliveryPrice !== false)">
+            <dl class="row mb-0" *ngIf="order && (order.deliveryPrice !== false) && order.orderType == 'delivery'">
               <div class="col-sm-4 text-sm-right"><dt>Вартість доставки:</dt> </div>
               <div class="col-sm-8 text-sm-left flex price">
                 <dd class="mb-1 "  *ngIf="order; else preload">{{order.deliveryPrice || 0}} грн</dd>
@@ -107,13 +115,13 @@
             </div>
           </dl>
           <dl class="row mb-0">
-            <div class="col-sm-4 text-sm-right"><dt>Обов'язково зателефонувати?</dt> </div>
+            <div class="col-sm-4 text-sm-right"><dt>Обов'язково зателефонуйте?</dt> </div>
             <div class="col-sm-8 text-sm-left">
               <b class="mb-1" *ngIf="order; else preload">{{order.isCall}}</b>
             </div>
           </dl>
           <dl class="row mb-0">
-            <div class="col-sm-4 text-sm-right"><dt>Статуст:</dt> </div>
+            <div class="col-sm-4 text-sm-right"><dt>Статус:</dt> </div>
             <div class="col-sm-8 text-sm-left">
               <dd class="mb-1" *ngIf="order; else preload" [innerHTML]="order.status | status | safeHTML">
               </dd>
@@ -149,7 +157,7 @@
 
             <!--<th class="footable-visible footable-first-column">Статус</th>-->
             <th class="footable-visible">Страва</th>
-            <th class="footable-visible">Компоненти</th>
+            <th class="footable-visible">Додатки</th>
             <th class="footable-visible">Порція</th>
             <th class="footable-visible">Кількість</th>
             <th class="footable-visible">Ціна</th>

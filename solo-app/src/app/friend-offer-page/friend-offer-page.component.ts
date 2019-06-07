@@ -28,7 +28,9 @@ export class FriendOfferPageComponent implements OnInit {
   public people:any = [];
   public sortV;
   public sortEV;
-  public sortPV;
+  public sortPV;  
+  public load = true;
+
   constructor(
     private route: ActivatedRoute,
     private auth: AuthService,
@@ -42,6 +44,7 @@ export class FriendOfferPageComponent implements OnInit {
   ngOnInit() {
     const s = this;
     s.apiInitial();
+    this.load = false;
     s.route.params.subscribe((params: any) => {
       s.apiInitial();
     });
@@ -55,18 +58,21 @@ export class FriendOfferPageComponent implements OnInit {
           s.friends = friends.offer.reverse();
           s.meOffer = true;
         }
+        this.load = true;
       });
     this.http.get(this.domain + '/api/getFriendsInvite', s.api.getHeaders())
       .subscribe((friends: any) => {
         if(friends){
           s.invite = friends.invite.reverse();
         }
+        this.load = true;
       });
     this.http.get(this.domain + '/api/getPotentialFriend', s.api.getHeaders())
       .subscribe((friends: any) => {
         if(friends){
           s.people = friends.reverse();
         }
+        this.load = true;
       });
   }
 

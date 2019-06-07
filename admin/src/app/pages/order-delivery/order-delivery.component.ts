@@ -2,6 +2,7 @@ import {Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ApiService} from '../../api.service';
 import {order, OrderMin} from '../order/order-min';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-order-delivery',
@@ -11,6 +12,7 @@ import {order, OrderMin} from '../order/order-min';
 export class OrderDeliveryComponent implements OnInit, OnChanges {
 
   public orderType = 'delivery';
+  public apiDomain = environment.apiDomain;
   public id;
   public stActive;
   public list: OrderMin[] = [];
@@ -53,17 +55,27 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
             this.list = [];
             v.map(basket => {
               let client = basket.owneruser;
+              let adress = '';
+              if (basket.orderType == 'delivery') adress = basket.addressData
+              else adress = basket.estAddressData;
               let prods = basket.productData;
               let price = basket.totalPrice;
+              let productPrice = basket.totalPrice;
               let created = basket.data;
               let updated = basket.dataUpdate;
+              let time = basket.deliveryTime;
               let status = basket.status;
               let orderNumber = basket.orderNumber;
+              let paymentType = basket.paymentType;
+              let orderType = basket.orderType;
+              let mobile = basket.anyMobile;
+              let box = basket.boxesPrice;
+              let delivery = basket.deliveryPrice;
               let id = basket._id;
               if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
               if (basket.orderType == 'bySelf') price += basket.boxesPrice;
               this.list.push(
-                new order(client, prods, price, created, updated, status, id, orderNumber)
+                new order(client, prods, price, created, updated, status, id, orderNumber, time, adress, paymentType, mobile, box, delivery, productPrice, orderType)
               );
             });
           }
@@ -78,17 +90,25 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
         if (v) {
           v.map(basket => {
             let client = basket.owneruser;
+            let adress = basket.addressData;
             let prods = basket.productData;
             let price = basket.totalPrice;
+            let productPrice = basket.totalPrice;
             let created = basket.data;
             let updated = basket.dataUpdate;
+            let time = basket.deliveryTime;
             let status = basket.status;
             let orderNumber = basket.orderNumber;
+            let paymentType = basket.paymentType;
+            let orderType = basket.orderType;
+            let mobile = basket.anyMobile;
+            let box = basket.boxesPrice;
+            let delivery = basket.deliveryPrice;
             let id = basket._id;
             if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
             if (basket.orderType == 'bySelf') price += basket.boxesPrice;
             this.list.push(
-              new order(client, prods, price, created, updated, status, id, orderNumber)
+              new order(client, prods, price, created, updated, status, id, orderNumber, time, adress, paymentType, mobile, box, delivery, productPrice, orderType)
             );
           });
         }

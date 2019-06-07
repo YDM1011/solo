@@ -28,6 +28,8 @@ export class Top100PageComponent implements OnInit {
   public sf=1;
   public sb=1;
   public sp=1;
+  
+  public load = true;
 
   private query = '&query='+JSON.stringify({
     verify:true
@@ -44,6 +46,7 @@ export class Top100PageComponent implements OnInit {
   ngOnChanges() {}
   ngOnInit() {
     const s = this;
+    this.load = false;
     s.apiInitial();
   }
 
@@ -68,6 +71,7 @@ export class Top100PageComponent implements OnInit {
             item[item._id+'thebest'] = s.checkIconActive(item.thebest);
           });
         }
+        
       });
   }
   sortTheBest(){
@@ -87,6 +91,7 @@ export class Top100PageComponent implements OnInit {
             item[item._id+'thebest'] = s.checkIconActive(item.thebest);
           });
         }
+        this.load = true;
       });
   }
   sortPost(){

@@ -40,6 +40,7 @@ import { PaymentPipe } from './order-detail/payment.pipe';
 import { StatusPipe } from './order/status.pipe';
 import {SafeHTMLPipe} from "../safe-html.pipe";
 import { OrderPipe } from './order-detail/order.pipe';
+import { BalansComponent } from './balans/balans.component';
 
 @NgModule({
   imports: [
@@ -87,6 +88,7 @@ import { OrderPipe } from './order-detail/order.pipe';
     PaymentPipe,
     StatusPipe,
     OrderPipe,
+    BalansComponent,
   ],
   providers: [
     ApiService,

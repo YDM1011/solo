@@ -2,6 +2,7 @@
   <div class="gl_h">
     <span class="gl_ct">Мої фото</span>
   </div>
+  <ng-container *ngIf="load; else preload">
   <div class="gl_c prev" *ngIf="photos.length == 0">
     <p class="c_t16">Ви ще не завантажували фото</p>
   </div>
@@ -17,6 +18,7 @@
 
   </div>
   </ng-container>
+</ng-container>
 </div>
 
 <ng-container *ngIf="fullPic">
@@ -55,3 +57,22 @@
   </div>
 </ng-container>
 
+<ng-template #preload>
+  <div class="row">
+    <div class="col s12 center">
+      <div class="preloader-wrapper small active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

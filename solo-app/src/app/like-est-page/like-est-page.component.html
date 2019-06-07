@@ -5,11 +5,8 @@
     <div class="h-btn-cont">
       <div class="h_t-btn h_t btn-trans active" style="cursor: auto">Подобаються</div>
     </div>
-  </div>
-  <div class="l_c" *ngIf="ests.length == 0">
-    <p class="c_t16">Ви ще не вподобали ні один заклад</p>
-  </div>
-  <div class="l_c" *ngIf="ests.length > 0">
+  </div>  
+  <div class="l_c" *ngIf="load; else preload">    
     <a [href]="'//'+est.subdomain+'.'+host" class="l_i" *ngFor="let est of ests; let i = index">
       <div class="l_i_h">
         <h1 class="l_i_h-t c_t14">{{est.name}}</h1>
@@ -47,4 +44,24 @@
 
 <ng-template #preBg>
   <img class="img" src="../../assets/img/background_restourant.jpg" alt="">
+</ng-template>
+
+<ng-template #preload>
+  <div class="row">
+    <div class="col s12 center">
+      <div class="preloader-wrapper small active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </ng-template>

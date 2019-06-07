@@ -703,7 +703,6 @@ textarea.form-control{
   z-index: 1;
   width: 100%;
   left: 0;
-  background: #fff;
   top: 0;
   padding: 15px;
   margin: 0;
@@ -713,17 +712,7 @@ textarea.form-control{
   min-width: 90px;
 }
 @media (min-width:768px) {
-  .cansel-popup-btn{
-    width: 80%;
-    left: 50%;
-    transform: translate(-50%, -100%);
-    top: 10%;
-    opacity: 1;
-    -webkit-animation-name: opacity1; /* Safari 4.0 - 8.0 */
-    -webkit-animation-duration: 1s; /* Safari 4.0 - 8.0 */
-    animation-name: opacity1;
-    animation-duration: 1s;
-  }
+  
   .cansel-popup-btnalert{
     width: inherit;
     left: 50%;

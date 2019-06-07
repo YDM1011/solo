@@ -39,6 +39,7 @@ export class OrderDetailComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.api.justGet(`basketsList/${this.estId}?_id=${this.id}`).then(obj => {
       this.order = new FullOrder(obj);
+      console.log(this.order);
       this.isCanEdit = this.order.status === '1';
       this.api.justGet(`basketsList/count?query={"owneruser":"${this.order.client._id}","ownerest":"${this.estId}","status":"6"}`)
         .then((v: any) => {
@@ -48,6 +49,7 @@ export class OrderDetailComponent implements OnInit {
         this.allInAny = v.count;
       });
     });
+    
 
   }
 
@@ -86,7 +88,7 @@ export class OrderDetailComponent implements OnInit {
     });
   }
   changeOrder() {
-    console.log(this.order);
+    //console.log(this.order);
     let comment = this.comment ? {entity: 'admin', text: this.comment} : null;
     let obj = {
       status: '5'
@@ -98,7 +100,7 @@ export class OrderDetailComponent implements OnInit {
     if (this.totalPrice) obj['totalPrice'] = this.totalPrice || this.order.productPrice;
     if (this.boxesPrice) obj['boxesPrice'] = this.boxesPrice || this.order.boxPrice;
     if (this.deliveryPrice) obj['deliveryPrice'] = this.deliveryPrice || this.order.deliveryPrice;
-    console.log(obj);
+    //console.log(obj);
 
     this.api.set('basketsList', obj, this.estId, '', '?id=' + this.order.id).then(v => {
       if (v) {

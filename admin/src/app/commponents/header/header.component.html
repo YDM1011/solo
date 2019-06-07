@@ -64,7 +64,11 @@
             </ul>
           </li>
           <li [class.active]="help.isActive" appAutoClose>
-            <a routerLinkActive #help="routerLinkActive" [routerLink]="'/help'"> Допомога </a></li>
+            <a routerLinkActive #help="routerLinkActive" [routerLink]="'/help'"> Допомога </a>
+          </li>
+          <li [class.active]="balans.isActive" appAutoClose>
+              <a routerLinkActive #balans="routerLinkActive" [routerLink]="'/balans/'+est._id"> Баланс </a>
+            </li>
         </ul>
       </li>
     </ul>

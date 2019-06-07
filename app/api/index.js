@@ -27,6 +27,8 @@ const landing = require('../controlers/landing');
 const search = require('../controlers/search');
 const geo = require('../controlers/geo');
 const permisionUser = require('../controlers/permisionUser');
+const user = require('../controlers/user');
+const balans = require('../controlers/balans');
 
 const sms = require('../controlers/sms');
 
@@ -126,10 +128,15 @@ router.get('/api/addEstLikes1234', [orign, glob.getId], addEstLikes);
 router.get('/api/addCatToOneest1234', [orign, glob.getId], addCatToOneest);
 router.get('/api/pushPull', [orign, glob.getId], addCatToOneest.pushPull);
 router.get('/api/addUserData1234/:data', [orign, glob.getId], addUserData);
+router.post('/api/userFoodcoin', [orign], user.getFoodcoin);
 
 //service API
 router.post('/api/SMSSend', [orign, glob.getId], sms.send);
 router.post('/api/SMSSendCode', [orign, glob.getId], sms.sendCode);
 router.post('/api/SMSConfirmCode', [orign, glob.getId], sms.confirmCode);
+
+//balans API
+router.get('/api/balans/:id', [orign], balans.getBalansById);
+
 
 module.exports = router;
