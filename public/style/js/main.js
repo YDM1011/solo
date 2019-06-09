@@ -165,7 +165,7 @@ if (user)
             response => {
                 document.getElementById('a_not_my_av').style.display = "none";
                 document.getElementById('a_my_av').style.display = "inline-block";                
-                document.getElementById('my_av').src = "/-px20-"+(response.photo ? response.photo.picCrop.slice(1) : '');
+                document.getElementById('my_av').src = "/-px60-"+(response.photo ? response.photo.picCrop.slice(1) : '');
                 document.getElementById('a_my_av').setAttribute('dataHref',"https://tasteol.com/user/"+response._id);
                 document.getElementById('my_name').innerHTML = response.firstName;
             },
