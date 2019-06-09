@@ -1,4 +1,4 @@
-
+document.getElementById('a_my_av').addEventListener('click', clickHref);
 document.getElementById('sidebar').addEventListener('click', clickMenu);
 document.getElementById('header').addEventListener('click', clickMenu);
 document.getElementById('but_pop').addEventListener('click', clickMenu);
@@ -78,6 +78,10 @@ function closePop(ev) {
     })
 }
 
+function clickHref() {
+    window.location.href = document.getElementById('a_my_av').getAttribute('dataHref');
+}
+
 function clickMenu(ev) {
     ev.preventDefault();
 
@@ -143,9 +147,46 @@ httpGet('/api/getVerifyAll')
         error => console.log(error)
     );
 
-httpGet('/api/user/count')
+function get_cookie ( cookie_name )
+    {
+      var results = document.cookie.match ( '(^|;) ?' + cookie_name + '=([^;]*)(;|$)' );
+     
+      if ( results )
+        return ( unescape ( results[2] ) );
+      else
+        return null;
+    }
+
+let user = get_cookie ( 'userid' );
+
+if (user) 
+    httpGet('/api/getMe/'+ user)
+        .then(            
+            response => {
+                document.getElementById('a_not_my_av').style.display = "none";
+                document.getElementById('a_my_av').style.display = "inline-block";                
+                document.getElementById('my_av').src = "/-px60-"+(response.photo ? response.photo.picCrop.slice(1) : '');
+                document.getElementById('a_my_av').setAttribute('dataHref',"https://tasteol.com/user/"+response._id);
+                document.getElementById('my_name').innerHTML = response.firstName;
+            },
+            error => console.log(error)
+        );
+
+
+//httpGet('/api/user/count')
+//    .then(
+//        response => document.getElementById('userCount').innerHTML = response.count,
+//        error => console.log(error)
+//    );
+
+httpGet('/api/getAllUser')
     .then(
-        response => document.getElementById('userCount').innerHTML = response.count,
+        response => {
+            if (response.count2 > 50)
+                document.getElementById('userCount').innerHTML = `${response.count}<span>(+${response.count2} за тиждень)</span>`;
+            else
+                document.getElementById('userCount').innerHTML = response.count
+        },
         error => console.log(error)
     );
 
