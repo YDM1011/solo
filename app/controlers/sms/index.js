@@ -18,27 +18,31 @@ const sendCode = async (req,res,next)=>{
     let code = getCode();
 
     let isMobile = await checkPhone(req).catch(e=>{return res.badRequest(e)});
-    if (!isMobile){
+    let isUnicue = await unicueMobile(req).catch(e=>{return res.badRequest(e)});
+    if (!isMobile && isUnicue){
         let isSave = await saveCode(req, code).catch(e=>{return res.badRequest(e)});
         if(isSave.codeSaved && isSave.mobile){
             smsSend(code,isSave.mobile);
             res.ok(isSave);
         } else {res.serverError()}
     }else{
-        res.badRequest("Мобільний телефон вже підключено!")
+        if (isMobile) return res.badRequest("Мобільний телефон вже підключено!");
+        if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
     }
 
 };
 
 const confirmCode = async (req,res,next)=>{
     let isMobile = await checkPhone(req).catch(e=>{return res.badRequest(e)});
+    let isUnicue = await unicueMobile(req).catch(e=>{return res.badRequest(e)});
     let isCode = verifyMobileCode(req);
     console.log(isMobile,isCode);
-    if (!isMobile && isCode){
+    if (!isMobile && isCode && isUnicue){
         await saveMobile(req).catch(e=>{return res.badRequest(e)});
         return res.ok({isSaved:true})
     }else{
         if (isMobile) return res.badRequest("Мобільний телефон вже підключено!");
+        if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
         if (!isCode) return res.badRequest("Код не вірний!");
     }
 };
@@ -104,12 +108,16 @@ const saveMobile = (req, code)=>{
                 let data = modData.newData;
                 let coinData = Object.assign({},modData.newData) ;
                 if (r){
-                    if (r.isActive){
+                    if (r.isActive || (r.isActive === null || r.isActive === undefined)){
                         // data['foodcoin'] = parseInt(r ? r.foodcoin || 0:0);
                         if(r.foodcoin){
                             data['$inc'] = {foodcoin:r.foodcoin};
-                        }else { data['$inc'] = {foodcoin:0} }
-                        console.log("coinData", coinData)
+                        } else {
+                            data['$inc'] = {foodcoin:0}
+                        }
+
+                        console.log("coinData", coinData);
+
                         mongoose.model('foodCoin')
                             .findOneAndUpdate(coinData, {isActive:false})
                             .exec((e0,r0)=>{
@@ -117,10 +125,11 @@ const saveMobile = (req, code)=>{
                             })
                     }
                 }
-
+                console.log("Data: ",data);
                 mongoose.model(modData.name)
                     .findOneAndUpdate(modData.query,data)
                     .exec((e,r)=>{
+                        console.log("Data2: ",data);
                         if(e) return rj(e);
                         if(!r) return rj("Not found");
                         if(r) {
@@ -172,7 +181,19 @@ const checkPhone = req =>{
             })
     })
 };
+const unicueMobile = req =>{
+    let modData = getModel(req);
+    return new Promise((rs,rj)=>{
+        mongoose.model('user')
+            .findOne({_id: req.userId, mobile: modData.newData.mobile})
+            .exec((e,r)=>{
+                if (e) return rj(e);
+                if (r) return rj('Мобільний вже використовується');
+                if (!r) return rs(true);
+            })
 
+    })
+}
 
 module.exports.send = send;
 module.exports.sendCode = sendCode;

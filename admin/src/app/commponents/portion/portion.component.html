@@ -11,44 +11,47 @@
         <button class="btn btn-cancel">Скасувати</button>
       </div>
     </div>
-    <div class="ibox">
-      <div class="port_i">
-        <h2 *ngIf="obj.name">Порція для {{obj.name}}</h2>
+    <div class="scroll-wrap">
+      <div class="ibox">
+        <div class="port_i">
+          <h2 *ngIf="obj.name">Порція для {{obj.name}}</h2>
+        </div>
+        <ng-container *ngFor="let prtn of portions">
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Вага</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="prtn.massa" name="massa" class="form-control">
+            </div>
+          </div>
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Назва</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="prtn.name" name="name" class="form-control">
+            </div>
+          </div>
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Опис</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="prtn.about" name="about" class="form-control">
+            </div>
+          </div>
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Ціна</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="prtn.price" name="price" class="form-control">
+            </div>
+          </div>
+          <div class="port_i">
+            <div class="col-xs-12">
+              <app-confirm-delete (onDelete)="delete(prtn)"></app-confirm-delete>
+              <button class="btn btn-primary btn-sm pull-right" (click)="resave(prtn)" style="margin-left: 15px">Зберегти</button>
+              <!--<button class="btn btn-danger btn-sm pull-right" (click)="delete(prtn)">Видалити</button>-->
+            </div>
+          </div>
+        </ng-container>
       </div>
-      <ng-container *ngFor="let prtn of portions">
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Вага</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="prtn.massa" name="massa" class="form-control">
-          </div>
-        </div>
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Назва</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="prtn.name" name="name" class="form-control">
-          </div>
-        </div>
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Опис</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="prtn.about" name="about" class="form-control">
-          </div>
-        </div>
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Ціна</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="prtn.price" name="price" class="form-control">
-          </div>
-        </div>
-        <div class="port_i">
-          <div class="col-xs-12">
-            <app-confirm-delete (onDelete)="delete(prtn)"></app-confirm-delete>
-            <button class="btn btn-primary btn-sm pull-right" (click)="resave(prtn)" style="margin-left: 15px">Зберегти</button>
-            <!--<button class="btn btn-danger btn-sm pull-right" (click)="delete(prtn)">Видалити</button>-->
-          </div>
-        </div>
-      </ng-container>
     </div>
+
   </div>
   <div appPopap (onClose)="isFormAdd=false" *ngIf="isFormAdd" class="wrapper wrapper-content animated fadeInUp">
     <div class="cansel-popup-btn">
@@ -56,41 +59,44 @@
         <button class="btn btn-cancel">Скасувати</button>
       </div>
     </div>
-    <div class="ibox">
-      <div class="port_i">
-        <h2 *ngIf="obj.name">Порція для {{obj.name}}</h2>
-      </div>
-      <div class="col-xs-12 port">
+    <div class="scroll-wrap">
+      <div class="ibox">
         <div class="port_i">
-          <label class="col-xs-2 control-label">Вага</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="portion['massa']" name="massa" class="form-control">
-          </div>
+          <h2 *ngIf="obj.name">Порція для {{obj.name}}</h2>
         </div>
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Назва</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="portion['name']" name="name" class="form-control">
+        <div class="col-xs-12 port">
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Вага</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="portion['massa']" name="massa" class="form-control">
+            </div>
           </div>
-        </div>
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Опис</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="portion['about']" name="about" class="form-control">
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Назва</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="portion['name']" name="name" class="form-control">
+            </div>
           </div>
-        </div>
-        <div class="port_i">
-          <label class="col-xs-2 control-label">Ціна</label>
-          <div class="col-xs-10">
-            <input type="text" [(ngModel)]="portion['price']" name="price" class="form-control">
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Опис</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="portion['about']" name="about" class="form-control">
+            </div>
           </div>
-        </div>
-        <div class="port_i">
-          <div class="col-xs-12">
-            <button class="btn btn-primary btn-sm pull-right ibox-tools" (click)="addPortion()">Додати</button>
+          <div class="port_i">
+            <label class="col-xs-2 control-label">Ціна</label>
+            <div class="col-xs-10">
+              <input type="text" [(ngModel)]="portion['price']" name="price" class="form-control">
+            </div>
+          </div>
+          <div class="port_i">
+            <div class="col-xs-12">
+              <button class="btn btn-primary btn-sm pull-right ibox-tools" (click)="addPortion()">Додати</button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </div>

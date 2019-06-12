@@ -7,112 +7,115 @@
       <button (click)="update(dish); goBack('')" class="btn btn-primary">Зберегти</button>
     </div>
   </div>
-  <div class="ibox">
-    <div class="ibox-title">
-      <h5>Редагувати страву</h5>
-    </div>
-    <div class="ibox-content">
-      <div class="form-horizontal">
-        <div class="row">
+  <div class="scroll-wrap">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Редагувати страву</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="form-horizontal">
+          <div class="row">
 
-          <div class="col-md-6">
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Назва</label>
-              <div class="col-sm-10">
-                <input type="text" [(ngModel)]="dish.name" name="name" class="form-control">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Назва</label>
+                <div class="col-sm-10">
+                  <input type="text" [(ngModel)]="dish.name" name="name" class="form-control">
+                </div>
               </div>
-            </div>
-            <div class="hr-line-dashed"></div>
+              <div class="hr-line-dashed"></div>
 
-            <div class="form-group">
-              <label class="col-sm-4 control-label">Категорія</label>
-              <div class="col-sm-8">
-                <app-select *ngIf="option.length>0"
-                            [option]="option"
-                            [defoult]="defdishcategory"
-                            (onCheck)="selected($event)"></app-select>
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Категорія</label>
+                <div class="col-sm-8">
+                  <app-select *ngIf="option.length>0"
+                              [option]="option"
+                              [defoult]="defdishcategory"
+                              (onCheck)="selected($event)"></app-select>
+                </div>
               </div>
-            </div>
-            <div class="hr-line-dashed"></div>
+              <div class="hr-line-dashed"></div>
 
-            <div class="form-group">
-              <label class="col-sm-2 control-label">Опис</label>
-              <div class="col-sm-10">
-                <textarea [(ngModel)]="dish.about" name="name" class="form-control"></textarea>
+              <div class="form-group">
+                <label class="col-sm-2 control-label">Опис</label>
+                <div class="col-sm-10">
+                  <textarea [(ngModel)]="dish.about" name="name" class="form-control"></textarea>
+                </div>
               </div>
-            </div>
-            <div class="hr-line-dashed"></div>
+              <div class="hr-line-dashed"></div>
 
-            <div class="form-group">
-              <label class="col-sm-6 control-label">Обов'язкові компоненти страви</label>
-              <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-sm-6 control-label">Обов'язкові компоненти страви</label>
+                <div class="col-sm-6">
               <span class="ctg label label-primary"
                     (click)="delingredient(i)"
                     *ngFor="let ing of complementsM; let i = index">{{ing}}</span>
-                <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
+                  <app-check-option [option]="complements" (onCheck)="checkCom($event)"></app-check-option>
+                </div>
               </div>
-            </div>
 
-            <div class="form-group">
-              <label class="col-sm-6 control-label">Не обов'язкові компоненти страви</label>
-              <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-sm-6 control-label">Не обов'язкові компоненти страви</label>
+                <div class="col-sm-6">
               <span class="ctg label label-primary"
                     (click)="delingredient2(i)"
                     *ngFor="let ing of complementsOptM; let i = index">{{ing}}</span>
-                <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-
-            <div class="form-group">
-              <label class="col-sm-4 control-label">Зображення страви</label>
-              <div class="col-sm-8">
-                <app-upload [model]="'dish'" [field]="'pic'"
-                            [id]="dish._id"
-                            (getImg)="getImg($event)"
-                            [btnName]="btnBG"></app-upload>
-              </div>
-              <div class="col-sm-4"></div>
-              <div class="col-sm-8">
-                <div class="img-prod">
-                  <ng-container *ngIf="dish.pic; else preDishPic">
-                    <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
-                      <img class="img" src="{{apiDomain}}/{{dish.pic.picCrop}}" alt="">
-                    </ng-container>
-                  </ng-container>
-                  <ng-template #preDishPic>
-                    <app-prev-dish class="inherit"></app-prev-dish>
-                  </ng-template>
+                  <app-check-option [option]="complementsOpt" (onCheck)="checkComOpt($event)"></app-check-option>
                 </div>
               </div>
             </div>
-            <div class="hr-line-dashed"></div>
 
-            <div class="form-group"><label class="col-sm-4 control-label">Статус<br/></label>
-              <div class="col-sm-8">
-                <div class="i-checks"><label> <input type="checkbox"
-                                                     [(ngModel)]="dish.isdelivery"> <i></i> Доставка </label></div>
-                <div class="i-checks"><label> <input type="checkbox"
-                                                     [(ngModel)]="dish.isnew"> <i></i> Новинка </label></div>
-                <div class="i-checks"><label> <input type="checkbox"
-                                                     [(ngModel)]="dish.ishit"> <i></i> Хіт </label></div>
-                <div class="i-checks"><label> <input type="checkbox"
-                                                     [(ngModel)]="dish.isActia"> <i></i> Активна </label></div>
+            <div class="col-md-6">
+
+              <div class="form-group">
+                <label class="col-sm-4 control-label">Зображення страви</label>
+                <div class="col-sm-8">
+                  <app-upload [model]="'dish'" [field]="'pic'"
+                              [id]="dish._id"
+                              (getImg)="getImg($event)"
+                              [btnName]="btnBG"></app-upload>
+                </div>
+                <div class="col-sm-4"></div>
+                <div class="col-sm-8">
+                  <div class="img-prod">
+                    <ng-container *ngIf="dish.pic; else preDishPic">
+                      <ng-container *ngIf="dish.pic.picCrop; else preDishPic">
+                        <img class="img" src="{{apiDomain}}/{{dish.pic.picCrop}}" alt="">
+                      </ng-container>
+                    </ng-container>
+                    <ng-template #preDishPic>
+                      <app-prev-dish class="inherit"></app-prev-dish>
+                    </ng-template>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="hr-line-dashed"></div>
-          </div>
+              <div class="hr-line-dashed"></div>
 
+              <div class="form-group"><label class="col-sm-4 control-label">Статус<br/></label>
+                <div class="col-sm-8">
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="dish.isdelivery"> <i></i> Доставка </label></div>
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="dish.isnew"> <i></i> Новинка </label></div>
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="dish.ishit"> <i></i> Хіт </label></div>
+                  <div class="i-checks"><label> <input type="checkbox"
+                                                       [(ngModel)]="dish.isActia"> <i></i> Активна </label></div>
+                </div>
+              </div>
+              <div class="hr-line-dashed"></div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="ibox-title">
+        <div></div>
+        <div class="ibox-tools">
+          <button class="btn btn-primary" (click)="update(dish); goBack('')">Зберегти</button>
         </div>
       </div>
     </div>
-    <div class="ibox-title">
-      <div></div>
-      <div class="ibox-tools">
-        <button class="btn btn-primary" (click)="update(dish); goBack('')">Зберегти</button>
-      </div>
-    </div>
   </div>
+
 </div>

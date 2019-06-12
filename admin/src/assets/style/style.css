@@ -8613,7 +8613,7 @@ nav .btn-primary{
   width: 100%;
   background: #fff;
   max-height: 80vh;
-  overflow: auto;
+  /*overflow: auto;*/
   padding: 20px;
   box-shadow: 1px 1px 20px 4px #0c1115
 }

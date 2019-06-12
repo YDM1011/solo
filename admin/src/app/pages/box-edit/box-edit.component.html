@@ -7,48 +7,51 @@
       <button (click)="update(box); goBack('')" class="btn btn-primary">Зберегти</button>
     </div>
   </div>
-  <div class="ibox">
-    <div class="ibox-title">
-      <h5>Редагувати упаковку "{{box.name}}"</h5>
-    </div>
-    <div class="ibox-content">
-      <div class="form-horizontal">
+  <div class="scroll-wrap">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Редагувати упаковку "{{box.name}}"</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="form-horizontal">
 
-        <div class="form-group">
-          <label class="col-sm-4 control-label">Назва</label>
-          <div class="col-sm-8">
-            <input type="text" [(ngModel)]="box.name"  name="name" class="form-control">
-          </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-
-        <div class="form-group">
-          <label class="col-sm-4 control-label">Ціна</label>
-          <div class="col-sm-8">
-            <input type="text" [(ngModel)]="box.price" name="globcategory" class="form-control">
-          </div>
-        </div>
-        <div class="hr-line-dashed"></div>
-
-        <ng-container>
           <div class="form-group">
-            <label class="col-sm-4 control-label">Категорія</label>
+            <label class="col-sm-4 control-label">Назва</label>
             <div class="col-sm-8">
-              <div class="category-for" *ngIf="box.maincategory.length>0">
-                <span *ngFor="let elem of box.maincategory; let i = index"
-                      class="ctg label label-primary"
-                      (click)="delingredient(i)">{{elem.label}}</span>
-              </div>
-              <app-select *ngIf="option.length>0"
-                          [option]="option"
-                          [defoult]="'Оберіть'"
-                          (onCheck)="selected($event)"></app-select>
+              <input type="text" [(ngModel)]="box.name"  name="name" class="form-control">
             </div>
           </div>
           <div class="hr-line-dashed"></div>
-        </ng-container>
 
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Ціна</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="box.price" name="globcategory" class="form-control">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+
+          <ng-container>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Категорія</label>
+              <div class="col-sm-8">
+                <div class="category-for" *ngIf="box.maincategory.length>0">
+                <span *ngFor="let elem of box.maincategory; let i = index"
+                      class="ctg label label-primary"
+                      (click)="delingredient(i)">{{elem.label}}</span>
+                </div>
+                <app-select *ngIf="option.length>0"
+                            [option]="option"
+                            [defoult]="'Оберіть'"
+                            (onCheck)="selected($event)"></app-select>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+          </ng-container>
+
+        </div>
       </div>
     </div>
   </div>
+
 </div>
