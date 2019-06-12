@@ -182,9 +182,9 @@ if (user)
 httpGet('/api/getAllUser')
     .then(
         response => {
-            if (response.count2 > 50)
-                document.getElementById('userCount').innerHTML = `${response.count}<span title="за останній тиждень">(+${response.count2})</span>`;
-            else
+            //if (response.count2 > 50)
+            //    document.getElementById('userCount').innerHTML = `${response.count}<span title="за останній тиждень">(+${response.count2})</span>`;
+            //else
                 document.getElementById('userCount').innerHTML = response.count
         },
         error => console.log(error)
