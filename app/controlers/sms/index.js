@@ -124,33 +124,39 @@ const saveMobile = (req, code)=>{
                             .findOneAndUpdate(coinData, {isActive:false})
                             .exec((e0,r0)=>{
                                 if (e0) return rj(e0);
-                                mongoose.model('user')
-                                    .findOneAndUpdate({_id: req.userId}, data)
-                                    .exec((e1,r1)=>{
-                                        delete glob[req.userId+'userMobile'];
-                                        if (e1) return rj(e1);
-                                        if (r1) return rj("Not found");
-                                        if (!r1) return rs(true);
-                                    })
+
+                                updateUserCoin(modData, data)
+                                    .then(reason => {rs(reason)})
+                                    .catch(e => {rj(e)})
                             })
+                    } else {
+                        updateUserCoin(modData, data)
+                            .then(reason => {rs(reason)})
+                            .catch(e => {rj(e)})
                     }
+                } else {
+                    updateUserCoin(modData, data)
+                        .then(reason => {rs(reason)})
+                        .catch(e => {rj(e)})
                 }
-                mongoose.model(modData.name)
-                    .findOneAndUpdate(modData.query,data)
-                    .exec((e,r)=>{
-                        console.log("Data2: ",data);
-                        if(e) return rj(e);
-                        if(!r) return rj("Not found");
-                        if(r) {
-                            return rs(e)
-                        }
-                    });
-
             });
-
-
     })
 };
+
+const updateUserCoin = (modData, data) => {
+    return new Promise((rs,rj)=>{
+        mongoose.model(modData.name)
+            .findOneAndUpdate(modData.query,data)
+            .exec((e,r)=>{
+                console.log("Data2: ",data);
+                if(e) return rj(e);
+                if(!r) return rj("Not found");
+                if(r) {
+                    return rs(true)
+                }
+            });
+    })
+}
 
 const getModel = req =>{
     if(req.body){
