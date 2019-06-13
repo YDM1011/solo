@@ -273,7 +273,6 @@ const postUpdate = async (req,res,next)=>{
                                 'description'    : 'Оплата замовлення №'+bData.orderNumber,
                                 'order_id'       : bData._id,
                                 'version'        : '3',
-                                'sandbox'        : '1',
                                 'server_url'     : data.auth.apiDomain+'api/liqpayCallback'
                             });
                             basketData['html'] = html;
