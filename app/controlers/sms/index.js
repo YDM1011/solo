@@ -23,11 +23,13 @@ const sendCode = async (req,res,next)=>{
         let isSave = await saveCode(req, code).catch(e=>{return res.badRequest(e)});
         if(isSave.codeSaved && isSave.mobile){
             smsSend(code,isSave.mobile);
-            res.ok(isSave);
-        } else {res.serverError()}
+            return res.ok(isSave);
+        } else {
+            return res.serverError()
+        }
     }else{
         if (isMobile) return res.badRequest("Мобільний телефон вже підключено!");
-        if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
+        // if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
     }
 
 };
@@ -42,7 +44,7 @@ const confirmCode = async (req,res,next)=>{
         return res.ok({isSaved:true})
     }else{
         if (isMobile) return res.badRequest("Мобільний телефон вже підключено!");
-        if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
+        // if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
         if (!isCode) return res.badRequest("Код не вірний!");
     }
 };
