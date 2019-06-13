@@ -185,7 +185,7 @@ const unicueMobile = req =>{
     let modData = getModel(req);
     return new Promise((rs,rj)=>{
         mongoose.model('user')
-            .findOne({_id: req.userId, mobile: modData.newData.mobile})
+            .findOne({mobile: modData.newData.mobile})
             .exec((e,r)=>{
                 if (e) return rj(e);
                 if (r) return rj('Мобільний вже використовується');
