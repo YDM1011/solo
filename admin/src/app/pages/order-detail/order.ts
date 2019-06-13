@@ -1,3 +1,4 @@
+import { injectElementRef } from "@angular/core/src/render3";
 
 export interface OrderMax {
   id: string,
@@ -53,9 +54,9 @@ export class FullOrder implements OrderMax{
       }
     });
     data.productData.map(item => {
-      // if (item.status) {
-        price += item.totalPrice;
-      // }
+       if (item.status) {
+        price += item.totalPrice*item.count;
+       }
     });
     if (data.status == '5' || data.status == '1' || data.status == '2'){
       this.productPrice = data.editByAdmin ? data.editByAdmin.totalPrice || price : price;

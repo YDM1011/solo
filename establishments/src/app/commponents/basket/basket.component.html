@@ -58,12 +58,14 @@
                     <ng-container *ngFor="let product of basket.products; let index = index">
                       <ng-container *ngIf="product.dishData && (product.status || basket.status == '0')">
                         <section class="ord_pr">
+                          
                           <label class="ord_pr_check" *ngIf="basket.isCanEdit">
                             <input type="checkbox" [(ngModel)]="product.status" name="{{product._id}}" (change)="statusUpdate(product,basket)">
                             <span></span>
                           </label>
 
                           <div class="ord_pr_img pre-bg">
+                            <h5 class="del_prod" *ngIf="!product.status">Видалено з замовлення</h5>
                             <div class="pr_ev">
                               <span class="pr_ev-s ev-s_new" *ngIf="product.dishData.isnew"></span>
                               <span class="pr_ev-s ev-s_xit" *ngIf="product.dishData.ishit"></span>
