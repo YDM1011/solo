@@ -123,11 +123,18 @@ const saveMobile = (req, code)=>{
                         mongoose.model('foodCoin')
                             .findOneAndUpdate(coinData, {isActive:false})
                             .exec((e0,r0)=>{
-                                console.log(e0,r0)
+                                if (e0) return rj(e0);
+                                mongoose.model('user')
+                                    .findOneAndUpdate({_id: req.userId}, data)
+                                    .exec((e1,r1)=>{
+                                        delete glob[req.userId+'userMobile'];
+                                        if (e1) return rj(e1);
+                                        if (r1) return rj("Not found");
+                                        if (!r1) return rs(true);
+                                    })
                             })
                     }
                 }
-                console.log("Data: ",data);
                 mongoose.model(modData.name)
                     .findOneAndUpdate(modData.query,data)
                     .exec((e,r)=>{
@@ -138,7 +145,7 @@ const saveMobile = (req, code)=>{
                             return rs(e)
                         }
                     });
-                delete glob[req.userId+'userMobile'];
+
             });
 
 
