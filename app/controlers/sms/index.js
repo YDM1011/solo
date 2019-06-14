@@ -40,8 +40,8 @@ const confirmCode = async (req,res,next)=>{
     let isCode = verifyMobileCode(req);
     console.log(isMobile,isCode);
     if (!isMobile && isCode && isUnicue){
-        await saveMobile(req).catch(e=>{return res.badRequest(e)});
-        return res.ok({isSaved:true})
+        let me = await saveMobile(req).catch(e=>{return res.badRequest(e)});
+        return res.ok(me)
     }else{
         if (isMobile) return res.badRequest("Мобільний телефон вже підключено!");
         // if (!isUnicue) return res.badRequest("Мобільний вже використовується!");
@@ -74,6 +74,7 @@ const saveCode = (req, code)=>{
 
         console.log(code);
         glob[req.userId+'codeConfirmMobile'] = code;
+        req.body.mobile = parseMobile(req.body.mobile);
         glob[req.userId+modData.name+'Mobile'] = req.body.mobile;
         rs({codeSaved:true,mobile:req.body.mobile})
     })
@@ -129,13 +130,13 @@ const saveMobile = (req, code)=>{
                 }
                 console.log("Data: ",data);
                 mongoose.model(modData.name)
-                    .findOneAndUpdate(modData.query,data)
+                    .findOneAndUpdate(modData.query, data, {new: true})
                     .exec((e,r)=>{
                         console.log("Data2: ",data);
                         if(e) return rj(e);
                         if(!r) return rj("Not found");
                         if(r) {
-                            return rs(e)
+                            return rs(r)
                         }
                     });
                 delete glob[req.userId+'userMobile'];
@@ -196,6 +197,14 @@ const unicueMobile = req =>{
 
     })
 }
+
+const parseMobile = str =>{
+    var b = '';
+    str.match(/\d+/ig).map(i => {
+        b = b + String(i);
+    })
+    return b
+};
 
 module.exports.send = send;
 module.exports.sendCode = sendCode;

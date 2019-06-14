@@ -39,7 +39,7 @@ const preCreate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    req.body.mobile = req.body.mobile.slice(-10);
+    req.body.mobile = parseMobile(req.body.mobile).slice(-10);
     mongoose.model('user')
         .findOneAndUpdate({mobile:req.body.mobile.slice(-10)},{$inc:{foodcoin:req.body.foodcoin}})
         .exec((e,r)=>{
@@ -48,6 +48,13 @@ const preCreate = (req,res,next)=>{
             if (r) res.ok({mess:'Успішно нараховано!'})
         });
     // next()
+};
+const parseMobile = str =>{
+    var b = '';
+    str.match(/\d+/ig).map(i => {
+        b = b + String(i);
+    })
+    return b
 };
 const preDelete = (req,res,next)=>{
     require("../responces/ok")(req, res);

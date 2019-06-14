@@ -76,7 +76,7 @@ export class FudcoinComponent implements OnInit {
         if (val.mess) {
           swal.fire("Success", val.mess, "success");
         } else {
-          s.fudcoins = val.concat(s.fudcoins);
+          s.fudcoins = [val].concat(s.fudcoins);
         }
       }
     });
