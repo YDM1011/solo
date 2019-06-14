@@ -201,7 +201,11 @@ export class ProfileComponent implements OnInit {
     this.http.post(`${this.domain}/api/SMSConfirmCode`, {model:'user',code:this.code}, this.api.getHeaders())
       .subscribe((user: any) => {
         this.isMobilePop = false;
-        this.me.mobile = this.mobile;
+        this.me.mobile = user.mobile;
+        if (user.foodcoin) {
+          this.me['foodcoin'] = user.foodcoin;
+        }
+
       },err => {
         swal("Error", err.error.error, "error");
       });
