@@ -160,7 +160,7 @@
             <th class="footable-visible">Додатки</th>
             <th class="footable-visible">Порція</th>
             <th class="footable-visible">Кількість</th>
-            <th class="footable-visible">Ціна</th>
+            <th class="footable-visible">Сума</th>
             <th class="footable-visible">Упаковка</th>
             <th class="footable-visible">Коментар</th>
 
@@ -197,7 +197,7 @@
                     {{prod.totalPrice}} грн
                   </td>
                   <td class="footable-visible">
-                    <ng-container *ngIf="prod.boxData">{{prod.boxData.price || 0}} грн</ng-container>
+                    <ng-container *ngIf="prod.boxData">{{prod.boxData.price*prod.count || 0}} грн</ng-container>
                     <ng-container *ngIf="!prod.boxData">-</ng-container>
                   </td>
                   <td class="footable-visible">
