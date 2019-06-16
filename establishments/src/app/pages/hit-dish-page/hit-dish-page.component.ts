@@ -11,24 +11,30 @@ export class HitDishPageComponent implements OnInit {
 
   public photos;
   public id;
+  
+  public load = true;
   constructor(
     private api: ApiService,
     private cookie : CookieService
   ) { }
 
   ngOnInit() {
+    
+    this.load = false;
     this.id = this.cookie.get('userid');
   }
   liked(dish) {
     const s = this;
     s.api.post('likeDish', {_id: dish._id}).then((res: any) => {
-      if (res) {
+      if (res) {        
         dish.dishlike = res;
         dish[dish._id] = s.checkIconActive(dish.dishlike);
       }
     });
   }
   onLoad(obj){
+    
+    this.load = true;
     this.photos = obj;
     const s = this;
 

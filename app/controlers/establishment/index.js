@@ -37,6 +37,7 @@ module.exports.getMy = (req, res, next) => {
         })
 };
 
+
 module.exports.getLikeEsts = (req, res, next) => {
     User.find({_id: req.params.id})
         .select('choiceest')
@@ -97,7 +98,7 @@ module.exports.getLikeDishAllE = (req, res, next) => {
                     .exec((err,result)=>{
 
                         if(err) return res.badRequest(err);
-                        if (!result[0]) return res.serverError('Somesing broken');
+                        //if (!result[0]) return res.serverError('Somesing broken');
                         if (result[0]) {
                             let arr = [];
                             result[0].favoritdish.map(it=>{
@@ -106,6 +107,9 @@ module.exports.getLikeDishAllE = (req, res, next) => {
                                 }
                             });
                             return res.ok(arr);
+                        }
+                        else {
+                            return res.ok([]);
                         }
                     })
             }
@@ -257,6 +261,28 @@ module.exports.estWorkTime = (req, res, next) => {
             }
         })
 };
+
+module.exports.estBalanse = (req, res, next) => {
+    Establishment.aggregate(
+        [
+            {
+                $group : {
+                    _id : null,
+                    totalAmount : {$sum : '$foodCoin'}
+                }
+            }
+        ] 
+    ).exec((err,doc)=>{
+        if (err) return res.badRequest(err);
+        if (!doc) {
+            return res.serverError('Somesing broken');
+        }
+        if (doc){
+            return res.status(200).json(doc);
+        }
+    });
+};
+
 module.exports.estEst = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
 

@@ -12,6 +12,11 @@ import {ModerationComponent} from "./pages/moderation/moderation.component";
 import {FiltersComponent} from "./pages/filters/filters.component";
 import {LabelsComponent} from "./pages/labels/labels.component";
 import {FudcoinComponent} from "./pages/fudcoin/fudcoin.component";
+import {UserComponent} from "./pages/user/user.component";
+import {OrderComponent} from "./pages/order/order.component";
+import {OrderDetailComponent} from "./pages/order-detail/order-detail.component";
+import {OrderDetailEditComponent} from "./pages/order-detail-edit/order-detail-edit.component";
+import {OrderDeliveryComponent} from "./pages/order-delivery/order-delivery.component";
 
 const routes: Routes = [
   { path: '',
@@ -24,6 +29,12 @@ const routes: Routes = [
       {path:'filters', component: FiltersComponent},
       {path:'labels', component: LabelsComponent},
       {path:'foodcoin', component: FudcoinComponent},
+      {path:'user', component: UserComponent},
+      {path:'order', component: OrderComponent},
+      {path:'order/:eid/:id',component:OrderDetailComponent, children:[
+        {path:':eid/:id/:editid',component:OrderDetailEditComponent}
+      ]},
+      {path:'orders/:ordType',component:OrderDeliveryComponent}
       ]
   },
   {

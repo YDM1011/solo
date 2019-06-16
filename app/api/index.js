@@ -29,6 +29,7 @@ const geo = require('../controlers/geo');
 const permisionUser = require('../controlers/permisionUser');
 const user = require('../controlers/user');
 const balans = require('../controlers/balans');
+const adm = require('../controlers/adm');
 
 const sms = require('../controlers/sms');
 
@@ -84,6 +85,7 @@ router.get('/api/isEst', [orign, glob.getId], establishment.isEst);
 router.get('/api/search', [orign, glob.getId], search.get);
 router.get('/api/searchEst', [orign, glob.getId], search.getEst);
 router.get('/api/searchUser', [orign, glob.getId], search.getUser);
+router.get('/api/searchUserForAdm', [orign, glob.getId], search.getUserForAdm);
 router.get('/api/geo', [orign, glob.getId], geo.get);
 router.get('/api/resetEst', [orign, glob.getId], geo.get1);
 
@@ -116,6 +118,9 @@ router.get('/api/estsOfBasket', [orign, glob.getId], basket.estsOfBasket);
 // ADM
 router.post('/api/adm/signin', [orign, verification], admLogin);
 router.post('/api/permisionUser/:id', [orign, glob.isAdmin], permisionUser);
+router.get('/api/userBalanse', [orign], user.userBalanse);
+router.get('/api/estBalanse', [orign], establishment.estBalanse);
+
 
 //landing
 router.get('/api/getAll', [orign], landing.getAll);

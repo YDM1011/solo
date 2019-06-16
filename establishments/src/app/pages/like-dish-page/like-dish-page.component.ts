@@ -11,12 +11,14 @@ export class LikeDishPageComponent implements OnInit {
 
   public photos;
   public id;
+  public load = true;
   constructor(
     private api: ApiService,
     private cookie : CookieService
   ) { }
 
   ngOnInit() {
+    this.load = false;
     this.id = this.cookie.get('userid');
   }
   liked(dish) {
@@ -29,6 +31,7 @@ export class LikeDishPageComponent implements OnInit {
     });
   }
   onLoad(obj){
+    this.load = true;
     this.photos = obj;
     const s = this;
 

@@ -5,16 +5,42 @@
     populate: {path:'img'}
     }" (onRes)="actions = $event"></app-custom-res>
 <div class="cont gl-cont">
-<div class="el_cont" *ngIf="actions">
-  <div class="el_content">
-    <div *ngFor="let act of actions" class="action-wrap" [class.unimg]="!act.img[0]">
-      <div class="description">
-        {{act.des}}
-      </div>
-      <div class="inherit" *ngIf="act.img[0]">
-        <app-picture class="img" [size]="'right-bar-pg'" [pic]="act.img[0]"></app-picture>
+  <div class="gl_h">
+    <span class="gl_ct">Акції</span>
+  </div>
+  <ng-container *ngIf="load; else preload">
+    <div class="el_cont" *ngIf="actions">
+      <div class="el_content">
+        <div *ngFor="let act of actions" class="action-wrap" [class.unimg]="!act.img[0]">
+          <div class="description">
+            {{act.des}}
+          </div>
+          <div class="inherit" *ngIf="act.img[0]">
+            <app-picture class="img" [size]="'right-bar-pg'" [pic]="act.img[0]"></app-picture>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>
-</div>
+
+
+<ng-template #preload>
+    <div class="row">
+      <div class="col s12 center">
+        <div class="preloader-wrapper small active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div>
+            <div class="gap-patch">
+              <div class="circle"></div>
+            </div>
+            <div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>

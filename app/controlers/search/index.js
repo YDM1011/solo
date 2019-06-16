@@ -10,6 +10,11 @@ module.exports.getUser = async (req,res,next)=>{
     let users = await getUsers(search);
     res.ok(users);
 };
+module.exports.getUserForAdm = async (req,res,next)=>{
+    let search = req.query.search;
+    let users = await getUsersForAdm(search);
+    res.ok(users);
+};
 module.exports.getEst = async (req,res,next)=>{
     let search = req.query.search;
     let est = await getEst(search);
@@ -26,6 +31,23 @@ const getUsers =  search => {
             .populate({path:"photo"})
             .populate({path:"myEstablishment"})
             .select("_id photo firstName lastName myEstablishment")
+            .exec((err,result)=>{
+                if (result) {
+                    return resolv(result)
+                }
+            })
+    });
+};
+const getUsersForAdm =  search => {
+    return new Promise((resolv,reject)=>{
+        let s = JSON.parse(search);
+        mongoose.model('user')
+            .find({$or: [{firstName: new RegExp( s, 'gi' )},
+                    {lastName: new RegExp( s, 'gi' )}]})
+            .where('login').ne('admin')
+            .populate({path:"photo"})
+            .populate({path:"myEstablishment"})
+            .select("_id photo firstName lastName myEstablishment foodcoin email verify myFriends data")
             .exec((err,result)=>{
                 if (result) {
                     return resolv(result)

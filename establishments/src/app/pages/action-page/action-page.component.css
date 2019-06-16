@@ -52,3 +52,73 @@
   position: relative;
   margin: 10px;
 }
+
+/*start gallery*/
+.gl-cont {
+  padding: 0 15px  10px;
+}
+.gl_h {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 53px;
+}
+.gl_ct {
+  font-size: 14px;
+  color: #00a3ff;
+  font-weight: bold;
+  padding: 5px 15px;
+}
+.gl_c {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  margin: -2.5px;
+}
+.gl_i {
+  display: block;
+  flex: 0 0 calc((100% / 3) - 5px);
+  width: 100%;
+  min-height: 20vw;
+  max-height: 40vw;
+  margin: 2.5px;
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+}
+.gl_i:hover{
+  opacity: .85;
+}
+@media (min-width: 768px) and (min-height: 500px) {
+  .gl-cont {
+    padding: 0 16px 8px;
+  }
+  .gl_h {
+    height: 60px;
+  }
+  .gl_ct {
+    padding: 5px 0;
+  }
+  .gl_c {
+    padding: 15px 16px 45px;
+    box-sizing: border-box;
+    box-shadow: 2px -2px 10px 1px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+  }
+  .gl_i {
+    min-height: 100px;
+    max-height: 300px;
+  }
+}
+@media (min-width: 992px) and (min-height: 500px) {
+  .gl_i {
+    margin: 10px;
+    flex: 0 0 calc((100% / 3) - 20px);}
+  .gl_c {
+    padding: 15px 15px 45px;
+    margin: -10px;
+  }
+}
+/*end gallery*/
+.btn{
+  cursor: pointer;
+}

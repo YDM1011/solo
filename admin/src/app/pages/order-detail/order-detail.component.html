@@ -72,7 +72,7 @@
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Дата і час:</dt> </div>
-            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.deliveryTime | date:'HH:mm dd.MM.yy'}}</dd> </div>
+            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.deliveryTime ? (order.deliveryTime | date:'HH:mm dd.MM.yy') : 'якомога швидше'}}</dd> </div>
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Додатковий телефон:</dt> </div>
@@ -151,7 +151,7 @@
     <div class="ibox">
       <div class="">
         <div class="ibox-content">
-          <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+          <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
           <thead>
           <tr>
 
@@ -160,7 +160,7 @@
             <th class="footable-visible">Додатки</th>
             <th class="footable-visible">Порція</th>
             <th class="footable-visible">Кількість</th>
-            <th class="footable-visible">Ціна</th>
+            <th class="footable-visible">Сума</th>
             <th class="footable-visible">Упаковка</th>
             <th class="footable-visible">Коментар</th>
 
@@ -181,7 +181,7 @@
                     <ng-container *ngFor="let comp of prod.complementData">
                       <ng-container *ngIf="comp">
                         <ng-container *ngIf="comp.id">
-                          <span> {{comp.count}} {{comp.id.name}} </span>
+                          <span> {{comp.count}} x {{comp.id.name}} </span>
                         </ng-container>
                       </ng-container>
                     </ng-container>
@@ -197,7 +197,7 @@
                     {{prod.totalPrice}} грн
                   </td>
                   <td class="footable-visible">
-                    <ng-container *ngIf="prod.boxData">{{prod.boxData.price || 0}} грн</ng-container>
+                    <ng-container *ngIf="prod.boxData">{{prod.boxData.price*prod.count || 0}} грн</ng-container>
                     <ng-container *ngIf="!prod.boxData">-</ng-container>
                   </td>
                   <td class="footable-visible">

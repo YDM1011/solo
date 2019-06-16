@@ -11,11 +11,15 @@ export class ActionPageComponent implements OnInit {
   public actions;
   public estId;
   public sort;
+  public load = true;
   constructor( private api: ApiService) { }
 
   ngOnInit() {
+    this.load = false;
     this.sort = JSON.stringify({data: -1});
     this.api.onEstId.subscribe(v => {
+      
+      this.load = true;
       if (v)
       this.estId = v;
       // alert(v)

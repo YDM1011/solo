@@ -16,6 +16,7 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
   public id;
   public stActive;
   public list: OrderMin[] = [];
+  public load = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,8 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id');
     this.orderType = this.route.snapshot.paramMap.get('ordType');
+    
+    this.load = false;
     this.route.params.subscribe((params: any) => {
 
       if (this.id != params.id || this.orderType != params.ordType) {
@@ -50,6 +53,8 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
   getStartList(id) {
     this.api.justGet('basketsList', id, '', '?skip=0&orderType=' + this.orderType)
       .then((v: any) => {
+        
+        this.load = true;
         if (v) {
           if (v.length > 0) {
             this.list = [];
@@ -87,6 +92,8 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
     this.list = [];
     this.api.justGet('basketsList', this.id, '', '?status=' + st + '&skip=0&orderType=' + this.orderType)
       .then((v: any) => {
+        
+        this.load = true;
         if (v) {
           v.map(basket => {
             let client = basket.owneruser;

@@ -27,8 +27,12 @@
     <!--</ng-container>-->
   <!--</ng-container>-->
 <!--</article>-->
-
-<div *ngIf="menu">
+<div class="cont gl-cont">
+  <div class="gl_h">
+    <span class="gl_ct">Меню</span>
+  </div>
+</div>
+<div *ngIf="menu; else preload">
   <mz-collapsible
     [mode]="'accordion'"
     [onClose]=""
@@ -72,3 +76,22 @@
 </div>
 
 
+<ng-template #preload>
+  <div class="row">
+    <div class="col s12 center">
+      <div class="preloader-wrapper small active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

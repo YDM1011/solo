@@ -10,6 +10,7 @@ export class ModerationComponent implements OnInit,OnChanges {
 
   public estId;
   public ests = [];
+  public foodCoin;
   constructor(
     private api: ApiService
   ) { }
@@ -25,6 +26,9 @@ export class ModerationComponent implements OnInit,OnChanges {
     let select = `?populate={"path":"permisions","select":"firstName lastName"}&select=subdomain,name,verify,isOnline,_id,permisions,isCart`;
     s.api.apiGet('establishment','',select).then((v:any)=>{
       s.ests = v;
+    })
+    s.api.apiGet('estBalanse','','').then((v:any)=>{
+      s.foodCoin = v[0];
     })
   }
 

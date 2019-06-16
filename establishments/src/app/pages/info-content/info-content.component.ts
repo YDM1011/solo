@@ -10,8 +10,7 @@ export class InfoContentComponent implements OnInit {
   public myests:any;
   constructor() { }
 
-  ngOnInit() {
-
+  ngOnInit() { 
   }
   // ngAfterViewInit() {
   //   console.log(true);

@@ -55,7 +55,7 @@ export class FullOrder implements OrderMax{
     });
     data.productData.map(item => {
        if (item.status) {
-        price += item.totalPrice*item.count;
+        price += item.totalPrice;
        }
     });
     if (data.status == '5' || data.status == '1' || data.status == '2'){

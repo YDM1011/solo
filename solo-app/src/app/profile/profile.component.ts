@@ -192,7 +192,7 @@ export class ProfileComponent implements OnInit {
   saveMobile(){
     this.http.post(`${this.domain}/api/SMSSendCode`, {model:'user',mobile:this.mobile}, this.api.getHeaders())
       .subscribe((user: any) => {
-        this.isCodeInput = true
+        this.isCodeInput = true;
       }, err => {
         swal("Error", err.error.error, "error");
       });
