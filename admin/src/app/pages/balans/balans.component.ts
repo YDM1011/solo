@@ -28,7 +28,7 @@ export class BalansComponent implements OnInit {
       if (res['foodCoin']) this.foodCoin = parseInt(res['foodCoin']);
     }).catch((err: any) => {});
     this.api.get('balans', this.id).then((v: any) => {
-      console.log(v)
+      //console.log(v)
       if (v) {
         v.map(basket => {
           let client = basket.owneruser;

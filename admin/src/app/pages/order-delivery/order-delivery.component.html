@@ -18,7 +18,7 @@
                  (click)="getByStatus(tab)"
                  [innerHTML]="tab | status | safeHTML"></div>
           </div>
-          <table class="footable table table-stripped toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+          <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15" *ngIf="load; else preload">
             <thead>
             <tr>
 
@@ -35,7 +35,14 @@
             </thead>
             <tbody>
             <ng-container *ngFor="let order of list">
-              <tr class="footable-even sible footable-first-column">
+              <tr class="footable-even sible footable-first-column"
+                [ngClass]="{'danger': order.status == 7,
+                            'active': order.status == 6,
+                            'success': order.status == 1,
+                            'warning': order.status == 3,
+                            'info': order.status == 2              
+              }"
+              >
                 <td class="footable-visible">
                   {{order.orderNumber}}
                 </td>
@@ -87,3 +94,11 @@
     </div>
   </div>
 </div>
+
+<ng-template #preload>
+  <div class="container">
+    <div class="row center">
+      <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+    </div>
+  </div>
+</ng-template>

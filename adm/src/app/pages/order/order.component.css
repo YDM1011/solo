@@ -1,0 +1,42 @@
+.p-l_c-box {
+    display: flex;
+    justify-content: center;
+  }
+  .p-d_ch-i{
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .p-d_ch:hover{
+    box-shadow: 0px 0px 20px 0px rgba(51, 51, 51, 0.35);
+  }
+  .p-d_ch{
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0px 3px 20px 0px rgba(51, 51, 51, 0.21);
+    max-width: 150px;
+    max-height: 150px;
+    margin: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .5s;
+  }
+  svg:not(:root) {
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 150px;
+  }
+  @media screen and (max-width: 450px){
+    .p-d_ch {
+      background-color: #fff;
+      box-shadow: 0px 3px 20px 0px rgba(51, 51, 51, 0.21);
+      max-width: 80px;
+      max-height: 80px;
+      margin: 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: .5s;
+      padding: 5px;
+    }
+  }
+  

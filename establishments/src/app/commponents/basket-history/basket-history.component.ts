@@ -31,6 +31,7 @@ export class BasketHistoryComponent implements OnInit {
   public isDoOrder:boolean = false;
   public orderType;
   public originBasketData = [];
+  public load = true;
   constructor(
     private route: ActivatedRoute,
     private api: ApiService,
@@ -41,6 +42,7 @@ export class BasketHistoryComponent implements OnInit {
     // this.route.params.subscribe((params: any) => {
     //   self.initApi();
     // });
+    this.load = false;
 
     this.api.onMe.subscribe(me=>{
       if(me){
@@ -59,7 +61,8 @@ export class BasketHistoryComponent implements OnInit {
 
   init(){
     this.api.justGet('basket_from_est','','','?select=-__v&status=history').then((data:any)=>{
-      if (data){
+      this.load = true;
+      if (data){        
         this.getBasketsList(data)
       }
     });

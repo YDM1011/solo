@@ -735,6 +735,12 @@ textarea.form-control{
     100% {opacity: 1;}
   }
 }
+
+/**/
+.center{
+  text-align: center;
+}
+
 .wrap-tabs .label-tab .label{
   display: block;
   line-height: 15px;

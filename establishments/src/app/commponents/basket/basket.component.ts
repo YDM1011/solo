@@ -81,6 +81,7 @@ export class BasketComponent implements OnInit, OnChanges {
   public me;
   public originBasketData = [];
   public model;
+  public load = true;
   constructor(
     private calendar: NgbCalendar,
     private route: ActivatedRoute,
@@ -92,6 +93,7 @@ export class BasketComponent implements OnInit, OnChanges {
     // this.route.params.subscribe((params: any) => {
     //   self.initApi();
     // });
+    this.load = false;
     this.model = this.calendar.getToday();
     this.dataStart = new Date().toISOString();
     this.api.onMe.subscribe(me => {
@@ -118,6 +120,7 @@ export class BasketComponent implements OnInit, OnChanges {
 
   init() {
     this.api.justGet('basket_from_est', '', '', '?select=-__v&sort={"dataUpdate":-1}').then((data:any)=>{
+      this.load = true;
       if (data) {
         this.getBasketsList(data);
       }

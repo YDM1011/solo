@@ -1,0 +1,270 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12"><h2>Замовлення</h2>
+      <ol class="breadcrumb" *ngIf="order">
+        <li><a [routerLink]="'/'">Home</a></li>
+        <li><a [routerLink]="'/orders/'+order.orderType+'/'+estId">Замовлення</a></li>
+        <li><a class="active">{{order.orderType | order }}</a></li>
+      </ol>
+    </div>
+  </div>
+  <div class="wrapper wrapper-content animated fadeInUp">
+    <div class="ibox">
+      <div class="ibox-content">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="m-b-md" *ngIf="order">
+              <h2>Замовлення на <b [innerHTML]="order.orderType | order | safeHTML"></b></h2>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Код замовлення:</dt></div>
+              <div class="col-sm-8 text-sm-left">
+                <dd class="mb-1" *ngIf="order; else preload">{{order.id}}</dd>
+              </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Номер замовлення:</dt></div>
+              <div class="col-sm-8 text-sm-left">
+                <dd class="mb-1" *ngIf="order; else preload">{{order.orderNumber}}</dd>
+              </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Замовник:</dt> </div>
+              <div class="col-sm-8 text-sm-left">
+                <dd class="mb-1"  *ngIf="order; else preload">
+                  <a target="_blank" [href]="apiDomain+'/user/'+order.client._id" class="flex">
+                    <div class="avatar" >
+                      <ng-container *ngIf="order.client.photo">
+                        <img [src]="apiDomain+order.client.photo.picCrop" alt="avatar">
+                      </ng-container>
+                    </div>
+                    <div class="client-info">
+                      <div>{{order.client.firstName}} {{order.client.lastName}}</div>
+                      <div>{{order.mobile}}</div>
+                      <div>{{order.client.data | date: "dd.MM.yyyy HH:mm"}}</div>
+                      <div>Всього замовлень: {{allInAny}} (у Вас: {{allInThis}})</div>
+                    </div>
+                  </a>
+  
+                </dd>
+              </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Тип оплати:</dt> </div>
+              <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.paymentType | payment}}
+                <ng-container *ngIf="order.paymentType == 'fiat' && order.paymentDetail">{{order.paymentDetail.fiatVal}} грн</ng-container>
+              </dd> </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Адреса:</dt> </div>
+              <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.address}}</dd> </div>
+            </dl>
+            <dl class="row mb-0" *ngIf="order.orderType == 'delivery'">
+              <div class="col-sm-4 text-sm-right"><dt>Поверх:</dt> </div>
+              <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.level ? order.level : ''}}</dd> </div>
+            </dl>
+            <dl class="row mb-0" *ngIf="order.orderType == 'delivery'">
+              <div class="col-sm-4 text-sm-right"><dt>Код в під'їзд:</dt> </div>
+              <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.codeKey ? order.codeKey : ''}}</dd> </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Дата і час:</dt> </div>
+              <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.deliveryTime ? (order.deliveryTime | date:'HH:mm dd.MM.yy') : 'якомога швидше'}}</dd> </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Додатковий телефон:</dt> </div>
+              <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.anyMobile}}</dd> </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Вартість страв:</dt> </div>
+              <div class="col-sm-8 text-sm-left flex price">
+                <dd class="mb-1 "  *ngIf="order; else preload">{{order.productPrice}} грн</dd>
+                <ng-container *ngIf="isCanEdit">
+                  <label><input type="number" [(ngModel)]="totalPrice" name="totalPrice"> грн</label>
+                </ng-container>
+              </div>
+            </dl>
+            <ng-container *ngIf="order; else preload">
+              <dl class="row mb-0" *ngIf="order && (order.boxPrice !== false) && (order.orderType == 'bySelf' || order.orderType == 'delivery')">
+                <div class="col-sm-4 text-sm-right"><dt>Вартість упаковки:</dt> </div>
+                <div class="col-sm-8 text-sm-left flex price">
+                  <dd class="mb-1 " *ngIf="order; else preload">{{order.boxPrice || 0}} грн</dd>
+                  <ng-container *ngIf="isCanEdit">
+                    <label><input type="number" [(ngModel)]="boxesPrice" name="boxesPrice"> грн</label>
+                  </ng-container>
+                </div>
+              </dl>
+              <dl class="row mb-0" *ngIf="order && (order.deliveryPrice !== false) && order.orderType == 'delivery'">
+                <div class="col-sm-4 text-sm-right"><dt>Вартість доставки:</dt> </div>
+                <div class="col-sm-8 text-sm-left flex price">
+                  <dd class="mb-1 "  *ngIf="order; else preload">{{order.deliveryPrice || 0}} грн</dd>
+                  <ng-container *ngIf="isCanEdit">
+                    <label><input type="number" [(ngModel)]="deliveryPrice" name="deliveryPrice"> грн</label>
+                  </ng-container>
+                </div>
+              </dl>
+            </ng-container>
+  
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Загальна вартість:</dt> </div>
+              <div class="col-sm-8 text-sm-left">
+                <dd class="mb-1"  *ngIf="order; else preload">{{order.deliveryPrice + order.boxPrice + order.productPrice}} грн</dd>
+              </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Обов'язково зателефонуйте?</dt> </div>
+              <div class="col-sm-8 text-sm-left">
+                <b class="mb-1" *ngIf="order; else preload">{{order.isCall}}</b>
+              </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Статус:</dt> </div>
+              <div class="col-sm-8 text-sm-left">
+                <dd class="mb-1" *ngIf="order; else preload" [innerHTML]="order.status | status | safeHTML">
+                </dd>
+              </div>
+            </dl>
+            <dl class="row mb-0">
+              <div class="col-sm-4 text-sm-right"><dt>Коментування:</dt> </div>
+              <div class="col-sm-8 text-sm-left">
+                <dd class="mb-1"  *ngIf="order; else preload">
+                  <div *ngFor="let com of order.orderCommentData">
+                    <div *ngIf="com.text"><i>{{com.entity}}: </i><span>{{com.text}}</span></div>
+                  </div>
+                  <ng-container *ngIf="isCanEdit">
+                    <div><textarea name="comment" [(ngModel)]="comment"></textarea></div>
+                  </ng-container>
+  
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="ibox">
+        <div class="">
+          <div class="ibox-content">
+            <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+            <thead>
+            <tr>
+  
+              <!--<th class="footable-visible footable-first-column">Статус</th>-->
+              <th class="footable-visible">Страва</th>
+              <th class="footable-visible">Додатки</th>
+              <th class="footable-visible">Порція</th>
+              <th class="footable-visible">Кількість</th>
+              <th class="footable-visible">Ціна</th>
+              <th class="footable-visible">Упаковка</th>
+              <th class="footable-visible">Коментар</th>
+  
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngIf="order; else preload">
+              <ng-container *ngFor="let prod of order.products">
+                <ng-container *ngIf="prod">
+                  <tr class="footable-even sible footable-first-column">
+                    <!--<td class="footable-visible"><span class="footable-toggle"></span>-->
+                      <!--<input type="checkbox" [(ngModel)]="prod.status" name="prod-{{prod._id}}">-->
+                    <!--</td>-->
+                    <td class="footable-visible">
+                      {{prod.dishData.name}}
+                    </td>
+                    <td class="footable-visible">
+                      <ng-container *ngFor="let comp of prod.complementData">
+                        <ng-container *ngIf="comp">
+                          <ng-container *ngIf="comp.id">
+                            <span> {{comp.count}} x {{comp.id.name}} </span>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </td>
+  
+                    <td class="footable-visible">
+                      {{prod.portItemData.name}} {{prod.portItemData.price}} грн
+                    </td>
+                    <td class="footable-visible">
+                      {{prod.count}} шт.
+                    </td>
+                    <td class="footable-visible">
+                      {{prod.totalPrice}} грн
+                    </td>
+                    <td class="footable-visible">
+                      <ng-container *ngIf="prod.boxData">{{prod.boxData.price || 0}} грн</ng-container>
+                      <ng-container *ngIf="!prod.boxData">-</ng-container>
+                    </td>
+                    <td class="footable-visible">
+                      <ng-container *ngFor="let com of prod.orderCommentData">
+                        <ng-container *ngIf="com">
+                          <ng-container *ngIf="com.text">
+                            <p> {{com.text}} </p>
+                          </ng-container>
+                        </ng-container>
+                      </ng-container>
+                    </td>
+                  </tr>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+            </tbody>
+            <tfoot>
+  
+            </tfoot>
+          </table>
+          </div>
+          <div class="btn-wrap" *ngIf="order; else preload">
+            <ng-container *ngIf="order.status==1">
+              <ng-container *ngIf="order.paymentType != 'fiat' && order.paymentType != 'coin'">
+                <ng-container *ngTemplateOutlet="whait"></ng-container>
+              </ng-container>
+              <ng-container *ngIf="order.paymentType == 'fiat' || order.paymentType == 'coin'">
+                <ng-container *ngTemplateOutlet="confirm"></ng-container>
+              </ng-container>
+              <ng-container *ngTemplateOutlet="change"></ng-container>
+              <ng-container *ngTemplateOutlet="delet"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="order.status==2">
+              <ng-container *ngTemplateOutlet="done"></ng-container>
+              <ng-container *ngTemplateOutlet="delet"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="order.status==3">
+              <ng-container *ngTemplateOutlet="delet"></ng-container>
+            </ng-container>
+            <ng-container *ngIf="order.status==4">
+              <ng-container *ngTemplateOutlet="confirm"></ng-container>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #preload>
+    load...
+  </ng-template>
+  
+  <ng-template #confirm>
+    <button class="btn btn-xs btn-success" (click)="confirmOrder()" >Підтвердити</button>
+  </ng-template>
+  <ng-template #change>
+    <button class="btn btn-xs btn-warning" (click)="changeOrder()">Змінене оператором</button>
+  </ng-template>
+  <ng-template #delet>
+    <button class="btn btn-xs btn-danger" (click)="deletOrder()">Відмінити</button>
+  </ng-template>
+  <ng-template #whait>
+    <button class="btn btn-xs btn-info" (click)="whaitOrder()">Очікувати оплату</button>
+  </ng-template>
+  <ng-template #done>
+    <button class="btn btn-xs btn-primary" (click)="doneOrder()">Виконано</button>
+  </ng-template>
+  
+  <router-outlet></router-outlet>
+  

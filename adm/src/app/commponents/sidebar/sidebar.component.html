@@ -37,6 +37,32 @@
         <a routerLinkActive #fd="routerLinkActive" [routerLink]="'/foodcoin'">
           <i class="fa fa-th-large"></i> <span class="nav-label">FoodCoin</span></a>
       </li>
+      <li [class.active]="usr.isActive">
+        <a routerLinkActive #usr="routerLinkActive" [routerLink]="'/user'">
+          <i class="fa fa-th-large"></i> <span class="nav-label">Користувачі</span></a>
+      </li>
+      <li [class.active]="ordr.isActive">
+          <!--<a routerLinkActive #ordr="routerLinkActive" [routerLink]="'/order/'+est._id">-->
+            <!--<span class="nav-label">Замовлення</span></a>-->
+
+          <a [routerLink]="'/order'" routerLinkActive #ordr="routerLinkActive">
+            <i class="fa fa-th-large"></i>
+            <span class="nav-label">Замовлення</span>
+            <span class="count" *ngIf="ests.countOrder">{{ests.countOrder || 0}}</span>
+            <span class="fa arrow"></span>
+          </a>
+          <ul class="nav nav-second-level" *ngIf="ordr.isActive">
+            <li [class.active]="dlvr.isActive" appAutoClose>
+              <a routerLinkActive #dlvr="routerLinkActive" [routerLink]="'/orders/delivery'">Доставка
+                <app-count [orderType]="'delivery'"></app-count></a></li>
+            <li [class.active]="self.isActive" appAutoClose>
+              <a routerLinkActive #self="routerLinkActive" [routerLink]="'/orders/bySelf'">На виніс
+                <app-count [orderType]="'bySelf'"></app-count></a></li>
+            <li [class.active]="rsrv.isActive" appAutoClose>
+              <a routerLinkActive #rsrv="routerLinkActive" [routerLink]="'/orders/reserve'">Бронь столу
+                <app-count [orderType]="'reserve'"></app-count></a></li>
+          </ul>
+        </li>
 
     </ul>
   </div>

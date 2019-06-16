@@ -8,6 +8,7 @@
               [routerLink]="'/history'">Історія замовлень</a>
     </div>
   </div>
+  <ng-container *ngIf="load; else preload">
   <ng-container *ngIf="baskets && onLoaded">
     <ng-container *ngFor="let basket of baskets">
       <ng-container *ngIf="basket.products">
@@ -299,6 +300,7 @@
       </ng-container>
     </ng-container>
   </ng-container>
+</ng-container>
 
 </div>
 
@@ -322,8 +324,8 @@
 </ng-container>
 
 <ng-template #noOneProd>
-  <p class="prevInv">
-    Кошик порожній
+  <p class="prevInv center">
+    Замовлень немає
   </p>
 </ng-template>
 
@@ -819,3 +821,23 @@
 <!--<div [innerHTML]="button | safeHTML">-->
   <!--{{button}}-->
 <!--</div>-->
+
+<ng-template #preload>
+  <div class="row">
+    <div class="col s12 center">
+      <div class="preloader-wrapper small active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,103 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12"><h2>Замовлення</h2>
+      <ol class="breadcrumb">
+        <li><a [routerLink]="'/'">Home</a></li>
+        <li><a [routerLink]="'/order/'+id">Замовлення</a></li>
+        <li><a class="active">{{orderType | order}}</a></li>
+      </ol>
+    </div>
+  </div>
+  
+  <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="ibox">
+          <div class="ibox-content">
+            <div class="wrap-tabs">
+              <div class="label-tab" *ngFor="let tab of [1,2,3,4,5,6,7]"
+                   (click)="getByStatus(tab)"
+                   [innerHTML]="tab | status | safeHTML"></div>
+            </div>
+            <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15" *ngIf="load; else preload">
+              <thead>
+              <tr>
+  
+                <th class="footable-visible footable-first-column">№</th>
+                <th class="footable-visible">Ім'я</th>
+                <th class="footable-visible">Інформація</th>
+                <th class="footable-visible">Вартість</th>
+                <th class="footable-visible">Дата</th>
+                <th class="footable-visible">Оплата</th>
+                <th class="footable-visible">Статус</th>
+                <th class="text-right footable-visible footable-last-column">Дії</th>
+  
+              </tr>
+              </thead>
+              <tbody>
+              <ng-container *ngFor="let order of list">
+                <tr class="footable-even sible footable-first-column"
+                [ngClass]="{'danger': order.status == 7,
+                            'active': order.status == 6,
+                            'success': order.status == 1,
+                            'warning': order.status == 3,
+                            'info': order.status == 2              
+              }">
+                  <td class="footable-visible">
+                    {{order.orderNumber}}
+                  </td>
+                  <td class="footable-visible"><span class="footable-toggle"></span>
+                    <a target="_blank" [href]="apiDomain+'/user/'+order.client._id" class="flex">{{order.client.firstName}} {{order.client.lastName}}</a><br>
+                    {{order.client.mobile}}
+                  </td>
+                  <td class="footable-visible">
+                    
+                    <b>Позицій:</b> {{order.products ? order.products.length : ''}} (
+                    <ng-container *ngFor="let dish of order.products">
+                        <span [ngClass]="{'red-text': !dish.status}"> {{dish.dishData.name}} </span>
+                      </ng-container> )<br>
+                    <b>Адреса:</b> {{order.adress ? order.adress.address : ''}}<br>
+                    <b>Час замовлення:</b> {{order.time ? (order.time | date:'dd.MM.yy HH:mm') : 'якомога швидше'}}<br>
+                    <b>Телефонувати:</b> {{order.mobile ? order.mobile : ''}}<br>                  
+                  </td>
+                  <td class="footable-visible">
+                    <b>Страви:</b> {{order.productPrice || 0}} грн<br>
+                    <span *ngIf="order.orderType == 'delivery' || order.orderType == 'bySelf'"><b>Упаковка:</b> {{order.box || 0}} грн<br></span>
+                    <span *ngIf="order.orderType == 'delivery'"><b>Доставка:</b> {{order.delivery || 0}} грн<br></span>
+                    <b>Всього:</b>  {{order.price || 0}} грн
+                   
+                  </td>
+                  <td class="footable-visible">
+                    <b>Створено:</b> {{order.dataCreate | date:'dd.MM.yy HH:mm'}}<br>
+                    <b>Оновлено:</b> {{order.dataUpdate | date:'dd.MM.yy HH:mm'}}
+                  </td>
+                  <td class="footable-visible">
+                    {{order.paymentType == 'coin' ? 'FoodCoin' : (order.paymentType == 'fiat') ? 'Готівкою' : 'Карткою'}}
+                  </td>
+                  <td class="footable-visible" [innerHTML]="order.status | status | safeHTML">
+                  </td>
+                  <td class="text-right footable-visible footable-last-column">
+                    <div class="btn-group">
+                      <a [routerLink]="'/order/'+order.est+'/'+order._id" class="btn-white btn btn-xs">Відкрити</a>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+              </tbody>
+              <tfoot>
+  
+              </tfoot>
+            </table>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <ng-template #preload>
+    <div class="container">
+      <div class="row center">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    </div>
+  </ng-template>

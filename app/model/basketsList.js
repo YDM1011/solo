@@ -84,7 +84,7 @@ const preRead = (req,res,next)=>{
         return next();
     }
     let searchType = req.query._id ?  'findOne' : 'find';
-    let query = {ownerest: req.params['id']};
+    let query = req.params['id'] ? {ownerest: req.params['id']} : {};
 
     req.query.paymentType ? query['paymentType'] = req.query.paymentType : '';
     req.query.orderType ? query['orderType'] = req.query.orderType : '';
@@ -104,7 +104,6 @@ const preRead = (req,res,next)=>{
     }else{
         mongoose.model('basketsList')
             [searchType](query)
-            .limit(15)
             .sort({data: -1})
             .skip(parseInt(req.query.skip))
             .populate({path:'owneruser', select:'firstName lastName mobile email photo _id data',

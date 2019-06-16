@@ -20,7 +20,7 @@
     <!--</div>-->
   </div>
 
-  <div class="cont_c us_c" *ngIf="isReady" IsNotMe>
+  <div class="cont_c us_c" *ngIf="isReady; else preload" IsNotMe>
     <div class="us_c_c">
       <div class="us_c_ci">
 
@@ -479,10 +479,10 @@
 <ng-container *ngIf="isMobilePop">
   <div class="wrap-pop">
     <div class="content-pop">
-      <input class="us_inp us_inp-tel pop" type="text"
+      <input class="us_inp us_inp-tel pop" type="text" autofocus
              [(ngModel)]="mobile" name="mobile" *ngIf="!isCodeInput"
              placeholder="+380 (___)-__-__">
-      <input class="us_inp us_inp-tel pop" type="text" *ngIf="isCodeInput"
+      <input class="us_inp us_inp-tel pop" type="text" *ngIf="isCodeInput" autofocus
              [(ngModel)]="code" name="code"
              placeholder="">
       <button class="btn" (click)="saveMobile()" *ngIf="!isCodeInput">Зберегти</button>
@@ -491,3 +491,24 @@
     <div class="clases-pop" (click)="isMobilePop = !isMobilePop"></div>
   </div>
 </ng-container>
+
+
+<ng-template #preload>
+  <div class="row">
+    <div class="col s12 center">
+      <div class="preloader-wrapper small active">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div>
+          <div class="gap-patch">
+            <div class="circle"></div>
+          </div>
+          <div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

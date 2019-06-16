@@ -38,6 +38,16 @@ import { LabelsCreateComponent } from './commponents/labels-create/labels-create
 import { LabelsEditComponent } from './commponents/labels-edit/labels-edit.component';
 import { FudcoinComponent } from './pages/fudcoin/fudcoin.component';
 import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
+import { UserComponent } from './pages/user/user.component';
+import { OrderComponent } from './pages/order/order.component';
+import { OrderDeliveryComponent } from './pages/order-delivery/order-delivery.component';
+import { CountComponent } from './commponents/count/count.component';
+import {SafeHTMLPipe} from "./safe-html.pipe";
+import { StatusPipe } from './pages/order/status.pipe';
+import { OrderPipe } from './pages/order-detail/order.pipe';
+import { PaymentPipe } from './pages/order-detail/payment.pipe';
+import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
+import { OrderDetailEditComponent } from './pages/order-detail-edit/order-detail-edit.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +80,17 @@ import {SweetAlert2Module} from "@toverux/ngx-sweetalert2";
     LabelsAllComponent,
     LabelsCreateComponent,
     LabelsEditComponent,
-    FudcoinComponent
+    FudcoinComponent,
+    UserComponent,
+    OrderComponent,
+    OrderDeliveryComponent,
+    CountComponent,
+    SafeHTMLPipe,
+    StatusPipe,
+    OrderPipe,
+    OrderDetailComponent,
+    PaymentPipe,
+    OrderDetailEditComponent
   ],
   imports: [
     BrowserModule,
