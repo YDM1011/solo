@@ -65,7 +65,7 @@ module.exports.getLikeDish = (req, res, next) => {
 module.exports.getLikeEstsAll = (req, res, next) => {
     User.find({_id: req.params.id})
         .select('choiceest')
-        .populate({path:'choiceest', populate:{path:"av"}})
+        .populate({path:'choiceest', populate:{path:"av bg"}})
         .exec((err,result)=>{
             if(err) return res.badRequest(err);
             if (!result[0]) return res.serverError('Somesing broken');
