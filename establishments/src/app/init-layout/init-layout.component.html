@@ -8,7 +8,10 @@
       <div class="h-pf_bg pre-bg">
         <ng-container *ngIf="pics">
           <ng-container *ngIf="pics.bg; else bgE">
-            <app-picture [pic]="pics.bg"></app-picture>
+            <img class="img"
+            [srcset]="'/-px768-'+pics.bg.picCrop.slice(1)+' 768w, /-px400-'+pics.bg.picCrop.slice(1)+' 400w, /-px150-'+pics.bg.picCrop.slice(1)+' 150w'"
+            [src]="pics.bg.picCrop">
+            <!--<app-picture [pic]="pics.bg"></app-picture>-->
             <!--<ng-container *ngIf="pics.bg.picCrop; else bgE">-->
               <!--<img class="img" [src]="host+pics.bg.picCrop" alt="">-->
             <!--</ng-container>-->
@@ -65,7 +68,10 @@
         <div class="h-pf_img">
             <ng-container *ngIf="pics">
               <ng-container *ngIf="pics.av; else avE">
-                <app-picture [pic]="pics.av"></app-picture>
+                <img class="img"
+                [srcset]="pics.av.picCrop+' 200w, /-px150-'+pics.av.picCrop.slice(1)+' 150w, /-px100-'+pics.av.picCrop.slice(1)+' 100w, /-px60-'+pics.av.picCrop.slice(1)+' 60w, /-px20-'+pics.av.picCrop.slice(1)+' 20w'"
+                [src]="pics.av.picCrop">
+                <!--<app-picture [pic]="pics.av"></app-picture>-->
                 <!--<ng-container *ngIf="pics.av.picCrop; else avE">-->
                   <!--<img class="img" [src]="host+pics.av.picCrop" alt="">-->
                 <!--</ng-container>-->

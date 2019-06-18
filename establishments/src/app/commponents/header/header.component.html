@@ -108,7 +108,11 @@
               <a href="{{host}}/user/{{id}}" class="user" *ngIf="user">
                 <span class="user_img">
                   <ng-container *ngIf="user.photo; else prevAvatar">
-                    <app-picture [size]="'20'" [pic]="user.photo"></app-picture>
+                    <img class="img"
+                    [srcset]="'/-px100-'+user.photo.picCrop.slice(1)+' 100w, /-px60-'+user.photo.picCrop.slice(1)+' 60w, /-px20-'+user.photo.picCrop.slice(1)+' 20w'"
+                    [src]="'/-px20-'+user.photo.picCrop.slice(1)">
+
+                    <!--<app-picture [size]="'20'" [pic]="user.photo"></app-picture>-->
                     <!--<ng-container *ngIf="user.photo.picCrop; else prevAvatar">-->
                       <!--<img class="img" [src]="user.photo.picCrop" alt="">-->
                     <!--</ng-container>-->

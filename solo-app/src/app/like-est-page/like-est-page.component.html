@@ -40,7 +40,7 @@
           <img *ngIf="est.av.picCrop; else preEst"
           [src]="est.av.picCrop"
           class="img" alt=""
-          [srcset]="'/-px200-'+est.av.picCrop.slice(1)+' 200w, /-px150-'+est.av.picCrop.slice(1)+' 150w, /-px100-'+est.av.picCrop.slice(1)+' 100w, /-px60-'+est.av.picCrop.slice(1)+' 60w, /-px20-'+est.av.picCrop.slice(1)+' 20w'"
+          [srcset]="est.av.picCrop+' 200w, /-px150-'+est.av.picCrop.slice(1)+' 150w, /-px100-'+est.av.picCrop.slice(1)+' 100w, /-px60-'+est.av.picCrop.slice(1)+' 60w, /-px20-'+est.av.picCrop.slice(1)+' 20w'"
           >
         </ng-container>
       </div>

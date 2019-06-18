@@ -47,7 +47,8 @@
     <div class="el_cntt">
       <a href="" class="el_i" *ngFor = "let img of res | slice:0:6">
         <ng-container *ngIf="img">
-          <app-img size="60" [img]="{id:img.pic}"></app-img>
+          <img class="img" [srcset]="'/-px230-'+img.pic.picCrop.slice(1)+' 230w, /-px150-'+img.pic.picCrop.slice(1)+' 150w'" [src]="'/-px150-'+img.pic.picCrop.slice(1)">
+          <!--<app-img size="60" [img]="{id:img.pic}"></app-img>-->
         </ng-container>
       </a>
     </div>
@@ -72,8 +73,8 @@
     <div class="el_cntt" *ngIf="hits">
       <a href="" class="el_i" *ngFor = "let img of hits">
         <ng-container *ngIf="img">
-
-          <app-img size="60" [img]="{id:img.pic}"></app-img>
+          <img class="img" [srcset]="'/-px230-'+img.pic.picCrop.slice(1)+' 230w, /-px150-'+img.pic.picCrop.slice(1)+' 150w'" [src]="'/-px150-'+img.pic.picCrop.slice(1)">
+          <!--<app-img size="60" [img]="{id:img.pic}"></app-img>-->
         </ng-container>
       </a>
     </div>

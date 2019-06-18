@@ -24,7 +24,6 @@ export class FavoritComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit() {
-    console.log("type",this.type);
     const s = this;
     if (s.security) {
       if (!s.cookie.get('userid')) {
@@ -39,6 +38,7 @@ export class FavoritComponent implements OnInit, OnChanges {
         s.onRes.emit(val);
       }
     }).catch(e=>{});
+    else
     s.api.get('dishHit').then((val: any) => {
       if (val) {
         s.hits = val;

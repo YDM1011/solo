@@ -43,14 +43,13 @@
         <article class="cont pst">
           <div class="pst_in">
             <span>
-              <app-img size="60" class="img40 pre-bg" [img]="{id:post.inPlace.id.av}"></app-img>
+              <img class="img img40"
+              [srcset]="'/-px100-'+post.inPlace.id.av.picCrop.slice(1)+' 100w, /-px60-'+post.inPlace.id.av.picCrop.slice(1)+' 60w'"
+              [src]="'/-px60-'+post.inPlace.id.av.picCrop.slice(1)">
+              <!--<app-img size="60" class="img40 pre-bg" [img]="{id:post.inPlace.id.av}"></app-img>-->
             </span>
             <span class="in_us">
-              <span class="us_zv">Акція&nbsp;{{post.des}}&nbsp;у
-                <span class="us_zv_link">
-                  <app-img size="20" class="us_zv_img" [img]="{id:post.inPlace.id.av}"></app-img>
-                  <strong class="name">{{post.inPlace.id.name}}</strong>
-                </span>
+              <span class="us_zv">{{post.des}}
               </span>
             </span>
 
@@ -62,7 +61,12 @@
           <div class="pst_cnt">
             <div class="pst_img">
               <div class="cont-img" [class.array]="post.img.length >= 2">
-                <app-img class="img_i" *ngFor="let img of post.img" [img]="{id:img}"></app-img>
+                <ng-container *ngFor="let img of post.img">
+                  <img class="img"
+                  [srcset]="'/-px768-'+img.picCrop.slice(1)+' 768w, /-px400-'+img.picCrop.slice(1)+' 400w'"
+                  [src]="'/-px768-'+img.picCrop.slice(1)"> 
+                </ng-container> 
+                <!--<app-img class="img_i" *ngFor="let img of post.img" [img]="{id:img}"></app-img>-->
               </div>
             </div>
           </div>
@@ -74,7 +78,10 @@
         <article class="cont pst">
           <div class="pst_in">
             <a href="{{host}}/user/{{post.userId._id}}">
-              <app-img size="60" class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>
+              <img class="img img40"
+              [srcset]="'/-px100-'+post.userId.photo.picCrop.slice(1)+' 100w, /-px60-'+post.userId.photo.picCrop.slice(1)+' 60w'"
+              [src]="post.userId.photo.picCrop">
+              <!--<app-img size="60" class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>-->
             </a>
             <span class="in_us">
             <a class="name"  href="{{host}}/user/{{post.userId._id}}">{{post.userId.firstName}} {{post.userId.lastName}}</a>
@@ -87,7 +94,10 @@
             </ng-container>
             <span class="us_zv"> у
               <span class="us_zv_link">
-                <app-img size="20" class="us_zv_img" [img]="{id:post.inPlace.id.av}"></app-img>
+                <img class="img us_zv_img"
+                [srcset]="'/-px100-'+post.inPlace.id.av.picCrop.slice(1)+' 100w, /-px60-'+post.inPlace.id.av.picCrop.slice(1)+' 60w'"
+                [src]="'/-px60-'+post.inPlace.id.av.picCrop.slice(1)">
+                <!--<app-img size="20" class="us_zv_img" [img]="{id:post.inPlace.id.av}"></app-img>-->
                 <strong class="name">{{post.inPlace.id.name}}</strong>
               </span>
             </span>
@@ -118,7 +128,12 @@
             <p class="pst_d">{{post.des}}</p>
             <div class="pst_img">
               <div class="cont-img" [class.array]="post.img.length >= 2">
-                <app-img class="img_i" *ngFor="let img of post.img" [img]="{id:img}"></app-img>
+                <ng-container *ngFor="let img of post.img">
+                  <img class="img"
+                  [srcset]="'/-px768-'+img.picCrop.slice(1)+' 768w, /-px400-'+img.picCrop.slice(1)+' 400w'"
+                  [src]="'/-px768-'+img.picCrop.slice(1)"> 
+                </ng-container>
+                <!--<app-img class="img_i" *ngFor="let img of post.img" [img]="{id:img}"></app-img>-->
               </div>
             </div>
           </div>
@@ -159,7 +174,10 @@
                 <ng-container *ngFor="let coment of post.commentId">
                   <article class="cm">
                     <div class="cm_us">
-                      <app-img size="60" class="img40 pre-bg" [img]="{id:coment.userIdCom.photo}"></app-img>
+                      <img class="img"
+                      [srcset]="'/-px100-'+coment.userIdCom.photo.picCrop.slice(1)+' 100w, /-px60-'+coment.userIdCom.photo.picCrop.slice(1)+' 60w'"
+                      [src]="coment.userIdCom.photo.picCrop">
+                      <!--<app-img size="60" class="img40 pre-bg" [img]="{id:coment.userIdCom.photo}"></app-img>-->
 
                       <div class="cm_us_in">
                         <p>
@@ -174,7 +192,10 @@
               </ng-container>
 
               <div class="cm_nw" *ngIf="estMyAvatar">
-                <app-picture [pic]="estMyAvatar" size="60" class="img20"></app-picture>
+                <img class="img img40"
+                [srcset]="'/-px100-'+estMyAvatar.picCrop.slice(1)+' 100w, /-px60-'+estMyAvatar.picCrop.slice(1)+' 60w'"
+                [src]="estMyAvatar.picCrop">
+                <!--<app-picture [pic]="estMyAvatar" size="60" class="img20"></app-picture>-->
                 <!--<ng-container *ngIf=".picCrop">-->
                 <!--<img class="img40 pre-bg" [src]="estMyAvatar.picCrop">-->
                 <!--</ng-container>-->

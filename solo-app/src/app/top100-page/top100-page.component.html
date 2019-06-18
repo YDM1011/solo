@@ -63,12 +63,24 @@
           </div>
         </div>
         <div class="l_i_bg">
-          <app-img *ngIf="est.bg; else preBg" class="inherit" [img]="{id:est.bg}"></app-img>
+          <ng-container *ngIf="est.bg; else preBg">
+            <img *ngIf="est.bg.picCrop; else preBg"
+            [src]="est.bg.picCrop"
+            class="img" alt=""
+            [srcset]="'/-px768-'+est.bg.picCrop.slice(1)+' 768w, /-px400-'+est.bg.picCrop.slice(1)+' 400w, /-px150-'+est.bg.picCrop.slice(1)+' 150w'" 
+            >
+          </ng-container>
+          <!--<app-img *ngIf="est.bg; else preBg" class="inherit" [img]="{id:est.bg}"></app-img>-->
         </div>
         <div class="l_i_av">
           <ng-container *ngIf="est.av; else preEst">
             <!--<img *ngIf="est.av.picCrop; else preEst" [src]="est.av.picCrop" class="img" alt="">-->
-            <app-img  class="inherit" [img]="{id:est.av}"></app-img>
+            <img *ngIf="est.av.picCrop; else preEst"
+            [src]="est.av.picCrop"
+            class="img" alt=""
+            [srcset]="est.av.picCrop+' 200w, /-px150-'+est.av.picCrop.slice(1)+' 150w, /-px100-'+est.av.picCrop.slice(1)+' 100w, /-px60-'+est.av.picCrop.slice(1)+' 60w, /-px20-'+est.av.picCrop.slice(1)+' 20w'"
+            >
+            <!--<app-img  class="inherit" [img]="{id:est.av}"></app-img>-->
           </ng-container>
         </div>
       </a>

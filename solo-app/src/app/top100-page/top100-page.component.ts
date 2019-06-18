@@ -62,7 +62,7 @@ export class Top100PageComponent implements OnInit {
     s.sf *= -1;
     s.sb = 1;
     s.sp = 1;
-    this.http.get(this.domain + '/api/establishment?sort={"favoriteCount":'+s.sf+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
+    this.http.get(this.domain + '/api/establishment?populate={"path":"av bg"}&sort={"favoriteCount":'+s.sf+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = ests;
         if (s.ests.length > 0) {
@@ -82,7 +82,7 @@ export class Top100PageComponent implements OnInit {
     s.sf = 1;
     s.sb *= -1;
     s.sp = 1;
-    this.http.get(this.domain + '/api/establishment?sort={"thebestCount":'+s.sb+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
+    this.http.get(this.domain + '/api/establishment?populate={"path":"av bg"}&sort={"thebestCount":'+s.sb+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = ests;
         if (s.ests.length > 0) {
@@ -102,7 +102,7 @@ export class Top100PageComponent implements OnInit {
     s.sf = 1;
     s.sb = 1;
     s.sp *= -1;
-    this.http.get(this.domain + '/api/establishment?sort={"postCount":'+s.sp+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
+    this.http.get(this.domain + '/api/establishment?populate={"path":"av bg"}&sort={"postCount":'+s.sp+'}&limit=100&skip=0'+s.query, s.api.getHeaders())
       .subscribe((ests: any) => {
         s.ests = ests;
         if (s.ests.length > 0) {

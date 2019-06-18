@@ -170,6 +170,7 @@ module.exports.estPost = (req, res, next) => {
     if (req.query.type == "count"){
         mongoose.model('post')
             .count({"inPlace.place": est})
+            .populate({path: 'img'})
             .exec((err,doc)=>{
                 if (err) return res.badRequest(err);
                 if (!doc) return res.serverError('Somesing broken');
@@ -178,9 +179,10 @@ module.exports.estPost = (req, res, next) => {
     }else if (req.query.skip){
         mongoose.model('post')
             .find({"inPlace.place": est})
-            .populate({path:'userId'})
-            .populate({path:'inPlace.id', select:'av name'})
-            .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
+            .populate({path:'userId', populate:{path: 'photo'}})
+            .populate({path:'inPlace.id', select:'av name', populate:{path:'av'}})
+            .populate({path: 'img'})
+            .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login', populate:{path:'photo'}}})
             .limit(4)
             .skip(parseInt(req.query.skip))
             .sort({data: -1})
@@ -192,8 +194,9 @@ module.exports.estPost = (req, res, next) => {
     }else{
         mongoose.model('post')
             .find({"inPlace.place": est, "share.userIdShare":null})
-            .populate({path:'userId'})
+            .populate({path:'userId', populate:{path: 'photo'}})
             .populate({path:'inPlace.id', select:'av name'})
+            .populate({path: 'img'})
             .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
             .limit(4)
             .skip(0)
