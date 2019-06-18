@@ -62,7 +62,7 @@
             <div class="pst_img">
               <div class="cont-img" [class.array]="post.img.length >= 2">
                 <ng-container *ngFor="let img of post.img">
-                  <img class="img"
+                  <img class="img img_i"
                   [srcset]="'/-px768-'+img.picCrop.slice(1)+' 768w, /-px400-'+img.picCrop.slice(1)+' 400w'"
                   [src]="'/-px768-'+img.picCrop.slice(1)"> 
                 </ng-container> 

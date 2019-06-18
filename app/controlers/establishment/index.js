@@ -197,7 +197,7 @@ module.exports.estPost = (req, res, next) => {
             .populate({path:'userId', populate:{path: 'photo'}})
             .populate({path:'inPlace.id', select:'av name'})
             .populate({path: 'img'})
-            .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login'}})
+            .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login', populate:{path:'photo'}}})
             .limit(4)
             .skip(0)
             .sort({data: -1})
