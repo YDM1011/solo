@@ -176,8 +176,7 @@ module.exports.estPost = (req, res, next) => {
                 if (!doc) return res.serverError('Somesing broken');
                 if (doc) return res.ok({count:doc});
             })
-    }else if (req.query.skip){
-        console.log('YESSSSSS!');  
+    }else if (req.query.skip){        
         mongoose.model('post')
             .find({"inPlace.place": est})
             .populate({path:'userId', populate:{path: 'photo'}})
