@@ -177,11 +177,15 @@ module.exports.estPost = (req, res, next) => {
                 if (doc) return res.ok({count:doc});
             })
     }else if (req.query.skip){
+        console.log('YESSSSSS!');  
         mongoose.model('post')
             .find({"inPlace.place": est})
             .populate({path:'userId', populate:{path: 'photo'}})
             .populate({path:'inPlace.id', select:'av name', populate:{path:'av'}})
             .populate({path: 'img'})
+            //.populate({path:'commentId', select:'_id des data userIdCom likeCom',
+            //        populate:{path: 'userIdCom likeCom', select:'_id photo firstName lastName',
+            //            populate:{path: 'photo'}}})
             .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login', populate:{path:'photo'}}})
             .limit(4)
             .skip(parseInt(req.query.skip))
@@ -191,11 +195,11 @@ module.exports.estPost = (req, res, next) => {
                 if (!doc) return res.serverError('Somesing broken');
                 if (doc) return res.ok(doc);
             })
-    }else{
+    }else{        
         mongoose.model('post')
             .find({"inPlace.place": est, "share.userIdShare":null})
             .populate({path:'userId', populate:{path: 'photo'}})
-            .populate({path:'inPlace.id', select:'av name'})
+            .populate({path:'inPlace.id', select:'av name', populate:{path:'av'}})
             .populate({path: 'img'})
             .populate({path:'commentId', populate:{path:'userIdCom', select:'-token -login', populate:{path:'photo'}}})
             .limit(4)

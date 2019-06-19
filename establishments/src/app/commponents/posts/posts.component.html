@@ -77,10 +77,13 @@
       <ng-container *ngIf="!post.share.userIdShare">
         <article class="cont pst">
           <div class="pst_in">
-            <a href="{{host}}/user/{{post.userId._id}}">
-              <img class="img img40"
+            <a href="{{host}}/user/{{post.userId._id}}">              
+              <img class="img img40" *ngIf="post.userId.photo"
               [srcset]="'/-px100-'+post.userId.photo.picCrop.slice(1)+' 100w, /-px60-'+post.userId.photo.picCrop.slice(1)+' 60w'"
               [src]="post.userId.photo.picCrop">
+              <ng-container *ngIf="!post.userId.photo.picCrop">
+                  <app-prev-av></app-prev-av>
+                </ng-container>
               <!--<app-img size="60" class="img40 pre-bg" [img]="{id:post.userId.photo}"></app-img>-->
             </a>
             <span class="in_us">
@@ -129,7 +132,7 @@
             <div class="pst_img">
               <div class="cont-img" [class.array]="post.img.length >= 2">
                 <ng-container *ngFor="let img of post.img">
-                  <img class="img"
+                  <img class="img img_i"
                   [srcset]="'/-px768-'+img.picCrop.slice(1)+' 768w, /-px400-'+img.picCrop.slice(1)+' 400w'"
                   [src]="'/-px768-'+img.picCrop.slice(1)"> 
                 </ng-container>
@@ -172,7 +175,7 @@
             <div class="post_cm">
               <ng-container *ngIf="post.commentId.length > 0">
                 <ng-container *ngFor="let coment of post.commentId">
-                  <article class="cm">
+                  <article class="cm" *ngIf="coment.userIdCom">
                     <div class="cm_us">
                       <img class="img"
                       [srcset]="'/-px100-'+coment.userIdCom.photo.picCrop.slice(1)+' 100w, /-px60-'+coment.userIdCom.photo.picCrop.slice(1)+' 60w'"
@@ -246,3 +249,8 @@
   url:'me',
   security: true
 }" (onRes)="result($event)" (onErr)="forbidden($event)"></app-custom-res>
+
+
+<ng-template #favEst>
+  <svg xmlns="http://www.w3.org/2000/svg" width="366" height="432" viewBox="0 0 366 432" fill="none"> <g clip-path="url(#clip0)"> <path d="M362.081 234.638L190.524 85.9555C186.224 82.2271 179.841 82.2271 175.541 85.9555L114.375 138.932V117.476C114.375 104.849 104.127 94.602 91.5011 94.602C78.8749 94.602 68.6264 104.85 68.6264 117.476V178.573L3.93763 234.638C-0.820157 238.778 -1.34613 246.007 2.7939 250.787C6.95725 255.545 14.1628 256.049 18.9431 251.931L182.999 109.744L347.031 251.931C349.226 253.807 351.857 254.722 354.533 254.722C357.758 254.722 360.892 253.372 363.157 250.787C367.365 246.007 366.816 238.824 362.081 234.638Z" fill="#C3C3C3"/> <path d="M197.477 168.44C193.291 164.986 188.145 163.225 182.998 163.225C177.851 163.225 172.704 164.963 168.496 168.44L54.1243 262.201C48.8172 266.548 45.7524 273.021 45.7524 279.906V391.967C45.7524 404.594 56.0002 414.841 68.6264 414.841H137.249V300.471H228.746V414.842H297.369C309.973 414.842 320.243 404.594 320.243 391.968V279.907C320.243 272.998 317.155 266.548 311.848 262.225L197.477 168.44Z" fill="#C3C3C3"/> </g> <g clip-path="url(#clip1)"> <path d="M89.754 16.6069C93.0635 8.76279 100.624 3.28191 109.418 3.28191C121.263 3.28191 129.795 13.4155 130.867 25.4924C130.867 25.4924 131.446 28.4904 130.172 33.8876C128.437 41.2381 124.358 47.7686 118.859 52.7525L89.754 78.7203L61.1393 52.7509C55.6404 47.7686 51.5617 41.2364 49.8266 33.886C48.5523 28.4887 49.1312 25.4908 49.1312 25.4908C50.2038 13.4138 58.735 3.28027 70.5808 3.28027C79.3761 3.28027 86.4445 8.76279 89.754 16.6069Z" fill="#C3C3C3"/> </g> <defs> <clipPath id="clip0"> <rect width="366" height="366" fill="white" transform="translate(0 66)"/> </clipPath> <clipPath id="clip1"> <rect width="82" height="82" fill="white" transform="translate(49)"/> </clipPath> </defs> </svg>
+</ng-template>
