@@ -1,5 +1,12 @@
 <ng-container *ngIf="userObj && userId && posts">
   <app-create *ngIf="userObj" [avatar]="userObj.photo" [id]="userId" [firstName]="userObj.firstName"></app-create>
   <app-post [posts]="posts" ></app-post>
-  <div class="scrolDirective" appScrollRequest (request)="morePost()" *ngIf="isShow">Зачекайте...</div>
+  <!--<div class="scrolDirective center" appScrollRequest (request)="morePost()" *ngIf="isShow">Зачекайте...</div>-->
+  <div class="scrolDirective center" appScrollRequest (request)="morePost()" *ngIf="isShow">
+    <div class="container">
+      <div class="row center">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    </div>
+  </div>
 </ng-container>

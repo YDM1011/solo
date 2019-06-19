@@ -89,7 +89,8 @@ const preRead = (req,res,next)=>{
         mongoose.model('dish')
             .find({ownerest: req.params['id']})
             .populate({path:'dishcategory', select:'name _id'})
-            .populate({path:'portion'})
+            .populate({path:'portion'})            
+            .populate({path:'pic'})
             .select('dishcategory name portion _id')
             .exec((err,info)=>{
                 if (err) return res.serverError(err);
