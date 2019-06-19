@@ -2,7 +2,7 @@
   url:'dish',
   select: '-__v',
   query:{dishcategory: categoryId},
-  populate: {path:'portion',match:{menuId:{$in:[menuId]}}}
+  populate: [{path:'portion', match:{menuId:{$in:[menuId]}}},{path:'pic'}]
 }"
 (onRes)="onapi($event)"></app-custom-res>
 
@@ -20,7 +20,10 @@
             </div>
             <ng-container *ngIf="dish">
             <ng-container *ngIf="dish.pic">
-              <app-img [img]="{id:dish.pic}" ></app-img>
+              <img class="img"
+              [srcset]="dish.pic.picCrop+' 700w, /-px230-'+dish.pic.picCrop.slice(1)+' 230w, /-px150-'+dish.pic.picCrop+' 150w'"
+              [src]="dish.pic.picCrop">
+              <!--<app-img [img]="{id:dish.pic}" ></app-img>-->
             </ng-container>
             <ng-container *ngIf="!dish.pic">
               <app-prev-dish></app-prev-dish>

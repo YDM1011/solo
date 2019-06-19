@@ -16,7 +16,10 @@
             {{act.des}}
           </div>
           <div class="inherit" *ngIf="act.img[0]">
-            <app-picture class="img" [size]="'right-bar-pg'" [pic]="act.img[0]"></app-picture>
+              <img class="img"
+              [srcset]="'/-px768-'+act.img[0].picCrop.slice(1)+' 768w, /-px200-'+act.img[0].picCrop.slice(1)+' 200w, /-px60-'+act.img[0].picCrop.slice(1)+' 60w'"
+              [src]="'/-px768-'+act.img[0].picCrop.slice(1)">
+            <!--<app-picture class="img" [size]="'right-bar-pg'" [pic]="act.img[0]"></app-picture>-->
           </div>
         </div>
       </div>

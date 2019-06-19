@@ -31,7 +31,7 @@ export class ScrollRequestDirective {
   };
 
   resize = ():void => {
-    this.innerH = Math.floor(window.innerHeight*1.8);
+    this.innerH = Math.floor(window.innerHeight*2.8);
   };
 
   height = (): number => {

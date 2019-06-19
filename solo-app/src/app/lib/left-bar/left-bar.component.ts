@@ -83,12 +83,12 @@ export class LeftBarComponent implements OnInit {
     this.http.get(this.domain + '/api/favorite/favoritest/' + idc, this.api.getHeaders())
       .subscribe((est: any) => {
         self.favoriteEst = est.favoritest;
-        if(self.favoriteEst){
-          this.http.get(this.domain + '/api/galery/' + self.favoriteEst.av, this.api.getHeaders())
-            .subscribe((estAv: any) => {
-              self.favoriteEst.av = estAv;
-            });
-        }
+        //if(self.favoriteEst){
+        //  this.http.get(this.domain + '/api/galery/' + self.favoriteEst.av, this.api.getHeaders())
+        //    .subscribe((estAv: any) => {
+        //      self.favoriteEst.av = estAv;
+        //    });
+        //}
 
       });
 

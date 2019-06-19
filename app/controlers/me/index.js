@@ -216,7 +216,7 @@ const getId = (req,res,callbeack)=>{
 const getFavorit = (req,res,mod)=>{
     getId(req,res,()=>{
         User
-            .findOne({_id: req.userId})
+            .findOne({_id: req.userId})            
             .populate({path:mod})
             .select(mod)
             .exec((err, content) =>{
@@ -259,6 +259,7 @@ const getDishByArr = (req,res,arr,est)=>{
         if(info){
             mongoose.model('dish')
                 .find({ownerest: info._id, _id:{$in:arr}})
+                .populate({path: 'pic'})
                 .limit(6).skip(0)
                 .exec((err,infoD)=>{
                 if(err)  return res.badRequest(err);
@@ -388,6 +389,7 @@ module.exports.dishHit = (req,res,next)=>{
         if(info){
             mongoose.model('dish')
                 .find({ownerest: info._id, ishit:true})
+                .populate({path:'pic'})
                 .limit(6).skip(0)
                 .exec((err,infoD)=>{
                     if(err)  return res.badRequest(err);

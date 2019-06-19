@@ -5,7 +5,10 @@
 
     <div class="img60">
       <ng-container *ngIf="avatar">
-        <app-picture size="60" [pic]="avatar"></app-picture>
+        <img class="img"
+        [srcset]="'/-px100-'+avatar.picCrop.slice(1)+' 100w, /-px60-'+avatar.picCrop.slice(1)+' 60w'"
+        [src]="avatar.picCrop">
+        <!--<app-picture size="60" [pic]="avatar"></app-picture>-->
         <!--<img class="inherit" src="{{avatar.picCrop}}">-->
       </ng-container>
       <ng-container *ngIf="!avatar">

@@ -15,6 +15,7 @@ export class PostsComponent implements OnInit, OnChanges, OnDestroy {
   public isMore: boolean = true;
   public estAvatar: any;
   public estMyAvatar: any;
+  public load = true;
   public host: string = environment.apiDomain;
   constructor(
     private api: ApiService,
@@ -46,6 +47,7 @@ export class PostsComponent implements OnInit, OnChanges, OnDestroy {
   }
   getMore(){
     let s = this;
+    this.load = false;
     s.api.get('est_post?skip='+s.posts.length).then((val: any) => {
       if (val) {
         s.posts = s.posts.concat(val);
@@ -53,7 +55,8 @@ export class PostsComponent implements OnInit, OnChanges, OnDestroy {
           s.isMore = false
         }else{
           s.isMore = true
-        }
+        }        
+        this.load = true;
       }
     });
   }

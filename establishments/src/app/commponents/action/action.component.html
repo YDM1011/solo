@@ -37,7 +37,10 @@
       </a>
       <div class="el_cntt" *ngIf="actions.length > 0">
         <div class="el_i" *ngFor="let act of actions | slice:0:6">
-          <app-picture class="img" [size]="'right-bar-g'" [pic]="act.img[0]" *ngIf="act.img[0]"></app-picture>
+          <img class="img img-content"
+          [srcset]="'/-px200-'+act.img[0].picCrop.slice(1)+' 200w, /-px60-'+act.img[0].picCrop.slice(1)+' 60w'"
+          [src]="'/-px200-'+act.img[0].picCrop.slice(1)">
+          <!--<app-picture class="img" [size]="'right-bar-g'" [pic]="act.img[0]" *ngIf="act.img[0]"></app-picture>-->
         </div>
       </div>
     </div>
