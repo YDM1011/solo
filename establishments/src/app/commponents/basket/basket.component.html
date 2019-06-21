@@ -468,7 +468,12 @@
             <option name="paymentType" value="coin"
                     *ngIf="me.foodcoin>=(activeBaskets.totalPrice +
                     (activeBaskets.boxesPrice || 0) + (activeBaskets.deliveryPrice || 0))">
-              Фудкоїнами
+              FoodCoin
+            </option>
+            <option name="paymentType" value="coin" disabled style="color:red"
+                    *ngIf="me.foodcoin<(activeBaskets.totalPrice +
+                    (activeBaskets.boxesPrice || 0) + (activeBaskets.deliveryPrice || 0))">
+              FoodCoin (не достатньо для оплати замовлення)
             </option>
           </select>
         </div>
@@ -609,7 +614,11 @@
             <option name="paymentType" value="card" *ngIf="isCart">Карткою</option>
             <option name="paymentType" value="coin"
                     *ngIf="me.foodcoin>=(activeBaskets.totalPrice + (activeBaskets.boxesPrice || 0))">
-              Фудкоїнами
+                    FoodCoin
+            </option>
+            <option name="paymentType" value="coin" disabled style="color:red"
+                    *ngIf="me.foodcoin<(activeBaskets.totalPrice + (activeBaskets.boxesPrice || 0))">
+              FoodCoin (не достатньо для оплати замовлення)
             </option>
           </select>
         </div>
@@ -756,7 +765,11 @@
             <option name="paymentType" value="card" *ngIf="isCart">Карткою</option>
             <option name="paymentType" value="coin"
                     *ngIf="me.foodcoin>=(activeBaskets.totalPrice)">
-              Фудкоїнами
+                    FoodCoin
+            </option>
+            <option name="paymentType" value="coin" disabled style="color:red"
+                    *ngIf="me.foodcoin<(activeBaskets.totalPrice)">
+              FoodCoin (не достатньо для оплати замовлення)
             </option>
           </select>
         </div>
