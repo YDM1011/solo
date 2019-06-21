@@ -211,13 +211,21 @@ const postUpdate = async (req,res,next)=>{
                     orderType: bData.orderType,
                     isUser: true
                 };
-                console.log("test"+basketData.ownerest);
+                //console.log("test"+basketData.ownerest);
+
+
+                switch(bData.orderType){
+                    case 'delivery': otype=`Доставка`; break;
+                    case 'bySelf': otype=`На виніс`; break;
+                    case 'reserve': otype=`Замовлення столика`; break;
+                    default: otype=`Доставка`;
+                }
 
                 let estMail = {
                     mail:basketData.ownerest.mailOfOrder,
                     orderId:bData.orderNumber,
                     orderLink:'https://admin.'+data.auth.domain+'/order/'+bData.ownerest+'/'+bData._id,
-                    orderType: bData.orderType,
+                    orderType: otype,
                     isEst: !req.isUseByAdmin
                 };
                 mail.sendMail(userMail, bData.status);
