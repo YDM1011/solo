@@ -29,6 +29,7 @@ const geo = require('../controlers/geo');
 const permisionUser = require('../controlers/permisionUser');
 const user = require('../controlers/user');
 const balans = require('../controlers/balans');
+const analytics = require('../controlers/analytics');
 const adm = require('../controlers/adm');
 
 const sms = require('../controlers/sms');
@@ -120,6 +121,7 @@ router.post('/api/adm/signin', [orign, verification], admLogin);
 router.post('/api/permisionUser/:id', [orign, glob.isAdmin], permisionUser);
 router.get('/api/userBalanse', [orign], user.userBalanse);
 router.get('/api/estBalanse', [orign], establishment.estBalanse);
+router.get('/api/overview/:id', [orign], analytics.overview);
 
 
 //landing
@@ -136,6 +138,8 @@ router.get('/api/addCatToOneest1234', [orign, glob.getId], addCatToOneest);
 router.get('/api/pushPull', [orign, glob.getId], addCatToOneest.pushPull);
 router.get('/api/addUserData1234/:data', [orign, glob.getId], addUserData);
 router.post('/api/userFoodcoin', [orign], user.getFoodcoin);
+router.get('/api/all_menu', [orign], establishment.allMenu);
+router.post('/api/renew_menu', [orign], establishment.renewMenu);
 
 //service API
 router.post('/api/SMSSend', [orign, glob.getId], sms.send);

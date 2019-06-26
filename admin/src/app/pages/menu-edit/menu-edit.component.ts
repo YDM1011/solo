@@ -13,6 +13,11 @@ export class MenuEditComponent implements OnInit {
   public menu: any;
   public option: any = [];
   public optionCat: any = [];
+  public worksTimeView:any;
+  public worksTimeViewOnline:any;  
+  public myest:any;
+  public pid:any;
+  public worksTimeAll:any = [];
   private key = 'menu';
   constructor(
     private route: ActivatedRoute,
@@ -24,7 +29,7 @@ export class MenuEditComponent implements OnInit {
     const self = this;
     this.id = this.route.snapshot.paramMap.get('id');
     this.editid = this.route.snapshot.paramMap.get('editid');
-    console.log(this.id);
+    //console.log(this.id);
     this.route.params.subscribe((params: any) => {
       self.id = params.id;
       self.editid = params.editid;
@@ -40,13 +45,17 @@ export class MenuEditComponent implements OnInit {
   }
   initApi(id) {
     const self = this;
+
     const req = [self.key];
     let isActive = false;
     let isActivecat = false;
+    
     req.forEach((select) => {
+      
       this.api.get(self.key, id).then((res: any) => {
+        
         res.map(item => {
-
+          
           if (item._id == self.editid) {
 
             self[select] = item;
@@ -70,14 +79,17 @@ export class MenuEditComponent implements OnInit {
                 });
               }
             }).catch((err: any) => {});
-
+            
+            self.getAllCalendars();
+            self.getCalendarActive();
+            
             this.api.get('dish', id, 'all').then((val: any) => {
               if (val) {
                 self.option = [];
                 val.map((it: any) => {
 
                   self[select].dishes.map((dish: any) => {
-                    console.log(dish, it);
+                    //console.log(dish, it);
                     if (dish._id == it._id) {
 
                       isActive = true;
@@ -102,6 +114,53 @@ export class MenuEditComponent implements OnInit {
 
 
   }
+
+  getAllCalendars(){
+    const s = this;
+    s.api.justGet(`timeWork?query={"ownerEst":"${s.id}"}`).then((val:any)=>{
+      s.worksTimeAll = [];
+      val.map(it=>{
+        s.worksTimeAll.push({
+          label: it.name,
+          obj: it
+        })
+      });
+    })
+  }
+
+  getCalendar(e){
+    const s = this;
+    //console.log(e.obj);
+    //s.menu.worksTime = e.obj.label || e.obj.name;
+    s.menu.deliverytime = e.obj._id;
+    s.worksTimeView = e.obj;
+  }
+
+  getCalendarOnline(e){
+    const s = this;
+    //console.log(e.obj);
+    //s.menu.worksTime = e.obj.label || e.obj.name;
+    s.menu.deliveryonline = e.obj._id;
+    s.worksTimeViewOnline = e.obj;
+  }
+
+  getCalendarActive(){
+    const s = this;
+    //console.log(s.menu);
+    if(s.menu.deliverytime){
+      s.api.justGet(`timeWork/${s.menu.deliverytime._id}`).then((val:any)=>{
+        //s.menu.worksTime = val.label || val.name;
+        s.worksTimeView = val;
+      })
+    }
+    if(s.menu.deliveryonline){
+      s.api.justGet(`timeWork/${s.menu.deliveryonline._id}`).then((val:any)=>{
+        //s.menu.worksTime = val.label || val.name;
+        s.worksTimeViewOnline = val;
+      })
+    }
+  }
+
   delingredient(index) {
     const self = this;
     self[self.key].maincategory.splice(index, 1);

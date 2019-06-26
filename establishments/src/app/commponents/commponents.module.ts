@@ -51,6 +51,7 @@ import { StatusPipe } from './basket/status.pipe';
 import { OrderPipe } from './basket/order.pipe';
 import {BasketHistoryComponent} from "./basket-history/basket-history.component";
 import { FormatNumberPipe } from './header/format-number.pipe';
+import { TimepickerValidationComponent } from './timepicker-validation/timepicker-validation.component';
 
 @NgModule({
   imports: [
@@ -130,7 +131,8 @@ import { FormatNumberPipe } from './header/format-number.pipe';
     StatusPipe,
     OrderPipe,
     BasketHistoryComponent,
-    FormatNumberPipe
+    FormatNumberPipe,
+    TimepickerValidationComponent
   ]
 })
 export class CommponentsModule { }

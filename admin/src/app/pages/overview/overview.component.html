@@ -1,0 +1,78 @@
+<div class="page-title">
+  <h4>
+     Огляд за вчора ({{yesterday | date: 'dd.MM.yyyy'}})          
+  </h4>
+</div>
+
+<div
+class="row"
+*ngIf="data$ | async as data; else loader"
+>
+
+  <div class="col s12 l6">
+      <div class="card light-blue lighten-2 white-text">
+          <div class="card-content">
+              <span class="card-title">Виручка:</span>
+              <h3>{{data.gain.yesterday}} грн</h3>
+              <h3
+                class="m0 mb1"
+                [ngClass]= "{
+                  'green-text text-darken-2': data.gain.isHigher,
+                  'red-text': !data.gain.isHigher
+                }"
+              >
+                  <i class="fas fa-arrow-up" *ngIf="data.gain.isHigher"></i>
+                  <i class="fas fa-arrow-down" *ngIf="!data.gain.isHigher"></i>                  
+                  {{data.gain.percent}}%
+              </h3>
+              <p>
+                Виручка за вчорашній день на 
+                {{data.gain.percent}}% 
+                {{data.gain.isHigher ? 'вище' : 'нижче'}} 
+                середньої: 
+                {{data.gain.compare}} 
+                грн/день
+              </p>
+          </div>
+      </div>
+  </div>
+
+  <div class="col s12 l6">
+      <div class="card orange lighten-2 white-text">
+          <div class="card-content">
+              <span class="card-title">Замовлення:</span>
+              <h3>{{data.orders.yesterday}} шт.</h3>
+              <h3
+                class="m0 mb1"
+                [ngClass]= "{
+                  'green-text text-darken-2': data.orders.isHigher,
+                  'red-text': !data.orders.isHigher
+                }"
+              >
+              <i class="fas fa-arrow-up" *ngIf="data.orders.isHigher"></i>
+              <i class="fas fa-arrow-down" *ngIf="!data.orders.isHigher"></i>     
+                  {{data.orders.percent}}%
+              </h3>
+              <p>
+                Кількість замовлень за вчорашній день на 
+                {{data.orders.percent}}% 
+                {{data.orders.isHigher ? 'вище' : 'нижче'}} 
+                серднього значення: 
+                {{data.orders.compare}} 
+                зам./день
+              </p>
+          </div>
+      </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  ...
+</ng-template>
+
+<div class="tap-target" data-target="menu" #tapTarget>
+  <div class="tap-target-content">
+      <h5>Навіщо потрібна ця сторінка?</h5>
+      <p>Сторінка “Огляд” покаже динаміку замовлень за попередній день. Порівняння з середнім значенням допоможе Вам зрозуміти як ідуть справи!</p>
+  </div>
+</div>

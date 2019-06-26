@@ -4,6 +4,7 @@ const Complement = mongoose.model('complement');
 const Establishment = mongoose.model('establishment');
 const Product = mongoose.model('product');
 const Basket = mongoose.model('basket');
+const Menu = mongoose.model('menu');
 const BasketList = mongoose.model('basketsList');
 const LiqPay = require('liqpay-sdk');
 const publikKey = 'i94942794371';
@@ -105,7 +106,7 @@ module.exports.getBasketEst = (req, res, next) => {
                             populate:{path:'categoryData',
                                 populate:{path:"complementbox"}}})
                         .populate({path: 'menuData',
-                            populate:{path:'dishData'}
+                            populate:{path:'dishData deliverytime deliveryonline'}
                         })
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
@@ -138,7 +139,7 @@ module.exports.getBasketEst = (req, res, next) => {
                             populate:{path:'categoryData',
                                 populate:{path:"complementbox"}}})
                         .populate({path: 'menuData',
-                            populate:{path:'dishData'}
+                            populate:{path:'dishData deliverytime deliveryonline'}
                         })
                         .populate({path: 'productData',
                             populate:{path:'portItemData boxData complementData.id dishData'}
@@ -245,6 +246,7 @@ module.exports.liqpayCallback = (req,res,next)=>{
 
     }
 };
+
 
 module.exports.estsOfBasket = (req, res, next) => {
     console.log(req.userId);

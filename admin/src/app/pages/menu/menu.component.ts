@@ -22,14 +22,14 @@ export class MenuComponent implements OnInit {
     let self = this;
     this.api.onUpDate.subscribe((val:any)=>{
       if(val){
-        console.log(val);
+        //console.log(val);
         self[val[1]] = val[0];
       }
     });
 
     this.id = this.route.snapshot.paramMap.get('id');
     this.editid = this.route.snapshot.paramMap.get('editid');
-    console.log(this.id);
+    //console.log(this.id);
     this.route.params.subscribe((params:any) => {
       self.id = params.id;
       self.editid = params.editid;

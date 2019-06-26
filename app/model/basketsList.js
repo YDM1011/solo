@@ -228,8 +228,16 @@ const postUpdate = async (req,res,next)=>{
                     orderType: otype,
                     isEst: !req.isUseByAdmin
                 };
+                let admMail = {
+                    mail: 'tasteol.com@gmail.com',
+                    orderId:bData.orderNumber,
+                    orderLink:'https://admin.'+data.auth.domain+'/order/'+bData.ownerest+'/'+bData._id,
+                    orderType: otype,
+                    isEst: !req.isUseByAdmin
+                };
                 mail.sendMail(userMail, bData.status);
                 mail.sendMail(estMail, bData.status);
+                mail.sendMail(admMail, bData.status);
                 if (bData.status == '6') {
                     let amount;
                     let boxP = bData['editByAdmin'] ? bData['editByAdmin']['boxesPrice'] || bData.boxesPrice : bData.boxesPrice;

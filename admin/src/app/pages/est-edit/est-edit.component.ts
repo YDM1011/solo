@@ -17,7 +17,7 @@ export class EstEditComponent implements OnInit,OnChanges {
   public menus:any = [];
   public afterSelect:any = [];
   public labels:any;
-  public worksTimeAll:any;
+  public worksTimeAll:any = [];
   public worksTimeView:any;
   public labelInUse:any;
   constructor(

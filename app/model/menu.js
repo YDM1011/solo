@@ -5,9 +5,19 @@ const pages = new menuList({
     name: String,
     delivery: String,
     deliveryfree: String,
-    deliverytime: String,
-    deliveryonline: String,
+    //графік доставки
+    deliverytime: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "timeWork"
+    },
+    //графік онлайн-замовлень
+    deliveryonline: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "timeWork"
+    },
+    //мінімальний час доставки в хвилинах
     deliverymintime: String,
+    //кількість днів, за скільки наперед приймаються замовлення
     maxtime: String,
     steptime: String,
     owneruser: String,
@@ -61,6 +71,7 @@ const preRead = (req,res,next)=>{
                         mongoose.model('menu')
                             .findOne({_id: req.params['id']})
                             .populate(JSON.parse(req.query.populate))
+                            .populate({path: 'deliverytime deliveryonline'})
                             .select(req.query.select)
                             .exec((err,info)=>{
                                 if (err) return res.serverError(err);
@@ -71,6 +82,7 @@ const preRead = (req,res,next)=>{
                         mongoose.model('menu')
                             .find({ownerest: estId})
                             .populate(JSON.parse(req.query.populate))
+                            .populate({path: 'deliverytime deliveryonline'})
                             .select(req.query.select)
                             .exec((err,info)=>{
                                 if (err) return res.serverError(err);
@@ -95,6 +107,7 @@ const preRead = (req,res,next)=>{
     }else{
         mongoose.model('menu')
             .find({ownerest: req.params['id']})
+            .populate({path: 'deliverytime deliveryonline'})
             .populate({path:'dishes', select:'name _id',
                 populate:{path:'dishcategory', select:'name _id'}})
             .exec((err,info)=>{
@@ -121,6 +134,7 @@ const postUpdate = (req,res,next)=>{
 
     mongoose.model('menu')
         .findOne({_id: req.params['id']})
+        //.populate({path: 'deliverytime'})
         .populate({path:'dishes', select:'name _id',
             populate:{path:'dishcategory', select:'name _id'}})
         .exec((err,info)=>{
