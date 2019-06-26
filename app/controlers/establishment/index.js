@@ -247,16 +247,17 @@ module.exports.allMenu = (req, res, next) => {
 };
 
 module.exports.renewMenu = (req, res, next) => {
-    Menu.update({}, {$set: {deliveryonline: "5c43c33dd78767205bd53226"}}, { multi: true })        
-        .exec((err,doc)=>{
-            if (err) return res.badRequest(err);
-            if (!doc) {
-                return res.serverError('Somesing broken');
-            }
-            if (doc){
-                return res.status(200).json(doc);
-            }
-        })
+
+    //Menu.update({}, {$set: {deliveryonline: "5c43c33dd78767205bd53226"}}, { multi: true })        
+    //    .exec((err,doc)=>{
+    //        if (err) return res.badRequest(err);
+    //        if (!doc) {
+    //            return res.serverError('Somesing broken');
+    //        }
+    //        if (doc){
+    //            return res.status(200).json(doc);
+    //        }
+    //    })
 };
 
 

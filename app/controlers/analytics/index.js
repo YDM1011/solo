@@ -23,7 +23,7 @@ module.exports.overview = async function(req, res) {
         //загальна виручка
         const totalGain = calculatePrice(allOrders)
         //виручка за день
-        const gainPerDay = totalGain / daysNumber
+        const gainPerDay = (totalGain / daysNumber).toFixed(2)
         //виручка за вчора
         const yesterdayGain = calculatePrice(yesterdayOrders)
         //відсоток виручки
