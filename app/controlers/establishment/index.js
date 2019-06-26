@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 const User = mongoose.model('user');
 const Establishment = mongoose.model('establishment');
 
+
+const Menu = mongoose.model('menu');
+
 module.exports.create = (req, res, next) => {
     req.body['owner'] = req.userId;
     req.body['data'] = new Date();
@@ -220,7 +223,8 @@ module.exports.estMenu = (req, res, next) => {
         .populate({path:'myest',
             populate:{path:'menus', select:'_id name categories',
             populate:{path: 'categories',
-            populate:{path: 'dishes'}}}})
+            populate:{path: 'dishes',
+            }}}})
         .select('myest')
         .exec((err, doc)=>{
             if (err) return res.badRequest(err);
@@ -228,6 +232,35 @@ module.exports.estMenu = (req, res, next) => {
             if (doc) return res.ok(doc);
         })
 };
+
+module.exports.allMenu = (req, res, next) => {
+    Menu
+        //.find({_id: '5c901b2086ec512b4c791a8f'})
+        .find()
+        .populate({path: 'deliverytime deliveryonline'})
+        //.populate({path: 'dishes'})
+        .exec((err, doc)=>{
+            if (err) return res.badRequest(err);
+            if (!doc) return res.serverError('Somesing broken');
+            if (doc) return res.ok(doc);
+        })
+};
+
+module.exports.renewMenu = (req, res, next) => {
+
+    //Menu.update({}, {$set: {deliveryonline: "5c43c33dd78767205bd53226"}}, { multi: true })        
+    //    .exec((err,doc)=>{
+    //        if (err) return res.badRequest(err);
+    //        if (!doc) {
+    //            return res.serverError('Somesing broken');
+    //        }
+    //        if (doc){
+    //            return res.status(200).json(doc);
+    //        }
+    //    })
+};
+
+
 module.exports.estWorkTime = (req, res, next) => {
     let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
     let numberDay = new Date().getDay() == 0 ? 7 : new Date().getDay();

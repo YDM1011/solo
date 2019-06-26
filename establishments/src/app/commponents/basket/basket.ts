@@ -20,7 +20,9 @@ export interface Basket {
   orderType?: string,
   paymentType?: string,
   boxesPrice?: number,
-  deliveryPrice?: number,
+  deliveryPrice?: number, 
+  deliveryWorkTimeAll?: any,
+  deliveryWorkTime?: any,
   deliveryMinPrice?: number,
   isCall?: boolean,
   paymentDetail?: Payment,
@@ -45,6 +47,9 @@ export class BasketData implements Basket{
   public orderType?;
   public anyMobile?;
   public deliveryTime?;
+  public deliveryWorkTime?;
+  public deliveryWorkTimeAll?;    
+  public deliveryOnline?;
   public paymentType? = "fiat";
   public boxesPrice?;
   public deliveryPrice?;

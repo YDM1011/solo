@@ -352,6 +352,7 @@
       <span class="c_t-colF p-d_h-t">Замовлення столика</span>
     </button>
   </div>
+  <div *ngIf="isError" class="error-text">{{isError}}</div>
   <div class="p-d_btn-cont" *ngIf="!orderType">
     <button type="button" class="btn-red p-d_btn" (click)="isDoOrder=false">Скасувати</button>
   </div>
@@ -446,11 +447,21 @@
         <div class="p-d_ch-c" *ngIf="activeBaskets.deliveryTime != 'false'">
           <div class="date-wrap">
             <div class="time-input">{{dataStart | date:'dd/MM/yy'}}</div>
-            <ngb-datepicker #dp [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
+            <ngb-datepicker #dp
+              [minDate]="startDay"
+              [maxDate]="endDay"
+              [(ngModel)]="model"
+              (select)="dataSelected($event)"
+            ></ngb-datepicker>
           </div>
           <div class="time-wrap">
             <div class="time-input">{{dataStart | date:'HH:mm'}}</div>
-            <ngb-timepicker [(ngModel)]="timeStart" [minuteStep]="5"></ngb-timepicker>
+            <ngb-timepicker [(ngModel)]="timeStart" [minuteStep]="10"></ngb-timepicker>
+            <!--<div class="center">
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isTimeRange">Графік: {{activeBaskets.deliveryWorkTime.timeStart}} - {{activeBaskets.deliveryWorkTime.timeEnd}}</span>
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isAllTime">Графік: цілодобово</span>
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isWeekend">Графік: вихідний</span>
+            </div>-->
           </div>
         </div>
       </div>
@@ -491,7 +502,7 @@
   <div class="p-d_comment">
     <textarea name="coment" [(ngModel)]="activeBaskets.orderCommentData[0].text"
               [ngModelOptions]="{standalone: true}"
-              class="ord_cm_t" placeholder="Коментар до страви"></textarea>
+              class="ord_cm_t" placeholder="Коментар до замовлення"></textarea>
     <div class="ord_cm_t-f">{{activeBaskets.orderCommentData[0].text}}</div>
   </div>
   <label class="p-d_ch p-d_ch1">
@@ -554,8 +565,8 @@
           <input type="text" class="p-d_inp dropdown-trigger"
                  [(ngModel)]="estAddress.address"
                  name="address"
-                 placeholder="адреса закладу">
-          <button class="btn btn-info btn-xs" (click)="getEstAddress()">Обрати адресу</button>
+                 placeholder="адреса закладу" disabled>
+          <button class="btn btn-info btn-xs" *ngIf="estAdres.length>1" (click)="getEstAddress()">Оберіть заклад</button>
           <div class="wrap-address" *ngIf="isAddress">
             <ul *ngIf="estAdres">
               <ng-container *ngIf="estAdres.length>0">
@@ -593,11 +604,20 @@
         <div class="p-d_ch-c">
           <div class="date-wrap">
             <div class="time-input" *ngIf="dataStart">{{dataStart | date:'dd/MM/yy'}}</div>
-            <ngb-datepicker #dp [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
+            <ngb-datepicker #dp
+              [minDate]="startDay"
+              [maxDate]="endDay"
+              [(ngModel)]="model"
+              (select)="dataSelected($event)"></ngb-datepicker>
           </div>
           <div class="time-wrap">
             <div class="time-input">{{dataStart | date:'HH:mm'}}</div>
-            <ngb-timepicker [(ngModel)]="timeStart" [minuteStep]="5"></ngb-timepicker>
+            <ngb-timepicker [(ngModel)]="timeStart" [minuteStep]="10"></ngb-timepicker>
+            <!--<div class="center">
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isTimeRange">Графік: {{activeBaskets.deliveryWorkTime.timeStart}} - {{activeBaskets.deliveryWorkTime.timeEnd}}</span>
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isAllTime">Графік: цілодобово</span>
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isWeekend">Графік: вихідний</span>
+            </div>-->
           </div>
         </div>
       </div>
@@ -636,7 +656,7 @@
   <div class="p-d_comment">
     <textarea name="coment" [(ngModel)]="activeBaskets.orderCommentData[0].text"
               [ngModelOptions]="{standalone: true}"
-              class="ord_cm_t" placeholder="Коментар до страви"></textarea>
+              class="ord_cm_t" placeholder="Коментар до замовлення"></textarea>
     <div class="ord_cm_t-f">{{activeBaskets.orderCommentData[0].text}}</div>
   </div>
   <label class="p-d_ch p-d_ch1">
@@ -696,7 +716,7 @@
                  [(ngModel)]="estAddress.address"
                  name="address"
                  placeholder="адреса закладу">
-          <button class="btn btn-info btn-xs" (click)="getEstAddress()">Обрати адресу</button>
+          <button class="btn btn-info btn-xs" *ngIf="estAdres.length>1" (click)="getEstAddress()">Оберіть заклад</button>
           <div class="wrap-address" *ngIf="isAddress">
             <ul *ngIf="estAdres">
               <ng-container *ngIf="estAdres.length>0">
@@ -744,11 +764,19 @@
         <div class="p-d_ch-c">
           <div class="date-wrap">
             <div class="time-input">{{dataStart | date:'dd/MM/yy'}}</div>
-            <ngb-datepicker [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
+            <ngb-datepicker
+              [minDate]="startDay"
+              [maxDate]="endDay"
+              [(ngModel)]="model" (select)="dataSelected($event)"></ngb-datepicker>
           </div>
           <div class="time-wrap">
             <div class="time-input">{{dataStart | date:'HH:mm'}}</div>
-            <ngb-timepicker [(ngModel)]="timeStart" [minuteStep]="5"></ngb-timepicker>
+            <ngb-timepicker [(ngModel)]="timeStart" [minuteStep]="10"></ngb-timepicker>
+            <!--<div class="center">
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isTimeRange">Графік: {{activeBaskets.deliveryWorkTime.timeStart}} - {{activeBaskets.deliveryWorkTime.timeEnd}}</span>
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isAllTime">Графік: цілодобово</span>
+              <span class="dt_t" *ngIf="activeBaskets.deliveryWorkTime.isWeekend">Графік: вихідний</span>
+            </div>-->
           </div>
         </div>
       </div>
@@ -787,7 +815,7 @@
   <div class="p-d_comment">
     <textarea name="coment" [(ngModel)]="activeBaskets.orderCommentData[0].text"
               [ngModelOptions]="{standalone: true}"
-              class="ord_cm_t" placeholder="Коментар до страви"></textarea>
+              class="ord_cm_t" placeholder="Коментар до замовлення"></textarea>
     <div class="ord_cm_t-f">{{activeBaskets.orderCommentData[0].text}}</div>
   </div>
   <label class="p-d_ch p-d_ch1">

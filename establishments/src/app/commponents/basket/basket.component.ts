@@ -60,21 +60,30 @@ export class BasketComponent implements OnInit, OnChanges {
   public estAdres = [];
   public estAddress = {address:'',_id:''};
 
+
   public pecent = 0.05;
   public html;
   public mobile;
   public button;
   public isValidS;
   public dataStart:any;
-  public timeStart = {hour: new Date().getHours(), minute: new Date().getMinutes()};
+  public timeStart = {hour: new Date().getHours() + 1, minute: new Date().getMinutes()-(new Date().getMinutes() % 10)};
   public radioBtnTime:boolean = false;
+  public startDay = {    
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate()
+  };
+  public endDay;
+  public ctrl;
 
   public prices = {};
   public onLoaded:boolean = false;
   public isDoOrder:boolean = false;
   public isAddress:boolean = false;
   public isCanEdit:boolean = false;
-  public isCart:boolean = false;
+  public isCart:boolean = false;  
+  public minPrice;
   public foodCoin:number = 0;
   public isError:string;
   public orderType;
@@ -108,6 +117,8 @@ export class BasketComponent implements OnInit, OnChanges {
         this.foodCoin = parseInt(est.foodCoin);
       }
     });
+    //console.log(this.minPrice);
+       
     this.init()
   }
 
@@ -115,16 +126,18 @@ export class BasketComponent implements OnInit, OnChanges {
   }
 
   timeCheck(basket) {
-    console.log(basket.deliveryTime);
+    //console.log(basket.deliveryTime);
   }
 
   init() {
     this.api.justGet('basket_from_est', '', '', '?select=-__v&sort={"dataUpdate":-1}').then((data:any)=>{
       this.load = true;
-      if (data) {
+      if (data) {        
         this.getBasketsList(data);
-      }
+      }      
+      
     });
+    
 
     this.dataStart = moment()
       .hour(this.timeStart.hour)
@@ -176,6 +189,71 @@ export class BasketComponent implements OnInit, OnChanges {
       basketData.ownerEstObj = data.ownerest;
       basketData.html = data.html;
       basketData.menu = data.menuData;
+
+      let maxday = data.menuData.maxtime ? data.menuData.maxtime : 0;
+
+      var dayCount = 32 - new Date(new Date().getFullYear(), new Date().getMonth(), 32).getDate();
+      let endDay = (new Date().getDate() + parseInt(maxday) <= dayCount) ? (new Date().getDate() + parseInt(maxday)) : (new Date().getDate() + parseInt(maxday)-dayCount);
+      let endMonth = (new Date().getDate() + parseInt(maxday) <= dayCount) ? (new Date().getMonth() + 1) : (new Date().getMonth() + 2);
+
+      this.endDay = {
+        year: new Date().getFullYear(),
+        month: endMonth,
+        day: endDay
+      }
+
+      basketData.deliveryWorkTimeAll = data.menuData.deliverytime;
+      let numberDay = new Date().getDay() == 0 ? 7 : new Date().getDay();
+
+      switch (numberDay) {
+        case 1:
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange1;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange1;
+          break;
+        case 2: 
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange2;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange2;
+          break;
+        case 3: 
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange3;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange3;
+          break;
+        case 4:  
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange4;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange4;
+          break;
+        case 5: 
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange5;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange5;
+          break;
+        case 6: 
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange6;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange6;
+          break;
+        case 7:
+          basketData.deliveryOnline = data.menuData.deliveryonline.timeRange7;
+          //basketData.deliveryWorkTime = data.menuData.deliverytime.timeRange7;          
+          break;
+        default:
+          break;
+      }
+
+
+      let Hs = parseInt(basketData.deliveryOnline.timeStart.split(":")[0]);
+      let Ms = parseInt(basketData.deliveryOnline.timeStart.split(":")[1]);
+      let He = parseInt(basketData.deliveryOnline.timeEnd.split(":")[0]);
+      let Me = parseInt(basketData.deliveryOnline.timeEnd.split(":")[1]);
+
+      if (basketData.deliveryOnline.isWeekend) {
+        this.showError("Ми сьогодні зачинені! Ваше замовлення буде оброблене завтра!");
+      } else if (new Date().getHours()>=He) {
+        if (new Date().getHours() == He && new Date().getMinutes() < Me) {
+        } else {
+          this.showError("Графік онлайн-замовлень: "+basketData.deliveryOnline.timeStart+" - "+basketData.deliveryOnline.timeEnd+"! Ваше замовлення буде оброблене завтра!");
+        }
+      } else if (new Date().getHours()<Hs) {
+        this.showError("Графік онлайн-замовлень: "+basketData.deliveryOnline.timeStart+" - "+basketData.deliveryOnline.timeEnd+"! Ваше замовлення буде оброблене пізніше!");
+      }
 
       basketData.delivery = data.ownerest.delivery;
       basketData.getself = data.ownerest.getself;
@@ -245,7 +323,7 @@ export class BasketComponent implements OnInit, OnChanges {
   }
   setActiveBasket(basket) {
     const s = this;
-    console.log(basket);
+    //console.log(basket);
     if (basket.ownerEstObj)
     if (basket.ownerEstObj.minPrice > parseInt(basket.totalPrice)) {
       return;
@@ -291,7 +369,7 @@ export class BasketComponent implements OnInit, OnChanges {
     });
   }
   doOrderDelivery() {
-    console.log(this.address);
+    //console.log(this.address);
     if (this.address['isSaved']) {
       if (!this.address._id){
         this.showError("поля з зірочкою обов'язкові");
@@ -303,6 +381,7 @@ export class BasketComponent implements OnInit, OnChanges {
         return
       }
     }
+
     this.activeBaskets.deliveryTime = this.activeBaskets.deliveryTime != 'false' ? this.dataSelected() : null;
     this.activeBaskets.status = "1";
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
@@ -313,8 +392,71 @@ export class BasketComponent implements OnInit, OnChanges {
     } else {
       this.activeBaskets.customAddress = this.address;
     }
+
+    if (this.activeBaskets.deliveryTime != null) {
+
+      let numberDay = new Date(this.activeBaskets.deliveryTime).getDay() == 0 ? 7 : new Date(this.activeBaskets.deliveryTime).getDay();
+
+        switch (numberDay) {
+          case 1:
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange1;
+            break;
+          case 2: 
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange2;
+            break;
+          case 3: 
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange3;
+            break;
+          case 4:  
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange4;
+            break;
+          case 5: 
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange5;
+            break;
+          case 6: 
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange6;
+            break;
+          case 7:
+              this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange7;          
+            break;
+          default:
+            break;
+        }
+
+
+      let Hs = parseInt(this.activeBaskets.deliveryWorkTime.timeStart.split(":")[0]);
+      let Ms = parseInt(this.activeBaskets.deliveryWorkTime.timeStart.split(":")[1]);
+      let He = parseInt(this.activeBaskets.deliveryWorkTime.timeEnd.split(":")[0]);
+      let Me = parseInt(this.activeBaskets.deliveryWorkTime.timeEnd.split(":")[1]);
+
+
+      let HTime = new Date(this.activeBaskets.deliveryTime).getHours() * 60 + new Date(this.activeBaskets.deliveryTime).getMinutes();
+
+      
+      let timS = Hs*60+Ms;
+      let timE = He*60+Me;
+
+      if(timE<timS){timE += 24*60}
+
+      if (this.activeBaskets.deliveryWorkTime.isAllTime) {}
+      else if (this.activeBaskets.deliveryWorkTime.isWeekend) {
+        this.showError("Вихідний!");
+        return;
+      }
+      else if (HTime>=timE || HTime < timS) {      
+        this.showError("Доставка працює за графіком: "+this.activeBaskets.deliveryWorkTime.timeStart+" - "+this.activeBaskets.deliveryWorkTime.timeEnd+"!");
+        return;             
+      }
+
+      let mintime = (this.activeBaskets.menu.deliverymintime) ? this.activeBaskets.menu.deliverymintime : 30;
+
+      if (new Date(this.activeBaskets.deliveryTime).getTime() < (new Date().getTime() + (1000 * 60 * mintime))) {
+        this.showError("Мінімальний час доставки - "+mintime+" хв! Змініть час або оберіть 'Якомога швидше'");
+        return;
+      }
+    }
     // this.activeBaskets.paymentType = "delivery";
-    console.log(this.activeBaskets,this.address);
+    //console.log(this.activeBaskets,this.address);
     this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id)
       .then()
       .catch(e => {
@@ -334,7 +476,8 @@ export class BasketComponent implements OnInit, OnChanges {
         return;
       }
     }
-    console.log(this.dataSelected());
+    //console.log(new Date().getHours());    
+    //console.log(this.dataSelected());
     if (!this.estAddress || !this.estAddress._id) {
       this.showError("Поля з зірочкою обов'язкові!");
       return;
@@ -345,10 +488,66 @@ export class BasketComponent implements OnInit, OnChanges {
       this.showError("Оберіть дату!");
       return;
     }
-    if (new Date(this.activeBaskets.deliveryTime).getTime() < (new Date().getTime() + (1000 * 60 * 5))) {
-      this.showError("Оберіть дату не раніше як за 10хв!");
+
+    let numberDay = new Date(this.activeBaskets.deliveryTime).getDay() == 0 ? 7 : new Date(this.activeBaskets.deliveryTime).getDay();
+
+      switch (numberDay) {
+        case 1:
+          this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange1;
+          break;
+        case 2: 
+          this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange2;
+          break;
+        case 3: 
+          this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange3;
+          break;
+        case 4:  
+          this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange4;
+          break;
+        case 5: 
+          this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange5;
+          break;
+        case 6: 
+          this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange6;
+          break;
+        case 7:
+            this.activeBaskets.deliveryWorkTime = this.activeBaskets.deliveryWorkTimeAll.timeRange7;          
+          break;
+        default:
+          break;
+      }
+
+
+    let Hs = parseInt(this.activeBaskets.deliveryWorkTime.timeStart.split(":")[0]);
+    let Ms = parseInt(this.activeBaskets.deliveryWorkTime.timeStart.split(":")[1]);
+    let He = parseInt(this.activeBaskets.deliveryWorkTime.timeEnd.split(":")[0]);
+    let Me = parseInt(this.activeBaskets.deliveryWorkTime.timeEnd.split(":")[1]);
+
+
+    let HTime = new Date(this.activeBaskets.deliveryTime).getHours() * 60 + new Date(this.activeBaskets.deliveryTime).getMinutes();
+    
+    let timS = Hs*60+Ms;
+    let timE = He*60+Me;
+
+    if(timE<timS){timE += 24*60}
+
+    if (this.activeBaskets.deliveryWorkTime.isAllTime) {}
+    else if (this.activeBaskets.deliveryWorkTime.isWeekend) {
+      this.showError("Вихідний!");
       return;
     }
+    else if (HTime>=timE || HTime < timS) {      
+      this.showError("Приймаємо замовлення за графіком: "+this.activeBaskets.deliveryWorkTime.timeStart+" - "+this.activeBaskets.deliveryWorkTime.timeEnd+"!");
+      return;             
+    }
+
+    let mintime = (this.activeBaskets.menu.deliverymintime) ? this.activeBaskets.menu.deliverymintime : 30;
+
+    if (new Date(this.activeBaskets.deliveryTime).getTime() < (new Date().getTime() + (1000 * 60 * mintime))) {
+      this.showError("Приймаємо замовлення не раніше як за "+mintime+" хв!");
+      return;
+    }
+
     this.activeBaskets.status = "1";
     this.activeBaskets.anyMobile = this.activeBaskets.anyMobile || this.mobile;
     this.activeBaskets.orderType = this.orderType;
@@ -370,7 +569,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.isError = err;
   }
   dataSelected(e = null) {
-    console.log("dataEvent", e);
+    //console.log("dataEvent", e);
     if (!this.timeStart){
       this.showError("Поля з зірочкою обов'язкові!");
       return false;
@@ -402,14 +601,14 @@ export class BasketComponent implements OnInit, OnChanges {
     }else{
       this.dataStart = new Date(e.year, (e.month - 1), e.day, this.timeStart.hour, this.timeStart.minute).toISOString();
     }
-    console.log(this.dataStart);
+    //console.log(this.dataStart);
     // this.activeBaskets.deliveryTime = this.dataStart;
     return this.dataStart;
   }
   test() {
     this.api.justGet('test', '', '', '').then((data: any) => {
       this.button = data.html;
-      console.log(this.button);
+      //console.log(this.button);
     });
   }
 

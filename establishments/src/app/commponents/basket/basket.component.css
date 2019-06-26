@@ -113,3 +113,6 @@ select{
   text-align: center;
   z-index: 5;
 }
+.time-input {
+  font-size: 18px;
+}
