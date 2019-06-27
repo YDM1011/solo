@@ -47,7 +47,13 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label">Графік доставки</label>
                 <div class="col-sm-8">
-                  <input type="text" [(ngModel)]="menu.deliverytime" name="deliverytime" class="form-control">
+                  <app-calendar [calendar]="worksTimeView"></app-calendar>           
+                  <div class="select-wrap">
+                    <app-select [option]="worksTimeAll"
+                                (onCheck)="getCalendar($event)"
+                                [defoult]="'оберіть графік для доставки'"></app-select>
+                  </div>
+                  <!--<input type="text" [(ngModel)]="menu.deliverytime" name="deliverytime" class="form-control">-->
                 </div>
               </div>
               <div class="hr-line-dashed"></div>
@@ -55,7 +61,13 @@
               <div class="form-group">
                 <label class="col-sm-4 control-label">Графік онлайн-замовлень</label>
                 <div class="col-sm-8">
-                  <input type="text" [(ngModel)]="menu.deliveryonline" name="deliveryonline" class="form-control">
+                  <app-calendar [calendar]="worksTimeViewOnline"></app-calendar>
+                  <div class="select-wrap">
+                    <app-select [option]="worksTimeAll"
+                                (onCheck)="getCalendarOnline($event)"
+                                [defoult]="'оберіть графік для прийому онлайн-замовлень'"></app-select>
+                  </div>
+                  <!--<input type="text" [(ngModel)]="menu.deliveryonline" name="deliveryonline" class="form-control">-->
                 </div>
               </div>
               <div class="hr-line-dashed"></div>

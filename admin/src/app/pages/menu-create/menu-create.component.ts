@@ -12,8 +12,8 @@ export class MenuCreateComponent implements OnInit {
     name:'',
     delivery:'',
     deliveryfree:'',
-    deliverytime:'',
-    deliveryonline:'',
+    deliverytime:Object,
+    deliveryonline:Object,
     deliverymintime:'',
     maxtime:'',
     steptime:'',
@@ -24,6 +24,11 @@ export class MenuCreateComponent implements OnInit {
   public optionCat: any = [];
   private key:string='menu';
   public id:any;
+  public worksTime:any;
+  public worksTimeId:any;
+  public worksTimeView:any;
+  public worksTimeViewOnline:any;
+  public worksTimeAll:any;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -33,7 +38,7 @@ export class MenuCreateComponent implements OnInit {
   ngOnInit() {
     let self = this;
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
+    //console.log(this.id);
     this.route.params.subscribe((params:any) => {
       self.id = params.id;
       self.initApi(self.id);
@@ -50,6 +55,7 @@ export class MenuCreateComponent implements OnInit {
   create(obj){
     let self = this;
     obj['estId'] = self.id;
+    console.log(obj);
     this.api.create(self.key,obj,self.id).then((res:any)=>{
       if(res){
         self.api.createDate(self.key,res,self.id).then((val:any)=>{
@@ -92,7 +98,8 @@ export class MenuCreateComponent implements OnInit {
           });
         });
       }
-    }).catch((err: any) => {});
+    }).catch((err: any) => {});    
+    self.getAllCalendars();
   }
   getDish(dishes){
     let s = this;
@@ -107,7 +114,40 @@ export class MenuCreateComponent implements OnInit {
       s.menu.categories.push(item.id);
     });
   }
+
+  getCalendar(e){
+    let s = this;
+    //console.log(e.obj);
+    //s.menu.worksTime = e.obj.label || e.obj.name || "";
+    s.menu.deliverytime = e.obj._id;
+    s.worksTimeView = e.obj;
+  }
+
+  getCalendarOnline(e){
+    let s = this;
+    //console.log(e.obj);
+    //s.menu.worksTime = e.obj.label || e.obj.name;
+    s.menu.deliveryonline = e.obj._id;
+    s.worksTimeViewOnline = e.obj;
+  }
+  
+  getAllCalendars(){
+    const s = this;
+    s.api.justGet(`timeWork?query={"ownerEst":"${s.id}"}`).then((val:any)=>{
+      s.worksTimeAll = [];
+      val.map(it=>{
+        s.worksTimeAll.push({
+          label: it.name,
+          obj: it
+        })
+      });
+    })
+  }
+
 }
+
+
+
 // name: String,
 //   delivery: String,
 //   deliveryfree: String,

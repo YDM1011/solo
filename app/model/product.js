@@ -103,7 +103,7 @@ const postUpdate = async (req,res,next)=>{
     require("../responces/badRequest")(req, res);
     let product = req.erm.result;
     let Price = await calcPrice(product).catch(e=>{return res.badRequest(e)});
-    console.log(Price);
+    //console.log(Price);
     let basket = {
         menuData: product.menuData,
         productData: [product._id],
@@ -195,19 +195,29 @@ const postCreate = async (req,res,next)=>{
         .exec(async (e,r)=>{
             if (e) return res.badRequest(e);
             if (!r) {
-                mongoose.model('basketsList')
-                    .count({})
-                    .exec((e,count)=>{
-                        basket['orderNumber'] = count ? parseInt(count)+1 : 1;
+                mongoose.model('basketsList').find().sort({orderNumber: -1}).limit(1)                    
+                    .exec((e,res)=>{
+                        basket['orderNumber'] = res[0].orderNumber ? parseInt(res[0].orderNumber)+1 : 1;
                         mongoose.model('basketsList')
                             .create(basket, (e,c)=>{
                                 if (e) return res.badRequest(e,basket);
                                 next()
                             })
                     });
+                //цей спосіб не підходить
+                //mongoose.model('basketsList')
+                //    .count({})
+                //    .exec((e,count)=>{
+                //        basket['orderNumber'] = count ? parseInt(count)+1 : 1;
+                //        mongoose.model('basketsList')
+                //            .create(basket, (e,c)=>{
+                //                if (e) return res.badRequest(e,basket);
+                //                next()
+                //            })
+                //    });
 
             }
-            console.log(r);
+            //console.log(r);
             if (r){
                 let result = await updateBasket({_id:r._id},product,Price,1).catch(e=>{return res.badRequest(e)});
                 if(result) next();
@@ -229,7 +239,7 @@ const updateBasket = (basket,product,Price,i)=>{
         }
     }
   return new Promise ((resolve,reject)=>{
-      console.log(basket);
+      //console.log(basket);
       mongoose.model('basketsList')
           .findOneAndUpdate(basket,q,{new:true}).exec((e,r)=>{
           if(e) return reject(e);
@@ -275,7 +285,7 @@ const updateProdBasket = (basket,product,Price,i)=>{
         }
     }
   return new Promise ((resolve,reject)=>{
-      console.log(basket);
+      //console.log(basket);
       mongoose.model('basketsList')
           .findOneAndUpdate(basket,q,{new:true}).exec((e,r)=>{
           if(e) return reject(e);
