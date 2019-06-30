@@ -63,7 +63,14 @@ function createChartConfig({labels, data, label, color}) {
     return {
       type: 'line',
       options: {
-        responsive: true
+        responsive: true,
+        scales: {
+          yAxes: [{
+              ticks: {
+                  beginAtZero: true
+              }
+          }]
+        }
       },
       data: {
         labels,
@@ -72,7 +79,8 @@ function createChartConfig({labels, data, label, color}) {
             label, data,
             borderColor: color,
             steppedLine: false,
-            fill: false
+            fill: false,
+            min: 0
           }
         ]
       }
