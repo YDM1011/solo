@@ -1,0 +1,21 @@
+<div class="page-title">
+    <h4>Аналітика</h4>
+</div>
+
+<div [style.display]="pending ? 'none' : 'block'">
+  <div class="average-price">
+      <p>Середній чек: <strong>{{average}} грн.</strong></p>
+  </div>
+
+  <div class="analytics-block pb3">
+      <canvas #gain></canvas>
+  </div>
+
+  <div class="analytics-block">
+      <canvas #order></canvas>
+  </div>
+</div>
+
+<ng-template *ngIf="pending">
+  ..зачекайте..
+</ng-template>

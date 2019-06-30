@@ -37,7 +37,7 @@
             <a routerLinkActive #comp="routerLinkActive" [routerLink]="'/complement/'+est._id"> Додатки </a></li>
           <li [class.active]="box.isActive" appAutoClose>
             <a routerLinkActive #box="routerLinkActive" [routerLink]="'/box/'+est._id"> Упаковка </a></li>
-          <li [class.active]="actn.isActive">
+          <li [class.active]="actn.isActive" appAutoClose>
             <a routerLinkActive #actn="routerLinkActive" [routerLink]="'/action/'+est._id"><span class="nav-label">Акції</span></a></li>
           <!--<li [class.active]="ord.isActive">-->
             <!--<a routerLinkActive #ord="routerLinkActive" [routerLink]="'/orders/'+est._id"><span class="nav-label">Замовлення</span></a></li>-->
@@ -69,6 +69,9 @@
           <li [class.active]="overview.isActive" appAutoClose>
             <a routerLinkActive #overview="routerLinkActive" [routerLink]="'/overview/'+est._id"> Огляд </a>
           </li>
+          <li [class.active]="analytics.isActive" appAutoClose>
+              <a routerLinkActive #analytics="routerLinkActive" [routerLink]="'/analytics/'+est._id"> Аналітика </a>
+            </li>
           <li [class.active]="help.isActive" appAutoClose>
             <a routerLinkActive #help="routerLinkActive" [routerLink]="'/help'"> Допомога </a>
           </li>          

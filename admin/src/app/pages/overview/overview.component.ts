@@ -12,11 +12,13 @@ import { ApiService } from 'src/app/api.service';
 })
 export class OverviewComponent implements OnInit {
 
-  data$: any
+  public data$: any
   
   public id;
 
-  yesterday = new Date()
+  yesterday = new Date();
+  date = new Date();
+  public orders = [];
 
   constructor(
     private service: AnalyticsService,
@@ -29,7 +31,10 @@ export class OverviewComponent implements OnInit {
     //this.data$ = this.service.getOverview(this.id);
 
     this.data$ = this.api.get('overview', this.id);
+    
+
     this.yesterday.setDate(this.yesterday.getDate() - 1);
   }
+
 
 }

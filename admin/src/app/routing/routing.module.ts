@@ -33,6 +33,7 @@ import {ActionComponent} from "../pages/action/action.component";
 import {HelpComponent} from "../pages/help/help.component";
 import {BalansComponent} from "../pages/balans/balans.component";
 import {OverviewComponent} from "../pages/overview/overview.component";
+import {AnalyticsComponent} from "../pages/analytics/analytics.component";
 import {OrderDetailComponent} from "../pages/order-detail/order-detail.component";
 import {OrderDetailEditComponent} from "../pages/order-detail-edit/order-detail-edit.component";
 const routes: Routes = [
@@ -78,7 +79,8 @@ const routes: Routes = [
       {path:'action/:id', component:ActionComponent},
       {path:'help', component:HelpComponent},      
       {path:'balans/:id', component:BalansComponent},
-      {path:'overview/:id', component:OverviewComponent}
+      {path:'overview/:id', component:OverviewComponent},
+      {path:'analytics/:id', component:AnalyticsComponent}
     ]
   },
   { path: '**', component: NotFoundComponent }
