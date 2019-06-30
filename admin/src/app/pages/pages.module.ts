@@ -42,6 +42,7 @@ import {SafeHTMLPipe} from "../safe-html.pipe";
 import { OrderPipe } from './order-detail/order.pipe';
 import { BalansComponent } from './balans/balans.component';
 import { OverviewComponent } from './overview/overview.component';
+import { AnalyticsComponent } from './analytics/analytics.component';
 
 @NgModule({
   imports: [
@@ -91,6 +92,7 @@ import { OverviewComponent } from './overview/overview.component';
     OrderPipe,
     BalansComponent,
     OverviewComponent,
+    AnalyticsComponent,
   ],
   providers: [
     ApiService,

@@ -65,9 +65,9 @@ function getOrdersMap(orders = []) {
     orders.forEach(order => {
         const date = moment(order.dataUpdate).format('DD.MM.YYYY')
 
-        if (date === moment().format('DD.MM.YYYY')) {
-            return
-        }
+        //if (date === moment().format('DD.MM.YYYY')) {
+        //    return
+        //}
 
         if (!daysOrders[date]) {
             daysOrders[date] = []
@@ -223,4 +223,28 @@ function calculatePrice(orders = []) {
         const orderPrice = order.totalPrice+order.boxesPrice+order.deliveryPrice;
         return total += orderPrice
     }, 0)
+}
+
+module.exports.analytics = async function(req, res) {
+    try {
+        const allOrders = await BasketsList.find({ownerest: req.params['id'], status: 6}).sort({dataUpdate: 1})
+        const ordersMap = getOrdersMap(allOrders)
+
+        const average = +(calculatePrice(allOrders) / Object.keys(allOrders).length).toFixed(2)
+        
+        const chart = Object.keys(ordersMap).map(label => {
+            // label == 05.05.2019
+            const gain = calculatePrice(ordersMap[label])
+            const order = ordersMap[label].length
+            
+            return {label, order, gain}
+        })
+
+        res.status(200).json({average, chart})
+
+    } catch (e) {
+        res.status(500).json({
+            message: e.message ? e.message : error
+        })
+    }
 }
