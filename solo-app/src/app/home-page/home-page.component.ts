@@ -48,7 +48,7 @@ export class HomePageComponent implements OnInit, OnChanges {
     this.route.params.subscribe((params: any) => {
       s.id = location.href.split("user/")[1].split("/")[0];
       s.obj = JSON.stringify({id: s.id});
-      console.log(s.id);
+      //console.log(s.id);
       s.apiInitial(s.id);
     });
   }
@@ -56,7 +56,7 @@ export class HomePageComponent implements OnInit, OnChanges {
   apiInitial(idc) {
     const s = this;
 
-    s.obj = JSON.stringify({id: idc,$or:[{estId:{$exists:false}},{estId:null}]});
+    s.obj = JSON.stringify({id: idc, $or:[{estId:{$exists:false}},{estId:null}]});
 
     this.http.get(`${this.domain}/api/setting/${idc}`, this.api.getHeaders())
       .subscribe((user: any) => {
@@ -100,7 +100,7 @@ export class HomePageComponent implements OnInit, OnChanges {
     const s = this;
     if (res) {
       s.user = res[0];
-      console.log(s.user);
+      //console.log(s.user);
       s.core.setValidProfile(res[1]);
       s.auth.setUserData(res);
     }

@@ -58,15 +58,15 @@ export class FullOrder implements OrderMax{
         price += item.totalPrice;
        }
     });
-    if (data.status == '5' || data.status == '1' || data.status == '2'){
+    //if (data.status == '5' || data.status == '1' || data.status == '2'){
       this.productPrice = data.editByAdmin ? data.editByAdmin.totalPrice || price : price;
       this.boxPrice = data.editByAdmin ? data.editByAdmin.boxesPrice || parseInt(data.boxesPrice) : parseInt(data.boxesPrice) || 0 ;
       this.deliveryPrice = data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.deliveryPrice) : parseInt(data.deliveryPrice) || 0 ;
-    } else {
-      this.productPrice = price;
-      this.boxPrice = data.boxesPrice ? parseInt(data.boxesPrice) : 0 ;
-      this.deliveryPrice = data.deliveryPrice ? parseInt(data.deliveryPrice) : 0 ;
-    }
+    //} else {
+    //  this.productPrice = price;
+    //  this.boxPrice = data.boxesPrice ? parseInt(data.boxesPrice) : 0 ;
+    //  this.deliveryPrice = data.deliveryPrice ? parseInt(data.deliveryPrice) : 0 ;
+    //}
     if (data.orderType == 'bySelf') this.deliveryPrice = null;
     if (data.orderType == 'reserve') {
       this.deliveryPrice = null;

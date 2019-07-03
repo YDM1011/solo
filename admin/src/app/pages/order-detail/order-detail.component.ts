@@ -39,7 +39,7 @@ export class OrderDetailComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.api.justGet(`basketsList/${this.estId}?_id=${this.id}`).then(obj => {
       this.order = new FullOrder(obj);
-      console.log(this.order);
+      //console.log(this.order);
       this.isCanEdit = this.order.status === '1';
       this.api.justGet(`basketsList/count?query={"owneruser":"${this.order.client._id}","ownerest":"${this.estId}","status":"6"}`)
         .then((v: any) => {

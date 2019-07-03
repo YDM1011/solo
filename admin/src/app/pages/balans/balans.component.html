@@ -44,8 +44,12 @@
                   <td class="footable-visible text-center"><span class="footable-toggle"></span>
                     {{order.client.firstName}} {{order.client.lastName}}
                   </td>
-                  <td class="footable-visible text-center">                    
-                    <span> {{order.type}} </span>                    
+                  <td class="footable-visible text-center"
+                  [ngClass]="{'success': order.type == 'delivery',
+                            'info': order.type == 'bySelf',
+                            'warning': order.type == 'reserve'
+                  }">                    
+                    <span> {{order.type == 'delivery' ? 'Доставка' : (order.type == 'bySelf' ? 'На виніс' : 'Резерв')}} </span>                    
                   </td>
                   <td class="footable-visible text-center">
                     {{order.price}}
@@ -64,7 +68,7 @@
                     {{order.paymentType == 'coin' ? '+' : '-'}} {{order.history ? order.history.coin : '-'}}
                   </td>
                   <td class="footable-visible text-center">                    
-                      <span> {{order.paymentType == 'fiat' ? 'готівка' : (order.paymentType == 'coin' ? 'foodCoin' : 'карта')}} </span>                    
+                      <span> {{order.paymentType == 'fiat' ? 'Готівка' : (order.paymentType == 'coin' ? 'FoodCoin' : 'Карта')}} </span>                    
                     </td>
                   <td class="text-right footable-visible" [innerHTML]="order.status | status | safeHTML">
                   </td>                  
