@@ -57,7 +57,7 @@
                       <span [ngClass]="{'red-text': !dish.status}"> {{dish.dishData.name}} </span>
                     </ng-container> )<br>
                   <b>Адреса:</b> {{order.adress ? order.adress.address : ''}}<br>
-                  <b>Час замовлення:</b> {{order.time ? (order.time | date:'dd.MM.yy HH:mm') : 'якомога швидше'}}<br>
+                  <b>Час замовлення: </b> <span style="font-size: 1.5rem;color: red;"> {{order.time ? (order.time | date:'dd.MM.yy - HH:mm') : 'якомога швидше'}}</span><br>
                   <b>Телефонувати:</b> {{order.mobile ? order.mobile : ''}}<br>                  
                 </td>
                 <td class="footable-visible">
@@ -68,8 +68,8 @@
                  
                 </td>
                 <td class="footable-visible">
-                  <b>Створено:</b> {{order.dataCreate | date:'dd.MM.yy HH:mm'}}<br>
-                  <b>Оновлено:</b> {{order.dataUpdate | date:'dd.MM.yy HH:mm'}}
+                  <b>Створено:</b> {{order.dataCreate | date:'dd.MM.yy - HH:mm'}}<br>
+                  <b>Оновлено:</b> {{order.dataUpdate | date:'dd.MM.yy - HH:mm'}}
                 </td>
                 <td class="footable-visible">
                   {{order.paymentType == 'coin' ? 'FoodCoin' : (order.paymentType == 'fiat') ? 'Готівкою' : 'Карткою'}}

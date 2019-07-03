@@ -261,20 +261,20 @@
                       <ng-container *ngIf="basket.paymentType == 'fiat'">
                         <button class="btn-green ord_btn" *ngIf="basket.status == 5"
                                 (click)="setConfirm(basket)">
-                          замовити
+                          Погодити зміни
                         </button>
                       </ng-container>
                       <ng-container *ngIf="basket.paymentType == 'coin'">
                         <button class="btn-green ord_btn" *ngIf="basket.status == 5"
                                 (click)="setConfirmCoin(basket)">
-                          замовити
+                          Погодити зміни
                         </button>
                       </ng-container>
-                      <button class="btn-green ord_btn" *ngIf="basket.status == 0"
-                              [class.disabled]="basket.ownerEstObj.minPrice > basket.totalPrice"
-                              (click)="setActiveBasket(basket)">
-                        замовити
-                      </button>
+                        <button class="btn-green ord_btn" *ngIf="basket.status == 0"
+                                [class.disabled]="basket.ownerEstObj.minPrice > basket.totalPrice"
+                                (click)="setActiveBasket(basket)">
+                          замовити
+                        </button>
 
                       <ng-container *ngIf="basket.paymentType == 'card'">
                         <div class="liqpay-btn"  *ngIf="basket.status == 3 || basket.status == 5">

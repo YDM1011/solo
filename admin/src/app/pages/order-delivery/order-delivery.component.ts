@@ -64,8 +64,10 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
               if (basket.orderType == 'delivery') adress = basket.addressData
               else adress = basket.estAddressData;
               let prods = basket.productData;
-              let price = basket.totalPrice;
-              let productPrice = basket.totalPrice;
+              let price = basket.editByAdmin ? basket.editByAdmin.totalPrice || basket.totalPrice : basket.totalPrice;
+              //let price = basket.totalPrice;
+              let productPrice = basket.editByAdmin ? basket.editByAdmin.totalPrice || basket.totalPrice : basket.totalPrice;
+              //let productPrice = basket.totalPrice;
               let created = basket.data;
               let updated = basket.dataUpdate;
               let time = basket.deliveryTime;
@@ -74,11 +76,13 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
               let paymentType = basket.paymentType;
               let orderType = basket.orderType;
               let mobile = basket.anyMobile;
-              let box = basket.boxesPrice;
-              let delivery = basket.deliveryPrice;
+              let box = basket.editByAdmin ? basket.editByAdmin.boxesPrice || parseInt(basket.boxesPrice) : parseInt(basket.boxesPrice) || 0 ;
+              //let box = basket.boxesPrice;
+              let delivery = basket.editByAdmin ? basket.editByAdmin.deliveryPrice || parseInt(basket.deliveryPrice) : parseInt(basket.deliveryPrice) || 0 ;
+              //let delivery = basket.deliveryPrice;
               let id = basket._id;
-              if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
-              if (basket.orderType == 'bySelf') price += basket.boxesPrice;
+              if (basket.orderType == 'delivery') price += box + delivery;
+              if (basket.orderType == 'bySelf') price += box;
               this.list.push(
                 new order(client, prods, price, created, updated, status, id, orderNumber, time, adress, paymentType, mobile, box, delivery, productPrice, orderType)
               );
@@ -99,8 +103,10 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
             let client = basket.owneruser;
             let adress = basket.addressData;
             let prods = basket.productData;
-            let price = basket.totalPrice;
-            let productPrice = basket.totalPrice;
+            let price = basket.editByAdmin ? basket.editByAdmin.totalPrice || basket.totalPrice : basket.totalPrice;
+            //let price = basket.totalPrice;
+            let productPrice = basket.editByAdmin ? basket.editByAdmin.totalPrice || basket.totalPrice : basket.totalPrice;
+            //let productPrice = basket.totalPrice;   
             let created = basket.data;
             let updated = basket.dataUpdate;
             let time = basket.deliveryTime;
@@ -109,11 +115,13 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
             let paymentType = basket.paymentType;
             let orderType = basket.orderType;
             let mobile = basket.anyMobile;
-            let box = basket.boxesPrice;
-            let delivery = basket.deliveryPrice;
+            let box = basket.editByAdmin ? basket.editByAdmin.boxesPrice || parseInt(basket.boxesPrice) : parseInt(basket.boxesPrice) || 0 ;
+            //let box = basket.boxesPrice;
+            let delivery = basket.editByAdmin ? basket.editByAdmin.deliveryPrice || parseInt(basket.deliveryPrice) : parseInt(basket.deliveryPrice) || 0 ;
+            //let delivery = basket.deliveryPrice;
             let id = basket._id;
-            if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
-            if (basket.orderType == 'bySelf') price += basket.boxesPrice;
+            if (basket.orderType == 'delivery') price += box + delivery;
+              if (basket.orderType == 'bySelf') price += box;
             this.list.push(
               new order(client, prods, price, created, updated, status, id, orderNumber, time, adress, paymentType, mobile, box, delivery, productPrice, orderType)
             );

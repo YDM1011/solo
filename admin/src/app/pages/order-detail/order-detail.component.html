@@ -72,7 +72,7 @@
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Дата і час:</dt> </div>
-            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload">{{order.deliveryTime ? (order.deliveryTime | date:'HH:mm dd.MM.yy') : 'якомога швидше'}}</dd> </div>
+            <div class="col-sm-8 text-sm-left"><dd class="mb-1"  *ngIf="order; else preload" style="font-size: 1.5rem;color: red;">{{order.deliveryTime ? (order.deliveryTime | date:'dd.MM.yy - HH:mm') : 'якомога швидше'}}</dd> </div>
           </dl>
           <dl class="row mb-0">
             <div class="col-sm-4 text-sm-right"><dt>Додатковий телефон:</dt> </div>
