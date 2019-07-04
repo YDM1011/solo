@@ -397,7 +397,7 @@ const validator = (req,res,next)=>{
     if (req.isUseByAdmin){
         return next();
     }
-    if (req.userId && req.userMail && (req.mobile || req.body.anyMobile)) {
+    if (req.userId && req.userMail && (req.mobile)) {
         next()
     }else{
         res.badRequest({mess:'Перевірте наявність пошти і мобільного в <a href="https://tasteol.com/user/'+req.userId+'/profile">профілі</a>'})

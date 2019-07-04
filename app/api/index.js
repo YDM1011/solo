@@ -122,6 +122,7 @@ router.post('/api/permisionUser/:id', [orign, glob.isAdmin], permisionUser);
 router.get('/api/userBalanse', [orign], user.userBalanse);
 router.get('/api/estBalanse', [orign], establishment.estBalanse);
 router.get('/api/overview/:id', [orign], analytics.overview);
+router.get('/api/overviewAll', [orign], analytics.overviewAll);
 router.get('/api/analytics/:id', [orign], analytics.analytics);
 
 

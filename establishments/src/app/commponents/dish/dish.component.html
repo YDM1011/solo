@@ -31,7 +31,7 @@
             </ng-container>
           </div>
 
-          <app-pop-prod-add *ngIf="dish.prt && isOnline"
+          <app-pop-prod-add *ngIf="dish.prt && isOnline && dish.isActia"
                             [dish]="dish"
                             [boxId]="boxId"
                             [categoryId]="categoryId"
