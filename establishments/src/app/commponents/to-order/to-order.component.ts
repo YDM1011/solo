@@ -29,7 +29,7 @@ export class ToOrderComponent implements OnInit {
     hiddenName: true,
     onSet: (context) => {
       if ( context.select != null) this.data = this.dataToObject2( new Date(context.select)); // select data!!!
-      console.log(this.data)
+      //console.log(this.data)
     },
     selectMonths: true,
     selectYears: 10,
@@ -53,16 +53,16 @@ export class ToOrderComponent implements OnInit {
     monthsShort: [
       'Січня',
       'Лютого',
-      'Березя',
-      'Квітеня',
-      'Травеня',
-      'Червеня',
-      'Липеня',
-      'Серпеня',
-      'Вересеня',
+      'Березня',
+      'Квітня',
+      'Травня',
+      'Червня',
+      'Липня',
+      'Серпня',
+      'Вересня',
       'Жовтня',
       'Листопада',
-      'Груденя'
+      'Грудня'
     ],
     weekdaysFull: [
       'Нд',

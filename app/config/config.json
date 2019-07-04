@@ -1,5 +1,5 @@
 {
-  "data": {
+  "data": {    
     "db": "mongodb://ydm1011:adn45hrf@ds249249.mlab.com:49249/talents",
     "port": "5000",
     "email": {
