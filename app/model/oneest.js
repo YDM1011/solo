@@ -211,16 +211,16 @@ const subu = (req,res,id,model)=>{
                 (est.toLowerCase() == 'shop')
             ){
                 errVal++;
-                text = `${est} вже занятий!`;
+                text = `${est} вже зайнятий!`;
                 return res.badRequest(text);
             }
         }else{
             errVal++;
-            text = 'Сабдомен мусить бути не менше 1 символів і не більше 30!';
+            text = 'Домен повинен містити від 1 до 30 символів!';
         }
     }else{
         errVal++;
-        text = 'Сабдомен мусить бути не менше 1 символів і не більше 30!';
+        text = 'Домен повинен містити від 1 до 30 символів!!';
     }
     
     if (errVal > 0){

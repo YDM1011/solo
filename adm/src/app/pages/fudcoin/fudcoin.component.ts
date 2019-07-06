@@ -74,7 +74,7 @@ export class FudcoinComponent implements OnInit {
     s.api.apiPost('foodCoin', s.obj).then((val: any) => {
       if (val) {
         if (val.mess) {
-          swal.fire("Success", val.mess, "success");
+          swal.fire("Success", val.mess, "success");          
         } else {
           s.fudcoins = [val].concat(s.fudcoins);
         }

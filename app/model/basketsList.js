@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const LiqPay = require('liqpay-sdk');
+const History = require('../model/history');
 //const publikKey = 'i94942794371';
 //const privateKey = 'q7b6Yc2wMz0nUVwK30NK1Iaqt9I3nQ23I7LLZPGO';
 
@@ -448,7 +449,6 @@ const validateUserFoodcoin = (req,res,next)=>{
         .findOne({_id:bId})        
         .exec((e0,r0)=>{
             if (r0){
-
                 mongoose.model('user')
                     .findOne({_id:r0.owneruser})
                     .exec((e,r)=>{
@@ -465,16 +465,39 @@ const validateUserFoodcoin = (req,res,next)=>{
                                 console.log(req.body);
                                 if (req.body.status == '6') {
                                     let estPrice = price;
-                                    if (r0.paymentType != 'coin') estPrice = -estPrice*0.05;
-                                    if (r0.paymentType == 'coin') estPrice = estPrice*0.95;
+                                    if (r0.paymentType != 'coin') {
+                                        estPrice = -estPrice*0.05;
+                                        
+                                    }
+                                    if (r0.paymentType == 'coin') {
+                                        estPrice = estPrice*0.95;
+                                    }
                                     estPrice = parseInt(estPrice);
+
                                     mongoose.model('establishment')
                                         .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:estPrice}})
                                         .exec((e1,r1)=>{
                                             console.log("ER!!!",e1,r1);
                                             if (e1 || !r1) return res.badRequest({mess:"Error"});
-                                            if (r0.paymentType != 'coin') price = price*0.05;
-                                            if (r0.paymentType == 'coin') price = -price*0.95;
+                                            if (r0.paymentType != 'coin') {
+                                                price = price*0.05;                                                
+                                            }
+                                            if (r0.paymentType == 'coin') {
+                                                price = -price*0.95;
+
+                                                const obj = {
+                                                    "foodcoin": parseInt(price),
+                                                    "userShow": r0.owneruser,
+                                                    "order": r0._id,
+                                                    "type": "foodcoin",
+                                                    "est": r0.ownerest,
+                                                    "coment": "Списано з Вашого балансу!"
+                                                }
+                                                console.log('!!!Working!!!')
+                                                const h = new History(obj);
+                                                h.save();
+
+                                            }
                                             price = parseInt(price);
                                             mongoose.model('user')
                                                 .findOneAndUpdate({_id:r0.owneruser},
@@ -494,6 +517,19 @@ const validateUserFoodcoin = (req,res,next)=>{
                                     .exec((e1,r1)=>{
                                         if (e1 || !r1) return res.badRequest({mess:"Error"});
                                         price = parseInt(price*0.05);
+
+                                        const obj = {
+                                            "foodcoin": parseInt(price),
+                                            "userShow": r0.owneruser,
+                                            "order": r0._id,
+                                            "type": "foodcoin",
+                                            "est": r0.ownerest,
+                                            "coment": "Вам нараховано FoodCoin!"
+                                        }
+                                        console.log('!!!Working!!!')
+                                        const h = new History(obj);
+                                        h.save();
+
                                         mongoose.model('user')
                                             .findOneAndUpdate({_id:r0.owneruser},
                                                 {$inc:{foodcoin:price}})

@@ -29,6 +29,7 @@ const geo = require('../controlers/geo');
 const permisionUser = require('../controlers/permisionUser');
 const user = require('../controlers/user');
 const balans = require('../controlers/balans');
+const history = require('../controlers/history');
 const analytics = require('../controlers/analytics');
 const adm = require('../controlers/adm');
 
@@ -150,6 +151,10 @@ router.post('/api/SMSConfirmCode', [orign, glob.getId], sms.confirmCode);
 
 //balans API
 router.get('/api/balans/:id', [orign], balans.getBalansById);
+
+//history API
+router.post('/api/historyaddFoodCoin', [orign], history.historyAddFoodCoin);
+router.get('/api/historyShow', [orign], history.historyShow);
 
 
 module.exports = router;
