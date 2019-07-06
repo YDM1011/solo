@@ -16,8 +16,14 @@ module.exports.sendMail = (obj, st = null) => {
                 pass: data.email.pass
             }
         });
+        //console.log('11111111111111111111'+st);
     if (st){
         switch(st){
+            case 'err':                
+                template = path.join(__dirname, '../../views-v1/emailTemplate/est3.ejs');
+                sender(transporter, data, obj, template);
+                //console.log('WWWWWWWWWWWWWWWWWW');
+                break;
             case 1:
                 if(obj.isUser){
                     template = path.join(__dirname, '../../views-v1/emailTemplate/user1.ejs');
@@ -26,7 +32,7 @@ module.exports.sendMail = (obj, st = null) => {
                 if(obj.isEst){
                     template = path.join(__dirname, '../../views-v1/emailTemplate/est1.ejs');
                     sender(transporter, data, obj, template);
-                    console.log(obj);
+                    //console.log(obj);
                 }
                 break;
             case 2:
@@ -42,7 +48,7 @@ module.exports.sendMail = (obj, st = null) => {
                 if(obj.isEst){
                     template = path.join(__dirname, '../../views-v1/emailTemplate/est2.ejs');
                     sender(transporter, data, obj, template);
-                    console.log(obj);
+                    //console.log(obj);
                 }
                 break;
             case 3:

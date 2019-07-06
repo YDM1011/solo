@@ -65,7 +65,7 @@ export class OrderDetailComponent implements OnInit {
   doneOrder() {
     this.api.set('basketsList', {status: '6'}, this.estId, '', '?id=' + this.order.id).then(v => {
       if (v) {
-        this.order.status = '6';
+        this.order.status = '6';        
       }
     }).catch(e => {
       Swal.fire('Error', e.error.error.mess, 'error');

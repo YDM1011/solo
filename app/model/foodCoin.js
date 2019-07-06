@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const History = require('../model/history');
 
 const data = require('../config/index');
 const model = new Schema({
@@ -45,7 +46,21 @@ const preCreate = (req,res,next)=>{
         .exec((e,r)=>{
             if (e) return res.badRequest(e);
             if (!r) next();
-            if (r) res.ok({mess:'Успішно нараховано!'})
+            if (r) {
+                res.ok({mess:'Успішно нараховано!'})
+
+                const obj = {
+                    "foodcoin": parseInt(req.body.foodcoin),
+                    "userShow": r._id,
+                    "type": "foodcoin",
+                    "est": "Taste of Life",
+                    "coment": "Нараховано системою Taste of Life!"
+                }
+                console.log('!!!Working!!!')
+                const h = new History(obj);
+                h.save();
+
+            }
         });
     // next()
 };
