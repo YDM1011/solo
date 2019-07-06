@@ -369,7 +369,7 @@ const checkOwner = (req,res,next)=>{
     require("../responces/forbidden")(req, res);
     require("../responces/badRequest")(req, res);
     if(!req.params.id){return res.badRequest()}
-    console.log(req.params.id, req.userId);
+    //console.log(req.params.id, req.userId);
     mongoose.model('basketsList')
         .findOne({_id:req.params.id, owneruser: req.userId})
         .exec((e,r)=>{
@@ -405,14 +405,16 @@ const validator = (req,res,next)=>{
     }
 };
 const validateFoodcoin = (req,res,next)=>{
+    const mail = require('../controlers/email');
     let bId = (req.query.id || req.params.id);
     if (req.body.status === '7') return next();
     mongoose.model('basketsList')
         .findOne({_id:bId})
+        .populate({path:'ownerest', select:'mailOfOrder publicKey privatKey subdomain'})
         .exec((e0,r0)=>{
             if (r0){
                 mongoose.model('establishment')
-                    .findOne({_id:r0.ownerest})
+                    .findOne({_id:r0.ownerest})                    
                     .exec((e,r)=>{
                         let price = 0;
                         let boxP = r0['editByAdmin'] ? r0['editByAdmin']['boxesPrice'] || r0.boxesPrice : r0.boxesPrice || 0;
@@ -421,18 +423,27 @@ const validateFoodcoin = (req,res,next)=>{
                         if (req.body.orderType == 'delivery' || r0.orderType == 'delivery') price = parseInt(totP) +parseInt(delP)+parseInt(boxP);
                         if (req.body.orderType == 'bySelf' || r0.orderType == 'bySelf') price = parseInt(totP)+parseInt(boxP);
                         if (req.body.orderType == 'reserve' || r0.orderType == 'reserve') price = parseInt(totP);
-                        console.log(price, r0, r0 == 'reserve')
+                        //console.log(price, r0, r0 == 'reserve')
                         if (r && price>0) {
                             if (r.foodCoin >= parseInt(price*0.05)){
                                 return next();
                             }else{
-                                return res.badRequest({mess:"Не достатньо коштів на балансі!"});
+                                if (req.body.status == '1') {                                 
+                                    let estMail = {
+                                        mail:r0.ownerest.mailOfOrder,
+                                        orderPrice:price,
+                                        orderLink:'https://admin.'+data.auth.domain+'/balans/'+r0.ownerest._id,
+                                        isEst: !req.isUseByAdmin
+                                    };
+                                    mail.sendMail(estMail, 'err');
+
+                                    return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"});
+                                }
+                                if (req.body.status == '6' || req.body.status == '5')
+                                    return res.badRequest({mess:"Не достатньо коштів на балансі!"});
                             }
                         }
-                        if (req.body.status == '1')
-                            return res.badRequest({mess:"Заклад зараз не може прийняти замовлення. Спробуйте пізніше!"});
-                        if (req.body.status == '6' || req.body.status == '5')
-                            return res.badRequest({mess:"Не достатньо коштів на балансі!"});
+                        
                     })
             }else{
                 console.log(e0, req.params._id);
@@ -461,8 +472,8 @@ const validateUserFoodcoin = (req,res,next)=>{
                         if (req.body.orderType == 'reserve' || r0.orderType == 'reserve') price = parseInt(totP);
                         if (r && price>0 && (r0.paymentType == 'coin')){
                             if (r.foodcoin >= price){
-                                console.log(req.body.status);
-                                console.log(req.body);
+                                //console.log(req.body.status);
+                                //console.log(req.body);
                                 if (req.body.status == '6') {
                                     let estPrice = price;
                                     if (r0.paymentType != 'coin') {
@@ -477,7 +488,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                     mongoose.model('establishment')
                                         .findOneAndUpdate({_id:r0.ownerest}, {$inc:{foodCoin:estPrice}})
                                         .exec((e1,r1)=>{
-                                            console.log("ER!!!",e1,r1);
+                                            //console.log("ER!!!",e1,r1);
                                             if (e1 || !r1) return res.badRequest({mess:"Error"});
                                             if (r0.paymentType != 'coin') {
                                                 price = price*0.05;                                                
@@ -493,7 +504,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                                     "est": r0.ownerest,
                                                     "coment": "Списано з Вашого балансу!"
                                                 }
-                                                console.log('!!!Working!!!')
+                                                //console.log('!!!Working!!!')
                                                 const h = new History(obj);
                                                 h.save();
 
@@ -526,7 +537,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                             "est": r0.ownerest,
                                             "coment": "Вам нараховано FoodCoin!"
                                         }
-                                        console.log('!!!Working!!!')
+                                        //console.log('!!!Working!!!')
                                         const h = new History(obj);
                                         h.save();
 
