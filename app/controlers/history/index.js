@@ -40,6 +40,42 @@ module.exports.historyAddFoodCoin = async function(req, res) {
     
 }
 
+module.exports.historyPayFoodCoin = async function(req, res) {
+
+    const history = await BasketList.find({status: 6, paymentType: "coin"}).exec((err, doc)=>{
+        doc.map(item=>{
+            if(item.foodCoinHistory.isAdd == false){
+                let coment = 'З Вашого балансу списано '+ item.foodCoinHistory.coin +' FoodCoin за замовлення №'+ item.orderNumber + '!';
+                const obj = {
+                    "foodcoin": item.foodCoinHistory.coin,
+                    "userShow": item.owneruser,
+                    "order": item._id,
+                    "type": "foodcoin",
+                    "est": item.ownerest,
+                    "coment": coment,
+                    "date": item.dataUpdate
+                }
+
+                const h = new History(obj);
+                h.save();
+            }
+        });
+        res.status(200).json('ok');
+    });
+
+    //const obj = {
+    //    "foodcoin": 99,
+    //    "userShow": "5c059993d969df061b78656e",
+    //    "order": "5d14f82cc15dff09e448df2e",
+    //    "type": "foodcoin",
+    //    "est": "5bd41fed52176844300d805b",
+    //    "coment": "Вам нараховано FoodCoin!"
+    //}
+
+    //h.save().then(() => console.log('History works!'))
+    
+}
+
 module.exports.historyAddRegisterFoodCoin = async function(req, res) {
 
     const history = await User.find({verify: true}).exec((err, doc)=>{
