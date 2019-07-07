@@ -154,7 +154,10 @@ router.get('/api/balans/:id', [orign], balans.getBalansById);
 
 //history API
 router.post('/api/historyaddFoodCoin', [orign], history.historyAddFoodCoin);
+router.post('/api/historyaddRegisterFoodCoin', [orign], history.historyAddRegisterFoodCoin);
 router.get('/api/historyShow', [orign], history.historyShow);
+
+
 
 
 module.exports = router;

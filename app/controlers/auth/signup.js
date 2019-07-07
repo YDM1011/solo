@@ -5,6 +5,7 @@ const md5 = require('md5');
 const mongoose = require('mongoose');
 const data = require('../../config/index');
 const User = mongoose.model('user');
+const History = require('../../model/history');
 const generatePassword = () => {
     var length = 8,
         charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789",
@@ -64,6 +65,19 @@ module.exports.confirm = (req, res, next) => {
                             if (err) return res.status(500).send({err: 'Something broke!'});
                             if (!doc) return res.status(400).send({err: 'Bad request'});
                             if (doc) {
+
+                                let coment = 'Бонус реєстрації! Вам нараховано 10 FoodCoin!';
+                                const obj = {
+                                    "foodcoin": 10,
+                                    "userShow": doc._id,
+                                    "type": "foodcoin",
+                                    "est": "Taste of Life",
+                                    "coment": coment
+                                }
+                                //console.log('!!!Working!!!')
+                                const h = new History(obj);
+                                h.save();
+
                                 res.ok(doc)
                             }
                         })
