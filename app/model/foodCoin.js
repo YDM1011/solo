@@ -48,15 +48,15 @@ const preCreate = (req,res,next)=>{
             if (!r) next();
             if (r) {
                 res.ok({mess:'Успішно нараховано!'})
-
+                let coment = 'Вам нараховано '+ parseInt(req.body.foodcoin)+' бонусних FoodCoin системою Taste of Life! Смачного!';
                 const obj = {
                     "foodcoin": parseInt(req.body.foodcoin),
                     "userShow": r._id,
                     "type": "foodcoin",
                     "est": "Taste of Life",
-                    "coment": "Нараховано системою Taste of Life!"
+                    "coment": coment
                 }
-                console.log('!!!Working!!!')
+                //console.log('!!!Working!!!')
                 const h = new History(obj);
                 h.save();
 

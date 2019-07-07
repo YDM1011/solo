@@ -494,14 +494,14 @@ const validateUserFoodcoin = (req,res,next)=>{
                                             }
                                             if (r0.paymentType == 'coin') {
                                                 price = -price*0.95;
-
+                                                let coment = 'З Вашого балансу списано '+ parseInt(price) +' FoodCoin за замовлення №'+ r0.orderNumber + '!';
                                                 const obj = {
                                                     "foodcoin": parseInt(price),
                                                     "userShow": r0.owneruser,
                                                     "order": r0._id,
                                                     "type": "foodcoin",
                                                     "est": r0.ownerest,
-                                                    "coment": "Списано з Вашого балансу!"
+                                                    "coment": coment
                                                 }
                                                 //console.log('!!!Working!!!')
                                                 const h = new History(obj);
@@ -527,14 +527,14 @@ const validateUserFoodcoin = (req,res,next)=>{
                                     .exec((e1,r1)=>{
                                         if (e1 || !r1) return res.badRequest({mess:"Error"});
                                         price = parseInt(price*0.05);
-
+                                        let coment = 'Вам нараховано '+ parseInt(price) +' FoodCoin за замовлення №'+ r0.orderNumber + '!';
                                         const obj = {
                                             "foodcoin": parseInt(price),
                                             "userShow": r0.owneruser,
                                             "order": r0._id,
                                             "type": "foodcoin",
                                             "est": r0.ownerest,
-                                            "coment": "Вам нараховано FoodCoin!"
+                                            "coment": coment
                                         }
                                         //console.log('!!!Working!!!')
                                         const h = new History(obj);

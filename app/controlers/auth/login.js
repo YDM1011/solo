@@ -5,6 +5,7 @@ const User = mongoose.model('user');
 const md5 = require('md5');
 const data = require('../../config/index');
 const time = 365 * 24 * 3600000;
+const History = require('../../model/history');
 
 module.exports = (req, res, next) => {
     collectRequestData(req,(elem)=>{
@@ -19,6 +20,17 @@ module.exports = (req, res, next) => {
                 if(!info.verify){
                     User.findOneAndUpdate({login: login}, {verify: true})
                         .exec()
+                    let coment = 'Бонус реєстрації! Вам нараховано 10 FoodCoin!';
+                    const obj = {
+                        "foodcoin": 10,
+                        "userShow": info._id,
+                        "type": "foodcoin",
+                        "est": "Taste of Life",
+                        "coment": coment
+                    }
+                    //console.log('!!!Working!!!')
+                    const h = new History(obj);
+                    h.save();
                 }
                 const token = jwt.sign({ id: login }, glob.secret);
                 info.pass = req.body.pass;
