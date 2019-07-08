@@ -1,4 +1,4 @@
-@media (max-width: 922px) and (orientation: landscape) and (max-height: 500px){
+@media (max-width: 922px) and (orientation: landscape) and (max-height: 500px){  
   :host app-left-bar{
     display: none;
   }
