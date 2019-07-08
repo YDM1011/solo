@@ -263,7 +263,7 @@ export class BasketComponent implements OnInit, OnChanges {
 
       if (basketData.orderType === 'delivery') {
         basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
-        basketData.deliveryPrice =  basketData.deliveryMinPrice > basketData.totalPrice ?
+        basketData.deliveryPrice =  basketData.deliveryMinPrice > (basketData.totalPrice+basketData.boxesPrice) ?
           (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) :
             parseInt(data.menuData.delivery)) : 0;
         if (data.editByAdmin) {
@@ -301,7 +301,7 @@ export class BasketComponent implements OnInit, OnChanges {
     basket.totalPrice = price;
     this.originBasketData.map(basketOrigin => {
       if(basketOrigin._id === basket._id) {
-        basket.deliveryPrice = basket.deliveryMinPrice > basket.totalPrice ? parseInt(basketOrigin.menuData.delivery) : 0;
+        basket.deliveryPrice = basket.deliveryMinPrice > (basket.totalPrice+basket.boxesPrice) ? parseInt(basketOrigin.menuData.delivery) : 0;
       }
     });
     s.api.post('product/' + product._id, {count: product.count,
