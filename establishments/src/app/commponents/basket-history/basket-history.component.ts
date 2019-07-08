@@ -119,7 +119,7 @@ export class BasketHistoryComponent implements OnInit {
 
       if(basketData.orderType == 'delivery'){
         basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
-        basketData.deliveryPrice =  basketData.deliveryMinPrice > basketData.totalPrice ? (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) : parseInt(data.menuData.delivery)) : 0;
+        basketData.deliveryPrice =  basketData.deliveryMinPrice > (basketData.totalPrice+basketData.boxesPrice) ? (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) : parseInt(data.menuData.delivery)) : 0;
         if(data.editByAdmin){
           if(data.editByAdmin.deliveryPrice){
             basketData.deliveryPrice = data.editByAdmin.deliveryPrice;
@@ -149,7 +149,7 @@ export class BasketHistoryComponent implements OnInit {
     basket.totalPrice = price;
     this.originBasketData.map(basketOrigin=>{
       if(basketOrigin._id == basket._id){
-        basket.deliveryPrice = basket.deliveryMinPrice > basket.totalPrice ? parseInt(basketOrigin.menuData.delivery) : 0;
+        basket.deliveryPrice = basket.deliveryMinPrice > (basket.totalPrice+basket.boxesPrice) ? parseInt(basketOrigin.menuData.delivery) : 0;
       }
     })
   }
