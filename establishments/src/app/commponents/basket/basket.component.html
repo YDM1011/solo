@@ -715,7 +715,7 @@
           <input type="text" class="p-d_inp dropdown-trigger"
                  [(ngModel)]="estAddress.address"
                  name="address"
-                 placeholder="адреса закладу">
+                 placeholder="адреса закладу" disabled>
           <button class="btn btn-info btn-xs" *ngIf="estAdres.length>1" (click)="getEstAddress()">Оберіть заклад</button>
           <div class="wrap-address" *ngIf="isAddress">
             <ul *ngIf="estAdres">
