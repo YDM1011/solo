@@ -8,6 +8,7 @@ import {environment} from "../../environments/environment";
 export class ApiService {
 
   private domain: string = environment.apiDomain;
+  private global: any = [];
 
   constructor(
     private http: HttpClient,
@@ -24,6 +25,20 @@ export class ApiService {
           err => reject(err)
         );
     })
+  }
+
+  justGet(api, id= null, select= null, model= null) {
+    const self = this;
+    return new Promise((resolve, reject) => {
+      self.http.get(`${self.domain}/api/${api}${id ? '/' + id : ''}${model ? model : ''}`)
+        .subscribe(
+          (res: any) => {
+            self.global[api + (id || '') + (select || '')] = res;
+            resolve(res);
+          },
+          err => reject(err)
+        );
+    });
   }
 
   apiPost(api, obj, id='', model=''){

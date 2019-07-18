@@ -94,7 +94,7 @@ const preRead = (req,res,next)=>{
     req.query.status ? query['status'] = req.query.status : query['status'] = {$ne:0};
     req.query.count ? query['count'] = req.query.count : {};
     if (req.query.count) {
-        console.log(req.query.count);
+        //console.log(req.query.count);
         mongoose.model('basketsList')
             .count(JSON.parse(req.query.count))
             .exec((err,info)=>{
@@ -127,7 +127,7 @@ const preUpdate = (req,res,next)=>{
     require("../responces/ok")(req, res);
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
-    console.log('user-admin',req.isUseByAdmin);
+    //console.log('user-admin',req.isUseByAdmin);
     req.body['dataUpdate'] = new Date();
     if (req.body.status == '1'){
         req.body.data = req.body['dataUpdate']
@@ -446,7 +446,7 @@ const validateFoodcoin = (req,res,next)=>{
                         
                     })
             }else{
-                console.log(e0, req.params._id);
+                //console.log(e0, req.params._id);
                 return res.badRequest(e0?e0:{})
             }
 
@@ -514,7 +514,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                                 .findOneAndUpdate({_id:r0.owneruser},
                                                     {$inc:{foodcoin:price}})
                                                 .exec((e2,r2)=>{
-                                                    console.log("ER2222",e2,r2);
+                                                    //console.log("ER2222",e2,r2);
                                                     if(e2 || !r2) return res.badRequest({mess:"Error"});
                                                     return next()
                                                 })
