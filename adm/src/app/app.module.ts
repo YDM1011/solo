@@ -48,6 +48,8 @@ import { OrderPipe } from './pages/order-detail/order.pipe';
 import { PaymentPipe } from './pages/order-detail/payment.pipe';
 import { OrderDetailComponent } from './pages/order-detail/order-detail.component';
 import { OrderDetailEditComponent } from './pages/order-detail-edit/order-detail-edit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HistoryComponent } from './pages/history/history.component';
 
 @NgModule({
   declarations: [
@@ -90,14 +92,16 @@ import { OrderDetailEditComponent } from './pages/order-detail-edit/order-detail
     OrderPipe,
     OrderDetailComponent,
     PaymentPipe,
-    OrderDetailEditComponent
+    OrderDetailEditComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
-    SweetAlert2Module.forRoot()
+    SweetAlert2Module.forRoot(),
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

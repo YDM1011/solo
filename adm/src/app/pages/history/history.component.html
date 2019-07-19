@@ -1,0 +1,45 @@
+<div class="container-fluid">    
+    <div class="col-xs-12"><h2>Загальна кількість: {{collectionSize}}</h2>
+    </div>
+  </div>
+ 
+  <div>
+    <b>Сортування: </b>
+    <select [(ngModel)]="sort">
+        <option name="sort" value='{"date":-1}' selected>Дата реєстрації</option>
+        <option name="sort" value='{"userShow":1}'>id</option>
+        <option name="sort" value='{"foodcoin":-1}'>FoodCoin</option>
+        <option name="sort" value='{"type":-1}'>Тип</option>
+      </select>
+
+    <button style="margin: 20px;" type="button" class="btn btn-primary" (click)="letPage()">Сортувати</button>
+    
+  </div>
+
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="col" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" (pageChange)="letPage()"></ngb-pagination>
+  
+  <div class="ibox-content">
+    <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint">
+      <thead>
+        <tr>
+          <th class="center sorting">Номер</th>
+          <th class="center sorting">id</th>
+          <th class="center">Дата та час</th>
+          <th class="center">Тип</th>
+          <th class="center">Foodcoin</th>
+          <th class="center">Text</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="gradeA even" role="row" *ngFor="let hist of history; let i = index">
+          <td class="center">{{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}</td>
+          <td class="center">{{hist.userShow}}</td>
+          <td class="center">{{hist.date | date:"dd/MM/yyyy - hh:mm"}}</td>
+          <td class="center">{{hist.type}}</td>
+          <td class="center">{{hist.foodcoin}}</td>  
+          <td class="center">{{hist.coment}}</td>      
+        </tr>
+      </tbody>
+    
+    </table>
+  </div>

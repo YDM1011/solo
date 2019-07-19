@@ -6,7 +6,8 @@
       </ol>
     </div>
   </div>
-  
+  <!--<ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>-->
+
   <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
       <div class="col-lg-12">
@@ -21,8 +22,8 @@
             <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
               <thead>
               <tr>
-  
                 <th class="footable-visible footable-first-column text-center">№</th>
+                <th class="footable-visible text-center">Номер</th>
                 <th class="footable-visible text-center">Ім'я</th>
                 <th class="footable-visible text-center">Тип</th>
                 <th class="footable-visible text-center">Сума замовлення</th>
@@ -34,10 +35,14 @@
               </tr>
               </thead>
               <tbody>
-              <ng-container *ngFor="let order of list">
+              <ng-container *ngFor="let order of list; let i = index">
                 <tr class="footable-even sible footable-first-column"
                   
                 >
+                  <td class="footable-visible text-center">
+                    {{collectionSize-i}}
+                    <!--{{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}-->
+                  </td>
                   <td class="footable-visible text-center">
                     {{order.orderNumber}}
                   </td>
