@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+//import { HttpClient } from '@angular/common/http';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ApiService} from '../../api.service';
 import {orderBal, OrderBalans} from '../order/order-min';
@@ -11,6 +11,9 @@ import {orderBal, OrderBalans} from '../order/order-min';
 })
 export class BalansComponent implements OnInit {
 
+  public page = 1;
+  public col = 3;
+  public collectionSize: number;
   public orderStatus = '6';
   public id;
   public stActive;
@@ -30,6 +33,7 @@ export class BalansComponent implements OnInit {
     this.api.get('balans', this.id).then((v: any) => {
       //console.log(v)
       if (v) {
+        this.collectionSize = v.length;
         v.map(basket => {
           let client = basket.owneruser;
           let price = basket.totalPrice;

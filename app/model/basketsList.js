@@ -495,7 +495,7 @@ const validateUserFoodcoin = (req,res,next)=>{
                                             }
                                             if (r0.paymentType == 'coin') {
                                                 price = -price*0.95;
-                                                let coment = 'З Вашого балансу списано '+ parseInt(price) +' FoodCoin за замовлення №'+ r0.orderNumber + '!';
+                                                let coment = 'З Вашого балансу списано '+ parseInt(-price) +' FoodCoin за замовлення №'+ r0.orderNumber + '!';
                                                 const obj = {
                                                     "foodcoin": parseInt(price),
                                                     "userShow": r0.owneruser,

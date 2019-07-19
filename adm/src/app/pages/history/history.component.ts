@@ -9,7 +9,7 @@ import { ApiService } from '../../service/api.service';
 export class HistoryComponent implements OnInit {
 
   public page = 1;
-  public col = 20;
+  public col = 3;
   public collectionSize: number;
   public history = [];  
   public foodCoin;

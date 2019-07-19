@@ -51,6 +51,7 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
     // });
   }
   getStartList(id) {
+    this.load = false;
     this.api.justGet('basketsList', id, '', '?skip=0&orderType=' + this.orderType)
       .then((v: any) => {
         
@@ -90,6 +91,12 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
           }
         }
       });
+
+      if (location.href.indexOf("/orders") != -1) {
+        setTimeout(() => {
+          this.getStartList(id);
+        }, 60*1000);
+      }
   }
   getByStatus(st) {
     this.stActive = st;

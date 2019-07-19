@@ -22,7 +22,7 @@
     <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint">
       <thead>
         <tr>
-          <!--<th class="center sorting">Номер</th>-->
+          <th class="center sorting">Номер</th>
           <th class="center sorting">id</th>
           <th class="center">Дата та час</th>
           <th class="center">Тип</th>
@@ -32,9 +32,9 @@
       </thead>
       <tbody>
         <tr class="gradeA even" role="row" *ngFor="let hist of history; let i = index">
-          <!--<td class="center">{{i+1}}</td>-->
+          <td class="center">{{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}</td>
           <td class="center">{{hist.userShow}}</td>
-          <td class="center">{{hist.date | date:"dd/MM/yyyy"}}</td>
+          <td class="center">{{hist.date | date:"dd/MM/yyyy - hh:mm"}}</td>
           <td class="center">{{hist.type}}</td>
           <td class="center">{{hist.foodcoin}}</td>  
           <td class="center">{{hist.coment}}</td>      

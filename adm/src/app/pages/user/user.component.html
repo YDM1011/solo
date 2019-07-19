@@ -27,7 +27,7 @@
     <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint">
       <thead>
         <tr>
-          <!--<th class="center sorting">Номер</th>-->
+          <th class="center sorting">Номер</th>
           <th class="center sorting">Ім'я</th>
           <th class="center">Фамілія</th>
           <th class="center">E-mail</th>
@@ -40,7 +40,7 @@
       </thead>
       <tbody>
         <tr class="gradeA even" role="row" *ngFor="let user of users; let i = index">
-          <!--<td class="center">{{i+1}}</td>-->
+          <td class="center">{{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}</td>
           <td class="center">{{user.firstName}}</td>
           <td class="center">{{user.lastName}}</td>
           <td class="center">{{user.email}}</td>

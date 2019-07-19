@@ -54,6 +54,9 @@ export class UserComponent implements OnInit {
 
   letPage() {
     const s = this;
+    s.api.apiGet('userBalanse','','').then((v:any)=>{
+        s.foodCoin = v[0];
+      })
     s.api.apiGet('user?limit=' + this.col + '&skip=' + ((this.page-1)*this.col) + '&sort=' + this.sort).then((val: any) => {
       if (val) {
         if (val.length > 0) {

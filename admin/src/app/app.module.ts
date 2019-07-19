@@ -12,7 +12,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { CookieService } from "ngx-cookie-service";
 import { FormsModule } from "@angular/forms";
-import {ApiEventService} from "./service/api-event.service";
+import { ApiEventService } from "./service/api-event.service";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {ApiEventService} from "./service/api-event.service";
     CommponentsModule,
     RoutingModule,
     HttpClientModule,
+    NgbModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},

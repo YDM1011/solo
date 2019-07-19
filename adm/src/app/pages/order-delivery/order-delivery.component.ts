@@ -35,10 +35,11 @@ export class OrderDeliveryComponent implements OnInit {
         this.getStartList();
       }
     });
-    this.getStartList();
+    this.getStartList();    
   }
 
   getStartList() {
+    this.load = false;
     this.api.justGet('basketsList', '', '', '?skip=0&orderType=' + this.orderType)
     //this.api.get('basketsList/'+ this.orderType, '', '', '')
       .then((v: any) => {
@@ -75,7 +76,14 @@ export class OrderDeliveryComponent implements OnInit {
           }
         }
       });
+      
+      if (location.href.indexOf("/orders") != -1) {
+        setTimeout(() => {
+          this.getStartList();
+        }, 60*1000);
+      }
   }
+
   getByStatus(st) {
     this.stActive = st;
     this.list = [];
