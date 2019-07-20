@@ -279,14 +279,15 @@ function calculatePrice(orders = []) {
         totPrice = order.editByAdmin ? order.editByAdmin.totalPrice || order.totalPrice : order.totalPrice;
         delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice || order.deliveryPrice : order.deliveryPrice;
         boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice || order.boxesPrice : order.boxesPrice;
+        let orderPrice = 0;
         if (order.orderType == 'delivery') {
-            const orderPrice = totPrice+boxPrice+delPrice;
+            orderPrice = totPrice+boxPrice+delPrice;
         }
         if (order.orderType == 'bySelf') {
-            const orderPrice = totPrice+boxPrice;
+            orderPrice = totPrice+boxPrice;
         }
         if (order.orderType == 'reserve') {
-            const orderPrice = totPrice;
+            orderPrice = totPrice;
         }        
         return total += orderPrice;
     }, 0)
