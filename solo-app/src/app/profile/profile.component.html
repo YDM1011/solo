@@ -479,12 +479,12 @@
 <ng-container *ngIf="isMobilePop">
   <div class="wrap-pop">
     <div class="content-pop">
-      <input class="us_inp us_inp-tel pop" type="text" autofocus
+      <input class="us_inp us_inp-tel pop" type="number" autofocus
              [(ngModel)]="mobile" name="mobile" *ngIf="!isCodeInput"
-             placeholder="+380 (___)-__-__">
-      <input class="us_inp us_inp-tel pop" type="text" *ngIf="isCodeInput" autofocus
+             placeholder="+380XX XXX XX XX">
+      <input class="us_inp us_inp-tel pop" type="number" *ngIf="isCodeInput" autofocus
              [(ngModel)]="code" name="code"
-             placeholder="">
+             placeholder="код з смс">
       <button class="btn" (click)="saveMobile()" *ngIf="!isCodeInput">Зберегти</button>
       <button class="btn" (click)="sendConfirm()" *ngIf="isCodeInput">Підтвердити</button>
     </div>

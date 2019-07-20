@@ -31,10 +31,14 @@
         </tr>
       </thead>
       <tbody>
-        <tr class="gradeA even" role="row" *ngFor="let hist of history; let i = index">
+        <tr class="gradeA even" role="row" *ngFor="let hist of history; let i = index"
+          [ngClass]="{'success': hist.isShow,
+                  'info': !hist.isShow           
+                  }"
+        >
           <td class="center">{{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}</td>
           <td class="center">{{hist.userShow}}</td>
-          <td class="center">{{hist.date | date:"dd/MM/yyyy - hh:mm"}}</td>
+          <td class="center">{{hist.date | date:"dd/MM/yyyy - HH:mm"}}</td>
           <td class="center">{{hist.type}}</td>
           <td class="center">{{hist.foodcoin}}</td>  
           <td class="center">{{hist.coment}}</td>      
