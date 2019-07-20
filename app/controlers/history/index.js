@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const History = mongoose.model('history');
 const BasketList = mongoose.model('basketsList');
 const User = mongoose.model('user');
+const Foodcoin = mongoose.model('foodCoin');
 
 
 module.exports.historyAddFoodCoin = async function(req, res) {
@@ -106,6 +107,33 @@ module.exports.historyAddRegisterFoodCoin = async function(req, res) {
     //}
 
     //h.save().then(() => console.log('History works!'))
+    
+}
+
+module.exports.historyAddOldFoodCoin = async function(req, res) {
+
+    const history = await Foodcoin.find({isActive: false}).exec((err, doc)=>{
+        doc.map(item=>{
+            User.find({mobile: item.mobile}).exec((err1, doc1)=>{
+                doc1.map(item1=>{
+                    let coment = 'Ваші накопичені у Соло бонуси ('+ parseInt(item.foodcoin)+') конвертовано у '+ parseInt(item.foodcoin) +' FoodCoin системи Taste of Life! Смачного!';
+                    const obj = {
+                        "foodcoin": parseInt(item.foodcoin),
+                        "userShow": item1._id,
+                        "type": "foodcoin",
+                        "est": "Old bonus",
+                        "coment": coment,
+                        "date": item1.data
+                    }
+                    //console.log('!!!Working!!!')
+                    const h = new History(obj);
+                    h.save();
+                });
+            });
+            
+        });
+        res.status(200).json('ok');
+    });
     
 }
 

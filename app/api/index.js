@@ -156,6 +156,7 @@ router.get('/api/balans/:id', [orign], balans.getBalansById);
 router.post('/api/historyaddFoodCoin', [orign], history.historyAddFoodCoin);
 router.post('/api/historyPayFoodCoin', [orign], history.historyPayFoodCoin);
 router.post('/api/historyaddRegisterFoodCoin', [orign], history.historyAddRegisterFoodCoin);
+router.post('/api/historyaddOldFoodCoin', [orign], history.historyAddOldFoodCoin);
 router.get('/api/historyShow', [orign], history.historyShow);
 
 

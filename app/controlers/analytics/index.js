@@ -172,52 +172,55 @@ function getSummaryOrders(orders = []) {
         let count_foodcoin = 0;
         let delOrder = {};
         orders[key].forEach(order => {
+            totPrice = order.editByAdmin ? order.editByAdmin.totalPrice || order.totalPrice : order.totalPrice;
+            delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice || order.deliveryPrice : order.deliveryPrice;
+            boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice || order.boxesPrice : order.boxesPrice;
             if (order.orderType == 'delivery') {
                 count_sumDel += 1;
-                sumDel += order.totalPrice+order.deliveryPrice+order.boxesPrice;
+                sumDel += totPrice+delPrice+boxPrice;
                 if (order.paymentType == 'fiat') {
                     count_fiat += 1;
-                    fiat += order.totalPrice+order.deliveryPrice+order.boxesPrice;
+                    fiat += totPrice+delPrice+boxPrice;
                 }
                 if (order.paymentType == 'card') {
                     count_card += 1;
-                    card += order.totalPrice+order.deliveryPrice+order.boxesPrice;
+                    card += totPrice+delPrice+boxPrice;
                 }
                 if (order.paymentType == 'coin') {
                     count_foodcoin += 1;
-                    foodcoin += order.totalPrice+order.deliveryPrice+order.boxesPrice;
+                    foodcoin += totPrice+delPrice+boxPrice;
                 }
             }
             if (order.orderType == 'bySelf') {
                 count_sumSelf += 1;
-                sumSelf += order.totalPrice+order.boxesPrice;
+                sumSelf += totPrice+boxPrice;
                 if (order.paymentType == 'fiat') {
                     count_fiat += 1;
-                    fiat += order.totalPrice+order.boxesPrice;
+                    fiat += totPrice+boxPrice;
                 }
                 if (order.paymentType == 'card') {
                     count_card += 1;
-                    card += order.totalPrice+order.boxesPrice;
+                    card += totPrice+boxPrice;
                 }
                 if (order.paymentType == 'coin') {
                     count_foodcoin += 1;
-                    foodcoin += order.totalPrice+order.boxesPrice;
+                    foodcoin += totPrice+boxPrice;
                 }
             }
             if (order.orderType == 'reserve') {
                 count_sumRes += 1;
-                sumRes += order.totalPrice;
+                sumRes += totPrice;
                 if (order.paymentType == 'fiat') {
                     count_fiat += 1;
-                    fiat += order.totalPrice;
+                    fiat += totPrice;
                 }
                 if (order.paymentType == 'card') {
                     count_card += 1;
-                    card += order.totalPrice;
+                    card += totPrice;
                 }
                 if (order.paymentType == 'coin') {
                     count_foodcoin += 1;
-                    foodcoin += order.totalPrice;
+                    foodcoin += totPrice;
                 }
             }           
             delOrder= {
@@ -273,8 +276,20 @@ function geReservefOrders(orders = []) {
 
 function calculatePrice(orders = []) {
     return orders.reduce((total, order) => {
-        const orderPrice = order.totalPrice+order.boxesPrice+order.deliveryPrice;
-        return total += orderPrice
+        totPrice = order.editByAdmin ? order.editByAdmin.totalPrice || order.totalPrice : order.totalPrice;
+        delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice || order.deliveryPrice : order.deliveryPrice;
+        boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice || order.boxesPrice : order.boxesPrice;
+        let orderPrice = 0;
+        if (order.orderType == 'delivery') {
+            orderPrice = totPrice+boxPrice+delPrice;
+        }
+        if (order.orderType == 'bySelf') {
+            orderPrice = totPrice+boxPrice;
+        }
+        if (order.orderType == 'reserve') {
+            orderPrice = totPrice;
+        }        
+        return total += orderPrice;
     }, 0)
 }
 
