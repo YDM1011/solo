@@ -172,9 +172,9 @@ function getSummaryOrders(orders = []) {
         let count_foodcoin = 0;
         let delOrder = {};
         orders[key].forEach(order => {
-            totPrice = order.editByAdmin ? order.editByAdmin.totalPrice : order.totalPrice;
-            delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice : order.deliveryPrice;
-            boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice : order.boxesPrice;
+            totPrice = order.editByAdmin ? order.editByAdmin.totalPrice || order.totalPrice : order.totalPrice;
+            delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice || order.deliveryPrice : order.deliveryPrice;
+            boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice || order.boxesPrice : order.boxesPrice;
             if (order.orderType == 'delivery') {
                 count_sumDel += 1;
                 sumDel += totPrice+delPrice+boxPrice;
@@ -276,9 +276,9 @@ function geReservefOrders(orders = []) {
 
 function calculatePrice(orders = []) {
     return orders.reduce((total, order) => {
-        totPrice = order.editByAdmin ? order.editByAdmin.totalPrice : order.totalPrice;
-        delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice : order.deliveryPrice;
-        boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice : order.boxesPrice;
+        totPrice = order.editByAdmin ? order.editByAdmin.totalPrice || order.totalPrice : order.totalPrice;
+        delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice || order.deliveryPrice : order.deliveryPrice;
+        boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice || order.boxesPrice : order.boxesPrice;
         const orderPrice = totPrice+boxPrice+delPrice;
         return total += orderPrice
     }, 0)
