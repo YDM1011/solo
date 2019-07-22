@@ -12,7 +12,8 @@ import { ApiService } from 'src/app/api.service';
 })
 export class OverviewComponent implements OnInit {
 
-  public data$: any
+  public data$: any;
+  public page: any;
   
   public id;
 
@@ -27,6 +28,7 @@ export class OverviewComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.page = "all";
     this.id = this.route.snapshot.paramMap.get('id');
     //this.data$ = this.service.getOverview(this.id);
 
