@@ -113,7 +113,7 @@ const preRead = (req,res,next)=>{
             .populate({path:'estAddressData', select:"address"})
             .populate({path:'menuData', select:'-forest -categories -dishes'})
             .populate({path:'productData', select:'orderCommentData status dishData portItemData _id count complementData boxData totalPrice',
-                populate:{path:'dishData portItemData boxData complementData.id'}
+                populate:{path:'dishData portItemData boxData complementData.id', populate: {path:'dishcategory'}}
             })
             .exec((err,info)=>{
                 if (err) return res.serverError(err);

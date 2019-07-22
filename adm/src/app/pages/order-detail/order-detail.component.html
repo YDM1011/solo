@@ -128,11 +128,11 @@
               </div>
             </dl>
             <dl class="row mb-0">
-              <div class="col-sm-4 text-sm-right"><dt>Коментування:</dt> </div>
+              <div class="col-sm-4 text-sm-right"><dt>Коментар:</dt> </div>
               <div class="col-sm-8 text-sm-left">
                 <dd class="mb-1"  *ngIf="order; else preload">
                   <div *ngFor="let com of order.orderCommentData">
-                    <div *ngIf="com.text"><i>{{com.entity}}: </i><span>{{com.text}}</span></div>
+                    <div *ngIf="com.text"><i>{{com.entity == 'user' ? 'Гість' : 'Admin'}}: </i><span>{{com.text}}</span></div>
                   </div>
                   <ng-container *ngIf="isCanEdit">
                     <div><textarea name="comment" [(ngModel)]="comment"></textarea></div>
@@ -175,7 +175,7 @@
                       <!--<input type="checkbox" [(ngModel)]="prod.status" name="prod-{{prod._id}}">-->
                     <!--</td>-->
                     <td class="footable-visible">
-                      {{prod.dishData.name}}
+                        {{prod.dishData.name}} ({{prod.dishData.dishcategory ? prod.dishData.dishcategory.name : ''}})
                     </td>
                     <td class="footable-visible">
                       <ng-container *ngFor="let comp of prod.complementData">
