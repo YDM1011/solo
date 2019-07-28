@@ -456,7 +456,8 @@ const validateUserFoodcoin = (req,res,next)=>{
     let bId = (req.query.id || req.params.id);
     if (req.body.status === '7') return next();
     mongoose.model('basketsList')
-        .findOne({_id:bId})        
+        //.findOne({_id:bId, status: { $lt: 6 }})
+        .findOne({_id:bId})
         .exec((e0,r0)=>{
             if (r0){
                 mongoose.model('user')

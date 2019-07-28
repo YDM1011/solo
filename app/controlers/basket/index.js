@@ -11,6 +11,7 @@ const publikKey = 'i94942794371';
 const privateKey = 'q7b6Yc2wMz0nUVwK30NK1Iaqt9I3nQ23I7LLZPGO';
 const liqpay = new LiqPay(publikKey, privateKey);
 
+
 const update = (req,res,estId,doc)=>{
     let obj = req.body;
     obj['ownerest'] = estId;

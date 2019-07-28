@@ -19,6 +19,11 @@ export class OrderDetailComponent implements OnInit {
   public allInThis;
   public allInAny;
 
+  public doneButton = true;
+  public changeButton = true;
+  public confirmButton = true;
+  public payButton = true;
+
   public comment;
   public totalPrice;
   public boxesPrice;
@@ -54,21 +59,42 @@ export class OrderDetailComponent implements OnInit {
   }
 
   confirmOrder() {
-    this.api.set('basketsList', {status: '2'}, this.estId, '', '?id=' + this.order.id).then(v => {
-      if (v) {
-        this.order.status = '2';
+    this.confirmButton = false;
+    this.api.justGet(`basketsList/count?query={"_id":"${this.order.id}","status":"2"}`).then((v: any) => {
+      if (v.count != 1) {
+        this.api.set('basketsList', {status: '2'}, this.estId, '', '?id=' + this.order.id).then(v => {
+          if (v) {
+            this.order.status = '2';
+            this.confirmButton = true;
+          }
+        }).catch(e => {
+          Swal.fire('Помилка', e.error.error.mess, 'error');
+          this.confirmButton = true;
+        });
+      } else {
+        Swal.fire('Помилка', 'Виникла помилка! Оновіть сторінку!', 'error');
+        this.confirmButton = true;
       }
-    }).catch(e => {
-      Swal.fire('Error', e.error.error.mess, 'error');
     });
+    
   }
   doneOrder() {
-    this.api.set('basketsList', {status: '6'}, this.estId, '', '?id=' + this.order.id).then(v => {
-      if (v) {
-        this.order.status = '6';        
+    this.doneButton = false;
+    this.api.justGet(`basketsList/count?query={"_id":"${this.order.id}","status":"6"}`).then((v: any) => {
+      if (v.count != 1) {
+        this.api.set('basketsList', {status: '6'}, this.estId, '', '?id=' + this.order.id).then(v => {
+          if (v) {
+            this.order.status = '6';
+            this.doneButton = true;
+          }
+        }).catch(e => {
+          Swal.fire('Помилка', e.error.error.mess, 'error');
+          this.doneButton = true;
+        });
+      } else {
+        this.doneButton = true;
+        Swal.fire('Помилка', 'Виникла помилка! Оновіть сторінку!', 'error');
       }
-    }).catch(e => {
-      Swal.fire('Error', e.error.error.mess, 'error');
     });
   }
   deletOrder() {
@@ -81,33 +107,45 @@ export class OrderDetailComponent implements OnInit {
     });
   }
   whaitOrder() {
+    this.payButton = false;
     this.api.set('basketsList', {status: '3'}, this.estId, '', '?id=' + this.order.id).then(v=>{
       if (v) {
         this.order.status = '3';
+        this.payButton = true;
       }
     });
   }
   changeOrder() {
     //console.log(this.order);
-    let comment = this.comment ? {entity: 'admin', text: this.comment} : null;
-    let obj = {
-      status: '5'
-    };
-    if (comment) {
-      this.order.orderCommentData.push(comment);
-      obj['orderCommentData'] = this.order.orderCommentData;
-    }
-    if (this.totalPrice) obj['totalPrice'] = this.totalPrice || this.order.productPrice;
-    if (this.boxesPrice) obj['boxesPrice'] = this.boxesPrice || this.order.boxPrice;
-    if (this.deliveryPrice) obj['deliveryPrice'] = this.deliveryPrice || this.order.deliveryPrice;
-    //console.log(obj);
+    this.changeButton = false;
+    this.api.justGet(`basketsList/count?query={"_id":"${this.order.id}","status":"5"}`).then((v: any) => {
+      if (v.count != 1) {
+        let comment = this.comment ? {entity: 'admin', text: this.comment} : null;
+        let obj = {
+          status: '5'
+        };
+        if (comment) {
+          this.order.orderCommentData.push(comment);
+          obj['orderCommentData'] = this.order.orderCommentData;
+        }
+        if (this.totalPrice) obj['totalPrice'] = this.totalPrice || this.order.productPrice;
+        if (this.boxesPrice) obj['boxesPrice'] = this.boxesPrice || this.order.boxPrice;
+        if (this.deliveryPrice) obj['deliveryPrice'] = this.deliveryPrice || this.order.deliveryPrice;
+        //console.log(obj);
 
-    this.api.set('basketsList', obj, this.estId, '', '?id=' + this.order.id).then(v => {
-      if (v) {
-        this.order.status = '5';
+        this.api.set('basketsList', obj, this.estId, '', '?id=' + this.order.id).then(v => {
+          if (v) {
+            this.order.status = '5';
+            this.changeButton = true;
+          }
+        }).catch(e => {
+          Swal.fire('Error', e.error.error.mess, 'error');
+          this.changeButton = true;
+        });
+      } else {
+        Swal.fire('Помилка', 'Виникла помилка! Оновіть сторінку!', 'error');
+        this.changeButton = true;
       }
-    }).catch(e => {
-      Swal.fire('Error', e.error.error.mess, 'error');
     });
   }
 }

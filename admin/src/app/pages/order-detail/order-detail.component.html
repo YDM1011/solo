@@ -251,19 +251,19 @@
 </ng-template>
 
 <ng-template #confirm>
-  <button class="btn btn-xs btn-success" (click)="confirmOrder()" >Підтвердити</button>
+  <button class="btn btn-xs btn-success" (click)="confirmOrder()" [disabled]="!confirmButton">Підтвердити</button>
 </ng-template>
 <ng-template #change>
-  <button class="btn btn-xs btn-warning" (click)="changeOrder()">Змінене оператором</button>
+  <button class="btn btn-xs btn-warning" (click)="changeOrder()" [disabled]="!changeButton">Змінене оператором</button>
 </ng-template>
 <ng-template #delet>
   <button class="btn btn-xs btn-danger" (click)="deletOrder()">Відмінити</button>
 </ng-template>
 <ng-template #whait>
-  <button class="btn btn-xs btn-info" (click)="whaitOrder()">Очікувати оплату</button>
+  <button class="btn btn-xs btn-info" (click)="whaitOrder()" [disabled]="!payButton">Очікувати оплату</button>
 </ng-template>
 <ng-template #done>
-  <button class="btn btn-xs btn-primary" (click)="doneOrder()">Виконано</button>
+  <button class="btn btn-xs btn-primary" (click)="doneOrder()" [disabled]="!doneButton">Виконано</button>
 </ng-template>
 
 <router-outlet></router-outlet>
