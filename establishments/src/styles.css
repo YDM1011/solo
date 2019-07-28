@@ -805,7 +805,7 @@ textarea:focus{
 }
 .form-search{
   margin: 0 5px;
-  display: block;
+  display: none;
   height: inherit;
   background: #f4f4f4;
 }

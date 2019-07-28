@@ -101,7 +101,7 @@
 
 .form-search {
   position: absolute;
-  display: block;
+  display: none;
   height: inherit;
   right: 0;
   top: 0;
@@ -180,7 +180,7 @@
     margin: 0; }
   .form-search {
     position: static;
-    display: flex;
+    display: none;
     min-width: 160px;
     align-items: center;
     margin: 0 15px;

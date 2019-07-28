@@ -60,6 +60,7 @@ export class BasketComponent implements OnInit, OnChanges {
   public estAdres = [];
   public estAddress = {address:'',_id:''};
 
+  public minus = true;
 
   public pecent = 0.05;
   public html;
@@ -287,6 +288,7 @@ export class BasketComponent implements OnInit, OnChanges {
     this.checkPP(product, basket);
   }
   checkPP(product, basket) {
+    this.minus = false;
     let s = this;
     product.totalPrice = parseInt(this.prices[product._id]) * product.count;
     let price = 0;
@@ -307,7 +309,8 @@ export class BasketComponent implements OnInit, OnChanges {
     s.api.post('product/' + product._id, {count: product.count,
       status: product.status,
       BasketId: basket._id,
-      ownerest: product.ownerest, owneruser: product.owneruser}).then((res: any) => {
+      ownerest: product.ownerest, owneruser: product.owneruser}).then((res: any) => {        
+        this.minus = true;
       // s.isShowChange.emit(res._id);
     });
   }

@@ -401,7 +401,8 @@ function getSummaryOrdersPlace(orders) {
         AlldaysOrders.push(daysOrders);
         //if (Object.keys(delOrder).length != 0) daysOrders.push(delOrder)
       }    
-    return AlldaysOrders
+    return AlldaysOrders;
+
 }
 
 function geBySelfOrders(orders = []) {

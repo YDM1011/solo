@@ -10,7 +10,7 @@ glob.getAdmin = (req,res,next)=>{
     const protect = req.cookies['adminsid'];
 
     if(!protect){
-        return next()
+        return res.forbidden("forbidden you are not admin!");
     }
     const connect = protect.split(" ");
 
@@ -18,6 +18,8 @@ glob.getAdmin = (req,res,next)=>{
         if (err) {
             return res.serverError("Token error");
         }else{
+            //if (data.id !== "5c521f824d044903484c5dad" ) return res.forbidden("forbidden admin`s login invalid!");
+            if (data.id !== "admin" ) return res.forbidden("forbidden admin`s login invalid!");
             User.findOne({login: data.id })
                 .exec((err, info)=>{
                     if (err) return next(err);
