@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   public userId = location.href.split("user/")[1].split("/")[0];
   public me = new userData();
   public email;
-  public mobile;
+  public mobile: string;
   public code;
   public status = new Status();
   public statuse:any;
