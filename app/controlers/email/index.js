@@ -4,6 +4,7 @@ const path = require('path');
 const data = require('../../config/config').data;
 const nodemailer = require('nodemailer');
 module.exports.sendMail = (obj, st = null) => {
+    console.log('11111111111111111111'+st);
 
     let template = path.join(__dirname, '../../views-v1/emailTemplate/confirm-signup.ejs');
     const transporter = nodemailer.createTransport(
