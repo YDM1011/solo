@@ -54,7 +54,8 @@
                   
                   <b>Позицій:</b> {{order.products ? order.products.length : ''}} (
                   <ng-container *ngFor="let dish of order.products">
-                      <span [ngClass]="{'red-text': !dish.status}"> {{dish.dishData.name}} </span>
+                      <!--<span [ngClass]="{'red-text': !dish.status}"> {{dish.dishData.name}} </span>-->
+                      <span *ngIf= dish.status> {{dish.dishData.name}} </span>
                     </ng-container> )<br>
                   <b>Адреса:</b> {{order.adress ? order.adress.address : ''}}<br>
                   <b>Час замовлення: </b> <span style="font-size: 1.5rem;color: red;"> {{order.time ? (order.time | date:'dd.MM.yy - HH:mm') : 'якомога швидше'}}</span><br>

@@ -198,6 +198,21 @@ const postUpdate = async (req,res,next)=>{
                     }
                 }
                 const data = require('../config/index');
+
+                let amount;
+                let boxP = bData['editByAdmin'] ? bData['editByAdmin']['boxesPrice'] || bData.boxesPrice : bData.boxesPrice;
+                let totP = bData['editByAdmin'] ? bData['editByAdmin']['totalPrice'] || bData.totalPrice : bData.totalPrice;
+                let delP = bData['editByAdmin'] ? bData['editByAdmin']['deliveryPrice'] || bData.deliveryPrice : bData.deliveryPrice;
+                if (bData.orderType == 'delivery'){
+                    amount = parseInt(boxP) + parseInt(totP) + parseInt(delP);
+                }else if(bData.orderType == 'bySelf'){
+                    amount = parseInt(boxP) + parseInt(totP);
+                }else if(bData.orderType == 'reserve'){
+                    amount = parseInt(totP);
+                }else{
+                    return res.badRequest()
+                }
+
                 let userMail = {
                     mail:basketData.owneruser.email,                    
                     orderId:bData.orderNumber,
@@ -210,7 +225,8 @@ const postUpdate = async (req,res,next)=>{
                     },
                     link: 'https://'+basketData.ownerest.subdomain+'.'+data.auth.domain+'/basket',
                     orderType: bData.orderType,
-                    isUser: true
+                    isUser: true,
+                    coin: parseInt(amount*0.05)
                 };
                 //console.log("test"+basketData.ownerest);
 
