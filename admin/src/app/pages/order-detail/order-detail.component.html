@@ -238,7 +238,14 @@
             <ng-container *ngTemplateOutlet="delet"></ng-container>
           </ng-container>
           <ng-container *ngIf="order.status==4">
-            <ng-container *ngTemplateOutlet="confirm"></ng-container>
+            <ng-container *ngTemplateOutlet="done"></ng-container>
+            <ng-container *ngTemplateOutlet="delet"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="order.status==5">            
+            <ng-container *ngIf="order.paymentType == 'fiat' || order.paymentType == 'coin'">
+              <ng-container *ngTemplateOutlet="confirm"></ng-container>
+            </ng-container>              
+            <ng-container *ngTemplateOutlet="delet"></ng-container>
           </ng-container>
         </div>
       </div>
