@@ -341,7 +341,7 @@ export class BasketComponent implements OnInit, OnChanges {
     if (s.activeBaskets.products) {
       s.activeBaskets.boxesPrice = 0;
       s.activeBaskets.products.map(product => {
-        s.activeBaskets.boxesPrice += parseInt(product.boxData ? product.boxData.price : 0) * product.count;
+        if (product.status) s.activeBaskets.boxesPrice += parseInt(product.boxData ? product.boxData.price : 0) * product.count;
       });
     }
     this.api.justGet('oneest?query={"ownerEst":"' + this.activeBaskets.ownerEst + '"}&select=address').then((v:any)=>{
