@@ -263,10 +263,14 @@ export class BasketComponent implements OnInit, OnChanges {
       // basketData.ishit = data.dishData.ishit;
 
       if (basketData.orderType === 'delivery') {
-        basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
-        basketData.deliveryPrice =  basketData.deliveryMinPrice > (basketData.totalPrice+basketData.boxesPrice) ?
-          (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) :
-            parseInt(data.menuData.delivery)) : 0;
+        if (data.deliveryPrice || data.deliveryPrice == 0) { 
+          basketData.deliveryPrice = data.deliveryPrice;
+        } else {
+          basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
+          basketData.deliveryPrice =  basketData.deliveryMinPrice > (basketData.totalPrice+basketData.boxesPrice) ?
+            (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) :
+              parseInt(data.menuData.delivery)) : 0;
+        }
         if (data.editByAdmin) {
           if (data.editByAdmin.deliveryPrice) {
             basketData.deliveryPrice = data.editByAdmin.deliveryPrice;
@@ -648,6 +652,6 @@ export class BasketComponent implements OnInit, OnChanges {
   }
   checkDelivery() {
     this.orderType = 'delivery';
-    this.activeBaskets.deliveryPrice = parseInt(this.activeBaskets.menu.deliveryfree) > this.activeBaskets.totalPrice ? parseInt(this.activeBaskets.menu.delivery) : 0;
+    this.activeBaskets.deliveryPrice = parseInt(this.activeBaskets.menu.deliveryfree) > (this.activeBaskets.totalPrice+this.activeBaskets.boxesPrice) ? parseInt(this.activeBaskets.menu.delivery) : 0;
   }
 }

@@ -128,9 +128,17 @@ export class OrderDetailComponent implements OnInit {
           this.order.orderCommentData.push(comment);
           obj['orderCommentData'] = this.order.orderCommentData;
         }
-        if (this.totalPrice) obj['totalPrice'] = this.totalPrice || this.order.productPrice;
-        if (this.boxesPrice) obj['boxesPrice'] = this.boxesPrice || this.order.boxPrice;
-        if (this.deliveryPrice) obj['deliveryPrice'] = this.deliveryPrice || this.order.deliveryPrice;
+
+        //console.log('delivery '+this.deliveryPrice);
+        //console.log('box '+this.boxesPrice);
+        //console.log('price '+this.totalPrice);
+
+        //if (this.totalPrice || this.totalPrice == 0) obj['totalPrice'] = this.totalPrice || this.order.productPrice;
+        if (this.totalPrice || this.totalPrice == 0) obj['totalPrice'] = this.totalPrice;
+        //if (this.boxesPrice || this.boxesPrice == 0) obj['boxesPrice'] = this.boxesPrice || this.order.boxPrice;
+        if (this.boxesPrice || this.boxesPrice == 0) obj['boxesPrice'] = this.boxesPrice;
+        //if (this.deliveryPrice || this.deliveryPrice == 0) obj['deliveryPrice'] = this.deliveryPrice || this.order.deliveryPrice;
+        if (this.deliveryPrice || this.deliveryPrice == 0) obj['deliveryPrice'] = this.deliveryPrice;
         //console.log(obj);
 
         this.api.set('basketsList', obj, this.estId, '', '?id=' + this.order.id).then(v => {

@@ -133,7 +133,7 @@ const preUpdate = (req,res,next)=>{
         req.body.data = req.body['dataUpdate']
     }
 
-    if (req.isUseByAdmin){
+    if (req.isUseByAdmin) {
         if(req.body.status == '5'){
             req.body['editByAdmin'] = {};
             if (req.body.totalPrice) req.body['editByAdmin']['totalPrice'] = req.body.totalPrice;
@@ -188,9 +188,10 @@ const postUpdate = async (req,res,next)=>{
             if (!basketData) return res.notFound('');
             if (basketData) {
                 let min = parseInt(basketData.menuData.deliveryfree);
-                let all = parseInt(basketData.totalPrice);
+                let all = parseInt(basketData.totalPrice+basketData.boxesPrice);
                 let dp = parseInt(basketData.menuData.delivery);
-                if (!req.body.deliveryPrice){
+                //console.log(bData);
+                if (!req.body.deliveryPrice && req.body.status == 1) {
                     if(min > all){
                         basketData.deliveryPrice = dp
                     }else{
@@ -588,3 +589,5 @@ glob.restify.serve(
         preCreate: [glob.jsonParser, glob.cookieParser, glob.getId, preCreate],
         preDelete: [glob.jsonParser, glob.cookieParser, glob.getId, checkOwner, preDelete]
     });
+
+    
