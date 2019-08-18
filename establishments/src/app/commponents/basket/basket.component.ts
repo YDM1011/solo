@@ -263,10 +263,14 @@ export class BasketComponent implements OnInit, OnChanges {
       // basketData.ishit = data.dishData.ishit;
 
       if (basketData.orderType === 'delivery') {
-        basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
-        basketData.deliveryPrice =  basketData.deliveryMinPrice > (basketData.totalPrice+basketData.boxesPrice) ?
-          (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) :
-            parseInt(data.menuData.delivery)) : 0;
+        if (data.deliveryPrice || data.deliveryPrice == 0) { 
+          basketData.deliveryPrice = data.deliveryPrice;
+        } else {
+          basketData.deliveryMinPrice = parseInt(data.menuData.deliveryfree);
+          basketData.deliveryPrice =  basketData.deliveryMinPrice > (basketData.totalPrice+basketData.boxesPrice) ?
+            (data.editByAdmin ? data.editByAdmin.deliveryPrice || parseInt(data.menuData.delivery) :
+              parseInt(data.menuData.delivery)) : 0;
+        }
         if (data.editByAdmin) {
           if (data.editByAdmin.deliveryPrice) {
             basketData.deliveryPrice = data.editByAdmin.deliveryPrice;
@@ -337,7 +341,7 @@ export class BasketComponent implements OnInit, OnChanges {
     if (s.activeBaskets.products) {
       s.activeBaskets.boxesPrice = 0;
       s.activeBaskets.products.map(product => {
-        s.activeBaskets.boxesPrice += parseInt(product.boxData ? product.boxData.price : 0) * product.count;
+        if (product.status) s.activeBaskets.boxesPrice += parseInt(product.boxData ? product.boxData.price : 0) * product.count;
       });
     }
     this.api.justGet('oneest?query={"ownerEst":"' + this.activeBaskets.ownerEst + '"}&select=address').then((v:any)=>{
@@ -648,6 +652,6 @@ export class BasketComponent implements OnInit, OnChanges {
   }
   checkDelivery() {
     this.orderType = 'delivery';
-    this.activeBaskets.deliveryPrice = parseInt(this.activeBaskets.menu.deliveryfree) > this.activeBaskets.totalPrice ? parseInt(this.activeBaskets.menu.delivery) : 0;
+    this.activeBaskets.deliveryPrice = parseInt(this.activeBaskets.menu.deliveryfree) > (this.activeBaskets.totalPrice+this.activeBaskets.boxesPrice) ? parseInt(this.activeBaskets.menu.delivery) : 0;
   }
 }
