@@ -9,7 +9,8 @@ const mongoose = require('mongoose');
 const request = require('request');
 const glob = require('glob');
 
-const History = require('../history');
+const History = require('../../model/history');
+//const History = require('../history');
 
 const send = async (req,res,next)=>{
     let sendResult = await smsSend();
