@@ -1,0 +1,70 @@
+<div class="wrapper wrapper-content animated fadeInUp" appPopap (onClose)="goBack($event)">
+  <div class="cansel-popup-btn">
+    <div class="ibox-tools">
+      <button class="btn btn-cancel">Скасувати</button>
+    </div>
+    <div class="ibox-tools">
+      <button (click)="create(promo)" class="btn btn-primary">Зберегти</button>
+    </div>
+  </div>
+  <div class="scroll-wrap">
+    <div class="ibox">
+      <div class="ibox-title">
+        <h5>Нова онлайн-акція</h5>
+      </div>
+      <div class="ibox-content">
+        <div class="form-horizontal">
+
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Назва</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="promo.name"  name="name" class="form-control">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+
+          <div class="form-group">
+            <label class="col-sm-4 control-label">Знижка</label>
+            <div class="col-sm-8">
+              <input type="text" [(ngModel)]="promo.discount" name="globcategory" class="form-control">
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>
+
+          <!--<div class="form-group">
+            <label class="col-md-4 control-label">Графік роботи</label>
+            <div class="col-sm-8">
+              <app-calendar [calendar]="worksTimeView"></app-calendar>
+              <div class="select-wrap">
+                <app-select [option]="worksTimeAll"
+                            (onCheck)="getCalendar($event)"
+                            [defoult]="'оберіть графік роботи'"></app-select>
+              </div>
+            </div>
+          </div>
+          <div class="hr-line-dashed"></div>-->
+
+          <ng-container>
+            <div class="form-group">
+              <label class="col-sm-4 control-label">Категорія</label>
+              <div class="col-sm-8">
+                <div class="category-for" *ngIf="promo.maincategory.length>0">
+                <span *ngFor="let elem of promo.maincategory; let i = index"
+                      class="ctg label label-primary"
+                      (click)="delingredient(i)">{{elem.label}}</span>
+                </div>
+                <app-select *ngIf="option.length>0"
+                            [option]="option"
+                            [defoult]="'Не обрано'"
+                            (onCheck)="promo.maincategory[promo.maincategory.length] = $event"></app-select>
+              </div>
+            </div>
+            <div class="hr-line-dashed"></div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
