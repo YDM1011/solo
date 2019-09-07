@@ -50,6 +50,7 @@ import { OrderDetailComponent } from './pages/order-detail/order-detail.componen
 import { OrderDetailEditComponent } from './pages/order-detail-edit/order-detail-edit.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HistoryComponent } from './pages/history/history.component';
+import { PromoComponent } from './pages/promo/promo.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +94,8 @@ import { HistoryComponent } from './pages/history/history.component';
     OrderDetailComponent,
     PaymentPipe,
     OrderDetailEditComponent,
-    HistoryComponent
+    HistoryComponent,
+    PromoComponent
   ],
   imports: [
     BrowserModule,

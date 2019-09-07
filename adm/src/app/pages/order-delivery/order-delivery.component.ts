@@ -11,6 +11,10 @@ import {environment} from "../../../environments/environment";
 })
 export class OrderDeliveryComponent implements OnInit {
 
+  public page = 1;
+  public col = 10;
+  public collectionSize: number;
+
   public orderType = 'delivery';
   public apiDomain = environment.apiDomain;
   public stActive;
@@ -32,10 +36,20 @@ export class OrderDeliveryComponent implements OnInit {
 
       if (this.orderType != params.ordType) {        
         this.orderType = params.ordType;
-        this.getStartList();
+        //this.getStartList();
+        let s = this;
+        s.api.justGet('basketsList','','', '?orderType=' + this.orderType).then((v:any)=>{
+          s.collectionSize = v.length;      
+        });
+        this.letPage();    
       }
     });
-    this.getStartList();    
+    //this.getStartList();
+    let s = this;
+    s.api.justGet('basketsList','','', '?orderType=' + this.orderType).then((v:any)=>{
+      s.collectionSize = v.length;      
+    });
+    this.letPage();    
   }
 
   getStartList() {
@@ -77,11 +91,52 @@ export class OrderDeliveryComponent implements OnInit {
         }
       });
       
-      if (location.href.indexOf("/orders") != -1) {
-        setTimeout(() => {
-          this.getStartList();
-        }, 60*1000);
-      }
+    if (location.href.indexOf("/orders") != -1) {
+      setTimeout(() => {
+        this.getStartList();
+      }, 60*1000);
+    }
+  }
+
+  letPage() {
+    this.load = false;
+    this.api.justGet('basketsList', '', '', '?limit=' + this.col + '&skip=' + ((this.page-1)*this.col) + '&orderType=' + this.orderType)
+    //this.api.get('basketsList/'+ this.orderType, '', '', '')
+      .then((v: any) => {
+        this.load = true;
+        if (v) {
+          if (v.length > 0) {
+            this.list = [];
+            v.map(basket => {
+              let client = basket.owneruser;
+              let adress = '';
+              if (basket.orderType == 'delivery') adress = basket.addressData
+              else adress = basket.estAddressData;
+              let prods = basket.productData;
+              let price = basket.totalPrice;
+              let productPrice = basket.totalPrice;
+              let created = basket.data;
+              let updated = basket.dataUpdate;
+              let time = basket.deliveryTime;
+              let status = basket.status;
+              let orderNumber = basket.orderNumber;
+              let paymentType = basket.paymentType;
+              let orderType = basket.orderType;
+              let mobile = basket.anyMobile;
+              let box = basket.boxesPrice;
+              let delivery = basket.deliveryPrice;              
+              let est = basket.ownerest;
+              let id = basket._id;
+              if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
+              if (basket.orderType == 'bySelf') price += basket.boxesPrice;
+              this.list.push(
+                new order(client, prods, price, created, updated, status, id, orderNumber, time, adress, paymentType, mobile, box, delivery, productPrice, orderType, est)
+              );
+            });
+          }
+        }
+      });
+
   }
 
   getByStatus(st) {

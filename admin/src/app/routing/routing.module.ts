@@ -15,6 +15,9 @@ import {OrderReservationComponent} from "../pages/order-reservation/order-reserv
 import {ComplementComponent} from "../pages/complement/complement.component";
 import {CategoryGlobalComponent} from "../pages/category-global/category-global.component";
 import {BoxComponent} from "../pages/box/box.component";
+import {PromoComponent} from "../pages/promo/promo.component";
+import {PromoCreateComponent} from "../pages/promo-create/promo-create.component";
+import {PromoEditComponent} from "../pages/promo-edit/promo-edit.component";
 import {DishComponent} from "../pages/dish/dish.component";
 import {EstCreateComponent} from "../pages/est-create/est-create.component";
 import {EstEditComponent} from "../pages/est-edit/est-edit.component";
@@ -67,6 +70,10 @@ const routes: Routes = [
       {path:'box/:id', component:BoxComponent,children:[
         {path:'create/:id',component:BoxCreateComponent},
         {path:':id/:editid',component:BoxEditComponent}
+      ]},
+      {path:'promo/:id', component:PromoComponent,children:[
+        {path:'create/:id',component:PromoCreateComponent},
+        {path:':id/:editid',component:PromoEditComponent}
       ]},
       {path:'order/:id',component:OrderComponent},
       {path:'order/:eid/:id',component:OrderDetailComponent, children:[

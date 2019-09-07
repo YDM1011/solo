@@ -43,6 +43,9 @@ import { OrderPipe } from './order-detail/order.pipe';
 import { BalansComponent } from './balans/balans.component';
 import { OverviewComponent } from './overview/overview.component';
 import { AnalyticsComponent } from './analytics/analytics.component';
+import { PromoComponent } from './promo/promo.component';
+import { PromoCreateComponent } from './promo-create/promo-create.component';
+import { PromoEditComponent } from './promo-edit/promo-edit.component';
 
 @NgModule({
   imports: [
@@ -93,6 +96,9 @@ import { AnalyticsComponent } from './analytics/analytics.component';
     BalansComponent,
     OverviewComponent,
     AnalyticsComponent,
+    PromoComponent,
+    PromoCreateComponent,
+    PromoEditComponent,
   ],
   providers: [
     ApiService,

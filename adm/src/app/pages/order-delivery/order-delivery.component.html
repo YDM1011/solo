@@ -7,6 +7,9 @@
       </ol>
     </div>
   </div>
+
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="col" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" (pageChange)="letPage()"></ngb-pagination>
+  
   
   <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
@@ -18,6 +21,7 @@
                    (click)="getByStatus(tab)"
                    [innerHTML]="tab | status | safeHTML"></div>
             </div>
+            
             <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15" *ngIf="load; else preload">
               <thead>
               <tr>

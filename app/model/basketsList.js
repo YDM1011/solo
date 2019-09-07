@@ -106,6 +106,7 @@ const preRead = (req,res,next)=>{
         mongoose.model('basketsList')
             [searchType](query)
             .sort({data: -1})
+            .limit(parseInt(req.query.limit))
             .skip(parseInt(req.query.skip))
             .populate({path:'owneruser', select:'firstName lastName mobile email photo _id data',
                 populate:{path:'photo'}})
