@@ -6,6 +6,7 @@ const Product = mongoose.model('product');
 const Basket = mongoose.model('basket');
 const Menu = mongoose.model('menu');
 const BasketList = mongoose.model('basketsList');
+const Promo = mongoose.model('promo');
 const LiqPay = require('liqpay-sdk');
 const publikKey = 'i94942794371';
 const privateKey = 'q7b6Yc2wMz0nUVwK30NK1Iaqt9I3nQ23I7LLZPGO';
@@ -163,6 +164,66 @@ module.exports.getBasketEst = (req, res, next) => {
             }
         });
 };
+
+module.exports.getPromoEstDelivery = (req, res, next) => {
+    let est = req.headers.origin.split("//")[1].split(".")[1] ? req.headers.origin.split("//")[1].split(".")[0] : 'solo';
+    console.log(est);
+    Establishment
+        .findOne({subdomain: est})
+        .select('_id')
+        .exec((err, estId)=>{
+            console.log(err,estId);
+            if (err) return res.serverError(err);
+            if (!estId) return res.notFound('Somesing broken');
+            if (estId) {
+                if (req.params.id){
+                    console.log('params');
+                    return;
+                    Promo.findOne({ownerest:estId._id,_id:req.params.id})
+                        .populate({path: 'productData',
+                            populate:{path:'categoryData',
+                                populate:{path:"complementbox"}}})
+                        .populate({path: 'menuData',
+                            populate:{path:'dishData deliverytime deliveryonline'}
+                        })
+                        .populate({path: 'productData',
+                            populate:{path:'portItemData boxData complementData.id dishData'}
+                        })
+                        .populate({path: 'ownerest',select:"minPrice av name subdomain delivery getself reservation isCart isOnline",
+                            populate:{path:'av'}
+                        })
+                        .sort({dataUpdate: -1})
+                        .exec((err,doc)=>{
+                            console.log("ok",doc);
+                            if (err) return res.serverError(err);
+                            if (!doc) {
+                                return res.ok([]);
+                            }
+                            if (doc){
+                                return res.ok(doc);
+                            }
+
+                        })
+
+                } else{
+                    Promo.find({ownerest:estId._id, delivery:true, active:true})
+                        .populate({path: 'grafic'})
+                        .sort({discount: -1})
+                        .exec((err,doc)=>{
+                            if (err) return res.serverError(err);
+                            if (!doc) {
+                                return res.ok([]);
+                            }
+                            if (doc){
+                                return res.ok(doc);
+                            }
+                        })
+                }
+
+            }
+        });
+};
+
 module.exports.getBasket = (req, res, next) => {
 
     Basket.find({owneruser:req.userId})

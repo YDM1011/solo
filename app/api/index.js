@@ -30,6 +30,7 @@ const permisionUser = require('../controlers/permisionUser');
 const user = require('../controlers/user');
 const balans = require('../controlers/balans');
 const history = require('../controlers/history');
+const promo = require('../controlers/promo');
 const analytics = require('../controlers/analytics');
 const adm = require('../controlers/adm');
 
@@ -117,6 +118,9 @@ router.get('/api/test', [orign, glob.getId], basket.test);
 router.post('/api/liqpayCallback', [orign], basket.liqpayCallback);
 router.get('/api/estsOfBasket', [orign, glob.getId], basket.estsOfBasket);
 
+router.get('/api/promo_from_est_delivery/:id?', [orign, glob.getId], basket.getPromoEstDelivery);
+
+
 // ADM
 router.post('/api/adm/signin', [orign, verification], admLogin);
 router.post('/api/permisionUser/:id', [orign, glob.isAdmin], permisionUser);
@@ -158,6 +162,9 @@ router.post('/api/historyPayFoodCoin', [orign], history.historyPayFoodCoin);
 router.post('/api/historyaddRegisterFoodCoin', [orign], history.historyAddRegisterFoodCoin);
 router.post('/api/historyaddOldFoodCoin', [orign], history.historyAddOldFoodCoin);
 router.get('/api/historyShow', [orign], history.historyShow);
+
+
+router.get('/api/promoShow', [orign], promo.promoShow);
 
 
 

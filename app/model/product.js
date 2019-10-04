@@ -289,7 +289,7 @@ const updateProdBasket = (basket,product,Price,i)=>{
       mongoose.model('basketsList')
           .findOneAndUpdate(basket,q,{new:true}).exec((e,r)=>{
           if(e) return reject(e);
-          if(!r) return reject("error0");
+          if(!r) return reject("error00");
           if(r) {
               if (r.productData && (i == -1)){
                   if(r.productData.length == 0){

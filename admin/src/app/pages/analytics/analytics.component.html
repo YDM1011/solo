@@ -1,10 +1,22 @@
 <div class="page-title">
-    <h4>Аналітика</h4>
+    <h4>Аналітика за {{month_name}}</h4>
 </div>
+
+<span>Вибір місяця </span>
+<select name="month" [(ngModel)]="month">
+  <option *ngFor="let month of months" [ngValue]="month.num">
+    {{month.name}}
+  </option>
+</select>
+<button style="margin: 0 20px;" class="btn btn-xs btn-success" (click)="getAnalytics()">Оновити</button>
 
 <div [style.display]="pending ? 'none' : 'block'">
   <div class="average-price">
-      <p>Середній чек: <strong>{{average}} грн.</strong></p>
+      <p>Середній чек: <strong>{{average}} грн.</strong></p>        
+      <p>Загальна виручка: <strong>{{total}} грн.</strong></p>       
+      <p>Кількість замовлень: <strong>{{kilk}}</strong></p>
+      <p>Вартість упаковки: <strong>{{box}} грн.</strong></p>        
+      <p>Платна доставка: <strong>{{del}} грн.</strong></p>
   </div>
 
   <div class="analytics-block pb3">
@@ -13,6 +25,10 @@
 
   <div class="analytics-block">
       <canvas #order></canvas>
+  </div>
+
+  <div class="analytics-block pb3">
+      <canvas #cat></canvas>
   </div>
 </div>
 

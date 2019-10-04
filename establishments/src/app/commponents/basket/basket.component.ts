@@ -60,6 +60,8 @@ export class BasketComponent implements OnInit, OnChanges {
   public estAdres = [];
   public estAddress = {address:'',_id:''};
 
+  public checkTime;
+
   public minus = true;
 
   public pecent = 0.05;
@@ -245,6 +247,8 @@ export class BasketComponent implements OnInit, OnChanges {
       let He = parseInt(basketData.deliveryOnline.timeEnd.split(":")[0]);
       let Me = parseInt(basketData.deliveryOnline.timeEnd.split(":")[1]);
 
+      if (He < Hs) He=He+24;      
+
       if (basketData.deliveryOnline.isWeekend) {
         this.showError("Ми сьогодні зачинені! Ваше замовлення буде оброблене завтра!");
       } else if (new Date().getHours()>=He) {
@@ -252,7 +256,7 @@ export class BasketComponent implements OnInit, OnChanges {
         } else {
           this.showError("Графік онлайн-замовлень: "+basketData.deliveryOnline.timeStart+" - "+basketData.deliveryOnline.timeEnd+"! Ваше замовлення буде оброблене завтра!");
         }
-      } else if (new Date().getHours()<Hs) {
+      } else if (new Date().getHours()<Hs && new Date().getHours()+24 > He) {
         this.showError("Графік онлайн-замовлень: "+basketData.deliveryOnline.timeStart+" - "+basketData.deliveryOnline.timeEnd+"! Ваше замовлення буде оброблене пізніше!");
       }
 
@@ -375,7 +379,7 @@ export class BasketComponent implements OnInit, OnChanges {
       }
     });
   }
-  doOrderDelivery() {
+  doOrderDelivery() {    
     //console.log(this.address);
     if (this.address['isSaved']) {
       if (!this.address._id){
@@ -463,7 +467,9 @@ export class BasketComponent implements OnInit, OnChanges {
       }
     }
     // this.activeBaskets.paymentType = "delivery";
-    //console.log(this.activeBaskets,this.address);
+    //console.log(this.activeBaskets);
+
+    
     this.api.set('basketsList', this.activeBaskets, this.activeBaskets._id)
       .then()
       .catch(e => {

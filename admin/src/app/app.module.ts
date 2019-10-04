@@ -14,6 +14,7 @@ import { CookieService } from "ngx-cookie-service";
 import { FormsModule } from "@angular/forms";
 import { ApiEventService } from "./service/api-event.service";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     CommponentsModule,
     RoutingModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},

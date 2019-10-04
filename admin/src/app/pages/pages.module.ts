@@ -46,6 +46,8 @@ import { AnalyticsComponent } from './analytics/analytics.component';
 import { PromoComponent } from './promo/promo.component';
 import { PromoCreateComponent } from './promo-create/promo-create.component';
 import { PromoEditComponent } from './promo-edit/promo-edit.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 @NgModule({
   imports: [
@@ -53,6 +55,8 @@ import { PromoEditComponent } from './promo-edit/promo-edit.component';
     CommponentsModule,
     FormsModule,
     RoutingModule,
+    NgbModule,
+    NgxPaginationModule
 
   ],
   exports: [NotFoundComponent, MenuComponent, HomeComponent, SettingComponent, SafeHTMLPipe],
