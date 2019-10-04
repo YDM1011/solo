@@ -41,6 +41,7 @@ export interface Basket {
   reservation?: boolean,
   isnew?: boolean,
   ishit?: boolean,
+  editByAdmin?: any
 }
 
 export class BasketData implements Basket{
@@ -69,6 +70,7 @@ export class BasketData implements Basket{
   public reservation?;
   public isnew?;
   public ishit?;
+  public editByAdmin?;
   public paymentDetail? = {fiatVal:0};
   constructor(
     public _id,

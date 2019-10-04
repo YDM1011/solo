@@ -33,14 +33,31 @@
           <div class="compo_wrap" *ngIf="promo.length > 0">
             <div class="compo_i" *ngFor="let item of promo">
               <div><strong>{{item.name}}</strong></div>
-              <div>Ціна: {{item.discount}}</div>
+              <div>Знижка: {{item.discount}} %</div>
+              <div *ngIf="item.grafic">Графік: {{item.grafic.name}}</div> 
               <div class="box-ctg">
-                <div>Категорія:</div>
+                <div>Категорії:</div>
                 <div>
                   <ng-container *ngIf="item.maincategory.length > 0"> <span *ngFor="let ctg of item.maincategory">{{ctg.label}}<br></span></ng-container>
                   <ng-container *ngIf="item.maincategory.length == 0"><span>{{key}}</span></ng-container>
-                </div>
+                </div>                
               </div>
+
+              <div class="box-ctg">
+                <div>Акція діє на:</div>
+                <div>
+                  <ng-container *ngIf="item.delivery"> <span>доставку<br></span></ng-container>
+                  <ng-container *ngIf="item.getself"> <span>виніс<br></span></ng-container>
+                  <ng-container *ngIf="item.reservation"> <span>резерв<br></span></ng-container>
+                  
+                </div>                
+              </div>
+
+              <div>
+                <span *ngIf="!item.active" class="bg-danger">Неактивна</span>
+                <span *ngIf="item.active" class="bg-primary">Активна</span>
+              </div>
+                           
               <!--<div *ngIf="item.pic">-->
               <!--<app-pic [pic]="item.pic"></app-pic>-->
               <!--</div>-->

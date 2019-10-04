@@ -6,7 +6,7 @@
       </ol>
     </div>
   </div>
-  <!--<ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>-->
+  <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [(pageSize)]="col" [maxSize]="10" [rotate]="true" [boundaryLinks]="true" (pageChange)="letPage()"></ngb-pagination>
 
   <div class="wrapper wrapper-content animated fadeInRight ecommerce">
     <div class="row">
@@ -19,7 +19,7 @@
                    [innerHTML]="tab | status | safeHTML">
               </div>
             </div>-->
-            <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15">
+            <table class="footable table table-bordered toggle-arrow-tiny footable-loaded tablet breakpoint" data-page-size="15" *ngIf="load; else preload">
               <thead>
               <tr>
                 <th class="footable-visible footable-first-column text-center">№</th>
@@ -40,7 +40,7 @@
                   
                 >
                   <td class="footable-visible text-center">
-                    {{collectionSize-i}}
+                      {{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}
                     <!--{{(collectionSize <= col) ? collectionSize-i : collectionSize-((page-1)*col+i)}}-->
                   </td>
                   <td class="footable-visible text-center">
@@ -90,4 +90,13 @@
       </div>
     </div>
   </div>
+
+
+  <ng-template #preload>
+    <div class="container">
+      <div class="row center">
+        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
+      </div>
+    </div>
+  </ng-template>
   

@@ -379,13 +379,13 @@ function getSummaryOrdersPlace(orders) {
                     }
                 }           
                 delOrder= {
-                    'total': sumDel+sumSelf+sumRes,
-                    'sumDel': sumDel,
-                    'sumSelf': sumSelf,
-                    'sumRes': sumRes,
-                    'fiat': fiat,
-                    'card': card,
-                    'foodcoin': foodcoin,
+                    'total': (sumDel+sumSelf+sumRes).toFixed(2),
+                    'sumDel': (sumDel).toFixed(2),
+                    'sumSelf': (sumSelf).toFixed(2),
+                    'sumRes': (sumRes).toFixed(2),
+                    'fiat': (fiat).toFixed(2),
+                    'card': (card).toFixed(2),
+                    'foodcoin': (foodcoin).toFixed(2),
                     'count_total': count_sumDel+count_sumSelf+count_sumRes,
                     'count_sumDel': count_sumDel,
                     'count_sumSelf': count_sumSelf,
@@ -452,12 +452,73 @@ function calculatePrice(orders = []) {
     }, 0)
 }
 
-module.exports.analytics = async function(req, res) {
-    try {
-        const allOrders = await BasketsList.find({ownerest: req.params['id'], status: 6}).sort({dataUpdate: 1})
-        const ordersMap = getOrdersMap(allOrders)
+function calculateBox(orders = []) {
+    return orders.reduce((total, order) => {
+        boxPrice = order.editByAdmin ? order.editByAdmin.boxesPrice || order.boxesPrice : order.boxesPrice;
+        let totalBoxPrice = 0;
+        if (order.orderType == 'delivery' || order.orderType == 'bySelf') {
+            totalBoxPrice = boxPrice;
+        }       
+        return total += totalBoxPrice;
+    }, 0)
+}
 
-        const average = +(calculatePrice(allOrders) / Object.keys(allOrders).length).toFixed(2)
+function calculateDelivery(orders = []) {
+    return orders.reduce((total, order) => {
+        delPrice = order.editByAdmin ? order.editByAdmin.deliveryPrice || order.deliveryPrice : order.deliveryPrice;
+        let totalDelPrice = 0;
+        if (order.orderType == 'delivery') {
+            totalDelPrice = delPrice;
+        }       
+        return total += totalDelPrice;
+    }, 0)
+}
+
+function getCategoryMap(orders = []) {
+
+    const categoryOrders = {}
+
+    orders.forEach(order=>{        
+        order.productData.map(v=>{
+            const cat = v.categoryData.name;
+            if (!categoryOrders[cat]) {
+                categoryOrders[cat] = 0;
+            }
+    
+            categoryOrders[cat] += v.totalPrice;
+        })        
+
+    });    
+    return categoryOrders;
+    
+}
+
+module.exports.analytics = async function(req, res) {
+
+    //console.log(req.query['select']);
+    
+    var month = parseInt(req.query['select']); 
+    
+    var date = new Date();
+    var y = date.getFullYear();   
+    var a = new Date(y, month, 1);
+    var b = new Date(y, month+1, 0);
+    //req.query = '';
+    //console.log(a + ' to ' + b);
+    try {
+        const allOrders = await BasketsList.find({ownerest: req.params['id'], status: 6, dataUpdate: {"$gte": a,"$lte": b}})
+            .populate({path:'productData', populate:{path:"categoryData"}})
+            .sort({dataUpdate: 1})
+        const ordersMap = getOrdersMap(allOrders);
+
+        const categoryMap = getCategoryMap(allOrders);
+        
+        const total = +(calculatePrice(allOrders)).toFixed(2);
+        const kilk = Object.keys(allOrders).length;
+        const average = +(total / kilk).toFixed(2);
+
+        const box = +(calculateBox(allOrders)).toFixed(2);
+        const del = +(calculateDelivery(allOrders)).toFixed(2);
         
         const chart = Object.keys(ordersMap).map(label => {
             // label == 05.05.2019
@@ -467,7 +528,12 @@ module.exports.analytics = async function(req, res) {
             return {label, order, gain}
         })
 
-        res.status(200).json({average, chart})
+        const cat = Object.keys(categoryMap).map(label => {
+            const sum = categoryMap[label]; 
+            return {label, sum}
+        });
+
+        res.status(200).json({kilk, total, average, chart, cat, box, del})
 
     } catch (e) {
         res.status(500).json({

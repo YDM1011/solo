@@ -11,11 +11,20 @@ export class PromoCreateComponent implements OnInit {
   public promo = {
     name:'',
     discount:'',
-    maincategory:[]
+    maincategory:[],
+    grafic: "",
+    delivery: false,
+    getself: false,
+    reservation: false,
+    active: true
   };  
   public option:any = [];
   private key:string='promo';
   public id:any;
+
+  public worksTime:any;
+  public worksTimeView:any;
+  public worksTimeAll:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,7 +35,6 @@ export class PromoCreateComponent implements OnInit {
   ngOnInit() {
     let self = this;
     this.id = this.route.snapshot.paramMap.get('id');
-    console.log(this.id);
     this.route.params.subscribe((params:any) => {
       self.id = params.id;
       self.initApi(self.id);
@@ -41,7 +49,7 @@ export class PromoCreateComponent implements OnInit {
     }
   }
 
-  create(obj){
+  create(obj){    
     let self = this;
     obj['estId'] = self.id;
     this.api.create(self.key,obj,self.id).then((res:any)=>{
@@ -52,6 +60,7 @@ export class PromoCreateComponent implements OnInit {
       }
     }).catch((err:any)=>{});
   }
+
   delingredient(index){
     let self = this;
     self[self.key].maincategory.splice(index, 1)
@@ -74,14 +83,13 @@ export class PromoCreateComponent implements OnInit {
         }
       }).catch((err:any)=>{});      
     });
-    /*self.getAllCalendars();*/
+    self.getAllCalendars();
   }
 
-  /*getCalendar(e){
+  getCalendar(e){
     let s = this;
-    console.log(e.obj);
     s.worksTime = e.obj.label || e.obj.name || "";
-    s.worksTimeId = e.obj._id;
+    s.promo.grafic = e.obj._id;
     s.worksTimeView = e.obj;
   }
 
@@ -96,6 +104,6 @@ export class PromoCreateComponent implements OnInit {
         })
       });
     })
-  }*/
+  }
 
 }

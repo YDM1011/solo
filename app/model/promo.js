@@ -41,7 +41,7 @@ const preRead = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     mongoose.model('promo')
-        .find({ownerest: req.params['id'], active: true})
+        .find({ownerest: req.params['id']})
         .sort({'data':-1})
         .populate({path:'grafic'})
         .exec((err,info)=>{
@@ -105,7 +105,7 @@ const werify = (req,res,next)=>{
 
 glob.restify.serve(
     glob.route,
-    mongoose.model('box'),
+    mongoose.model('promo'),
     {
         preRead: [glob.jsonParser, glob.cookieParser, glob.getId, preRead],
         preUpdate: [glob.jsonParser, glob.cookieParser, glob.getId, glob.getOwner, preUpdate],
