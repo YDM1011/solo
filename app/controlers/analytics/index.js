@@ -283,13 +283,13 @@ function getSummaryOrders(orders = []) {
                 }
             }           
             delOrder= {
-                'total': sumDel+sumSelf+sumRes,
-                'sumDel': sumDel,
-                'sumSelf': sumSelf,
-                'sumRes': sumRes,
-                'fiat': fiat,
-                'card': card,
-                'foodcoin': foodcoin,
+                'total': (sumDel+sumSelf+sumRes).toFixed(2),
+                'sumDel': (sumDel).toFixed(2),
+                'sumSelf': (sumSelf).toFixed(2),
+                'sumRes': (sumRes).toFixed(2),
+                'fiat': (fiat).toFixed(2),
+                'card': (card).toFixed(2),
+                'foodcoin': (foodcoin).toFixed(2),
                 'count_total': count_sumDel+count_sumSelf+count_sumRes,
                 'count_sumDel': count_sumDel,
                 'count_sumSelf': count_sumSelf,
@@ -474,6 +474,13 @@ function calculateDelivery(orders = []) {
     }, 0)
 }
 
+function sortObject(obj) {
+return Object.keys(obj)
+    .sort().reduce((a, v) => {
+    a[v] = obj[v];
+    return a; }, {});
+}
+
 function getCategoryMap(orders = []) {
 
     const categoryOrders = {}
@@ -488,10 +495,13 @@ function getCategoryMap(orders = []) {
             categoryOrders[cat] += v.totalPrice;
         })        
 
-    });    
-    return categoryOrders;
+    });
+    let sortedMyObject = sortObject(categoryOrders);
+    return sortedMyObject;
     
 }
+
+
 
 module.exports.analytics = async function(req, res) {
 
@@ -502,7 +512,7 @@ module.exports.analytics = async function(req, res) {
     var date = new Date();
     var y = date.getFullYear();   
     var a = new Date(y, month, 1);
-    var b = new Date(y, month+1, 0);
+    var b = new Date(y, month+1, 1);
     //req.query = '';
     //console.log(a + ' to ' + b);
     try {
@@ -510,11 +520,14 @@ module.exports.analytics = async function(req, res) {
             .populate({path:'productData', populate:{path:"categoryData"}})
             .sort({dataUpdate: 1})
         const ordersMap = getOrdersMap(allOrders);
-
+        
         const categoryMap = getCategoryMap(allOrders);
         
         const total = +(calculatePrice(allOrders)).toFixed(2);
         const kilk = Object.keys(allOrders).length;
+        const kilk_day = Object.keys(ordersMap).length;
+
+        const average_day = +(total / kilk_day).toFixed(2);
         const average = +(total / kilk).toFixed(2);
 
         const box = +(calculateBox(allOrders)).toFixed(2);
@@ -533,7 +546,7 @@ module.exports.analytics = async function(req, res) {
             return {label, sum}
         });
 
-        res.status(200).json({kilk, total, average, chart, cat, box, del})
+        res.status(200).json({kilk, average_day, total, average, chart, cat, box, del})
 
     } catch (e) {
         res.status(500).json({

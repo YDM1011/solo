@@ -151,6 +151,12 @@ export class OrderDeliveryComponent implements OnInit, OnChanges {
         }
       });
 
+      if (location.href.indexOf("/orders") != -1) {
+        setTimeout(() => {
+          this.letPage();
+        }, 60*1000);
+      }
+
   }
 
   
