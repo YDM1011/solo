@@ -474,11 +474,24 @@ function calculateDelivery(orders = []) {
     }, 0)
 }
 
-function sortObject(obj) {
-return Object.keys(obj)
-    .sort().reduce((a, v) => {
-    a[v] = obj[v];
-    return a; }, {});
+function sortObject(list) {
+    var sortable = [];
+    for (var key in list) {
+        sortable.push([key, list[key]]);
+    }
+    // [["you",100],["me",75],["foo",116],["bar",15]]
+
+    sortable.sort(function(a, b) {
+        return (a[1] > b[1] ? -1 : (a[1] < b[1] ? 1 : 0));
+    });
+    // [["bar",15],["me",75],["you",100],["foo",116]]
+
+    var orderedList = {};
+    for (var idx in sortable) {
+        orderedList[sortable[idx][0]] = sortable[idx][1];
+    }
+
+    return orderedList;
 }
 
 function getCategoryMap(orders = []) {
@@ -497,6 +510,7 @@ function getCategoryMap(orders = []) {
 
     });
     let sortedMyObject = sortObject(categoryOrders);
+    //console.log(sortedMyObject);
     return sortedMyObject;
     
 }
