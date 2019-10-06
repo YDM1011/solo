@@ -15,10 +15,13 @@ export class AnalyticsComponent implements AfterViewInit {
   @ViewChild('cat') catRef: ElementRef
 
   average: number;
+  average_day: number;
   total: number;
   kilk: number;
   box: number;
   del: number;
+  gainChart;
+  orderChart;
   catChart;
   pending = true
   public id;
@@ -65,6 +68,7 @@ export class AnalyticsComponent implements AfterViewInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.api.get('analytics', this.id, this.month).then((v: any) => {
       this.average = v.average;
+      this.average_day = v.average_day;
       this.total = v.total;
       this.kilk = v.kilk;
       this.box = v.box;
@@ -87,8 +91,8 @@ export class AnalyticsComponent implements AfterViewInit {
       catCtx.canvas.height = '300px';
 
 
-      new Chart(gainCtx, createChartConfig(gainConfig));
-      new Chart(orderCtx, createChartConfig(orderConfig));
+      this.gainChart = new Chart(gainCtx, createChartConfig(gainConfig));
+      this.orderChart = new Chart(orderCtx, createChartConfig(orderConfig));
       this.catChart = new Chart(catCtx, createChartCatConfig(catConfig));
 
       this.pending = false;
@@ -98,6 +102,8 @@ export class AnalyticsComponent implements AfterViewInit {
 
   getAnalytics() {
     this.catChart.destroy();
+    this.gainChart.destroy();
+    this.orderChart.destroy();
     this.months.map(label => {
       if (label.num == this.month) this.month_name = label.name;
     });
@@ -119,6 +125,7 @@ export class AnalyticsComponent implements AfterViewInit {
     this.id = this.route.snapshot.paramMap.get('id');
     this.api.get('analytics', this.id, this.month).then((v: any) => {
       this.average = v.average;
+      this.average_day = v.average_day;
       this.total = v.total;
       this.kilk = v.kilk;
       this.box = v.box;
@@ -141,8 +148,8 @@ export class AnalyticsComponent implements AfterViewInit {
       catCtx.canvas.height = '300px';
 
 
-      new Chart(gainCtx, createChartConfig(gainConfig));
-      new Chart(orderCtx, createChartConfig(orderConfig));
+      this.gainChart = new Chart(gainCtx, createChartConfig(gainConfig));
+      this.orderChart = new Chart(orderCtx, createChartConfig(orderConfig));
       this.catChart = new Chart(catCtx, createChartCatConfig(catConfig));
 
       this.pending = false;
