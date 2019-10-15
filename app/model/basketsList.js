@@ -356,7 +356,7 @@ const preDelete = (req,res,next)=>{
     require("../responces/notFound")(req, res);
     require("../responces/badRequest")(req, res);
     if(req.params.id){
-        if (req.basketStatus == 0 || req.basketStatus == 5){
+        if (req.basketStatus == 0){
             removeProductsOfBasket(req.products, req);
             next()
             // console.log(req.products)

@@ -2,7 +2,7 @@
     <div class="col-lg-12"><h2>Замовлення</h2>
       <ol class="breadcrumb">
         <li><a [routerLink]="'/'">Home</a></li>
-        <li><a [routerLink]="'/order/'+id">Замовлення</a></li>
+        <li><a [routerLink]="'/order'">Замовлення</a></li>
         <li><a class="active">{{orderType | order}}</a></li>
       </ol>
     </div>
@@ -17,7 +17,7 @@
         <div class="ibox">
           <div class="ibox-content">
             <div class="wrap-tabs">
-              <div class="label-tab" *ngFor="let tab of [1,2,3,4,5,6,7]"
+              <div class="label-tab" *ngFor="let tab of [0,1,2,3,4,5,6,7]"
                    (click)="getByStatus(tab)"
                    [innerHTML]="tab | status | safeHTML"></div>
             </div>

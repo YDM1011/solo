@@ -142,7 +142,40 @@ export class OrderDeliveryComponent implements OnInit {
   getByStatus(st) {
     this.stActive = st;
     this.list = [];
-    this.api.justGet('basketsList', '', '', '?status=' + st + '&skip=0&orderType=' + this.orderType)
+    if (st == '0') 
+      this.api.justGet('basketsList', '', '', '?status=' + st + '&skip=0')
+      .then((v: any) => {
+      
+        this.load = true;
+        if (v) {
+          v.map(basket => {
+            let client = basket.owneruser;
+            let adress = basket.addressData;
+            let prods = basket.productData;
+            let price = basket.totalPrice;
+            let productPrice = basket.totalPrice;
+            let created = basket.data;
+            let updated = basket.dataUpdate;
+            let time = basket.deliveryTime;
+            let status = basket.status;
+            let orderNumber = basket.orderNumber;
+            let paymentType = basket.paymentType;
+            let orderType = basket.orderType;
+            let mobile = basket.anyMobile;
+            let box = basket.boxesPrice;
+            let delivery = basket.deliveryPrice;           
+            let est = basket.ownerest;
+            let id = basket._id;
+            if (basket.orderType == 'delivery') price += basket.boxesPrice + basket.deliveryPrice;
+            if (basket.orderType == 'bySelf') price += basket.boxesPrice;
+            this.list.push(
+              new order(client, prods, price, created, updated, status, id, orderNumber, time, adress, paymentType, mobile, box, delivery, productPrice, orderType, est)
+            );
+          });
+        }
+      });
+    else
+      this.api.justGet('basketsList', '', '', '?status=' + st + '&skip=0&orderType=' + this.orderType)
       .then((v: any) => {
         
         this.load = true;
@@ -173,6 +206,7 @@ export class OrderDeliveryComponent implements OnInit {
           });
         }
       });
+
   }
 
 }

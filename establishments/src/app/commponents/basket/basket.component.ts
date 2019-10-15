@@ -293,7 +293,11 @@ export class BasketComponent implements OnInit, OnChanges {
   }
 
   statusUpdate(product, basket) {
-    this.checkPP(product, basket);
+    this.api.justGet(`basketsList/count?query={"_id":"${basket._id}","status":"0"}`).then((v: any) => {
+      if (v.count == 1) {
+        this.checkPP(product, basket);
+      }
+    });
   }
   checkPP(product, basket) {
     this.minus = false;
@@ -323,13 +327,22 @@ export class BasketComponent implements OnInit, OnChanges {
     });
   }
   addPP(product, basket) {
-    product.count++;
-    this.checkPP(product, basket);
+    this.api.justGet(`basketsList/count?query={"_id":"${basket._id}","status":"0"}`).then((v: any) => {
+      if (v.count == 1) {
+        product.count++;
+        this.checkPP(product, basket);
+      }
+    });
+    
   }
   decPP(product, basket) {
     if (product.count > 1) {
-      product.count--;
-      this.checkPP(product, basket);
+      this.api.justGet(`basketsList/count?query={"_id":"${basket._id}","status":"0"}`).then((v: any) => {
+        if (v.count == 1) {
+          product.count--;
+          this.checkPP(product, basket);
+        }
+      });      
     }
   }
   setActiveBasket(basket) {
