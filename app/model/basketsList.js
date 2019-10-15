@@ -25,7 +25,7 @@ const model = new Schema({
     }],
     orderCommentData: [{
         text: String,
-        data: {type: Date, default: new Date()},
+        data: {type: Date, default: Date.now},
         entity: String
     }],
     orderNumber: Number,
@@ -45,8 +45,8 @@ const model = new Schema({
     },
     orderType: String,
     anyMobile:String,
-    data: {type: Date, default: new Date()},
-    dataUpdate: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
+    dataUpdate: {type: Date, default: Date.now},
     isCall: {type: Boolean, default: false},
     editByAdmin: {},
     foodCoinHistory: {

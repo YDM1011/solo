@@ -8,7 +8,7 @@ const model = new Schema({
         ref: "user"
     },
     status: String,
-    data: {type: Date, default: new Date()}
+    data: {type: Date, default: Date.now}
 },{
     toJSON: {
         transform: function (doc, ret) {},

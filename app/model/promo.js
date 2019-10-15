@@ -18,7 +18,7 @@ const model = new Schema({
     delivery: {type: Boolean, default: false},
     getself: {type: Boolean, default: false},
     reservation: {type: Boolean, default: false},
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     active: {type: Boolean, default: true},
 },{
     toJSON: {

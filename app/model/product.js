@@ -32,12 +32,12 @@ const model = new Schema({
     },
     orderCommentData: [{
         text: String,
-        data: {type: Date, default: new Date()},
+        data: {type: Date, default: Date.now},
         entity: String
     }],
     isCustom: {type: Boolean, default: false},
     status: {type: Boolean, default: true},
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     count: {type: Number, default: 1},
     totalPrice: Number,
     isEditByAdmin: {type: Boolean, default: false},

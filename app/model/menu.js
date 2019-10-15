@@ -34,7 +34,7 @@ const pages = new menuList({
         type: mongoose.Schema.Types.ObjectId,
         ref: "oneest"
     }],
-    data: {type: Date, default: new Date()}
+    data: {type: Date, default: Date.now}
 },{
     toJSON: {
         transform: function (doc, ret) {

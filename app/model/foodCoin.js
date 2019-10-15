@@ -7,7 +7,7 @@ const model = new Schema({
         foodcoin: Number,
         mobile: String,
         isActive: {type: Boolean, default: true},
-        data: {type: Date, default: new Date()}
+        data: {type: Date, default: Date.now}
     },{
     toJSON: {
         transform: function (doc, ret) {},

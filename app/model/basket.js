@@ -14,7 +14,7 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "product"
     }],
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     ownerest: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"

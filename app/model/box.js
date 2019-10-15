@@ -11,7 +11,7 @@ const model = new Schema({
     price: String,
     owneruser: String,
     ownerest: String,
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
 },{
     toJSON: {
         transform: function (doc, ret) {},

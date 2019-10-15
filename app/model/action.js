@@ -13,7 +13,7 @@ const model = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "establishment"
     },
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
 },{
     toJSON: {
         transform: function (doc, ret) {},

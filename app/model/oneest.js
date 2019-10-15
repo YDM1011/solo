@@ -22,7 +22,7 @@ const model = new Schema({
     delivery:{type: Boolean, default: true},
     getself:{type: Boolean, default: true},
     reservation:{type: Boolean, default: true},
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     links: [oneLinks],
     ownerEst:{
         type: mongoose.Schema.Types.ObjectId,

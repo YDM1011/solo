@@ -60,7 +60,7 @@ const pages = new Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "galery"
     }],
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     withFriend: [friend],
     inPlace: {
         id:{
