@@ -9,6 +9,7 @@ export class StatusPipe implements PipeTransform {
     let res = `un know value ${value}`;
     value = parseInt(value);
     switch(value){
+      case 0: res=`<span class="label label-primary">Ще не замовлене</span>`; break;
       case 1: res=`<span class="label label-primary">Нове</span>`; break;
       case 2: res=`<span class="label label-primary-light">Підтверджене</span>`; break;
       case 3: res=`<span class="label label-warning">Очікується оплата</span>`; break;
