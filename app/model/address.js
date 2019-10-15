@@ -5,7 +5,7 @@ const model = new Schema({
     address: String,
     level: Number,
     codeKey: String,
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     owneruser: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"

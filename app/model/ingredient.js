@@ -6,7 +6,7 @@ const model = new Schema({
     about: String,
     price: Number,
     owneruser: String,
-    data: {type: Date, default: new Date()}
+    data: {type: Date, default: Date.now}
 },{
     toJSON: {
         transform: function (doc, ret) {},

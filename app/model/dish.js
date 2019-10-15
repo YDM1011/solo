@@ -63,7 +63,7 @@ const model = new Schema({
     ishit: {type: Boolean, default: true},
     isActia: {type: Boolean, default: false},
     isdelivery: {type: Boolean, default: true},
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
 },{
     toJSON: {
         transform: function (doc, ret) {},

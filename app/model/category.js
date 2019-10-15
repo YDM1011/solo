@@ -18,7 +18,7 @@ const model = new Schema({
     },
     owneruser: String,
     ownerest: String,
-    data: {type: Date, default: new Date()},
+    data: {type: Date, default: Date.now},
     complementbox: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "complement"
