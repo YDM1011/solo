@@ -214,6 +214,8 @@ module.exports.getPotentialFriend = (req, res, next) => {
                 {_id:{$ne:req.userId}},
                 {verify: true}
             ]})
+        .limit(5)
+        .skip(parseInt(req.query.skip))
         .populate({path:"photo bg"})
         .exec((err, content) =>{
             if(err) {

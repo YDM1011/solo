@@ -16,6 +16,8 @@ export class FriendOfferPageComponent implements OnInit {
 
   public domain: string = environment.apiDomain;
 
+  public load_more:boolean = false;
+  public more_p:boolean = true;
   public friends:any;
   public invite:any;
   public id:any;
@@ -66,13 +68,24 @@ export class FriendOfferPageComponent implements OnInit {
           s.invite = friends.invite.reverse();
         }
         this.load = true;
-      });
-    this.http.get(this.domain + '/api/getPotentialFriend', s.api.getHeaders())
+      });    
+    this.http.get(this.domain + '/api/getPotentialFriend?skip=0', s.api.getHeaders())
       .subscribe((friends: any) => {
         if(friends){
           s.people = friends.reverse();
         }
         this.load = true;
+      });
+  }
+
+  morePeople() {
+    const self = this;
+    this.load_more = true;
+    this.http.get(this.domain + '/api/getPotentialFriend?skip=' + this.people.length, this.api.getHeaders())
+      .subscribe((user: any) => {
+        if (user.length == 0) this.more_p = false;
+        self.people = self.people.concat(user);
+        this.load_more = false;
       });
   }
 
