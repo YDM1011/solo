@@ -55,7 +55,7 @@ const confirmCode = async (req,res,next)=>{
 const smsSend = (mes="test",phone)=>{
     return new Promise((rs,rj)=>{
         let sender = 'TasteOfLife';
-        request(`https://smsc.ua/sys/send.php?login=Denis_Tasteol&psw=CVYeegS32jrJ7ef&phones=${phone}&mes=${mes}&sender=${sender}`,
+        request(`https://smsc.ua/sys/send.php?login=Denis_Tasteol&psw=ymvKmP2qdMacqim&phones=${phone}&mes=${mes}&sender=${sender}`,
             (error, response, body) => {
                 //console.log('error:', error); // Print the error if one occurred
                 //console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
