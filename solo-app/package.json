@@ -44,7 +44,7 @@
     "rxjs": "^6.4.0",
     "sweetalert2": "^7.26.28",
     "tslib": "^1.9.0",
-    "yarn": "^1.15.2",
+    "yarn": "^1.22.0",
     "zone.js": "~0.8.29"
   },
   "devDependencies": {
